@@ -117,7 +117,7 @@ window.onload = function() {
 
 
 
-<!-- for light mode -->
+<!-- for light mode
 
 <link rel="preload" as="image" href="../icons/search-day.svg" media="(prefers-color-scheme: light)">
 <link rel="preload" as="image" href="../icons/search-day-over.svg" media="(prefers-color-scheme: light)">
@@ -126,9 +126,9 @@ window.onload = function() {
 <link rel="preload" as="image" href="../icons/settings-icon.svg" media="(prefers-color-scheme: light)">
 <link rel="preload" as="image" href="../icons/settings-icon-over.svg" media="(prefers-color-scheme: light)">
 
+-->
 
-
-<!-- for dark  mode -->
+<!-- for dark  mode
 <link rel="preload" as="image" href="../icons/search-night.svg" media="(prefers-color-scheme: dark)">
 <link rel="preload" as="image" href="../icons/search-night-over.svg" media="(prefers-color-scheme: dark)">
 <link rel="preload" as="image" href="../icons/main-menu-dark.svg" media="(prefers-color-scheme: dark)">
@@ -136,7 +136,7 @@ window.onload = function() {
 <link rel="preload" as="image" href="../icons/settings-icon-dark.svg" media="(prefers-color-scheme: dark)">
 <link rel="preload" as="image" href="../icons/settings-icon-over-dark2.svg" media="(prefers-color-scheme: dark)">
 
-
+-->
 
 <!--
 <meta http-equiv="Content-Security-Policy" content="

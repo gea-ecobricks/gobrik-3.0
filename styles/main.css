@@ -616,7 +616,7 @@ border-color: #00a112 !important;
   justify-content: center;
   display: flex;
   cursor: pointer;
-  background: url('svgs/x-button-night.svg?v=2') no-repeat center;
+  background: url('../svgs/x-button-night.svg?v=2') no-repeat center;
   background-size: contain;
 }
 

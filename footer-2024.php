@@ -75,7 +75,7 @@
 
         <div class="footer-box">
             <div class="footer-header" data-lang-id="414-tech-partners-title">Tech Partners</div>
-            <div class="footer-subtext" data-lang-id="415-tech-partners-text">Our vision of <a href="transition">Plastic and Petrocapital transition</a> is a global collaboration!  We are grateful to our partners who have given us full access to their awesome technologies.  Thank you to <a href="https://www.dewaweb.com/" target="_blank" rel="noopener">DewaWeb Hosting</a> whose servers host our sites and to <a href="https://svgator.com" target="_blank" rel="noopener">SVGator</a> whose animation platform gives life to our graphics.</div>
+            <div class="footer-subtext" data-lang-id="415-tech-partners-text">Our vision of <a href="transition">Plastic and Petrocapital transition</a> is a global collaboration!  We're grateful to our partners who have given us full access to their awesome technologies.  Thank you to <a href="https://www.dewaweb.com/" target="_blank" rel="noopener">DewaWeb Hosting</a> whose servers host our sites and to <a href="https://svgator.com" target="_blank" rel="noopener">SVGator</a> whose animation platform gives life to our graphics.</div>
         </div>
     </div>
 
@@ -84,11 +84,11 @@
             <div class="row">
 
                 <div class="virtue" data-lang-id="416-banner-earth-enterprise">
-                    <a href="https://ecobricks.org/about" target="_blank"><img src="../webps/banners/forearth-dark-350px.webp" style="width:300px" alt="Learn more about our Earth Enterprise structure" loading="lazy" title="Learn more about our Earth Enterprise structure"></a>
+                    <a href="https://ecobricks.org/about" target="_blank"><img src="../webps/banners/forearth-dark-350px.webp" style="width:300px" alt="Click to learn more about our Earth Enterprise structure" loading="lazy" title="Learn more about our Earth Enterprise structure"></a>
                 </div>
 
                 <div class="virtue" data-lang-id="417-banner-eco-impacts">
-                    <a href="https://ecobricks.org/regenreports" target="_blank"><img src="../webps/banners/762-disclose-dark-350px.webp" style="width:300px" alt="Click through to see a full and live breakdown of our 2023 ecological impacts on the GoBrik.com" loading="lazy" title="Click through to see a full and live breakdown of our 2023 ecological impacts on the GoBrik.com"></a>
+                    <a href="https://ecobricks.org/regenreports" target="_blank"><img src="../webps/banners/762-disclose-dark-350px.webp" style="width:300px" alt="See a full and live breakdown of our 2023 ecological impacts on the GoBrik.com" loading="lazy" title="Click through to see a full and live breakdown of our 2023 ecological impacts on the GoBrik.com"></a>
                 </div>
 
 

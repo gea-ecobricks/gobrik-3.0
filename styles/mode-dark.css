@@ -135,53 +135,53 @@
 
 
 .top-emblem-button {
-    background: url(icons/main-menu-dark.svg) no-repeat;
+    background: url(../icons/main-menu-dark.svg) no-repeat;
     background-size: contain;
 }
 
 .top-emblem-button:hover {
-      background: url(icons/main-menu-dark-over.svg) no-repeat;
+      background: url(../icons/main-menu-dark-over.svg) no-repeat;
       background-size: contain;
   }
 
   .top-search-button {
-    background: url(icons/search-night.svg) no-repeat center;
+    background: url(../icons/search-night.svg) no-repeat center;
     background-size: contain;
 }
 
 .top-search-button:hover {
-      background: url(icons/search-night-over.svg) no-repeat;
+      background: url(../icons/search-night-over.svg) no-repeat;
       background-size: contain;
   }
 
 
   #top-settings-button {
-    background: url(icons/settings-icon-dark.svg) no-repeat;
+    background: url(../icons/settings-icon-dark.svg) no-repeat;
     background-size: contain;
 }
 
 #top-settings-button:hover {
-    background: url(icons/settings-icon-over-dark.svg) no-repeat;
+    background: url(../icons/settings-icon-over-dark.svg) no-repeat;
     background-size: contain;
 }
 
 .top-lang-button {
-  background: url(icons/language-button.svg) no-repeat;
+  background: url(../icons/language-button.svg) no-repeat;
   background-size: contain;
 }
 
 .top-lang-button:hover {
-  background: url(icons/language-button-over-white.svg) no-repeat;
+  background: url(../icons/language-button-over-white.svg) no-repeat;
   background-size: contain;
 }
 
 .top-login-button {
-  background: url(icons/login-icon.svg) no-repeat;
+  background: url(../icons/login-icon.svg) no-repeat;
   background-size: contain;
 }
 
 .top-login-button:hover {
-  background: url(icons/login-icon-over-white.svg) no-repeat;
+  background: url(../icons/login-icon-over-white.svg) no-repeat;
   background-size: contain;
 }
 
@@ -231,7 +231,7 @@
 }
 
 .ecovillage-pic {
-  background: url(../webp/spiral-building.webp) no-repeat center;
+  background: url(../webps/spiral-building.webp) no-repeat center;
   background-size: cover;
 }
 
@@ -251,14 +251,14 @@
   }
 
 .vision-landscape {
-  background: url(../webp/ocean-footer-night3.webp?v=3) no-repeat center;
+  background: url(../webps/ocean-footer-night3.webp?v=3) no-repeat center;
   background-size: contain;
   background-color: var(--main-background);
 
 }
 
 .registration-footer-holder {
-  background: url(../webp/earthen-subscription-background-dark.webp) top center, var(--side-overlays);
+  background: url(../webps/earthen-subscription-background-dark.webp) top center, var(--side-overlays);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -366,14 +366,14 @@
 
 
 .x-button {
-  background: url('svgs/x-button-night.svg?v=5.1') no-repeat center;
+  background: url('../svgs/x-button-night.svg?v=5.1') no-repeat center;
   background-size: contain;
 
 }
 
 
 .x-button:hover {
-  background: url('svgs/x-button-night-over.svg?v=5.1') no-repeat center;
+  background: url('../svgs/x-button-night-over.svg?v=5.1') no-repeat center;
   background-size: contain;
 }
 
@@ -515,24 +515,24 @@ background-size: 38px;
 /*
 .my-ecobricks {
 
-background: url(../webp/my-ecobricks-night.webp) no-repeat;
+background: url(../webps/my-ecobricks-night.webp) no-repeat;
 background-size: contain;
 }
 
 .help-validate {
-  background: url(../webp/help-validate-night.webp) no-repeat;
+  background: url(../webps/help-validate-night.webp) no-repeat;
   background-size: contain;
 
 }
 
 .log-ecobricks {
-  background: url(../webp/log-ecobricks-night.webp) no-repeat;
+  background: url(../webps/log-ecobricks-night.webp) no-repeat;
   background-size: contain;
 
 }
 
 .biosphere {
-  background: url(../webp/biosphere2.webp) no-repeat center bottom;
+  background: url(../webps/biosphere2.webp) no-repeat center bottom;
   background-size: contain;
 
 } */

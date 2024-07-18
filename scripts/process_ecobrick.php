@@ -3,10 +3,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ᐉ Latest Ecobrick Imports</title>
+    <title>ᐉ Help the Great GoBrik Migration</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background: #ddd;
         }
         .gallery {
             display: flex;
@@ -37,6 +38,7 @@
     <button class="button" onclick="stopProcessing()">Stop Processing</button>
     <button class="button" onclick="startProcessing()">ᐉ Start Processing</button>
 </div>
+<p>We're migrating ecobricks from our old server to our new.  Help us out by running this page on your computer or phone.  Just keep it up.  If it crashes or stops, reload page. Thank you! 🙏</p>
 
 <script>
     function stopProcessing() {
@@ -68,10 +70,10 @@
         $conn->set_charset("utf8mb4");
 
         // SQL query to fetch the latest 100 authenticated ecobricks
-        $query = "SELECT serial_no, ecobrick_thumb_photo_url FROM tb_ecobricks 
-          WHERE status = 'authenticated' 
-          ORDER BY date_published_ts DESC 
-          LIMIT 16";
+        $query = "SELECT serial_no, ecobrick_thumb_photo_url FROM tb_ecobricks
+          WHERE status = 'authenticated'
+          ORDER BY date_published_ts DESC
+          LIMIT 18";
 
         $result = $conn->query($query);
         ?>
@@ -158,7 +160,7 @@
     ];
 
     // Prepare the API request to retrieve multiple ecobrick records
-    $url = "https://api.knack.com/v1/objects/object_2/records?filters=" . urlencode(json_encode($filters)) . "&sort_field=field_73&sort_order=asc&rows_per_page=1";
+    $url = "https://api.knack.com/v1/objects/object_2/records?filters=" . urlencode(json_encode($filters)) . "&sort_field=field_73&sort_order=desc&rows_per_page=1";
 
     // Initialize cURL session
     $ch = curl_init($url);

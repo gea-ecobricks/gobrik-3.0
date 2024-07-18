@@ -251,7 +251,7 @@
 
   #gea-logo {
     padding:2px;
-    margin: auto auto auto 5px;
+    margin: auto auto auto auto;
     width: 190px;
     height:40px;
     transition: 0.6s;
@@ -323,8 +323,8 @@
   position: fixed;
   right: -230px;
   width: fit-content;
-  margin-top: 7px;
-  margin-right: 0px;
+  margin-top: -15px;
+  margin-right: 3px;
 }
 
 #settings-buttons:hover {
@@ -366,15 +366,18 @@
   margin-right:6px;
   cursor:pointer;
   padding: 16px;
+  margin-right: 55px;
 }
 
 .side-menu-button  {
   border: none;
-  margin-right:0px;
   cursor:pointer;
   height:30px;
   width:30px;
   padding: 20px;
+  margin: auto;
+  margin-left: auto;
+  margin-left: 10px;
 }
 
 

@@ -446,9 +446,7 @@ display: none;
   margin: auto;
 }
 
-/*.modal-content-box .x-button {*/
-/*  margin-right: 8%;*/
-/*}*/
+
 
 .modal-hidden {
     display: none;

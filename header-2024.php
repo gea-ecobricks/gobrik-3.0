@@ -568,27 +568,25 @@ display: none;
     <div class="overlay-content-settings" style="margin-bottom: 20px;">
 
 
-    <div class="accordion">
-
-<div class="accordion-item">
-    <button class="accordion-title-single" data-lang-id="000a-menu-0-main-item" style="border-top:none;" onclick="redirectToFAQs()">Ecobrick FAQs
-                <span class="circle" title="This page is 100% translated to English" style="color:green !important; font-size:12px;padding-right:5px; ">●</span></button>
-
-                <div class="translation-info" data-lang-id="000a-menu-1-trans-text-1">🏴󠁧󠁢󠁥󠁮󠁧󠁿 faqs.php has been translated 100% | <a href="https://github.com/gea-ecobricks/ecobricks-org/blob/main/translations/faqs-en-translation.js" class="translate-link">translation ⇗ </a>  | <a href="https://github.com/gea-ecobricks/ecobricks-org/blob/main/en/faqs.php" class="translate-link">code ⇗</a></div>
-  </div>
-
-  <div class="accordion-item">
-    <button class="accordion-title-single" data-lang-id="000b-menu-0-main-item" onclick="sendDownRegistration(); closeSettings(); setTimeout(guidedTour, 500);">Intro to Ecobricks
-                <span class="circle" title="This page is 100% translated to English" style="color:green !important;  font-size:12px;padding-right:5px;  ">●</span></button>
-
-                <div class="translation-info" data-lang-id="00b-menu-1-trans-text-1">🏴󠁧󠁢󠁥󠁮󠁧󠁿 guidedTour.js has been translated 100% | <a href="https://github.com/gea-ecobricks/ecobricks-org/blob/main/translations/core-en-translation.js" class="translate-link">translation ⇗ </a>  | <a href="https://github.com/gea-ecobricks/ecobricks-org/blob/main/guidedTour.js" class="translate-link">code ⇗</a></div>
-  </div>
+        <div style="margin-bottom: 20px;">
 
 
+              <div class="menu-page-item"><a href="index.php"  aria-label="Return Home">Home</a></div>
 
-</div>
+              <div class="menu-page-item"><a href="go.php#home" aria-label="Register">Login</a><span style="height: 10px; margin-right:10px;margin-left:10px;width:1px; border-right:solid 1px var(--header-accent);"></span><a href="go.php" aria-label="Sign up">Sign up</a></div>
 
-</div>
+              <div class="menu-page-item"><a href="https://ecobricks.org/brikchain" target="_blank">The Brikchain</a></div>
+
+              <div class="menu-page-item"><a href="https://ecobricks.org/brikcoins" target="_blank">Brikcoins</a></div>
+
+
+              <div class="menu-page-item"><a href="https://ecobricks.org/gobrik" target="_blank">About GoBrik</a>
+                </div>
+
+                <p>GoBrik is developed by the <a href="https://ecobricks.org/about" target="_blank">Global Ecobrick Alliance</a> a not-for-profit Earth enterprise focused on plastic transtion.</p>
+
+        </div>
+
 
 
 
@@ -596,14 +594,9 @@ display: none;
 
 </div> <!--close overlay-content-settings-->
 
-<!--
-<p style="font-size: small; text-align: center; margin: auto; width:80%; padding-bottom: 50px;">All our content on gobrik.com is open to collaborative development, revision and translation. See the colored circles for status and github links.</p> -->
 
 
-<div style="margin-top:auto;margin-bottom:30px;text-align:center; font-size:smaller;">
-<span style="color: var(--subdued-text);">fully translated </span><span class="circle" style="color:green;">●</span> <span class="circle" style="color:yellow;">●</span> <span class="circle" style="color:orange;">●</span> <span class="circle" style="color:red;">●</span><span style="color: var(--subdued-text);margin-left:12px;">not translated </span></div>
-
-</div> <!-- close righ page menu-->
+</div> <!-- close right page menu-->
 
 
 </div>

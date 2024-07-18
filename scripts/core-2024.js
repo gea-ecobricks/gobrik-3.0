@@ -240,14 +240,14 @@ document.querySelectorAll('.x-button').forEach(button => {
         if (e.propertyName === 'transform') {
             // Check if the button is still being hovered over
             if (button.matches(':hover')) {
-                button.style.backgroundImage = "url('svgs/x-button-night-over.svg?v=3')";
+                button.style.backgroundImage = "url('../svgs/x-button-night-over.svg?v=3')";
             }
         }
     });
 
     // Optionally, revert to the original background image when not hovering anymore
     button.addEventListener('mouseleave', () => {
-        button.style.backgroundImage = "url('svgs/x-button-night.svg?v=3')";
+        button.style.backgroundImage = "url('../svgs/x-button-night.svg?v=3')";
     });
 });
 

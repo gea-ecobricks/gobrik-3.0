@@ -30,7 +30,15 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <br><br>
 <p data-lang-id="000-testing">Testing one two and three</p>
 
+
+
 </div><!--closes main-->
+
+
+	<!--FOOTER STARTS HERE-->
+
+	<?php require_once ("../footer-2024.php");?>
+
 </div><!--close page content-->
 
 </body>

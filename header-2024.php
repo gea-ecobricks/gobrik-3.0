@@ -87,7 +87,7 @@
 // }
 
 window.onload = function() {
-    var siteName = 'GoBrik.com';
+    var siteName = 'beta.gobrik.com';
     // setPageLanguageFromCache();
     // Initially declare currentLanguage globally without setting its value
     window.currentPage = '<?php echo ($page); ?>';
@@ -97,7 +97,7 @@ window.onload = function() {
     switchLanguage(window.currentLanguage);
     // updateLogoColor();
     checkRegistrationStatus();
-    window.subSource = 'ecobricks-org'; // Make subSource globally accessible
+    window.subSource = 'beta.gobrik.com'; // Make subSource globally accessible
 }
 
 

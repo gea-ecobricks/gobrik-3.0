@@ -733,7 +733,7 @@ display: none;
         <button type="button" class="side-menu-button"  onclick="openSideMenu()" aria-label="Open Menu">
         </button>
 
-    <div id="logo-title" style="height: 100%; display: flex; cursor: pointer;" title="gobrik.com | v<?php echo $version; ?>" onclick="redirectToWelcome()">
+    <div id="logo-title" style="height: 100%; display: flex; cursor: pointer;width:100%;" title="gobrik.com | v<?php echo $version; ?>" onclick="redirectToWelcome()">
 
         <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->

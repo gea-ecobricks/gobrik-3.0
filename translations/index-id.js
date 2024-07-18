@@ -11,10 +11,10 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 // Forward slash (/): Should be escaped as \/ in </script> tags to prevent prematurely closing a script.
 
 
-const en_Page_Translations = {
+const id_Page_Translations = {
 
 
-   '000-testing': 'Testing one two and three'
+   '000-testing': 'Satu, dua dan tiga, testing testing.'
 
 }
 

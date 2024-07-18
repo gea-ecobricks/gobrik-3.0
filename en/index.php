@@ -1,6 +1,6 @@
 <?php
 include 'lang.php';
-$version = '0.1';
+$version = '0.11';
 $page = 'index';
 include '../ecobricks_env.php';
 
@@ -25,8 +25,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 <?php require_once ("../includes/index-inc.php");?>
-
-<p> Testing one two and three</p>
+<br><br>
+<br><br>
+<br><br>
+<p data-lang-id="000-testing">Testing one two and three</p>
 
 </div><!--closes main-->
 </div><!--close page content-->

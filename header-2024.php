@@ -57,10 +57,10 @@
 <link rel="stylesheet" type="text/css" href="../styles/main-2024.css?v=<?php echo ($version); ;?>">
 
 <!--Default Light Styles to load first-->
-<link rel="preload" href="../mode-light.css?v=<?php echo ($version); ;?>" as="style" onload="this.rel='stylesheet'">
+<link rel="preload" href="../styles/mode-light.css?v=<?php echo ($version); ;?>" as="style" onload="this.rel='stylesheet'">
  <!--Stylesheets for light and dark mode.  They need to be called here-->
-<link rel="stylesheet" href="../mode-light.css?v=<?php echo ($version); ;?>" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
-<link rel="stylesheet" href="../mode-dark.css?v=<?php echo ($version); ;?>" media="(prefers-color-scheme: dark)">
+<link rel="stylesheet" href="../styles/mode-light.css?v=<?php echo ($version); ;?>" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+<link rel="stylesheet" href="../styles/mode-dark.css?v=<?php echo ($version); ;?>" media="(prefers-color-scheme: dark)">
 
 
 

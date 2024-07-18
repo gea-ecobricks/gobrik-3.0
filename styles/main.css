@@ -231,7 +231,7 @@
 @media screen and (min-width: 700px) {
 #gea-logo {
     padding:0px;
-    margin: auto auto auto 25px;
+    margin: auto auto auto auto;
     width: 220px;
     height: 50px;
     transition: 0.6s;
@@ -368,7 +368,7 @@
   padding: 16px;
 }
 
-.top-emblem-button  {
+.side-menu-button  {
   border: none;
   margin-right:0px;
   cursor:pointer;

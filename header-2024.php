@@ -749,18 +749,9 @@ display: none;
 
         <div id="function-icons" style="display: flex;flex-flow:row;margin:auto 10px auto auto;">
 
-            <div id="main-header-buttons">
-                 <!-- <div class="what-are-ecobricks" data-lang-id="1001-what-are-ecobricks" onclick="sendDownRegistration(); closeSettings(); setTimeout(guidedTour, 500);">What are ecobricks?</div>
-                  <div class="header-divider">|</div>
-                  <div class="faqs-button" data-lang-id="1002-faqs-button" onclick="location.href='faqs.php';">FAQs</div>
 
-                <div class="header-divider">|</div>
-
-                <button type="button" class="top-search-button"  onclick="openSearch()"  aria-label="Search site">
-                </button>-->
-
-
-            </div>
+        <button type="button" class="top-search-button"  onclick="openSearch()"  aria-label="Search site">
+                </button>
 
             <div id="settings-buttons">
 

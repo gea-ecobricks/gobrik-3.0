@@ -7,7 +7,7 @@
 <link rel="preload" as="image" href="../photos/photo3-desktop.webp" media="(min-width: 1200px)">
 
 
-<?php require_once ("../meta/welcome-$lang.php");?>
+<?php require_once ("../meta/$page-$lang.php");?>
 
 
 <style>

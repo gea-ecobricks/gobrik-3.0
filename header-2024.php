@@ -494,7 +494,7 @@ display: none;
 
       <div id="information-one" class="information">
         <div class="tour-image tour-slide1"></div>
-        <div class="modal-header" data-lang-id="200-tour-1-header-welcome">Welcome to gobrik.com!</div>
+        <div class="modal-header" data-lang-id="200-tour-1-header-welcome">Welcome to Gobrik.com!</div>
         <div class="modal-description" data-lang-id="201-tour-1-description">So what is an ecobrick exactly?  Take our 45 second, five-slide introduction to ecobricks.  We'll cover the basics: what ecobricks are, how you can make one, the Earthen example we're following and what you can make with ecobricks once they're ready.</div>
         <button class="next-slide" data-lang-id="202-tour-start-button">Start ➔</button>
     </div>
@@ -754,14 +754,14 @@ display: none;
         <div id="function-icons" style="display: flex;flex-flow:row;margin:auto 10px auto auto;">
 
             <div id="main-header-buttons">
-                  <div class="what-are-ecobricks" data-lang-id="1001-what-are-ecobricks" onclick="sendDownRegistration(); closeSettings(); setTimeout(guidedTour, 500);">What are ecobricks?</div>
+                 <!-- <div class="what-are-ecobricks" data-lang-id="1001-what-are-ecobricks" onclick="sendDownRegistration(); closeSettings(); setTimeout(guidedTour, 500);">What are ecobricks?</div>
                   <div class="header-divider">|</div>
                   <div class="faqs-button" data-lang-id="1002-faqs-button" onclick="location.href='faqs.php';">FAQs</div>
 
                 <div class="header-divider">|</div>
 
                 <button type="button" class="top-search-button"  onclick="openSearch()"  aria-label="Search site">
-                </button>
+                </button>-->
 
                 <button type="button" class="top-emblem-button"  onclick="openSettings()" aria-label="Open Menu">
                 </button>

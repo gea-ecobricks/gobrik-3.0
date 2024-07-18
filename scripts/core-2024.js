@@ -87,13 +87,13 @@ function pageMeasureBar() {
     
 /* RIGHT SETTINGS OVERLAY */
 
-function openSettings() {
-  document.getElementById("right-settings-overlay").style.width = "90%";
-  document.getElementById("right-settings-overlay").style.display = "block";
+function openSideMenu() {
+  document.getElementById("main-menu-overlay").style.width = "90%";
+  document.getElementById("main-menu-overlay").style.display = "block";
   document.body.style.overflowY = "hidden";
   document.body.style.maxHeight = "101vh";
 
-  var modal = document.getElementById('right-settings-overlay');
+  var modal = document.getElementById('main-menu-overlay');
 
 function modalShow () {
    modal.setAttribute('tabindex', '0');
@@ -112,7 +112,7 @@ function focusRestrict ( event ) {
 
 /* Close when someone clicks on the "x" symbol inside the overlay */
 function closeSettings() {
-  document.getElementById("right-settings-overlay").style.width = "0%";
+  document.getElementById("main-menu-overlay").style.width = "0%";
   document.body.style.overflowY = "unset";
 document.body.style.maxHeight = "unset";
   //document.body.style.height = "unset";
@@ -122,7 +122,7 @@ function modalCloseCurtains ( e ) {
   if ( !e.keyCode || e.keyCode === 27 ) {
     
   document.body.style.overflowY = "unset";
-  document.getElementById("right-settings-overlay").style.width = "0%";
+  document.getElementById("main-menu-overlay").style.width = "0%";
   /*document.getElementById("knack-overlay-curtain").style.height = "0%";*/
 
   }

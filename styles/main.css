@@ -458,13 +458,13 @@
 
 /* -------------------------------------------------------------------------- */
 
-/*	6. User Settings Overlay Curtain
+/*	6. Main Menu Overlay Curtain
 
     Comes in from the right after clicking +- button.
 
 /* -------------------------------------------------------------------------- */
 
-#right-settings-overlay {
+#main-menu-overlay {
   background-color: var(--side-overlays) /*var(--overlays-and-headers:)*/;
   color:  var(--text-color); /*var(--text-color)*/ ;
   z-index: 56;
@@ -477,7 +477,7 @@
   width: 0%;
   position: fixed; /* Stay in place */
   z-index: 21; /* Sit on top */
-  right: 0;
+  left: 0;
   top: 0;
   overflow-x: hidden; /* Disable horizontal scroll */
   transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */

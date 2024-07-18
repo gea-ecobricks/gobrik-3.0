@@ -560,7 +560,7 @@ display: none;
 
  <!-- RIGHT PAGE MENU -->
 
-<div id="right-settings-overlay" class="overlay-settings" style="display:none;">
+<div id="main-menu-overlay" class="overlay-settings" style="display:none;">
 
         <button type="button" onclick="closeSettings()" aria-label="Click to close settings page" class="x-button">
         </button>
@@ -704,7 +704,7 @@ display: none;
                         </div>
                     </div>
 
-                    <!--PRAVACY STATEMENT-->
+                    <!--PRIVACY STATEMENT-->
 
                     <div id="reg-privacy-texts">
                         <div class="reg-header" data-lang-id="116-privacy-title">Your Data is Safe</div>
@@ -729,6 +729,9 @@ display: none;
 
     <div id="header" class="top-menu" style="display: flex;
     flex-flow: row;">
+
+        <button type="button" class="side-menu-button"  onclick="openSideMenu()" aria-label="Open Menu">
+        </button>
 
     <div id="logo-title" style="height: 100%; display: flex; cursor: pointer;" title="gobrik.com | v<?php echo $version; ?>" onclick="redirectToWelcome()">
 
@@ -756,8 +759,7 @@ display: none;
                 <button type="button" class="top-search-button"  onclick="openSearch()"  aria-label="Search site">
                 </button>-->
 
-                <button type="button" class="top-emblem-button"  onclick="openSettings()" aria-label="Open Menu">
-                </button>
+
             </div>
 
             <div id="settings-buttons">

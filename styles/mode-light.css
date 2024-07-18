@@ -126,13 +126,13 @@
 
 .light-only {display:block;}
 
-.top-emblem-button {
+.side-menu-button {
     /*background: url(../svgs/settings-icon-dark.svg) no-repeat;*/
     background: url(../icons/main-menu.svg) no-repeat;
     background-size: contain;
 }
 
-.top-emblem-button:hover {
+.side-menu-button:hover {
       background: url(../icons/main-menu-over.svg) no-repeat;
       background-size: contain;
   }

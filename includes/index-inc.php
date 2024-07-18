@@ -822,7 +822,7 @@ transition: 0.3s;}
 
 /* -------------------------------------------------------------------------- */
 
-#right-settings-overlay {
+#main-menu-overlay {
   background-color: var(--side-overlays) /*var(--overlays-and-headers:)*/;
   color:  var(--text-color); /*var(--text-color)*/ ;
   z-index: 26;

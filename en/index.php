@@ -1,6 +1,6 @@
 <?php
 include 'lang.php';
-$version = '0.19';
+$version = '0.2';
 $page = 'index';
 include '../ecobricks_env.php';
 

@@ -134,12 +134,12 @@
 .light-only {display:none;}
 
 
-.top-emblem-button {
+.side-menu-button {
     background: url(../icons/main-menu-dark.svg) no-repeat;
     background-size: contain;
 }
 
-.top-emblem-button:hover {
+.side-menu-button:hover {
       background: url(../icons/main-menu-dark-over.svg) no-repeat;
       background-size: contain;
   }

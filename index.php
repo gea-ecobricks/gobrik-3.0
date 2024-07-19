@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<?php $dist='42';?>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" >
 
 <!-- Meta tags for page display and search engine listing
@@ -27,33 +26,63 @@ AND UNIQUE to HTML Pages-->
 
 <link rel="preload" as="image" href="https://gobrik.com/svgs/Happy-turtle-dolphin-opti2.svg">
 
+<style>
+    body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff; /* Change this to your preferred background color */
+    font-family: Arial, sans-serif;
+}
 
-<script type="module" src="../dark-mode-toggle.mjs.js" async></script>
+.container {
+    text-align: center;
+}
 
-<link rel="stylesheet" href="../slider.css?v1.1">
+.logo {
+    width: 200px;
+    height: 200px;
+}
 
-
-<!-- sets page meta tags:  be sure to add page name-->
-<?php require_once ("header.php");?>
-
-<!-- sets header and core of page:  be sure to add page name-->
-<?php require_once ("core.php");?>
-
-<!-- sets footer of page:  be sure to add page name-->
-<?php require_once ("footer.php");?>
+.subtitle {
+    font-size: 1.2em;
+    color: #555; /* Change this to your preferred text color */
+    margin-top: 20px;
+}
+</style>
 
 <script>
-(function() {
-      var linksOnPage = document.querySelectorAll("a");
-      var link = "";
-      for (var i = 0; i < linksOnPage.length; i++) {
-        link = linksOnPage[i];
-        link.setAttribute("onclick", "window.scrollTo(0, 0)");
-  
-      }
-    })();
-    </script>
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        const userLang = navigator.language || navigator.userLanguage;
+        let langDir = 'en/';
 
-    
+        if (userLang.includes('fr')) {
+            langDir = 'fr/';
+        } else if (userLang.includes('id')) {
+            langDir = 'id/';
+        } else if (userLang.includes('es')) {
+            langDir = 'es/';
+        } else if (userLang.includes('en')) {
+            langDir = 'en/';
+        } else {
+            langDir = 'en/';
+        }
+
+        window.location.href = langDir;
+    }, 2000);
+});
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <img src="svgs/bottle-loader-day7.svg" alt="Global Ecobrick Alliance Logo" class="logo">
+        <p class="subtitle">by the Global Ecobrick Alliance</p>
+    </div>
 </body>
 </html>

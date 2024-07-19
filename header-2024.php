@@ -624,7 +624,7 @@ display: none;
 
         <div>
             <h1 style="font-family:'Arvo', serif;text-shadow: none;" data-lang-id="100-search-title">Search</h1>
-            <p style="text-align:center; width:90%;" data-lang-id="101-search-intro">Select the languages and indexes you wish to search.  To search for ecobricks use our <a style="color:var(--emblem-blue)" href="brikchain.php">brikchain search</a>.</p>
+            <p style="text-align:center; width:90%;" data-lang-id="101-search-intro">Find any ecobrick on the Brikchain<a style="color:var(--emblem-blue)" href="brikchain.php">brikchain search</a>.</p>
         </div>
 
         <div class="search-box">
@@ -632,24 +632,24 @@ display: none;
             <input id="search_input" type="text" placeholder="Enter search term..." aria-label="Enter search..." onkeypress="handleKeyPress(event)">
             <button class="btn main-search-button" onclick="siteSearch(['indexes/glossary.json?v=2', 'indexes/page-index.json?v=2'])" aria-label="Search Button"></button>
             </div>
-            <!-- Checkbox options -->
+            <!-- Checkbox options
             <div class="search-options">
-                <div class="search-row"> <!-- First row -->
+                <div class="search-row">
                 <label><b data-lang-id="102-search-index1">Pages: </b><input type="checkbox" name="searchIndex" value="en_site" checked>EN  </label>
                 <label><input type="checkbox" name="searchIndex" value="fr_site" >FR  </label>
                 <label><input type="checkbox" name="searchIndex" value="es_site">ES  </label>
                 <label><input type="checkbox" name="searchIndex" value="id_site">IN  </label>
             </div>
-            <div class="search-row"> <!-- Second row -->
+            <div class="search-row">
                 <label><b data-lang-id="103-search-index3">Glossaries:</b><input type="checkbox" name="searchIndex" value="en_glossary" checked>EN  </label>
                 <label><input type="checkbox" name="searchIndex" value="fr_glossary" checked>FR  </label>
                 <label><input type="checkbox" name="searchIndex" value="es_glossary" checked>ES  </label>
                 <label><input type="checkbox" name="searchIndex" value="id_glossary" checked>IN</label>
-            </div>
+            </div> -->
             </div>
 
         <!-- Search results div -->
-        <div id="search_results"><h6 style="color:grey;" data-lang-id="104-search-bottom-text" >Dictionary definitions are shown first</h6></div>
+        <div id="search_results"><h6 style="color:grey;" data-lang-id="104-search-bottom-text" >Looking for information about ecobricks?  Search on <a target="_blank" href="https://ecobricks.org">ecobricks.org</a></h6></div>
         </div>
     </div>
     </div>

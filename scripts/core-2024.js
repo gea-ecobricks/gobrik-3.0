@@ -36,15 +36,14 @@ document.addEventListener("scroll", function() {
         document.getElementById("gea-logo").style.width = "190px";
         document.getElementById("gea-logo").style.height = "40px";
         // document.getElementById("gea-logo").style.height = "56px";
-        document.getElementById("logo-global-ecobrick-alliance").style.opacity = "1";
+        document.getElementById("logo-gobrik").style.opacity = "1";
         document.getElementById("header").style.top = "0"; // Set top to 0
-        document.getElementById("settings-buttons").style.marginTop = "8px";
+//        document.getElementById("settings-buttons").style.marginTop = "8px";
         // document.getElementById("settings-buttons").style.marginRight = "0px"; 
         document.getElementById("settings-buttons").style.padding = "16px 43px 16px 12px";
 //        document.getElementById("main-header-buttons").style.marginTop = "0px";
         document.getElementById("language-menu-slider").style.top = "-15px";  
         document.getElementById("login-menu-slider").style.top = "-15px";  
-        document.getElementById("registration-footer").style.opacity = "0";  
 
 
 
@@ -59,13 +58,12 @@ function scrollMoreThan40() {
         // document.getElementById("main").style.marginTop = "0px";
         document.getElementById("gea-logo").style.width = "170px";
         document.getElementById("gea-logo").style.height = "35px";
-        document.getElementById("logo-global-ecobrick-alliance").style.opacity = "0";
+        document.getElementById("logo-gobrik").style.opacity = "1";
         document.getElementById("settings-buttons").style.marginTop = "3px"; 
         document.getElementById("settings-buttons").style.padding = "16px 43px 16px 12px"; 
 //        document.getElementById("main-header-buttons").style.marginTop = "-5px";
         document.getElementById("language-menu-slider").style.top = "-35px";  
         document.getElementById("login-menu-slider").style.top = "-35px";  
-        document.getElementById("registration-footer").style.opacity = "1";  
 
 
 
@@ -73,12 +71,12 @@ function scrollMoreThan40() {
 }
 
 
- 
-
-function pageMeasureBar() {
-        let scrollPercentage = (window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-        document.getElementById("progress-bar").style.width = scrollPercentage + "%";
-    }
+//
+//
+//function pageMeasureBar() {
+//        let scrollPercentage = (window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+//        document.getElementById("progress-bar").style.width = scrollPercentage + "%";
+//    }
 
 
     

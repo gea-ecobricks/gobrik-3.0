@@ -61,24 +61,26 @@ html {
     /*General interface background slightly off-white to make the white buttons and boxes show up better*/
   }
 
+.landing-content {
+height:100vh;
+width:100%;
+}
 
   @media screen and (min-width: 1200px) {
 
   .landing-content {
-  width: 70%;
+/*   width: 70%; */
   margin: auto;
   margin-bottom: 0px;
       }
     }
 
-.landing-content {
-height:100vh;
-}
+
 
     @media screen and (min-width: 700px) and (max-width: 1200px) {
 
     .landing-content {
-    width: 80%;
+/*     width: 80%; */
     margin: auto;
     margin-bottom: 0px;
 
@@ -89,7 +91,7 @@ height:100vh;
     @media screen and (max-width: 700px) {
   .landing-content {
     background: none;
-  max-width: 90%;
+/*   max-width: 90%; */
   margin: auto;
         }
       }
@@ -527,6 +529,15 @@ text-align: center;
 
 
 
+.main-landing-graphic {
+    margin: auto;
+      position: relative;
+      z-index: 11;
+      background-size: 100%;
+
+
+  }
+
 @media screen and (max-width: 700px) {
     .biosphere {
       margin: -40vh auto -9vh auto;
@@ -549,14 +560,7 @@ text-align: center;
 
 
 
-.main-landing-graphic {
-    margin: auto;
-      position: relative;
-      z-index: 11;
-      background-size: 100%;
 
-
-  }
 
   .main-landing-graphic  img {
   height: auto;

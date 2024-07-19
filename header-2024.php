@@ -65,8 +65,7 @@
 
 
 <link rel="stylesheet" type="text/css" href="../styles/footer.css?v=<?php echo ($version); ;?>">
-<link rel="stylesheet" type="text/css" href="../styles/subscription-stylesheet.css?v=<?php echo ($version); ;?>">
-/
+
 
 
 
@@ -108,7 +107,6 @@ window.onload = function() {
 
 <!--This enables the Light and Dark mode switching-->
 <script type="module" src="../scripts/mode-toggle.mjs.js?v=<?php echo ($version); ;?>"></script>
-<script src="../scripts/subscription-system.js?v=<?php echo ($version); ;?>" defer></script>
 <!-- <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>  -->
 
 <script src="../scripts/guided-tour.js?v=1.3" defer></script>

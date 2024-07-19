@@ -1,6 +1,6 @@
 <?php
 include 'lang.php';
-$version = '0.259';
+$version = '0.26';
 $page = 'index';
 include '../ecobricks_env.php';
 
@@ -67,14 +67,32 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 No account? Sign up for free!
                 </div>
 
-            </div><!--landing-content
+            </div><!--landing-content-->
 
 
 
+    <div class="bottom-scope" style="width:100%;height:100%;">
+         <div class="landing-content">
+            <div class="tree-coins" ><img src="../webp/2023-tree-blank.webp" style="width:100%;" alt="Build your greenest visions with ecobricks">
+
+
+            </div>
+
+            <div class="welcome-text">
+                Together we're securing plastic out of the biosphere to make building blocks, generate brikcoins and co-create green spaces.
 
 
 
-<p data-lang-id="000-testing">Testing one two and three</p>-->
+               <br><br> <img src="../svgs/aes-brk.svg" style="width:200px;" width="200" height="77" alt="Introducing Brikcoins and AES Plastic Offsetting">
+            </div>
+
+            <div class="tree-text">
+                GoBrik provides ecobrickers and their communities with the tools to manage their ecobricking and to quantify its ecological value.
+            </div>
+
+
+        </div><!--closes Landing content-->
+    </div>
 
 
 

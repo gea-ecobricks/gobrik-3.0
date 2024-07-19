@@ -529,15 +529,6 @@ text-align: center;
 
 
 
-.main-landing-graphic {
-    margin: auto;
-      position: relative;
-      z-index: 11;
-      background-size: 100%;
-
-
-  }
-
 @media screen and (max-width: 700px) {
     .biosphere {
       margin: -40vh auto -9vh auto;
@@ -560,7 +551,12 @@ text-align: center;
 
 
 
+.main-landing-graphic {
+    margin: auto;
+      position: relative;
+      z-index: 11;
 
+  }
 
   .main-landing-graphic  img {
   height: auto;
@@ -600,6 +596,9 @@ text-align: center;
       min-height:272px;*/
     }
   }
+
+
+
 
 
 

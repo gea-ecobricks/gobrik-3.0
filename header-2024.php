@@ -270,18 +270,18 @@ display: none;
 
       <div id="information-one" class="information">
         <div class="tour-image tour-slide1"></div>
-        <div class="modal-header" data-lang-id="200-tour-1-header-welcome">Welcome to Gobrik.com!</div>
-        <div class="modal-description" data-lang-id="201-tour-1-description">So what is an ecobrick exactly?  Take our 45 second, five-slide introduction to ecobricks.  We'll cover the basics: what ecobricks are, how you can make one, the Earthen example we're following and what you can make with ecobricks once they're ready.</div>
-        <button class="next-slide" data-lang-id="202-tour-start-button">Start ➔</button>
+        <div class="modal-header" data-lang-id="200-tour-1-header-welcome">Welcome to Gobrik!</div>
+        <div class="modal-description" data-lang-id="201-tour-1-description">So what is GoBrik exactly?  GoBrik is an open source app that allows individuals and communities to manage their ecobricks, projects and more.</div>
+        <button class="next-slide" data-lang-id="202-tour-start-button">Start Tour ➔</button>
     </div>
 
     <div id="information-two" style="display:none;" class="information">
         <div class="tour-image tour-slide2"></div>
-        <div class="modal-header" data-lang-id="203-tour-2-header">A Low Tech Solution</div>
-        <div class="modal-description" data-lang-id="204-tour-2-description">It's pretty simple.  An ecobrick is a plastic bottle densely packed with used plastic to create a reusable building block that achieves <b>plastic sequestration</b>.  To make one, all you need is a stick and a bottle.</div>
+        <div class="modal-header" data-lang-id="203-tour-2-header">Ecobricks are Valuable</div>
+        <div class="modal-description" data-lang-id="204-tour-2-description">Ecobricks represent sequestered plastic.  That's plastic that is not going to dumped, burned or industrially recycled (lots of emissions!).  Plus, ecobricks can be used to build regenerative structures!  Gobrik helps you manage ecobricks: the plastic that they represent and the building projects that they enable</div>
         <button class="back" data-lang-id="205-tour-back-button">↩ Back</button>
         <button class="next-slide" data-lang-id="206-tour-next-button">Next ➔</button>
-        <div class="reference" data-lang-id="207-tour-2-reference">Definition from <a href="https://en.wikipedia.org/wiki/Ecobricks">wikipedia/wiki/ecobricks</a>  |  Go deeper: <a href="what.php">gobrik.com/what</a></div>
+        <div class="reference" data-lang-id="207-tour-2-reference">What is an ecobrick? <a href="https://en.wikipedia.org/wiki/Ecobricks" target="_blank">wikipedia/wiki/ecobricks</a>  |   <a href="https://ecobricks.org/en/what.php" target="_blank">Ecobricks.org</a></div>
     </div>
 
 
@@ -289,11 +289,11 @@ display: none;
       <div id="information-three" style="display:none;" class="information">
       <div class="tour-image"><img src="../webp/ancient-future.webp"   style="margin:auto"  title="Our Neighbourhood" alt="Our Neighbourhood" loading="lazy"></div>
 
-        <div class="modal-header" data-lang-id="208-tour-3-header">Plastic Sequestration?</div>
-        <div class="modal-description" data-lang-id="209-tour-3-description">Ecobricks follow Earth's example.  Over the last few billion years, Earth has steadily captured loose carbon to concentrate and sequester it under the earth so that life could thrive.  We're doing the same with our loose plastic (which in fact is made from that ancient carbon!) by packing and sequestering it into an ecobrick.</div>
+        <div class="modal-header" data-lang-id="208-tour-3-header">First: Log</div>
+        <div class="modal-description" data-lang-id="209-tour-3-description">Ecobricks will last a long time.  GoBrik enables you to permanently record your ecobrick core data.  This process records the briks data onto our brikchain by giving each ecobrick a serial number.  Using these serial numbers, ecobricks can allocate to projects and exchanges.</div>
         <button class="back" data-lang-id="205-tour-back-button">↩ Back</button>
         <button class="next-slide" data-lang-id="206-tour-next-button">Next ➔</button>
-        <div class="reference" data-lang-id="210-reference-tour-3-description">Plastic's long story: <a href="/plastic/">gobrik.com/plastic</a></div>
+        <div class="reference" data-lang-id="210-reference-tour-3-description">Ecobrick applications: <a href="/plastic/">gobrik.com/plastic</a></div>
       </div>
 
 
@@ -349,6 +349,9 @@ display: none;
 
               <div class="menu-page-item"><a href="index.php"  aria-label="Return Home">Home</a></div>
 
+            <div class="menu-page-item" data-lang-id="1001-what-are-ecobricks" onclick="sendDownRegistration(); closeSettings(); setTimeout(guidedTour, 500);">What are ecobricks?</div>
+
+
               <div class="menu-page-item"><a href="login.php#home" aria-label="Register">Login</a></div>
 
             <div class="menu-page-item"><a href="signup.php#home" aria-label="Signup">Login</a></div>
@@ -400,7 +403,7 @@ display: none;
 
         <div>
             <h1 style="font-family:'Arvo', serif;text-shadow: none;" data-lang-id="100-search-title">Search</h1>
-            <p style="text-align:center; width:90%;" data-lang-id="101-search-intro">Find any ecobrick on the Brikchain<a style="color:var(--emblem-blue)" href="brikchain.php">brikchain search</a>.</p>
+            <p style="text-align:center; width:90%;" data-lang-id="101-search-intro">Find any ecobrick on the Brikchain.<a style="color:var(--emblem-blue)" href="brikchain.php">brikchain search</a>.</p>
         </div>
 
         <div class="search-box">

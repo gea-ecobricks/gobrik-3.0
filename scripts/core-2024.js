@@ -1,11 +1,8 @@
 
-//function redirectToWelcome() {
-//    window.location.href = "welcome.php";
-//}
-//
-//function redirectToFAQs() {
-//    window.location.href = "faqs.php";
-//}
+function redirectToWelcome() {
+    window.location.href = "index.php";
+}
+
 
 document.addEventListener("scroll", function() {
     var scrollPosition = window.scrollY || document.documentElement.scrollTop;

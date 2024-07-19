@@ -137,10 +137,10 @@ const en_Translations = {
         /*Search Curtain*/
 
         '100-search-title': 'Search',
-        '101-search-intro': 'Select the languages and indexes you wish to search. To search for ecobricks use our <a style="color:var(--emblem-blue)" href="brikchain.php">brikchain search</a>.',
+        '101-search-intro': 'Find any ecobrick on the Brikchain.',
         '102-search-index1': 'Pages: ',
         '103-search-index3': 'Glossaries:',
-        '104-search-bottom-text': 'Dictionary definitions are shown last',
+        '104-search-bottom-text': 'Looking for information about ecobricks?  Search on <a target="_blank" href="https://ecobricks.org">ecobricks.org</a>',
 
         
 
@@ -163,23 +163,23 @@ const en_Translations = {
           
         /* Guided Tour Curtain */
 
-        '200-tour-1-header-welcome': 'Welcome to Ecobricks.org!',
-        '201-tour-1-description': 'So what is an ecobrick exactly?  Take our 45 second, five-slide introduction to ecobricks.  We\'ll cover the basics: what ecobricks are, how you can make one, the Earthen example we\'re following and what you can make with ecobricks once they\'re ready.',
+        '200-tour-1-header-welcome': 'Welcome to GoBrik!',
+        '201-tour-1-description': 'So what is GoBrik exactly?  GoBrik is an open source app that allows individuals and communities to manage their ecobricks, projects and more.',
         '202-tour-start-button': 'Start ➔',
-        '203-tour-2-header': 'A Low Tech Solution',
-        '204-tour-2-description': 'It\'s pretty simple.  An ecobrick is a plastic bottle densely packed with used plastic to create a reusable building block that achieves <b>plastic sequestration</b>.  To make one, all you need is a stick and a bottle.',
+        '203-tour-2-header': 'Ecobricks are Valuable',
+        '204-tour-2-description': 'Ecobricks represent sequestered plastic.  That\'s plastic that is not going to dumped, burned or industrially recycled (lots of emissions!).  Plus, ecobricks can be used to build regenerative structures!  Gobrik helps you manage ecobricks: the plastic that they represent and the building projects that they enable',
         '205-tour-back-button': '↩ Back',
         '206-tour-next-button': 'Next ➔',
-        '207-tour-2-reference': 'Definition from <a href="https://en.wikipedia.org/wiki/Ecobricks">wikipedia/wiki/ecobricks</a>  |  Go deeper: <a href="what">ecobricks.org/what</a>',
-        '208-tour-3-header': 'Plastic Sequestration?',
-        '209-tour-3-description': 'Ecobricks follow Earth\'s example.  Over the last few billion years, Earth has steadily captured loose carbon to concentrate and sequester it under the earth so that life could thrive.  We\'re doing the same with our loose plastic (which in fact is made from that ancient carbon!) by packing and sequestering it into an ecobrick.',
-        '210-reference-tour-3-description': 'Plastic\'s long story: <a href="/plastic/">ecobricks.org/plastic</a>',
-        '211-tour-4-header': 'More than Eco',
-        '212-tour-4-description': 'Ecobricks do more than just prevent plastic from polluting the biosphere.  Ecobricking also keeps plastic from industrially processing-- which often creates even more problems than it solves.  Best of all, ecobricks can put to use locally to build all sorts of great green things!',
-        '213-tour-4-reference': 'Why we ecobrick: <a href="build">ecobricks.org/why</a>',
-        '214-tour-5-header': 'Build Green and Great',
-        '215-tour-5-description': 'Ecobricks are put to use in all sorts of ways by the global community.  In the Philippines we build food forest play parks with them.  In the UK, we build earthen round houses.  In Indonesia, we make modular furniture for homes and cafes.  Be sure to check out the building sections of our site for ideas.',
-        '216-tour-5-reference': 'Our page on building methods: <a href="build">ecobricks.org/build</a>',
+        '207-tour-2-reference': 'What is an ecobrick? <a href="https://en.wikipedia.org/wiki/Ecobricks" target="_blank">wikipedia/wiki/ecobricks</a>  |   <a href="https://ecobricks.org/en/what.php" target="_blank">Ecobricks.org</a>',
+        '208-tour-3-header': 'First: Log',
+        '209-tour-3-description': 'Ecobricks will last a long time.  GoBrik enables you to permanently record your ecobrick core data.  This process records the briks data onto our brikchain by giving each ecobrick a serial number.  Using these serial numbers, ecobricks can allocate to projects and exchanges.',
+        '210-reference-tour-3-description': '<a href="/plastic/">How to log</a>',
+        '211-tour-4-header': 'The Brikchain',
+        '212-tour-4-description': 'The sequence of ecobricks that have been logged, peer-reviewed and authenticated plastic is what we call "the Brikchain".  The brikchain serves as the foundation for our Brikcoin currency which any ecobrick can earn by logging and validating ecobricks.',
+        '213-tour-4-reference': 'Learn more<a href="https://ecobricks.org/brikchain">The Brikchain</a>',
+        '214-tour-5-header': 'Plastic Offsetting',
+        '215-tour-5-description': 'Concerned about plastic pollution?  But still using plastic in your home or business?  You can take responsibility for your consumption by supporting the plastic transition movement through plastic offsetting.  By buying of authenticated ecobrick sequestered plastic (AES Plastic) on GoBrik you support the GEA and the planet passion and service of ecobrickers around the world.',
+        '216-tour-5-reference': 'Learn more: <a href="https://ecobricks.org/en/offsets.php">ecobricks.org/offset</a>',
         '217-tour-6-header': 'We\'re here to help!',
         '218-tour-6-description': ' The Global Ecobrick Alliance is an Earth enterprise that supports the local and global plastic transition movements.  We maintain the philosophical and technological infrastructure of the movement.  We\'re not at this for profit. Nor are we sponsored by any governments or corporations.  We\'re at this for the planet and for the wellbeing of all of us living on it.',
         '219-tour-done-button': '✓ Done',

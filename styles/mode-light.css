@@ -447,16 +447,7 @@
 
       }
 
-      .main-landing-graphic {
-      background: url(../svgs/richard-and-team-day.svg) no-repeat center center;
-      background-size: contain;
-      }
-
-      .biosphere {
-        background: url(https://gobrik.com/webp/biosphere-day.webp) no-repeat  center bottom;
-        background-size: contain;
-
-      } */
+ */
 
 /* light.css
 light.css
@@ -475,3 +466,15 @@ light.css
   color: var(--text-color)!important;
   text-shadow: none !important;
 }
+
+
+      .main-landing-graphic {
+      background: url(../svgs/richard-and-team-day.svg) no-repeat center center;
+      background-size: contain;
+      }
+
+      .biosphere {
+        background: url(../webps/biosphere-day.webp) no-repeat  center bottom;
+        background-size: contain;
+
+      }

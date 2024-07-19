@@ -35,7 +35,6 @@ AND UNIQUE to HTML Pages-->
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #ffffff; /* Change this to your preferred background color */
     font-family: Arial, sans-serif;
 }
 
@@ -46,13 +45,36 @@ AND UNIQUE to HTML Pages-->
 .logo {
     width: 200px;
     height: 200px;
+    background-size: cover;
+    background-position: center;
 }
 
 .subtitle {
     font-size: 1.2em;
-    color: #555; /* Change this to your preferred text color */
     margin-top: 20px;
 }
+
+/* Default to dark mode (also for no preference) */
+body {
+    background-color: black;
+    color: darkgrey;
+}
+
+.logo {
+    background-image: url('svgs/bottle-loader-night-2.svg');
+}
+
+/* Light mode styles */
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: white;
+        color: darkgrey;
+    }
+    .logo {
+        background-image: url('svgs/bottle-loader-day-7.svg');
+    }
+}
+
 </style>
 
 <script>
@@ -76,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = langDir;
     }, 2000);
 });
+
 </script>
 
 </head>

@@ -349,7 +349,7 @@ display: none;
 
               <div class="menu-page-item"><a href="index.php"  aria-label="Return Home">Home</a></div>
 
-            <div class="menu-page-item" data-lang-id="1001-what-are-ecobricks" onclick="sendDownRegistration(); closeSettings(); setTimeout(guidedTour, 500);">What are ecobricks?</div>
+            <div class="menu-page-item"><a data-lang-id="1001-gobrik-tour"onclick="sendDownRegistration(); closeSettings(); setTimeout(guidedTour, 500);">What is GoBrik?</a></div>
 
 
               <div class="menu-page-item"><a href="login.php#home" aria-label="Register">Login</a></div>

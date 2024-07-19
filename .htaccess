@@ -2,6 +2,33 @@
 text/x-generic .htaccess ( UTF-8 Unicode text )
 
 
+RewriteEngine On
+
+# Check for the language in the HTTP_ACCEPT_LANGUAGE header for index.html
+RewriteCond %{THE_REQUEST} /index\.html [NC]
+RewriteCond %{HTTP:Accept-Language} ^fr [NC]
+RewriteRule ^index\.html$ /fr/ [L,R=302]
+
+RewriteCond %{THE_REQUEST} /index\.html [NC]
+RewriteCond %{HTTP:Accept-Language} ^id [NC]
+RewriteRule ^index\.html$ /id/ [L,R=302]
+
+RewriteCond %{THE_REQUEST} /index\.html [NC]
+RewriteCond %{HTTP:Accept-Language} ^es [NC]
+RewriteRule ^index\.html$ /es/ [L,R=302]
+
+RewriteCond %{THE_REQUEST} /index\.html [NC]
+RewriteCond %{HTTP:Accept-Language} ^en [NC]
+RewriteRule ^index\.html$ /en/ [L,R=302]
+
+# Redirect to English by default for any other languages
+RewriteCond %{THE_REQUEST} /index\.html [NC]
+RewriteRule ^index\.html$ /en/ [L,R=302]
+
+
+DirectoryIndex index.php index.html
+
+
 #
 #
 #<IfModule mod_expires.c>
@@ -30,30 +57,6 @@ RewriteEngine On
 RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
 
-DirectoryIndex index.php index.html
-
-RewriteEngine On
-
-# Check for the language in the HTTP_ACCEPT_LANGUAGE header for index.html
-RewriteCond %{THE_REQUEST} /index\.html [NC]
-RewriteCond %{HTTP:Accept-Language} ^fr [NC]
-RewriteRule ^index\.html$ /fr/ [L,R=302]
-
-RewriteCond %{THE_REQUEST} /index\.html [NC]
-RewriteCond %{HTTP:Accept-Language} ^id [NC]
-RewriteRule ^index\.html$ /id/ [L,R=302]
-
-RewriteCond %{THE_REQUEST} /index\.html [NC]
-RewriteCond %{HTTP:Accept-Language} ^es [NC]
-RewriteRule ^index\.html$ /es/ [L,R=302]
-
-RewriteCond %{THE_REQUEST} /index\.html [NC]
-RewriteCond %{HTTP:Accept-Language} ^en [NC]
-RewriteRule ^index\.html$ /en/ [L,R=302]
-
-# Redirect to English by default for any other languages
-RewriteCond %{THE_REQUEST} /index\.html [NC]
-RewriteRule ^index\.html$ /en/ [L,R=302]
 
 
 

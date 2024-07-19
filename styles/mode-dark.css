@@ -538,9 +538,30 @@ background-size: contain;
 } */
 
 
-#booknotes-curtain {
-  background: url(../svgs/tractatus-mandala-full-grey.svg) center no-repeat;
-  background-size: 30%;
-  background-color: var(--slider);
-  color: var(--drop-cap);
+/*NEW 3.0 LANDING */
+
+
+@media screen and (min-width: 0px) and (max-width: 700px) {
+    .clouds-new2  {
+      background-image: linear-gradient(black,var(--general-background),var(--general-background));
+      }
+    }
+
+
+    @media screen and (min-width: 701px) {
+      .clouds-new2  {
+        background-image: linear-gradient(black,var(--general-background));
+        }
+      }
+
+
+.biosphere {
+  background: url(../webp/biosphere2.webp) no-repeat center bottom;
+  background-size: contain;
+
 }
+
+        .main-landing-graphic {
+          background: url(../svgs/richard-and-team-night.svg?v=3) no-repeat center center;
+          background-size: contain;
+          }

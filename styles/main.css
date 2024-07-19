@@ -759,7 +759,7 @@ legend {
     width: 92%;
     font-size: 0.9em;
     /*margin-top: 6%;*/
-    margin-top: 30%;
+    margin-top: 25%;
 }
 }
 
@@ -767,8 +767,7 @@ legend {
   .search-overlay-content {
     width: 75%;
     font-size: 0.9em;
-    /*margin-top: 2%;*/
-    margin-top:30%;
+    margin-top:15%;
 }
 }
 
@@ -776,7 +775,7 @@ legend {
     .search-overlay-content {
       width: 72%;
       margin: auto;
-      margin-top:14%;
+      margin-top:10%;
     }
 }
 

@@ -27,7 +27,7 @@ AND UNIQUE to HTML Pages-->
 <link rel="preload" as="image" href="https://gobrik.com/svgs/Happy-turtle-dolphin-opti2.svg">
 
 <style>
-    body, html {
+   body, html {
     margin: 0;
     padding: 0;
     width: 100%;
@@ -35,33 +35,46 @@ AND UNIQUE to HTML Pages-->
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: black;
+    color: darkgrey;
     font-family: Arial, sans-serif;
+    overflow: hidden; /* Prevent scrolling */
 }
 
 .container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
 }
 
 .logo {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     background-size: cover;
     background-position: center;
+    background-image: url('svgs/bottle-loader-night-2.svg');
 }
 
 .subtitle {
-    font-size: 1.2em;
-    margin-top: 20px;
+    position: absolute;
+    bottom: 10vh;
 }
 
-/* Default to dark mode (also for no preference) */
-body {
-    background-color: black;
-    color: darkgrey;
+.subtitle p {
+    margin: 0;
 }
 
-.logo {
-    background-image: url('svgs/bottle-loader-night-2.svg');
+.subtitle p:first-child {
+    font-size: 0.9em;
+}
+
+.subtitle p:last-child {
+    font-size: 0.7em;
 }
 
 /* Light mode styles */
@@ -74,6 +87,7 @@ body {
         background-image: url('svgs/bottle-loader-day-7.svg');
     }
 }
+
 
 </style>
 
@@ -96,16 +110,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         window.location.href = langDir;
-    }, 2000);
+    }, 10000); // 10 seconds
 });
+
 
 </script>
 
 </head>
 <body>
     <div class="container">
-        <img src="svgs/bottle-loader-day7.svg" alt="Global Ecobrick Alliance Logo" class="logo">
-        <p class="subtitle">by the Global Ecobrick Alliance</p>
+        <div class="logo"></div>
+        <div class="subtitle">
+            <p>by the Global Ecobrick Alliance</p>
+            <p>An Earth Enterprise</p>
+        </div>
     </div>
 </body>
 </html>

@@ -57,8 +57,8 @@ function scrollMoreThan40() {
         // document.getElementById("main").style.marginTop = "0px";
         document.getElementById("gea-logo").style.width = "170px";
         document.getElementById("gea-logo").style.height = "35px";
-        document.getElementById("logo-gobrik").style.opacity = "1";
-        document.getElementById("settings-buttons").style.marginTop = "3px"; 
+        document.getElementById("logo-gobrik").style.opacity = "0.9";
+//        document.getElementById("settings-buttons").style.marginTop = "3px";
         document.getElementById("settings-buttons").style.padding = "16px 43px 16px 12px"; 
 //        document.getElementById("main-header-buttons").style.marginTop = "-5px";
         document.getElementById("language-menu-slider").style.top = "-35px";  

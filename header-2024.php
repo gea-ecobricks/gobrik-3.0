@@ -95,7 +95,6 @@ window.onload = function() {
     window.currentLanguage = '<?php echo ($lang); ?>'; // Default language code
     switchLanguage(window.currentLanguage);
     // updateLogoColor();
-    checkRegistrationStatus();
     window.subSource = 'beta.gobrik.com'; // Make subSource globally accessible
 }
 

@@ -37,7 +37,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <div class="biosphere"><img src="../webps/biosphere-blank.webp" width="400" height="400" alt="biosphere"></div>
 
             <div class="main-landing-graphic" style="width:100%;height:43%;"><img src="../webps/ecobrick-team-blank.webp" style="width:100%;height:43%;" alt="Unite with ecobrickers around the world"></div>
+        </div>
 
+    </div>
 
 
 
@@ -47,7 +49,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 
-</div><!--closes main-->
+</div><!--closes main and starry background-->
 
 
 	<!--FOOTER STARTS HERE-->

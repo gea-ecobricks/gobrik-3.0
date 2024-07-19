@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         window.location.href = langDir;
-    }, 10000); // 10 seconds
+    }, 1000); // 10 seconds
 });
 
 

@@ -28,7 +28,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 
-    <div class="landing-content" >
+    <div class="landing-content" style="height:100vh">
 
 
         <div class="clouds-new2" style=" padding-top:10vh; margin-bottom: -30px;

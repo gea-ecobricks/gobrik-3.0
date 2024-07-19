@@ -61,15 +61,11 @@ html {
     /*General interface background slightly off-white to make the white buttons and boxes show up better*/
   }
 
-.landing-content {
-height:100vh;
-width:100%;
-}
 
   @media screen and (min-width: 1200px) {
 
   .landing-content {
-/*   width: 70%; */
+  width: 70%;
   margin: auto;
   margin-bottom: 0px;
       }
@@ -80,7 +76,7 @@ width:100%;
     @media screen and (min-width: 700px) and (max-width: 1200px) {
 
     .landing-content {
-/*     width: 80%; */
+    width: 80%;
     margin: auto;
     margin-bottom: 0px;
 

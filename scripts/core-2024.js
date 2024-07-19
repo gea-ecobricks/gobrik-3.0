@@ -24,7 +24,6 @@ document.addEventListener("scroll", function() {
             scrollLessThan40();
             scrollMoreThan40();
             // showHideHeader();
-            pageMeasureBar();
         };
 
         function scrollLessThan40() {

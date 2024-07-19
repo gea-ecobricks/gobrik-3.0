@@ -71,6 +71,9 @@ html {
       }
     }
 
+.landing-content {
+height:100vh;
+}
 
     @media screen and (min-width: 700px) and (max-width: 1200px) {
 
@@ -550,6 +553,8 @@ text-align: center;
     margin: auto;
       position: relative;
       z-index: 11;
+      background-size: 100%;
+
 
   }
 

@@ -1,6 +1,6 @@
 <?php
 include 'lang.php';
-$version = '0.286';
+$version = '0.287';
 $page = 'index';
 include '../ecobricks_env.php';
 
@@ -68,7 +68,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <div class="featured-content-gallery" style="overflow-x:clip;">
         <div class="feed-live">
-            <p data-lang-id="303-featured-live-brikchain"><span class="blink">⬤  </span>Live brikchain feed of authenticated ecobricks.  Click to preview.</p>
+            <p data-lang-id="005-featured-live-brikchain"><span class="blink">⬤  </span>Live brikchain feed of authenticated ecobricks.  Click to preview.</p>
         </div>
         <div class="gallery-flex-container">
             <?php
@@ -91,17 +91,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <div class="photo-box-end" href="brikchain.php"></div>
         </div>
 
-        <!-- <div class="gal-photo" style="width: 200px; padding-bottom: 20px; text-align: left; margin-bottom: auto;"><div class="feed-live"><p><span class="blink">⬤ Live Feed:</span>
-        50 latest selfie briks = 34kg plastic sequestered / 150kg CO2e / 340 BRK generated</p></div></div> -->
-
         <div class="feature-content-box">
-            <div class="big-header" data-lang-id="304-featured-live-heading">Ecobricking.  Live.</div>
-            <div class="welcome-text" data-lang-id="305-featured-live-subheading">Ecobricks are being made, logged and validated around the world right this moment.</div>
+            <div class="big-header" data-lang-id="006-featured-live-heading">Ecobricking.  Live.</div>
+            <div class="welcome-text" data-lang-id="007-featured-live-subheading">Ecobricks are being made, logged and validated around the world right this moment.</div>
             <div class="landing-button" style="margin:5px auto 5px auto;justify-content: center;
   display: flex">
-                <a href="brikchain.php" class="feature-button"  data-lang-id="306-featured-live-button" aria-label="view brikchain">⛓️ The Brikchain</a>
+                <a href="brikchain.php" class="feature-button"  data-lang-id="008-featured-live-button" aria-label="view brikchain">⛓️ The Brikchain</a>
             </div>
-            <div class="tree-text" data-lang-id="307-featured-live-links">A feed & archive of authenticated ecobricks</div>
+            <div class="tree-text" data-lang-id="009-featured-live-links">A feed & archive of authenticated ecobricks</div>
 
         </div>
     </div>
@@ -114,18 +111,18 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     <div class="bottom-scope" style="width:100%;height:100%;">
          <div class="landing-content">
-            <div class="tree-coins" data-lang-id="005-second-feature-img" ><img src="../webps/2023-tree-blank.webp" style="width:100%;" alt="Build your greenest visions with ecobricks">
+            <div class="tree-coins" data-lang-id="010-second-feature-img" ><img src="../webps/2023-tree-blank.webp" style="width:100%;" alt="Build your greenest visions with ecobricks">
 
 
             </div>
 
-            <div class="welcome-text" data-lang-id="006-second-text">
+            <div class="welcome-text" data-lang-id="011-second-text">
                 Together we're securing plastic out of the biosphere to make building blocks, generate brikcoins and co-create green spaces.
                <br><br>
                <img src="../svgs/aes-brk.svg" style="width:200px;" width="200" height="77" alt="Introducing Brikcoins and AES Plastic Offsetting">
             </div>
 
-            <div class="tree-text">
+            <div class="tree-text" data-lang-id="012-gobrik-sub-text">
                 GoBrik provides ecobrickers and their communities with the tools to manage their ecobricking and to quantify its ecological value.
             </div>
 

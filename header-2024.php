@@ -346,55 +346,26 @@ display: none;
 
  <!-- RIGHT PAGE MENU -->
 
-<div id="main-menu-overlay" class="overlay-settings" style="display:none;">
-
+    <div id="main-menu-overlay" class="overlay-settings" style="display:none;">
         <button type="button" onclick="closeSettings()" aria-label="Click to close settings page" class="x-button">
         </button>
-
-    <div class="overlay-content-settings" style="margin-bottom: 20px;">
-
-
-        <div style="margin-bottom: 20px;">
-
-
-              <div class="menu-page-item"><a href="index.php"  aria-label="Return Home">Home</a></div>
-
-            <div class="menu-page-item"><a data-lang-id="1001-gobrik-tour"onclick="sendDownRegistration(); closeSettings(); setTimeout(guidedTour, 500);">What is GoBrik?</a></div>
-
-
-              <div class="menu-page-item"><a href="login.php#home" aria-label="Register">Login</a></div>
-
-            <div class="menu-page-item"><a href="signup.php#home" aria-label="Signup">Login</a></div>
-
-            <div class="menu-page-item"><a href="log.php" aria-label="Log">Log Ecobrick</a></div>
-
-
-
-              <div class="menu-page-item"><a href="https://ecobricks.org/brikchain" target="_blank">The Brikchain</a></div>
-
-              <div class="menu-page-item"><a href="https://ecobricks.org/brikcoins" target="_blank">Brikcoins</a></div>
-
-
-              <div class="menu-page-item"><a href="https://ecobricks.org/gobrik" target="_blank">About GoBrik</a>
-                </div>
-
+        <div class="overlay-content-settings" style="margin-bottom: 20px;">
+            <div style="margin-bottom: 20px;">
+                <div class="menu-page-item"><a href="index.php"  aria-label="Return Home">Home</a></div>
+                <div class="menu-page-item"><a data-lang-id="1001-gobrik-tour"onclick="sendDownRegistration(); closeSettings(); setTimeout(guidedTour, 500);">What is GoBrik?</a></div>
+                <div class="menu-page-item"><a href="login.php#home" aria-label="Register">Login</a></div>
+                <div class="menu-page-item"><a href="signup.php#home" aria-label="Signup">Login</a></div>
+                <div class="menu-page-item"><a href="log.php" aria-label="Log">Log Ecobrick</a></div>
+                <div class="menu-page-item"><a href="https://ecobricks.org/brikchain" target="_blank">The Brikchain</a></div>
+                <div class="menu-page-item"><a href="https://ecobricks.org/brikcoins" target="_blank">Brikcoins</a></div>
+                <div class="menu-page-item"><a href="https://ecobricks.org/gobrik" target="_blank">About GoBrik</a></div>
                 <p style="font-size:smaller;">GoBrik is developed by the <a href="https://ecobricks.org/about" target="_blank">Global Ecobrick Alliance</a> a not-for-profit Earth enterprise focused on plastic transition.</p>
-
-        </div>
-
-
-
+            </div>
+        </div> <!--close overlay-content-settings-->
+    </div> <!-- close right page menu-->
 
 
 
-</div> <!--close overlay-content-settings-->
-
-
-
-</div> <!-- close right page menu-->
-
-
-</div>
 
 
 

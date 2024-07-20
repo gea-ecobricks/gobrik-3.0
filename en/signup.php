@@ -22,8 +22,6 @@ echo '<!DOCTYPE html>
 $success = false;
 
 
-$conn->set_charset("utf8mb4");
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
    $servername = "localhost";

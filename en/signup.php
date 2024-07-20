@@ -74,12 +74,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <div id="landing-content" style="width:100%;height:100vh;">
 
-            <div data-lang-id="000-testing">Testing one two three four</div>
 
-        </div><!--closes Landing content-->
-    </div>
-
-<h1>Sign to GoBrik!</h1>
+<h1>Sign Up to GoBrik!</h1>
 
             <div data-lang-id="001-testing">Testing one two three four</div>
 
@@ -106,6 +102,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <input type="submit" value="Sign Up">
     </form>
+
+        </div><!--closes Landing content-->
+    </div>
+<div data-lang-id="000-testing">Testing one two three four</div>
 
 </div><!--closes main and starry background-->
 

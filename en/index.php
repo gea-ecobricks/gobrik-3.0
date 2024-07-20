@@ -57,6 +57,58 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 
+
+
+
+
+<!-- FULL ECOBRICK FLOW GALLERY -->
+
+<?php include '../ecobricks_env.php';?>
+
+<div class="featured-content-gallery" style="overflow-x:clip;">
+        <div class="feed-live">
+            <p data-lang-id="303-featured-live-brikchain"><span class="blink">⬤  </span>Live brikchain feed of authenticated ecobricks.  Click to preview.</p>
+        </div>
+        <div class="gallery-flex-container">
+            <?php
+                $sql = "SELECT * FROM vw_gallery_feed ;";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    // output data of each row
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<div class="gal-photo">
+                                <div class="photo-box">
+                                    <img src="' . $row["thumb_url"] . '?v=1" alt="Ecobrick ' . $row["ecobrick_unique_id"] . ' by ' . $row["ecobrick_owner"] . ' in ' . $row["location"] . '" title="Ecobrick ' . $row["ecobrick_unique_id"] . ' by ' . $row["ecobrick_owner"] . ' in ' . $row["location"] . '" loading="lazy" onclick="ecobrickPreview(\'' . $row["ecobrick_unique_id"] . '\', \'' . $row["weight_in_g"] . '\', \'' . $row["ecobrick_owner"] . '\', \'' . $row["location"] . '\')"/>
+                                </div>
+                            </div>';
+                    }
+                } else {
+                    echo "Failed to connect to the Brikchain database";
+                }
+             ?>
+            <div class="photo-box-end" href="brikchain.php"></div>
+        </div>
+
+        <!-- <div class="gal-photo" style="width: 200px; padding-bottom: 20px; text-align: left; margin-bottom: auto;"><div class="feed-live"><p><span class="blink">⬤ Live Feed:</span>
+        50 latest selfie briks = 34kg plastic sequestered / 150kg CO2e / 340 BRK generated</p></div></div> -->
+
+        <div class="feature-content-box">
+            <div class="feature-big-header" data-lang-id="304-featured-live-heading">Ecobricking.  Live.</div>
+            <div class="feature-sub-text" data-lang-id="305-featured-live-subheading">Ecobricks are being made, logged and validated around the world right this moment.</div>
+
+            <a href="brikchain.php" class="feature-button"  data-lang-id="306-featured-live-button" aria-label="view brikchain">⛓️ The Brikchain</a>
+            <div class="feature-reference-links"data-lang-id="307-featured-live-links">A feed & archive of authenticated ecobricks</div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
     <div class="bottom-scope" style="width:100%;height:100%;">
          <div class="landing-content">
             <div class="tree-coins" data-lang-id="005-second-feature-img" ><img src="../webps/2023-tree-blank.webp" style="width:100%;" alt="Build your greenest visions with ecobricks">

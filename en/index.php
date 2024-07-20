@@ -179,7 +179,7 @@ function ecobrickPreview(brik_serial, weight, owner, location) {
     var details = document.createElement('div');
     details.className = 'ecobrick-details';
     details.innerHTML = '<p>Ecobrick ' + brik_serial + ' | ' + weight + 'g of plastic sequestered by ' + owner + ' in ' + location + '.</p>' +
-                        '<a href="details-ecobrick-page.php?serial_no=' + brik_serial + '" class="preview-btn" style="margin-bottom: 50px;height: 25px;padding: 5px;border: none;padding: 5px 12px;">ℹ️ View Full Details</a>';
+                        '<a href="brik.php?serial_no=' + brik_serial + '" class="preview-btn" style="margin-bottom: 50px;height: 25px;padding: 5px;border: none;padding: 5px 12px;">ℹ️ View Full Details</a>';
     photoContainer.appendChild(details);
 
     // Hide other parts of the modal that are not used for this preview

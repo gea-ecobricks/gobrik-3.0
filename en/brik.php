@@ -37,7 +37,7 @@ echo '<!DOCTYPE html>
 			</div>
 
 			<div class="splash-image">
-				<a href="javascript:void(0);" onclick="viewGalleryImage(\'' . htmlspecialchars($array["ecobrick_full_photo_url"], ENT_QUOTES, 'UTF-8') . '\', \'Ecobrick ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and logged on ' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . '\')"><img src="' . htmlspecialchars($array["ecobrick_full_photo_url"], ENT_QUOTES, 'UTF-8') . '" alt="Ecobrick ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and logged on ' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . '"
+				<a href="javascript:void(0);" onclick="viewGalleryImage(\'' . htmlspecialchars($array["ecobrick_full_photo_url"], ENT_QUOTES, 'UTF-8') . '\', \'Ecobrick ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and logged on ' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . '\')"><img src="https://ecobricks.org/' . htmlspecialchars($array["ecobrick_full_photo_url"], ENT_QUOTES, 'UTF-8') . '" alt="Ecobrick ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and logged on ' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . '"
 			title="Ecobrick Serial ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and authenticated on ' . htmlspecialchars($array["last_validation_ts"], ENT_QUOTES, 'UTF-8') . '"></a>
 			</div>
 		</div>
@@ -82,7 +82,7 @@ echo '
 
 			if ( isset($array["selfie_photo_url"]) && $array["selfie_photo_url"] != '' ) {
 				echo '<div class="side-details">
-				<img src="'. $array["selfie_photo_url"] .'" width="100%">
+				<img src="https://ecobricks.org/'. $array["selfie_photo_url"] .'" width="100%">
 			</div>
 		';
 			}
@@ -171,7 +171,7 @@ echo '
 			echo 'Sorry! :-(</div>
 			<div class="splash-sub" data-lang-id="151x">No results for ecobrick '. $serialNo .' in the Brikchain.  Most likely this is because the Brikchain data is still in migration.</div>
 		</div>
-		<div class="splash-image"><img src="../webp/empty-ecobrick-450px.webp?v2" style="width: 80%; margin-top:20px;" alt="empty ecobrick"></div>
+		<div class="splash-image"><img src="../webps/empty-ecobrick-450px.webp?v2" style="width: 80%; margin-top:20px;" alt="empty ecobrick"></div>
 	</div>
 	<div id="splash-bar"></div>
 
@@ -220,14 +220,14 @@ echo '
 
 
             <div class="side-module-desktop-mobile">
-				<img src="../webp/aes-400px.webp" width="80%" alt="For-Earth Enterprise through eco bricking">
+				<img src="../webps/aes-400px.webp" width="80%" alt="For-Earth Enterprise through eco bricking">
 				<!--<h4>AES Plastic</h4>-->
 				<h5 data-lang-id="100-side-aes-text">The weight of the plastic inside an authenticated ecobrick is what we call Authenticated Ecobricked Plastic (AES plastic) for short.</h5><br>
 				<a class="module-btn" href="/aes" target="_blank" data-lang-id="101-side-aes-button">About AES</a><br><br>
 			</div>
 
 			<div class="side-module-desktop-mobile">
-				<img src="../webp/2-brikcoins-450px.webp" width="75%" loading="lazy" alt="eco brik and earth building can make regenerative structures">
+				<img src="../webps/2-brikcoins-450px.webp" width="75%" loading="lazy" alt="eco brik and earth building can make regenerative structures">
 				<h4 >Brikcoins</h4>
 				<h5 data-lang-id="102-side-brikcoins-text">When an ecobrick is authenticated, brikcoins are generated to represent the ecological value of its AES plastic.</h5><br>
 				<a class="module-btn" href="brikcoins.php" data-lang-id="103-side-brikcoins-button">About Brikcoins</a><br><br>

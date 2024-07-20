@@ -57,7 +57,7 @@ AND UNIQUE to HTML Pages-->
     height: 150px;
     background-size: cover;
     background-position: center;
-    background-image: url('svgs/bottle-loader-night-2.svg');
+    background-image: url('svgs/gobrik-3-emblem.svg-night');
 }
 
 .subtitle {
@@ -84,7 +84,7 @@ AND UNIQUE to HTML Pages-->
         color: darkgrey;
     }
     .logo {
-        background-image: url('svgs/bottle-loader-day-7.svg');
+        background-image: url('svgs/gobrik-3-emblem.svg');
     }
 }
 

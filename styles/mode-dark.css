@@ -539,7 +539,17 @@ background-size: contain;
 /*NEW 3.0 LANDING */
 
 
-@media screen and (min-width: 0px) and (max-width: 700px) {
+.clouds-new2  {
+
+  background: url(../svgs/starry-night-down.svg) no-repeat center top;
+  background-size: contain;
+
+
+        }
+      }
+
+
+/*@media screen and (min-width: 0px) and (max-width: 700px) {
     .clouds-new2  {
       background-image: linear-gradient(black,var(--general-background),var(--general-background));
       }
@@ -549,8 +559,10 @@ background-size: contain;
     @media screen and (min-width: 701px) {
       .clouds-new2  {
         background-image: linear-gradient(black,var(--general-background));
+  background-size: contain;
+
         }
-      }
+      }*/
 
 
 .biosphere {

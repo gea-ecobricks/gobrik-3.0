@@ -27,9 +27,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once ("../includes/index-inc.php");?>
 
 
-<div class="clouds-new2" style=" margin-bottom:25px;">
+<div class="clouds-new2" style=" margin-bottom:25px;background-color:var(--general-background);">
+    <div class="biosphere">
+            <img src="../webps/biosphere-blanked.webp" width="400" height="400" alt="biosphere">
+    </div>
     <div class="landing-content" style="height:100vh;">
-        <div class="biosphere"><img src="../webps/biosphere-blanked.webp" width="400" height="400" alt="biosphere"></div>
+
         <div class="main-landing-graphic" style="width:100%;height:43%;">
             <img src="../webps/ecobrick-team-blanked.webp" style="width:100%;height:43%;" alt="Unite with ecobrickers around the world">
         </div>
@@ -90,11 +93,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         50 latest selfie briks = 34kg plastic sequestered / 150kg CO2e / 340 BRK generated</p></div></div> -->
 
         <div class="feature-content-box">
-            <div class="feature-big-header" data-lang-id="304-featured-live-heading">Ecobricking.  Live.</div>
-            <div class="feature-sub-text" data-lang-id="305-featured-live-subheading">Ecobricks are being made, logged and validated around the world right this moment.</div>
+            <div class="big-header" data-lang-id="304-featured-live-heading">Ecobricking.  Live.</div>
+            <div class="welcome-text" data-lang-id="305-featured-live-subheading">Ecobricks are being made, logged and validated around the world right this moment.</div>
 
             <a href="brikchain.php" class="feature-button"  data-lang-id="306-featured-live-button" aria-label="view brikchain">⛓️ The Brikchain</a>
-            <div class="feature-reference-links"data-lang-id="307-featured-live-links">A feed & archive of authenticated ecobricks</div>
+            <div class="tree-text" data-lang-id="307-featured-live-links">A feed & archive of authenticated ecobricks</div>
 
         </div>
     </div>

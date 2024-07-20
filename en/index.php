@@ -60,17 +60,15 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     <div class="bottom-scope" style="width:100%;height:100%;">
          <div class="landing-content">
-            <div class="tree-coins" ><img src="../webp/2023-tree-blank.webp" style="width:100%;" alt="Build your greenest visions with ecobricks">
+            <div class="tree-coins" data-lang-id="005-second-feature-img" ><img src="../webp/2023-tree-blank.webp" style="width:100%;" alt="Build your greenest visions with ecobricks">
 
 
             </div>
 
-            <div class="welcome-text">
+            <div class="welcome-text" data-lang-id="006-second-text">
                 Together we're securing plastic out of the biosphere to make building blocks, generate brikcoins and co-create green spaces.
-
-
-
-               <br><br> <img src="../svgs/aes-brk.svg" style="width:200px;" width="200" height="77" alt="Introducing Brikcoins and AES Plastic Offsetting">
+               <br><br>
+               <img src="../svgs/aes-brk.svg" style="width:200px;" width="200" height="77" alt="Introducing Brikcoins and AES Plastic Offsetting">
             </div>
 
             <div class="tree-text">

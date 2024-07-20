@@ -268,7 +268,7 @@ margin-bottom: -60vh;
     margin: auto;
       position: relative;
       z-index: 11;
-      margin-top: 70px;
+
 
   }
 
@@ -282,7 +282,7 @@ margin-bottom: -60vh;
     .main-landing-graphic {
       width: 93%;
       height:39%;
-      margin-top: 9px;
+margin-top: 70px;
       margin-bottom: -5px;
       min-width: 250px;
     min-height: 145px;
@@ -296,7 +296,7 @@ margin-bottom: -60vh;
      /* min-width: 644px;
       min-height:272px;*/
       margin-bottom: -5px;
-      margin-top: 0px;
+      margin-top: 70px;
     }
   }
 
@@ -305,7 +305,7 @@ margin-bottom: -60vh;
       width: 66%;
       height:28%;
       margin-bottom: -5px;
-      margin-top: 0px;
+      margin-top: 70px;
       /*min-width: 644px;
       min-height:272px;*/
     }

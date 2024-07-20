@@ -26,7 +26,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <?php require_once ("../includes/signup-inc.php");?>
 
-<div class="clouds-new2" style=" margin-bottom:25px;background-color:var(--general-background);">
+    <div class="clouds-new2" style=" margin-bottom:25px;background-color:var(--general-background);">
 
         <div id="landing-content" style="width:100%;height:100vh;">
 
@@ -35,7 +35,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div><!--closes Landing content-->
     </div>
 
+<h1>Sign to GoBrik!</h1>
 
+            <div data-lang-id="001-testing">Testing one two three four</div>
 
 </div><!--closes main and starry background-->
 

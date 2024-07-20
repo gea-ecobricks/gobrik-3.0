@@ -14,6 +14,60 @@ echo '<!DOCTYPE html>
 ?>
 
 
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Database connection
+    $servername = "your_servername";
+    $username = "your_username";
+    $password = "your_password";
+    $dbname = "your_dbname";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Retrieve form data
+    $first_name = $_POST['first_name'];
+    $credential = $_POST['credential'];
+    $terms_of_service = isset($_POST['terms_of_service']) ? 1 : 0;
+    $earthen_newsletter_join = isset($_POST['earthen_newsletter_join']) ? 1 : 0;
+
+    // Set other required fields
+    $full_name = $first_name;
+    $created_at = date("Y-m-d H:i:s");
+    $last_login = date("Y-m-d H:i:s");
+    $account_status = 'registering';
+    $role = 'ecobricker';
+    $notes = "beta testing the first signup form";
+
+    // Insert user into users_tb
+    $sql_user = "INSERT INTO users_tb (first_name, full_name, created_at, last_login, account_status, role, terms_of_service, earthen_newsletter_join, notes)
+                 VALUES ('$first_name', '$full_name', '$created_at', '$last_login', '$account_status', '$role', '$terms_of_service', '$earthen_newsletter_join', '$notes')";
+
+    if ($conn->query($sql_user) === TRUE) {
+        $user_id = $conn->insert_id;
+
+        // Insert credential into credentials_tb
+        $sql_credential = "INSERT INTO credentials_tb (user_id, credentials_name, credential_type, times_used, times_failed, last_login)
+                           VALUES ('$user_id', '$credential', '$credential', 0, 0, '$last_login')";
+
+        if ($conn->query($sql_credential) === TRUE) {
+            echo "New record created successfully";
+        } else {
+            echo "Error: " . $sql_credential . "<br>" . $conn->error;
+        }
+    } else {
+        echo "Error: " . $sql_user . "<br>" . $conn->error;
+    }
+
+    $conn->close();
+}
+?>
+
+
+
 <title>Signup | GoBrik 3.0</title>
 
 <!--
@@ -38,6 +92,30 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <h1>Sign to GoBrik!</h1>
 
             <div data-lang-id="001-testing">Testing one two three four</div>
+
+              <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+        <label for="first_name">What is your name?</label><br>
+        <input type="text" id="first_name" name="first_name" required><br><br>
+
+        <label for="credential">What credential would you like to use to register with?</label><br>
+        <select id="credential" name="credential" required>
+            <option value="sms">SMS</option>
+            <option value="email">Email</option>
+            <option value="mail">Mail</option>
+        </select><br><br>
+
+        <label for="terms_of_service">
+            <input type="checkbox" id="terms_of_service" name="terms_of_service" required>
+            Do you agree to our terms of service?
+        </label><br><br>
+
+        <label for="earthen_newsletter_join">
+            <input type="checkbox" id="earthen_newsletter_join" name="earthen_newsletter_join" checked>
+            Receive our Earthen newsletter
+        </label><br><br>
+
+        <input type="submit" value="Sign Up">
+    </form>
 
 </div><!--closes main and starry background-->
 

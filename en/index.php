@@ -35,7 +35,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
   display: flex;
   flex-flow: column;">
 
-        <div class="main-landing-graphic" style="width:100%;">
+        <div class="main-landing-graphic">
             <img src="../webps/ecobrick-team-blanked.webp" style="width:100%;height:43%;" alt="Unite with ecobrickers around the world">
         </div>
         <div class="big-header" data-lang-id="000-lead-header">Together we can keep our plastic out of the biosphere.</div>

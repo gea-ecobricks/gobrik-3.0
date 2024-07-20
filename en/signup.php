@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Use prepared statements for inserting user data
     $stmt_user = $conn->prepare("INSERT INTO users_tb (first_name, full_name, created_at, last_login, account_status, role, terms_of_service, earthen_newsletter_join, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt_user->bind_param("ssssssiii", $first_name, $full_name, $created_at, $last_login, $account_status, $role, $terms_of_service, $earthen_newsletter_join, $notes);
+$stmt_user->bind_param("sssssssii", $first_name, $full_name, $created_at, $last_login, $account_status, $role, $notes, $terms_of_service, $earthen_newsletter_join);
 
     if ($stmt_user->execute()) {
         $user_id = $conn->insert_id;

@@ -76,6 +76,7 @@ window.onload = function() {
      var siteName = 'beta.gobrik.com';
      alert(currentLanguage);
      var currentLanguage = '<?php echo ($lang); ?>'; // Default language code
+          alert(currentLanguage);
      switchLanguage(currentLanguage);
  }
 

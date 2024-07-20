@@ -14,9 +14,6 @@
 <style>
 
 
-<style>
-
-
 
 @-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 @-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }

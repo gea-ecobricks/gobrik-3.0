@@ -37,7 +37,6 @@
 <link rel="apple-touch-icon" sizes="144x144" href="../icons/apple-icon-144x144.png">
 <link rel="apple-touch-icon" sizes="152x152" href="../icons/apple-icon-152x152.png">
 <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="192x192"  href="../icons/android-icon-192x192.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="96x96" href="../icons/favicon-96x96.png">
 <link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png">
@@ -73,17 +72,13 @@
 
 /*ROLL CALL*/
 
-// window.onload = function() {
-//     var siteName = 'gobrik.com';
-//     // setPageLanguageFromCache();
-//     // alert(currentLanguage);
-//     var currentLanguage = '<?php echo ($lang); ?>'; // Default language code
-//     switchLanguage(currentLanguage);
-//     // updateLogoColor();
-
-//     window.subSource = 'ecobricks-org'; // Make subSource globally accessible
-
-// }
+window.onload = function() {
+     var siteName = 'beta.gobrik.com';
+    setPageLanguageFromCache();
+     alert(currentLanguage);
+     var currentLanguage = '<?php echo ($lang); ?>'; // Default language code
+     switchLanguage(currentLanguage);
+ }
 
 window.onload = function() {
     var siteName = 'beta.gobrik.com';

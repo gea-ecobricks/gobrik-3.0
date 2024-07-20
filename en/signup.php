@@ -12,17 +12,30 @@ echo '<!DOCTYPE html>
 ';
 ?>
 
-    <script type="text/javascript">
-        function showSuccessMessage() {
-            alert("Yeay! First step done.");
-        }
-    </script>
-
+<script type="text/javascript">
+    function showSuccessMessage() {
+        alert("Yeay! First step done.");
+    }
+</script>
 
 <?php
 $success = false;
 include '../buwana_env.php';
 
+// Check if form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // Database connection
+    $servername = DB_SERVER; // Replace with your constants or directly with your credentials
+    $username = DB_USERNAME;
+    $password = DB_PASSWORD;
+    $dbname = DB_NAME;
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
 
     // Retrieve form data
     $first_name = $_POST['first_name'];
@@ -59,13 +72,10 @@ include '../buwana_env.php';
     }
 
     $conn->close();
-
+}
 ?>
 
-
-
 <title>Signup | GoBrik 3.0</title>
-
 
 <!--
 GoBrik.com site version 3.0
@@ -73,82 +83,76 @@ Developed and made open source by the Global Ecobrick Alliance
 See our git hub repository for the full code and to help out:
 https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
-
-
 <?php require_once ("../includes/signup-inc.php");?>
 
-  <?php if ($success): ?>
-        <script type="text/javascript">
-            showSuccessMessage();
-        </script>
-    <?php endif; ?>
+<?php if ($success): ?>
+    <script type="text/javascript">
+        showSuccessMessage();
+    </script>
+<?php endif; ?>
 
+<div class="splash-content-block"></div>
+<div id="splash-bar"></div>
 
-    <div class="splash-content-block"></div>
-    <div id="splash-bar"></div>
+<!-- PAGE CONTENT-->
 
-    <!-- PAGE CONTENT-->
-
-    <div id="form-submission-box">
-        <div class="form-container">
-            <div class="form-top-header" style="display:flex;flex-flow:row;">
-                <div class="step-graphic">
-                    <img src="../svgs/step1-log-project.svg" style="height:25px;" loading="eager">
-                </div>
-                <div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>
+<div id="form-submission-box">
+    <div class="form-container">
+        <div class="form-top-header" style="display:flex;flex-flow:row;">
+            <div class="step-graphic">
+                <img src="../svgs/step1-log-project.svg" style="height:25px;" loading="eager">
             </div>
+            <div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>
+        </div>
 
-            <div class="splash-form-content-block">
-                <div class="splash-box">
-                    <div class="splash-heading" data-lang-id="001-splash-title">Register</div>
-                </div>
-                <div class="splash-image" data-lang-id="003-splash-image-alt">
-                    <img src="../webps/eb-sky-400px.webp" style="width:65%; text-align:center;" alt="There are many ways to make an ecobrick">
-                </div>
+        <div class="splash-form-content-block">
+            <div class="splash-box">
+                <div class="splash-heading" data-lang-id="001-splash-title">Register</div>
             </div>
-
-            <div class="lead-page-paragraph">
-                <p data-lang-id="004-form-description">Take a moment to create your account..</p>
+            <div class="splash-image" data-lang-id="003-splash-image-alt">
+                <img src="../webps/eb-sky-400px.webp" style="width:65%; text-align:center;" alt="There are many ways to make an ecobrick">
             </div>
+        </div>
 
+        <div class="lead-page-paragraph">
+            <p data-lang-id="004-form-description">Take a moment to create your account..</p>
+        </div>
 
-            <!--LOG FORM-->
-  <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-        <label for="first_name">What is your name?</label><br>
-        <input type="text" id="first_name" name="first_name" required><br><br>
+        <!--LOG FORM-->
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <label for="first_name">What is your name?</label><br>
+            <input type="text" id="first_name" name="first_name" required><br><br>
 
-        <label for="credential">What credential would you like to use to register with?</label><br>
-        <select id="credential" name="credential" required>
-            <option value="sms">SMS</option>
-            <option value="email">Email</option>
-            <option value="mail">Mail</option>
-        </select><br><br>
+            <label for="credential">What credential would you like to use to register with?</label><br>
+            <select id="credential" name="credential" required>
+                <option value="sms">SMS</option>
+                <option value="email">Email</option>
+                <option value="mail">Mail</option>
+            </select><br><br>
 
-        <label for="terms_of_service">
-            <input type="checkbox" id="terms_of_service" name="terms_of_service" required>
-            Do you agree to our terms of service?
-        </label><br><br>
+            <label for="terms_of_service">
+                <input type="checkbox" id="terms_of_service" name="terms_of_service" required>
+                Do you agree to our terms of service?
+            </label><br><br>
 
-        <label for="earthen_newsletter_join">
-            <input type="checkbox" id="earthen_newsletter_join" name="earthen_newsletter_join" checked>
-            Receive our Earthen newsletter
-        </label><br><br>
+            <label for="earthen_newsletter_join">
+                <input type="checkbox" id="earthen_newsletter_join" name="earthen_newsletter_join" checked>
+                Receive our Earthen newsletter
+            </label><br><br>
 
-        <input type="submit" value="Sign Up">
-    </form>
-
-        </div><!--closes Landing content-->
-    </div>
+            <input type="submit" value="Sign Up">
+        </form>
+    </div><!--closes Landing content-->
+</div>
 
 </div><!--closes main and starry background-->
 
-	<!--FOOTER STARTS HERE-->
+<!--FOOTER STARTS HERE-->
 
-	<?php require_once ("../footer-2024.php");?>
+<?php require_once ("../footer-2024.php");?>
 
 </div><!--close page content-->
 
 </body>
 
 </html>
-

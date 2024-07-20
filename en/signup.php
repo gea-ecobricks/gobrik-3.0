@@ -22,20 +22,6 @@ echo '<!DOCTYPE html>
 $success = false;
 include '../buwana_env.php';
 
-// Check if form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    // Database connection
-    $servername = DB_SERVER; // Replace with your constants or directly with your credentials
-    $username = DB_USERNAME;
-    $password = DB_PASSWORD;
-    $dbname = DB_NAME;
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
 
     // Retrieve form data
     $first_name = $_POST['first_name'];

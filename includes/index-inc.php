@@ -263,16 +263,15 @@ border:none;
 .biosphere {
   position: relative;
 z-index: 0;
-padding-bottom: 300px;
 height: 20vh;
 width: auto;
 text-align: center;
-
+margin-bottom: -15vh;
   }
 
 
 
-@media screen and (max-width: 700px) {
+/* @media screen and (max-width: 700px) {
     .biosphere {
       margin: -40vh auto -9vh auto;
     }
@@ -284,13 +283,11 @@ text-align: center;
     }
   }
 
-
-
   @media screen and (min-width: 1301px) {
     .biosphere {
       margin: -27vh auto -19vh auto;
     }
-  }
+  } */
 
 
 

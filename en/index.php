@@ -1,6 +1,6 @@
 <?php
 include 'lang.php';
-$version = '0.282';
+$version = '0.283';
 $page = 'index';
 include '../ecobricks_env.php';
 
@@ -27,8 +27,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once ("../includes/index-inc.php");?>
 
 
-<div class="clouds-new2">
-    <div class="landing-content" style="height:100vh">
+<div class="clouds-new2" style=" margin-bottom:25px;">
+    <div class="landing-content" style="height:100vh;">
         <div class="biosphere"><img src="../webps/biosphere-blanked.webp" width="400" height="400" alt="biosphere"></div>
         <div class="main-landing-graphic" style="width:100%;height:43%;">
             <img src="../webps/ecobrick-team-blanked.webp" style="width:100%;height:43%;" alt="Unite with ecobrickers around the world">

@@ -67,6 +67,7 @@
 
 
 
+<script src="../scripts/language-switcher.js?v=<?php echo ($version); ;?>"></script>
 
 <script>
 /*ROLL CALL*/
@@ -74,12 +75,10 @@
 window.onload = function() {
      var siteName = 'beta.gobrik.com';
      var currentLanguage = '<?php echo ($lang); ?>'; // Default language code
-
      switchLanguage(currentLanguage);
  }
 </script>
 <script src="../scripts/core-2024.js?v=<?php echo ($version); ;?>"></script>
-<script src="../scripts/language-switcher.js?v=<?php echo ($version); ;?>"></script>
 
 
 <!--This enables the Light and Dark mode switching-->

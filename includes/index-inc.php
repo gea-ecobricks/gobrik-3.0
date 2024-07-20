@@ -281,7 +281,7 @@ margin-bottom: -50vh;
   @media screen and (max-width: 700px) {
     .main-landing-graphic {
       width: 93%;
-      height:39%;
+/*       height:39%; */
 margin-top: 70px;
       margin-bottom: -5px;
       min-width: 250px;
@@ -292,7 +292,7 @@ margin-top: 70px;
   @media screen and (min-width: 701px) and (max-width: 1300px){
     .main-landing-graphic {
       width: 75%;
-      height:31%;
+/*       height:31%; */
      /* min-width: 644px;
       min-height:272px;*/
       margin-bottom: -5px;
@@ -303,7 +303,7 @@ margin-top: 70px;
   @media screen and (min-width: 1301px) {
     .main-landing-graphic {
       width: 66%;
-      height:28%;
+/*       height:28%; */
       margin-bottom: -5px;
       margin-top: 70px;
       /*min-width: 644px;
@@ -324,6 +324,7 @@ margin-top: 70px;
  text-align: center !important;
  line-height: 1.2 !important;
  color: var(--h1);
+ z-index:10;
 
 }
 

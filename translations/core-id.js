@@ -216,6 +216,21 @@ const id_Translations = {
            "420-conclusion-contribute": "Situs Ecobricks.org dikodekan secara manual dalam HTML, PHP MYSQL, CSS dan Javascript sumber terbuka. Berkontribusi untuk membuat halaman ini lebih baik dengan meninggalkan laporan bug atau permintaan push di Github:",
            "421-conclusion-data": "Semua konten pendidikan di situs kami (foto, video, dan teks) tersedia untuk dibagikan oleh Aliansi Ecobrick di bawah <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Lisensi Internasional Creative Commons Atribusi-BerbagiSerupa 4.0</a>.<br>Harap atribusikan semua penggunaan ke \"The Global Ecobrick Alliance, ecobricks.org\" menggunakan lisensi yang sama.",
            "422-conclusion-copyright": "Logo dan emblem Ecobricks.org, GEA, Earthen, AES dan Gobrik dilindungi hak cipta 2010-2024 oleh Global Ecobrick Alliance.",
-    
+
+
+      "000-lead-header": "Bersama-sama kita bisa menjaga plastik kita keluar dari biosfer.",
+    "001-welcome-text": "GoBrik membantu mengelola ecobrick, proyek, dan transisi plastik Anda sehingga bersama-sama kita dapat membangun visi hijau kita.",
+    "002-sign-in": "Masuk",
+    "003-sign-up": "Daftar",
+    "004-account-options": "Gunakan akun GoBrik atau Buwana Anda untuk masuk. Tidak punya akun? Daftar gratis!",
+    "005-featured-live-brikchain": "<span class=\"blink\">⬤  </span>Umpan brikchain langsung dari ecobrick yang diautentikasi. Klik untuk melihat pratinjau.",
+    "006-featured-live-heading": "Ecobricking. Langsung.",
+    "007-featured-live-subheading": "Ecobrick sedang dibuat, dicatat, dan divalidasi di seluruh dunia saat ini.",
+    "008-featured-live-button": "⛓️ Brikchain",
+    "009-featured-live-links": "Umpan & arsip dari ecobrick yang diautentikasi",
+    "010-second-feature-img": "<img src=\"../webps/2023-tree-blank.webp\" style=\"width:100%;\" alt=\"Bangun visi hijau Anda dengan ecobrick\">",
+    "011-second-text": "Bersama-sama kita mengamankan plastik dari biosfer untuk membuat blok bangunan, menghasilkan brikcoin, dan bersama-sama menciptakan ruang hijau.<br><br><img src=\"../svgs/aes-brk.svg\" style=\"width:200px;\" width=\"200\" height=\"77\" alt=\"Memperkenalkan Brikcoin dan AES Plastic Offsetting\">",
+    "012-gobrik-sub-text": "GoBrik menyediakan ecobrickers dan komunitas mereka dengan alat untuk mengelola ecobricking mereka dan mengukur nilai ekologisnya."
+
    
 }

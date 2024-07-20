@@ -87,7 +87,7 @@ html {
     @media screen and (max-width: 700px) {
   .landing-content {
     background: none;
-/*   max-width: 90%; */
+  max-width: 90%;
   margin: auto;
         }
       }

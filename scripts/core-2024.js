@@ -51,7 +51,7 @@ document.addEventListener("scroll", function() {
 
 function scrollMoreThan40() {
     if (window.pageYOffset >= 40) {
-        document.getElementById("header").style.height = "70px";
+        document.getElementById("header").style.height = "50px";
         document.getElementById("header").style.borderBottom = "var(--header-accent) 0.5px solid";
         document.getElementById("header").style.boxShadow = "0px 0px 15px rgba(0, 0, 10, 0.805)";
         // document.getElementById("main").style.marginTop = "0px";

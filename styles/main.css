@@ -328,7 +328,7 @@
 
 @media screen and (max-width: 700px) {
   #settings-buttons {
-  right: 0px;
+  right: -230px;
 }
 }
 

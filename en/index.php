@@ -1,6 +1,6 @@
 <?php
 include 'lang.php';
-$version = '0.3';
+$version = '0.31';
 $page = 'index';
 include '../ecobricks_env.php';
 
@@ -22,6 +22,7 @@ GoBrik.com site version 3.0
 Developed and made open source by the Global Ecobrick Alliance
 See our git hub repository for the full code and to help out:
 https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
+
 
 
 <?php require_once ("../includes/index-inc.php");?>
@@ -125,6 +126,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <div class="tree-text" data-lang-id="012-gobrik-sub-text">
                 GoBrik provides ecobrickers and their communities with the tools to manage their ecobricking and to quantify its ecological value.
             </div>
+
+        <br><br>
 
 
         </div><!--closes Landing content-->

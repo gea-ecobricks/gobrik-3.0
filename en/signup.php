@@ -13,8 +13,17 @@ echo '<!DOCTYPE html>
 ';
 ?>
 
-
+    <script type="text/javascript">
+        function showSuccessMessage() {
+            alert("Yeay! First step done.");
+        }
+    </script>
 <?php
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
@@ -71,6 +80,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <?php require_once ("../includes/signup-inc.php");?>
 
+  <?php if ($success): ?>
+        <script type="text/javascript">
+            showSuccessMessage();
+        </script>
+    <?php endif; ?>
+
 
     <div class="splash-content-block"></div>
     <div id="splash-bar"></div>
@@ -88,7 +103,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
             <div class="splash-form-content-block">
                 <div class="splash-box">
-                    <div class="splash-heading" data-lang-id="001-splash-title">Log an Ecobrick</div>
+                    <div class="splash-heading" data-lang-id="001-splash-title">Register</div>
                 </div>
                 <div class="splash-image" data-lang-id="003-splash-image-alt">
                     <img src="../webps/eb-sky-400px.webp" style="width:65%; text-align:center;" alt="There are many ways to make an ecobrick">
@@ -96,13 +111,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             </div>
 
             <div class="lead-page-paragraph">
-                <p data-lang-id="004-form-description">Share your ecobrick with the world. Use this form to log your ecobrick into our database.</p>
+                <p data-lang-id="004-form-description">Take a moment to create your account..</p>
             </div>
 
 
             <!--LOG FORM-->
-
-              <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+  <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
         <label for="first_name">What is your name?</label><br>
         <input type="text" id="first_name" name="first_name" required><br><br>
 

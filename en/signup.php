@@ -59,7 +59,7 @@ include '../buwana_env.php';
     }
 
     $conn->close();
-}
+
 ?>
 
 

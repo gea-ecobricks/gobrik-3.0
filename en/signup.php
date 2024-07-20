@@ -19,13 +19,21 @@ echo '<!DOCTYPE html>
         }
     </script>
 <?php
-
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
+<?php
+$success = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Database connection
+    $servername = "your_servername";
+    $username = "your_username";
+    $password = "your_password";
+    $dbname = "your_dbname";
 
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
 
     // Retrieve form data
     $first_name = $_POST['first_name'];
@@ -53,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                            VALUES ('$user_id', '$credential', '$credential', 0, 0, '$last_login')";
 
         if ($conn->query($sql_credential) === TRUE) {
-            echo "New record created successfully";
+            $success = true;
         } else {
             echo "Error: " . $sql_credential . "<br>" . $conn->error;
         }

@@ -27,43 +27,30 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once ("../includes/index-inc.php");?>
 
 
-
+<div class="clouds-new2">
     <div class="landing-content" style="height:100vh">
-
-
-        <div class="clouds-new2" style=" padding-top:10vh; margin-bottom: -30px;
-        padding-bottom: 10px;margin-top:-10px">
-
-             <div class="biosphere"><img src="../webps/biosphere-blanked.webp" width="400" height="400" alt="biosphere"></div>
-
-            <div class="main-landing-graphic" style="width:100%;height:43%;"><img src="../webps/ecobrick-team-blanked.webp" style="width:100%;height:43%;" alt="Unite with ecobrickers around the world"></div>
-
-                 </div>
-
-
-
-                <div class="big-header">Together we can keep our plastic out of the biosphere.</div>
-
-                <div class="welcome-text">
-                GoBrik helps manage your ecobricks, projects and plastic transition so that together we can build our greenest visions.
-                </div>
-
-                <div class="sign-buttons" style="display:flex;flex-flow:row;justify-content: center;">
-
-                    <div>
-                        <button type="button" aria-label="sign in" class="sign-innn" onclick="location.href='go.php#home'" title="Click here to sign in" style="cursor:pointer;">
-                        <i style="background: url(../svgs/bottle-icon.svg) no-repeat; width:20px; height:26px;display: inline-block;background-size:contain;margin-bottom:-5px;margin-right:4px;"></i>Sign in</button>
-                    </div>
+        <div class="biosphere"><img src="../webps/biosphere-blanked.webp" width="400" height="400" alt="biosphere"></div>
+            <div class="main-landing-graphic" style="width:100%;height:43%;">
+                <img src="../webps/ecobrick-team-blanked.webp" style="width:100%;height:43%;" alt="Unite with ecobrickers around the world">
+            </div>
+        </div>
+        <div class="big-header" data-lang-id="000-lead-header">Together we can keep our plastic out of the biosphere.</div>
+        <div class="welcome-text" data-lang-id="001-welcome-text">GoBrik helps manage your ecobricks, projects and plastic transition so that together we can build our greenest visions.</div>
+        <div class="sign-buttons" style="display:flex;flex-flow:row;justify-content: center;">
+            <div>
+                <button type="button" aria-label="sign in" class="sign-innn" onclick="location.href='login.php'" title="Click here to sign in" style="cursor:pointer;">
+                <i style="background: url(../svgs/bottle-icon.svg) no-repeat; width:20px; height:26px;display: inline-block;background-size:contain;margin-bottom:-5px;margin-right:4px;"></i><span data-lang-id="002-sign-in">Sign in</span></button>
+            </div>
 
                     <div>
                         <button type="button" aria-label="Sign up" onclick="location.href='go.php'" class="sign-uppp" style="cursor:pointer;">
-                        <i style="background: url(../svgs/strike-icon.svg) no-repeat; width:20px; height:26px;display: inline-block;background-size:contain;margin-bottom: -5px;margin-left:4px;"></i>Sign up</button>
+                        <i style="background: url(../svgs/strike-icon.svg) no-repeat; width:20px; height:26px;display: inline-block;background-size:contain;margin-bottom: -5px;margin-left:4px;"></i><span data-lang-id="003-sign-up">Sign up</span></button>
                     </div>
 
                 </div>
 
-                <div class="tree-text" style="padding-bottom:15px;">
-                Use your GoBrik account to sign in.
+                <div class="tree-text" style="padding-bottom:15px;" data-lang-id="004-account-options">
+                Use your GoBrik or Buwana account to sign in.
                 No account? Sign up for free!
                 </div>
 

@@ -447,10 +447,6 @@
 
 /*
 
-          .tree-coins {
-            background: url(../svgs/earth-home-animated-night2.svg) no-repeat center;
-            background-size: contain;
-          }
 
   .bio-top {
     background: url(../svgs/biosphere-top-night.svg) no-repeat center top;
@@ -566,4 +562,10 @@ background-size: contain;
         .main-landing-graphic {
           background: url(../svgs/richard-and-team-night.svg?v=3) no-repeat center center;
           background-size: contain;
+          }
+
+
+          .tree-coins {
+            background: url(../svgs/earth-home-animated-night2.svg) no-repeat center;
+            background-size: contain;
           }

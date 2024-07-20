@@ -374,12 +374,6 @@
           }
 
 
-  .tree-coins {
-    background: url(../svgs/earth-home-animated-v6.svg) no-repeat center;
-    background-size: contain;
-  }
-
-
   .bio-top {
     background: url(../svgs/biosphere-top-day.svg) no-repeat center top;
     background-size: cover;
@@ -478,3 +472,10 @@ light.css
         background-size: contain;
 
       }
+
+
+  .tree-coins {
+    background: url(../svgs/earth-home-animated-v6.svg) no-repeat center;
+    background-size: contain;
+  }
+

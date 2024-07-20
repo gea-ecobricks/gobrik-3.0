@@ -1,9 +1,10 @@
 <?php
-$lang='en';
+
 include 'lang.php';
-$version = '0.322';
+$version = '0.33';
 $page = 'index';
 include '../ecobricks_env.php';
+$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 echo '<!DOCTYPE html>
 <html lang="' . $lang . '">

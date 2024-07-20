@@ -69,20 +69,14 @@
 
 
 <script>
-
 /*ROLL CALL*/
 
 window.onload = function() {
      var siteName = 'beta.gobrik.com';
-     alert(currentLanguage);
      var currentLanguage = '<?php echo ($lang); ?>'; // Default language code
-          alert(currentLanguage);
+
      switchLanguage(currentLanguage);
  }
-
-
-
-
 </script>
 <script src="../scripts/core-2024.js?v=<?php echo ($version); ;?>"></script>
 <script src="../scripts/language-switcher.js?v=<?php echo ($version); ;?>"></script>

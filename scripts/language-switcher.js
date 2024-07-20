@@ -11,8 +11,9 @@ LANGUAGE SELECTOR
 
 
 function switchLanguage(langCode) {
+   alert(currentLanguage);
     currentLanguage = langCode; // Update the global language variable
-
+   alert(langCode);
 
     // Dynamic selection of the correct translations object
     const languageMappings = {
@@ -41,6 +42,8 @@ function switchLanguage(langCode) {
             }
         }
     });
+
+       alert("done");
 }
 
 

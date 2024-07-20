@@ -12,9 +12,19 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 
 
 const en_Page_Translations = {
+    "000-lead-header": "Together we can keep our plastic out of the biosphere.",
+    "001-welcome-text": "GoBrik helps manage your ecobricks, projects and plastic transition so that together we can build our greenest visions.",
+    "002-sign-in": "Sign in",
+    "003-sign-up": "Sign up",
+    "004-account-options": "Use your GoBrik or Buwana account to sign in. No account? Sign up for free!",
+    "005-featured-live-brikchain": "<span class=\"blink\">⬤  </span>Live brikchain feed of authenticated ecobricks. Click to preview.",
+    "006-featured-live-heading": "Ecobricking. Live.",
+    "007-featured-live-subheading": "Ecobricks are being made, logged and validated around the world right this moment.",
+    "008-featured-live-button": "⛓️ The Brikchain",
+    "009-featured-live-links": "A feed & archive of authenticated ecobricks",
+    "010-second-feature-img": "<img src=\"../webps/2023-tree-blank.webp\" style=\"width:100%;\" alt=\"Build your greenest visions with ecobricks\">",
+    "011-second-text": "Together we're securing plastic out of the biosphere to make building blocks, generate brikcoins and co-create green spaces.<br><br><img src=\"../svgs/aes-brk.svg\" style=\"width:200px;\" width=\"200\" height=\"77\" alt=\"Introducing Brikcoins and AES Plastic Offsetting\">",
+    "012-gobrik-sub-text": "GoBrik provides ecobrickers and their communities with the tools to manage their ecobricking and to quantify its ecological value."
+};
 
-
-   '000-testing': 'Testing one two and three'
-
-}
 

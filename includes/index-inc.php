@@ -130,7 +130,7 @@ background: var(--top-header);
 }
 }
 
-
+/*
 
 #header-knack {
   transition: 0.4s;
@@ -139,7 +139,7 @@ background: var(--top-header);
   z-index: 25;
 position: absolute;
 background: var(--top-header);
-/*box-shadow: 0px 0px 12px var(--shadow);	*/
+ *//*box-shadow: 0px 0px 12px var(--shadow);	*//*
   width: 100%;
   border-bottom: gray 0.5px solid;
 
@@ -155,7 +155,7 @@ background: var(--top-header);
 
   height: 70px;
 }
-}
+} */
 
 
 .gobrik-logo {
@@ -245,261 +245,8 @@ cursor:pointer;
 /* LANDING SPECIFIC */
 
 
-/* RECENT
 
-#gallery-overlay-button {
-position: absolute;
-width: 100%;
-left: 0;
-right: 0;
-z-index: 5;
-cursor: pointer;
-height: 100vh;
-border:none;
-/*background: url(../svgs/down-arrow2.svg?v=4) no-repeat center bottom;
-background-size: 160px;
-background-position: bottom center;
-background-repeat: no-repeat;
-opacity:0.3;
-transition: 0.5s;
-}*/
-
-
-   /*
-        -webkit-animation-delay: 3.0s !important;
-        opacity:0;
-        -webkit-animation:fadeIn ease-in 0.25s;
-        -webkit-animation-duration:0.25s;
-        -webkit-animation-fill-mode:forwards;
-
-        animation-delay: 1.0s;
-        animation: fadeIn ease-in 0.25s;
-        animation-duration: 0.25s;
-        animation-fill-mode: forwards;*/
-
-    /*    -webkit-animation: regularecobricks 1.1s forwards;
--webkit-animation-delay: 2s;*/
-
-#regularecobricks {
-    box-shadow: 0px 0px 15px rgba(0, 0, 10, 0.8);
-
-    left: 0;
-    right: 0;
-    position: absolute;
-    z-index: 3;
-    /*flex-flow: column;*/
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: end;
-    text-align: center;
-  width: 100%;
-  max-width: 100%;
-  background-color: var(--gallery);
-  overflow-x: clip;
-  overflow-y: scroll;
-  transition: 0.5s;
-  opacity: 0.81;
-  height: 100vh;
-    top: -70vh;
-    display: flex;
-
-
-}
-
-
-
-
-#gal-button {
-  right:0;
-  z-index:21;
-  border:none;
-  width:100%;
-  height:100%;
-  position:absolute;
-  transition: 0.5s ease;
-}
-
-#regularecobricks:hover {
-z-index:20;
-opacity:1;
-top: -67vh;
-}
-
-
-
-#regularecobricks:hover #gal-button {
-transition: 0.5s ease;
-}
-
-.down-arrow:hover {
-  background: url(../svgs/down-arrow-over.svg) no-repeat center bottom;
-  background-position-y: bottom;
-  background-color: var(--gallery);
-
-background-size: 88px;
-}
-
-
-
-
-.down-arrow {
-  background: url(../svgs/down-arrow4.svg?v=2) no-repeat center bottom;
-  background-position-y: bottom;
-background-size: 88px;
-background-position-y: bottom 10px;
-position: absolute;
-bottom: 0;
-width: 150px;
-height: 70px;
-margin: auto;
-left: 0;
-text-align: center;
-align-content: center;
-right: 0;
-cursor: pointer;
-border: none;
-background-color: var(--gallery);
-margin-bottom: 30px;
-border-radius: 10px;
-}
-
-.up-arrow {
-    width:100%;
-    height:18px;
-    background: url(../svgs/up-arrow-white.svg?v=3) no-repeat center bottom;
-    background-size: contain;
-    transition: 0.5s;
-    opacity:1;
-    display: none;
-    cursor: pointer;
-}
-
-.up-arrow:hover {
-
-opacity:0.6;
-
-}
-
-
-.gallery-header {
-  background-color: var(--gallery);
-  height:fit-content;
-  width:100%;
-  display:flex;
-  justify-content:center;
-}
-
-.gallery-live-text {
-  font-size:0.75em;
-  font-family:'Mulish';
-  font-weight:300;
-  color:white;
-  height:fit-content;
-  margin: auto;
-  padding: 10px;
-}
-
-.blink {
-        animation: blinker 1.5s linear infinite;
-        color: #00AA44;
-
-    }
-    @keyframes blinker {
-        50% {
-            opacity: 0;
-
-        }
-    }
-
-
-.gallery-background {
-  text-align: center;
-  width: 100%;
-  max-width: 100%;
-  background-color: var(--gallery);
-  position: relative;
-  z-index: 0;
-
-}
-
-
-.gallery-content-block {
-  text-align: center;
-  /*min-height: 67vh;*/
-  z-index: 5;
-  background-color: var(--gallery);
-  display: flex;
-   flex-wrap: wrap;
-   box-sizing: border-box;
-  flex-direction: row;
-  width: 115%;
-    margin-right: -10%;
-    margin-left: -1%;
-    margin-top: 65px;
-    margin-bottom: 0px;
-
-}
-
-
-
-.flex-container {
-display: flex;
-flex-wrap: wrap-reverse;
-}
-
-@media screen and (max-width: 700px) {
-
-.flex-container > .gal-photo {
-  /*background-color: #DFDFDF;*/
-  margin: 0px;
-  padding: 2px;
-  height: 95px;
-  overflow: hidden;
-/*width: 60px;*/
-}
-
-.gal-photo img {
-  height: 95px;
-  display: block;
-  margin: auto;
-
-}
-}
-
-
-@media screen and (min-width: 700px) and (max-width: 1200px) {
-
-.flex-container > .gal-photo {
-  margin: 2px;
-  padding: 2px;
-  max-height: 130px;
-  overflow: hidden;
-  text-align: center;
-}
-
-.gal-photo img {
-  max-height: 130px;
-  height: 130px;
-}
-}
-
-@media screen and (min-width: 1201px)  {
-
-.flex-container > .gal-photo {
-  margin: 2px;
-  padding: 2px;
-  max-height: 160px;
-  overflow: hidden;
-  text-align: center;
-}
-
-.gal-photo img {
-  max-height: 160px;
-  height: 160px;
-}
-}
-
-
+/* First view Landing content layout */
 .bio-top {
 width:100%;
 height: fit-content;
@@ -987,6 +734,10 @@ p a:hover {
   color: var(--h1) !important;
 }
 
+
+
+
+
 /*Right Close Button*/
 
 #right-close-button {
@@ -1017,6 +768,276 @@ p a:hover {
     background-size: contain;
 
 }
+
+
+
+/* FEATURED ECOBRICKS GALLERY FORMATING */
+/*
+.brik-co2 {
+  font-size: 0.7em;
+  color: white;
+  font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
+  margin-top: -60px;
+  text-align: left;
+  padding: 0px 0px 10px 20px;
+  background-color: black !important;
+} */
+
+.gallery-flex-container {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+margin: 0px -15px 30px -15px}
+
+
+@media screen and (min-width: 700px) {
+
+.gallery-flex-container > .gal-photo {
+
+  padding: 5px;
+  max-height: 100px;
+  max-width:100px;
+  /* width:100px; */
+  overflow: hidden;
+}
+
+.gallery-flex-container > .gal-project-photo {
+
+padding: 5px;
+max-height: 160px;
+max-width:160px;
+/* width:160px; */
+overflow: hidden;
+}
+/*
+.gallery-flex-container::before {
+  content: '';
+  flex: auto;
+}
+
+.gal-photo:nth-child(2n + 1):last-child {
+  margin-left: auto;
+} */
+
+
+
+.gal-photo img {
+  /* width:100px; */
+  height: 100px;
+  background: grey;
+  font-family: 'Mulish';
+  font-size: 0.8em;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+
+.gal-project-photo img {
+  /* width:160px; */
+  height: 160px;
+  background: grey;
+  font-family: 'Mulish';
+  font-size: 0.8em;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+
+
+.photo-box-end {
+
+  height: 100px;
+  width: 100px;
+  margin: 5px;
+  overflow: hidden;
+  animation: blinker 1.5s cubic-bezier(0,.43,1,.64) infinite;
+  background: url(../icons/gobrik-icon-darker.svg) no-repeat center;
+  background-size: contain;
+  background-color: var(--emblem-green);
+}
+
+
+
+.project-photo-box-end {
+
+height: 160px;
+width: 160px;
+margin: 5px;
+overflow: hidden;
+animation: blinker 1.5s cubic-bezier(0,.43,1,.64) infinite;
+background: url(../icons/gobrik-icon-darker.svg) no-repeat center;
+background-size: contain;
+background-color: var(--emblem-green);
+}
+}
+
+@media screen and (max-width: 700px) {
+
+.gallery-flex-container > .gal-photo {
+  max-height: 60px;
+  max-width:60px;
+  width:60px;
+  overflow: hidden;
+}
+
+.gallery-flex-container > .gal-project-photo {
+  max-height: 100px;
+  max-width:100px;
+  /* width:100px; */
+  overflow: hidden;
+}
+
+
+.gal-photo img {
+  margin: 4px;
+  width:60px;
+  height: 60px;
+  background: grey;
+  font-family: 'Mulish';
+  font-size: 0.6em;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+.gal-project-photo img {
+  margin: 4px;
+  /* width:100px; */
+  height: 100px;
+  background: grey;
+  font-family: 'Mulish';
+  font-size: 0.6em;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+.photo-box-end {
+
+  height: 60px;
+  width: 60px;
+  margin: 3px;
+
+  animation: blinker 1.5s cubic-bezier(0,.43,1,.64) infinite;
+  background: url(../icons/gobrik-icon-darker.svg) no-repeat center;
+  background-size: contain;
+  background-color: var(--emblem-green);
+}
+
+.photo-project-box-end {
+
+height: 100px;
+width: 100px;
+margin: 3px;
+
+animation: blinker 1.5s cubic-bezier(0,.43,1,.64) infinite;
+background: url(../icons/gobrik-icon-darker.svg) no-repeat center;
+background-size: contain;
+background-color: var(--emblem-green);
+}
+}
+
+
+.feed-live {
+  text-align:center;
+  background: var(--darker);
+  border-radius: 15px 15px 0px 0px ;
+  font-size: 0.9em;
+  margin:15px auto -10px auto;
+}
+
+
+
+  @media screen and (min-width: 700px) {
+
+.feed-live {
+width: 80%;
+padding: 10px;
+
+
+/* background-color: #DFDFDF; */
+}
+
+.feed-live p {
+font-size: 0.9em;
+font-family: courier new,monospace !important;
+color: var(--subdued-text);
+line-height: 1.1;
+font-weight: 300;
+
+}
+  }
+
+
+  @media screen and (max-width: 700px) {
+.feed-live {
+width: 80%;
+padding: 10px;
+}
+
+.feed-live p {
+font-family: courier new,monospace !important;
+line-height: 1.1em;
+font-weight: 300;
+font-size: 0.8em;
+
+}
+  }
+
+
+
+
+
+
+@media screen and (max-width: 700px) {
+.gallery-content-block {
+  text-align: center;
+  min-height: 67vh;
+  z-index: 5;
+  position: relative;
+      background-color: #DFDFDF;
+  display: flex;
+   flex-wrap: wrap;
+   box-sizing: border-box;
+  flex-direction: row;
+  width: 120%;
+    margin-right: -5%;
+    margin-left: -5%;
+  margin-top: 33px;
+      padding-top: 12px;
+  overflow: hidden;
+  /*box-shadow: 0 8px 7px rgba(85, 84, 84, 0.4);
+  margin-bottom: 40px;
+  padding-bottom: 15px;*/
+}
+
+}
+
+
+@media screen and (min-width: 700px) {
+.gallery-content-block {
+  text-align: center;
+  min-height: 67vh;
+  z-index: 5;
+  position: relative;
+      background-color: #dfdfdf;
+  display: flex;
+   flex-wrap: wrap;
+   box-sizing: border-box;
+  flex-direction: row;
+  width: 120%;
+    margin-right: -5%;
+    margin-left: -5%;
+  margin-top: 0px;
+  overflow: hidden;
+
+      padding-top: 10px;
+
+  /*box-shadow: 0 8px 7px rgba(85, 84, 84, 0.4);
+  margin-bottom: 40px;
+  padding-bottom: 15px;*/
+
+}
+}
+
 
 
 

@@ -53,28 +53,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $notes = "beta testing the first signup form";
 
     // Use prepared statements for inserting user data
-    $stmt_user = $conn->prepare("INSERT INTO users_tb (first_name, full_name, created_at, last_login, account_status, role, terms_of_service, earthen_newsletter_join, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-$stmt_user->bind_param("sssssssii", $first_name, $full_name, $created_at, $last_login, $account_status, $role, $notes, $terms_of_service, $earthen_newsletter_join);
+    $sql_user = "INSERT INTO users_tb (first_name, full_name, created_at, last_login, account_status, role, notes, terms_of_service, earthen_newsletter_join) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt_user = $conn->prepare($sql_user);
 
-    if ($stmt_user->execute()) {
-        $user_id = $conn->insert_id;
+    if ($stmt_user) {
+        $stmt_user->bind_param("sssssssii", $first_name, $full_name, $created_at, $last_login, $account_status, $role, $notes, $terms_of_service, $earthen_newsletter_join);
 
-        // Use prepared statements for inserting credential data
-        $stmt_credential = $conn->prepare("INSERT INTO credentials_tb (user_id, credentials_name, credential_type, times_used, times_failed, last_login) VALUES (?, ?, ?, 0, 0, ?)");
-        $stmt_credential->bind_param("isss", $user_id, $credential, $credential, $last_login);
+        if ($stmt_user->execute()) {
+            $user_id = $conn->insert_id;
 
-        if ($stmt_credential->execute()) {
-            $success = true;
+            // Use prepared statements for inserting credential data
+            $sql_credential = "INSERT INTO credentials_tb (user_id, credentials_name, credential_type, times_used, times_failed, last_login) VALUES (?, ?, ?, 0, 0, ?)";
+            $stmt_credential = $conn->prepare($sql_credential);
+
+            if ($stmt_credential) {
+                $stmt_credential->bind_param("isss", $user_id, $credential, $credential, $last_login);
+
+                if ($stmt_credential->execute()) {
+                    $success = true;
+                } else {
+                    echo "Error: " . $stmt_credential->error;
+                }
+                $stmt_credential->close();
+            } else {
+                echo "Error preparing statement for credentials_tb: " . $conn->error;
+            }
         } else {
-            echo "Error: " . $stmt_credential->error;
+            echo "Error: " . $stmt_user->error;
         }
+        $stmt_user->close();
     } else {
-        echo "Error: " . $stmt_user->error;
+        echo "Error preparing statement for users_tb: " . $conn->error;
     }
 
-    // Close connections
-    $stmt_user->close();
-    $stmt_credential->close();
     $conn->close();
 }
 ?>

@@ -245,7 +245,7 @@
 
 #main {
   /* background-image:linear-gradient(var(--main-background),var(--main-background),black); */
-  background: url(../svgs/starry-night.svg) repeat-x bottom;
+  background: url(../svgs/starry-night-2.svg) repeat-x bottom;
   background-size: contain;
 
   }
@@ -541,10 +541,8 @@ background-size: contain;
 
 .clouds-new2  {
 
-  background: url(../svgs/starry-night-down.svg) no-repeat center top;
+  background: url(../svgs/starry-night-down-2.svg)  repeat-x center top;
   background-size: contain;
-
-
         }
       }
 

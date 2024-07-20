@@ -492,7 +492,7 @@
   background-size: contain;
 } */
 
-/*
+
 .loader {
   background: url('svgs/bottle-loader-night.svg') center no-repeat !important;
   box-sizing: border-box;
@@ -508,9 +508,8 @@ background-size: 38px;
   .virtue img {
     filter: invert(100%);
   }
-*/
 
-/*
+
 .my-ecobricks {
 
 background: url(../webps/my-ecobricks-night.webp) no-repeat;
@@ -533,7 +532,7 @@ background-size: contain;
   background: url(../webps/biosphere2.webp) no-repeat center bottom;
   background-size: contain;
 
-} */
+}
 
 
 /*NEW 3.0 LANDING */
@@ -569,13 +568,13 @@ background-size: contain;
 
 }
 
-        .main-landing-graphic {
-          background: url(../svgs/richard-and-team-night.svg?v=3) no-repeat center center;
-          background-size: contain;
-          }
+.main-landing-graphic {
+  background: url(../svgs/richard-and-team-night.svg?v=3) no-repeat center center;
+  background-size: contain;
+  }
 
 
-          .tree-coins {
-            background: url(../svgs/earth-home-animated-night2.svg) no-repeat center;
-            background-size: contain;
-          }
+  .tree-coins {
+    background: url(../svgs/earth-home-animated-night2.svg) no-repeat center;
+    background-size: contain;
+  }

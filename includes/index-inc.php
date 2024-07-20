@@ -130,32 +130,6 @@ background: var(--top-header);
 }
 }
 
-/*
-
-#header-knack {
-  transition: 0.4s;
-  display: flex;
-  justify-content: center;
-  z-index: 25;
-position: absolute;
-background: var(--top-header);
- *//*box-shadow: 0px 0px 12px var(--shadow);	*//*
-  width: 100%;
-  border-bottom: gray 0.5px solid;
-
-}
-  @media screen and (min-width: 701px) {
-#header-knack {
-  height: 70px;
-}
-}
-
-@media screen and (max-width: 700px) {
-#header-knack {
-
-  height: 70px;
-}
-} */
 
 
 .gobrik-logo {
@@ -172,8 +146,6 @@ border: none;
 cursor:pointer;
 }
 
-
-/*needed!*/
 
 .main-menu-button {
   position:absolute;
@@ -194,7 +166,7 @@ cursor:pointer;
   cursor:pointer;
   height:30px;
   width:30px;
-}*/
+}
 
 
 
@@ -247,16 +219,16 @@ cursor:pointer;
 
 
 /* First view Landing content layout */
-.bio-top {
-width:100%;
-height: fit-content;
-margin-bottom: -160px;
-margin-top:-5px;
-z-index: 10;
-position: relative;
-background-color: var(--gallery);
-border:none;
-}
+/* .bio-top { */
+/* width:100%; */
+/* height: fit-content; */
+/* margin-bottom: -160px; */
+/* margin-top:-5px; */
+/* z-index: 10; */
+/* position: relative; */
+/* background-color: var(--gallery); */
+/* border:none; */
+/* } */
 
 
 
@@ -264,9 +236,10 @@ border:none;
   position: relative;
 z-index: 0;
 height: 20vh;
-width: auto;
+width: 100%;
 text-align: center;
-margin-bottom: -15vh;
+margin: auto;
+margin-bottom: -20vh;
   }
 
 
@@ -295,6 +268,7 @@ margin-bottom: -15vh;
     margin: auto;
       position: relative;
       z-index: 11;
+      margin-top: 100px;
 
   }
 

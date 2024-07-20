@@ -9,42 +9,42 @@ LANGUAGE SELECTOR
 
 
 
-
-function switchLanguage(langCode) {
-   alert(currentLanguage);
-    currentLanguage = langCode; // Update the global language variable
-   alert(langCode);
-
-    // Dynamic selection of the correct translations object
-    const languageMappings = {
-        'en': {...en_Translations, ...en_Page_Translations},
-        'fr': {...fr_Translations, ...fr_Page_Translations},
-        'es': {...es_Translations, ...es_Page_Translations},
-        'id': {...id_Translations, ...id_Page_Translations}
-    };
-
-    const currentTranslations = languageMappings[currentLanguage];
-
-
-    const elements = document.querySelectorAll('[data-lang-id]');
-    elements.forEach(element => {
-        const langId = element.getAttribute('data-lang-id');
-        const translation = currentTranslations[langId]; // Access the correct translations
-        if (translation) {
-            if (element.tagName.toLowerCase() === 'input' && element.type !== 'submit') {
-                element.placeholder = translation;
-            } else if (element.hasAttribute('aria-label')) {
-                element.setAttribute('aria-label', translation);
-            } else if (element.tagName.toLowerCase() === 'img') {
-                element.alt = translation;
-            } else {
-                element.innerHTML = translation; // Directly set innerHTML for other elements
-            }
-        }
-    });
-
-       alert("done");
-}
+//
+//function switchLanguage(langCode) {
+//   alert(currentLanguage);
+//    currentLanguage = langCode; // Update the global language variable
+//   alert(langCode);
+//
+//    // Dynamic selection of the correct translations object
+//    const languageMappings = {
+//        'en': {...en_Translations, ...en_Page_Translations},
+//        'fr': {...fr_Translations, ...fr_Page_Translations},
+//        'es': {...es_Translations, ...es_Page_Translations},
+//        'id': {...id_Translations, ...id_Page_Translations}
+//    };
+//
+//    const currentTranslations = languageMappings[currentLanguage];
+//
+//
+//    const elements = document.querySelectorAll('[data-lang-id]');
+//    elements.forEach(element => {
+//        const langId = element.getAttribute('data-lang-id');
+//        const translation = currentTranslations[langId]; // Access the correct translations
+//        if (translation) {
+//            if (element.tagName.toLowerCase() === 'input' && element.type !== 'submit') {
+//                element.placeholder = translation;
+//            } else if (element.hasAttribute('aria-label')) {
+//                element.setAttribute('aria-label', translation);
+//            } else if (element.tagName.toLowerCase() === 'img') {
+//                element.alt = translation;
+//            } else {
+//                element.innerHTML = translation; // Directly set innerHTML for other elements
+//            }
+//        }
+//    });
+//
+//       alert("done");
+//}
 
 
 

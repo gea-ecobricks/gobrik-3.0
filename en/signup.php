@@ -3,7 +3,7 @@
 include 'lang.php';
 $version = '0.342';
 $page = 'signup';
-include '../ecobricks_env.php';
+include '../buwana_env.php';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 echo '<!DOCTYPE html>
@@ -16,17 +16,7 @@ echo '<!DOCTYPE html>
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Database connection
-    $servername = "your_servername";
-    $username = "your_username";
-    $password = "your_password";
-    $dbname = "your_dbname";
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
 
     // Retrieve form data
     $first_name = $_POST['first_name'];

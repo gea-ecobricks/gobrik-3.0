@@ -20,8 +20,22 @@ echo '<!DOCTYPE html>
 
 <?php
 $success = false;
-include '../buwana_env.php';
 
+
+$conn->set_charset("utf8mb4");
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+   $servername = "localhost";
+$username = "ecobricks_gobrik_app";
+$password = "1EarthenAuth!";
+$dbname = "ecobricks_earthenAuth_db";
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 
     // Retrieve form data
     $first_name = $_POST['first_name'];

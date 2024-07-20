@@ -82,7 +82,7 @@ window.onload = function() {
 function switchLanguage(langCode) {
  alert(langCode);
  currentLanguage = langCode; // Update the global language variable
-
+alert(currentLanguage);
 
     // Dynamic selection of the correct translations object
     const languageMappings = {

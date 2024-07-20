@@ -1,7 +1,7 @@
 <?php
 
 include 'lang.php';
-$version = '0.342';
+$version = '0.343';
 $page = 'signup';
 include '../buwana_env.php';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
@@ -12,68 +12,6 @@ echo '<!DOCTYPE html>
 <meta charset="UTF-8">
 ';
 ?>
-
-
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-
-    // Retrieve form data
-    $first_name = $_POST['first_name'];
-    $credential = $_POST['credential'];
-    $terms_of_service = isset($_POST['terms_of_service']) ? 1 : 0;
-    $earthen_newsletter_join = isset($_POST['earthen_newsletter_join']) ? 1 : 0;
-
-    // Set other required fields
-    $full_name = $first_name;
-    $created_at = date("Y-m-d H:i:s");
-    $last_login = date("Y-m-d H:i:s");
-    $account_status = 'registering';
-    $role = 'ecobricker';
-    $notes = "beta testing the first signup form";
-
-    // Insert user into users_tb
-    $sql_user = "INSERT INTO users_tb (first_name, full_name, created_at, last_login, account_status, role, terms_of_service, earthen_newsletter_join, notes)
-                 VALUES ('$first_name', '$full_name', '$created_at', '$last_login', '$account_status', '$role', '$terms_of_service', '$earthen_newsletter_join', '$notes')";
-
-    if ($conn->query($sql_user) === TRUE) {
-        $user_id = $conn->insert_id;
-
-        // Insert credential into credentials_tb
-        $sql_credential = "INSERT INTO credentials_tb (user_id, credentials_name, credential_type, times_used, times_failed, last_login)
-                           VALUES ('$user_id', '$credential', '$credential', 0, 0, '$last_login')";
-
-        if ($conn->query($sql_credential) === TRUE) {
-            echo "New record created successfully";
-        } else {
-            echo "Error: " . $sql_credential . "<br>" . $conn->error;
-        }
-    } else {
-        echo "Error: " . $sql_user . "<br>" . $conn->error;
-    }
-
-    $conn->close();
-}
-?>
-
-
-
-<title>Signup | GoBrik 3.0</title>
-<?php
-
-include 'lang.php';
-$version = '0.342';
-$page = 'signup';
-include '../buwana_env.php';
-$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
-
-echo '<!DOCTYPE html>
-<html lang="' . $lang . '">
-<head>
-<meta charset="UTF-8">
-';
-?>
-
 
 
 <?php
@@ -133,14 +71,36 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <?php require_once ("../includes/signup-inc.php");?>
 
-    <div class="clouds-new2" style=" margin-bottom:25px;background-color:var(--general-background);">
 
-        <div id="landing-content" style="width:100%;height:100vh;">
+    <div class="splash-content-block"></div>
+    <div id="splash-bar"></div>
+
+    <!-- PAGE CONTENT-->
+
+    <div id="form-submission-box">
+        <div class="form-container">
+            <div class="form-top-header" style="display:flex;flex-flow:row;">
+                <div class="step-graphic">
+                    <img src="../svgs/step1-log-project.svg" style="height:25px;" loading="eager">
+                </div>
+                <div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>
+            </div>
+
+            <div class="splash-form-content-block">
+                <div class="splash-box">
+                    <div class="splash-heading" data-lang-id="001-splash-title">Log an Ecobrick</div>
+                </div>
+                <div class="splash-image" data-lang-id="003-splash-image-alt">
+                    <img src="../webps/eb-sky-400px.webp" style="width:65%; text-align:center;" alt="There are many ways to make an ecobrick">
+                </div>
+            </div>
+
+            <div class="lead-page-paragraph">
+                <p data-lang-id="004-form-description">Share your ecobrick with the world. Use this form to log your ecobrick into our database.</p>
+            </div>
 
 
-<h1>Sign Up to GoBrik!</h1>
-
-            <div data-lang-id="001-testing">Testing one two three four</div>
+            <!--LOG FORM-->
 
               <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
         <label for="first_name">What is your name?</label><br>
@@ -168,7 +128,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         </div><!--closes Landing content-->
     </div>
-<div data-lang-id="000-testing">Testing one two three four</div>
 
 </div><!--closes main and starry background-->
 

@@ -132,7 +132,7 @@ echo '<!DOCTYPE html>
                     <div class="splash-heading" data-lang-id="001-splash-title">Log an Ecobrick</div>
                 </div>
                 <div class="splash-image" data-lang-id="003-splash-image-alt">
-                    <img src="../webp/eb-sky-400px.webp" style="width:65%; text-align:center;" alt="There are many ways to make an ecobrick">
+                    <img src="../webps/eb-sky-400px.webp" style="width:65%; text-align:center;" alt="There are many ways to make an ecobrick">
                 </div>
             </div>
 

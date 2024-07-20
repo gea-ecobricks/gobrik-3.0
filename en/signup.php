@@ -59,6 +59,69 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 <title>Signup | GoBrik 3.0</title>
+<?php
+
+include 'lang.php';
+$version = '0.342';
+$page = 'signup';
+include '../buwana_env.php';
+$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+
+echo '<!DOCTYPE html>
+<html lang="' . $lang . '">
+<head>
+<meta charset="UTF-8">
+';
+?>
+
+
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+
+    // Retrieve form data
+    $first_name = $_POST['first_name'];
+    $credential = $_POST['credential'];
+    $terms_of_service = isset($_POST['terms_of_service']) ? 1 : 0;
+    $earthen_newsletter_join = isset($_POST['earthen_newsletter_join']) ? 1 : 0;
+
+    // Set other required fields
+    $full_name = $first_name;
+    $created_at = date("Y-m-d H:i:s");
+    $last_login = date("Y-m-d H:i:s");
+    $account_status = 'registering';
+    $role = 'ecobricker';
+    $notes = "beta testing the first signup form";
+
+    // Insert user into users_tb
+    $sql_user = "INSERT INTO users_tb (first_name, full_name, created_at, last_login, account_status, role, terms_of_service, earthen_newsletter_join, notes)
+                 VALUES ('$first_name', '$full_name', '$created_at', '$last_login', '$account_status', '$role', '$terms_of_service', '$earthen_newsletter_join', '$notes')";
+
+    if ($conn->query($sql_user) === TRUE) {
+        $user_id = $conn->insert_id;
+
+        // Insert credential into credentials_tb
+        $sql_credential = "INSERT INTO credentials_tb (user_id, credentials_name, credential_type, times_used, times_failed, last_login)
+                           VALUES ('$user_id', '$credential', '$credential', 0, 0, '$last_login')";
+
+        if ($conn->query($sql_credential) === TRUE) {
+            echo "New record created successfully";
+        } else {
+            echo "Error: " . $sql_credential . "<br>" . $conn->error;
+        }
+    } else {
+        echo "Error: " . $sql_user . "<br>" . $conn->error;
+    }
+
+    $conn->close();
+}
+?>
+
+
+
+<title>Signup | GoBrik 3.0</title>
+
 
 <!--
 GoBrik.com site version 3.0
@@ -118,3 +181,4 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 </body>
 
 </html>
+

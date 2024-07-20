@@ -80,18 +80,7 @@ window.onload = function() {
      switchLanguage(currentLanguage);
  }
 
-window.onload = function() {
-    var siteName = 'beta.gobrik.com';
-    // setPageLanguageFromCache();
-    // Initially declare currentLanguage globally without setting its value
-    window.currentPage = '<?php echo ($page); ?>';
-    window.currentLanguage = ''; // This makes currentLanguage globally accessible
-    // Now set the value of currentLanguage
-    window.currentLanguage = '<?php echo ($lang); ?>'; // Default language code
-    switchLanguage(window.currentLanguage);
-    // updateLogoColor();
-    window.subSource = 'beta.gobrik.com'; // Make subSource globally accessible
-}
+
 
 
 </script>

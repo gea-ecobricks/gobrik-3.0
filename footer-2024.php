@@ -141,7 +141,7 @@
 <script src="../translations/<?php echo ($page); ;?>-en.js?v=<?php echo ($version); ;?>"></script>
 <script src="../translations/<?php echo ($page); ;?>-fr.js?v=<?php echo ($version); ;?>"></script>
 <script src="../translations/index-id.js?v=<?php echo ($version); ;?>"></script>
-<script src="../translations/index-es.js;?>"></script>
+<script src="../translations/index-es.js"></script>
 
 
 <script>

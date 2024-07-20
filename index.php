@@ -57,7 +57,7 @@ AND UNIQUE to HTML Pages-->
     height: 150px;
     background-size: cover;
     background-position: center;
-    background-image: url('svgs/gobrik-3-emblem-night.svg');
+    background-image: url('svgs/gobrik-3-emblem-night.svg?v=2');
 }
 
 .subtitle {
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         window.location.href = langDir;
-    }, 1000); // 10 seconds
+    }, 10000); // 10 seconds
 });
 
 

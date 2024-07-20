@@ -1,5 +1,4 @@
 <?php
-
 include 'lang.php';
 $version = '0.343';
 $page = 'signup';
@@ -19,21 +18,25 @@ echo '<!DOCTYPE html>
 </script>
 
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 $success = false;
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Database connection details
+    $servername = "localhost";
+    $username = "ecobricks_gobrik_app";
+    $password = "1EarthenAuth!";
+    $dbname = "ecobricks_earthenAuth_db";
 
-   $servername = "localhost";
-$username = "ecobricks_gobrik_app";
-$password = "1EarthenAuth!";
-$dbname = "ecobricks_earthenAuth_db";
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
 
     // Retrieve form data
     $first_name = $_POST['first_name'];
@@ -49,26 +52,29 @@ if (!$conn) {
     $role = 'ecobricker';
     $notes = "beta testing the first signup form";
 
-    // Insert user into users_tb
-    $sql_user = "INSERT INTO users_tb (first_name, full_name, created_at, last_login, account_status, role, terms_of_service, earthen_newsletter_join, notes)
-                 VALUES ('$first_name', '$full_name', '$created_at', '$last_login', '$account_status', '$role', '$terms_of_service', '$earthen_newsletter_join', '$notes')";
+    // Use prepared statements for inserting user data
+    $stmt_user = $conn->prepare("INSERT INTO users_tb (first_name, full_name, created_at, last_login, account_status, role, terms_of_service, earthen_newsletter_join, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt_user->bind_param("ssssssiii", $first_name, $full_name, $created_at, $last_login, $account_status, $role, $terms_of_service, $earthen_newsletter_join, $notes);
 
-    if ($conn->query($sql_user) === TRUE) {
+    if ($stmt_user->execute()) {
         $user_id = $conn->insert_id;
 
-        // Insert credential into credentials_tb
-        $sql_credential = "INSERT INTO credentials_tb (user_id, credentials_name, credential_type, times_used, times_failed, last_login)
-                           VALUES ('$user_id', '$credential', '$credential', 0, 0, '$last_login')";
+        // Use prepared statements for inserting credential data
+        $stmt_credential = $conn->prepare("INSERT INTO credentials_tb (user_id, credentials_name, credential_type, times_used, times_failed, last_login) VALUES (?, ?, ?, 0, 0, ?)");
+        $stmt_credential->bind_param("isss", $user_id, $credential, $credential, $last_login);
 
-        if ($conn->query($sql_credential) === TRUE) {
+        if ($stmt_credential->execute()) {
             $success = true;
         } else {
-            echo "Error: " . $sql_credential . "<br>" . $conn->error;
+            echo "Error: " . $stmt_credential->error;
         }
     } else {
-        echo "Error: " . $sql_user . "<br>" . $conn->error;
+        echo "Error: " . $stmt_user->error;
     }
 
+    // Close connections
+    $stmt_user->close();
+    $stmt_credential->close();
     $conn->close();
 }
 ?>

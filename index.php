@@ -57,7 +57,7 @@ AND UNIQUE to HTML Pages-->
     height: 150px;
     background-size: cover;
     background-position: center;
-    background-image: url('svgs/gobrik-3-emblem.svg-night');
+    background-image: url('svgs/gobrik-3-emblem-night.svg');
 }
 
 .subtitle {

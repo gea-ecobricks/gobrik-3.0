@@ -1,6 +1,6 @@
 <?php
 include 'lang.php';
-$version = '0.281';
+$version = '0.282';
 $page = 'index';
 include '../ecobricks_env.php';
 
@@ -46,15 +46,15 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <i style="background: url(../svgs/strike-icon.svg) no-repeat; width:20px; height:26px;display: inline-block;background-size:contain;margin-bottom: -5px;margin-left:4px;"></i><span data-lang-id="003-sign-up">Sign up</span></button>
             </div>
 
-          </div>
+        </div>
 
         <div class="tree-text" style="padding-bottom:15px;" data-lang-id="004-account-options">
         Use your GoBrik or Buwana account to sign in.
         No account? Sign up for free!
         </div>
 
-    </div><!--landing-content-->
-</div> <!--clouds-->
+    </div>  <!--  landing-content-->
+</div> <!-- clouds-->
 
 
 <!-- FULL ECOBRICK FLOW GALLERY -->

@@ -1039,7 +1039,139 @@ font-size: 0.8em;
 }
 
 
+/* FEATURE BOX AFTER GALLERY */
 
+
+.feature-big-header {
+  font-family: 'Arvo', serif;
+  text-align: center;
+  line-height: 1.3;
+  text-shadow: 0 0 10px var(--background-color);
+  font-weight: 500;
+  color: var(--h1) !important;
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 769px) {
+  .feature-big-header {
+      font-size: 1.9em;
+  }
+}
+@media screen and (min-width: 770px) and (max-width: 1200px) {
+  .feature-big-header {
+      font-size: 2.6em;
+  }
+}
+@media screen and (min-width: 1201px) {
+  .feature-big-header {
+      font-size: 2.5em;
+  }
+}
+
+
+.feature-sub-text {
+    font-family: 'Mulish', sans-serif;
+    text-align: center;
+    line-height: 1.4;
+    color: var(--text-color);
+    margin-bottom: 20px;
+  }
+
+
+  @media screen and (max-width: 769px) {
+    .feature-sub-text {
+        font-size: 1.1em;
+    }
+  }
+  @media screen and (min-width: 770px) and (max-width: 1024px) {
+    .feature-sub-text {
+        font-size: 1.4em;
+    }
+  }
+  @media screen and (min-width: 1024px) {
+    .feature-sub-text {
+        font-size: 1.6em;
+    }
+  }
+
+
+  .feature-button {
+    font-family: 'Mulish', sans-serif;
+
+    background: #00a1f2;
+    background-image: -webkit-linear-gradient(top, #00a1f2, #008ad4);
+    background-image: -moz-linear-gradient(top, #00a1f2, #008ad4);
+    background-image: -ms-linear-gradient(top, #00a1f2, #008ad4);
+    background-image: -o-linear-gradient(top, #00a1f2, #008ad4);
+    background-image: linear-gradient(to bottom, #00a1f2, #008ad4);
+    -webkit-border-radius: 8;
+    -moz-border-radius: 8;
+    border-radius: 8px !important;
+    color: #fff;
+    font-size: 1.4em;
+    padding: 8px 18px 8px 18px !important;
+    text-decoration: none !important;
+    margin-top: 18px;
+    margin-bottom: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    border:none;
+    margin: auto;
+    text-align: center;
+  }
+
+  .feature-button:hover {
+    background: #3cb0fd;
+    background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+    text-decoration: underline;
+  }
+
+
+  .feature-reference-links {
+    width: fit-content;
+    margin: auto;
+    margin-bottom: 30px;
+    text-align: center;
+    color: var(--subdued-text);
+    font-family: 'Mulish', sans-serif;
+    margin-bottom: 30px;
+    margin-top: 12px;
+
+  }
+
+
+  @media screen and (max-width: 769px) {
+    .feature-reference-links {
+        font-size: 0.8em;
+    }
+  }
+  @media screen and (min-width: 770px) and (max-width: 1024px) {
+    .feature-reference-links {
+        font-size: 0.9em;
+    }
+  }
+  @media screen and (min-width: 1024px) {
+    .feature-reference-links {
+        font-size: 1.0em;
+    }
+  }
+
+
+  .feature-reference-links a {
+    text-decoration: none;
+    color: var(--subdued-text);
+  }
+
+  .feature-reference-links a:hover {
+    text-decoration: underline;
+    color: var(--subdued-text);
+  }
 
 
 </style>

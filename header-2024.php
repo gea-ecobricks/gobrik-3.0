@@ -67,18 +67,22 @@
 
 
 
-<script src="../scripts/language-switcher.js?v=<?php echo ($version); ;?>"></script>
+<!--<script src="../scripts/language-switcher.js?v=<?php echo ($version); ;?>"></script>-->
+
 <script>
 /*ROLL CALL*/
 
-document.addEventListener("DOMContentLoaded", function() {
-    var siteName = 'beta.gobrik.com';
-    var currentLanguage = '<?php echo $lang; ?>'; // Default language code
-    switchLanguage(currentLanguage);
-});
+window.onload = function() {
+     var siteName = 'beta.gobrik.com';
+     var currentLanguage = '<?php echo ($lang); ?>'; // Default language code
+     switchLanguage(currentLanguage);
+ }
+
 
 function switchLanguage(langCode) {
-    currentLanguage = langCode; // Update the global language variable
+ alert(langCode);
+ currentLanguage = langCode; // Update the global language variable
+
 
     // Dynamic selection of the correct translations object
     const languageMappings = {
@@ -89,6 +93,7 @@ function switchLanguage(langCode) {
     };
 
     const currentTranslations = languageMappings[currentLanguage];
+
 
     const elements = document.querySelectorAll('[data-lang-id]');
     elements.forEach(element => {
@@ -106,10 +111,11 @@ function switchLanguage(langCode) {
             }
         }
     });
+
+       alert("done");
 }
 
 </script>
-
 
 <script src="../scripts/core-2024.js?v=<?php echo ($version); ;?>"></script>
 

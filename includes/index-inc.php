@@ -235,11 +235,11 @@ cursor:pointer;
 .biosphere {
   position: relative;
 z-index: 0;
-height: 60vh;
+height: 50vh;
 width: 100%;
 text-align: center;
 margin: auto;
-margin-bottom: -60vh;
+margin-bottom: -50vh;
   }
 
 

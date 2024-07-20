@@ -97,8 +97,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <div class="feature-content-box">
             <div class="big-header" data-lang-id="304-featured-live-heading">Ecobricking.  Live.</div>
             <div class="welcome-text" data-lang-id="305-featured-live-subheading">Ecobricks are being made, logged and validated around the world right this moment.</div>
-
-            <a href="brikchain.php" class="feature-button"  data-lang-id="306-featured-live-button" aria-label="view brikchain">⛓️ The Brikchain</a>
+            <a href="brikchain.php" class="feature-button" style="margin:5px auto 5px auto;" data-lang-id="306-featured-live-button" aria-label="view brikchain">⛓️ The Brikchain</a>
             <div class="tree-text" data-lang-id="307-featured-live-links">A feed & archive of authenticated ecobricks</div>
 
         </div>

@@ -268,7 +268,7 @@ margin-bottom: -60vh;
     margin: auto;
       position: relative;
       z-index: 11;
-
+      margin-top: 70px;
 
   }
 
@@ -518,7 +518,7 @@ text-decoration: none;
     position: relative;
     z-index: 5;
     font-weight: 300;
-    margin:auto;
+    margin: 5px auto 5px auto;;
     color:var(--text-color);
   }
 

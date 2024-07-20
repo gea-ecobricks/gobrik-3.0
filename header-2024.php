@@ -351,16 +351,16 @@ display: none;
         </button>
         <div class="overlay-content-settings" style="margin-bottom: 20px;">
             <div style="margin-bottom: 20px;">
-                <div class="menu-page-item"><a href="index.php"  aria-label="Return Home">Home</a></div>
+                <div class="menu-page-item" ><a href="index.php"  aria-label="Return Home" data-lang-id="1000">Home</a></div>
                 <div class="menu-page-item"><a data-lang-id="1001-gobrik-tour"onclick="sendDownRegistration(); closeSettings(); setTimeout(guidedTour, 500);">What is GoBrik?</a></div>
-                <div class="menu-page-item"><a href="login.php#home" aria-label="Register">Login</a></div>
-                <div class="menu-page-item"><a href="signup.php#home" aria-label="Signup">Login</a></div>
-                <div class="menu-page-item"><a href="log.php" aria-label="Log">Log Ecobrick</a></div>
-                <div class="menu-page-item"><a href="https://ecobricks.org/brikchain" target="_blank">The Brikchain</a></div>
-                <div class="menu-page-item"><a href="https://ecobricks.org/brikcoins" target="_blank">Brikcoins</a></div>
-                <div class="menu-page-item"><a href="https://ecobricks.org/gobrik" target="_blank">About GoBrik</a></div>
-                <p style="font-size:smaller;">GoBrik is developed by the <a href="https://ecobricks.org/about" target="_blank">Global Ecobrick Alliance</a> a not-for-profit Earth enterprise focused on plastic transition.</p>
-            </div>
+                <div class="menu-page-item"><a href="login.php#home" aria-label="Register" data-lang-id="1002-login">Login</a></div>
+                <div class="menu-page-item"><a href="signup.php" aria-label="Signup" data-lang-id="1003-signup">Signup</a></div>
+                <div class="menu-page-item"><a href="log.php" aria-label="Log" data-lang-id="1004-log">Log Ecobrick</a></div>
+                <div class="menu-page-item"><a href="brikchain" data-lang-id="1005-brikchain">The Brikchain</a></div>
+
+                <div class="menu-page-item"></div>
+                <p style="font-size:smaller;" data-lang-id="1006-about-stuff"><a href="https://ecobricks.org/gobrik" target="_blank">The GoBrik project</a> is developed by the <a href="https://ecobricks.org/about" target="_blank">Global Ecobrick Alliance</a> a not-for-profit Earth enterprise dedicated to accelerating plastic and petro-capital transition.</p>
+
         </div> <!--close overlay-content-settings-->
     </div> <!-- close right page menu-->
 

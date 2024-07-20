@@ -1,7 +1,7 @@
 <?php
 
 include 'lang.php';
-$version = '0.345';
+$version = '0.346';
 $page = 'index';
 include '../ecobricks_env.php';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));

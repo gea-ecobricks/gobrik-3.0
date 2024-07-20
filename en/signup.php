@@ -18,7 +18,8 @@ echo '<!DOCTYPE html>
             alert("Yeay! First step done.");
         }
     </script>
-<?php
+
+
 <?php
 $success = false;
 

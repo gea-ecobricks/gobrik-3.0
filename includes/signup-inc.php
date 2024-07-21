@@ -411,7 +411,7 @@ input[type="submit"]:hover {
 .form-item label,
 .form-item input,
 .form-item .form-caption {
-    padding: 10px;
+    padding: 7px;
 }
 
 #photos-submission-box .form-item input {
@@ -424,7 +424,7 @@ input[type="submit"]:hover {
 }
 
 .form-item .form-caption {
-    font-size: 1.0;
+    font-size: 0.9;
 
 
 }

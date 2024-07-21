@@ -133,7 +133,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
        <!--SIGNUP FORM-->
 <form id="user-signup-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
-    <div class="form-item" style="margin-top: 5px;">
+    <div class="form-item" style="margin-top:0px;">
         <label for="first_name" data-lang-id="005-first-name">What is your first name?</label><br>
         <input type="text" id="first_name" name="first_name" aria-label="Your first name" title="Required. Max 255 characters." required>
         <!--<p class="form-caption" data-lang-id="005b-ecobricker-maker-caption">By what name do we address you?</p>
@@ -157,8 +157,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <div id="credential-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
     </div>
 
-    <div data-lang-id="016-submit-button" style="margin:auto;">
-        <input type="submit" value="Next: Set Password" aria-label="Submit Form">
+    <div data-lang-id="016-submit-button" style="margin:auto;text-align: center;">
+        <input type="submit" value="🔑 Next: Set Password" aria-label="Submit Form">
     </div>
 </form>
 <div style="text-align:center;width:100%;margin:auto;"><p style="font-size:medium;">Already have an account? <a href="login.php">Login</a></p>

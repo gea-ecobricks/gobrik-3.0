@@ -260,7 +260,7 @@ input[type="submit"] {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  background-color: #12b712; /* Initial background color */
+  background-color: var(--button-2-1);
   background-size: 0% 100%; /* Initial background size (progress bar) */
   transition: background-size 0.5s ease; /* Transition effect for smooth progress */
   font-size: 1.3em;
@@ -276,7 +276,7 @@ input[type="submit"].progress-bar {
 
 
 input[type="submit"]:hover {
-  background-color: green;
+  background-color: var(--button-2-1-over);
 }
 
 .spinner-photo-loading {
@@ -475,7 +475,7 @@ input[type="text"], input[type="name"], input[type="credential"] {
    border: 2px solid var(--button-2-1) !important;
 }
 
-select[type="credential"] {
+select {
   width: 100%;
   height: 100%;
   padding: 8px 10px;

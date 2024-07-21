@@ -127,15 +127,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <div style="text-align:center;width:100%;margin:auto;">
             <h2>Create Your Account</h2>
-            <p>GoBrik is developed by volunteers just as passionate about plastic transition as you!</p>
+            <p style="font-size:small;">GoBrik is developed by volunteers just as passionate about plastic transition as you!</p>
 
-            <p style="font-size:small;">Already have an account? <a href="login.php">Login</a></p>
+            <p>Already have an account? <a href="login.php">Login</a></p>
         </div>
 
 
 
-        <!--LOG FORM-->
-       <!--LOG FORM-->
+       <!--SIGNUP FORM-->
 <form id="user-signup-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
     <div class="form-item" style="margin-top: 25px;">
@@ -162,7 +161,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <div id="credential-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
     </div>
 
-    <div data-lang-id="016-submit-button" style="max-width:300px;margin:auto;">
+    <div data-lang-id="016-submit-button" style="max-width:200px;margin:auto;">
         <input type="submit" value="Next" aria-label="Submit Form">
     </div>
 </form>

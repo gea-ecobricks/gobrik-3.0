@@ -126,7 +126,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <h2>Create Your Account</h2>
             <p>GoBrik is developed by volunteers just as passionate about plastic transition as you!</p>
 
-            <p>Already have an account? Login</p>
+            <p style="font-size:smaller;">Already have an account? <a href="login.php">Login</a></p>
         </div>
 
 

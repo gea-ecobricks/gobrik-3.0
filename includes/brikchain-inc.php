@@ -52,39 +52,6 @@ $(document).ready(function() {
 </script>
 
 
-<!--
-<script>
-
-$(document).ready(function() {
-    $('#cash_tran').DataTable( {
-		"processing": true,
-        "serverSide": true,
-		"ajax": "ajax-cash-trans.php"
-
-    } );
-} );
-
-</script>
-
-
-
-
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/plug-ins/1.11.4/dataRender/hyperLink.js"></script>
-
-
-
-<script>
-
-// Display the hyperlink with 'Download', which open hyperlink in popup
-  //        with size 600as width and 400 as height
-  $('#brikchain').DataTable( {
-    columnDefs: [ {
-      targets: 2,
-      render: $.fn.dataTable.render.hyperLink( 'Download', 'popup' )
-    } ]
-  } );
-</script>
--->
 
 <!--This loads CSS specific to this page-->
 
@@ -312,6 +279,10 @@ $(document).ready(function() {
   background: var(--emblem-blue-over);
 }
 
+
+  .reg-content-block {
+background: var(--accordion-background);
+  }
 
 </style>
 

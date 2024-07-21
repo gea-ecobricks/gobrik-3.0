@@ -24,14 +24,14 @@ _END;?>
 
 <meta charset="utf-8"> <!--OBSOLETE BUT MUST BE ADDED TO ALL OTHER PAGES FIRST-->
 
-<link rel="canonical" href="https://www.ecobricks.org/<?php echo ($lang); ;?>/<?php echo ($name); ;?>">
+<link rel="canonical" href="https://www.ecobricks.org/<?php echo ($lang); ;?>/brk-trasac.php">
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 
-<link rel="alternate" href="https://ecobricks.org/en/<?php echo ($name); ;?>" hreflang="en" />
-<link rel="alternate" href="https://ecobricks.org/id/<?php echo ($name); ;?>" hreflang="id" />
-<link rel="alternate" href="https://ecobricks.org/es/<?php echo ($name); ;?>" hreflang="es" />
-<link rel="alternate" href="https://ecobricks.org/fr/<?php echo ($name); ;?>" hreflang="fr" />
-<link rel="alternate" href="http://ecobricks.org/en/<?php echo ($name); ;?>" hreflang="x-default" />
+<link rel="alternate" href="https://ecobricks.org/en/brk-trasac.php" hreflang="en" />
+<link rel="alternate" href="https://ecobricks.org/id/brk-trasac.php" hreflang="id" />
+<link rel="alternate" href="https://ecobricks.org/es/brk-trasac.php" hreflang="es" />
+<link rel="alternate" href="https://ecobricks.org/fr/brk-trasac.php" hreflang="fr" />
+<link rel="alternate" href="http://ecobricks.org/en/brk-trasac.php" hreflang="x-default" />
 
 <!-- Arc CDN Script without delay
 <script async src="https://arc.io/widget.min.js#Z7EC7Cze"></script>-->
@@ -91,20 +91,6 @@ _END;?>
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="icons/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">-->
-
-
-<!-- This calls GEA typography -->
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<!-- Mulish loads first for first page view-->
-
-<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-
-<!-- Arvo loads very last to speed up first load.  See the script in the footer that triggers this  -->
-
-<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Arvo&display=swap" />
 
 
 <!-- This calls our Github hosted stylesheet - if it gets hopelessly cached and doesn't load, up the version number! -->
@@ -251,7 +237,7 @@ b {font-weight: 500;}
 				<button onClick="javascript:window.close('','_parent','');">Close & Return</button><br><br>
 
 <!-- The DB connection creator -->
-<?php include 'ecobricks_env.php';?>
+<?php include '../ecobricks_env.php';?>
 <?php
 
 // Get the contents from the Transaction table as an ordered View, using the transaction id from the URL.

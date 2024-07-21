@@ -40,7 +40,7 @@ $columns = array(
     'dt' => 0,
     'formatter' => function( $d, $row ) {
         return '<a href="brk-transac.php?tran_id='.($d).'" target="popup"
-        onclick="window.open(\'details-brk-trans.php?tran_id='.($d).'\',\'popup\',\'width=600,height=800\'); return false;">'.($d).'</a>';
+        onclick="window.open(\'brk-transac.php?tran_id='.($d).'\',\'popup\',\'width=600,height=800\'); return false;">'.($d).'</a>';
     }
 ),
 

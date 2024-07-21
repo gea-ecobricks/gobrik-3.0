@@ -121,13 +121,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>
         </div>-->
 
-        <div class="signup-team" style="text-align:center;width:80%; background: url(../svgs/signup-team.svg?v=2) no-repeat center;background-size:auto;margin:auto;background-size: contain;"><img src="../webps/ecobrick-team-blank.webp" width="90%"></div>
+        <div class="signup-team" style="text-align:center;width:80%; background: url(../svgs/signup-team.svg?v=2) no-repeat center;background-size:auto;margin:auto;background-size: contain;"><img src="../webps/ecobrick-team-blank.webp" width="60%"></div>
 
         <div style="text-align:center;width:100%;margin:auto;">
             <h2>Create Your Account</h2>
-            <p>GoBrik is developed by volunteers just as passionate about plastic transition as you!</p>            <p style="font-size:medium;">Already have an account? <a href="login.php">Login</a></p>
-
-
+            <p style="font-size:medium;">GoBrik is developed by volunteers just as passionate about plastic transition as you!</p>
         </div>
 
 
@@ -138,8 +136,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-item" style="margin-top: 25px;">
         <label for="first_name" data-lang-id="005-first-name">What is your first name?</label><br>
         <input type="text" id="first_name" name="first_name" aria-label="Your first name" title="Required. Max 255 characters." required>
-        <p class="form-caption" data-lang-id="005b-ecobricker-maker-caption">By what name do we address you?</p>
-
+        <!--<p class="form-caption" data-lang-id="005b-ecobricker-maker-caption">By what name do we address you?</p>
+-->
         <!--ERRORS-->
         <div id="maker-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
         <div id="maker-error-long" class="form-field-error" data-lang-id="000-maker-field-too-long-error">The name is too long. Max 255 characters.</div>
@@ -160,7 +158,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 
     <div data-lang-id="016-submit-button" style="max-width:200px;margin:auto;">
-        <input type="submit" value="Next" aria-label="Submit Form">
+        <input type="submit" value="Next: Set Password" aria-label="Submit Form">
     </div>
 </form>
 <div style="text-align:center;width:100%;margin:auto;"><p style="font-size:medium;">Already have an account? <a href="login.php">Login</a></p>

@@ -121,7 +121,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>
         </div>-->
 
-        <div class="signup-team" style="text-align:center;width:80%; no-repeat center;background-size:auto;margin:auto;background-size: contain;margin-top: -35px;z-index:12;"><img src="../svgs/signup-team.svg?v=2" width="60%"></div>
+        <div class="signup-team" style="text-align:center;width:80%; no-repeat center;background-size:auto;margin:auto;background-size: contain;margin-top: -55px;z-index:22;"><img src="../svgs/signup-team.svg?v=2" width="60%"></div>
 
         <div style="text-align:center;width:100%;margin:auto;">
             <h2>Create Your Account</h2>

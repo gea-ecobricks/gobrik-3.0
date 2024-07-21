@@ -111,38 +111,38 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <!-- PAGE CONTENT-->
 
-<div id="form-submission-box">
-    <div class="form-container">
-        <div class="form-top-header" style="display:flex;flex-flow:row;">
-           <!--<div class="step-graphic">
-                <img src="../svgs/step1-log-project.svg" style="height:25px;" loading="eager">
-            </div>-->
-            <div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>
-        </div>
 
-        <div class="signup-team"><img src="https://gobrik.com/webp/ecobrick-team-blank.webp" width="100%"></div>
-        <h2>Create Your Account</h2>
-        <p>GoBrik is developed by volunteers just as passionate about plastic transition as you!</p>
 
-        <p>Already have an account? Login</p>
+    <div id="form-submission-box" style="width:100%;height:100vh;">
+        <div class="form-container">
+            <div class="form-top-header" style="display:flex;flex-flow:row;">
+               <!--<div class="step-graphic">
+                    <img src="../svgs/step1-log-project.svg" style="height:25px;" loading="eager">
+                </div>-->
+                <div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>
+            </div>
 
-//
+            <div class="signup-team"><img src="https://gobrik.com/webp/ecobrick-team-blank.webp" width="100%"></div>
+            <div style="text-align:center;padding:5px;">
+                <h2>Create Your Account</h2>
+                <p>GoBrik is developed by volunteers just as passionate about plastic transition as you!</p>
+                <p>Already have an account? Login</p>
+             </div>
 
-        <!--LOG FORM-->
-        <form id="user-signup-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <!--LOG FORM-->
+            <form id="user-signup-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                <div class="form-item" style="margin-top: 25px;">
+                    <label for="first_name" data-lang-id="005-first-name">What is your first name?</label><br>
+                        <input type="text" id="first_name" name="first_name" aria-label="Your first name" title="Required. Max 255 characters." required>
+                        <p class="form-caption" data-lang-id="005b-ecobricker-maker-caption">By what name do we address you?</p>
 
-            <div class="form-item" style="margin-top: 25px;">
-                <label for="first_name" data-lang-id="005-first-name">What is your first name?</label><br>
-                    <input type="text" id="first_name" name="first_name" aria-label="Your first name" title="Required. Max 255 characters." required>
-                    <p class="form-caption" data-lang-id="005b-ecobricker-maker-caption">By what name do we address you?</p>
+                        <!--ERRORS-->
+                        <div id="maker-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
+                        <div id="maker-error-long" class="form-field-error" data-lang-id="000-maker-field-too-long-error">The name is too long. Max 255 characters.</div>
+                        <div id="maker-error-invalid" class="form-field-error" data-lang-id="005b-maker-error">The entry contains invalid characters. Avoid quotes, slashes, and greater-than signs please.</div>
+                    </div>
 
-                    <!--ERRORS-->
-                    <div id="maker-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
-                    <div id="maker-error-long" class="form-field-error" data-lang-id="000-maker-field-too-long-error">The name is too long. Max 255 characters.</div>
-                    <div id="maker-error-invalid" class="form-field-error" data-lang-id="005b-maker-error">The entry contains invalid characters. Avoid quotes, slashes, and greater-than signs please.</div>
-                </div>
-
-            <div class="form-item">
+                <div class="form-item">
                     <label for="volume_ml" data-lang-id="006-volume-ml">With which credentials would you like to register?</label><br>
                     <select id="credential" name="credential" aria-label="Preferred Credential" required>
                         <option value="" disabled selected>Select credential...</option>
@@ -155,26 +155,26 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     <div id="volume-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
                 </div>
 
-            <div class="form-item">
-                <label for="terms_of_service">
-                    <input type="checkbox" id="terms_of_service" name="terms_of_service" required>
-                    Do you agree to our terms of service?
-                </label><br><br>
-            </div>
+                <div class="form-item">
+                    <label for="terms_of_service">
+                        <input type="checkbox" id="terms_of_service" name="terms_of_service" required>
+                        Do you agree to our terms of service?
+                    </label><br><br>
+                </div>
 
-            <div class="form-item">
-                <label for="earthen_newsletter_join">
-                    <input type="checkbox" id="earthen_newsletter_join" name="earthen_newsletter_join" checked>
-                    Receive our Earthen newsletter
-                </label><br><br>
-            </div>
+                <div class="form-item">
+                    <label for="earthen_newsletter_join">
+                        <input type="checkbox" id="earthen_newsletter_join" name="earthen_newsletter_join" checked>
+                        Receive our Earthen newsletter
+                    </label><br><br>
+                </div>
 
-          <div data-lang-id="016-submit-button">
+                 <div data-lang-id="016-submit-button">
                     <input type="submit" value="Next" aria-label="Submit Form">
                 </div>
-        </form>
-    </div><!--closes Landing content-->
-</div>
+            </form>
+        </div><!--closes Landing content-->
+    </div>
 
 </div><!--closes main and starry background-->
 

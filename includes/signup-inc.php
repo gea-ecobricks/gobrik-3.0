@@ -20,16 +20,16 @@
 
 
     .signup-team {
-  margin: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-  position: relative;
-  z-index: 11;
-  background: url(../svgs/signup-team.svg?v=2) no-repeat center;
-    background-size: auto;
-  background-size: contain;
-  height: fit-content;
-
+          margin: auto;
+            margin-top: auto;
+            margin-bottom: auto;
+          position: relative;
+          z-index: 11;
+          background: url(../svgs/signup-team.svg?v=2) no-repeat center;
+            background-size: auto;
+          background-size: contain;
+          height: fit-content;
+          text-align: center;
   }
 
 

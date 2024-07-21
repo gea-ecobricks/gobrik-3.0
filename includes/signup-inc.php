@@ -16,9 +16,7 @@
 
 <STYLE>
 
-input[type="text"], input[type="email"], input[type="password"] {
-  border: 2px solid var(--button-2-1) !important;
-}
+
 
 
     .signup-team {
@@ -34,19 +32,6 @@ input[type="text"], input[type="email"], input[type="password"] {
 
   }
 
-
-input[type="text"], input[type="name"], input[type="credential"] {
-  width: 100%;
-  height: 100%;
-  padding: 8px 10px;
-  margin: 4px 0;
-  font-size: 18px !important;
-  box-sizing: border-box;
-  border: 3px solid var(--button-2-1);
-  border-radius: 5px;
-  background-color: var(--top-header) !important;
-  color: var(--h1);
-}
 
 
     #main {
@@ -473,6 +458,24 @@ input[type="submit"]:hover {
     0% { transform: rotate(0deg); translateY(-50%); }
     100% { transform: rotate(360deg); translateY(-50%); }
 }
+
+
+
+
+input[type="text"], input[type="name"], input[type="credential"] {
+  width: 100%;
+  height: 100%;
+  padding: 8px 10px;
+  margin: 4px 0;
+  font-size: 18px !important;
+  box-sizing: border-box;
+  border: 3px solid var(--button-2-1);
+  border-radius: 5px;
+  background-color: var(--top-header) !important;
+  color: var(--h1);
+   border: 2px solid var(--button-2-1) !important;
+}
+
 
 
 </style>

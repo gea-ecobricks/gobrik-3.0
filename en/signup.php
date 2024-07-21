@@ -113,14 +113,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <div id="form-submission-box" style="height:100vh;">
     <div class="form-container">
-        <div class="form-top-header" style="display:flex;flex-flow:row;">
-           <!--<div class="step-graphic">
+         <!--<div class="form-top-header" style="display:flex;flex-flow:row;">
+          <div class="step-graphic">
                 <img src="../svgs/step1-log-project.svg" style="height:25px;" loading="eager">
-            </div>-->
+            </div>
             <div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>
-        </div>
+        </div>-->
 
-        <div class="signup-team"><img src="../webps/ecobrick-team-blank.webp" width="80%"></div>
+        <div class="signup-team" style="text-align:center;width:90%;"><img src="../webps/ecobrick-team-blank.webp" width="90%"></div>
 
         <div style="text-align:center;width:90%;">
             <h2>Create Your Account</h2>
@@ -172,7 +172,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 </label><br><br>
             </div>
 
-          <div data-lang-id="016-submit-button">
+          <div data-lang-id="016-submit-button" style="max-width:300px;">
                     <input type="submit" value="Next" aria-label="Submit Form">
                 </div>
         </form>

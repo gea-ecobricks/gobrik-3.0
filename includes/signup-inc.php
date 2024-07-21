@@ -252,7 +252,6 @@ input[type="date"] {
   border-radius: 5px;
   box-sizing: border-box;
   margin-top: 8px;
-
 }
 
 input[type="submit"] {

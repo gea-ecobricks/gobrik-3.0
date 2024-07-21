@@ -82,7 +82,7 @@ $(document).ready(function() {
 @media screen and (max-width: 700px) {
 	.splash-content-block {
 
-		background: url(https://ecobricks.org/svgs/brik-market-banner3.svg) bottom;
+		background: url(../svgs/brik-market-banner3.svg) bottom;
 		/*background: url(svgs/cloud-back-logo-blue.svg) top;*/
 		background-color: #2A91DA;
 	}
@@ -91,7 +91,7 @@ $(document).ready(function() {
 
 @media screen and (min-width: 700px) {
 	.splash-content-block {
-		background: url(https://ecobricks.org/svgs/brik-market-banner3.svg) bottom;
+		background: url(../svgs/brik-market-banner3.svg) bottom;
 
 		background-color: #2A91DA;
 

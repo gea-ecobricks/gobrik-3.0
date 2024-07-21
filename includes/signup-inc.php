@@ -320,11 +320,12 @@ input[type="submit"]:hover {
 .signup-team {
   text-align: center;
   width: 100%;
-  position: absolute;
-  top: -60px; /* Adjust this to position the image above the form */
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 22;
+/*   position: absolute; */
+/*   top: -60px;  *//* Adjust this to position the image above the form */
+/*   left: 50%; */
+/*   transform: translateX(-50%); */
+/*   z-index: 22; */
+  margin-top: -55px;
 }
 
 .signup-team img {
@@ -341,7 +342,7 @@ input[type="submit"]:hover {
     max-width: 600px;
     padding: 20px;
     position: relative;
-    margin-top: 60px;
+    margin-top: 80px;
 
   }
 }
@@ -373,7 +374,7 @@ input[type="submit"]:hover {
     margin-top: auto;
     margin-bottom: auto;
     padding: 30px;
-    margin-top: 100px;
+    margin-top: 120px;
 
   }
 }

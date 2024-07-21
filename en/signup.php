@@ -170,7 +170,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             </div>
 
           <div data-lang-id="016-submit-button">
-                    <input type="submit" value="Next" aria-label="Submit Form">
+                    <input type="submit" value="Next: Set your Password" aria-label="Submit Form">
                 </div>
         </form>
     </div><!--closes Landing content-->

@@ -432,6 +432,7 @@ input[type="submit"]:hover {
     position: relative;
     display: inline-block;
     width: 100%
+    z-index: 10;
 }
 
 #location_address {

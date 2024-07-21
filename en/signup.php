@@ -120,7 +120,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>
         </div>
 
-        <div class="signup-team"><img src="https://gobrik.com/webp/ecobrick-team-blank.webp" width="100%"></div>
+        <div class="signup-team"><img src="../webps/ecobrick-team-blank.webp" width="100%"></div>
         <h2>Create Your Account</h2>
         <p>GoBrik is developed by volunteers just as passionate about plastic transition as you!</p>
 

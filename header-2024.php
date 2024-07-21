@@ -357,10 +357,14 @@ display: none;
                 <div class="menu-page-item"><a href="signup.php" aria-label="Signup" data-lang-id="1003-signup">Signup</a></div>
                 <div class="menu-page-item"><a href="log.php" aria-label="Log" data-lang-id="1004-log">Log Ecobrick</a></div>
                 <div class="menu-page-item"><a href="brikchain" data-lang-id="1005-brikchain">The Brikchain</a></div>
+                <div class="menu-page-item"><a href="latest" data-lang-id="1005-latest-ecobricks">Latest Ecobricks</a></div>
+                <div class="menu-page-item"><a href="latest" data-lang-id="1005-latest-projects">Latest Projects</a></div>
+                <div class="menu-page-item"><a href="latest" data-lang-id="1005-latest-trainings">Latest Trainings</a></div>
 
-                <div class="menu-page-item"></div>
-                <p style="font-size:smaller;" data-lang-id="1006-about-stuff"><a href="https://ecobricks.org/gobrik" target="_blank">The GoBrik project</a> is developed by the <a href="https://ecobricks.org/about" target="_blank">Global Ecobrick Alliance</a> a not-for-profit Earth enterprise dedicated to accelerating plastic and petro-capital transition.</p>
 
+
+             </div>
+             <p style="font-size:smaller;" data-lang-id="1006-about-stuff"><a href="https://ecobricks.org/gobrik" target="_blank">The GoBrik project</a> is developed by the <a href="https://ecobricks.org/about" target="_blank">Global Ecobrick Alliance</a> a not-for-profit Earth enterprise dedicated to accelerating plastic and petro-capital transition.</p>
         </div> <!--close overlay-content-settings-->
     </div> <!-- close right page menu-->
 
@@ -384,7 +388,7 @@ display: none;
 
         <div>
             <h1 style="font-family:'Arvo', serif;text-shadow: none;" data-lang-id="100-search-title">Search</h1>
-            <p style="text-align:center; width:90%;" data-lang-id="101-search-intro">Find any ecobrick on the Brikchain.<a style="color:var(--emblem-blue)" href="brikchain.php">brikchain search</a>.</p>
+            <p style="text-align:center; width:100%;" data-lang-id="101-search-intro">Find any ecobrick on the Brikchain.<a style="color:var(--emblem-blue)" href="brikchain.php">brikchain search</a>.</p>
         </div>
 
         <div class="search-box">

@@ -1,7 +1,7 @@
 
 <?php
 include 'lang.php';
-$version = '0.343';
+$version = '0.344';
 $page = 'brikchain';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -272,7 +272,7 @@ require_once ("../includes/brikchain-inc.php");
 	</div>
 
 
-	<?php 	$conn->close();?>
+	<?php $conn->close();?>
 
 
 
@@ -295,7 +295,7 @@ require_once ("../includes/brikchain-inc.php");
     </div>
     <p data-lang-id="049-earthen-ethics">Our accounting is grounded in the principles of Earthen Ethics.  Learn more about our principles of financial and ecological energy management, ecological accounting and disclosure.</p><br><br>
 
-    <a class="action-btn" href="principles.php" data-lang-id="051-our-principles-btn">🚀 Our Principles</a>
+    <a class="action-btn" href="https://ecobricks.org/principles.php" data-lang-id="051-our-principles-btn">🚀 Our Principles</a>
     <p style="font-size: 0.85em; margin-top:20px;" data-lang-id="052-guided-by-principles">Our Accounting is guided by our regenerative principles</p>
 </div>
 <br>

@@ -15,7 +15,7 @@
    document.body.style.overflow = 'hidden';
    document.body.style.maxHeight = '100vh';
    document.getElementById("right-search-overlay").style.width = "100%";
-   document.getElementById("right-search-overlay").style.display = "block";
+//   document.getElementById("right-search-overlay").style.display = "block";
 
    document.body.style.overflowY = "clip";
 

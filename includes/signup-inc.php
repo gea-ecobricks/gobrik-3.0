@@ -264,8 +264,8 @@ input[type="submit"] {
   background-size: 0% 100%; /* Initial background size (progress bar) */
   transition: background-size 0.5s ease; /* Transition effect for smooth progress */
   font-size: 1.3em;
-  width: 100%;
-  margin-top: 30px;
+  width: fit-content;
+  margin-top: 5px;
 }
 
 /* Specify the progress bar color */

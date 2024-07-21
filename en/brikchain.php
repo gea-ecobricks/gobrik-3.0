@@ -2,7 +2,7 @@
 <?php
 include 'lang.php';
 $version = '0.344';
-$page = 'brikchain';
+
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 echo '<!DOCTYPE html>
@@ -111,8 +111,8 @@ require_once ("../includes/brikchain-inc.php");
 							<th data-lang-id="014-maker-header">Maker</th>
 							<th data-lang-id="015-value-header">Value</th>
 							<th data-lang-id="016-co2e-header">CO2e</th>
-							<th data-lang-id="017-serial-header">🔎 Serial</th>
-            </tr>
+							<th data-lang-id="017-serial-header"> 🔎 Serial</th>
+                        </tr>
 					</thead>
 					<!--<tfoot>
 						<tr>

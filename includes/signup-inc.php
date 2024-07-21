@@ -35,7 +35,7 @@ input[type="text"], input[type="email"], input[type="password"] {
   }
 
 
-input[type="text"], input[type="email"], input[type="password"] {
+input[type="text"], input[type="name"], input[type="credential"] {
   width: 100%;
   height: 100%;
   padding: 8px 10px;

@@ -1,6 +1,6 @@
 <?php
 include 'lang.php';
-$version = '0.345';
+$version = '0.346';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -120,13 +120,13 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>
         </div>
 
-        <div class="signup-team"><img src="../webps/ecobrick-team-blank.webp" width="100%"></div>
+        <div class="signup-team"><img src="../webps/ecobrick-team-blank.webp" width="80%"></div>
 
-        <div style="text-align:center;">
+        <div style="text-align:center;width:90%;">
             <h2>Create Your Account</h2>
             <p>GoBrik is developed by volunteers just as passionate about plastic transition as you!</p>
 
-            <p style="font-size:smaller;">Already have an account? <a href="login.php">Login</a></p>
+            <p style="font-size:small;">Already have an account? <a href="login.php">Login</a></p>
         </div>
 
 
@@ -136,7 +136,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
             <div class="form-item" style="margin-top: 25px;">
                 <label for="first_name" data-lang-id="005-first-name">What is your first name?</label><br>
-                    <input type="text" id="first_name" name="first_name" aria-label="Your first name" title="Required. Max 255 characters." required>
+                    <input type="text" id="first_name" name="first_name" aria-label="Your first name" title="Required. Max 255 characters." required type="name">
                     <p class="form-caption" data-lang-id="005b-ecobricker-maker-caption">By what name do we address you?</p>
 
                     <!--ERRORS-->
@@ -146,8 +146,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 </div>
 
             <div class="form-item">
-                    <label for="volume_ml" data-lang-id="006-volume-ml">With which credentials would you like to register?</label><br>
-                    <select id="credential" name="credential" aria-label="Preferred Credential" required>
+                    <label for="credential" data-lang-id="006-credential">With which credentials would you like to register?</label><br>
+                    <select id="credential" name="credential" aria-label="Preferred Credential" required type="credential">
                         <option value="" disabled selected>Select credential...</option>
                         <option value="sms">By SMS</option>
                         <option value="email">By Email</option>

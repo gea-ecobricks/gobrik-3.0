@@ -43,9 +43,9 @@ require_once ("../includes/brikchain-inc.php");
 
 			<div class="page-paragraph">
 
-				<p data-lang-id="005-first-page-paragraph">Our <a href="brikchain.php">Brikchain is based on the ecological value of plastic <a href="sequest.php">sequestered</a> out of the biosphere and out of industry.  Every ecobrick that is authenticated on the <a href="/gobrik">GoBrik platform</a> is permanently recorded on the <a href="brikcoins.php">Brikcoin Manual Blockchain</a>.  With each authentication, the corresponding value of sequestered plastic (<a href="/aes">AES plastic</a>) is issued in brikcoins</a>.  Each issuance is made through a block of transactions that are recorded sequentially.  This chain of blocks, transaction and ecobricks is fully searchable here.
+				<p data-lang-id="005-first-page-paragraph">The Brikchain is a manual blockchain that quantifies the ecological value of plastic <a href="sequest.php">sequestered</a> out of the biosphere and out of industry.  Every ecobrick that is authenticated on the GoBrik platform is permanently recorded on the <a href="https://ecobricks.org/en/brikcoins.php">Brikcoin Manual Blockchain</a>.  With each authentication, the corresponding value of sequestered plastic (<a href="https://ecobricks.org/aes">AES plastic</a>) is issued in brikcoins</a>.  Each issuance is made through a block of transactions that are recorded sequentially.  This chain of blocks, transaction and ecobricks is fully searchable here.
 
-				<p data-lang-id="005b-second-page-paragraph">Use the tools below to browse the Brikchain.  You can also view our <a href="open-books.php">Open Books</a> financial accounting.  To learn how the combination of our financial and <a href="regen-reports.php">ecological accounting</a> generates the price per Kg of AES sales see our <a href="offsets.php">offsetting page</a>.</p> </p>
+				<p data-lang-id="005b-second-page-paragraph">Use the tools below to browse the Brikchain.  You can also view our <a href="open-books.php">Open Books</a> financial accounting.  To learn how the combination of our financial and <a href="regen-reports.php">ecological accounting</a> generates the price per Kg of AES sales see our <a href="https://ecobricks.org/en/offsets.php">offsetting page</a>.</p> </p>
 			</div>
 
 
@@ -66,7 +66,7 @@ require_once ("../includes/brikchain-inc.php");
 
 	<div class="live-data" style="margin-top:30px">
 		<?php
-			$sql = "SELECT * FROM vw_detail_sums_by_year  WHERE year = 2023;"; $result = $conn->query($sql);
+			$sql = "SELECT * FROM vw_detail_sums_by_year  WHERE year = 2024;"; $result = $conn->query($sql);
 			if ($result->num_rows > 0) {
 
 				while($row = $result->fetch_assoc()) {

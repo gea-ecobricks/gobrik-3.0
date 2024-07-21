@@ -381,18 +381,7 @@ class SSP {
 	}
 
 
-	/**
-	 * Connect to the database
-	 *
-	 * @param  array $sql_details SQL server connection details array, with the
-	 *   properties:
-	 *     * host - host name
-	 *     * db   - database name
-	 *     * user - user name
-	 *     * pass - user password
-	 *     Alan added charset=utf8mb4; to new PDO
-	 * @return resource Database connection handle
-	 */
+
 	static function sql_connect ( $sql_details )
 	{
 		try {

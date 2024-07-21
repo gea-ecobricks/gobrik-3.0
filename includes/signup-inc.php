@@ -305,7 +305,6 @@ input[type="submit"]:hover {
 }
 
 .form-container {
-
   width: 80%;
   background-color: var(--form-background);
   border: 1px solid var(--divider-line);
@@ -315,7 +314,21 @@ input[type="submit"]:hover {
   z-index: 20;
   font-family: "Mulish", sans-serif;
   position: relative;
+  padding-top: 100px; /* Adjust this to make room for the floating image */
+}
 
+.signup-team {
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  top: -60px; /* Adjust this to position the image above the form */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 22;
+}
+
+.signup-team img {
+  width: 60%;
 }
 
 /* Media Query for screens under 700px */

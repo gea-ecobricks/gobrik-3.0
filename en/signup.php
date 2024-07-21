@@ -121,12 +121,13 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>
 
         <div class="splash-form-content-block">
-            <div class="splash-box">
-                <div class="splash-heading" data-lang-id="001-splash-title">Register</div>
-            </div>
             <div class="splash-image" data-lang-id="003-splash-image-alt">
                 <img src="../webps/eb-sky-400px.webp" style="width:65%; text-align:center;" alt="There are many ways to make an ecobrick">
             </div>
+        <div class="splash-box">
+                <div class="splash-heading" data-lang-id="001-splash-title">Sign Up</div>
+            </div>
+
         </div>
 
         <div class="lead-page-paragraph">
@@ -134,28 +135,49 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>
 
         <!--LOG FORM-->
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-            <label for="first_name">What is your name?</label><br>
-            <input type="text" id="first_name" name="first_name" required><br><br>
+        <form id="user-signup-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
-            <label for="credential">What credential would you like to use to register with?</label><br>
-            <select id="credential" name="credential" required>
-                <option value="sms">SMS</option>
-                <option value="email">Email</option>
-                <option value="mail">Mail</option>
-            </select><br><br>
+            <div class="form-item" style="margin-top: 25px;">
+                <label for="first_name" data-lang-id="005-first-name">What is your first name?</label><br>
+                    <input type="text" id="first_name" name="first_name" aria-label="Your first name" title="Required. Max 255 characters." required>
+                    <p class="form-caption" data-lang-id="005b-ecobricker-maker-caption">By what name do we address you?</p>
 
-            <label for="terms_of_service">
-                <input type="checkbox" id="terms_of_service" name="terms_of_service" required>
-                Do you agree to our terms of service?
-            </label><br><br>
+                    <!--ERRORS-->
+                    <div id="maker-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
+                    <div id="maker-error-long" class="form-field-error" data-lang-id="000-maker-field-too-long-error">The name is too long. Max 255 characters.</div>
+                    <div id="maker-error-invalid" class="form-field-error" data-lang-id="005b-maker-error">The entry contains invalid characters. Avoid quotes, slashes, and greater-than signs please.</div>
+                </div>
 
-            <label for="earthen_newsletter_join">
-                <input type="checkbox" id="earthen_newsletter_join" name="earthen_newsletter_join" checked>
-                Receive our Earthen newsletter
-            </label><br><br>
+            <div class="form-item">
+                    <label for="volume_ml" data-lang-id="006-volume-ml">With which credentials would you like to register?</label><br>
+                    <select id="credential" name="credential" aria-label="Preferred Credential" required>
+                        <option value="" disabled selected>Select credential...</option>
+                        <option value="sms">By SMS</option>
+                        <option value="email">By Email</option>
+                        <option value="mail">By Mail</option>
+                    </select>
+                    <p class="form-caption" data-lang-id="006-volume-ml-caption">This is the way we will contact you to confirm your account</p>
+                    <!--ERRORS-->
+                    <div id="volume-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
+                </div>
 
-            <input type="submit" value="Sign Up">
+            <div class="form-item">
+                <label for="terms_of_service">
+                    <input type="checkbox" id="terms_of_service" name="terms_of_service" required>
+                    Do you agree to our terms of service?
+                </label><br><br>
+            </div>
+
+            <div class="form-item">
+                <label for="earthen_newsletter_join">
+                    <input type="checkbox" id="earthen_newsletter_join" name="earthen_newsletter_join" checked>
+                    Receive our Earthen newsletter
+                </label><br><br>
+            </div>
+
+          <div data-lang-id="016-submit-button">
+                    <input type="submit" value="Next" aria-label="Submit Form">
+                </div>
         </form>
     </div><!--closes Landing content-->
 </div>

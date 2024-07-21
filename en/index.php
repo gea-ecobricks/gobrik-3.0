@@ -140,7 +140,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 	<?php require_once ("../footer-2024.php");?>
 
-</div><!--close page content-->
+<!--close page content-->
 
 
 <script>

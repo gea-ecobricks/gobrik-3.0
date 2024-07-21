@@ -95,13 +95,6 @@ $columns = array(
 
 
 
-// SQL server connection information
-$sql_details = array(
-    'user' => 'ecobricks_brikchain_viewer',
-    'pass' => 'desperate-like-the-Dawn',
-    'db'   => 'ecobricks_gobrik_msql_db',
-    'host' => 'localhost'
-);
 
 
 

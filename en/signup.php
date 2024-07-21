@@ -114,25 +114,19 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="form-submission-box">
     <div class="form-container">
         <div class="form-top-header" style="display:flex;flex-flow:row;">
-            <div class="step-graphic">
+           <!--<div class="step-graphic">
                 <img src="../svgs/step1-log-project.svg" style="height:25px;" loading="eager">
-            </div>
+            </div>-->
             <div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>
         </div>
 
-        <div class="splash-form-content-block">
-            <div class="splash-image" data-lang-id="003-splash-image-alt">
-                <img src="../webps/eb-sky-400px.webp" style="width:65%; text-align:center;" alt="There are many ways to make an ecobrick">
-            </div>
-        <div class="splash-box">
-                <div class="splash-heading" data-lang-id="001-splash-title">Sign Up</div>
-            </div>
+        <div class="signup-team"><img src="https://gobrik.com/webp/ecobrick-team-blank.webp" width="100%"></div>
+        <h2>Create Your Account</h2>
+        <p>GoBrik is developed by volunteers just as passionate about plastic transition as you!</p>
 
-        </div>
+        <p>Already have an account? Login</p>
 
-        <div class="lead-page-paragraph">
-            <p data-lang-id="004-form-description">Take a moment to create your account..</p>
-        </div>
+//
 
         <!--LOG FORM-->
         <form id="user-signup-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">

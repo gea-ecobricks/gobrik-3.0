@@ -123,7 +123,7 @@ function switchLanguage(langCode) {
 
 <script src="../scripts/guided-tour.js?v=1.3" defer></script>
 
-<script src="../scripts/site-search.js?v=6.1" defer></script>
+<script src="../scripts/site-search.js?v=6.2" defer></script>
 
 
 

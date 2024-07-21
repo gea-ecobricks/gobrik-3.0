@@ -13,11 +13,15 @@
 <?php require_once ("../meta/brikchain-$lang.php");?>
 
 
-<!-- CUSTOM PAGE SCRIPTS-->
+<!-- CUSTOM PAGE SCRIPTS
+
+<link rel="stylesheet" type="text/css" href="../styles/jquery.dataTables.css">
+
+-->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<link rel="stylesheet" type="text/css" href="../styles/jquery.dataTables.css">
+
 
 <script type="text/javascript" charset="utf8" src="../scripts/jquery.dataTables.js"></script>
 
@@ -281,7 +285,7 @@ $(document).ready(function() {
 
 
   .reg-content-block {
-background: var(--accordion-background);
+background: var(--accordion-background) !important;
   }
 
 </style>

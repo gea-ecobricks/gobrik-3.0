@@ -121,15 +121,13 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>
         </div>-->
 
-        <div class="signup-team" style="text-align:center;width:80%; background: url(../svgs/signup-team.svg?v=2) no-repeat center;
-            background-size: auto;margin-auto;
-          background-size: contain;"><img src="../webps/ecobrick-team-blank.webp" width="90%"></div>
+        <div class="signup-team" style="text-align:center;width:80%; background: url(../svgs/signup-team.svg?v=2) no-repeat center;background-size:auto;margin:auto;background-size: contain;"><img src="../webps/ecobrick-team-blank.webp" width="90%"></div>
 
         <div style="text-align:center;width:100%;margin:auto;">
             <h2>Create Your Account</h2>
-            <p style="font-size:small;">GoBrik is developed by volunteers just as passionate about plastic transition as you!</p>
+            <p>GoBrik is developed by volunteers just as passionate about plastic transition as you!</p>            <p style="font-size:medium;">Already have an account? <a href="login.php">Login</a></p>
 
-            <p>Already have an account? <a href="login.php">Login</a></p>
+
         </div>
 
 
@@ -165,7 +163,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <input type="submit" value="Next" aria-label="Submit Form">
     </div>
 </form>
-
+<div style="text-align:center;width:100%;margin:auto;"><p style="font-size:medium;">Already have an account? <a href="login.php">Login</a></p>
+        </div>
     </div><!--closes Landing content-->
 </div>
 

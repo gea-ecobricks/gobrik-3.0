@@ -111,7 +111,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <!-- PAGE CONTENT-->
 
-<div id="form-submission-box">
+<div id="form-submission-box" style="height:100vh;">
     <div class="form-container">
         <div class="form-top-header" style="display:flex;flex-flow:row;">
            <!--<div class="step-graphic">
@@ -121,12 +121,15 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>
 
         <div class="signup-team"><img src="../webps/ecobrick-team-blank.webp" width="100%"></div>
-        <h2>Create Your Account</h2>
-        <p>GoBrik is developed by volunteers just as passionate about plastic transition as you!</p>
 
-        <p>Already have an account? Login</p>
+        <div style="text-align:center;">
+            <h2>Create Your Account</h2>
+            <p>GoBrik is developed by volunteers just as passionate about plastic transition as you!</p>
 
-//
+            <p>Already have an account? Login</p>
+        </div>
+
+
 
         <!--LOG FORM-->
         <form id="user-signup-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">

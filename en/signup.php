@@ -41,8 +41,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
     $first_name = $_POST['first_name'];
     $credential = $_POST['credential'];
-    $terms_of_service = isset($_POST['terms_of_service']) ? 1 : 0;
-    $earthen_newsletter_join = isset($_POST['earthen_newsletter_join']) ? 1 : 0;
 
     // Set other required fields
     $full_name = $first_name;
@@ -53,11 +51,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $notes = "beta testing the first signup form";
 
     // Use prepared statements for inserting user data
-    $sql_user = "INSERT INTO users_tb (first_name, full_name, created_at, last_login, account_status, role, notes, terms_of_service, earthen_newsletter_join) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql_user = "INSERT INTO users_tb (first_name, full_name, created_at, last_login, account_status, role, notes) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt_user = $conn->prepare($sql_user);
 
     if ($stmt_user) {
-        $stmt_user->bind_param("sssssssii", $first_name, $full_name, $created_at, $last_login, $account_status, $role, $notes, $terms_of_service, $earthen_newsletter_join);
+        $stmt_user->bind_param("sssssss", $first_name, $full_name, $created_at, $last_login, $account_status, $role, $notes);
 
         if ($stmt_user->execute()) {
             $user_id = $conn->insert_id;
@@ -71,6 +69,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 if ($stmt_credential->execute()) {
                     $success = true;
+                    // Redirect to signup-2.php with user_id
+                    header("Location: signup-2.php?id=$user_id");
+                    exit();
                 } else {
                     echo "Error: " . $stmt_credential->error;
                 }
@@ -120,11 +121,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>
         </div>-->
 
-        <div class="signup-team" style="text-align:center;width:90%; background: url(../svgs/signup-team.svg?v=2) no-repeat center;
-            background-size: auto;
+        <div class="signup-team" style="text-align:center;width:80%; background: url(../svgs/signup-team.svg?v=2) no-repeat center;
+            background-size: auto;margin-auto;
           background-size: contain;"><img src="../webps/ecobrick-team-blank.webp" width="90%"></div>
 
-        <div style="text-align:center;width:90%;">
+        <div style="text-align:center;width:100%;margin:auto;">
             <h2>Create Your Account</h2>
             <p>GoBrik is developed by volunteers just as passionate about plastic transition as you!</p>
 
@@ -134,50 +135,38 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
         <!--LOG FORM-->
-        <form id="user-signup-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+       <!--LOG FORM-->
+<form id="user-signup-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
-            <div class="form-item" style="margin-top: 25px;">
-                <label for="first_name" data-lang-id="005-first-name">What is your first name?</label><br>
-                    <input type="text" id="first_name" name="first_name" aria-label="Your first name" title="Required. Max 255 characters." required type="name">
-                    <p class="form-caption" data-lang-id="005b-ecobricker-maker-caption">By what name do we address you?</p>
+    <div class="form-item" style="margin-top: 25px;">
+        <label for="first_name" data-lang-id="005-first-name">What is your first name?</label><br>
+        <input type="text" id="first_name" name="first_name" aria-label="Your first name" title="Required. Max 255 characters." required>
+        <p class="form-caption" data-lang-id="005b-ecobricker-maker-caption">By what name do we address you?</p>
 
-                    <!--ERRORS-->
-                    <div id="maker-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
-                    <div id="maker-error-long" class="form-field-error" data-lang-id="000-maker-field-too-long-error">The name is too long. Max 255 characters.</div>
-                    <div id="maker-error-invalid" class="form-field-error" data-lang-id="005b-maker-error">The entry contains invalid characters. Avoid quotes, slashes, and greater-than signs please.</div>
-                </div>
+        <!--ERRORS-->
+        <div id="maker-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
+        <div id="maker-error-long" class="form-field-error" data-lang-id="000-maker-field-too-long-error">The name is too long. Max 255 characters.</div>
+        <div id="maker-error-invalid" class="form-field-error" data-lang-id="005b-maker-error">The entry contains invalid characters. Avoid quotes, slashes, and greater-than signs please.</div>
+    </div>
 
-            <div class="form-item">
-                    <label for="credential" data-lang-id="006-credential">With which credentials would you like to register?</label><br>
-                    <select id="credential" name="credential" aria-label="Preferred Credential" required type="credential">
-                        <option value="" disabled selected>Select credential...</option>
-                        <option value="sms">By SMS</option>
-                        <option value="email">By Email</option>
-                        <option value="mail">By Mail</option>
-                    </select>
-                    <p class="form-caption" data-lang-id="006-volume-ml-caption">This is the way we will contact you to confirm your account</p>
-                    <!--ERRORS-->
-                    <div id="volume-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
-                </div>
+    <div class="form-item">
+        <label for="credential" data-lang-id="006-credential">With which credentials would you like to register?</label><br>
+        <select id="credential" name="credential" aria-label="Preferred Credential" required>
+            <option value="" disabled selected>Select credential...</option>
+            <option value="sms">By SMS</option>
+            <option value="email">By Email</option>
+            <option value="mail">By Mail</option>
+        </select>
+        <p class="form-caption" data-lang-id="006-volume-ml-caption">This is the way we will contact you to confirm your account</p>
+        <!--ERRORS-->
+        <div id="credential-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
+    </div>
 
-            <div class="form-item">
-                <label for="terms_of_service">
-                    <input type="checkbox" id="terms_of_service" name="terms_of_service" required>
-                    Do you agree to our terms of service?
-                </label><br><br>
-            </div>
+    <div data-lang-id="016-submit-button" style="max-width:300px;margin:auto;">
+        <input type="submit" value="Next" aria-label="Submit Form">
+    </div>
+</form>
 
-            <div class="form-item">
-                <label for="earthen_newsletter_join">
-                    <input type="checkbox" id="earthen_newsletter_join" name="earthen_newsletter_join" checked>
-                    Receive our Earthen newsletter
-                </label><br><br>
-            </div>
-
-          <div data-lang-id="016-submit-button" style="max-width:300px;">
-                    <input type="submit" value="Next" aria-label="Submit Form">
-                </div>
-        </form>
     </div><!--closes Landing content-->
 </div>
 
@@ -188,6 +177,59 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once ("../footer-2024.php");?>
 
 </div><!--close page content-->
+
+<script>
+
+document.getElementById('user-signup-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting until validation is complete
+    var isValid = true; // Flag to determine if the form should be submitted
+
+    // Helper function to display error messages
+    function displayError(elementId, showError) {
+        var errorDiv = document.getElementById(elementId);
+        if (showError) {
+            errorDiv.style.display = 'block'; // Show the error message
+            isValid = false; // Set form validity flag
+        } else {
+            errorDiv.style.display = 'none'; // Hide the error message
+        }
+    }
+
+    // Helper function to check for invalid characters
+    function hasInvalidChars(value) {
+        const invalidChars = /[\'\"><]/; // Regex for invalid characters
+        return invalidChars.test(value);
+    }
+
+    // 1. First Name Validation
+    var firstName = document.getElementById('first_name').value.trim();
+    displayError('maker-error-required', firstName === '');
+    displayError('maker-error-long', firstName.length > 255);
+    displayError('maker-error-invalid', hasInvalidChars(firstName));
+
+    // 2. Credential Validation
+    var credential = document.getElementById('credential').value;
+    displayError('credential-error-required', credential === '');
+
+    // If all validations pass, submit the form
+    if (isValid) {
+        this.submit();
+    } else {
+        // Scroll to the first error message and center it in the viewport
+        var firstError = document.querySelector('.form-field-error[style="display: block;"]');
+        if (firstError) {
+            firstError.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+            // Optionally, find the related input and focus it
+            var relatedInput = firstError.closest('.form-item').querySelector('input, select, textarea');
+            if (relatedInput) {
+                relatedInput.focus();
+            }
+        }
+    }
+});
+
+</script>
+
 
 </body>
 

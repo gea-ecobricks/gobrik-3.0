@@ -80,7 +80,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     while ($row = $result->fetch_assoc()) {
                         echo '<div class="gal-photo">
                                 <div class="photo-box">
-                                    <img src="https://ecobricks.org/' . $row["thumb_url"] . '?v=1" alt="Ecobrick ' . $row["ecobrick_unique_id"] . ' by ' . $row["ecobrick_owner"] . ' in ' . $row["location"] . '" title="Ecobrick ' . $row["ecobrick_unique_id"] . ' by ' . $row["ecobrick_owner"] . ' in ' . $row["location"] . '" loading="lazy" onclick="ecobrickPreview(\'' . $row["ecobrick_unique_id"] . '\', \'' . $row["weight_in_g"] . '\', \'' . $row["ecobrick_owner"] . '\', \'' . $row["location"] . '\')"/>
+                                    <img src="https://ecobricks.org/' . $row["thumb_url"] . '?v=1" alt="Ecobrick ' . $row["ecobrick_unique_id"] . ' by ' . $row["ecobrick_owner"] . ' in ' . $row["location"] . '" title="Ecobrick ' . $row["ecobrick_unique_id"] . ' by ' . $row["ecobrick_owner"] . ' in ' . $row["location"] . '" loading="lazy" onclick="ecobrickPreview(\'' . $row["ecobrick_unique_id"] . '\', \'' . $row["weight_in_g"] . '\', \'' . $row["ecobrick_owner"] . '\', \'' . $row["location"] . '\')">
                                 </div>
                             </div>';
                     }
@@ -88,7 +88,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     echo "Failed to connect to the Brikchain database";
                 }
              ?>
-            <div class="photo-box-end" href="brikchain.php"></div>
+            <a class="photo-box-end" href="brikchain.php"></a>
         </div>
 
         <div class="feature-content-box">

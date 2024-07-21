@@ -476,6 +476,21 @@ input[type="text"], input[type="name"], input[type="credential"] {
    border: 2px solid var(--button-2-1) !important;
 }
 
+select[type="credential"] {
+  width: 100%;
+  height: 100%;
+  padding: 8px 10px;
+  margin: 4px 0;
+  font-size: 18px !important;
+  box-sizing: border-box;
+  border: 3px solid var(--button-2-1);
+  border-radius: 5px;
+  background-color: var(--top-header) !important;
+  color: var(--h1);
+   border: 2px solid var(--button-2-1) !important;
+}
+
+
 
 
 </style>

@@ -74,7 +74,7 @@ $columns = array(
     array( 'db' => 'serial_no',     
         'dt' => 6,
         'formatter' => function( $d, $row ) {
-            return '<a href="details-ecobrick-page.php?serial_no='.($d).'">'.($d).'</a>';
+            return '<a href="brik.php?serial_no='.($d).'">'.($d).'</a>';
         }
     ),
     

@@ -75,7 +75,7 @@ include '../ecobricks_env.php'; // this file provides the database server, user,
     }
 
     $conn->close();
-}
+
 ?>
 
 <title>Signup | GoBrik 3.0</title>

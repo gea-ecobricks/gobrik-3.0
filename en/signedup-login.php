@@ -153,7 +153,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
        <!--SIGNUP FORM-->
 
-  <form id="signed-up-login" method="post" action="">
+
+   <form id="signed-up-login" method="post" action="">
         <div class="form-item">
             <label for="credential_value">Ok <?php echo $first_name; ?>, now please use your <?php echo $credential_type; ?> to login for the first time:</label><br>
             <input type="text" id="credential_value" name="credential_value" value="<?php echo $credential_key; ?>" required>
@@ -164,13 +165,15 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <p class="form-caption">Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
             <div id="password-error" class="form-field-error">👉 Password is wrong.</div>
         </div>
-        <div class="form-item">
-            <input type="submit" value="Login">
-        </div>
+        <div class="form-item" id="submit-section" style="text-align:center;margin-top:15px;" title="And login!">
+        <input type="submit" id="submit-button" value="Login" class="enabled">
+    </div>
         <input type="hidden" id="error-type" value="<?php echo $error_message; ?>">
     </form>
 
         </div>
+
+
 
 
 <div style="text-align:center;width:100%;margin:auto;margin-top:50px;margin-bottom:50px;"><p style="font-size:medium;">Don't have an account yet? <a href="signup.php">Signup!</a></p>

@@ -217,12 +217,13 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         const modal = document.getElementById('form-modal-message');
         const photobox = document.getElementById('modal-photo-box');
         const messageContainer = modal.querySelector('.modal-message');
+        const modalBox = document.getElementById('modal-content-box');
         let content = '';
         photobox.style.display = 'none';
         switch(type) {
             case 'terms':
                 content = `
-                <img class="preview-image" class="brik-type-image" src="../pngs/justandecobrick.png"  height="200" width="200">
+
                 <div style="font-size:small;">
                <?php  include 'terms.php'; ?>
                </div>
@@ -252,6 +253,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         // Show the modal and update other page elements
         modal.style.display = 'flex';
+        modal.style.position = 'relative';
+        modal.style.position = 'relative';
+        modalBox.style.textAlign = 'left';
+
         document.getElementById('page-content').classList.add('blurred');
         document.getElementById('footer-full').classList.add('blurred');
         document.body.classList.add('modal-open');

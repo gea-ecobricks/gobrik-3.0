@@ -166,7 +166,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-item" id="confirm-password-section" style="display: none;">
         <label for="confirm_password">Confirm Your Password:</label><br>
         <input type="password" id="confirm_password" name="confirm_password" required>
-        <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;" data-lang-id="005b-name-error">🔴 Passwords do not match.</div>
+        <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;" data-lang-id="005b-name-error">👉 Passwords do not match.</div>
     </div>
 
     <div class="form-item" id="human-check-section" style="display: none;">
@@ -175,15 +175,15 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <p class="form-caption" data-lang-id="006-volume-ml-caption"> 🤓 Fun fact: <a href="#" onclick="showModalInfo('ecobrick')" class="underline-link"> is spelled without a space, capital or hyphen!</p>
         <div>
             <input type="checkbox" id="terms" name="terms" required checked>
-            <label for="terms" style="font-size:medium;">By registering today, I agree to the <a href="#" onclick="showModalInfo('terms')" class="underline-link">GoBrik Terms of Service</a></label>
+            <label for="terms" style="font-size:medium;" class="form-caption">By registering today, I agree to the <a href="#" onclick="showModalInfo('terms')" class="underline-link">GoBrik Terms of Service</a></label>
         </div>
         <div>
             <input type="checkbox" id="newsletter" name="newsletter" checked>
-            <label for="newsletter" style="font-size:medium;">I agree to receive the <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen newsletter</a> for app, ecobrick, and earthen updates</label>
+            <label for="newsletter" style="font-size:medium;" class="form-caption">I agree to receive the <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen newsletter</a> for app, ecobrick, and earthen updates</label>
         </div>
     </div>
 
-    <div class="form-item" id="submit-section" style="display: none;text-align:center;margin-top:10px;" title="Be sure you've written the word 'ecobrick' correctly!">
+    <div class="form-item" id="submit-section" style="display:none;text-align:center;margin-top:15px;" title="Be sure you wrote ecobrick correctly!">
         <input type="submit" id="submit-button" value="Register" disabled>
     </div>
 </form>

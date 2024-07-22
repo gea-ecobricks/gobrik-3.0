@@ -11,7 +11,6 @@ echo '<!DOCTYPE html>
 ';
 ?>
 
-
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -107,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
         }
         $stmt_update_credential->close();
     } else {
-        echo "Error preparing statement for credentials_tb: " . $conn->error);
+        echo "Error preparing statement for credentials_tb: " . $conn->error;
     }
 
     $conn->close();

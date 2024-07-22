@@ -112,6 +112,11 @@ function showModalInfo(type) {
     document.getElementById('footer-full').classList.add('blurred');
     document.body.classList.add('modal-open');
 }
+
+document.getElementById('log-ecobrick-button').addEventListener('click', function() {
+    // Redirect to the log.php page
+    window.location.href = 'log.php';
+});
 </script>
 
 </body>

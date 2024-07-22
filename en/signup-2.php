@@ -175,11 +175,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <p class="form-caption" data-lang-id="006-volume-ml-caption">Fun fact: 'ecobrick' is spelled without capitals or hyphens!</p>
         <div>
             <input type="checkbox" id="terms" name="terms" required checked>
-            <label for="terms">By registering today, I agree to the GoBrik terms of service</label>
+            <label for="terms" style="font-size:medium;">By registering today, I agree to the GoBrik terms of service</label>
         </div>
         <div>
             <input type="checkbox" id="newsletter" name="newsletter" checked>
-            <label for="newsletter">I agree to receive the Earthen newsletter for app, ecobrick, and earthen updates</label>
+            <label for="newsletter" style="font-size:small;">I agree to receive the Earthen newsletter for app, ecobrick, and earthen updates</label>
         </div>
     </div>
 
@@ -191,7 +191,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>
 
 
-<div style="text-align:center;width:100%;margin:auto;"><p style="font-size:medium;">Already have an account? <a href="login.php">Login</a></p>
+<div style="text-align:center;width:100%;margin:auto;margin-top:50px;margin-bottom:50px;"><p style="font-size:medium;">Already have an account? <a href="login.php">Login</a></p>
 
 
     </div><!--closes Landing content-->

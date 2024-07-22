@@ -161,11 +161,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <div class="form-item">
             <label for="password">Your password:</label><br>
             <input type="password" id="password" name="password" required>
-             <p class="form-caption" data-lang-id="006-volume-ml-caption"> Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">'Reset'</a></p>
+             <p class="form-caption" data-lang-id="006-volume-ml-caption"> Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
         </div>
 
     <div class="form-item" id="submit-section" style="text-align:center;margin-top:15px;" title="And login!">
-        <input type="submit" id="submit-button" value="Login">
+        <input type="submit" id="submit-button" value="Login" enabled>
     </div>
 
 

@@ -154,25 +154,25 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-item" id="credential-section">
         <label for="credential_value">Your <?php echo $credential_type; ?> please:</label><br>
         <input type="text" id="credential_value" name="credential_value" required>
-        <p class="form-caption" data-lang-id="006-volume-ml-caption">This is the way we will contact you to confirm your account</p>
+        <p class="form-caption" data-lang-id="006-volume-ml-caption">💌 This is the way we will contact you to confirm your account</p>
     </div>
 
     <div class="form-item" id="set-password" style="display: none;">
         <label for="password_hash">Set your password:</label><br>
         <input type="password" id="password_hash" name="password_hash" required minlength="6">
-        <p class="form-caption" data-lang-id="006-volume-ml-caption">Your password must be at least 6 characters.</p>
+        <p class="form-caption" data-lang-id="006-volume-ml-caption">🔑 Your password must be at least 6 characters.</p>
     </div>
 
     <div class="form-item" id="confirm-password-section" style="display: none;">
         <label for="confirm_password">Confirm Your Password:</label><br>
         <input type="password" id="confirm_password" name="confirm_password" required>
-        <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;" data-lang-id="005b-name-error">Passwords do not match.</div>
+        <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;" data-lang-id="005b-name-error">🔴 Passwords do not match.</div>
     </div>
 
     <div class="form-item" id="human-check-section" style="display: none;">
         <label for="human_check">Please prove you are human by typing the word "ecobrick" below:</label><br>
         <input type="text" id="human_check" name="human_check" required>
-        <p class="form-caption" data-lang-id="006-volume-ml-caption">Fun fact: 'ecobrick' is spelled without capitals or hyphens! 🤓</p>
+        <p class="form-caption" data-lang-id="006-volume-ml-caption"> 🤓 Fun fact: <a href="#" onclick="showModalInfo('ecobrick')" class="underline-link"> is spelled without a space, capital or hyphen!</p>
         <div>
             <input type="checkbox" id="terms" name="terms" required checked>
             <label for="terms" style="font-size:medium;">By registering today, I agree to the <a href="#" onclick="showModalInfo('terms')" class="underline-link">GoBrik Terms of Service</a></label>
@@ -183,7 +183,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>
     </div>
 
-    <div class="form-item" id="submit-section" style="display: none;text-align:center;">
+    <div class="form-item" id="submit-section" style="display: none;text-align:center;margin-top:10px;" title="Be sure you've written the word 'ecobrick' correctly!">
         <input type="submit" id="submit-button" value="Register" disabled>
     </div>
 </form>
@@ -222,11 +222,21 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         switch(type) {
             case 'terms':
                 content = `
-                <img class="preview-image" class="brik-type-image" src="../pngs/justandecobrick.png" alt="Terms of Use" height="200" width="200">
+                <img class="preview-image" class="brik-type-image" src="../pngs/justandecobrick.png"  height="200" width="200">
+                <div style="font-size:small;">
                <?php  include 'terms.php'; ?>
+               </div>
             `;
                 break;
             case 'earthen':
+                content = `
+                <img src="../svgs/earthen-newsletter-logo.svg" alt="Earthen Newsletter" height="250px" width="250px" class="preview-image">
+                <div class="preview-title">Earthen Newsletter</div>
+                <div class="preview-text">Receive our bi-monthly Earthen newsletter and follow the latest developments in the plastic transition movement.</div>
+            `;
+                break;
+
+             case 'ecobrick':
                 content = `
                 <img src="../svgs/earthen-newsletter-logo.svg" alt="Earthen Newsletter" height="250px" width="250px" class="preview-image">
                 <div class="preview-title">Earthen Newsletter</div>

@@ -404,14 +404,7 @@ input[type="date"] {
     padding: 7px;
 }
 
-#photos-submission-box .form-item input {
-    font-size: 1.2em;
-    color: var(--text-color);
-    border-radius: 5px;
-    background-color: #ffffff35;
-    margin-top: 10px;
-    cursor: pointer;
-}
+
 
 .form-item .form-caption {
     font-size: 0.9;

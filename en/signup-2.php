@@ -172,7 +172,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-item" id="human-check-section" style="display: none;">
         <label for="human_check">Please prove you are human by typing the word "ecobrick" below:</label><br>
         <input type="text" id="human_check" name="human_check" required>
-        <p class="form-caption" data-lang-id="006-volume-ml-caption"> 🤓 Fun fact: <a href="#" onclick="showModalInfo('ecobrick')" class="underline-link"> is spelled without a space, capital or hyphen!</p>
+        <p class="form-caption" data-lang-id="006-volume-ml-caption"> 🤓 Fun fact: <a href="#" onclick="showModalInfo('ecobrick')" class="underline-link">'ecobrick'</a> is spelled without a space, capital or hyphen!</p>
         <div>
             <input type="checkbox" id="terms" name="terms" required checked>
             <label for="terms" style="font-size:medium;" class="form-caption">By registering today, I agree to the <a href="#" onclick="showModalInfo('terms')" class="underline-link">GoBrik Terms of Service</a></label>

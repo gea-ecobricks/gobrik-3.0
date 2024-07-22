@@ -119,7 +119,7 @@ function logoutUser() {
     // Confirm logout action
     if (confirm('Are you sure you want to log out?')) {
         // Redirect to logout.php
-        window.location.href = 'index.php';
+        window.location.href = 'logout.php';
     }
 }
 </script>

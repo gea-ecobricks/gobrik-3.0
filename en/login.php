@@ -67,12 +67,16 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <input type="submit" id="submit-button" value="Login" class="enabled">
             </div>
         </form>
-    </div>
+        </div><!--closes Landing content-->
+
 
     <div style="text-align:center;width:100%;margin:auto;margin-top:50px;margin-bottom:50px;">
         <p style="font-size:medium;">Don't have an account yet? <a href="signup.php">Signup!</a></p>
     </div>
+
 </div>
+
+</div><!--closes main and starry background-->
 
 <!-- FOOTER STARTS HERE -->
 <?php require_once ("../footer-2024.php");?>

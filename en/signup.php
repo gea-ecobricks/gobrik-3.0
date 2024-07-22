@@ -23,20 +23,7 @@ ini_set('display_errors', 1);
 
 $success = false;
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Database connection details
-    $servername = "localhost";
-    $username = "ecobricks_gobrik_app";
-    $password = "1EarthenAuth!";
-    $dbname = "ecobricks_earthenAuth_db";
-
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+include '../ecobricks_env.php'; // this file provides the database server, user, dbname information to access the server
 
     // Retrieve form data
     $first_name = $_POST['first_name'];
@@ -114,45 +101,36 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <div id="form-submission-box" style="height:100vh;">
     <div class="form-container">
-         <!--<div class="form-top-header" style="display:flex;flex-flow:row;">
-          <div class="step-graphic">
-                <img src="../svgs/step1-log-project.svg" style="height:25px;" loading="eager">
-            </div>
-            <div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>
-        </div>-->
 
         <div class="signup-team">
         <img src="../svgs/signup-team.svg?v=2" width="60%">
     </div>
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2>Create Your Account</h2>
-            <p style="font-size:medium;">GoBrik is developed by volunteers just as passionate about plastic transition as you!</p>
+            <h2 data-lang-id="001-signup-heading">Create Your Account</h2>
+            <p style="font-size:medium;" data-lang-id="002-gobrik-subtext">GoBrik is developed by volunteers just as passionate about plastic transition as you!</p>
         </div>
-
-
 
        <!--SIGNUP FORM-->
 <form id="user-signup-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
     <div class="form-item" style="margin-top:0px;">
-        <label for="first_name" data-lang-id="005-first-name">What is your first name?</label><br>
+        <label for="first_name" data-lang-id="003-first-name">What is your first name?</label><br>
         <input type="text" id="first_name" name="first_name" aria-label="Your first name" title="Required. Max 255 characters." required>
-        <!--<p class="form-caption" data-lang-id="005b-ecobricker-maker-caption">By what name do we address you?</p>
--->
+
         <!--ERRORS-->
         <div id="maker-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
-        <div id="maker-error-long" class="form-field-error" data-lang-id="000-maker-field-too-long-error">The name is too long. Max 255 characters.</div>
-        <div id="maker-error-invalid" class="form-field-error" data-lang-id="005b-maker-error">The entry contains invalid characters. Avoid quotes, slashes, and greater-than signs please.</div>
+        <div id="maker-error-long" class="form-field-error" data-lang-id="000-name-field-too-long-error">The name is too long. Max 255 characters.</div>
+        <div id="maker-error-invalid" class="form-field-error" data-lang-id="005b-name-error">The entry contains invalid characters. Avoid quotes, slashes, and greater-than signs please.</div>
     </div>
 
     <div class="form-item">
         <label for="credential" data-lang-id="006-credential">With which credentials would you like to register?</label><br>
         <select id="credential" name="credential" aria-label="Preferred Credential" required>
             <option value="" disabled selected>Select credential...</option>
-            <option value="sms">By SMS</option>
-            <option value="email">By Email</option>
-            <option value="mail">By Mail</option>
+            <option value="sms">SMS</option>
+            <option value="email">E-mail</option>
+            <option value="mail">Mail</option>
         </select>
         <p class="form-caption" data-lang-id="006-volume-ml-caption">This is the way we will contact you to confirm your account</p>
         <!--ERRORS-->

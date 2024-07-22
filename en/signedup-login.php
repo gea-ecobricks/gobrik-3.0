@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
                 }
 
                 // Redirect to the dashboard or any other page
-                header("Location: dashboard.php?id=$user_id");
+                header("Location: onboard-1.php?id=$user_id");
                 exit();
             } else {
                 echo "<script>alert('Invalid password.');</script>";
@@ -140,13 +140,13 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="form-submission-box" style="height:100vh;">
     <div class="form-container">
 
-        <div class="dolphin-pic" style="margin-top:-45px;">
-        <img src="../webps/earth-community.webp" width="60%">
+        <div class="dolphin-pic" style="margin-top:-45px;background-size:contain;">
+        <img src="../webps/earth-community.webp" width="80%">
     </div>
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="001-signup-heading">You're Account is Ready!</h2>
-            <p data-lang-id="002-gobrik-subtext">Ok <?php echo $first_name; ?>, now please use your <?php echo $credential_type; ?> to login for the first time:</p>
+            <h2 data-lang-id="001-login-heading-signed-up">Your account is Ready! 🎉</h2>
+            <p data-lang-id="002-login-subheading">Ok <?php echo $first_name; ?>, now please use your <?php echo $credential_type; ?> to login for the first time to start setting up your account:</p>
         </div>
 
        <!--SIGNUP FORM-->
@@ -171,7 +171,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>
 
 
-<div style="text-align:center;width:100%;margin:auto;margin-top:50px;margin-bottom:50px;"><p style="font-size:medium;">Already have an account? <a href="login.php">Login</a></p>
+<div style="text-align:center;width:100%;margin:auto;margin-top:50px;margin-bottom:50px;"><p style="font-size:medium;">Don't have an account yet? <a href="signup.php">Signup!</a></p>
 
 
     </div><!--closes Landing content-->

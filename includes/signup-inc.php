@@ -254,30 +254,6 @@ input[type="date"] {
   margin-top: 8px;
 }
 
-input[type="submit"] {
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  background-color: var(--button-2-1);
-  background-size: 0% 100%; /* Initial background size (progress bar) */
-  transition: background-size 0.5s ease; /* Transition effect for smooth progress */
-  font-size: 1.3em;
-  width: fit-content;
-  margin-top: 5px;
-}
-
-/* Specify the progress bar color */
-input[type="submit"].progress-bar {
-  background: url(../svgs/square-upload-progress.svg) left center repeat-y, gray; /* Combined background */
-  background-size: auto; /* Auto size for image background */
-}
-
-
-input[type="submit"]:hover {
-  background-color: var(--button-2-1-over);
-}
 
 .spinner-photo-loading {
     border: 4px solid rgba(0, 0, 0, 0.1);
@@ -505,6 +481,32 @@ select {
 }
 
 
+/*
+input[type="submit"] {
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: var(--button-2-1);
+  background-size: 0% 100%;  *//* Initial background size (progress bar) *//*
+  transition: background-size 0.5s ease;  *//* Transition effect for smooth progress *//*
+  font-size: 1.3em;
+  width: fit-content;
+  margin-top: 5px;
+}
+
+ *//* Specify the progress bar color *//*
+input[type="submit"].progress-bar {
+  background: url(../svgs/square-upload-progress.svg) left center repeat-y, gray;  *//* Combined background *//*
+  background-size: auto;  *//* Auto size for image background *//*
+}
+
+
+input[type="submit"]:hover {
+  background-color: var(--button-2-1-over);
+} */
+
 #submit-button {
     padding: 10px 20px;
     border: none;
@@ -512,6 +514,8 @@ select {
     font-size: 16px;
     border-radius: 5px;
     transition: background-color 0.3s, cursor 0.3s;
+
+
 }
 
 /* Styles for the disabled state */
@@ -522,13 +526,13 @@ select {
 
 /* Styles for the enabled state */
 .enabled {
-    background-color: darkgreen;
+    background-color: var(--button-2-1);
     cursor: pointer;
 }
 
 /* Hover effect for enabled state */
 .enabled:hover {
-    background-color: green;
+    background-color: var(--button-2-1-over);
 }
 
 

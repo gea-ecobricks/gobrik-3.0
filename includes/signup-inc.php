@@ -514,8 +514,7 @@ input[type="submit"]:hover {
     font-size: 16px;
     border-radius: 5px;
     transition: background-color 0.3s, cursor 0.3s;
-
-
+    background-color: var(--button-2-1);
 }
 
 /* Styles for the disabled state */

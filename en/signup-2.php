@@ -137,7 +137,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="form-submission-box" style="height:100vh;">
     <div class="form-container">
 
-        <div class="earth-com">
+        <div class="earth-com" style="margin-top:-45px;">
         <img src="../webps/earth-community.webp" width="60%">
     </div>
 
@@ -179,7 +179,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>
         <div>
             <input type="checkbox" id="newsletter" name="newsletter" checked>
-            <label for="newsletter" style="font-size:small;">I agree to receive the <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen newsletter</a> for app, ecobrick, and earthen updates</label>
+            <label for="newsletter" style="font-size:medium;">I agree to receive the <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen newsletter</a> for app, ecobrick, and earthen updates</label>
         </div>
     </div>
 
@@ -223,16 +223,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             case 'terms':
                 content = `
                 <img class="preview-image" class="brik-type-image" src="../pngs/justandecobrick.png" alt="Terms of Use" height="200" width="200">
-               <?php  include '../ecobricks_env.php'; ?>
-                <a class="preview-btn" href="/ocean">Learn more</a>
+               <?php  include '../terms.php'; ?>
             `;
                 break;
             case 'earthen':
                 content = `
-                <img src="..svgs/earthen-newsletter-logo.svg" alt="Earthen Newsletter" height="250px" width="250px" class="preview-image">
+                <img src="../svgs/earthen-newsletter-logo.svg" alt="Earthen Newsletter" height="250px" width="250px" class="preview-image">
                 <div class="preview-title">Earthen Newsletter</div>
                 <div class="preview-text">Receive our bi-monthly Earthen newsletter and follow the latest developments in the plastic transition movement.</div>
-                <a class="preview-btn" href="https://earthen.io" target="_blank">See Earthen</a>
             `;
                 break;
 

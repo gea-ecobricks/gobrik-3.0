@@ -47,12 +47,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="001-login-heading-signed-up">Login</h2>
+            <h2 data-lang-id="001-login-heading-">Login</h2>
             <p data-lang-id="002-login-subheading">We're glad you're back!</p>
         </div>
 
         <!-- SIGNUP FORM -->
-          <form id="signed-up-login" method="post" action="login_process.php">
+          <form id="login" method="post" action="login_process.php">
             <div class="form-item">
                 <label for="credential_value">Your Credential:</label><br>
                 <input type="text" id="credential_value" name="credential_value" required>
@@ -83,7 +83,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 <script type="text/javascript">
-    document.getElementById('signed-up-login').addEventListener('submit', function(event) {
+    document.getElementById('login').addEventListener('submit', function(event) {
         // Example validation, modify as needed
         var credentialValue = document.getElementById('credential_value').value;
         var password = document.getElementById('password').value;

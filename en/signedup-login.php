@@ -1,7 +1,7 @@
 <?php
 include 'lang.php';
 $version = '0.35';
-$page = 'signup';
+$page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 echo '<!DOCTYPE html>
@@ -19,7 +19,6 @@ $success = false;
 $user_id = $_GET['id'] ?? null;
 
 include '../buwana_env.php'; // this file provides the database server, user, dbname information to access the server
-
 
 // Look up these fields from credentials_tb and users_tb using the user_id
 $credential_type = '';
@@ -108,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
 
 
 
-<title>Signup 2 | GoBrik 3.0</title>
+<title>Login | GoBrik 3.0</title>
 
 <!--
 GoBrik.com site version 3.0
@@ -116,7 +115,7 @@ Developed and made open source by the Global Ecobrick Alliance
 See our git hub repository for the full code and to help out:
 https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
-<?php require_once ("../includes/signup-inc.php");?>
+<?php require_once ("../includes/login-inc.php");?>
 
 
 <div class="splash-content-block"></div>
@@ -132,51 +131,28 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="001-signup-heading">Setup Your Access</h2>
-            <p data-lang-id="002-gobrik-subtext">Alright <?php echo $first_name; ?>: You've chosen to use <?php echo $credential_type; ?> as your means of registration and the way we contact you.</p>
+            <h2 data-lang-id="001-signup-heading">Login to GoBrik</h2>
+            <p data-lang-id="002-gobrik-subtext">Ok <?php echo $first_name; ?>, now please use your <?php echo $credential_type; ?> to login for the first time:</p>
         </div>
 
        <!--SIGNUP FORM-->
 
 
-
-<form id="password-confirm-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?id=' . htmlspecialchars($user_id); ?>">
-    <div class="form-item" id="credential-section">
-        <label for="credential_value">Your <?php echo $credential_type; ?> please:</label><br>
-        <input type="text" id="credential_value" name="credential_value" required>
-        <p class="form-caption" data-lang-id="006-volume-ml-caption">💌 This is the way we will contact you to confirm your account</p>
-    </div>
-
-    <div class="form-item" id="set-password" style="display: none;">
-        <label for="password_hash">Set your password:</label><br>
-        <input type="password" id="password_hash" name="password_hash" required minlength="6">
-        <p class="form-caption" data-lang-id="006-volume-ml-caption">🔑 Your password must be at least 6 characters.</p>
-    </div>
-
-    <div class="form-item" id="confirm-password-section" style="display: none;">
-        <label for="confirm_password">Confirm Your Password:</label><br>
-        <input type="password" id="confirm_password" name="confirm_password" required>
-        <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;" data-lang-id="005b-name-error">👉 Passwords do not match.</div>
-    </div>
-
-    <div class="form-item" id="human-check-section" style="display: none;">
-        <label for="human_check">Please prove you are human by typing the word "ecobrick" below:</label><br>
-        <input type="text" id="human_check" name="human_check" required>
-        <p class="form-caption" data-lang-id="006-volume-ml-caption"> 🤓 Fun fact: <a href="#" onclick="showModalInfo('ecobrick')" class="underline-link">'ecobrick'</a> is spelled without a space, capital or hyphen!</p>
-        <div>
-            <input type="checkbox" id="terms" name="terms" required checked>
-            <label for="terms" style="font-size:medium;" class="form-caption">By registering today, I agree to the <a href="#" onclick="showModalInfo('terms')" class="underline-link">GoBrik Terms of Service</a></label>
+ <form id="signed-up-login" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?id=' . htmlspecialchars($user_id); ?>">
+        <div class="form-item">
+            <label for="credential_value">Your <?php echo $credential_type; ?>:</label><br>
+            <input type="text" id="credential_value" name="credential_value" value="<?php echo htmlspecialchars($credential_key); ?>" required>
         </div>
-        <div>
-            <input type="checkbox" id="newsletter" name="newsletter" checked>
-            <label for="newsletter" style="font-size:medium;" class="form-caption">I agree to receive the <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen newsletter</a> for app, ecobrick, and earthen updates</label>
-        </div>
-    </div>
 
-    <div class="form-item" id="submit-section" style="display:none;text-align:center;margin-top:15px;" title="Be sure you wrote ecobrick correctly!">
-        <input type="submit" id="submit-button" value="Register" disabled>
-    </div>
-</form>
+        <div class="form-item">
+            <label for="password">Your password:</label><br>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <div class="form-item">
+            <input type="submit" value="Login">
+        </div>
+    </form>
 
         </div>
 

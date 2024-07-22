@@ -104,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
                 header("Location: onboard-1.php?id=$user_id");
                 exit();
             } else {
-                echo "<script>alert('Invalid password.');</script>";
+                echo "<script>alert('Incorrect password.  Please try again!');</script>";
             }
         } else {
             die("Error preparing statement for getting password: " . $conn->error);
@@ -161,11 +161,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <div class="form-item">
             <label for="password">Your password:</label><br>
             <input type="password" id="password" name="password" required>
+             <p class="form-caption" data-lang-id="006-volume-ml-caption"> Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">'Reset it here'</a></p>
         </div>
 
-        <div class="form-item">
-            <input type="submit" value="Login">
-        </div>
+    <div class="form-item" id="submit-section" style="text-align:center;margin-top:15px;" title="And login!">
+        <input type="submit" id="submit-button" value="Login">
+    </div>
+
+
     </form>
 
         </div>
@@ -199,37 +202,15 @@ function showModalInfo(type) {
     let content = '';
     photobox.style.display = 'none';
     switch (type) {
-        case 'terms':
-            content = `
-                <div style="font-size: small;">
-                    <?php include 'terms.php'; ?>
-                </div>
-            `;
-            modal.style.position = 'absolute';
-            modal.style.overflow = 'auto';
-            modalBox.style.textAlign = 'left';
-            modalBox.style.maxHeight = 'unset';
-            modalBox.style.marginTop = '30px';
-            modalBox.style.marginBottom = '30px';
 
-    // Set scroll position to the top of the modal content
-    modalBox.scrollTop = 0;
+        case 'reset':
+            content = `
+                <img src="../pngs/exchange-bird.png" alt="Earthen Newsletter" height="250px" width="250px" class="preview-image">
+                <div class="preview-title">Reset Password</div>
+                <div class="preview-text">Oops!  This function is not yet operational.  Create another account for the moment as all accounts will be deleted once we migrate from beta to live.</div>
+            `;
+            break;
 
-            break;
-        case 'earthen':
-            content = `
-                <img src="../svgs/earthen-newsletter-logo.svg" alt="Earthen Newsletter" height="250px" width="250px" class="preview-image">
-                <div class="preview-title">Earthen Newsletter</div>
-                <div class="preview-text">Receive our bi-monthly Earthen newsletter and follow the latest developments in the plastic transition movement.</div>
-            `;
-            break;
-        case 'ecobrick':
-            content = `
-                <img src="../webps/faqs-400px.webp" alt="Ecobrick Term and Types" height="200px" width="200px" class="preview-image">
-                <div class="preview-title">The Term</div>
-                <div class="preview-text">In 2016 plastic transition leaders around the world, agreed to use the non-hyphenated, non-capitalize term ‘ecobrick’ as the consistent, standardized term of reference in the guidebook and their materials. In this way, ecobrickers around the world would be able to refer with one word to same concept and web searches and hashtags would accelerate global dissemination.</div>
-            `;
-            break;
         default:
             content = '<p>Invalid term selected.</p>';
     }

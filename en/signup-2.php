@@ -33,24 +33,24 @@ if (!$conn) {
 }
 
 // Look up these fields from users_tb using the user_id
-$credential = '';
+$credential_type = '';
 $first_name = '';
 
 if (isset($user_id)) {
-    $sql_lookup_user = "SELECT credential, first_name FROM users_tb WHERE id = ?";
+    $sql_lookup_user = "SELECT credential_type, first_name FROM users_tb WHERE id = ?";
     $stmt_lookup_user = $conn->prepare($sql_lookup_user);
 
     if ($stmt_lookup_user) {
         $stmt_lookup_user->bind_param("i", $user_id);
         $stmt_lookup_user->execute();
-        $stmt_lookup_user->bind_result($credential, $first_name);
+        $stmt_lookup_user->bind_result($credential_type, $first_name);
         $stmt_lookup_user->fetch();
         $stmt_lookup_user->close();
     } else {
         die("Error preparing statement: " . $conn->error);
     }
 
-    $credential = htmlspecialchars($credential); // Sanitize to prevent XSS
+    $credential_type = htmlspecialchars($credential_type); // Sanitize to prevent XSS
     $first_name = htmlspecialchars($first_name); // Sanitize to prevent XSS
 }
 
@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
     // Update the credentials_tb with the credential_value
-    $sql_update_credential = "UPDATE credentials_tb SET credentials_name = ?, credential_type = ? WHERE user_id = ?";
+    $sql_update_credential = "UPDATE credentials_tb SET credentials_key = ? WHERE user_id = ?";
     $stmt_update_credential = $conn->prepare($sql_update_credential);
 
     if ($stmt_update_credential) {

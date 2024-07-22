@@ -211,9 +211,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <script type="text/javascript">
 
 
-
-
-   function showModalInfo(type) {
+function showModalInfo(type) {
     const modal = document.getElementById('form-modal-message');
     const photobox = document.getElementById('modal-photo-box');
     const messageContainer = modal.querySelector('.modal-message');
@@ -231,6 +229,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             modal.style.overflow = 'auto';
             modalBox.style.textAlign = 'left';
             modalBox.style.maxHeight = 'unset';
+            modalBox.style.marginTop = '30px';
+
+    // Set scroll position to the top of the modal content
+    modalBox.scrollTop = 0;
+
             break;
         case 'earthen':
             content = `
@@ -241,16 +244,17 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             break;
         case 'ecobrick':
             content = `
-                <img src="../svgs/earthen-newsletter-logo.svg" alt="Earthen Newsletter" height="250px" width="250px" class="preview-image">
-                <div class="preview-title">Earthen Newsletter</div>
-                <div class="preview-text">Receive our bi-monthly Earthen newsletter and follow the latest developments in the plastic transition movement.</div>
+                <img src="../webps/faqs-400px.webp" alt="Ecobrick Term and Types" height="200px" width="200px" class="preview-image">
+                <div class="preview-title">The Term</div>
+                <div class="preview-text">In 2016 plastic transition leaders around the world, agreed to use the non-hyphenated, non-capitalize term ‘ecobrick’ as the consistent, standardized term of reference in the guidebook and their materials. In this way, ecobrickers around the world would be able to refer with one word to same concept and web searches and hashtags would accelerate global dissemination.</div>
             `;
             break;
         default:
-            content = '<p>Invalid ecobrick type selected.</p>';
+            content = '<p>Invalid term selected.</p>';
     }
 
     messageContainer.innerHTML = content;
+
 
     // Show the modal and update other page elements
     modal.style.display = 'flex';
@@ -258,6 +262,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     document.getElementById('footer-full').classList.add('blurred');
     document.body.classList.add('modal-open');
 }
+
 
 
 

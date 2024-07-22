@@ -21,6 +21,25 @@ $user_id = $_GET['id'] ?? null;
 include '../buwana_env.php'; // this file provides the database server, user, dbname information to access the server
 
 
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+$success = false;
+$user_id = $_GET['id'] ?? null;
+
+$servername = "localhost";
+$username = "ecobricks_gobrik_app";
+$password = "1EarthenAuth!";
+$dbname = "ecobricks_earthenAuth_db";
+
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 
 // Look up these fields from credentials_tb and users_tb using the user_id
 $credential_type = '';
@@ -65,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
     // Check if entered credential matches the credential_key in the database
     if ($entered_credential === $credential_key) {
         // Retrieve the hashed password from users_tb
-        $sql_get_password = "SELECT password FROM users_tb WHERE id = ?";
+        $sql_get_password = "SELECT password_hash FROM users_tb WHERE id = ?";
         $stmt_get_password = $conn->prepare($sql_get_password);
 
         if ($stmt_get_password) {
@@ -105,18 +124,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
                 header("Location: dashboard.php?id=$user_id");
                 exit();
             } else {
-                echo "Invalid password.";
+                echo "<script>alert('Invalid password.');</script>";
             }
         } else {
             die("Error preparing statement for getting password: " . $conn->error);
         }
     } else {
-        echo "Invalid credential.";
+        echo "<script>alert('Invalid credential.');</script>";
     }
 }
 
 $conn->close();
 ?>
+
 
 
 

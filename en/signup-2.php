@@ -10,6 +10,7 @@ echo '<!DOCTYPE html>
 <meta charset="UTF-8">
 ';
 ?>
+
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -30,38 +31,22 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-// Look up these fields from credentials_tb and users_tb using the user_id
+// Look up these fields from users_tb using the user_id
 $credential_type = '';
-$credential_key = '';
 $first_name = '';
 
 if (isset($user_id)) {
-    // First, look up the credential_type and credential_key from credentials_tb
-    $sql_lookup_credential = "SELECT credential_type, credential_key FROM credentials_tb WHERE user_id = ?";
-    $stmt_lookup_credential = $conn->prepare($sql_lookup_credential);
-
-    if ($stmt_lookup_credential) {
-        $stmt_lookup_credential->bind_param("i", $user_id);
-        $stmt_lookup_credential->execute();
-        $stmt_lookup_credential->bind_result($credential_type, $credential_key);
-        $stmt_lookup_credential->fetch();
-        $stmt_lookup_credential->close();
-    } else {
-        die("Error preparing statement for credentials_tb: " . $conn->error);
-    }
-
-    // Then, look up the first_name from users_tb
-    $sql_lookup_user = "SELECT first_name FROM users_tb WHERE user_id = ?";
+    $sql_lookup_user = "SELECT credential_type, first_name FROM users_tb WHERE user_id = ?";
     $stmt_lookup_user = $conn->prepare($sql_lookup_user);
 
     if ($stmt_lookup_user) {
         $stmt_lookup_user->bind_param("i", $user_id);
         $stmt_lookup_user->execute();
-        $stmt_lookup_user->bind_result($first_name);
+        $stmt_lookup_user->bind_result($credential_type, $first_name);
         $stmt_lookup_user->fetch();
         $stmt_lookup_user->close();
     } else {
-        die("Error preparing statement for users_tb: " . $conn->error);
+        die("Error preparing statement: " . $conn->error);
     }
 
     $credential_type = htmlspecialchars($credential_type); // Sanitize to prevent XSS
@@ -82,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
 
         if ($stmt_update_credential->execute()) {
             // Update the users_tb with the password and change the account status
-            $sql_update_user = "UPDATE users_tb SET password = ?, account_status = 'registered no login' WHERE user_id = ?";
+            $sql_update_user = "UPDATE users_tb SET password = ?, account_status = 'registered no login' WHERE id = ?";
             $stmt_update_user = $conn->prepare($sql_update_user);
 
             if ($stmt_update_user) {
@@ -105,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
         }
         $stmt_update_credential->close();
     } else {
-        echo "Error preparing statement for credentials_tb: " . $conn->error);
+        echo "Error preparing statement for credentials_tb: " . $conn->error;
     }
 
     $conn->close();

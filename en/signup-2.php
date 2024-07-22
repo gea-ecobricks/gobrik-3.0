@@ -228,6 +228,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 </div>
             `;
             modal.style.position = 'absolute';
+            modal.style.overflow = 'auto';
             modalBox.style.textAlign = 'left';
             modalBox.style.maxHeight = 'unset';
             break;

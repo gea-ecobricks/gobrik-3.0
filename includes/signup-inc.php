@@ -529,7 +529,7 @@ input[type="submit"]:hover {
 }
 
 .underline-link {
-font-color: var(--text-color);
+color: var(--text-color);
 }
 
 </style>

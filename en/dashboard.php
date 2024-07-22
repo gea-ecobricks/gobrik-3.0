@@ -68,10 +68,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
          <div style="display:flex;flex-flow:row;width:100%">
 
-             <a class="module-btn" href="log.php">ℹ️ Log an Ecobrick</a>
+             <a class="go-button" href="log.php">ℹ️ Log an Ecobrick</a>
 
              <!-- Logout Button -->
-<button class="module-btn" id="logout-button" onclick="logoutUser()">📤 Logout</button>
+<button class="go-button" id="logout-button" onclick="logoutUser()">📤 Logout</button>
 
 
 

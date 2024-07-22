@@ -512,6 +512,7 @@ input[type="submit"]:hover {
 
     background-color: var(--button-2-1);
     cursor: pointer;
+    margin: 10px;
 }
 
 /* Hover effect for enabled state */

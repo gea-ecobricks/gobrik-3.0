@@ -130,9 +130,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <label for="credential" data-lang-id="006-credential">With which credentials would you like to register?</label><br>
         <select id="credential" name="credential" aria-label="Preferred Credential" required>
             <option value="" disabled selected>Select credential...</option>
-            <option value="sms">SMS</option>
+
             <option value="email">E-mail</option>
-            <option value="mail">Mail</option>
+            <option value="mail" disabled>Mail</option>
+            <option value="sms" disabled>SMS</option>
         </select>
         <p class="form-caption" data-lang-id="006-volume-ml-caption">This is the way we will contact you to confirm your account</p>
         <!--ERRORS-->
@@ -140,7 +141,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 
     <div data-lang-id="016-submit-button" style="margin:auto;text-align: center;">
-        <input type="submit" id="submit-button" value="🔑 Next: Set Password" aria-label="Submit Form">
+        <input type="submit" id="submit-button" value="🔑 Next: Set Password" aria-label="Submit Form" class="enabled">
     </div>
 </form>
 

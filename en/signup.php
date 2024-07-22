@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt_credential = $conn->prepare($sql_credential);
 
             if ($stmt_credential) {
-                $stmt_credential->bind_param("isss", $user_id, $credential, $last_login);
+                $stmt_credential->bind_param("iss", $user_id, $credential, $last_login);
 
                 if ($stmt_credential->execute()) {
                     $success = true;

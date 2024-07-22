@@ -77,10 +77,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
         </div>
-    </div><!--closes form-container-->
-</div><!--closes form-submission-box-->
+           </div><!--closes Landing content-->
+
+</div>
+
+</div><!--closes main and starry background-->
 
 <!-- FOOTER STARTS HERE -->
+<?php require_once ("../footer-2024.php");?>
 <?php require_once ("../footer-2024.php"); ?>
 
 <script type="text/javascript">

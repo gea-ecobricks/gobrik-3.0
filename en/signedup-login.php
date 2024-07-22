@@ -116,9 +116,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <form id="signed-up-login" method="post" action="login_process.php">
         <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>">
         <div class="form-item">
-            <label for="credential_value">Ok <?php echo htmlspecialchars($first_name); ?>, now please use your <?php echo htmlspecialchars($credential_type); ?> to login for the first time:</label><br>
-            <input type="text" id="credential_value" name="credential_value" required>
-        </div>
+            <label for="credential_value">Your <?php echo htmlspecialchars($credential_type); ?> :</label><br>
+            <input type="text" id="credential_value" name="credential_value" value="<?php echo $credential_key; ?>" required>        </div>
         <div class="form-item">
             <label for="password">Your password:</label><br>
             <input type="password" id="password" name="password" required>

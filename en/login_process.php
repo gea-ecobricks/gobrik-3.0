@@ -6,29 +6,11 @@ include '../buwana_env.php'; // this file provides the database server, user, db
 
 $user_id = $_POST['user_id'] ?? null;
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
     // Retrieve and sanitize form data
     $entered_credential = htmlspecialchars($_POST['credential_value']);
     $entered_password = $_POST['password'];
-
-    // Look up these fields from credentials_tb and users_tb using the user_id
-    $credential_type = '';
-    $credential_key = '';
-    $first_name = '';
-
-    // First, look up the credential_type and credential_key from credentials_tb
-    $sql_lookup_credential = "SELECT credential_type, credential_key FROM credentials_tb WHERE user_id = ?";
-    $stmt_lookup_credential = $conn->prepare($sql_lookup_credential);
-
-    if ($stmt_lookup_credential) {
-        $stmt_lookup_credential->bind_param("i", $user_id);
-        $stmt_lookup_credential->execute();
-        $stmt_lookup_credential->bind_result($credential_type, $credential_key);
-        $stmt_lookup_credential->fetch();
-        $stmt_lookup_credential->close();
-    } else {
-        die("Error preparing statement for credentials_tb: " . $conn->error);
-    }
 
     // Check if entered credential matches the credential_key in the database
     if ($entered_credential === $credential_key) {
@@ -69,6 +51,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
                     die("Error preparing statement for updating credentials_tb: " . $conn->error);
                 }
 
+
+
                 // Redirect to the dashboard or any other page
                 header("Location: onboard-1.php?id=$user_id");
                 exit();
@@ -87,3 +71,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
 
 $conn->close();
 ?>
+
+

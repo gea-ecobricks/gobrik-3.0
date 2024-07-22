@@ -65,8 +65,7 @@
 
 <link rel="stylesheet" type="text/css" href="../styles/footer.css?v=<?php echo ($version); ;?>">
 
-
-<script>
+ <script>
         function validatePassword(isValid) {
             const passwordErrorDiv = document.getElementById('password-error');
             if (!isValid) {
@@ -75,6 +74,15 @@
                 passwordErrorDiv.style.display = 'none';
             }
         }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const errorType = document.getElementById('error-type').value;
+            if (errorType === 'password') {
+                validatePassword(false);
+            } else if (errorType === 'credential') {
+                alert('Invalid credential.');
+            }
+        });
     </script>
 
 

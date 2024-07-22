@@ -13,7 +13,6 @@ echo '<!DOCTYPE html>
 ';
 ?>
 
-
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -57,6 +56,8 @@ if (isset($user_id)) {
         die("Error preparing statement for users_tb: " . $conn->error);
     }
 }
+
+$error_message = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
     // Retrieve and sanitize form data
@@ -106,13 +107,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
                 header("Location: onboard-1.php?id=$user_id");
                 exit();
             } else {
-                echo "<script>validatePassword(false);</script>";
+                $error_message = "password";
             }
         } else {
             die("Error preparing statement for getting password: " . $conn->error);
         }
     } else {
-        echo "<script>validatePassword(false);</script>";
+        $error_message = "credential";
     }
 }
 
@@ -172,6 +173,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <input type="submit" id="submit-button" value="Login" class="enabled">
     </div>
 
+        <input type="hidden" id="error-type" value="<?php echo $error_message; ?>">
 
     </form>
 

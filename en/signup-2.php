@@ -11,7 +11,6 @@ echo '<!DOCTYPE html>
 ';
 ?>
 
-
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -59,12 +58,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
     $credential_value = htmlspecialchars($_POST['credential_value']);
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    // Update the credentials_tb with the credential_value
-    $sql_update_credential = "UPDATE credentials_tb SET credentials_key = ? WHERE user_id = ?";
+    // Update the credentials_tb with the credential_key
+    $sql_update_credential = "UPDATE credentials_tb SET credential_key = ? WHERE user_id = ?";
     $stmt_update_credential = $conn->prepare($sql_update_credential);
 
     if ($stmt_update_credential) {
-        $stmt_update_credential->bind_param("ssi", $credential_value, $_POST['credential'], $user_id);
+        $stmt_update_credential->bind_param("si", $credential_value, $user_id);
 
         if ($stmt_update_credential->execute()) {
             // Update the users_tb with the password and change the account status
@@ -101,6 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
 ?>
 
 
+
 <title>Signup 2 | GoBrik 3.0</title>
 
 <!--
@@ -134,9 +134,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 <form id="user-signup-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?id=' . htmlspecialchars($user_id); ?>">
-
     <div class="form-item" id="credential-section">
-        <label for="credential_value">Please provide your <?php echo $credential; ?>:</label><br>
+        <label for="credential_value">Please provide your <?php echo $credential_type; ?>:</label><br>
         <input type="text" id="credential_value" name="credential_value" required>
         <p class="form-caption" data-lang-id="006-volume-ml-caption">This is the way we will contact you to confirm your account</p>
     </div>

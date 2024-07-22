@@ -187,6 +187,22 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 </form>
 
+
+
+<div style="text-align:center;width:100%;margin:auto;"><p style="font-size:medium;">Already have an account? <a href="login.php">Login</a></p>
+        </div>
+    </div><!--closes Landing content-->
+</div>
+
+</div><!--closes main and starry background-->
+
+<!--FOOTER STARTS HERE-->
+
+<?php require_once ("../footer-2024.php");?>
+
+</div><!--close page content-->
+
+
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', function() {
     const passwordField = document.getElementById('password');

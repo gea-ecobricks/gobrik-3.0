@@ -476,7 +476,7 @@ input[type="submit"]:hover {
 
 
 
-input[type="text"], input[type="name"], input[type="credential"] {
+input[type="text"], input[type="name"], input[type="credential"],  input[type="password"] {
   width: 100%;
   height: 100%;
   padding: 8px 10px;

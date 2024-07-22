@@ -161,7 +161,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <div class="form-item">
             <label for="password">Your password:</label><br>
             <input type="password" id="password" name="password" required>
-             <p class="form-caption" data-lang-id="006-volume-ml-caption"> Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">'Reset it here'</a></p>
+             <p class="form-caption" data-lang-id="006-volume-ml-caption"> Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">'Reset'</a></p>
         </div>
 
     <div class="form-item" id="submit-section" style="text-align:center;margin-top:15px;" title="And login!">
@@ -205,7 +205,7 @@ function showModalInfo(type) {
 
         case 'reset':
             content = `
-                <img src="../pngs/exchange-bird.png" alt="Earthen Newsletter" height="250px" width="250px" class="preview-image">
+                <img src="../pngs/exchange-bird.png" alt="Reset Password" height="250px" width="250px" class="preview-image">
                 <div class="preview-title">Reset Password</div>
                 <div class="preview-text">Oops!  This function is not yet operational.  Create another account for the moment as all accounts will be deleted once we migrate from beta to live.</div>
             `;
@@ -225,90 +225,6 @@ function showModalInfo(type) {
     document.body.classList.add('modal-open');
 }
 
-
-
-
-
-
-
-
-    document.addEventListener('DOMContentLoaded', function() {
-    const credentialField = document.getElementById('credential_value');
-    const passwordField = document.getElementById('password_hash');
-    const confirmPasswordField = document.getElementById('confirm_password');
-    const humanCheckField = document.getElementById('human_check');
-    const termsCheckbox = document.getElementById('terms');
-    const submitButton = document.getElementById('submit-button');
-    const confirmPasswordSection = document.getElementById('confirm-password-section');
-    const humanCheckSection = document.getElementById('human-check-section');
-    const submitSection = document.getElementById('submit-section');
-    const setPasswordSection = document.getElementById('set-password');
-    const makerErrorInvalid = document.getElementById('maker-error-invalid');
-
-    // Initially show only the credential field
-    setPasswordSection.style.display = 'none';
-    confirmPasswordSection.style.display = 'none';
-    humanCheckSection.style.display = 'none';
-    submitSection.style.display = 'none';
-
-    // Function to validate email
-    function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
-
-    // Show password field when a valid email is entered
-    credentialField.addEventListener('input', function() {
-        if (isValidEmail(credentialField.value)) {
-            setPasswordSection.style.display = 'block';
-        } else {
-            setPasswordSection.style.display = 'none';
-            confirmPasswordSection.style.display = 'none';
-            humanCheckSection.style.display = 'none';
-            submitSection.style.display = 'none';
-        }
-    });
-
-    // Show confirm password field when password length is at least 6 characters
-    passwordField.addEventListener('input', function() {
-        if (passwordField.value.length >= 6) {
-            confirmPasswordSection.style.display = 'block';
-        } else {
-            confirmPasswordSection.style.display = 'none';
-            humanCheckSection.style.display = 'none';
-            submitSection.style.display = 'none';
-        }
-    });
-
-    // Show human check section and submit button when passwords match
-    confirmPasswordField.addEventListener('input', function() {
-        if (passwordField.value === confirmPasswordField.value) {
-            makerErrorInvalid.style.display = 'none';
-            humanCheckSection.style.display = 'block';
-            submitSection.style.display = 'block';
-        } else {
-            makerErrorInvalid.style.display = 'block';
-            humanCheckSection.style.display = 'none';
-            submitSection.style.display = 'none';
-        }
-    });
-
-    // Activate submit button when "ecobrick" is typed and terms checkbox is checked
-    function updateSubmitButtonState() {
-        if (humanCheckField.value.toLowerCase() === 'ecobrick' && termsCheckbox.checked) {
-            submitButton.classList.remove('disabled');
-            submitButton.classList.add('enabled');
-            submitButton.disabled = false;
-        } else {
-            submitButton.classList.remove('enabled');
-            submitButton.classList.add('disabled');
-            submitButton.disabled = true;
-        }
-    }
-
-    humanCheckField.addEventListener('input', updateSubmitButtonState);
-    termsCheckbox.addEventListener('change', updateSubmitButtonState);
-});
 
 </script>
 

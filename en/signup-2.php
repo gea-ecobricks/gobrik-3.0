@@ -138,7 +138,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
 
         <div class="earth-com">
-        <img src="webp/earth-community.webp" width="60%">
+        <img src="../webps/earth-community.webp" width="60%">
     </div>
 
         <div style="text-align:center;width:100%;margin:auto;">

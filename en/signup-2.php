@@ -1,6 +1,6 @@
 <?php
 include 'lang.php';
-$version = '0.346';
+$version = '0.347';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -137,8 +137,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="form-submission-box" style="height:100vh;">
     <div class="form-container">
 
-        <div class="signup-team">
-        <img src="../svgs/signup-team.svg?v=2" width="60%">
+        <div class="earth-com">
+        <img src="webp/earth-community.webp" width="60%">
     </div>
 
         <div style="text-align:center;width:100%;margin:auto;">

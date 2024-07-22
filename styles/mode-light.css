@@ -404,16 +404,6 @@
       background-size: contain;
     }
 
-    .earth-com {
-      background: url(../svgs/earth-community-day.svg?v=2) no-repeat center;
-      background-size: contain;
-    }
-
-
-    .city-image {
-      background: url(../svgs/city-village-day.svg?v=2) no-repeat center;
-      background-size: contain;
-    }
 
 
     .loader {
@@ -488,3 +478,16 @@ light.css
   background-size: contain;
         }
       }
+
+
+
+    .earth-com {
+      background: url(../svgs/earth-community-day.svg?v=2) no-repeat center;
+      background-size: contain;
+    }
+
+
+    .city-image {
+      background: url(../svgs/city-village-day.svg?v=2) no-repeat center;
+      background-size: contain;
+    }

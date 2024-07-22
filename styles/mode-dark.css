@@ -481,10 +481,7 @@
 
 }
 
-.earth-com {
-  background: url(../svgs/earth-community-night.svg?v=2) no-repeat center;
-  background-size: contain;
-}
+
 
 
 .city-image {
@@ -578,3 +575,8 @@ background-size: contain;
     background: url(../svgs/earth-home-animated-night2.svg) no-repeat center;
     background-size: contain;
   }
+
+  .earth-com {
+  background: url(../svgs/earth-community-night.svg?v=2) no-repeat center;
+  background-size: contain;
+}

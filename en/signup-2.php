@@ -11,6 +11,7 @@ echo '<!DOCTYPE html>
 ';
 ?>
 
+
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -18,18 +19,42 @@ ini_set('display_errors', 1);
 $success = false;
 $user_id = $_GET['id'] ?? null;
 
-// Assuming $credential and $first_name are retrieved from a database or other source before this script runs
-$credential = htmlspecialchars($credential); // Sanitize to prevent XSS
-$first_name = htmlspecialchars($first_name); // Sanitize to prevent XSS
+$servername = "localhost";
+$username = "ecobricks_gobrik_app";
+$password = "1EarthenAuth!";
+$dbname = "ecobricks_earthenAuth_db";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
-    include '../buwana_env.php'; // this file provides the database server, user, dbname information to access the server
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 
-    // Check if the database connection is established
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Look up these fields from user_tb using the user_id
+$credential = '';
+$first_name = '';
+
+if (isset($user_id)) {
+    $sql_lookup_user = "SELECT credential, first_name FROM user_tb WHERE id = ?";
+    $stmt_lookup_user = $conn->prepare($sql_lookup_user);
+
+    if ($stmt_lookup_user) {
+        $stmt_lookup_user->bind_param("i", $user_id);
+        $stmt_lookup_user->execute();
+        $stmt_lookup_user->bind_result($credential, $first_name);
+        $stmt_lookup_user->fetch();
+        $stmt_lookup_user->close();
+    } else {
+        die("Error preparing statement: " . $conn->error);
     }
 
+    $credential = htmlspecialchars($credential); // Sanitize to prevent XSS
+    $first_name = htmlspecialchars($first_name); // Sanitize to prevent XSS
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
     // Retrieve and sanitize form data
     $credential_value = htmlspecialchars($_POST['credential_value']);
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
@@ -74,6 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
     echo "Invalid request method or missing user ID.";
 }
 ?>
+
 
 <title>Signup 2 | GoBrik 3.0</title>
 

@@ -505,7 +505,16 @@ select {
 }
 
 
+/* Add these styles in your CSS file */
+.disabled {
+    background-color: grey;
+    cursor: not-allowed;
+}
 
+.enabled {
+    background-color: green;
+    cursor: pointer;
+}
 
 </style>
 

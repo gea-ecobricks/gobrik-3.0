@@ -187,10 +187,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 </form>
 
+        </div>
 
 
 <div style="text-align:center;width:100%;margin:auto;"><p style="font-size:medium;">Already have an account? <a href="login.php">Login</a></p>
-        </div>
+
+
     </div><!--closes Landing content-->
 </div>
 
@@ -204,7 +206,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 <script type="text/javascript">
-document.addEventListener('DOMContentLoaded', function() {
+
+    document.addEventListener('DOMContentLoaded', function() {
     const passwordField = document.getElementById('password');
     const confirmPasswordField = document.getElementById('confirm_password');
     const humanCheckField = document.getElementById('human_check');
@@ -215,6 +218,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const submitSection = document.getElementById('submit-section');
     const makerErrorInvalid = document.getElementById('maker-error-invalid');
 
+    // Initialize submit button state
+    submitButton.disabled = true;
+    submitButton.classList.add('disabled');
+
+    // Show or hide sections based on password input
     passwordField.addEventListener('input', function() {
         if (passwordField.value.length >= 6) {
             confirmPasswordSection.style.display = 'block';
@@ -222,9 +230,12 @@ document.addEventListener('DOMContentLoaded', function() {
             confirmPasswordSection.style.display = 'none';
             humanCheckSection.style.display = 'none';
             submitSection.style.display = 'none';
+            submitButton.disabled = true;
+            submitButton.classList.add('disabled');
         }
     });
 
+    // Show or hide sections based on password confirmation
     confirmPasswordField.addEventListener('input', function() {
         if (passwordField.value === confirmPasswordField.value) {
             makerErrorInvalid.style.display = 'none';
@@ -233,22 +244,30 @@ document.addEventListener('DOMContentLoaded', function() {
             makerErrorInvalid.style.display = 'block';
             humanCheckSection.style.display = 'none';
             submitSection.style.display = 'none';
+            submitButton.disabled = true;
+            submitButton.classList.add('disabled');
         }
     });
 
+    // Update submit button state based on human check and terms checkbox
     function updateSubmitButtonState() {
         if (humanCheckField.value.toLowerCase() === 'ecobrick' && termsCheckbox.checked) {
             submitButton.disabled = false;
-            submitButton.style.backgroundColor = 'green';
+            submitButton.classList.remove('disabled');
+            submitButton.classList.add('enabled');
         } else {
             submitButton.disabled = true;
-            submitButton.style.backgroundColor = 'grey';
+            submitButton.classList.remove('enabled');
+            submitButton.classList.add('disabled');
         }
     }
 
     humanCheckField.addEventListener('input', updateSubmitButtonState);
     termsCheckbox.addEventListener('change', updateSubmitButtonState);
 });
+
+
+
 </script>
 
 </body>

@@ -20,7 +20,6 @@ $user_id = $_GET['id'] ?? null;
 
 include '../buwana_env.php'; // this file provides the database server, user, dbname information to access the server
 
-
 // Look up these fields from credentials_tb and users_tb using the user_id
 $credential_type = '';
 $credential_key = '';
@@ -104,18 +103,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
                 header("Location: onboard-1.php?id=$user_id");
                 exit();
             } else {
-                echo "<script>alert('Incorrect password.  Please try again!');</script>";
+                echo "<script>validatePassword(false);</script>";
             }
         } else {
             die("Error preparing statement for getting password: " . $conn->error);
         }
     } else {
-        echo "<script>alert('Invalid credential.');</script>";
+        echo "<script>validatePassword(false);</script>";
     }
 }
 
 $conn->close();
 ?>
+
 
 
 
@@ -162,10 +162,13 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <label for="password">Your password:</label><br>
             <input type="password" id="password" name="password" required>
              <p class="form-caption" data-lang-id="006-volume-ml-caption"> Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
+
+             <div id="password-error" class="form-field-error" style="margin-top:10px;" data-lang-id="005b-name-error">👉 Passwords is wrong.</div>
+
         </div>
 
     <div class="form-item" id="submit-section" style="text-align:center;margin-top:15px;" title="And login!">
-        <input type="submit" id="submit-button" value="Login" enabled>
+        <input type="submit" id="submit-button" value="Login" class="enabled">
     </div>
 
 
@@ -187,6 +190,18 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once ("../footer-2024.php");?>
 
 </div><!--close page content-->
+
+
+ <script>
+        function validatePassword(isValid) {
+            const passwordErrorDiv = document.getElementById('password-error');
+            if (!isValid) {
+                passwordErrorDiv.style.display = 'block';
+            } else {
+                passwordErrorDiv.style.display = 'none';
+            }
+        }
+    </script>
 
 
 

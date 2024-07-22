@@ -183,7 +183,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>
     </div>
 
-    <div class="form-item" id="submit-section" style="display: none;">
+    <div class="form-item" id="submit-section" style="display: none;text-align:center;">
         <input type="submit" id="submit-button" value="Register" disabled>
     </div>
 </form>

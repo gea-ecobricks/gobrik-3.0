@@ -142,8 +142,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="001-signup-heading">Set your password</h2>
-            <p style="font-size:medium;" data-lang-id="002-gobrik-subtext">Alright <?php echo $first_name; ?>: You've chosen to use <?php echo $credential_type; ?> as your means of registration and the way we contact you.</p>
+            <h2 data-lang-id="001-signup-heading">Setup Your Access</h2>
+            <p data-lang-id="002-gobrik-subtext">Alright <?php echo $first_name; ?>: You've chosen to use <?php echo $credential_type; ?> as your means of registration and the way we contact you.</p>
         </div>
 
        <!--SIGNUP FORM-->
@@ -166,7 +166,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-item" id="confirm-password-section" style="display: none;">
         <label for="confirm_password">Confirm Your Password:</label><br>
         <input type="password" id="confirm_password" name="confirm_password" required>
-        <div id="maker-error-invalid" class="form-field-error" style="margin-top:20px;" data-lang-id="005b-name-error">Passwords do not match.</div>
+        <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;" data-lang-id="005b-name-error">Passwords do not match.</div>
     </div>
 
     <div class="form-item" id="human-check-section" style="display: none;">

@@ -110,7 +110,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <div style="text-align:center;width:100%;margin:auto;">
             <h2 data-lang-id="001-signup-heading">Create Your Account</h2>
-            <p style="font-size:medium;" data-lang-id="002-gobrik-subtext">GoBrik is developed by volunteers just as passionate about plastic transition as you!</p>
+            <p data-lang-id="002-gobrik-subtext">GoBrik is developed by volunteers just as passionate about plastic transition as you!</p>
         </div>
 
        <!--SIGNUP FORM-->

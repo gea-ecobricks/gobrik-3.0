@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
             die("Error preparing statement for getting password: " . $conn->error);
         }
     } else {
-        header("Location: login.php?id=$user_id&error=credential");
+        header("Location: signedup-login.php?id=$user_id&error=credential");
         exit();
     }
 }

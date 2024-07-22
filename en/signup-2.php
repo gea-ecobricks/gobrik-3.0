@@ -89,8 +89,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="001-signup-heading">Create Your Account</h2>
-            <p style="font-size:medium;" data-lang-id="002-gobrik-subtext">GoBrik is developed by volunteers just as passionate about plastic transition as you!</p>
+            <h2 data-lang-id="001-signup-heading">Set your password</h2>
+            <p style="font-size:medium;" data-lang-id="002-gobrik-subtext">Alright $first_name: You've chosen to use $credential as your means of registration and the way we contact you.</p>
         </div>
 
        <!--SIGNUP FORM-->
@@ -99,23 +99,28 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <form id="user-signup-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?id=' . htmlspecialchars($user_id); ?>">
 
         <div class="form-item" id="credential-section">
-            <label for="credential_value">Please provide your registration credential:</label><br>
+            <label for="credential_value">Please provide your $credential:</label><br>
             <input type="text" id="credential_value" name="credential_value" required>
+            <p class="form-caption" data-lang-id="006-volume-ml-caption">This is the way we will contact you to confirm your account</p>
         </div>
 
         <div class="form-item">
-            <label for="password">Set Your Password:</label><br>
+            <label for="password">Set your password:</label><br>
             <input type="password" id="password" name="password" required minlength="6">
         </div>
 
         <div class="form-item" id="confirm-password-section" style="display: none;">
             <label for="confirm_password">Confirm Your Password:</label><br>
             <input type="password" id="confirm_password" name="confirm_password" required>
+
+            <div id="maker-error-invalid" class="form-field-error" data-lang-id="005b-name-error">The entry contains invalid characters. Avoid quotes, slashes, and greater-than signs please.</div>
         </div>
 
         <div class="form-item" id="human-check-section" style="display: none;">
             <label for="human_check">Please prove you are human by typing the word "ecobrick" below:</label><br>
             <input type="text" id="human_check" name="human_check" required>
+
+            <p class="form-caption" data-lang-id="006-volume-ml-caption">Fun fact: 'ecobrick' is spelled without capitals or hyphens!</p>
             <div>
                 <input type="checkbox" id="terms" name="terms" required checked>
                 <label for="terms">By registering today, I agree to the GoBrik terms of service</label>

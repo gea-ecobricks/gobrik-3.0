@@ -8,9 +8,11 @@ echo '<!DOCTYPE html>
 <html lang="' . $lang . '">
 <head>
 <meta charset="UTF-8">
-';
+<title>Signup | GoBrik 3.0</title>
+<!-- Add your other meta tags and stylesheets here -->
+</head>
+<body>';
 ?>
-
 
 <?php
 error_reporting(E_ALL);
@@ -20,11 +22,11 @@ $success = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-include '../buwana_env.php'; // this file provides the database server, user, dbname information to access the server
+    include '../buwana_env.php'; // this file provides the database server, user, dbname information to access the server
 
-    // Retrieve form data
-    $first_name = $_POST['first_name'];
-    $credential = $_POST['credential'];
+    // Retrieve and sanitize form data
+    $first_name = htmlspecialchars($_POST['first_name']);
+    $credential = htmlspecialchars($_POST['credential']);
 
     // Set other required fields
     $full_name = $first_name;
@@ -45,11 +47,11 @@ include '../buwana_env.php'; // this file provides the database server, user, db
             $user_id = $conn->insert_id;
 
             // Use prepared statements for inserting credential data
-            $sql_credential = "INSERT INTO credentials_tb (user_id, credentials_name, credential_type, times_used, times_failed, last_login) VALUES (?, ?, ?, 0, 0, ?)";
+            $sql_credential = "INSERT INTO credentials_tb (user_id, credential_type, times_used, times_failed, last_login) VALUES (?, ?, 0, 0, ?)";
             $stmt_credential = $conn->prepare($sql_credential);
 
             if ($stmt_credential) {
-                $stmt_credential->bind_param("isss", $user_id, $credential, $credential, $last_login);
+                $stmt_credential->bind_param("isss", $user_id, $credential, $last_login);
 
                 if ($stmt_credential->execute()) {
                     $success = true;
@@ -75,92 +77,56 @@ include '../buwana_env.php'; // this file provides the database server, user, db
 }
 ?>
 
-<title>Signup | GoBrik 3.0</title>
-
-<!--
-GoBrik.com site version 3.0
-Developed and made open source by the Global Ecobrick Alliance
-See our git hub repository for the full code and to help out:
-https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
-
-<?php require_once ("../includes/signup-inc.php");?>
-
-<?php if ($success): ?>
-    <script type="text/javascript">
-        showSuccessMessage();
-    </script>
-<?php endif; ?>
-
+<!-- Page Content -->
 <div class="splash-content-block"></div>
 <div id="splash-bar"></div>
 
-<!-- PAGE CONTENT-->
-
 <div id="form-submission-box" style="height:100vh;">
     <div class="form-container">
-
         <div class="signup-team">
-        <img src="../svgs/signup-team.svg?v=2" width="60%">
-    </div>
-
+            <img src="../svgs/signup-team.svg?v=2" width="60%">
+        </div>
         <div style="text-align:center;width:100%;margin:auto;">
             <h2 data-lang-id="001-signup-heading">Create Your Account</h2>
             <p data-lang-id="002-gobrik-subtext">GoBrik is developed by volunteers just as passionate about plastic transition as you!</p>
         </div>
 
-       <!--SIGNUP FORM-->
-<form id="user-signup-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-
-    <div class="form-item" style="margin-top:0px;">
-        <label for="first_name" data-lang-id="003-first-name">What is your first name?</label><br>
-        <input type="text" id="first_name" name="first_name" aria-label="Your first name" title="Required. Max 255 characters." required>
-
-        <!--ERRORS-->
-        <div id="maker-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
-        <div id="maker-error-long" class="form-field-error" data-lang-id="000-name-field-too-long-error">The name is too long. Max 255 characters.</div>
-        <div id="maker-error-invalid" class="form-field-error" data-lang-id="005b-name-error">The entry contains invalid characters. Avoid quotes, slashes, and greater-than signs please.</div>
+        <!-- Signup Form -->
+        <form id="user-signup-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <div class="form-item" style="margin-top:0px;">
+                <label for="first_name" data-lang-id="003-first-name">What is your first name?</label><br>
+                <input type="text" id="first_name" name="first_name" aria-label="Your first name" title="Required. Max 255 characters." required>
+                <!-- Errors -->
+                <div id="maker-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
+                <div id="maker-error-long" class="form-field-error" data-lang-id="000-name-field-too-long-error">The name is too long. Max 255 characters.</div>
+                <div id="maker-error-invalid" class="form-field-error" data-lang-id="005b-name-error">The entry contains invalid characters. Avoid quotes, slashes, and greater-than signs please.</div>
+            </div>
+            <div class="form-item">
+                <label for="credential" data-lang-id="006-credential">With which credentials would you like to register?</label><br>
+                <select id="credential" name="credential" aria-label="Preferred Credential" required>
+                    <option value="" disabled selected>Select credential...</option>
+                    <option value="email">E-mail</option>
+                    <option value="mail" disabled>Mail</option>
+                    <option value="sms" disabled>SMS</option>
+                </select>
+                <p class="form-caption" data-lang-id="006-volume-ml-caption">This is the way we will contact you to confirm your account</p>
+                <!-- Errors -->
+                <div id="credential-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
+            </div>
+            <div data-lang-id="016-submit-button" style="margin:auto;text-align: center;">
+                <input type="submit" id="submit-button" value="🔑 Next: Set Password" aria-label="Submit Form" class="enabled">
+            </div>
+        </form>
     </div>
 
-    <div class="form-item">
-        <label for="credential" data-lang-id="006-credential">With which credentials would you like to register?</label><br>
-        <select id="credential" name="credential" aria-label="Preferred Credential" required>
-            <option value="" disabled selected>Select credential...</option>
-
-            <option value="email">E-mail</option>
-            <option value="mail" disabled>Mail</option>
-            <option value="sms" disabled>SMS</option>
-        </select>
-        <p class="form-caption" data-lang-id="006-volume-ml-caption">This is the way we will contact you to confirm your account</p>
-        <!--ERRORS-->
-        <div id="credential-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
+    <div style="text-align:center;width:100%;margin:auto;">
+        <p style="font-size:medium;">Already have an account? <a href="login.php">Login</a></p>
     </div>
-
-    <div data-lang-id="016-submit-button" style="margin:auto;text-align: center;">
-        <input type="submit" id="submit-button" value="🔑 Next: Set Password" aria-label="Submit Form" class="enabled">
-    </div>
-</form>
-
-
-
-    </div><!--closes Landing content-->
-
-
-    <div style="text-align:center;width:100%;margin:auto;"><p style="font-size:medium;">Already have an account? <a href="login.php">Login</a></p>
-        </div>
-
-
 </div>
-
-</div><!--closes main and starry background-->
-
-<!--FOOTER STARTS HERE-->
 
 <?php require_once ("../footer-2024.php");?>
 
-</div><!--close page content-->
-
 <script>
-
 document.getElementById('user-signup-form').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the form from submitting until validation is complete
     var isValid = true; // Flag to determine if the form should be submitted
@@ -208,10 +174,7 @@ document.getElementById('user-signup-form').addEventListener('submit', function(
         }
     }
 });
-
 </script>
 
-
 </body>
-
 </html>

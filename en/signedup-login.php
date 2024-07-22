@@ -96,7 +96,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>
 
         <!-- SIGNUP FORM -->
-        <form id="signed-up-login" method="post" action="login_process.php">
+        <form id="signed-up-login" method="post" action="signedup_login_process.php">
             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>">
             <div class="form-item">
                 <label for="credential_value">Your <?php echo htmlspecialchars($credential_type); ?> :</label><br>

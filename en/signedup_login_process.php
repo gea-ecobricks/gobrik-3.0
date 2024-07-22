@@ -36,7 +36,7 @@ if ($stmt_lookup_credentials) {
         exit();
     } else {
         // Invalid credentials
-        header('Location: login.php?error=invalid');
+        header('Location: signedup-login.php?error=invalid');
         exit();
     }
 } else {

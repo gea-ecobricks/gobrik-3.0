@@ -1,15 +1,13 @@
 <?php
 include 'lang.php';
 $version = '0.35';
-$page = 'login';
+$page = 'dashboard';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 echo '<!DOCTYPE html>
 <html lang="' . $lang . '">
 <head>
 <meta charset="UTF-8">
-
-
 ';
 ?>
 
@@ -66,7 +64,7 @@ $conn->close();
 
 
 
-<title>Login | GoBrik 3.0</title>
+<title>Dashboard | GoBrik 3.0</title>
 
 <!--
 GoBrik.com site version 3.0
@@ -74,7 +72,7 @@ Developed and made open source by the Global Ecobrick Alliance
 See our git hub repository for the full code and to help out:
 https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
-<?php require_once ("../includes/login-inc.php");?>
+<?php require_once ("../includes/dashboard-inc.php");?>
 
 
 <div class="splash-content-block"></div>
@@ -90,37 +88,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="001-login-heading-signed-up">Your account is Ready! 🎉</h2>
-            <p data-lang-id="002-login-subheading">Ok <?php echo $first_name; ?>, now please use your <?php echo $credential_type; ?> to login for the first time to start setting up your account:</p>
+            <h2 data-lang-id="001-login-heading-signed-up">Welcome $Firstname!</h2>
+            <p data-lang-id="002-login-subheading">You're logged into the brand new GoBrik 3.0!</p>
         </div>
 
        <!--SIGNUP FORM-->
-
-
-   <form id="signed-up-login" method="post" action="">
-        <div class="form-item">
-            <label for="credential_value">Ok <?php echo $first_name; ?>, now please use your <?php echo $credential_type; ?> to login for the first time:</label><br>
-            <input type="text" id="credential_value" name="credential_value" value="<?php echo $credential_key; ?>" required>
-        </div>
-        <div class="form-item">
-            <label for="password">Your password:</label><br>
-            <input type="password" id="password" name="password" required>
-            <p class="form-caption">Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
-            <div id="password-error" class="form-field-error">👉 Password is wrong.</div>
-        </div>
-        <div class="form-item" id="submit-section" style="text-align:center;margin-top:15px;" title="And login!">
-        <input type="submit" id="submit-button" value="Login" class="enabled">
-    </div>
-        <input type="hidden" id="error-type" value="<?php echo $error_message; ?>">
-    </form>
-
-        </div>
-
-
-
-
-<div style="text-align:center;width:100%;margin:auto;margin-top:50px;margin-bottom:50px;"><p style="font-size:medium;">Don't have an account yet? <a href="signup.php">Signup!</a></p>
-
 
     </div><!--closes Landing content-->
 </div>

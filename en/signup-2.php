@@ -213,55 +213,51 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 
-    function showModalInfo(type) {
-        const modal = document.getElementById('form-modal-message');
-        const photobox = document.getElementById('modal-photo-box');
-        const messageContainer = modal.querySelector('.modal-message');
-        const modalBox = document.getElementById('modal-content-box');
-        let content = '';
-        photobox.style.display = 'none';
-        switch(type) {
-            case 'terms':
-                content = `
-
-                <div style="font-size:small;">
-               <?php  include 'terms.php'; ?>
-               </div>
+   function showModalInfo(type) {
+    const modal = document.getElementById('form-modal-message');
+    const photobox = document.getElementById('modal-photo-box');
+    const messageContainer = modal.querySelector('.modal-message');
+    const modalBox = modal.querySelector('modal-content-box');
+    let content = '';
+    photobox.style.display = 'none';
+    switch (type) {
+        case 'terms':
+            content = `
+                <div style="font-size: small;">
+                    <?php include 'terms.php'; ?>
+                </div>
             `;
-                break;
-            case 'earthen':
-                content = `
+            modal.style.position = 'relative';
+            modalBox.style.textAlign = 'left';
+            modalBox.style.maxHeight = 'unset';
+            break;
+        case 'earthen':
+            content = `
                 <img src="../svgs/earthen-newsletter-logo.svg" alt="Earthen Newsletter" height="250px" width="250px" class="preview-image">
                 <div class="preview-title">Earthen Newsletter</div>
                 <div class="preview-text">Receive our bi-monthly Earthen newsletter and follow the latest developments in the plastic transition movement.</div>
             `;
-                break;
-
-             case 'ecobrick':
-                content = `
+            break;
+        case 'ecobrick':
+            content = `
                 <img src="../svgs/earthen-newsletter-logo.svg" alt="Earthen Newsletter" height="250px" width="250px" class="preview-image">
                 <div class="preview-title">Earthen Newsletter</div>
                 <div class="preview-text">Receive our bi-monthly Earthen newsletter and follow the latest developments in the plastic transition movement.</div>
             `;
-                break;
-
-            default:
-                content = '<p>Invalid ecobrick type selected.</p>';
-        }
-
-        messageContainer.innerHTML = content;
-
-        // Show the modal and update other page elements
-        modal.style.display = 'flex';
-        modal.style.position = 'relative';
-        modal.style.position = 'relative';
-        modalBox.style.align = 'left';
-        modalBox.style.maxHeight = 'unset';
-
-        document.getElementById('page-content').classList.add('blurred');
-        document.getElementById('footer-full').classList.add('blurred');
-        document.body.classList.add('modal-open');
+            break;
+        default:
+            content = '<p>Invalid ecobrick type selected.</p>';
     }
+
+    messageContainer.innerHTML = content;
+
+    // Show the modal and update other page elements
+    modal.style.display = 'flex';
+    document.getElementById('page-content').classList.add('blurred');
+    document.getElementById('footer-full').classList.add('blurred');
+    document.body.classList.add('modal-open');
+}
+
 
 
 

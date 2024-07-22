@@ -1,4 +1,8 @@
- <<h1>Terms of Use</h1>
+ <?php
+
+ echo '
+
+ <h1>Terms of Use</h1>
 
     <p>GoBrik is a web app managed by the Global Ecobrick Alliance Earth Enterprise (GEA). As an Earth Enterprise (EE), our mission is to serve and inspire local and global plastic transition. We, (the Global Ecobrick Alliance), are guided by our EE regenerative principles, mission, and vision (for a visual representation, see our Vision Landscape footer at the bottom of the app) as we manage, develop, and maintain the GoBrik platform (GoBrik) and Brikcoin Manual Blockchain (BMB) and these Terms of Use & Service to serve you. When you create a GoBrik account, we assume that you do so sharing this vision and a resonance with our principles as you use GoBrik. As you use GoBrik and as GoBrik serves you, we will strive to maintain the standards and protocols of privacy expressed below. We will refer to those who create accounts on the platform (such as you!) as Ecobrickers. "We" and "Us" refer to the GEA EE.</p>
 
@@ -34,11 +38,11 @@
         <li>To enable you to have your account deleted at any time.</li>
     </ul>
 
-    <h3>We Also Won't Advertise or Sell Your Data</h3>
+    <h3>We Also Won\'t Advertise or Sell Your Data</h3>
     <p>According to our principles, we do not generate profit and are focused on regenerative processes. Consequently, we commit to not selling space to third-party services or products, nor will your data be used for advertising purposes.</p>
     <p>We will, however, keep you up-to-date on what we are doing, advertise GEA courses and products, and allow members to post their own products and courses.</p>
 
-    <h3>We'll Make It Easy to Manage Your Data</h3>
+    <h3>We\'ll Make It Easy to Manage Your Data</h3>
     <p>We commit to making it easy for you to manage your personal and ecobrick data. At any time, you may opt out of email notifications through Account Settings on the top left menu. At any time, you may slate your account for deletion. Deletions are run manually approximately once a week.</p>
 
     <h2>Specifically, This Means for You...</h2>
@@ -95,3 +99,6 @@
 
     <h2>Agreement</h2>
     <p>By proceeding and creating an account on GoBrik, and every time you log on, you agree to these terms of use and service.</p>
+
+';
+?>

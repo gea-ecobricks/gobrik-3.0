@@ -175,11 +175,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <p class="form-caption" data-lang-id="006-volume-ml-caption">Fun fact: 'ecobrick' is spelled without capitals or hyphens!</p>
         <div>
             <input type="checkbox" id="terms" name="terms" required checked>
-            <label for="terms" style="font-size:medium;">By registering today, I agree to the GoBrik terms of service</label>
+            <label for="terms" style="font-size:medium;">By registering today, I agree to the <a href="#" onclick="showModalInfo('terms')" class="underline-link">GoBrik Terms of Service</a></label>
         </div>
         <div>
             <input type="checkbox" id="newsletter" name="newsletter" checked>
-            <label for="newsletter" style="font-size:small;">I agree to receive the Earthen newsletter for app, ecobrick, and earthen updates</label>
+            <label for="newsletter" style="font-size:small;">I agree to receive the <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen newsletter</a> for app, ecobrick, and earthen updates</label>
         </div>
     </div>
 
@@ -235,14 +235,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <a class="preview-btn" href="https://earthen.io" target="_blank">See Earthen</a>
             `;
                 break;
-            case 'regular':
-                content = `
-                <img class="preview-image" src="../pngs/justandecobrick.png" alt="Regular Ecobrick Image" height="300" width="300">
-                 <div class="preview-title">Regular Ecobricks</div>
-                <p class="preview-text">An ecobrick is a PET bottle packed solid with used plastic to the standards of plastic sequestration in order to make a reusable building block.  A regular ecobrick is an uncut bottle packed solid with used plastic to a set density (between 0.33 and 0.7 g/ml) to make a reusable building block.</p>
-                <a class="preview-btn" href="what.php">Learn more</a>
-            `;
-                break;
+
             default:
                 content = '<p>Invalid ecobrick type selected.</p>';
         }

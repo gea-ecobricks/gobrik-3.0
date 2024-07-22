@@ -505,16 +505,32 @@ select {
 }
 
 
-/* Add these styles in your CSS file */
+#submit-button {
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s, cursor 0.3s;
+}
+
+/* Styles for the disabled state */
 .disabled {
     background-color: grey;
     cursor: not-allowed;
 }
 
+/* Styles for the enabled state */
 .enabled {
-    background-color: green;
+    background-color: darkgreen;
     cursor: pointer;
 }
+
+/* Hover effect for enabled state */
+.enabled:hover {
+    background-color: green;
+}
+
 
 </style>
 

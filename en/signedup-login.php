@@ -8,8 +8,11 @@ echo '<!DOCTYPE html>
 <html lang="' . $lang . '">
 <head>
 <meta charset="UTF-8">
+
+
 ';
 ?>
+
 
 <?php
 error_reporting(E_ALL);
@@ -117,17 +120,6 @@ $conn->close();
 ?>
 
 
-
- <script>
-        function validatePassword(isValid) {
-            const passwordErrorDiv = document.getElementById('password-error');
-            if (!isValid) {
-                passwordErrorDiv.style.display = 'block';
-            } else {
-                passwordErrorDiv.style.display = 'none';
-            }
-        }
-    </script>
 
 
 <title>Login | GoBrik 3.0</title>

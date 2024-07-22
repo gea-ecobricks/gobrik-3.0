@@ -66,6 +66,17 @@
 <link rel="stylesheet" type="text/css" href="../styles/footer.css?v=<?php echo ($version); ;?>">
 
 
+<script>
+        function validatePassword(isValid) {
+            const passwordErrorDiv = document.getElementById('password-error');
+            if (!isValid) {
+                passwordErrorDiv.style.display = 'block';
+            } else {
+                passwordErrorDiv.style.display = 'none';
+            }
+        }
+    </script>
+
 
 <!--<script src="../scripts/language-switcher.js?v=<?php echo ($version); ;?>"></script>-->
 

@@ -21,26 +21,6 @@ $user_id = $_GET['id'] ?? null;
 include '../buwana_env.php'; // this file provides the database server, user, dbname information to access the server
 
 
-<?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-$success = false;
-$user_id = $_GET['id'] ?? null;
-
-$servername = "localhost";
-$username = "ecobricks_gobrik_app";
-$password = "1EarthenAuth!";
-$dbname = "ecobricks_earthenAuth_db";
-
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
 // Look up these fields from credentials_tb and users_tb using the user_id
 $credential_type = '';
 $credential_key = '';

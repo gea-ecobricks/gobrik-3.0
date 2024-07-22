@@ -59,6 +59,8 @@ $conn->close();
 ?>
 
 
+
+
  <script>
         function validatePassword(isValid) {
             const passwordErrorDiv = document.getElementById('password-error');

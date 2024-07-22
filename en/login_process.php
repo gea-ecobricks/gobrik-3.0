@@ -7,12 +7,12 @@ $user_id = $_POST['user_id'];
 $credential_value = $_POST['credential_value'];
 $password = $_POST['password'];
 
-// Look up the stored password hash from the credentials_tb
-$sql_lookup_password = "SELECT password_hash FROM credentials_tb WHERE user_id = ? AND credential_key = ?";
+// Look up the stored password hash from the users_tb
+$sql_lookup_password = "SELECT password_hash FROM users_tb WHERE user_id = ?";
 $stmt_lookup_password = $conn->prepare($sql_lookup_password);
 
 if ($stmt_lookup_password) {
-    $stmt_lookup_password->bind_param("is", $user_id, $credential_value);
+    $stmt_lookup_password->bind_param("i", $user_id);
     $stmt_lookup_password->execute();
     $stmt_lookup_password->bind_result($stored_password_hash);
     $stmt_lookup_password->fetch();
@@ -30,7 +30,7 @@ if ($stmt_lookup_password) {
         exit();
     }
 } else {
-    die("Error preparing statement for credentials_tb: " . $conn->error);
+    die("Error preparing statement for users_tb: " . $conn->error);
 }
 
 $conn->close();

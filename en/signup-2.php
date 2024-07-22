@@ -72,7 +72,7 @@ if (isset($user_id)) {
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
     // Retrieve and sanitize form data
     $credential_value = htmlspecialchars($_POST['credential_value']);
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $password_hash = password_hash($_POST['password_hash'], PASSWORD_DEFAULT);
 
     // Update the credentials_tb with the credential_key
     $sql_update_credential = "UPDATE credentials_tb SET credential_key = ? WHERE user_id = ?";
@@ -83,11 +83,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
 
         if ($stmt_update_credential->execute()) {
             // Update the users_tb with the password and change the account status
-            $sql_update_user = "UPDATE users_tb SET password = ?, account_status = 'registered no login' WHERE user_id = ?";
+            $sql_update_user = "UPDATE users_tb SET password_hash = ?, account_status = 'registered no login' WHERE user_id = ?";
             $stmt_update_user = $conn->prepare($sql_update_user);
 
             if ($stmt_update_user) {
-                $stmt_update_user->bind_param("si", $password, $user_id);
+                $stmt_update_user->bind_param("si", $password_hash, $user_id);
 
                 if ($stmt_update_user->execute()) {
                     $success = true;
@@ -157,9 +157,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <p class="form-caption" data-lang-id="006-volume-ml-caption">This is the way we will contact you to confirm your account</p>
     </div>
 
-    <div class="form-item">
-        <label for="password">Set your password:</label><br>
-        <input type="password" id="password" name="password" required minlength="6">
+    <div class="form-item" id="set-password" style="display: none;">
+        <label for="password_hash">Set your password:</label><br>
+        <input type="password_hash" id="password_hash" name="password" required minlength="6">
         <p class="form-caption" data-lang-id="006-volume-ml-caption">Your password must be at least 6 characters.</p>
     </div>
 
@@ -212,7 +212,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', function() {
     const credentialField = document.getElementById('credential_value');
-    const passwordField = document.getElementById('password');
+    const passwordField = document.getElementById('password_hash');
     const confirmPasswordField = document.getElementById('confirm_password');
     const humanCheckField = document.getElementById('human_check');
     const termsCheckbox = document.getElementById('terms');

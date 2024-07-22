@@ -23,7 +23,7 @@ ini_set('display_errors', 1);
 
 $success = false;
 
-include '../ecobricks_env.php'; // this file provides the database server, user, dbname information to access the server
+include '../buwana_env.php'; // this file provides the database server, user, dbname information to access the server
 
     // Retrieve form data
     $first_name = $_POST['first_name'];

@@ -11,7 +11,6 @@ echo '<!DOCTYPE html>
 ';
 ?>
 
-
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -19,11 +18,20 @@ ini_set('display_errors', 1);
 $success = false;
 $user_id = $_GET['id'] ?? null;
 
+// Assuming $credential and $first_name are retrieved from a database or other source before this script runs
+$credential = htmlspecialchars($credential); // Sanitize to prevent XSS
+$first_name = htmlspecialchars($first_name); // Sanitize to prevent XSS
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
     include '../buwana_env.php'; // this file provides the database server, user, dbname information to access the server
 
-    // Retrieve form data
-    $credential_value = $_POST['credential_value'];
+    // Check if the database connection is established
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    // Retrieve and sanitize form data
+    $credential_value = htmlspecialchars($_POST['credential_value']);
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
     // Update the credentials_tb with the credential_value
@@ -62,6 +70,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
     }
 
     $conn->close();
+} else {
+    echo "Invalid request method or missing user ID.";
 }
 ?>
 
@@ -96,46 +106,44 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
        <!--SIGNUP FORM-->
 
 
-    <form id="user-signup-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?id=' . htmlspecialchars($user_id); ?>">
 
-        <div class="form-item" id="credential-section">
-            <label for="credential_value">Please provide your $credential:</label><br>
-            <input type="text" id="credential_value" name="credential_value" required>
-            <p class="form-caption" data-lang-id="006-volume-ml-caption">This is the way we will contact you to confirm your account</p>
+<form id="user-signup-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?id=' . htmlspecialchars($user_id); ?>">
+
+    <div class="form-item" id="credential-section">
+        <label for="credential_value">Please provide your <?php echo $credential; ?>:</label><br>
+        <input type="text" id="credential_value" name="credential_value" required>
+        <p class="form-caption" data-lang-id="006-volume-ml-caption">This is the way we will contact you to confirm your account</p>
+    </div>
+
+    <div class="form-item">
+        <label for="password">Set your password:</label><br>
+        <input type="password" id="password" name="password" required minlength="6">
+    </div>
+
+    <div class="form-item" id="confirm-password-section" style="display: none;">
+        <label for="confirm_password">Confirm Your Password:</label><br>
+        <input type="password" id="confirm_password" name="confirm_password" required>
+        <div id="maker-error-invalid" class="form-field-error" data-lang-id="005b-name-error">Passwords do not match.</div>
+    </div>
+
+    <div class="form-item" id="human-check-section" style="display: none;">
+        <label for="human_check">Please prove you are human by typing the word "ecobrick" below:</label><br>
+        <input type="text" id="human_check" name="human_check" required>
+        <p class="form-caption" data-lang-id="006-volume-ml-caption">Fun fact: 'ecobrick' is spelled without capitals or hyphens!</p>
+        <div>
+            <input type="checkbox" id="terms" name="terms" required checked>
+            <label for="terms">By registering today, I agree to the GoBrik terms of service</label>
         </div>
-
-        <div class="form-item">
-            <label for="password">Set your password:</label><br>
-            <input type="password" id="password" name="password" required minlength="6">
+        <div>
+            <input type="checkbox" id="newsletter" name="newsletter" checked>
+            <label for="newsletter">I agree to receive the Earthen newsletter for app, ecobrick, and earthen updates</label>
         </div>
+    </div>
 
-        <div class="form-item" id="confirm-password-section" style="display: none;">
-            <label for="confirm_password">Confirm Your Password:</label><br>
-            <input type="password" id="confirm_password" name="confirm_password" required>
-
-            <div id="maker-error-invalid" class="form-field-error" data-lang-id="005b-name-error">The entry contains invalid characters. Avoid quotes, slashes, and greater-than signs please.</div>
-        </div>
-
-        <div class="form-item" id="human-check-section" style="display: none;">
-            <label for="human_check">Please prove you are human by typing the word "ecobrick" below:</label><br>
-            <input type="text" id="human_check" name="human_check" required>
-
-            <p class="form-caption" data-lang-id="006-volume-ml-caption">Fun fact: 'ecobrick' is spelled without capitals or hyphens!</p>
-            <div>
-                <input type="checkbox" id="terms" name="terms" required checked>
-                <label for="terms">By registering today, I agree to the GoBrik terms of service</label>
-            </div>
-            <div>
-                <input type="checkbox" id="newsletter" name="newsletter" checked>
-                <label for="newsletter">I agree to receive the Earthen newsletter for app, ecobrick, and earthen updates</label>
-            </div>
-        </div>
-
-        <div class="form-item" id="submit-section" style="display: none;">
-            <input type="submit" id="submit-button" value="Register" disabled>
-        </div>
-    </form>
-</div>
+    <div class="form-item" id="submit-section" style="display: none;">
+        <input type="submit" id="submit-button" value="Register" disabled>
+    </div>
+</form>
 
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', function() {
@@ -147,6 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const confirmPasswordSection = document.getElementById('confirm-password-section');
     const humanCheckSection = document.getElementById('human-check-section');
     const submitSection = document.getElementById('submit-section');
+    const makerErrorInvalid = document.getElementById('maker-error-invalid');
 
     passwordField.addEventListener('input', function() {
         if (passwordField.value.length >= 6) {
@@ -160,14 +169,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     confirmPasswordField.addEventListener('input', function() {
         if (passwordField.value === confirmPasswordField.value) {
+            makerErrorInvalid.style.display = 'none';
             humanCheckSection.style.display = 'block';
         } else {
+            makerErrorInvalid.style.display = 'block';
             humanCheckSection.style.display = 'none';
             submitSection.style.display = 'none';
         }
     });
 
-    humanCheckField.addEventListener('input', function() {
+    function updateSubmitButtonState() {
         if (humanCheckField.value.toLowerCase() === 'ecobrick' && termsCheckbox.checked) {
             submitButton.disabled = false;
             submitButton.style.backgroundColor = 'green';
@@ -175,17 +186,10 @@ document.addEventListener('DOMContentLoaded', function() {
             submitButton.disabled = true;
             submitButton.style.backgroundColor = 'grey';
         }
-    });
+    }
 
-    termsCheckbox.addEventListener('change', function() {
-        if (humanCheckField.value.toLowerCase() === 'ecobrick' && termsCheckbox.checked) {
-            submitButton.disabled = false;
-            submitButton.style.backgroundColor = 'green';
-        } else {
-            submitButton.disabled = true;
-            submitButton.style.backgroundColor = 'grey';
-        }
-    });
+    humanCheckField.addEventListener('input', updateSubmitButtonState);
+    termsCheckbox.addEventListener('change', updateSubmitButtonState);
 });
 </script>
 

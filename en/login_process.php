@@ -8,7 +8,7 @@ $password = $_POST['password'] ?? '';
 
 // Validate input
 if (empty($credential_value) || empty($password)) {
-    header('Location: signedup_login.php?error=empty_fields');
+    header('Location: login.php?error=empty_fields');
     exit();
 }
 
@@ -45,11 +45,11 @@ if ($stmt_credential) {
                     header('Location: dashboard.php');
                     exit();
                 } else {
-                    header('Location: signedup_login.php?error=invalid_password');
+                    header('Location: login.php?error=invalid_password');
                     exit();
                 }
             } else {
-                header('Location: signedup_login.php?error=invalid_user');
+                header('Location: login.php?error=invalid_user');
                 exit();
             }
             $stmt_user->close();
@@ -57,7 +57,7 @@ if ($stmt_credential) {
             die('Error preparing statement for users_tb: ' . $conn->error);
         }
     } else {
-        header('Location: signedup_login.php?error=invalid_credential');
+        header('Location: login.php?error=invalid_credential');
         exit();
     }
 } else {

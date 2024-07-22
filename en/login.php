@@ -1,6 +1,6 @@
 <?php
 include 'lang.php';
-$version = '0.35';
+$version = '0.36';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -63,7 +63,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <div id="password-error" class="form-field-error" style="display:none;">👉 Password is wrong.</div>
             </div>
             <div class="form-item" id="submit-section" style="text-align:center;margin-top:15px;">
-                <input type="submit" id="submit-button" value="Login">
+                <input type="submit" id="submit-button" value="Login" class="enabled">
             </div>
         </form>
         </div><!--closes Landing content-->

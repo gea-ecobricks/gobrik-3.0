@@ -26,7 +26,7 @@ if ($stmt_lookup_password) {
         exit();
     } else {
         // Password is incorrect, redirect back to the login page with an error message
-        header("Location: signedup_login.php?id=$user_id&error=wrong_password");
+        header("Location: signedup-login.php?id=$user_id&error=wrong_password");
         exit();
     }
 } else {

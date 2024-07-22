@@ -159,7 +159,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     <div class="form-item" id="set-password" style="display: none;">
         <label for="password_hash">Set your password:</label><br>
-        <input type="password_hash" id="password_hash" name="password" required minlength="6">
+        <input type="password" id="password_hash" name="password_hash" required minlength="6">
         <p class="form-caption" data-lang-id="006-volume-ml-caption">Your password must be at least 6 characters.</p>
     </div>
 

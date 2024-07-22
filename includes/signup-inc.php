@@ -528,6 +528,9 @@ input[type="submit"]:hover {
     background-color: var(--button-2-1-over);
 }
 
+.underline-link {
+font-color: var(--text-color);
+}
 
 </style>
 

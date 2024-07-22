@@ -227,7 +227,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     <?php include 'terms.php'; ?>
                 </div>
             `;
-            modal.style.position = 'relative';
+            modal.style.position = 'absolute';
             modalBox.style.textAlign = 'left';
             modalBox.style.maxHeight = 'unset';
             break;

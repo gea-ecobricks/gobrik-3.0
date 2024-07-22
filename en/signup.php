@@ -23,6 +23,8 @@ ini_set('display_errors', 1);
 
 $success = false;
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
 include '../buwana_env.php'; // this file provides the database server, user, dbname information to access the server
 
     // Retrieve form data
@@ -77,7 +79,7 @@ include '../buwana_env.php'; // this file provides the database server, user, db
     $conn->close();
 
 ?>
-
+}
 <title>Signup | GoBrik 3.0</title>
 
 <!--

@@ -1,14 +1,13 @@
 <?php
 include 'lang.php';
 $version = '0.346';
-$page = 'signup-2';
+$page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 echo '<!DOCTYPE html>
 <html lang="' . $lang . '">
 <head>
 <meta charset="UTF-8">
-<title>Signup 2 | GoBrik 3.0</title>
 ';
 ?>
 
@@ -66,9 +65,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
 }
 ?>
 
-</head>
-<body>
-<div class="form-container">
+<title>Signup 2 | GoBrik 3.0</title>
+
+<!--
+GoBrik.com site version 3.0
+Developed and made open source by the Global Ecobrick Alliance
+See our git hub repository for the full code and to help out:
+https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
+
+<?php require_once ("../includes/signup-inc.php");?>
+
+
+<div class="splash-content-block"></div>
+<div id="splash-bar"></div>
+
+<!-- PAGE CONTENT-->
+
+<div id="form-submission-box" style="height:100vh;">
+    <div class="form-container">
+
+        <div class="signup-team">
+        <img src="../svgs/signup-team.svg?v=2" width="60%">
+    </div>
+
+        <div style="text-align:center;width:100%;margin:auto;">
+            <h2 data-lang-id="001-signup-heading">Create Your Account</h2>
+            <p style="font-size:medium;" data-lang-id="002-gobrik-subtext">GoBrik is developed by volunteers just as passionate about plastic transition as you!</p>
+        </div>
+
+       <!--SIGNUP FORM-->
+
+
     <form id="user-signup-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?id=' . htmlspecialchars($user_id); ?>">
 
         <div class="form-item" id="credential-section">
@@ -90,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
             <label for="human_check">Please prove you are human by typing the word "ecobrick" below:</label><br>
             <input type="text" id="human_check" name="human_check" required>
             <div>
-                <input type="checkbox" id="terms" name="terms" required>
+                <input type="checkbox" id="terms" name="terms" required checked>
                 <label for="terms">By registering today, I agree to the GoBrik terms of service</label>
             </div>
             <div>

@@ -511,10 +511,11 @@ input[type="submit"]:hover {
     padding: 10px 20px;
     border: none;
     color: white;
-    font-size: 16px;
-    border-radius: 5px;
     transition: background-color 0.3s, cursor 0.3s;
-    background-color: var(--button-2-1);
+     padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+   font-size: 1.3em;
 }
 
 /* Styles for the disabled state */

@@ -172,7 +172,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-item" id="human-check-section" style="display: none;">
         <label for="human_check">Please prove you are human by typing the word "ecobrick" below:</label><br>
         <input type="text" id="human_check" name="human_check" required>
-        <p class="form-caption" data-lang-id="006-volume-ml-caption">Fun fact: 'ecobrick' is spelled without capitals or hyphens!</p>
+        <p class="form-caption" data-lang-id="006-volume-ml-caption">Fun fact: 'ecobrick' is spelled without capitals or hyphens! 🤓</p>
         <div>
             <input type="checkbox" id="terms" name="terms" required checked>
             <label for="terms" style="font-size:medium;">By registering today, I agree to the <a href="#" onclick="showModalInfo('terms')" class="underline-link">GoBrik Terms of Service</a></label>
@@ -223,7 +223,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             case 'terms':
                 content = `
                 <img class="preview-image" class="brik-type-image" src="../pngs/justandecobrick.png" alt="Terms of Use" height="200" width="200">
-               <?php  include '../terms.php'; ?>
+               <?php  include 'terms.php'; ?>
             `;
                 break;
             case 'earthen':

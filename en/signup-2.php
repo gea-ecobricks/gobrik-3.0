@@ -32,12 +32,12 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-// Look up these fields from user_tb using the user_id
+// Look up these fields from users_tb using the user_id
 $credential = '';
 $first_name = '';
 
 if (isset($user_id)) {
-    $sql_lookup_user = "SELECT credential, first_name FROM user_tb WHERE id = ?";
+    $sql_lookup_user = "SELECT credential, first_name FROM users_tb WHERE id = ?";
     $stmt_lookup_user = $conn->prepare($sql_lookup_user);
 
     if ($stmt_lookup_user) {
@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
         $stmt_update_credential->bind_param("ssi", $credential_value, $_POST['credential'], $user_id);
 
         if ($stmt_update_credential->execute()) {
-            // Update the user_tb with the password and change the account status
+            // Update the users_tb with the password and change the account status
             $sql_update_user = "UPDATE users_tb SET password = ?, account_status = 'registered no login' WHERE id = ?";
             $stmt_update_user = $conn->prepare($sql_update_user);
 

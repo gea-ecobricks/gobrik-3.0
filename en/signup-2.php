@@ -206,10 +206,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 </div><!--close page content-->
 
 
-<script type="text/javascript">
 
 
-<script type="text/javascript">
+    <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', function() {
     const credentialField = document.getElementById('credential_value');
     const passwordField = document.getElementById('password_hash');
@@ -220,41 +219,35 @@ document.addEventListener('DOMContentLoaded', function() {
     const confirmPasswordSection = document.getElementById('confirm-password-section');
     const humanCheckSection = document.getElementById('human-check-section');
     const submitSection = document.getElementById('submit-section');
+    const setPasswordSection = document.getElementById('set-password');
     const makerErrorInvalid = document.getElementById('maker-error-invalid');
 
     // Initially show only the credential field
-    passwordField.style.display = 'none';
-    confirmPasswordSection.style.display = 'none';
-    humanCheckSection.style.display = 'none';
-    submitSection.style.display = 'none';
+    document.getElementById('set-password').style.display = 'none';
+    document.getElementById('confirm-password-section').style.display = 'none';
+    document.getElementById('human-check-section').style.display = 'none';
+    document.getElementById('submit-section').style.display = 'none';
 
-    function updateSubmitButtonState() {
-        if (humanCheckField.value.toLowerCase() === 'ecobrick' && termsCheckbox.checked) {
-            submitButton.disabled = false;
-            submitButton.style.backgroundColor = 'green';
-        } else {
-            submitButton.disabled = true;
-            submitButton.style.backgroundColor = 'grey';
-        }
+    // Function to validate email
+    function isValidEmail(email) {
+        // Simple email validation regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
     }
 
-    function validateEmail(email) {
-        // Simple email validation
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailPattern.test(email);
-    }
-
+    // Show password field when a valid email is entered
     credentialField.addEventListener('input', function() {
-        if (validateEmail(credentialField.value)) {
-            passwordField.style.display = 'block';
+        if (isValidEmail(credentialField.value)) {
+            setPasswordSection.style.display = 'block';
         } else {
-            passwordField.style.display = 'none';
+            setPasswordSection.style.display = 'none';
             confirmPasswordSection.style.display = 'none';
             humanCheckSection.style.display = 'none';
             submitSection.style.display = 'none';
         }
     });
 
+    // Show confirm password field when password length is at least 6 characters
     passwordField.addEventListener('input', function() {
         if (passwordField.value.length >= 6) {
             confirmPasswordSection.style.display = 'block';
@@ -265,10 +258,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Show human check section and submit button when passwords match
     confirmPasswordField.addEventListener('input', function() {
         if (passwordField.value === confirmPasswordField.value) {
             makerErrorInvalid.style.display = 'none';
             humanCheckSection.style.display = 'block';
+            submitSection.style.display = 'block';
         } else {
             makerErrorInvalid.style.display = 'block';
             humanCheckSection.style.display = 'none';
@@ -276,14 +271,25 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Activate submit button when "ecobrick" is typed and terms checkbox is checked
+    function updateSubmitButtonState() {
+        if (humanCheckField.value.toLowerCase() === 'ecobrick' && termsCheckbox.checked) {
+            submitButton.disabled = false;
+            submitButton.style.backgroundColor = 'green';
+        } else {
+            submitButton.disabled = true;
+            submitButton.style.backgroundColor = 'grey';
+        }
+    }
+
     humanCheckField.addEventListener('input', updateSubmitButtonState);
     termsCheckbox.addEventListener('change', updateSubmitButtonState);
 });
-
-
-
-
 </script>
+
+
+
+
 
 </body>
 </html>

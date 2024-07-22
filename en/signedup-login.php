@@ -153,28 +153,21 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
        <!--SIGNUP FORM-->
 
-
- <form id="signed-up-login" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?id=' . htmlspecialchars($user_id); ?>">
+  <form id="signed-up-login" method="post" action="">
         <div class="form-item">
-            <label for="credential_value">Your <?php echo $credential_type; ?>:</label><br>
-            <input type="text" id="credential_value" name="credential_value" value="<?php echo htmlspecialchars($credential_key); ?>" required>
+            <label for="credential_value">Ok <?php echo $first_name; ?>, now please use your <?php echo $credential_type; ?> to login for the first time:</label><br>
+            <input type="text" id="credential_value" name="credential_value" value="<?php echo $credential_key; ?>" required>
         </div>
-
         <div class="form-item">
             <label for="password">Your password:</label><br>
             <input type="password" id="password" name="password" required>
-             <p class="form-caption" data-lang-id="006-volume-ml-caption"> Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
-
-             <div id="password-error" class="form-field-error" style="margin-top:10px;" data-lang-id="005b-name-error">👉 Passwords is wrong.</div>
-
+            <p class="form-caption">Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
+            <div id="password-error" class="form-field-error">👉 Password is wrong.</div>
         </div>
-
-    <div class="form-item" id="submit-section" style="text-align:center;margin-top:15px;" title="And login!">
-        <input type="submit" id="submit-button" value="Login" class="enabled">
-    </div>
-
+        <div class="form-item">
+            <input type="submit" value="Login">
+        </div>
         <input type="hidden" id="error-type" value="<?php echo $error_message; ?>">
-
     </form>
 
         </div>

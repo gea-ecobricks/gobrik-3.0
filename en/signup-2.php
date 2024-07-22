@@ -160,12 +160,13 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-item">
         <label for="password">Set your password:</label><br>
         <input type="password" id="password" name="password" required minlength="6">
+        <p class="form-caption" data-lang-id="006-volume-ml-caption">Your password must be at least 6 characters.</p>
     </div>
 
     <div class="form-item" id="confirm-password-section" style="display: none;">
         <label for="confirm_password">Confirm Your Password:</label><br>
         <input type="password" id="confirm_password" name="confirm_password" required>
-        <div id="maker-error-invalid" class="form-field-error" data-lang-id="005b-name-error">Passwords do not match.</div>
+        <div id="maker-error-invalid" class="form-field-error" style="margin-top:20px;" data-lang-id="005b-name-error">Passwords do not match.</div>
     </div>
 
     <div class="form-item" id="human-check-section" style="display: none;">
@@ -240,6 +241,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         if (passwordField.value === confirmPasswordField.value) {
             makerErrorInvalid.style.display = 'none';
             humanCheckSection.style.display = 'block';
+            submitButton.style.display = 'block';
+
         } else {
             makerErrorInvalid.style.display = 'block';
             humanCheckSection.style.display = 'none';

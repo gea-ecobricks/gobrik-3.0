@@ -1,6 +1,6 @@
 <?php
 include 'lang.php';
-$version = '0.348';
+$version = '0.35';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 

@@ -43,7 +43,7 @@ if (isset($user_id)) {
     }
 
     // Then, look up the first_name from users_tb
-    $sql_lookup_user = "SELECT first_name FROM users_tb WHERE id = ?";
+    $sql_lookup_user = "SELECT first_name FROM users_tb WHERE user_id = ?";
     $stmt_lookup_user = $conn->prepare($sql_lookup_user);
 
     if ($stmt_lookup_user) {

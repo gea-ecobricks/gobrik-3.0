@@ -217,7 +217,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     const modal = document.getElementById('form-modal-message');
     const photobox = document.getElementById('modal-photo-box');
     const messageContainer = modal.querySelector('.modal-message');
-    const modalBox = modal.querySelector('modal-content-box');
+    const modalBox = document.getElementById('modal-content-box');
     let content = '';
     photobox.style.display = 'none';
     switch (type) {

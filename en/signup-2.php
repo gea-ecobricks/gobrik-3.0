@@ -143,7 +143,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <div style="text-align:center;width:100%;margin:auto;">
             <h2 data-lang-id="001-signup-heading">Set your password</h2>
-            <p style="font-size:medium;" data-lang-id="002-gobrik-subtext">Alright $first_name: You've chosen to use $credential as your means of registration and the way we contact you.</p>
+            <p style="font-size:medium;" data-lang-id="002-gobrik-subtext">Alright <?php echo $first_name; ?>: You've chosen to use <?php echo $credential_type; ?> as your means of registration and the way we contact you.</p>
         </div>
 
        <!--SIGNUP FORM-->

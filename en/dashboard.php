@@ -14,7 +14,7 @@ session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
-    echo '<script>alert("Please login before viewing this page."); window.location.href = "signedup_login.php";</script>';
+    echo '<script>alert("Please login before viewing this page."); window.location.href = "login.php";</script>';
     exit();
 }
 

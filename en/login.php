@@ -8,20 +8,21 @@ echo '<!DOCTYPE html>
 <html lang="' . $lang . '">
 <head>
 <meta charset="UTF-8">
-';
+<title>Login | GoBrik 3.0</title>
+</head>
+<body>';
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Check if a session is already active
+session_start();
+if (isset($_SESSION['user_id'])) {
+    header('Location: dashboard.php');
+    exit();
+}
 ?>
 
-
-<script>
-    function validatePassword(isValid) {
-        const passwordErrorDiv = document.getElementById('password-error');
-        if (!isValid) {
-            passwordErrorDiv.style.display = 'block';
-        } else {
-            passwordErrorDiv.style.display = 'none';
-        }
-    }
-</script>
 
 <title>Login | GoBrik 3.0</title>
 
@@ -51,20 +52,18 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>
 
         <!-- SIGNUP FORM -->
-        <form id="signed-up-login" method="post" action="login_process.php">
-            <input type="hidden" name="user_id" value="">
+          <form id="signed-up-login" method="post" action="login_process.php">
             <div class="form-item">
-                <label for="credential_value">Your email or SMS number:</label><br>
-                <input type="text" id="credential_value" name="credential_value" value="" required>
+                <label for="credential_value">Your Credential:</label><br>
+                <input type="text" id="credential_value" name="credential_value" required>
             </div>
             <div class="form-item">
-                <label for="password">Your password:</label><br>
+                <label for="password">Your Password:</label><br>
                 <input type="password" id="password" name="password" required>
-                <p class="form-caption">Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
                 <div id="password-error" class="form-field-error" style="display:none;">👉 Password is wrong.</div>
             </div>
-            <div class="form-item" id="submit-section" style="text-align:center;margin-top:15px;" title="And login!">
-                <input type="submit" id="submit-button" value="Login" class="enabled">
+            <div class="form-item" id="submit-section" style="text-align:center;margin-top:15px;">
+                <input type="submit" id="submit-button" value="Login">
             </div>
         </form>
         </div><!--closes Landing content-->
@@ -80,6 +79,23 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <!-- FOOTER STARTS HERE -->
 <?php require_once ("../footer-2024.php");?>
+
+
+
+<script type="text/javascript">
+    document.getElementById('signed-up-login').addEventListener('submit', function(event) {
+        // Example validation, modify as needed
+        var credentialValue = document.getElementById('credential_value').value;
+        var password = document.getElementById('password').value;
+
+        if (credentialValue === '' || password === '') {
+            event.preventDefault(); // Prevent form submission
+            document.getElementById('password-error').style.display = 'block';
+        }
+    });
+</script>
+
+
 
 <script type="text/javascript">
 function showModalInfo(type) {

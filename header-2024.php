@@ -65,7 +65,7 @@
 
 <link rel="stylesheet" type="text/css" href="../styles/footer.css?v=<?php echo ($version); ;?>">
 
- <script>
+<!--< <script>
         function validatePassword(isValid) {
             const passwordErrorDiv = document.getElementById('password-error');
             if (!isValid) {
@@ -86,7 +86,7 @@
     </script>
 
 
-<!--<script src="../scripts/language-switcher.js?v=<?php echo ($version); ;?>"></script>-->
+script src="../scripts/language-switcher.js?v=<?php echo ($version); ;?>"></script>-->
 
 <script>
 /*ROLL CALL*/
@@ -372,14 +372,14 @@ display: none;
             <div style="margin-bottom: 20px;">
                 <div class="menu-page-item" ><a href="index.php"  aria-label="Return Home" data-lang-id="1000">Home</a></div>
                 <div class="menu-page-item"><a data-lang-id="1001-gobrik-tour"onclick="sendDownRegistration(); closeSettings(); setTimeout(guidedTour, 500);">What is GoBrik?</a></div>
-                <div class="menu-page-item"><a href="login.php#home" aria-label="Register" data-lang-id="1002-login">Login</a></div>
+                <div class="menu-page-item"><a href="login.php" aria-label="Register" data-lang-id="1002-login">Login</a></div>
                 <div class="menu-page-item"><a href="signup.php" aria-label="Signup" data-lang-id="1003-signup">Signup</a></div>
                 <div class="menu-page-item"><a href="log.php" aria-label="Log" data-lang-id="1004-log">Log Ecobrick</a></div>
                 <div class="menu-page-item"><a href="brikchain" data-lang-id="1005-brikchain">The Brikchain</a></div>
-                <div class="menu-page-item"><a href="latest" data-lang-id="1005-latest-ecobricks">Latest Ecobricks</a></div>
+              <!--<div class="menu-page-item"><a href="latest" data-lang-id="1005-latest-ecobricks">Latest Ecobricks</a></div>
                 <div class="menu-page-item"><a href="latest" data-lang-id="1005-latest-projects">Latest Projects</a></div>
                 <div class="menu-page-item"><a href="latest" data-lang-id="1005-latest-trainings">Latest Trainings</a></div>
-
+-->
 
 
              </div>

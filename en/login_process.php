@@ -11,7 +11,7 @@ $password = $_POST['password'] ?? null;
 // Input validation
 if (!$user_id || !$credential_value || !$password) {
     // Redirect back to login page with error if any required field is missing
-    header('Location: signedup_login.php?error=missing');
+    header('Location: login.php?error=missing');
     exit();
 }
 

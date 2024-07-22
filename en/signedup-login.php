@@ -11,7 +11,6 @@ echo '<!DOCTYPE html>
 ';
 ?>
 
-
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -58,18 +57,16 @@ if (isset($user_id)) {
 $conn->close();
 ?>
 
-
-
-    <script>
-        function validatePassword(isValid) {
-            const passwordErrorDiv = document.getElementById('password-error');
-            if (!isValid) {
-                passwordErrorDiv.style.display = 'block';
-            } else {
-                passwordErrorDiv.style.display = 'none';
-            }
+<script>
+    function validatePassword(isValid) {
+        const passwordErrorDiv = document.getElementById('password-error');
+        if (!isValid) {
+            passwordErrorDiv.style.display = 'block';
+        } else {
+            passwordErrorDiv.style.display = 'none';
         }
-    </script>
+    }
+</script>
 
 <title>Login | GoBrik 3.0</title>
 
@@ -81,7 +78,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <?php require_once ("../includes/login-inc.php");?>
 
-
 <div class="splash-content-block"></div>
 <div id="splash-bar"></div>
 
@@ -91,62 +87,42 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
 
         <div class="dolphin-pic" style="margin-top:-45px;background-size:contain;">
-        <img src="../webps/earth-community.webp" width="80%">
-    </div>
+            <img src="../webps/earth-community.webp" width="80%">
+        </div>
 
         <div style="text-align:center;width:100%;margin:auto;">
             <h2 data-lang-id="001-login-heading-signed-up">Your account is Ready! 🎉</h2>
             <p data-lang-id="002-login-subheading">Ok <?php echo $first_name; ?>, now please use your <?php echo $credential_type; ?> to login for the first time to start setting up your account:</p>
         </div>
 
-       <!--SIGNUP FORM-->
-
-
-    <form id="signed-up-login" method="post" action="login_process.php">
-        <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>">
-        <div class="form-item">
-            <label for="credential_value">Your <?php echo htmlspecialchars($credential_type); ?> :</label><br>
-            <input type="text" id="credential_value" name="credential_value" value="<?php echo $credential_key; ?>" required>        </div>
-        <div class="form-item">
-            <label for="password">Your password:</label><br>
-            <input type="password" id="password" name="password" required>
-            <p class="form-caption">Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
-            <div id="password-error" class="form-field-error">👉 Password is wrong.</div>
-        </div>
-        <div class="form-item" id="submit-section" style="text-align:center;margin-top:15px;" title="And login!">
-        <input type="submit" id="submit-button" value="Login" class="enabled">
+        <!-- SIGNUP FORM -->
+        <form id="signed-up-login" method="post" action="login_process.php">
+            <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>">
+            <div class="form-item">
+                <label for="credential_value">Your <?php echo htmlspecialchars($credential_type); ?> :</label><br>
+                <input type="text" id="credential_value" name="credential_value" value="<?php echo $credential_key; ?>" required>
+            </div>
+            <div class="form-item">
+                <label for="password">Your password:</label><br>
+                <input type="password" id="password" name="password" required>
+                <p class="form-caption">Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
+                <div id="password-error" class="form-field-error" style="display:none;">👉 Password is wrong.</div>
+            </div>
+            <div class="form-item" id="submit-section" style="text-align:center;margin-top:15px;" title="And login!">
+                <input type="submit" id="submit-button" value="Login" class="enabled">
+            </div>
+        </form>
     </div>
-        <input type="hidden" id="error-type" value="<?php echo $error_message; ?>">
-    </form>
 
-        </div>
-
-
-
-
-<div style="text-align:center;width:100%;margin:auto;margin-top:50px;margin-bottom:50px;"><p style="font-size:medium;">Don't have an account yet? <a href="signup.php">Signup!</a></p>
-
-
-    </div><!--closes Landing content-->
+    <div style="text-align:center;width:100%;margin:auto;margin-top:50px;margin-bottom:50px;">
+        <p style="font-size:medium;">Don't have an account yet? <a href="signup.php">Signup!</a></p>
+    </div>
 </div>
 
-</div><!--closes main and starry background-->
-
-<!--FOOTER STARTS HERE-->
-
+<!-- FOOTER STARTS HERE -->
 <?php require_once ("../footer-2024.php");?>
 
-</div><!--close page content-->
-
-
-
-
-
-
-
-    <script type="text/javascript">
-
-
+<script type="text/javascript">
 function showModalInfo(type) {
     const modal = document.getElementById('form-modal-message');
     const photobox = document.getElementById('modal-photo-box');
@@ -155,21 +131,17 @@ function showModalInfo(type) {
     let content = '';
     photobox.style.display = 'none';
     switch (type) {
-
         case 'reset':
             content = `
                 <img src="../pngs/exchange-bird.png" alt="Reset Password" height="250px" width="250px" class="preview-image">
                 <div class="preview-title">Reset Password</div>
-                <div class="preview-text">Oops!  This function is not yet operational.  Create another account for the moment as all accounts will be deleted once we migrate from beta to live.</div>
+                <div class="preview-text">Oops! This function is not yet operational. Create another account for the moment as all accounts will be deleted once we migrate from beta to live.</div>
             `;
             break;
-
         default:
             content = '<p>Invalid term selected.</p>';
     }
-
     messageContainer.innerHTML = content;
-
 
     // Show the modal and update other page elements
     modal.style.display = 'flex';
@@ -178,12 +150,13 @@ function showModalInfo(type) {
     document.body.classList.add('modal-open');
 }
 
-
+// Check if there's an error message and show the error div if needed
+document.addEventListener("DOMContentLoaded", function() {
+    const errorType = "<?php echo isset($_GET['error']) ? htmlspecialchars($_GET['error']) : ''; ?>";
+    if (errorType === "wrong_password") {
+        validatePassword(false);
+    }
+});
 </script>
-
-
-
-
-
 </body>
 </html>

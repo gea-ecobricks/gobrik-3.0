@@ -20,6 +20,8 @@ $user_id = $_GET['id'] ?? null;
 
 include '../buwana_env.php'; // this file provides the database server, user, dbname information to access the server
 
+
+
 // Look up these fields from credentials_tb and users_tb using the user_id
 $credential_type = '';
 $credential_key = '';
@@ -41,7 +43,7 @@ if (isset($user_id)) {
     }
 
     // Then, look up the first_name from users_tb
-    $sql_lookup_user = "SELECT first_name FROM users_tb WHERE user_id = ?";
+    $sql_lookup_user = "SELECT first_name FROM users_tb WHERE id = ?";
     $stmt_lookup_user = $conn->prepare($sql_lookup_user);
 
     if ($stmt_lookup_user) {
@@ -53,55 +55,67 @@ if (isset($user_id)) {
     } else {
         die("Error preparing statement for users_tb: " . $conn->error);
     }
-
-    $credential_type = htmlspecialchars($credential_type); // Sanitize to prevent XSS
-    $first_name = htmlspecialchars($first_name); // Sanitize to prevent XSS
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
     // Retrieve and sanitize form data
-    $credential_value = htmlspecialchars($_POST['credential_value']);
-    $password_hash = password_hash($_POST['password_hash'], PASSWORD_DEFAULT);
+    $entered_credential = htmlspecialchars($_POST['credential_value']);
+    $entered_password = $_POST['password'];
 
-    // Update the credentials_tb with the credential_key
-    $sql_update_credential = "UPDATE credentials_tb SET credential_key = ? WHERE user_id = ?";
-    $stmt_update_credential = $conn->prepare($sql_update_credential);
+    // Check if entered credential matches the credential_key in the database
+    if ($entered_credential === $credential_key) {
+        // Retrieve the hashed password from users_tb
+        $sql_get_password = "SELECT password FROM users_tb WHERE id = ?";
+        $stmt_get_password = $conn->prepare($sql_get_password);
 
-    if ($stmt_update_credential) {
-        $stmt_update_credential->bind_param("si", $credential_value, $user_id);
+        if ($stmt_get_password) {
+            $stmt_get_password->bind_param("i", $user_id);
+            $stmt_get_password->execute();
+            $stmt_get_password->bind_result($hashed_password);
+            $stmt_get_password->fetch();
+            $stmt_get_password->close();
 
-        if ($stmt_update_credential->execute()) {
-            // Update the users_tb with the password and change the account status
-            $sql_update_user = "UPDATE users_tb SET password_hash = ?, account_status = 'registered no login' WHERE user_id = ?";
-            $stmt_update_user = $conn->prepare($sql_update_user);
+            // Verify the entered password
+            if (password_verify($entered_password, $hashed_password)) {
+                // Successful login, update the user's last_login in users_tb
+                $sql_update_user = "UPDATE users_tb SET last_login = NOW() WHERE id = ?";
+                $stmt_update_user = $conn->prepare($sql_update_user);
 
-            if ($stmt_update_user) {
-                $stmt_update_user->bind_param("si", $password_hash, $user_id);
-
-                if ($stmt_update_user->execute()) {
-                    $success = true;
-                    // Redirect to signedup-login.php with user_id
-                    header("Location: signedup-login.php?id=$user_id");
-                    exit();
+                if ($stmt_update_user) {
+                    $stmt_update_user->bind_param("i", $user_id);
+                    $stmt_update_user->execute();
+                    $stmt_update_user->close();
                 } else {
-                    echo "Error: " . $stmt_update_user->error;
+                    die("Error preparing statement for updating users_tb: " . $conn->error);
                 }
-                $stmt_update_user->close();
+
+                // Update times_used and last_login in credentials_tb
+                $sql_update_credentials = "UPDATE credentials_tb SET times_used = times_used + 1, last_login = NOW() WHERE user_id = ?";
+                $stmt_update_credentials = $conn->prepare($sql_update_credentials);
+
+                if ($stmt_update_credentials) {
+                    $stmt_update_credentials->bind_param("i", $user_id);
+                    $stmt_update_credentials->execute();
+                    $stmt_update_credentials->close();
+                } else {
+                    die("Error preparing statement for updating credentials_tb: " . $conn->error);
+                }
+
+                // Redirect to the dashboard or any other page
+                header("Location: dashboard.php?id=$user_id");
+                exit();
             } else {
-                echo "Error preparing statement for users_tb: " . $conn->error;
+                echo "Invalid password.";
             }
         } else {
-            echo "Error: " . $stmt_update_credential->error;
+            die("Error preparing statement for getting password: " . $conn->error);
         }
-        $stmt_update_credential->close();
     } else {
-        echo "Error preparing statement for credentials_tb: " . $conn->error;
+        echo "Invalid credential.";
     }
-
-    $conn->close();
-} else {
-    echo "Invalid request method or missing user ID.";
 }
+
+$conn->close();
 ?>
 
 
@@ -126,12 +140,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="form-submission-box" style="height:100vh;">
     <div class="form-container">
 
-        <div class="earth-com" style="margin-top:-45px;">
+        <div class="dolphin-pic" style="margin-top:-45px;">
         <img src="../webps/earth-community.webp" width="60%">
     </div>
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="001-signup-heading">Login to GoBrik</h2>
+            <h2 data-lang-id="001-signup-heading">You're Account is Ready!</h2>
             <p data-lang-id="002-gobrik-subtext">Ok <?php echo $first_name; ?>, now please use your <?php echo $credential_type; ?> to login for the first time:</p>
         </div>
 

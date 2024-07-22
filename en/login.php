@@ -1,15 +1,4 @@
-<?php
-include 'lang.php';
-$version = '0.35';
-$page = 'signup';
-$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
-echo '<!DOCTYPE html>
-<html lang="' . $lang . '">
-<head>
-<meta charset="UTF-8">
-';
-?>
 
 <?php
 include 'lang.php';
@@ -123,9 +112,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
             die("Error preparing statement for getting password: " . $conn->error);
         }
     } else {
-        echo "Invalid credential.";
+        echo "alert('Invalid credential')";
     }
 }
 
 $conn->close();
 ?>
+

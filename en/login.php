@@ -47,7 +47,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <div style="text-align:center;width:100%;margin:auto;">
             <h2 data-lang-id="001-login-heading-signed-up">Login</h2>
-            <p data-lang-id="002-login-subheading">We're glad you're back.</p>
+            <p data-lang-id="002-login-subheading">We're glad you're back!</p>
         </div>
 
         <!-- SIGNUP FORM -->
@@ -55,7 +55,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <input type="hidden" name="user_id" value="">
             <div class="form-item">
                 <label for="credential_value">Your email or SMS number:</label><br>
-                <input type="text" id="credential_value" name="credential_value" value="<?php echo $credential_key; ?>" required>
+                <input type="text" id="credential_value" name="credential_value" value="" required>
             </div>
             <div class="form-item">
                 <label for="password">Your password:</label><br>

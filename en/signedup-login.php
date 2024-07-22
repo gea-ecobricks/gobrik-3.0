@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
     // Check if entered credential matches the credential_key in the database
     if ($entered_credential === $credential_key) {
         // Retrieve the hashed password from users_tb
-        $sql_get_password = "SELECT password_hash FROM users_tb WHERE id = ?";
+        $sql_get_password = "SELECT password_hash FROM users_tb WHERE user_id = ?";
         $stmt_get_password = $conn->prepare($sql_get_password);
 
         if ($stmt_get_password) {
@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
             // Verify the entered password
             if (password_verify($entered_password, $hashed_password)) {
                 // Successful login, update the user's last_login in users_tb
-                $sql_update_user = "UPDATE users_tb SET last_login = NOW() WHERE id = ?";
+                $sql_update_user = "UPDATE users_tb SET last_login = NOW() WHERE user_id = ?";
                 $stmt_update_user = $conn->prepare($sql_update_user);
 
                 if ($stmt_update_user) {

@@ -210,6 +210,57 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     <script type="text/javascript">
 
+
+
+
+    function showModalInfo(type) {
+        const modal = document.getElementById('form-modal-message');
+        const photobox = document.getElementById('modal-photo-box');
+        const messageContainer = modal.querySelector('.modal-message');
+        let content = '';
+        photobox.style.display = 'none';
+        switch(type) {
+            case 'terms':
+                content = `
+                <img class="preview-image" class="brik-type-image" src="../pngs/justandecobrick.png" alt="Terms of Use" height="200" width="200">
+               <?php  include '../ecobricks_env.php'; ?>
+                <a class="preview-btn" href="/ocean">Learn more</a>
+            `;
+                break;
+            case 'earthen':
+                content = `
+                <img src="..svgs/earthen-newsletter-logo.svg" alt="Earthen Newsletter" height="250px" width="250px" class="preview-image">
+                <div class="preview-title">Earthen Newsletter</div>
+                <div class="preview-text">Receive our bi-monthly Earthen newsletter and follow the latest developments in the plastic transition movement.</div>
+                <a class="preview-btn" href="https://earthen.io" target="_blank">See Earthen</a>
+            `;
+                break;
+            case 'regular':
+                content = `
+                <img class="preview-image" src="../pngs/justandecobrick.png" alt="Regular Ecobrick Image" height="300" width="300">
+                 <div class="preview-title">Regular Ecobricks</div>
+                <p class="preview-text">An ecobrick is a PET bottle packed solid with used plastic to the standards of plastic sequestration in order to make a reusable building block.  A regular ecobrick is an uncut bottle packed solid with used plastic to a set density (between 0.33 and 0.7 g/ml) to make a reusable building block.</p>
+                <a class="preview-btn" href="what.php">Learn more</a>
+            `;
+                break;
+            default:
+                content = '<p>Invalid ecobrick type selected.</p>';
+        }
+
+        messageContainer.innerHTML = content;
+
+        // Show the modal and update other page elements
+        modal.style.display = 'flex';
+        document.getElementById('page-content').classList.add('blurred');
+        document.getElementById('footer-full').classList.add('blurred');
+        document.body.classList.add('modal-open');
+    }
+
+
+
+
+
+
     document.addEventListener('DOMContentLoaded', function() {
     const credentialField = document.getElementById('credential_value');
     const passwordField = document.getElementById('password_hash');

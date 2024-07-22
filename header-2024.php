@@ -65,7 +65,7 @@
 
 <link rel="stylesheet" type="text/css" href="../styles/footer.css?v=<?php echo ($version); ;?>">
 
-<!--< <script>
+ <script>
         function validatePassword(isValid) {
             const passwordErrorDiv = document.getElementById('password-error');
             if (!isValid) {

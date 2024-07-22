@@ -120,25 +120,26 @@ $conn->close();
 
 
 
- <script>
-        function validatePassword(isValid) {
-            const passwordErrorDiv = document.getElementById('password-error');
-            if (!isValid) {
-                passwordErrorDiv.style.display = 'block';
-            } else {
-                passwordErrorDiv.style.display = 'none';
-            }
-        }
 
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const errorType = urlParams.get('error');
-            if (errorType === 'password') {
-                validatePassword(false);
-            } else if (errorType === 'credential') {
-                alert('Invalid credential.');
-            }
-        });
+ <script>
+//         function validatePassword(isValid) {
+//             const passwordErrorDiv = document.getElementById('password-error');
+//             if (!isValid) {
+//                 passwordErrorDiv.style.display = 'block';
+//             } else {
+//                 passwordErrorDiv.style.display = 'none';
+//             }
+//         }
+//
+//         document.addEventListener('DOMContentLoaded', (event) => {
+//             const urlParams = new URLSearchParams(window.location.search);
+//             const errorType = urlParams.get('error');
+//             if (errorType === 'password') {
+//                 validatePassword(false);
+//             } else if (errorType === 'credential') {
+//                 alert('Invalid credential.');
+//             }
+//         });
     </script>
 
 <title>Login | GoBrik 3.0</title>

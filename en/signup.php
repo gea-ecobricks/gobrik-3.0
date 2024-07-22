@@ -11,11 +11,6 @@ echo '<!DOCTYPE html>
 ';
 ?>
 
-<script type="text/javascript">
-    function showSuccessMessage() {
-        alert("Yeay! First step done.");
-    }
-</script>
 
 <?php
 error_reporting(E_ALL);

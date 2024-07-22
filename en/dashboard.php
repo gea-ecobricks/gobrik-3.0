@@ -66,9 +66,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <h2>Welcome <?php echo htmlspecialchars($first_name); ?>!</h2>
             <p>You're logged into the brand new GoBrik 3.0!</p>
 
-         <div style="display:flex;flex-flow:row;width:100%">
+         <div style="display:flex;flex-flow:row;width:100%;justify-content:center;">
 
-             <a class="go-button" href="log.php">ℹ️ Log an Ecobrick</a>
+            <button class="go-button" id="log-ecobrick-button">➕ Log an Ecobrick</button>
 
              <!-- Logout Button -->
 <button class="go-button" id="logout-button" onclick="logoutUser()">📤 Logout</button>

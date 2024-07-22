@@ -115,6 +115,13 @@ function switchLanguage(langCode) {
 
 
 
+document.getElementById('log-ecobrick-button').addEventListener('click', function() {
+    // Redirect to the log.php page
+    window.location.href = 'log.php';
+});
+
+
+
 function logoutUser() {
     // Confirm logout action
     if (confirm('Are you sure you want to log out?')) {

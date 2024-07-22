@@ -1,46 +1,36 @@
 <?php
-session_start(); // Start the session at the beginning
-
+session_start();
 include '../buwana_env.php'; // this file provides the database server, user, dbname information to access the server
 
-// Retrieve posted data
-$user_id = $_POST['user_id'] ?? null;
-$credential_value = $_POST['credential_value'] ?? null;
-$password = $_POST['password'] ?? null;
+// Retrieve form data
+$user_id = $_POST['user_id'];
+$credential_value = $_POST['credential_value'];
+$password = $_POST['password'];
 
-// Input validation
-if (!$user_id || !$credential_value || !$password) {
-    // Redirect back to login page with error if any required field is missing
-    header('Location: signedup_login.php?error=missing');
-    exit();
-}
+// Look up the stored password hash from the users_tb
+$sql_lookup_password = "SELECT password_hash FROM users_tb WHERE user_id = ?";
+$stmt_lookup_password = $conn->prepare($sql_lookup_password);
 
-// Look up the credentials from the database
-$sql_lookup_credentials = "SELECT credential_key, password_hash FROM credentials_tb JOIN users_tb ON credentials_tb.user_id = users_tb.user_id WHERE credentials_tb.user_id = ?";
-$stmt_lookup_credentials = $conn->prepare($sql_lookup_credentials);
+if ($stmt_lookup_password) {
+    $stmt_lookup_password->bind_param("i", $user_id);
+    $stmt_lookup_password->execute();
+    $stmt_lookup_password->bind_result($stored_password_hash);
+    $stmt_lookup_password->fetch();
+    $stmt_lookup_password->close();
 
-if ($stmt_lookup_credentials) {
-    $stmt_lookup_credentials->bind_param("i", $user_id);
-    $stmt_lookup_credentials->execute();
-    $stmt_lookup_credentials->bind_result($stored_credential_key, $stored_password_hash);
-    $stmt_lookup_credentials->fetch();
-    $stmt_lookup_credentials->close();
-
-    // Verify the provided credential value and password
-    if ($credential_value === $stored_credential_key && password_verify($password, $stored_password_hash)) {
-        // Successful login
-        $_SESSION['user_id'] = $user_id; // Set session variable for user_id
-
-        // Redirect to the dashboard
-        header('Location: dashboard.php');
+    // Verify the entered password with the stored password hash
+    if (password_verify($password, $stored_password_hash)) {
+        // Password is correct, set session variables and redirect to the dashboard or appropriate page
+        $_SESSION['user_id'] = $user_id;
+        header("Location: dashboard.php"); // Change this to the appropriate page
         exit();
     } else {
-        // Invalid credentials
-        header('Location: signedup-login.php?error=invalid');
+        // Password is incorrect, redirect back to the login page with an error message
+        header("Location: signedup-login.php?id=$user_id&error=wrong_password");
         exit();
     }
 } else {
-    die("Error preparing statement for credentials_tb: " . $conn->error);
+    die("Error preparing statement for users_tb: " . $conn->error);
 }
 
 $conn->close();

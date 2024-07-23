@@ -501,14 +501,14 @@ input[type="submit"]:hover {
 } */
 
 #submit-button {
-    padding: 10px 20px;
     border: none;
     color: white;
     transition: background-color 0.3s, cursor 0.3s;
      padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
-   font-size: 1.3em;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.3em;
+    margin:10px;
 }
 
 /* Styles for the disabled state */

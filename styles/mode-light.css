@@ -412,11 +412,6 @@
     }
 
 
-    .my-ecobricks {
-
-      background: url(../webp/my-ecobricks-day.webp) no-repeat center;
-      background-size: contain;
-      }
 
 
       .help-validate {
@@ -493,3 +488,10 @@ light.css
       background: url(../svgs/city-village-day.svg?v=2) no-repeat center;
       background-size: contain;
     }
+
+
+    .my-ecobricks {
+
+      background: url(../svgs/my-ecobricks-day.svg) no-repeat center;
+      background-size: contain;
+      }

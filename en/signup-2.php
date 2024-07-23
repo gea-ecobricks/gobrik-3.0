@@ -11,7 +11,6 @@ echo '<!DOCTYPE html>
 <meta charset="UTF-8">
 ';
 ?>
-
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -21,11 +20,11 @@ $user_id = $_GET['id'] ?? null;
 
 include '../buwana_env.php'; // this file provides the database server, user, dbname information to access the server
 
-
 // Look up these fields from credentials_tb and users_tb using the user_id
 $credential_type = '';
 $credential_key = '';
 $first_name = '';
+$account_status = '';
 
 if (isset($user_id)) {
     // First, look up the credential_type and credential_key from credentials_tb
@@ -42,14 +41,14 @@ if (isset($user_id)) {
         die("Error preparing statement for credentials_tb: " . $conn->error);
     }
 
-    // Then, look up the first_name from users_tb
-    $sql_lookup_user = "SELECT first_name FROM users_tb WHERE user_id = ?";
+    // Then, look up the first_name and account_status from users_tb
+    $sql_lookup_user = "SELECT first_name, account_status FROM users_tb WHERE user_id = ?";
     $stmt_lookup_user = $conn->prepare($sql_lookup_user);
 
     if ($stmt_lookup_user) {
         $stmt_lookup_user->bind_param("i", $user_id);
         $stmt_lookup_user->execute();
-        $stmt_lookup_user->bind_result($first_name);
+        $stmt_lookup_user->bind_result($first_name, $account_status);
         $stmt_lookup_user->fetch();
         $stmt_lookup_user->close();
     } else {
@@ -58,6 +57,12 @@ if (isset($user_id)) {
 
     $credential_type = htmlspecialchars($credential_type); // Sanitize to prevent XSS
     $first_name = htmlspecialchars($first_name); // Sanitize to prevent XSS
+
+    // Check the account_status
+    if ($account_status !== 'name set only') {
+        echo "<script>alert('Sorry! It looks like the credentials for this account have already been set. Use your account management panel to change your password.'); window.location.href='update-account.php';</script>";
+        exit();
+    }
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
@@ -73,12 +78,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
         $stmt_update_credential->bind_param("si", $credential_value, $user_id);
 
         if ($stmt_update_credential->execute()) {
-            // Update the users_tb with the password and change the account status
-            $sql_update_user = "UPDATE users_tb SET password_hash = ?, account_status = 'registered no login' WHERE user_id = ?";
+            // Update the users_tb with the password, email, and change the account status
+            $sql_update_user = "UPDATE users_tb SET password_hash = ?, email = ?, account_status = 'registered no login' WHERE user_id = ?";
             $stmt_update_user = $conn->prepare($sql_update_user);
 
             if ($stmt_update_user) {
-                $stmt_update_user->bind_param("si", $password_hash, $user_id);
+                $stmt_update_user->bind_param("ssi", $password_hash, $credential_value, $user_id);
 
                 if ($stmt_update_user->execute()) {
                     $success = true;
@@ -109,7 +114,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
 
 
 
-<title>Signup 2 | GoBrik 3.0</title>
+
+<title>Register Email | GoBrik 3.0</title>
 
 <!--
 GoBrik.com site version 3.0
@@ -128,13 +134,13 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="form-submission-box" style="height:100vh;">
     <div class="form-container">
 
-        <div class="earth-com" style="margin-top:-45px;">
+        <div class="my-ecobricks" style="margin-top:-45px;">
         <img src="../webps/earth-community.webp" width="60%">
     </div>
 
         <div style="text-align:center;width:100%;margin:auto;">
             <h2 data-lang-id="001-signup-heading">Setup Your Access</h2>
-            <p data-lang-id="002-gobrik-subtext">Alright <?php echo $first_name; ?>: You've chosen to use <?php echo $credential_type; ?> as your means of registration and the way we contact you.</p>
+            <p data-lang-id="002-gobrik-subtext">Alright <?php echo $first_name; ?>: Let's use your <?php echo $credential_type; ?> as your means of registration and the way we contact you.</p>
         </div>
 
        <!--SIGNUP FORM-->

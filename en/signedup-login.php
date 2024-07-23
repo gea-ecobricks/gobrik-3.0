@@ -1,7 +1,7 @@
 <?php
 include 'lang.php';
-$version = '0.36';
-$page = 'login';
+$version = '0.361';
+$page = 'signedup-login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 echo '<!DOCTYPE html>
@@ -118,6 +118,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <p style="font-size:medium;" data-lang-id="000-no-account-yet">Don't have an account yet? <a href="signup.php">Signup!</a></p>
     </div>
 </div>
+
+</div><!--closes main and starry background-->
 
 <!-- FOOTER STARTS HERE -->
 <?php require_once ("../footer-2024.php");?>

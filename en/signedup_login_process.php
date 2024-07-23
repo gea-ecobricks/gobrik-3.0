@@ -35,10 +35,10 @@ if ($stmt_lookup_password) {
             $stmt_update_user->close();
 
             // Part 3: Update another database
-            $conn2 = new mysqli($servername, $username, $password, $dbname);
-            if ($conn2->connect_error) {
-                die("Connection failed: " . $conn2->connect_error);
-            }
+
+           include '../ecobricks_env.php'; // this file provides the database server, user, dbname information to access the server
+
+
             $sql_insert_ecobricker = "INSERT INTO load_ecobricker_trim (first_name, buwana_id, date_registered) VALUES (?, ?, NOW())";
             $stmt_insert_ecobricker = $conn2->prepare($sql_insert_ecobricker);
             if ($stmt_insert_ecobricker) {

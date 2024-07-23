@@ -1,6 +1,7 @@
 <?php
-include 'lang.php';
-$version = '0.362';
+$directory = basename(dirname($_SERVER['SCRIPT_NAME']));
+$lang = $directory;
+$version = '0.363';
 $page = 'signedup-login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 

@@ -24,7 +24,8 @@ const es_Page_Translations = {
     "000-already-have-account": "¿Ya tienes una cuenta? <a href=\"login.php\">Iniciar Sesión</a>",
      "000-name-placeholder":'<input type="text" id="first_name" name="first_name" aria-label="Your first name" title="Required. Max 255 characters." required placeholder="Su nombre...">',
          "000-already-have-account": "¿Ya tienes una cuenta? <a href=\"login.php\">Iniciar Sesión</a>",
-    "000-select": "Seleccionar..."
+
+    "000-select": "Seleccionar...",
 
 
 

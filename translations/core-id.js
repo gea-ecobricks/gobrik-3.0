@@ -17,7 +17,14 @@ INDONESIAN SNIPPETS FOR ECOBRICKS.ORG
 
 const id_Translations = {
   
-   
+     "000-your": "Anda",
+    "000-already-have-account": "Sudah punya akun? <a href=\"login.php\">Login</a>",
+    "000-select": "Pilih...",
+    "000-your-password": "Kata sandi Anda:",
+    "000-forgot-your-password": 'Lupa kata sandi Anda? <a href="#" onclick="showModalInfo(\'reset\')" class="underline-link">Atur ulang.</a>',
+    "000-password-wrong": "👉 Kata sandi salah.",
+    "000-no-account-yet": '<p style="font-size:medium;" data-lang-id="000-no-account-yet">Belum punya akun? <a href="signup.php">Daftar!</a></p>',
+
         /*Menu of pages curtain*/
 
         "000a-menu-0-main-item": 'FAQ tentang Ecobrick<span class="circle" title="Halaman ini telah diterjemahkan 100% ke dalam Bahasa Prancis" style="color:green !important; font-size:12px;padding-right:5px; ">●</span>',

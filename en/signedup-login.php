@@ -1,6 +1,6 @@
 <?php
 include 'lang.php';
-$version = '0.35';
+$version = '0.36';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -86,27 +86,27 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="form-submission-box" style="height:100vh;">
     <div class="form-container">
 
-        <div class="dolphin-pic" style="margin-top:-45px;background-size:contain;">
+        <div class="dolphin-pic" style="margin-top:-45px;background-size:contain;" alt="Yeay!">
             <img src="../webps/earth-community.webp" width="80%">
         </div>
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="001-login-heading-signed-up">Your account is Ready! 🎉</h2>
-            <p data-lang-id="002-login-subheading">Ok <?php echo $first_name; ?>, now please use your <?php echo $credential_type; ?> to login for the first time to start setting up your account:</p>
+            <h2 data-lang-id="100-login-heading-signed-up">Your account is ready! 🎉 </h2>
+            <p>Ok <?php echo $first_name; ?>, <span data-lang-id="101-login-subheading-signed-up">now please use your <?php echo $credential_type; ?> to login for the first time to start setting up your account:</span></p>
         </div>
 
-        <!-- SIGNUP FORM -->
+        <!-- LOGIN FORM -->
         <form id="signed-up-login" method="post" action="signedup_login_process.php">
             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>">
             <div class="form-item">
-                <label for="credential_value">Your <?php echo htmlspecialchars($credential_type); ?> :</label><br>
+                <label for="credential_value"><span data-lang-id="000-your">Your</span> <?php echo htmlspecialchars($credential_type); ?> :</label><br>
                 <input type="text" id="credential_value" name="credential_value" value="<?php echo $credential_key; ?>" required>
             </div>
             <div class="form-item">
-                <label for="password">Your password:</label><br>
+                <label for="password" data-lang-id="000-your-password">Your password:</label><br>
                 <input type="password" id="password" name="password" required>
-                <p class="form-caption">Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
-                <div id="password-error" class="form-field-error" style="display:none;">👉 Password is wrong.</div>
+                <p class="form-caption" data-lang-id="000-forgot-your-password">Forgot your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
+                <div id="password-error" class="form-field-error" style="display:none;" data-lang-id="000-password-wrong">👉 Password is wrong.</div>
             </div>
             <div class="form-item" id="submit-section" style="text-align:center;margin-top:15px;" title="And login!">
                 <input type="submit" id="submit-button" value="Login" class="enabled">
@@ -115,7 +115,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 
     <div style="text-align:center;width:100%;margin:auto;margin-top:50px;margin-bottom:50px;">
-        <p style="font-size:medium;">Don't have an account yet? <a href="signup.php">Signup!</a></p>
+        <p style="font-size:medium;" data-lang-id="000-no-account-yet">Don't have an account yet? <a href="signup.php">Signup!</a></p>
     </div>
 </div>
 

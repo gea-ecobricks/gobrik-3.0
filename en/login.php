@@ -1,7 +1,7 @@
 <?php
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.32';
+$version = '0.33';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -72,7 +72,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
     <div style="text-align:center;width:100%;margin:auto;margin-top:30px;margin-bottom:50px;">
-        <p style="font-size:medium;">Don't have an account yet? <a href="signup.php">Signup!</a></p>
+        <p style="font-size:medium;" data-lang-id="000-no-account-yet">Don't have an account yet? <a href="signup.php">Signup!</a></p>
     </div>
 
 </div>

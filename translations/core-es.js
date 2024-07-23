@@ -17,7 +17,14 @@ SPANISH SNIPPETS FOR ECOBRICKS.ORG
 
 const es_Translations = {
   
-   
+    "000-your": "Tu",
+    "000-already-have-account": "¿Ya tienes una cuenta? <a href=\"login.php\">Iniciar Sesión</a>",
+    "000-select": "Seleccionar...",
+    "000-your-password": "Tu contraseña:",
+    "000-forgot-your-password": '¿Olvidaste tu contraseña? <a href="#" onclick="showModalInfo(\'reset\')" class="underline-link">Restablécela.</a>',
+    "000-password-wrong": "👉 La contraseña es incorrecta.",
+    "000-no-account-yet": '<p style="font-size:medium;" data-lang-id="000-no-account-yet">¿No tienes una cuenta todavía? <a href="signup.php">¡Regístrate!</a></p>',
+
 
     /*Menu of pages*/
 

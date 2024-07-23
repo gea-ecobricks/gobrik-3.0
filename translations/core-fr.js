@@ -17,6 +17,13 @@ FRENCH SNIPPETS FOR ECOBRICKS.ORG
 
 const fr_Translations = {
 
+ "000-your": "Votre",
+    "000-already-have-account": "Vous avez déjà un compte? <a href=\"login.php\">Connexion</a>",
+    "000-select": "Sélectionner...",
+    "000-your-password": "Votre mot de passe:",
+    "000-forgot-your-password": 'Mot de passe oublié? <a href="#" onclick="showModalInfo(\'reset\')" class="underline-link">Réinitialisez-le.</a>',
+    "000-password-wrong": "👉 Le mot de passe est incorrect.",
+    "000-no-account-yet": '<p style="font-size:medium;" data-lang-id="000-no-account-yet">Vous n\'avez pas encore de compte? <a href="signup.php">Inscrivez-vous!</a></p>',
 
     /*Menu of pages*/
 

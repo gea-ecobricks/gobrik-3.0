@@ -76,7 +76,7 @@ Developed and made open source by the Global Ecobrick Alliance
 See our git hub repository for the full code and to help out:
 https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
-<?php require_once ("../includes/login-inc.php");?>
+<?php require_once ("../includes/signedup-login-inc.php");?>
 
 <div class="splash-content-block"></div>
 <div id="splash-bar"></div>

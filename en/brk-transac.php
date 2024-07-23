@@ -1,6 +1,8 @@
 <!--Content Includes Page template: v.1.0.2-->
 
-<?php require_once ("lang.php");
+<?php
+$directory = basename(dirname($_SERVER['SCRIPT_NAME']));
+$lang = $directory;
 echo <<<_END
 
 <!DOCTYPE html>

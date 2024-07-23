@@ -1,7 +1,8 @@
 
 <?php
-include 'lang.php';
-$version = '0.344';
+$directory = basename(dirname($_SERVER['SCRIPT_NAME']));
+$lang = $directory;
+$version = '0.345';
 
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 

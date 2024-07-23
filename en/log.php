@@ -98,7 +98,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <?php
 
-include 'lang.php';
+$directory = basename(dirname($_SERVER['SCRIPT_NAME']));
+$lang = $directory;
 $version = '0.1';
 $page = 'log';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));

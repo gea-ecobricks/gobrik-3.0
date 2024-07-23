@@ -124,7 +124,8 @@ function deleteEcobrick($ecobrick_unique_id, $conn) {
 <HTML lang="en">
 <HEAD>
     <META charset="UTF-8">
-    <?php $lang='en';?>
+    $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
+$lang = $directory;
     <?php $version='2.46';?>
     <?php $page='log';?>
 

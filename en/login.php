@@ -1,5 +1,6 @@
 <?php
-include 'lang.php';
+$directory = basename(dirname($_SERVER['SCRIPT_NAME']));
+$lang = $directory;
 $version = '0.36';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
@@ -47,19 +48,20 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="001-login-heading-">Login</h2>
-            <p data-lang-id="002-login-subheading">We're glad you're back!</p>
+            <h1 data-lang-id="001-login-heading-">Login</h1>
+            <p data-lang-id="002-login-subheading">Welcome back!</p>
         </div>
 
         <!-- SIGNUP FORM -->
           <form id="login" method="post" action="login_process.php">
             <div class="form-item">
-                <label for="credential_value">Your Credential:</label><br>
+                <label for="credential_value">Your e-mail:</label><br>
                 <input type="text" id="credential_value" name="credential_value" required>
             </div>
             <div class="form-item">
                 <label for="password">Your Password:</label><br>
                 <input type="password" id="password" name="password" required>
+                <p class="form-caption">Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
                 <div id="password-error" class="form-field-error" style="display:none;">👉 Password is wrong.</div>
             </div>
             <div class="form-item" id="submit-section" style="text-align:center;margin-top:15px;">

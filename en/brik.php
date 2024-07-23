@@ -1,6 +1,7 @@
 <?php
 
-include 'lang.php';
+$directory = basename(dirname($_SERVER['SCRIPT_NAME']));
+$lang = $directory;
 $version = '0.1';
 $page = 'brik';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));

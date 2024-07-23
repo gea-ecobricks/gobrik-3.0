@@ -64,14 +64,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <p class="form-caption">Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
                 <div id="password-error" class="form-field-error" style="display:none;">👉 Password is wrong.</div>
             </div>
-
-           <input type="submit" style="text-align:center;margin-top:15px;" id="submit-button" value="Login" class="enabled">
-
+            <div>
+                <input type="submit" style="text-align:center;margin-top:15px;width:80%" id="submit-button" value="Login" class="enabled">
+            </div>
         </form>
         </div><!--closes Landing content-->
 
 
-    <div style="text-align:center;width:100%;margin:auto;margin-top:50px;margin-bottom:50px;">
+    <div style="text-align:center;width:100%;margin:auto;margin-top:30px;margin-bottom:50px;">
         <p style="font-size:medium;">Don't have an account yet? <a href="signup.php">Signup!</a></p>
     </div>
 

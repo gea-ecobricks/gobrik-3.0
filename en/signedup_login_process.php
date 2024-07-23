@@ -20,10 +20,26 @@ if ($stmt_lookup_password) {
 
     // Verify the entered password with the stored password hash
     if (password_verify($password, $stored_password_hash)) {
-        // Password is correct, set session variables and redirect to the dashboard or appropriate page
-        $_SESSION['user_id'] = $user_id;
-        header("Location: dashboard.php"); // Change this to the appropriate page
-        exit();
+        // Password is correct, update user data
+        $sql_update_user = "UPDATE users_tb SET
+                            account_status = 'registration login complete',
+                            created_at = NOW(),
+                            last_login = NOW(),
+                            language_id = 'en'
+                            WHERE user_id = ?";
+        $stmt_update_user = $conn->prepare($sql_update_user);
+        if ($stmt_update_user) {
+            $stmt_update_user->bind_param("i", $user_id);
+            $stmt_update_user->execute();
+            $stmt_update_user->close();
+
+            // Set session variables and redirect to the dashboard or appropriate page
+            $_SESSION['user_id'] = $user_id;
+            header("Location: dashboard.php"); // Change this to the appropriate page
+            exit();
+        } else {
+            die("Error updating user data: " . $conn->error);
+        }
     } else {
         // Password is incorrect, redirect back to the login page with an error message
         header("Location: signedup-login.php?id=$user_id&error=wrong_password");

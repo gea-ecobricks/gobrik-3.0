@@ -87,8 +87,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="form-submission-box" style="height:100vh;">
     <div class="form-container">
 
-        <div class="dolphin-pic" style="margin-top:-45px;background-size:contain;" alt="Yeay!">
-            <img src="../webps/earth-community.webp" width="80%">
+        <div class="dolphin-pic" style="margin-top:-65px;background-size:contain;" alt="Yeay!">
+            <img src="../webps/earth-community.webp" width="65%">
         </div>
 
         <div style="text-align:center;width:100%;margin:auto;">

@@ -52,8 +52,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <p data-lang-id="002-login-subheading">Welcome back to GoBrik!</p>
         </div>
 
-        <!-- SIGNUP FORM -->
-          <form id="login" method="post" action="login_process.php">
+        <!-- Login form -->
+          <form id="login" method="post" action="../scripts/login_process.php">
             <div class="form-item">
                 <label for="credential_value">Your e-mail:</label><br>
                 <input type="text" id="credential_value" name="credential_value" required>

@@ -4,18 +4,20 @@
 
  <h1>Our Terms of Service</h1>
 
+    <p style="font-size:medium;">Last revised: July 23rd, 2024</p>
+
     <p>GoBrik is a web app managed by the Global Ecobrick Alliance Earth Enterprise (GEA). As an Earth Enterprise (EE), our mission is to serve and inspire local and global plastic transition. We, (the Global Ecobrick Alliance), are guided by our EE regenerative principles, mission, and vision (for a visual representation, see our Vision Landscape footer at the bottom of the app) as we manage, develop, and maintain the GoBrik platform (GoBrik) and Brikcoin Manual Blockchain (BMB) and these Terms of Use & Service to serve you. When you create a GoBrik account, we assume that you do so sharing this vision and a resonance with our principles as you use GoBrik. As you use GoBrik and as GoBrik serves you, we will strive to maintain the standards and protocols of privacy expressed below. We will refer to those who create accounts on the platform (such as you!) as Ecobrickers. "We" and "Us" refer to the GEA EE.</p>
 
     <h2>Our General Commitments to Service</h2>
     <ul>
         <li>We will only gather data that you intentionally share with us.</li>
-        <li>We will only use this data for our goal of serving the earth—not to generate profits.</li>
+        <li>We will only use this data for our goal of serving Earth.</li>
         <li>We will not sell or share your data with other parties.</li>
     </ul>
 
     <h2>Your General Commitments to Usage</h2>
     <ul>
-        <li>Your use of GoBrik is motivated by the intention of earth service.</li>
+        <li>Your use of GoBrik is motivated by the intention of Earth service.</li>
         <li>You will not misrepresent facts or enter erroneous data intentionally.</li>
         <li>You will respect other users and these terms of service.</li>
     </ul>
@@ -24,7 +26,7 @@
     <ul>
         <li>We will strive to safeguard your data.</li>
         <li>We will never sell or share your data.</li>
-        <li>We will never use your data to generate third-party advertising.</li>
+        <li>We will never use your data to for third-party advertising.</li>
     </ul>
 
     <h2>Specifically, This Means That for Us...</h2>
@@ -32,8 +34,8 @@
     <p>When an Ecobricker signs up to GoBrik, they are trusting us with their data and hard work ecobricking and validating. We commit to the following management of your data:</p>
     <ul>
         <li>Never to share or sell your core personal data (email, phone, credit card, payment, password, etc).</li>
-        <li>To do our best to keep your data secure.</li>
-        <li>Not to connect your data with corporate platforms (unless you choose to do so in the first place by signing up through Google or Facebook).</li>
+        <li>To do our utmost to keep your data secure.</li>
+        <li>Not to connect your data with corporate platforms (however, we won\'t stop you fromr joining us using an email or service provided by a corporate platform).</li>
         <li>To enable you to control and manage your data.</li>
         <li>To enable you to have your account deleted at any time.</li>
     </ul>
@@ -81,6 +83,13 @@
         <li>Notification that your account has issues or there are serious issues with your ecobrick.</li>
         <li>For important messages from GEA Trainers or GoBrik Admins regarding issues with your account.</li>
         <li>For GEA Trainers to contact you about community collaborations or trainings in your area.</li>
+    </ul>
+
+<h2>The Brikchain</h2>
+    <p>When you log an ecobrick on GoBrik its data is recorded for posterity in our brikchain along with your basic maker data.</p>
+    <ul>
+        <li>By joining GoBrik you understand that this publication of data is part of our service.</li>
+        <li>You are responsible for the data that you choose to post with the logging of your ecobrick.</li>
     </ul>
 
     <h2>The Brik Market</h2>

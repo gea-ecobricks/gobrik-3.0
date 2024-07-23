@@ -163,7 +163,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-item" id="confirm-password-section" style="display: none;">
         <label for="confirm_password" data-lang-id="009-confirm-pass">Confirm Your Password:</label><br>
         <input type="password" id="confirm_password" name="confirm_password" required>
-        <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;" data-lang-id="005b-name-error" data-lang-id="010-pass-error">👉 Passwords do not match.</div>
+        <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;" data-lang-id="005b-name-error" data-lang-id="010-pass-error-no-match">👉 Passwords do not match.</div>
     </div>
 
     <div class="form-item" id="human-check-section" style="display: none;">
@@ -221,7 +221,7 @@ function showModalInfo(type) {
         case 'terms':
             content = `
                 <div style="font-size: small;">
-                    <?php include 'terms.php'; ?>
+                    <?php include "terms-$lang.php"; ?>
                 </div>
             `;
             modal.style.position = 'absolute';
@@ -230,9 +230,8 @@ function showModalInfo(type) {
             modalBox.style.maxHeight = 'unset';
             modalBox.style.marginTop = '30px';
             modalBox.style.marginBottom = '30px';
-
-    // Set scroll position to the top of the modal content
-    modalBox.scrollTop = 0;
+            modalBox.scrollTop = 0;
+            modal.style.alignItems = 'flex-start';
 
             break;
         case 'earthen':

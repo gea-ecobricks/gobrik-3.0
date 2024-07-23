@@ -376,7 +376,6 @@ display: none;
                 <div class="menu-page-item"><a href="latest" data-lang-id="1005-latest-trainings">Latest Trainings</a></div>
 -->
 
-
              </div>
              <p style="font-size:smaller;margin-bottom: 20px;" data-lang-id="1006-about-stuff"><a href="https://ecobricks.org/gobrik" target="_blank">The GoBrik project</a> is developed by the <a href="https://ecobricks.org/about" target="_blank">Global Ecobrick Alliance</a> a not-for-profit Earth enterprise dedicated to accelerating plastic and petro-capital transition.</p>
         </div> <!--close overlay-content-settings-->
@@ -409,7 +408,7 @@ display: none;
             <div class="search-section">
             <input id="search_input" type="text" placeholder="Sorry!  Search isn't working yet." aria-label="Enter search..." onkeypress="handleKeyPress(event)">
             <button class="btn main-search-button" onclick="siteSearch(['indexes/glossary.json?v=2', 'indexes/page-index.json?v=2'])" aria-label="Search Button"></button>
-            </div>
+        </div>
             <!-- Checkbox options
             <div class="search-options">
                 <div class="search-row">
@@ -423,8 +422,9 @@ display: none;
                 <label><input type="checkbox" name="searchIndex" value="fr_glossary" checked>FR  </label>
                 <label><input type="checkbox" name="searchIndex" value="es_glossary" checked>ES  </label>
                 <label><input type="checkbox" name="searchIndex" value="id_glossary" checked>IN</label>
-            </div> -->
             </div>
+             </div>-->
+
 
         <!-- Search results div -->
         <div id="search_results"><h6 style="color:grey;" data-lang-id="104-search-bottom-text" >Looking for information about ecobricks?  Search on <a target="_blank" href="https://ecobricks.org">ecobricks.org</a></h6></div>

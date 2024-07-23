@@ -33,22 +33,11 @@ if ($stmt_lookup_password) {
             $stmt_update_user->execute();
             $stmt_update_user->close();
             $conn->close(); // Close the first database connection
-?>
 
-         <?php
+            // Part 3: Update another database
+            include '../ecobricks_env.php'; // Include second database credentials
 
-                     // Part 3: Update another database
 
-$servername = "localhost";
-$username = "ecobricks_brikchain_viewer";
-$password = "desperate-like-the-Dawn";
-$dbname = "ecobricks_gobrik_msql_db";
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
             $sql_insert_ecobricker = "INSERT INTO load_ecobricker_trim (first_name, buwana_id, date_registered) VALUES (?, ?, NOW())";
             $stmt_insert_ecobricker = $conn2->prepare($sql_insert_ecobricker);
             if ($stmt_insert_ecobricker) {

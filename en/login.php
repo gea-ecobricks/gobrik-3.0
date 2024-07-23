@@ -43,8 +43,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="form-submission-box" style="height:100vh;">
     <div class="form-container">
 
-          <div class="earth-community" style="margin-top:-45px;">
-            <img src="../webps/earth-community.webp" width="60%">
+          <div class="earth-community" style="margin-top:-65px;margin-bottom:-20px">
+            <img src="../webps/earth-community.webp" width="50%">
         </div>
 
         <div style="text-align:center;width:100%;margin:auto;">
@@ -64,9 +64,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <p class="form-caption">Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
                 <div id="password-error" class="form-field-error" style="display:none;">👉 Password is wrong.</div>
             </div>
-            <div class="form-item" id="submit-section" style="text-align:center;margin-top:15px;">
-                <input type="submit" id="submit-button" value="Login" class="enabled">
-            </div>
+
+           <input type="submit" style="text-align:center;margin-top:15px;" id="submit-button" value="Login" class="enabled">
+
         </form>
         </div><!--closes Landing content-->
 

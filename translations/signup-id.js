@@ -15,13 +15,14 @@ const id_Page_Translations = {
     "001-signup-heading": "Buat Akun Anda",
     "002-gobrik-subtext": "GoBrik dikembangkan oleh sukarelawan yang sama-sama bersemangat tentang transisi plastik seperti Anda!",
     "003-first-name": "Apa nama depan Anda?",
-    "000-field-required-error": "Kolom ini wajib diisi.",
-    "000-name-field-too-long-error": "Nama terlalu panjang. Maks 255 karakter.",
-    "005b-name-error": "Entri mengandung karakter tidak valid. Harap hindari tanda kutip, garis miring, dan tanda lebih besar.",
+    "000-field-required-error": "Bidang ini harus diisi.",
+    "000-name-field-too-long-error": "Nama terlalu panjang. Maksimal 255 karakter.",
+    "005b-name-error": "Entri mengandung karakter tidak valid. Hindari tanda kutip, garis miring, dan tanda lebih besar, silakan.",
     "006-credential": "Dengan kredensial apa Anda ingin mendaftar?",
     "006-way-to-contact": "Ini adalah cara kami akan menghubungi Anda untuk mengonfirmasi akun Anda",
-    "016-submit-to-password": "Berikutnya: Atur Kata Sandi",
-    "000-already-have-account": "Suda ada akun? <a href=\"login.php\">Login</a>"
+    "016-submit-to-password": "Selanjutnya: Atur Kata Sandi",
+    "000-already-have-account": "Sudah punya akun? <a href=\"login.php\">Login</a>"
 };
+
 
 

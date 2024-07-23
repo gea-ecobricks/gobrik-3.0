@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $full_name = $first_name;
     $created_at = date("Y-m-d H:i:s");
     $last_login = date("Y-m-d H:i:s");
-    $account_status = 'name set up';
+    $account_status = 'name set only';
     $role = 'ecobricker';
     $notes = "beta testing the first signup form";
 

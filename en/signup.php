@@ -1,7 +1,7 @@
 <?php
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.346';
+$version = '0.347';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -113,7 +113,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     <div class="form-item" style="margin-top:0px;">
         <label for="first_name" data-lang-id="003-first-name">What is your first name?</label><br>
-        <input type="text" id="first_name" name="first_name" aria-label="Your first name" title="Required. Max 255 characters." required>
+        <input type="text" id="first_name" name="first_name" aria-label="Your first name" title="Required. Max 255 characters." required placeholder="Your name...">
 
         <!--ERRORS-->
         <div id="maker-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
@@ -130,13 +130,13 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <option value="mail" disabled>Mail</option>
             <option value="sms" disabled>SMS</option>
         </select>
-        <p class="form-caption" data-lang-id="006-volume-ml-caption">This is the way we will contact you to confirm your account</p>
+        <p class="form-caption" data-lang-id="006-way-to-contact">This is the way we will contact you to confirm your account</p>
         <!--ERRORS-->
         <div id="credential-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
     </div>
 
-    <div data-lang-id="016-submit-button" style="margin:auto;text-align: center;">
-        <input type="submit" id="submit-button" value="🔑 Next: Set Password" aria-label="Submit Form" class="enabled">
+    <div style="margin:auto;text-align: center;">
+        <input data-lang-id="016-submit-to-password" type="submit" id="submit-button" value="🔑 Next: Set Password" aria-label="Submit Form" class="enabled">
     </div>
 </form>
 
@@ -145,7 +145,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div><!--closes Landing content-->
 
 
-    <div style="text-align:center;width:100%;margin:auto;"><p style="font-size:medium;">Already have an account? <a href="login.php">Login</a></p>
+    <div style="text-align:center;width:100%;margin:auto;"><p style="font-size:medium;" data-land-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
         </div>
 
 

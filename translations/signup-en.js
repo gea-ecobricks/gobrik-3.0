@@ -12,8 +12,14 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 
 
 const en_Page_Translations = {
-
-
-
-}
+    "001-signup-heading": "Create Your Account",
+    "002-gobrik-subtext": "GoBrik is developed by volunteers just as passionate about plastic transition as you!",
+    "003-first-name": "What is your first name?",
+    "000-field-required-error": "This field is required.",
+    "000-name-field-too-long-error": "The name is too long. Max 255 characters.",
+    "005b-name-error": "The entry contains invalid characters. Avoid quotes, slashes, and greater-than signs please.",
+    "006-credential": "With which credentials would you like to register?",
+    "006-way-to-contact": "This is the way we will contact you to confirm your account",
+    "016-submit-to-password": "🔑 Next: Set Password"
+};
 

@@ -20,7 +20,7 @@ const id_Page_Translations = {
     "005b-name-error": "Entri mengandung karakter tidak valid. Harap hindari tanda kutip, garis miring, dan tanda lebih besar.",
     "006-credential": "Dengan kredensial apa Anda ingin mendaftar?",
     "006-way-to-contact": "Ini adalah cara kami akan menghubungi Anda untuk mengonfirmasi akun Anda",
-    "016-submit-to-password": "Berikutnya: Atur Kata Sandi"
+    "016-submit-to-password": "Berikutnya: Atur Kata Sandi",
     "000-already-have-account": "Suda ada akun? <a href="login.php">Login</a>"
 };
 

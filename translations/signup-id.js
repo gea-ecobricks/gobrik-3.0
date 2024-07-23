@@ -21,7 +21,7 @@ const id_Page_Translations = {
     "006-credential": "Dengan kredensial apa Anda ingin mendaftar?",
     "006-way-to-contact": "Ini adalah cara kami akan menghubungi Anda untuk mengonfirmasi akun Anda",
     "016-submit-to-password": "Berikutnya: Atur Kata Sandi",
-    "000-already-have-account": "Suda ada akun? <a href="login.php">Login</a>"
+    "000-already-have-account": "Suda ada akun? <a href=\"login.php\">Login</a>"
 };
 
 

@@ -35,7 +35,6 @@ if ($stmt_lookup_password) {
             $conn->close(); // Close the first database connection
 
             // Part 3: Update another database
-            <?php
 $servername = "localhost";
 $username = "ecobricks_brikchain_viewer";
 $password = "desperate-like-the-Dawn";

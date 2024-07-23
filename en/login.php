@@ -53,7 +53,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>
 
         <!-- Login form -->
-          <form id="login" method="post" action="../scripts/login_process.php">
+          <form id="login" method="post" action="login_process.php">
             <div class="form-item">
                 <label for="credential_value">Your e-mail:</label><br>
                 <input type="text" id="credential_value" name="credential_value" required>

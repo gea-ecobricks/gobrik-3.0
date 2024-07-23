@@ -139,8 +139,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="001-signup-heading">Setup Your Access</h2>
-            <p data-lang-id="002-gobrik-subtext">Alright <?php echo $first_name; ?>: Let's use your <?php echo $credential_type; ?> as your means of registration and the way we contact you.</p>
+            <h2 data-lang-id="001-signup-heading2">Setup Your Access</h2>
+            <p data-lang-id="002-gobrik-subtext2">Alright <?php echo $first_name; ?>: Let's use your <?php echo $credential_type; ?> as your means of registration and the way we contact you.</p>
         </div>
 
        <!--SIGNUP FORM-->
@@ -179,17 +179,19 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <label for="newsletter" style="font-size:medium;" class="form-caption">I agree to receive the <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen newsletter</a> for app, ecobrick, and earthen updates</label>
         </div>
     </div>
-
-    <div class="form-item" id="submit-section" style="display:none;text-align:center;margin-top:15px;" title="Be sure you wrote ecobrick correctly!">
+ <button  type="submit" id="submit-button" aria-label="Submit Form" class="enabled">
+        🔐 <span data-lang-id="016-submit-to-register" id="submit-button-text">Register</span>
+    </button>
+    <!--<div class="form-item" id="submit-section" style="display:none;text-align:center;margin-top:15px;" title="Be sure you wrote ecobrick correctly!">
         <input type="submit" id="submit-button" value="Register" disabled>
-    </div>
+    </div>-->
 </form>
 
         </div>
 
 
-<div style="text-align:center;width:100%;margin:auto;margin-top:50px;margin-bottom:50px;"><p style="font-size:medium;">Already have an account? <a href="login.php">Login</a></p>
-
+ <div style="text-align:center;width:100%;margin:auto;"><p style="font-size:medium;" data-land-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
+        </div>
 
     </div><!--closes Landing content-->
 </div>

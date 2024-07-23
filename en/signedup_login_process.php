@@ -35,7 +35,11 @@ if ($stmt_lookup_password) {
             $conn->close(); // Close the first database connection
 
             // Part 3: Update another database
-            include '../ecobricks_env.php'; // Include second database credentials
+            $servername = "localhost";
+$username = "ecobricks_brikchain_viewer";
+$password = "desperate-like-the-Dawn";
+$dbname = "ecobricks_gobrik_msql_db";
+
             $conn2 = new mysqli($servername, $username, $password, $dbname); // Establish new connection
             if ($conn2->connect_error) {
                 die("Connection failed: " . $conn2->connect_error);

@@ -179,12 +179,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <label for="newsletter" style="font-size:medium;" class="form-caption" data-lang-id="014-i-agree-newsletter">I agree to receive the <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen newsletter</a> for app, ecobrick, and earthen updates</label>
         </div>
     </div>
- <button  type="submit" id="submit-button" aria-label="Submit Form" class="enabled">
+ <!--<button  type="submit" id="submit-button" aria-label="Submit Form" class="enabled">
         🔐 <span data-lang-id="016-submit-to-register" id="submit-button-text">Register</span>
-    </button>
-    <!--<div class="form-item" id="submit-section" style="display:none;text-align:center;margin-top:15px;" title="Be sure you wrote ecobrick correctly!">
+    </button>-->
+    <div class="form-item" id="submit-section" style="display:none;text-align:center;margin-top:15px;" title="Be sure you wrote ecobrick correctly!">
         <input type="submit" id="submit-button" value="Register" disabled>
-    </div>-->
+    </div>
 </form>
 
         </div>

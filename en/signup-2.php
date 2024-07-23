@@ -1,7 +1,7 @@
 <?php
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.373';
+$version = '0.374';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -163,7 +163,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-item" id="confirm-password-section" style="display: none;">
         <label for="confirm_password" data-lang-id="009-confirm-pass">Confirm Your Password:</label><br>
         <input type="password" id="confirm_password" name="confirm_password" required>
-        <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;" data-lang-id="005b-name-error" data-lang-id="010-pass-error-no-match">👉 Passwords do not match.</div>
+        <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;"  data-lang-id="010-pass-error-no-match">👉 Passwords do not match.</div>
     </div>
 
     <div class="form-item" id="human-check-section" style="display: none;">
@@ -221,7 +221,7 @@ function showModalInfo(type) {
         case 'terms':
             content = `
                 <div style="font-size: small;">
-                    <?php include "terms-$lang.php"; ?>
+                    <?php include "../files/terms-$lang.php"; ?>
                 </div>
             `;
             modal.style.position = 'absolute';
@@ -238,7 +238,7 @@ function showModalInfo(type) {
             content = `
                 <img src="../svgs/earthen-newsletter-logo.svg" alt="Earthen Newsletter" height="250px" width="250px" class="preview-image">
                 <div class="preview-title">Earthen Newsletter</div>
-                <div class="preview-text">Receive our bi-monthly Earthen newsletter and follow the latest developments in the plastic transition movement.</div>
+                <div class="preview-text">We use our Earthen email newsletter to keep our users informed of the latest developments in the plastic transition movement and the world of ecobricking.  Free with your GoBrik account or unclick to opt-out. We use ghost.org's open source newsletter platform that makes it easy to unsubscribe anytime.</div>
             `;
             break;
         case 'ecobrick':

@@ -21,7 +21,10 @@ const fr_Page_Translations = {
     "006-credential": "Avec quels identifiants souhaitez-vous vous inscrire?",
     "006-way-to-contact": "C'est ainsi que nous vous contacterons pour confirmer votre compte",
     "016-submit-to-password": "Suivant: Définir le Mot de Passe",
-    "000-already-have-account": "Vous avez déjà un compte? <a href=\"login.php\">Connexion</a>"
+    "000-already-have-account": "Vous avez déjà un compte? <a href=\"login.php\">Connexion</a>",
+        "000-already-have-account": "Vous avez déjà un compte? <a href=\"login.php\">Connexion</a>",
+    "000-select": "Sélectionner..."
+         "000-name-placeholder":'<input type="text" id="first_name" name="first_name" aria-label="Your first name" title="Required. Max 255 characters." required placeholder="Votre nom...">',
 };
 
 

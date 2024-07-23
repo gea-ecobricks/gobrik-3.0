@@ -78,6 +78,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <?php require_once ("../includes/signedup-login-inc.php");?>
 
+
 <div class="splash-content-block"></div>
 <div id="splash-bar"></div>
 

@@ -1,6 +1,6 @@
 <?php
 include 'lang.php';
-$version = '0.361';
+$version = '0.362';
 $page = 'signedup-login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -108,15 +108,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <p class="form-caption" data-lang-id="000-forgot-your-password">Forgot your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
                 <div id="password-error" class="form-field-error" style="display:none;" data-lang-id="000-password-wrong">👉 Password is wrong.</div>
             </div>
-            <div class="form-item" id="submit-section" style="text-align:center;margin-top:15px;" title="And login!">
-                <input type="submit" id="submit-button" value="Login" class="enabled">
+
+            <div style="text-align:center;">
+                <input type="submit" style="text-align:center;margin-top:15px;width:30%" id="submit-button" value="Login" class="enabled">
             </div>
+
         </form>
     </div>
 
-    <div style="text-align:center;width:100%;margin:auto;margin-top:50px;margin-bottom:50px;">
-        <p style="font-size:medium;" data-lang-id="000-no-account-yet">Don't have an account yet? <a href="signup.php">Signup!</a></p>
-    </div>
 </div>
 
 </div><!--closes main and starry background-->

@@ -13,12 +13,12 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 // Forward slash (/): Should be escaped as \/ in </script> tags to prevent prematurely closing a script.
 
 
-const en_Page_Translations = {
-    "100-login-heading-signed-up": "Your account is ready! 🎉",
-    "101-login-subheading-signed-up": "now please use your <?php echo $credential_type; ?> to login for the first time to start setting up your account:",
-    "000-your": "Your",
-    "000-your-password": "Your password:",
-    "000-forgot-your-password": "Forgot your password? <a href=\"#\" onclick=\"showModalInfo('reset')\" class=\"underline-link\">Reset it.</a>",
-    "000-password-wrong": "👉 Password is wrong.",
-    "000-no-account-yet": "Don't have an account yet? <a href=\"signup.php\">Signup!</a>"
+const es_Page_Translations = {
+    "100-login-heading-signed-up": "¡Tu cuenta está lista! 🎉",
+    "101-login-subheading-signed-up": "ahora por favor usa tu <?php echo $credential_type; ?> para iniciar sesión por primera vez y comenzar a configurar tu cuenta:",
+    "000-your": "Tu",
+    "000-your-password": "Tu contraseña:",
+    "000-forgot-your-password": '¿Olvidaste tu contraseña? <a href="#" onclick="showModalInfo(\'reset\')" class="underline-link">Restablécela.</a>',
+    "000-password-wrong": "👉 La contraseña es incorrecta.",
+    "000-no-account-yet": '¿No tienes una cuenta todavía? <a href="signup.php">¡Regístrate!</a>'
 };

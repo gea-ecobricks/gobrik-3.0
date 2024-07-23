@@ -1,15 +1,16 @@
 <?php
 session_start();
-include '../buwana_env.php'; // this file provides the first database server, user, dbname information
+include '../buwana_env.php'; // this file provides the database server, user, dbname information to access the server
 
 // Retrieve form data
 $user_id = $_POST['user_id'];
 $credential_value = $_POST['credential_value'];
 $password = $_POST['password'];
 
-// Prepare and execute the query in the first database
+// Look up the stored password hash and first_name from users_tb
 $sql_lookup_password = "SELECT password_hash, first_name FROM users_tb WHERE user_id = ?";
 $stmt_lookup_password = $conn->prepare($sql_lookup_password);
+
 if ($stmt_lookup_password) {
     $stmt_lookup_password->bind_param("i", $user_id);
     $stmt_lookup_password->execute();
@@ -17,7 +18,7 @@ if ($stmt_lookup_password) {
     $stmt_lookup_password->fetch();
     $stmt_lookup_password->close();
 
-    // Verify the entered password
+    // Verify the entered password with the stored password hash
     if (password_verify($password, $stored_password_hash)) {
         // Password is correct, update user data
         $sql_update_user = "UPDATE users_tb SET
@@ -32,15 +33,9 @@ if ($stmt_lookup_password) {
             $stmt_update_user->bind_param("i", $user_id);
             $stmt_update_user->execute();
             $stmt_update_user->close();
-            $conn->close(); // Close the first database connection
 
             // Part 3: Update another database
-            $servername = "localhost";
-$username = "ecobricks_brikchain_viewer";
-$password = "desperate-like-the-Dawn";
-$dbname = "ecobricks_gobrik_msql_db";
-
-            $conn2 = new mysqli($servername, $username, $password, $dbname); // Establish new connection
+            $conn2 = new mysqli($servername, $username, $password, $dbname);
             if ($conn2->connect_error) {
                 die("Connection failed: " . $conn2->connect_error);
             }
@@ -53,20 +48,23 @@ $dbname = "ecobricks_gobrik_msql_db";
             } else {
                 die("Error preparing statement in ecobricks_gobrik_msql_db: " . $conn2->error);
             }
-            $conn2->close(); // Close the second database connection
+            $conn2->close();
 
-            // Redirect to dashboard
+            // Set session variables and redirect to the dashboard or appropriate page
             $_SESSION['user_id'] = $user_id;
-            header("Location: dashboard.php");
+            header("Location: dashboard.php"); // Change this to the appropriate page
             exit();
         } else {
             die("Error updating user data: " . $conn->error);
         }
     } else {
+        // Password is incorrect, redirect back to the login page with an error message
         header("Location: signedup-login.php?id=$user_id&error=wrong_password");
         exit();
     }
 } else {
     die("Error preparing statement for users_tb: " . $conn->error);
 }
+
+$conn->close();
 ?>

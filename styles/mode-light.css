@@ -460,6 +460,8 @@ light.css
       .biosphere {
         background: url(../webps/biosphere-day.webp) no-repeat  center bottom;
         background-size: contain;
+        margin: -100px auto -40vh auto;
+        opacity: 0.8;
 
       }
 
@@ -481,7 +483,7 @@ light.css
 
 
 
-    .earth-com {
+    .earth-community {
       background: url(../svgs/earth-community-day.svg) no-repeat center;
       background-size: contain;
     }

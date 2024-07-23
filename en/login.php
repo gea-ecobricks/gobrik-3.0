@@ -1,7 +1,7 @@
 <?php
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.317';
+$version = '0.318';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -43,7 +43,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="form-submission-box" style="height:100vh;">
     <div class="form-container">
 
-          <div class="earth-com" style="margin-top:-45px;">
+          <div class="earth-community" style="margin-top:-45px;">
             <img src="../webps/earth-community.webp" width="60%">
         </div>
 

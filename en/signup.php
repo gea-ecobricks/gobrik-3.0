@@ -1,7 +1,7 @@
 <?php
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.36';
+$version = '0.362';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -113,7 +113,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     <div class="form-item" style="margin-top:0px;">
         <label for="first_name" data-lang-id="003-first-name">What is your first name?</label><br>
-        <input type="text" id="first_name" name="first_name" aria-label="Your first name" title="Required. Max 255 characters." required placeholder="Your name...">
+        <span data-lang-id="000-name-placeholder">
+            <input type="text" id="first_name" name="first_name" aria-label="Your first name" title="Required. Max 255 characters." required placeholder="Your name...">
+        </spn>
+
 
         <!--ERRORS-->
         <div id="maker-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>

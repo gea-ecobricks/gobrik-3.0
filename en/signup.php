@@ -1,7 +1,7 @@
 <?php
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.347';
+$version = '0.349';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -124,7 +124,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-item">
         <label for="credential" data-lang-id="006-credential">With which credentials would you like to register?</label><br>
         <select id="credential" name="credential" aria-label="Preferred Credential" required>
-            <option value="" disabled selected>Select credential...</option>
+            <option value="" disabled selected data-lang-id="000-select">Select...</option>
 
             <option value="email">E-mail</option>
             <option value="mail" disabled>Mail</option>
@@ -134,10 +134,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <!--ERRORS-->
         <div id="credential-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
     </div>
-
-    <div style="margin:auto;text-align: center;">
+    <button  type="submit" id="submit-button" aria-label="Submit Form" class="enabled">
+        🔑 <span data-lang-id="016-submit-to-password" id="submit-button-text">Next: Set Password</span>
+    </button>
+   <!-- <div style="margin:auto;text-align: center;">
         <input data-lang-id="016-submit-to-password" type="submit" id="submit-button" value="🔑 Next: Set Password" aria-label="Submit Form" class="enabled">
-    </div>
+    </div>-->
 </form>
 
 

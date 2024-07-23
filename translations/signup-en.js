@@ -20,6 +20,7 @@ const en_Page_Translations = {
     "005b-name-error": "The entry contains invalid characters. Avoid quotes, slashes, and greater-than signs please.",
     "006-credential": "With which credentials would you like to register?",
     "006-way-to-contact": "This is the way we will contact you to confirm your account",
-    "016-submit-to-password": "🔑 Next: Set Password"
+    "016-submit-to-password": "Next: Set Password"
+    "000-already-have-account": "Already have an account? <a href="login.php">Login</a>"
 };
 

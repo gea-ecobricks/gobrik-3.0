@@ -25,7 +25,7 @@ if ($stmt_lookup_password) {
                             account_status = 'registration login complete',
                             created_at = NOW(),
                             last_login = NOW(),
-                            language_id = 'en'
+                            languages_id = 'en'
                             WHERE user_id = ?";
         $stmt_update_user = $conn->prepare($sql_update_user);
         if ($stmt_update_user) {

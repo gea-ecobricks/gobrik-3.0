@@ -1,15 +1,24 @@
 <?php
 session_start();
-include '../buwana_env.php'; // this file provides the first database server, user, dbname information
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+include '../buwana_env.php'; // This file provides the first database server, user, dbname information
 
 // Retrieve form data
-$user_id = $_POST['user_id'];
-$credential_value = $_POST['credential_value'];
-$password = $_POST['password'];
+$user_id = filter_input(INPUT_POST, 'user_id', FILTER_SANITIZE_NUMBER_INT);
+$credential_value = filter_input(INPUT_POST, 'credential_value', FILTER_SANITIZE_STRING);
+$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+
+if (!$user_id || !$credential_value || !$password) {
+    header("Location: signedup-login.php?id=$user_id&error=invalid_input");
+    exit();
+}
 
 // Prepare and execute the query in the first database
 $sql_lookup_password = "SELECT password_hash, first_name FROM users_tb WHERE user_id = ?";
 $stmt_lookup_password = $conn->prepare($sql_lookup_password);
+
 if ($stmt_lookup_password) {
     $stmt_lookup_password->bind_param("i", $user_id);
     $stmt_lookup_password->execute();
@@ -34,7 +43,7 @@ if ($stmt_lookup_password) {
             $stmt_update_user->close();
             $conn->close(); // Close the first database connection
 
-            // Part 3: Update another database
+            // Update the second database
             $servername = "localhost";
             $username = "ecobricks_brikchain_viewer";
             $password = "desperate-like-the-Dawn";
@@ -43,7 +52,9 @@ if ($stmt_lookup_password) {
             // Create connection
             $conn2 = new mysqli($servername, $username, $password, $dbname); // Establish new connection
             if ($conn2->connect_error) {
-                die("Connection failed: " . $conn2->connect_error);
+                error_log("Connection failed: " . $conn2->connect_error);
+                header("Location: signedup-login.php?id=$user_id&error=db_connection_failed");
+                exit();
             }
             $sql_insert_ecobricker = "INSERT INTO load_ecobricker_trim (first_name, buwana_id, date_registered) VALUES (?, ?, NOW())";
             $stmt_insert_ecobricker = $conn2->prepare($sql_insert_ecobricker);
@@ -52,7 +63,9 @@ if ($stmt_lookup_password) {
                 $stmt_insert_ecobricker->execute();
                 $stmt_insert_ecobricker->close();
             } else {
-                die("Error preparing statement in ecobricks_gobrik_msql_db: " . $conn2->error);
+                error_log("Error preparing statement in ecobricks_gobrik_msql_db: " . $conn2->error);
+                header("Location: signedup-login.php?id=$user_id&error=db_error");
+                exit();
             }
             $conn2->close(); // Close the second database connection
 
@@ -61,13 +74,19 @@ if ($stmt_lookup_password) {
             header("Location: dashboard.php");
             exit();
         } else {
-            die("Error updating user data: " . $conn->error);
+            error_log("Error updating user data: " . $conn->error);
+            header("Location: signedup-login.php?id=$user_id&error=db_error");
+            exit();
         }
     } else {
         header("Location: signedup-login.php?id=$user_id&error=wrong_password");
         exit();
     }
 } else {
-    die("Error preparing statement for users_tb: " . $conn->error);
+    error_log("Error preparing statement for users_tb: " . $conn->error);
+    header("Location: signedup-login.php?id=$user_id&error=db_error");
+    exit();
 }
+
+$conn->close();
 ?>

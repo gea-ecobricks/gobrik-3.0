@@ -94,7 +94,6 @@
 </div>
 
 
-
 <!--PART 3-->
 <h2>Retrieve Ecobricker Data from Knack</h2>
 <form id="knack-search-form" method="POST" action="">
@@ -149,11 +148,13 @@
             $json_response = json_decode($response, true);
             if (!empty($json_response['records'])) {
                 foreach ($json_response['records'] as $record) {
+                    $record_id = $record['id'];
                     $first_name = $record['field_198'];
                     $email = $record['field_103'];
                     $connected_ecobricks = $record['field_335'];
                     $ecobricker_id = $record['field_261'];
 
+                    echo "<p><strong>Record ID:</strong> " . htmlspecialchars($record_id) . "</p>";
                     echo "<p><strong>First Name:</strong> " . htmlspecialchars($first_name) . "</p>";
                     echo "<p><strong>Email:</strong> " . htmlspecialchars($email) . "</p>";
                     echo "<p><strong>Connected Ecobricks:</strong> " . htmlspecialchars($connected_ecobricks) . "</p>";
@@ -167,6 +168,7 @@
     }
     ?>
 </div>
+
 
 
 </body>

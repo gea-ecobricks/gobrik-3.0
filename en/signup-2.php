@@ -1,38 +1,31 @@
 <?php
+session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Initialize variables
+$response = ['success' => false];
+$user_id = $_GET['id'] ?? null;
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
 $version = '0.374';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
-
-echo '<!DOCTYPE html>
-<html lang="' . $lang . '">
-<head>
-<meta charset="UTF-8">
-';
-
-session_start();
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-$response = ['success' => false];
-$user_id = $_GET['id'] ?? null;
-
-include '../buwana_env.php'; // This file provides the database server, user, dbname information to access the server
-
-// PART 1: Check if the user is already logged in
-if (isset($_SESSION['user_id'])) {
-    $response['error'] = 'logged_in';
-    echo json_encode($response);
-    exit();
-}
-
 $credential_type = '';
 $credential_key = '';
 $first_name = '';
 $account_status = '';
 
-if (isset($user_id)) {
+include '../buwana_env.php'; // This file provides the database server, user, dbname information to access the server
+
+// PART 1: Check if the user is already logged in
+if (isset($_SESSION['user_id'])) {
+    header("Location: dashboard.php");
+    exit();
+}
+
+// Look up user information if user_id is provided
+if ($user_id) {
     $sql_lookup_credential = "SELECT credential_type, credential_key FROM credentials_tb WHERE user_id = ?";
     $stmt_lookup_credential = $conn->prepare($sql_lookup_credential);
     if ($stmt_lookup_credential) {
@@ -43,8 +36,6 @@ if (isset($user_id)) {
         $stmt_lookup_credential->close();
     } else {
         $response['error'] = 'db_error';
-        echo json_encode($response);
-        exit();
     }
 
     $sql_lookup_user = "SELECT first_name, account_status FROM users_tb WHERE user_id = ?";
@@ -57,8 +48,6 @@ if (isset($user_id)) {
         $stmt_lookup_user->close();
     } else {
         $response['error'] = 'db_error';
-        echo json_encode($response);
-        exit();
     }
 
     $credential_type = htmlspecialchars($credential_type);
@@ -66,20 +55,16 @@ if (isset($user_id)) {
 
     if ($account_status !== 'name set only') {
         $response['error'] = 'account_status';
-        echo json_encode($response);
-        exit();
     }
 }
 ?>
 
-
-
-
-
-
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<!DOCTYPE html>
+<html lang="<?php echo $lang; ?>">
+<head>
+<meta charset="UTF-8">
+<title>Sign Up</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!--
 GoBrik.com site version 3.0
@@ -89,88 +74,69 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <?php require_once ("../includes/signup-inc.php");?>
 
+    <div class="splash-content-block"></div>
+    <div id="splash-bar"></div>
 
-<div class="splash-content-block"></div>
-<div id="splash-bar"></div>
+    <!-- PAGE CONTENT-->
+    <div id="form-submission-box" style="height:100vh;">
+        <div class="form-container">
+            <div class="my-ecobricks" style="margin-top:-45px;">
+                <img src="../webps/earth-community.webp" width="60%">
+            </div>
 
-<!-- PAGE CONTENT-->
+            <div style="text-align:center;width:100%;margin:auto;">
+                <h2 data-lang-id="001-signup-heading2">Setup Your Access</h2>
+                <p>Alright <span data-lang-id="002-alright"><?php echo $first_name; ?></span>:<span data-lang-id="002-let-use-you"> Let's use your</span> <?php echo $credential_type; ?> <span data-lang-id="003-as-your-means">as your means of registration and the way we contact you.</span></p>
+            </div>
 
-<div id="form-submission-box" style="height:100vh;">
-    <div class="form-container">
+            <!--SIGNUP FORM-->
+            <form id="password-confirm-form" method="post" action="signup_process.php?id=<?php echo htmlspecialchars($user_id); ?>">
+                <div class="form-item" id="credential-section">
+                    <label for="credential_value"><span data-lang-id="004-your">Your</span> <?php echo $credential_type; ?> please:</label><br>
+                    <input type="text" id="credential_value" name="credential_value" required>
+                    <p class="form-caption" data-lang-id="006-email-subcaption">💌 This is the way we will contact you to confirm your account</p>
+                    <div id="duplicate-email-error" class="form-field-error" style="margin-top:10px;" data-lang-id="010-pass-error-no-match">🚧 Whoops! Looks like that e-mail address is already being used by a Buwana Account. Please choose another.</div>
+                </div>
 
-        <div class="my-ecobricks" style="margin-top:-45px;">
-        <img src="../webps/earth-community.webp" width="60%">
-    </div>
+                <div class="form-item" id="set-password" style="display: none;">
+                    <label for="password_hash" data-lang-id="007-set-your-pass">Set your password:</label><br>
+                    <input type="password" id="password_hash" name="password_hash" required minlength="6">
+                    <p class="form-caption" data-lang-id="008-password-advice">🔑 Your password must be at least 6 characters.</p>
+                </div>
 
-        <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="001-signup-heading2">Setup Your Access</h2>
-            <p>Alright <span data-lang-id="002-alright"><?php echo $first_name; ?></span>:<span data-lang-id="002-let-use-you"> Let's use your</span> <?php echo $credential_type; ?> <span data-lang-id="003-as-your-means">as your means of registration and the way we contact you.</span></p>
+                <div class="form-item" id="confirm-password-section" style="display: none;">
+                    <label for="confirm_password" data-lang-id="009-confirm-pass">Confirm Your Password:</label><br>
+                    <input type="password" id="confirm_password" name="confirm_password" required>
+                    <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;" data-lang-id="010-pass-error-no-match">👉 Passwords do not match.</div>
+                </div>
+
+                <div class="form-item" id="human-check-section" style="display: none;">
+                    <label for="human_check" data-lang-id="011-prove-human">Please prove you are human by typing the word "ecobrick" below:</label><br>
+                    <input type="text" id="human_check" name="human_check" required>
+                    <p class="form-caption" data-lang-id="012-fun-fact"> 🤓 Fun fact: <a href="#" onclick="showModalInfo('ecobrick')" class="underline-link">'ecobrick'</a> is spelled without a space, capital or hyphen!</p>
+                    <div>
+                        <input type="checkbox" id="terms" name="terms" required checked>
+                        <label for="terms" style="font-size:medium;" class="form-caption" data-lang-id="013-by-registering">By registering today, I agree to the <a href="#" onclick="showModalInfo('terms')" class="underline-link">GoBrik Terms of Service</a></label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="newsletter" name="newsletter" checked>
+                        <label for="newsletter" style="font-size:medium;" class="form-caption" data-lang-id="014-i-agree-newsletter">I agree to receive the <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen newsletter</a> for app, ecobrick, and earthen updates</label>
+                    </div>
+                </div>
+
+                <div class="form-item" id="submit-section" style="display:none;text-align:center;margin-top:15px;" title="Be sure you wrote ecobrick correctly!">
+                    <input type="submit" id="submit-button" value="Register" disabled>
+                </div>
+            </form>
+
+            <div style="text-align:center;width:100%;margin:auto;">
+                <p style="font-size:medium;" data-land-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
+            </div>
         </div>
-
-       <!--SIGNUP FORM-->
-
-
-
-<form id="password-confirm-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?id=' . htmlspecialchars($user_id); ?>">
-        <div class="form-item" id="credential-section">
-            <label for="credential_value"><span data-lang-id="004-your">Your</span> <?php echo $credential_type; ?> please:</label><br>
-            <input type="text" id="credential_value" name="credential_value" required>
-            <p class="form-caption" data-lang-id="006-email-subcaption">💌 This is the way we will contact you to confirm your account</p>
-                        <div id="duplicate-email-error" class="form-field-error" style="margin-top:10px;" data-lang-id="010-pass-error-no-match">🚧 Whoops! Looks like that e-mail address is already being used by a Buwana Account. Please choose another.</div>
-
     </div>
 
-    <div class="form-item" id="set-password" style="display: none;">
-        <label for="password_hash" data-lang-id="007-set-your-pass">Set your password:</label><br>
-        <input type="password" id="password_hash" name="password_hash" required minlength="6">
-        <p class="form-caption" data-lang-id="008-password-advice">🔑 Your password must be at least 6 characters.</p>
-    </div>
-
-    <div class="form-item" id="confirm-password-section" style="display: none;">
-        <label for="confirm_password" data-lang-id="009-confirm-pass">Confirm Your Password:</label><br>
-        <input type="password" id="confirm_password" name="confirm_password" required>
-        <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;"  data-lang-id="010-pass-error-no-match">👉 Passwords do not match.</div>
-    </div>
-
-    <div class="form-item" id="human-check-section" style="display: none;">
-        <label for="human_check" data-lang-id="011-prove-human">Please prove you are human by typing the word "ecobrick" below:</label><br>
-        <input type="text" id="human_check" name="human_check" required>
-        <p class="form-caption" data-lang-id="012-fun-fact"> 🤓 Fun fact: <a href="#" onclick="showModalInfo('ecobrick')" class="underline-link">'ecobrick'</a> is spelled without a space, capital or hyphen!</p>
-        <div>
-            <input type="checkbox" id="terms" name="terms" required checked>
-            <label for="terms" style="font-size:medium;" class="form-caption" data-lang-id="013-by-registering">By registering today, I agree to the <a href="#" onclick="showModalInfo('terms')" class="underline-link">GoBrik Terms of Service</a></label>
-        </div>
-        <div>
-            <input type="checkbox" id="newsletter" name="newsletter" checked>
-            <label for="newsletter" style="font-size:medium;" class="form-caption" data-lang-id="014-i-agree-newsletter">I agree to receive the <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen newsletter</a> for app, ecobrick, and earthen updates</label>
-        </div>
-    </div>
- <!--<button  type="submit" id="submit-button" aria-label="Submit Form" class="enabled">
-        🔐 <span data-lang-id="016-submit-to-register" id="submit-button-text">Register</span>
-    </button>-->
-    <div class="form-item" id="submit-section" style="display:none;text-align:center;margin-top:15px;" title="Be sure you wrote ecobrick correctly!">
-        <input type="submit" id="submit-button" value="Register" disabled>
-    </div>
-</form>
-
-        </div>
-
-
- <div style="text-align:center;width:100%;margin:auto;"><p style="font-size:medium;" data-land-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
-        </div>
-
-    </div><!--closes Landing content-->
-</div>
-
-</div><!--closes main and starry background-->
-
-<!--FOOTER STARTS HERE-->
-
-<?php require_once ("../footer-2024.php");?>
-
-</div><!--close page content-->
-
-
+    <!--FOOTER STARTS HERE-->
+    <?php require_once ("../footer-2024.php"); ?>
 
     <script>
         $(document).ready(function() {

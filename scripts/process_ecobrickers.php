@@ -160,15 +160,71 @@
                     echo "<p><strong>Connected Ecobricks:</strong> " . htmlspecialchars($connected_ecobricks) . "</p>";
                     echo "<p><strong>Ecobricker ID:</strong> " . htmlspecialchars($ecobricker_id) . "</p>";
 
+                    <!--PART 4-->
+<h2>Retrieve Ecobrick Data from Knack</h2>
+<form id="knack-search-form" method="POST" action="">
+    <label for="email">Enter Ecobricker Email Address:</label>
+    <input type="email" id="email" name="email" required>
+    <button type="submit">Retrieve</button>
+</form>
+
+<div id="knack-response">
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['email'])) {
+        $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+
+        $api_key = "360aa2b0-af19-11e8-bd38-41d9fc3da0cf";
+        $app_id = "5b8c28c2a1152679c209ce0c";
+        $object_id = "object_14";
+
+        $filters = [
+            'match' => 'and',
+            'rules' => [
+                [
+                    'field' => 'field_103',
+                    'operator' => 'is',
+                    'value' => $email
+                ]
+            ]
+        ];
+
+        $url = "https://api.knack.com/v1/objects/$object_id/records?filters=" . urlencode(json_encode($filters));
+
+        // Initialize cURL session
+        $ch = curl_init($url);
+
+        // Set cURL options
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            "X-Knack-Application-ID: $app_id",
+            "X-Knack-REST-API-Key: $api_key",
+            "Content-Type: application/json"
+        ]);
+
+        // Execute cURL request
+        $response = curl_exec($ch);
+
+        // Check for cURL errors
+        if ($response === false) {
+            echo '<p>Error retrieving data: ' . curl_error($ch) . '</p>';
+        } else {
+            // Log the entire JSON response to the console
+            echo "<script>console.log('Knack API Response: " . addslashes($response) . "');</script>";
+
+            $json_response = json_decode($response, true);
+            if (!empty($json_response['records'])) {
+                foreach ($json_response['records'] as $record) {
+                    $first_name = $record['field_198'];
+
                     // Part 4: Make another API call to search ecobrick object
                     $object_id_2 = "object_2";
                     $filters_2 = [
                         'match' => 'and',
                         'rules' => [
                             [
-                                'field' => 'field_73',
-                                'operator' => 'is',
-                                'value' => $record_id
+                                'field' => 'field_335',
+                                'operator' => 'contains',
+                                'value' => $first_name
                             ]
                         ]
                     ];
@@ -204,7 +260,7 @@
                             }
                             echo "<p><strong>Ecobrick Field 73 Values:</strong> " . htmlspecialchars(implode(", ", $field_73_values)) . "</p>";
                         } else {
-                            echo '<p>No ecobricks found for the provided Record ID.</p>';
+                            echo '<p>No ecobricks found for the provided First Name.</p>';
                         }
                     }
                     curl_close($ch_2);
@@ -217,10 +273,7 @@
     }
     ?>
 </div>
-</body>
-</html>
-
-
 
 </body>
 </html>
+

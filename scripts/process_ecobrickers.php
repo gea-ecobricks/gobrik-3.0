@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,12 +28,28 @@
     </style>
 </head>
 <body>
+<div class="control-buttons">
+    <button class="button" onclick="stopProcessing()">Stop Processing</button>
+    <button class="button" onclick="startProcessing()">ᐉ Start Processing</button>
+</div>
+<p>We're migrating ecobricks from our old server to our new. Help us out by running this page on your computer or phone. Just keep it up. If it crashes or stops, reload the page. Thank you! 🙏</p>
 
-<p>We're migrating ecobrickers from our old server to our new. Help us out by running this page on your computer or phone. Just keep it up. If it crashes or stops, reload the page. Thank you! 🙏</p>
+<script>
+    function stopProcessing() {
+        if (confirm('Are you sure you want to stop the processing?')) {
+            window.location.href = 'process_ecobrick.php?action=stop';
+        }
+    }
 
+    function startProcessing() {
+        if (confirm('Are you sure you want to start the processing?')) {
+            window.location.href = 'process_ecobrick.php?action=start';
+        }
+    }
+</script>
 
-<div id="ecobrickers-being-processed">
-    <div id="ecobrickers-processed-gallery">
+<div id="ecobrick-being-processed">
+    <div id="ecobricks-processed-gallery">
         <?php
         ini_set('display_errors', 1);
         error_reporting(E_ALL);
@@ -93,31 +108,40 @@
         $api_key = "360aa2b0-af19-11e8-bd38-41d9fc3da0cf";
         $app_id = "5b8c28c2a1152679c209ce0c";
         $object_id = "object_14";
-        $field_check = "field_2525";
 
-        $url = "https://api.knack.com/v1/objects/$object_id/records";
-        $headers = [
-            "X-Knack-Application-ID: $app_id",
-            "X-Knack-REST-API-Key: $api_key",
-            "Content-Type: application/json"
-        ];
-
-        $params = [
-            'filters' => [
+        $filters = [
+            'match' => 'and',
+            'rules' => [
                 [
-                    'field' => 'field_103',
+                    'field' => 'field_2525',
+                    'operator' => 'is',
+                    'value' => 'no'
+                ],
+                [
+                    'field' => 'field_737',
                     'operator' => 'is',
                     'value' => $email
                 ]
             ]
         ];
 
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
+        $url = "https://api.knack.com/v1/objects/$object_id/records?filters=" . urlencode(json_encode($filters));
 
+        // Initialize cURL session
+        $ch = curl_init($url);
+
+        // Set cURL options
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            "X-Knack-Application-ID: $app_id",
+            "X-Knack-REST-API-Key: $api_key",
+            "Content-Type: application/json"
+        ]);
+
+        // Execute cURL request
         $response = curl_exec($ch);
+
+        // Check for cURL errors
         if ($response === false) {
             echo '<p>Error retrieving data: ' . curl_error($ch) . '</p>';
         } else {
@@ -135,7 +159,3 @@
 
 </body>
 </html>
-
-
-
-

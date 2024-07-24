@@ -108,8 +108,7 @@
     <?php
 
     // PART 1 of the code
-    // process_ecobricks.php  here we go
-//    session_start();
+    // Access the gobrik database to get the most recently added ecobricks
 
     if (isset($_GET['action'])) {
         $action = $_GET['action'];

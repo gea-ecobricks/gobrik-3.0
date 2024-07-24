@@ -16,6 +16,13 @@
 
 <STYLE>
 
+.php-form-error {
+color: red;
+  margin-top: -15px;
+  margin-bottom: 20px;
+  padding-left: 10px;
+  padding-bottom: 15px;
+  }
 
 
 

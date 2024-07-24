@@ -8,7 +8,7 @@ $response = ['success' => false];
 $user_id = $_GET['id'] ?? null;
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.374';
+$version = '0.375';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $credential_type = '';
@@ -93,7 +93,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <form id="password-confirm-form" method="post" action="signup_process.php?id=<?php echo htmlspecialchars($user_id); ?>">
                 <div class="form-item" id="credential-section">
                     <label for="credential_value"><span data-lang-id="004-your">Your</span> <?php echo $credential_type; ?> please:</label><br>
-                    <div id="duplicate-email-error" class="form-field-error" style="margin-top:10px;" data-lang-id="010-pass-error-no-match">🚧 Whoops! Looks like that e-mail address is already being used by a Buwana Account. Please choose another.</div>
+                    <div id="duplicate-email-error" class="form-field-error" style="margin-top:10px;  margin-bottom: -12px;" data-lang-id="010-pass-error-no-match">🚧 Whoops! Looks like that e-mail address is already being used by a Buwana Account. Please choose another.</div>
 
                     <input type="text" id="credential_value" name="credential_value" required style="padding-left:45px;" aria-label="your email">
                     <p class="form-caption" data-lang-id="006-email-subcaption">💌 This is the way we will contact you to confirm your account</p>

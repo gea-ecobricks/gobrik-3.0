@@ -94,12 +94,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <form id="password-confirm-form" method="post" action="signup_process.php?id=<?php echo htmlspecialchars($user_id); ?>">
                 <div class="form-item" id="credential-section">
                     <label for="credential_value"><span data-lang-id="004-your">Your</span> <?php echo $credential_type; ?> please:</label><br>
-                    <div id="duplicate-email-error" class="form-field-error" style="margin-top:10px;" data-lang-id="010-pass-error-no-match">🚧 Whoops! Looks like that e-mail address is already being used by a Buwana Account. Please choose another.</div>
-                    <div id="duplicate-gobrik-email" class="form-warning" style="margin-top:10px;" data-lang-id="010-pass-error-no-match">🚧 It looks like this email is already being used with a legacy GoBrik account. By registering today you will upgrade your account to a Buwana account that can be used with GoBrik and other regenerative apps!</div>
+                    <div id="duplicate-email-error" class="form-field-error" style="margin-top:10px;" data-lang-id="010-duplicate-email">🚧 Whoops! Looks like that e-mail address is already being used by a Buwana Account. Please choose another.</div>
+                    <div id="duplicate-gobrik-email" class="form-warning" style="margin-top:10px;" data-lang-id="010-gobrik-duplicate">🚧 It looks like this email is already being used with a legacy GoBrik account. By registering today you will upgrade your account to a Buwana account that can be used with GoBrik and other regenerative apps!</div>
 
-                    <input type="text" id="credential_value" name="credential_value" required style="padding-left:45px;" aria-label="your email">
-                    <p class="form-caption" data-lang-id="006-email-subcaption">💌 This is the way we will contact you to confirm your account</p>
-                    <div id="loading-spinner" class="spinner" style="display: none;"></div>
+                    <div class="input-container">
+                        <input type="text" id="credential_value" name="credential_value" required style="padding-left:45px;" aria-label="your email">
+                        <div id="loading-spinner" class="spinner" style="display: none;"></div>
+                    </div>
+                <p class="form-caption" data-lang-id="006-email-subcaption">💌 This is the way we will contact you to confirm your account</p>
                 </div>
 
                 <div class="form-item" id="set-password" style="display: none;">

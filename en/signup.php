@@ -13,18 +13,28 @@ echo '<!DOCTYPE html>
 ?>
 
 <?php
+session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 $success = false;
 
+// PART 1: Check if the user is already logged in
+if (isset($_SESSION['user_id'])) {
+    echo "<script>
+        alert('Looks like you already have an account and are logged in! Let\'s take you to your dashboard.');
+        window.location.href = 'dashboard.php';
+    </script>";
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    include '../buwana_env.php'; // this file provides the database server, user, dbname information to access the server
+    include '../buwana_env.php'; // This file provides the database server, user, dbname information
 
-    // Retrieve form data
-    $first_name = $_POST['first_name'];
-    $credential = $_POST['credential'];
+    // Retrieve form data and sanitize inputs
+    $first_name = trim($_POST['first_name']);
+    $credential = trim($_POST['credential']);
 
     // Set other required fields
     $full_name = $first_name;
@@ -34,17 +44,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $role = 'ecobricker';
     $notes = "beta testing the first signup form";
 
-    // Use prepared statements for inserting user data
+    // Prepare the SQL statement for inserting user data into user_tb
     $sql_user = "INSERT INTO users_tb (first_name, full_name, created_at, last_login, account_status, role, notes) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt_user = $conn->prepare($sql_user);
 
+    // Bind the data to the user_tb (s = string)
     if ($stmt_user) {
         $stmt_user->bind_param("sssssss", $first_name, $full_name, $created_at, $last_login, $account_status, $role, $notes);
 
         if ($stmt_user->execute()) {
             $user_id = $conn->insert_id;
 
-            // Use prepared statements for inserting credential data
+            // Prepare the SQL statement for inserting credential data into credentials_tb
             $sql_credential = "INSERT INTO credentials_tb (user_id, credential_type, times_used, times_failed, last_login) VALUES (?, ?, 0, 0, ?)";
             $stmt_credential = $conn->prepare($sql_credential);
 
@@ -53,27 +64,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 if ($stmt_credential->execute()) {
                     $success = true;
-                    // Redirect to signup-2.php with user_id
+                    // Redirect to signup-2.php with the user_id in the URL
                     header("Location: signup-2.php?id=$user_id");
                     exit();
                 } else {
-                    echo "Error: " . $stmt_credential->error;
+                    // Log error
+                    error_log("Error executing credential statement: " . $stmt_credential->error);
+                    echo "An error occurred while creating your account. Please try again.";
                 }
                 $stmt_credential->close();
             } else {
-                echo "Error preparing statement for credentials_tb: " . $conn->error;
+                // Log error
+                error_log("Error preparing credential statement: " . $conn->error);
+                echo "An error occurred while creating your account. Please try again.";
             }
         } else {
-            echo "Error: " . $stmt_user->error;
+            // Log error
+            error_log("Error executing user statement: " . $stmt_user->error);
+            echo "An error occurred while creating your account. Please try again.";
         }
         $stmt_user->close();
     } else {
-        echo "Error preparing statement for users_tb: " . $conn->error;
+        // Log error
+        error_log("Error preparing user statement: " . $conn->error);
+        echo "An error occurred while creating your account. Please try again.";
     }
 
     $conn->close();
 }
 ?>
+
 
 <title>Signup | GoBrik 3.0</title>
 

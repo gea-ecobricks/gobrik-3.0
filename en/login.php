@@ -1,5 +1,5 @@
 <?php
-$directory = basename(dirname($_SERVER['SCRIPT_NAME']));
+$directory = basename(dirname($_SERVER['SCRIPT_NAME']));  //grabs language directory from url
 $lang = $directory;
 $version = '0.33';
 $page = 'login';
@@ -9,9 +9,9 @@ echo '<!DOCTYPE html>
 <html lang="' . $lang . '">
 <head>
 <meta charset="UTF-8">
-<title>Login | GoBrik 3.0</title>
-</head>
-<body>';
+';
+
+//Turn on or off error reporting
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -25,21 +25,20 @@ if (isset($_SESSION['user_id'])) {
 ?>
 
 
-<title>Login | GoBrik 3.0</title>
-
 <!--
 GoBrik.com site version 3.0
 Developed and made open source by the Global Ecobrick Alliance
 See our git hub repository for the full code and to help out:
-https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
+https://github.com/gea-ecobricks/gobrik-3.0/blob/main/en/login.php-->
 
+
+<!--this file contains the custom metac tags for this page along with the loading of our header and custom css-->
 <?php require_once ("../includes/login-inc.php");?>
-
-<div class="splash-content-block"></div>
-<div id="splash-bar"></div>
 
 <!-- PAGE CONTENT-->
 
+<div class="splash-content-block"></div>
+<div id="splash-bar"></div>
 <div id="form-submission-box" style="height:100vh;">
     <div class="form-container">
 
@@ -48,7 +47,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h1 data-lang-id="001-login-heading-">Login</h1>
+            <h2 data-lang-id="001-login-heading-">Login</h2>
             <p data-lang-id="002-login-subheading">Welcome back to GoBrik!</p>
         </div>
 
@@ -79,10 +78,16 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 </div><!--closes main and starry background-->
 
-<!-- FOOTER STARTS HERE -->
+<!-- FOOTER STARTS HERE
+language files are loaded there
+
+-->
+
+
 <?php require_once ("../footer-2024.php");?>
 
 
+<!-- CUSTOM SCRIPTS -->
 
 <script type="text/javascript">
     document.getElementById('login').addEventListener('submit', function(event) {
@@ -97,7 +102,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     });
 </script>
 
-
+<!-- CUSTOM MODALS -->
 
 <script type="text/javascript">
 function showModalInfo(type) {

@@ -1,3 +1,5 @@
+<title>Login | GoBrik 3.0</title>
+
 <meta name="keywords" content="login, gobrik, ecobrick app, signup, sign up, sign, up">
 <meta name="description" content="Login to the Gobrik app to manage your ecobrick, plastic and projects.">
 <meta name="author" content="Global Ecobrick Alliance">
@@ -16,3 +18,4 @@
 <meta property="og:image:height"  content="1000" >
 <meta property="og:image:alt"     content="A metaphorical road winding into the distance with various ecobrick and earth constructions along side it and the GoBrik logo floating above">
 <meta property="og:locale"        content="en_GB">
+

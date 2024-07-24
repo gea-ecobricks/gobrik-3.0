@@ -105,11 +105,6 @@
         $params = [
             'filters' => [
                 [
-                    'field' => 'field_2525',
-                    'operator' => 'is',
-                    'value' => ''
-                ],
-                [
                     'field' => 'field_103',
                     'operator' => 'is',
                     'value' => $email

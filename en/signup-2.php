@@ -130,7 +130,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     </div>
                 </div>
 
-                <div class="form-item" id="submit-section" style="display:none;text-align:center;margin-top:15px;" title="Be sure you wrote ecobrick correctly!">
+                <div id="submit-section" style="display:none;text-align:center;margin-top:15px;" title="Be sure you wrote ecobrick correctly!">
                     <input type="submit" id="submit-button" value="Register" disabled>
                 </div>
             </form>
@@ -140,6 +140,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             </div>
         </div>
     </div>
+</div>
 
     <!--FOOTER STARTS HERE-->
     <?php require_once ("../footer-2024.php"); ?>

@@ -16,48 +16,43 @@ echo '<!DOCTYPE html>
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-include '../buwana_env.php'; // this file provides the database server, user, dbname information to access the server
+include '../buwana_env.php'; // This file provides the database server, user, dbname information to access the server
 
 $user_id = $_GET['id'] ?? null;
 
-// Look up these fields from credentials_tb and users_tb using the user_id
+// Initialize variables
 $credential_type = '';
 $credential_key = '';
 $first_name = '';
 
-if (isset($user_id)) {
-    // First, look up the credential_type and credential_key from credentials_tb
+if ($user_id) {
+    // Prepare the SQL statement for credentials_tb
     $sql_lookup_credential = "SELECT credential_type, credential_key FROM credentials_tb WHERE user_id = ?";
-    $stmt_lookup_credential = $conn->prepare($sql_lookup_credential);
-
-    if ($stmt_lookup_credential) {
+    if ($stmt_lookup_credential = $conn->prepare($sql_lookup_credential)) {
         $stmt_lookup_credential->bind_param("i", $user_id);
         $stmt_lookup_credential->execute();
         $stmt_lookup_credential->bind_result($credential_type, $credential_key);
         $stmt_lookup_credential->fetch();
         $stmt_lookup_credential->close();
     } else {
-        die("Error preparing statement for credentials_tb: " . $conn->error);
+        echo "Error preparing statement for credentials_tb: " . $conn->error;
     }
 
-    // Then, look up the first_name from users_tb
+    // Prepare the SQL statement for users_tb
     $sql_lookup_user = "SELECT first_name FROM users_tb WHERE user_id = ?";
-    $stmt_lookup_user = $conn->prepare($sql_lookup_user);
-
-    if ($stmt_lookup_user) {
+    if ($stmt_lookup_user = $conn->prepare($sql_lookup_user)) {
         $stmt_lookup_user->bind_param("i", $user_id);
         $stmt_lookup_user->execute();
         $stmt_lookup_user->bind_result($first_name);
         $stmt_lookup_user->fetch();
         $stmt_lookup_user->close();
     } else {
-        die("Error preparing statement for users_tb: " . $conn->error);
+        echo "Error preparing statement for users_tb: " . $conn->error;
     }
 }
 
 $conn->close();
 ?>
-
 <script>
     function validatePassword(isValid) {
         const passwordErrorDiv = document.getElementById('password-error');
@@ -79,22 +74,21 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <?php require_once ("../includes/signedup-login-inc.php");?>
 
+<?php require_once ("../includes/signedup-login-inc.php"); ?>
 
 <div class="splash-content-block"></div>
 <div id="splash-bar"></div>
 
-<!-- PAGE CONTENT-->
-
+<!-- PAGE CONTENT -->
 <div id="form-submission-box" style="height:100vh;">
     <div class="form-container">
-
         <div class="dolphin-pic" style="margin-top:-65px;background-size:contain;" alt="Yeay!">
             <img src="../webps/earth-community.webp" width="65%">
         </div>
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="100-login-heading-signed-up">Your account is ready! 🎉 </h2>
-            <p>Ok <?php echo $first_name; ?>, <span data-lang-id="101-login-subheading-signed-up">now please use your <?php echo $credential_type; ?> to login for the first time to start setting up your account:</span></p>
+            <h2 data-lang-id="100-login-heading-signed-up">Your account is ready! 🎉</h2>
+            <p>Ok <?php echo htmlspecialchars($first_name); ?>, <span data-lang-id="101-login-subheading-signed-up">now please use your <?php echo htmlspecialchars($credential_type); ?> to login for the first time to start setting up your account:</span></p>
         </div>
 
         <!-- LOGIN FORM -->
@@ -102,7 +96,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>">
             <div class="form-item">
                 <label for="credential_value"><span data-lang-id="000-your">Your</span> <?php echo htmlspecialchars($credential_type); ?> :</label><br>
-                <input type="text" id="credential_value" name="credential_value" value="<?php echo $credential_key; ?>" required>
+                <input type="text" id="credential_value" name="credential_value" value="<?php echo htmlspecialchars($credential_key); ?>" required>
             </div>
             <div class="form-item">
                 <label for="password" data-lang-id="000-your-password">Your password:</label><br>
@@ -114,10 +108,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <div style="text-align:center;">
                 <input type="submit" style="text-align:center;margin-top:15px;width:30%" id="submit-button" value="Login" class="enabled">
             </div>
-
         </form>
     </div>
-
 </div>
 
 </div><!--closes main and starry background-->

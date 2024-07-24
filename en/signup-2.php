@@ -8,7 +8,7 @@ $response = ['success' => false];
 $user_id = $_GET['id'] ?? null;
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.375';
+$version = '0.376';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $credential_type = '';
@@ -89,18 +89,18 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <p>Alright <span data-lang-id="002-alright"><?php echo $first_name; ?></span>:<span data-lang-id="002-let-use-you"> Let's use your</span> <?php echo $credential_type; ?> <span data-lang-id="003-as-your-means">as your means of registration and the way we contact you.</span></p>
             </div>
 
+
             <!--SIGNUP FORM-->
             <form id="password-confirm-form" method="post" action="signup_process.php?id=<?php echo htmlspecialchars($user_id); ?>">
                 <div class="form-item" id="credential-section">
                     <label for="credential_value"><span data-lang-id="004-your">Your</span> <?php echo $credential_type; ?> please:</label><br>
-                    <div id="duplicate-email-error" class="form-field-error" style="margin-top:10px;  margin-bottom: -12px;" data-lang-id="010-pass-error-no-match">🚧 Whoops! Looks like that e-mail address is already being used by a Buwana Account. Please choose another.</div>
+                    <div id="duplicate-email-error" class="form-field-error" style="margin-top:10px;" data-lang-id="010-pass-error-no-match">🚧 Whoops! Looks like that e-mail address is already being used by a Buwana Account. Please choose another.</div>
+                    <div id="duplicate-gobrik-email" class="form-warning" style="margin-top:10px;" data-lang-id="010-pass-error-no-match">🚧 It looks like this email is already being used with a legacy GoBrik account. By registering today you will upgrade your account to a Buwana account that can be used with GoBrik and other regenerative apps!</div>
 
-                    <div class="input-container">
-                        <input type="text" id="credential_value" name="credential_value" required style="padding-left:45px;" aria-label="your email">
-                        <div id="loading-spinner" class="spinner" style="display: none;"></div>
-                    </div>
+                    <input type="text" id="credential_value" name="credential_value" required style="padding-left:45px;" aria-label="your email">
                     <p class="form-caption" data-lang-id="006-email-subcaption">💌 This is the way we will contact you to confirm your account</p>
-                    </div>
+                    <div id="loading-spinner" class="spinner" style="display: none;"></div>
+                </div>
 
                 <div class="form-item" id="set-password" style="display: none;">
                     <label for="password_hash" data-lang-id="007-set-your-pass">Set your password:</label><br>
@@ -142,65 +142,72 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <!--FOOTER STARTS HERE-->
     <?php require_once ("../footer-2024.php"); ?>
 
-    <script>
-    $(document).ready(function() {
-        // Live email checking
-        $('#credential_value').on('blur', function() {
-            var email = $(this).val();
-            if (email) {
+  <script>
+        $(document).ready(function() {
+            // Live email checking
+            $('#credential_value').on('blur', function() {
+                var email = $(this).val();
+                if (email) {
+                    $('#loading-spinner').removeClass('green red').show();
+                    $.ajax({
+                        url: 'check_email.php',
+                        type: 'POST',
+                        data: {credential_value: email},
+                        success: function(response) {
+                            $('#loading-spinner').hide();
+                            var res = JSON.parse(response);
+                            if (res.error === 'duplicate_email') {
+                                $('#duplicate-email-error').show();
+                                $('#loading-spinner').removeClass('green').addClass('red').show();
+                            } else if (res.error === 'duplicate_gobrik_email') {
+                                $('#duplicate-gobrik-email').show();
+                                $('#loading-spinner').removeClass('green').addClass('red').show();
+                            } else {
+                                $('#duplicate-email-error').hide();
+                                $('#duplicate-gobrik-email').hide();
+                                $('#loading-spinner').removeClass('red').addClass('green').show();
+                            }
+                        },
+                        error: function() {
+                            $('#loading-spinner').hide();
+                            alert('An error occurred while checking the email. Please try again.');
+                        }
+                    });
+                }
+            });
+
+            // Form submission
+            $('#password-confirm-form').on('submit', function(e) {
+                e.preventDefault(); // Prevent the form from submitting normally
                 $('#loading-spinner').removeClass('green red').show();
+
                 $.ajax({
-                    url: 'check_email.php',
+                    url: 'signup_process.php?id=<?php echo htmlspecialchars($user_id); ?>',
                     type: 'POST',
-                    data: {credential_value: email},
+                    data: $(this).serialize(), // Serialize the form data
                     success: function(response) {
-                        var res = JSON.parse(response);
                         $('#loading-spinner').hide();
-                        if (res.error === 'duplicate_email') {
+                        var res = JSON.parse(response);
+                        if (res.success) {
+                            window.location.href = 'signedup-login.php?id=<?php echo htmlspecialchars($user_id); ?>';
+                        } else if (res.error === 'duplicate_email') {
                             $('#duplicate-email-error').show();
                             $('#loading-spinner').removeClass('green').addClass('red').show();
+                        } else if (res.error === 'duplicate_gobrik_email') {
+                            $('#duplicate-gobrik-email').show();
+                            $('#loading-spinner').removeClass('green').addClass('red').show();
                         } else {
-                            $('#duplicate-email-error').hide();
-                            $('#loading-spinner').removeClass('red').addClass('green').show();
+                            alert('An unexpected error occurred. Please try again.');
                         }
                     },
                     error: function() {
                         $('#loading-spinner').hide();
-                        alert('An error occurred while checking the email. Please try again.');
+                        alert('An error occurred while processing the form. Please try again.');
                     }
                 });
-            }
-        });
-
-        // Form submission
-        $('#password-confirm-form').on('submit', function(e) {
-            e.preventDefault(); // Prevent the form from submitting normally
-            $('#loading-spinner').removeClass('green red').show();
-
-            $.ajax({
-                url: 'signup_process.php?id=<?php echo htmlspecialchars($user_id); ?>',
-                type: 'POST',
-                data: $(this).serialize(), // Serialize the form data
-                success: function(response) {
-                    $('#loading-spinner').hide();
-                    var res = JSON.parse(response);
-                    if (res.success) {
-                        window.location.href = 'signedup-login.php?id=<?php echo htmlspecialchars($user_id); ?>';
-                    } else if (res.error === 'duplicate_email') {
-                        $('#duplicate-email-error').show();
-                        $('#loading-spinner').removeClass('green').addClass('red').show();
-                    } else {
-                        alert('An unexpected error occurred. Please try again.');
-                    }
-                },
-                error: function() {
-                    $('#loading-spinner').hide();
-                    alert('An error occurred while processing the form. Please try again.');
-                }
             });
         });
-    });
-</script>
+    </script>
 
 
     <script type="text/javascript">

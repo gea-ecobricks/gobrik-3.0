@@ -92,6 +92,9 @@
         </div>
     </div>
 </div>
+
+
+
 <!--PART 3-->
 <h2>Retrieve Ecobricker Data from Knack</h2>
 <form id="knack-search-form" method="POST" action="">
@@ -140,16 +143,21 @@
         if ($response === false) {
             echo '<p>Error retrieving data: ' . curl_error($ch) . '</p>';
         } else {
+            // Log the entire JSON response to the console
+            echo "<script>console.log('Knack API Response: " . addslashes($response) . "');</script>";
+
             $json_response = json_decode($response, true);
             if (!empty($json_response['records'])) {
                 foreach ($json_response['records'] as $record) {
                     $first_name = $record['field_198'];
                     $email = $record['field_103'];
                     $connected_ecobricks = $record['field_335'];
+                    $ecobricker_id = $record['field_261'];
 
                     echo "<p><strong>First Name:</strong> " . htmlspecialchars($first_name) . "</p>";
                     echo "<p><strong>Email:</strong> " . htmlspecialchars($email) . "</p>";
                     echo "<p><strong>Connected Ecobricks:</strong> " . htmlspecialchars($connected_ecobricks) . "</p>";
+                    echo "<p><strong>Ecobricker ID:</strong> " . htmlspecialchars($ecobricker_id) . "</p>";
                 }
             } else {
                 echo '<p>No ecobricker found with the provided email and criteria.</p>';

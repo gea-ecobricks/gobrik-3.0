@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit();
     }
 
-    $sql_check_gobrik_email = "SELECT COUNT(*) FROM load_ecobricker_trim WHERE email_addr = ?";
+    $sql_check_gobrik_email = "SELECT COUNT(*) FROM ecobricker_live_tb WHERE email_addr = ?";
     $stmt_check_gobrik_email = $conn_gobrik->prepare($sql_check_gobrik_email);
     if ($stmt_check_gobrik_email) {
         $stmt_check_gobrik_email->bind_param("s", $credential_value);

@@ -276,7 +276,7 @@ input[type="submit"]:hover {
   display: none;
 }
 
-.form-field-error {
+.form-warning {
   color: green;
   margin-top: -15px;
   margin-bottom: 20px;

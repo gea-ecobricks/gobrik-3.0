@@ -1508,13 +1508,13 @@ body.modal-open {
 }
 
 .spinner.green {
-    border-top: 4px solid green;
-    border-color: green;
+    background-color: green;
+    border: 5px solid green;
 }
 
 .spinner.red {
-    border-top: 4px solid red;
-    border-color: red;
+    background-color: red;
+    border: 5px solid red;
 }
 
 @keyframes spin {

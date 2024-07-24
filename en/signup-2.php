@@ -19,6 +19,7 @@ ini_set('display_errors', 1);
 
 $success = false;
 $user_id = $_GET['id'] ?? null;
+$duplicate_email_error = false;
 
 include '../buwana_env.php'; // This file provides the database server, user, dbname information to access the server
 
@@ -95,54 +96,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
         $stmt_check_email->close();
 
         if ($email_count > 0) {
-            echo "<script>
-                alert('Whoops! Looks like that e-mail address is already being used by a Buwana Account. Please choose another.');
-                window.history.back();
-            </script>";
-            exit();
+            $duplicate_email_error = true;
+        } else {
+            // Update the credentials_tb with the credential_key
+            $sql_update_credential = "UPDATE credentials_tb SET credential_key = ? WHERE user_id = ?";
+            $stmt_update_credential = $conn->prepare($sql_update_credential);
+            if ($stmt_update_credential) {
+                $stmt_update_credential->bind_param("si", $credential_value, $user_id);
+                if ($stmt_update_credential->execute()) {
+                    // Update the users_tb with the password, email, and change the account status
+                    $sql_update_user = "UPDATE users_tb SET password_hash = ?, email = ?, account_status = 'registered no login' WHERE user_id = ?";
+                    $stmt_update_user = $conn->prepare($sql_update_user);
+                    if ($stmt_update_user) {
+                        $stmt_update_user->bind_param("ssi", $password_hash, $credential_value, $user_id);
+                        if ($stmt_update_user->execute()) {
+                            $success = true;
+                            // Redirect to signedup-login.php with user_id
+                            header("Location: signedup-login.php?id=$user_id");
+                            exit();
+                        } else {
+                            error_log("Error executing user update statement: " . $stmt_update_user->error);
+                            echo "An error occurred while updating your account. Please try again.";
+                        }
+                        $stmt_update_user->close();
+                    } else {
+                        error_log("Error preparing user update statement: " . $conn->error);
+                        echo "An error occurred while updating your account. Please try again.";
+                    }
+                } else {
+                    error_log("Error executing credential update statement: " . $stmt_update_credential->error);
+                    echo "An error occurred while updating your account. Please try again.";
+                }
+                $stmt_update_credential->close();
+            } else {
+                error_log("Error preparing credential update statement: " . $conn->error);
+                echo "An error occurred while updating your account. Please try again.";
+            }
         }
     } else {
         die("Error preparing email check statement: " . $conn->error);
     }
 
-    // Update the credentials_tb with the credential_key
-    $sql_update_credential = "UPDATE credentials_tb SET credential_key = ? WHERE user_id = ?";
-    $stmt_update_credential = $conn->prepare($sql_update_credential);
-    if ($stmt_update_credential) {
-        $stmt_update_credential->bind_param("si", $credential_value, $user_id);
-        if ($stmt_update_credential->execute()) {
-            // Update the users_tb with the password, email, and change the account status
-            $sql_update_user = "UPDATE users_tb SET password_hash = ?, email = ?, account_status = 'registered no login' WHERE user_id = ?";
-            $stmt_update_user = $conn->prepare($sql_update_user);
-            if ($stmt_update_user) {
-                $stmt_update_user->bind_param("ssi", $password_hash, $credential_value, $user_id);
-                if ($stmt_update_user->execute()) {
-                    $success = true;
-                    // Redirect to signedup-login.php with user_id
-                    header("Location: signedup-login.php?id=$user_id");
-                    exit();
-                } else {
-                    error_log("Error executing user update statement: " . $stmt_update_user->error);
-                    echo "An error occurred while updating your account. Please try again.";
-                }
-                $stmt_update_user->close();
-            } else {
-                error_log("Error preparing user update statement: " . $conn->error);
-                echo "An error occurred while updating your account. Please try again.";
-            }
-        } else {
-            error_log("Error executing credential update statement: " . $stmt_update_credential->error);
-            echo "An error occurred while updating your account. Please try again.";
-        }
-        $stmt_update_credential->close();
-    } else {
-        error_log("Error preparing credential update statement: " . $conn->error);
-        echo "An error occurred while updating your account. Please try again.";
-    }
-
     $conn->close();
-} else {
-    echo "Invalid request method or missing user ID.";
 }
 ?>
 
@@ -187,6 +182,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <label for="credential_value"><span data-lang-id="004-your">Your</span> <?php echo $credential_type; ?> please:</label><br>
         <input type="text" id="credential_value" name="credential_value" required>
         <p class="form-caption" data-lang-id="006-email-subcaption">💌 This is the way we will contact you to confirm your account</p>
+        <div id="duplicate-email-error" class="form-field-error" style="margin-top:10px;"  data-lang-id="010b-duplicate-email-error">🚧 Whoops! Looks like that e-mail address is already being used by a Buwana Account. Please choose another.</div>
+
     </div>
 
     <div class="form-item" id="set-password" style="display: none;">

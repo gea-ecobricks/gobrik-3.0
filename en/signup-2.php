@@ -144,75 +144,154 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <!--FOOTER STARTS HERE-->
     <?php require_once ("../footer-2024.php"); ?>
 
-  <script>
-        $(document).ready(function() {
-            // Live email checking
-            $('#credential_value').on('blur', function() {
-                var email = $(this).val();
-                if (email) {
-                    $('#loading-spinner').removeClass('green red').show();
-                    $.ajax({
-                        url: 'check_email.php',
-                        type: 'POST',
-                        data: {credential_value: email},
-                        success: function(response) {
-                            $('#loading-spinner').hide();
-                            var res = JSON.parse(response);
-                            if (res.error === 'duplicate_email') {
-                                $('#duplicate-email-error').show();
-                                $('#loading-spinner').removeClass('green').addClass('red').show();
-                            } else if (res.error === 'duplicate_gobrik_email') {
-                                $('#duplicate-gobrik-email').show();
-                                $('#loading-spinner').removeClass('green').addClass('red').show();
-                            } else {
-                                $('#duplicate-email-error').hide();
-                                $('#duplicate-gobrik-email').hide();
-                                $('#loading-spinner').removeClass('red').addClass('green').show();
-                            }
-                        },
-                        error: function() {
-                            $('#loading-spinner').hide();
-                            alert('An error occurred while checking the email. Please try again.');
-                        }
-                    });
+
+<script>
+
+    //VALIDATE THE FIELDS
+
+
+$(document).ready(function() {
+    // Elements
+    const credentialField = document.getElementById('credential_value');
+    const passwordField = document.getElementById('password_hash');
+    const confirmPasswordField = document.getElementById('confirm_password');
+    const humanCheckField = document.getElementById('human_check');
+    const termsCheckbox = document.getElementById('terms');
+    const submitButton = document.getElementById('submit-button');
+    const confirmPasswordSection = document.getElementById('confirm-password-section');
+    const humanCheckSection = document.getElementById('human-check-section');
+    const submitSection = document.getElementById('submit-section');
+    const setPasswordSection = document.getElementById('set-password');
+    const makerErrorInvalid = document.getElementById('maker-error-invalid');
+    const duplicateEmailError = $('#duplicate-email-error');
+    const duplicateGobrikEmail = $('#duplicate-gobrik-email');
+    const loadingSpinner = $('#loading-spinner');
+
+    // Initially show only the credential field
+    setPasswordSection.style.display = 'none';
+    confirmPasswordSection.style.display = 'none';
+    humanCheckSection.style.display = 'none';
+    submitSection.style.display = 'none';
+
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const isDuplicateErrorVisible = duplicateEmailError.is(':visible');
+        return emailRegex.test(email) && !isDuplicateErrorVisible;
+    }
+
+    // Live email checking
+    $('#credential_value').on('blur', function() {
+        var email = $(this).val();
+        if (email) {
+            loadingSpinner.removeClass('green red').show();
+            $.ajax({
+                url: 'check_email.php',
+                type: 'POST',
+                data: { credential_value: email },
+                success: function(response) {
+                    loadingSpinner.hide();
+                    var res = JSON.parse(response);
+                    if (res.error === 'duplicate_email') {
+                        duplicateEmailError.show();
+                        duplicateGobrikEmail.hide();
+                        loadingSpinner.removeClass('green').addClass('red').show();
+                        setPasswordSection.style.display = 'none';
+                    } else if (res.error === 'duplicate_gobrik_email') {
+                        duplicateGobrikEmail.show();
+                        duplicateEmailError.hide();
+                        loadingSpinner.removeClass('green').addClass('red').show();
+                        setPasswordSection.style.display = 'block';
+                    } else {
+                        duplicateEmailError.hide();
+                        duplicateGobrikEmail.hide();
+                        loadingSpinner.removeClass('red').addClass('green').show();
+                        setPasswordSection.style.display = 'block';
+                    }
+                },
+                error: function() {
+                    loadingSpinner.hide();
+                    alert('An error occurred while checking the email. Please try again.');
                 }
             });
+        }
+    });
 
-            // Form submission
-            $('#password-confirm-form').on('submit', function(e) {
-                e.preventDefault(); // Prevent the form from submitting normally
-                $('#loading-spinner').removeClass('green red').show();
+    // Show confirm password field when password length is at least 6 characters
+    passwordField.addEventListener('input', function() {
+        if (passwordField.value.length >= 6) {
+            confirmPasswordSection.style.display = 'block';
+        } else {
+            confirmPasswordSection.style.display = 'none';
+            humanCheckSection.style.display = 'none';
+            submitSection.style.display = 'none';
+        }
+    });
 
-                $.ajax({
-                    url: 'signup_process.php?id=<?php echo htmlspecialchars($user_id); ?>',
-                    type: 'POST',
-                    data: $(this).serialize(), // Serialize the form data
-                    success: function(response) {
-                        $('#loading-spinner').hide();
-                        var res = JSON.parse(response);
-                        if (res.success) {
-                            window.location.href = 'signedup-login.php?id=<?php echo htmlspecialchars($user_id); ?>';
-                        } else if (res.error === 'duplicate_email') {
-                            $('#duplicate-email-error').show();
-                            $('#loading-spinner').removeClass('green').addClass('red').show();
-                        } else if (res.error === 'duplicate_gobrik_email') {
-                            $('#duplicate-gobrik-email').show();
-                            $('#loading-spinner').removeClass('green').addClass('red').show();
-                        } else {
-                            alert('An unexpected error occurred. Please try again.');
-                        }
-                    },
-                    error: function() {
-                        $('#loading-spinner').hide();
-                        alert('An error occurred while processing the form. Please try again.');
-                    }
-                });
-            });
+    // Show human check section and submit button when passwords match
+    confirmPasswordField.addEventListener('input', function() {
+        if (passwordField.value === confirmPasswordField.value) {
+            makerErrorInvalid.style.display = 'none';
+            humanCheckSection.style.display = 'block';
+            submitSection.style.display = 'block';
+        } else {
+            makerErrorInvalid.style.display = 'block';
+            humanCheckSection.style.display = 'none';
+            submitSection.style.display = 'none';
+        }
+    });
+
+    // Activate submit button when "ecobrick" is typed and terms checkbox is checked
+    function updateSubmitButtonState() {
+        if (humanCheckField.value.toLowerCase() === 'ecobrick' && termsCheckbox.checked) {
+            submitButton.classList.remove('disabled');
+            submitButton.classList.add('enabled');
+            submitButton.disabled = false;
+        } else {
+            submitButton.classList.remove('enabled');
+            submitButton.classList.add('disabled');
+            submitButton.disabled = true;
+        }
+    }
+
+    humanCheckField.addEventListener('input', updateSubmitButtonState);
+    termsCheckbox.addEventListener('change', updateSubmitButtonState);
+
+    // Form submission
+    $('#password-confirm-form').on('submit', function(e) {
+        e.preventDefault(); // Prevent the form from submitting normally
+        loadingSpinner.removeClass('green red').show();
+
+        $.ajax({
+            url: 'signup_process.php?id=<?php echo htmlspecialchars($user_id); ?>',
+            type: 'POST',
+            data: $(this).serialize(), // Serialize the form data
+            success: function(response) {
+                loadingSpinner.hide();
+                var res = JSON.parse(response);
+                if (res.success) {
+                    window.location.href = 'signedup-login.php?id=<?php echo htmlspecialchars($user_id); ?>';
+                } else if (res.error === 'duplicate_email') {
+                    duplicateEmailError.show();
+                    duplicateGobrikEmail.hide();
+                    loadingSpinner.removeClass('green').addClass('red').show();
+                } else if (res.error === 'duplicate_gobrik_email') {
+                    duplicateGobrikEmail.show();
+                    duplicateEmailError.hide();
+                    loadingSpinner.removeClass('green').addClass('red').show();
+                } else {
+                    alert('An unexpected error occurred. Please try again.');
+                }
+            },
+            error: function() {
+                loadingSpinner.hide();
+                alert('An error occurred while processing the form. Please try again.');
+            }
         });
-    </script>
+    });
+});
 
 
-    <script type="text/javascript">
+/*SHOW MODALS*/
 
 
 function showModalInfo(type) {
@@ -274,82 +353,6 @@ function showModalInfo(type) {
 
 
 
-    document.addEventListener('DOMContentLoaded', function() {
-    const credentialField = document.getElementById('credential_value');
-    const passwordField = document.getElementById('password_hash');
-    const confirmPasswordField = document.getElementById('confirm_password');
-    const humanCheckField = document.getElementById('human_check');
-    const termsCheckbox = document.getElementById('terms');
-    const submitButton = document.getElementById('submit-button');
-    const confirmPasswordSection = document.getElementById('confirm-password-section');
-    const humanCheckSection = document.getElementById('human-check-section');
-    const submitSection = document.getElementById('submit-section');
-    const setPasswordSection = document.getElementById('set-password');
-    const makerErrorInvalid = document.getElementById('maker-error-invalid');
-
-    // Initially show only the credential field
-    setPasswordSection.style.display = 'none';
-    confirmPasswordSection.style.display = 'none';
-    humanCheckSection.style.display = 'none';
-    submitSection.style.display = 'none';
-
-    function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const isDuplicateErrorVisible = $('#duplicate-email-error').is(':visible');
-    return emailRegex.test(email) && !isDuplicateErrorVisible;
-}
-    // Show password field when a valid email is entered
-    credentialField.addEventListener('input', function() {
-        if (isValidEmail(credentialField.value)) {
-            setPasswordSection.style.display = 'block';
-        } else {
-            setPasswordSection.style.display = 'none';
-            confirmPasswordSection.style.display = 'none';
-            humanCheckSection.style.display = 'none';
-            submitSection.style.display = 'none';
-        }
-    });
-
-    // Show confirm password field when password length is at least 6 characters
-    passwordField.addEventListener('input', function() {
-        if (passwordField.value.length >= 6) {
-            confirmPasswordSection.style.display = 'block';
-        } else {
-            confirmPasswordSection.style.display = 'none';
-            humanCheckSection.style.display = 'none';
-            submitSection.style.display = 'none';
-        }
-    });
-
-    // Show human check section and submit button when passwords match
-    confirmPasswordField.addEventListener('input', function() {
-        if (passwordField.value === confirmPasswordField.value) {
-            makerErrorInvalid.style.display = 'none';
-            humanCheckSection.style.display = 'block';
-            submitSection.style.display = 'block';
-        } else {
-            makerErrorInvalid.style.display = 'block';
-            humanCheckSection.style.display = 'none';
-            submitSection.style.display = 'none';
-        }
-    });
-
-    // Activate submit button when "ecobrick" is typed and terms checkbox is checked
-    function updateSubmitButtonState() {
-        if (humanCheckField.value.toLowerCase() === 'ecobrick' && termsCheckbox.checked) {
-            submitButton.classList.remove('disabled');
-            submitButton.classList.add('enabled');
-            submitButton.disabled = false;
-        } else {
-            submitButton.classList.remove('enabled');
-            submitButton.classList.add('disabled');
-            submitButton.disabled = true;
-        }
-    }
-
-    humanCheckField.addEventListener('input', updateSubmitButtonState);
-    termsCheckbox.addEventListener('change', updateSubmitButtonState);
-});
 
 </script>
 

@@ -1,18 +1,4 @@
 <?php
-$directory = basename(dirname($_SERVER['SCRIPT_NAME']));
-$lang = $directory;
-$version = '0.374';
-$page = 'signup';
-$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
-
-echo '<!DOCTYPE html>
-<html lang="' . $lang . '">
-<head>
-<meta charset="UTF-8">
-';
-?>
-
-<?php
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);

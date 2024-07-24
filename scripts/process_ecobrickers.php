@@ -112,11 +112,11 @@
         $filters = [
             'match' => 'and',
             'rules' => [
-                [
-                    'field' => 'field_2525',
-                    'operator' => 'is',
-                    'value' => 'no'
-                ],
+//                 [
+//                     'field' => 'field_2525',
+//                     'operator' => 'is',
+//                     'value' => 'no'
+//                 ],
                 [
                     'field' => 'field_737',
                     'operator' => 'is',

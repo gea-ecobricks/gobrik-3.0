@@ -93,9 +93,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <form id="password-confirm-form" method="post" action="signup_process.php?id=<?php echo htmlspecialchars($user_id); ?>">
                 <div class="form-item" id="credential-section">
                     <label for="credential_value"><span data-lang-id="004-your">Your</span> <?php echo $credential_type; ?> please:</label><br>
-                    <input type="text" id="credential_value" name="credential_value" required>
-                    <p class="form-caption" data-lang-id="006-email-subcaption">💌 This is the way we will contact you to confirm your account</p>
                     <div id="duplicate-email-error" class="form-field-error" style="margin-top:10px;" data-lang-id="010-pass-error-no-match">🚧 Whoops! Looks like that e-mail address is already being used by a Buwana Account. Please choose another.</div>
+
+                    <input type="text" id="credential_value" name="credential_value" required style="padding-left:45px;" aria-label="your email">
+                    <p class="form-caption" data-lang-id="006-email-subcaption">💌 This is the way we will contact you to confirm your account</p>
+                    <div id="loading-spinner" class="spinner" style="display: none;"></div>
                 </div>
 
                 <div class="form-item" id="set-password" style="display: none;">
@@ -144,17 +146,23 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             $('#credential_value').on('blur', function() {
                 var email = $(this).val();
                 if (email) {
+                    $('#loading-spinner').show();
                     $.ajax({
                         url: 'check_email.php',
                         type: 'POST',
                         data: {credential_value: email},
                         success: function(response) {
+                            $('#loading-spinner').hide();
                             var res = JSON.parse(response);
                             if (res.error === 'duplicate_email') {
                                 $('#duplicate-email-error').show();
                             } else {
                                 $('#duplicate-email-error').hide();
                             }
+                        },
+                        error: function() {
+                            $('#loading-spinner').hide();
+                            alert('An error occurred while checking the email. Please try again.');
                         }
                     });
                 }
@@ -163,12 +171,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             // Form submission
             $('#password-confirm-form').on('submit', function(e) {
                 e.preventDefault(); // Prevent the form from submitting normally
+                $('#loading-spinner').show();
 
                 $.ajax({
                     url: 'signup_process.php?id=<?php echo htmlspecialchars($user_id); ?>',
                     type: 'POST',
                     data: $(this).serialize(), // Serialize the form data
                     success: function(response) {
+                        $('#loading-spinner').hide();
                         var res = JSON.parse(response);
                         if (res.success) {
                             window.location.href = 'signedup-login.php?id=<?php echo htmlspecialchars($user_id); ?>';
@@ -177,6 +187,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                         } else {
                             alert('An unexpected error occurred. Please try again.');
                         }
+                    },
+                    error: function() {
+                        $('#loading-spinner').hide();
+                        alert('An error occurred while processing the form. Please try again.');
                     }
                 });
             });

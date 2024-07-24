@@ -93,74 +93,7 @@
     </div>
 </div>
 
-
-<!--PART 3-->
-<h2>Retrieve Ecobricker Data from Knack</h2>
-<form id="knack-search-form" method="POST" action="">
-    <label for="email">Enter Ecobricker Email Address:</label>
-    <input type="email" id="email" name="email" required>
-    <button type="submit">Retrieve</button>
-</form>
-
-<div id="knack-response">
-    <?php
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['email'])) {
-        $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-
-        $api_key = "360aa2b0-af19-11e8-bd38-41d9fc3da0cf";
-        $app_id = "5b8c28c2a1152679c209ce0c";
-        $object_id = "object_14";
-
-        $filters = [
-            'match' => 'and',
-            'rules' => [
-                [
-                    'field' => 'field_103',
-                    'operator' => 'is',
-                    'value' => $email
-                ]
-            ]
-        ];
-
-        $url = "https://api.knack.com/v1/objects/$object_id/records?filters=" . urlencode(json_encode($filters));
-
-        // Initialize cURL session
-        $ch = curl_init($url);
-
-        // Set cURL options
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            "X-Knack-Application-ID: $app_id",
-            "X-Knack-REST-API-Key: $api_key",
-            "Content-Type: application/json"
-        ]);
-
-        // Execute cURL request
-        $response = curl_exec($ch);
-
-        // Check for cURL errors
-        if ($response === false) {
-            echo '<p>Error retrieving data: ' . curl_error($ch) . '</p>';
-        } else {
-            // Log the entire JSON response to the console
-            echo "<script>console.log('Knack API Response: " . addslashes($response) . "');</script>";
-
-            $json_response = json_decode($response, true);
-            if (!empty($json_response['records'])) {
-                foreach ($json_response['records'] as $record) {
-                    $record_id = $record['id'];
-                    $first_name = $record['field_198'];
-                    $email = $record['field_103'];
-                    $connected_ecobricks = $record['field_335'];
-                    $ecobricker_id = $record['field_261'];
-
-                    echo "<p><strong>Record ID:</strong> " . htmlspecialchars($record_id) . "</p>";
-                    echo "<p><strong>First Name:</strong> " . htmlspecialchars($first_name) . "</p>";
-                    echo "<p><strong>Email:</strong> " . htmlspecialchars($email) . "</p>";
-                    echo "<p><strong>Connected Ecobricks:</strong> " . htmlspecialchars($connected_ecobricks) . "</p>";
-                    echo "<p><strong>Ecobricker ID:</strong> " . htmlspecialchars($ecobricker_id) . "</p>";
-
-                    <!--PART 4-->
+<!--PART 4-->
 <h2>Retrieve Ecobrick Data from Knack</h2>
 <form id="knack-search-form" method="POST" action="">
     <label for="email">Enter Ecobricker Email Address:</label>

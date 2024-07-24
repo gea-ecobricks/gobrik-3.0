@@ -15,35 +15,29 @@ echo '<!DOCTYPE html>
 
 
 
-
 <?php
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$success = false;
+$response = ['success' => false];
 $user_id = $_GET['id'] ?? null;
-$duplicate_email_error = false;
 
 include '../buwana_env.php'; // This file provides the database server, user, dbname information to access the server
 
 // PART 1: Check if the user is already logged in
 if (isset($_SESSION['user_id'])) {
-    echo "<script>
-        alert('Looks like you already have an account and are logged in! Let\'s take you to your dashboard.');
-        window.location.href = 'dashboard.php';
-    </script>";
+    $response['error'] = 'logged_in';
+    echo json_encode($response);
     exit();
 }
 
-// Initialize variables
 $credential_type = '';
 $credential_key = '';
 $first_name = '';
 $account_status = '';
 
 if (isset($user_id)) {
-    // Look up the credential_type and credential_key from credentials_tb
     $sql_lookup_credential = "SELECT credential_type, credential_key FROM credentials_tb WHERE user_id = ?";
     $stmt_lookup_credential = $conn->prepare($sql_lookup_credential);
     if ($stmt_lookup_credential) {
@@ -53,10 +47,11 @@ if (isset($user_id)) {
         $stmt_lookup_credential->fetch();
         $stmt_lookup_credential->close();
     } else {
-        die("Error preparing statement for credentials_tb: " . $conn->error);
+        $response['error'] = 'db_error';
+        echo json_encode($response);
+        exit();
     }
 
-    // Look up the first_name and account_status from users_tb
     $sql_lookup_user = "SELECT first_name, account_status FROM users_tb WHERE user_id = ?";
     $stmt_lookup_user = $conn->prepare($sql_lookup_user);
     if ($stmt_lookup_user) {
@@ -66,30 +61,26 @@ if (isset($user_id)) {
         $stmt_lookup_user->fetch();
         $stmt_lookup_user->close();
     } else {
-        die("Error preparing statement for users_tb: " . $conn->error);
+        $response['error'] = 'db_error';
+        echo json_encode($response);
+        exit();
     }
 
-    // Sanitize output
     $credential_type = htmlspecialchars($credential_type);
     $first_name = htmlspecialchars($first_name);
 
-    // Check the account_status
     if ($account_status !== 'name set only') {
-        echo "<script>
-            alert('Sorry! It looks like the credentials for this account have already been set. Use your account management panel to change your password.');
-            window.location.href='update-account.php';
-        </script>";
+        $response['error'] = 'account_status';
+        echo json_encode($response);
         exit();
     }
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
-    // Retrieve and sanitize form data
     $credential_value = htmlspecialchars($_POST['credential_value']);
     $password = $_POST['password_hash'];
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-    // CHECKS: Check if the email is already used
     $sql_check_email = "SELECT COUNT(*) FROM users_tb WHERE email = ?";
     $stmt_check_email = $conn->prepare($sql_check_email);
     if ($stmt_check_email) {
@@ -100,55 +91,64 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
         $stmt_check_email->close();
 
         if ($email_count > 0) {
-            $duplicate_email_error = true;
+            $response['error'] = 'duplicate_email';
+            echo json_encode($response);
+            exit();
         } else {
-            // Update the credentials_tb with the credential_key
             $sql_update_credential = "UPDATE credentials_tb SET credential_key = ? WHERE user_id = ?";
             $stmt_update_credential = $conn->prepare($sql_update_credential);
             if ($stmt_update_credential) {
                 $stmt_update_credential->bind_param("si", $credential_value, $user_id);
                 if ($stmt_update_credential->execute()) {
-                    // Update the users_tb with the password, email, and change the account status
                     $sql_update_user = "UPDATE users_tb SET password_hash = ?, email = ?, account_status = 'registered no login' WHERE user_id = ?";
                     $stmt_update_user = $conn->prepare($sql_update_user);
                     if ($stmt_update_user) {
                         $stmt_update_user->bind_param("ssi", $password_hash, $credential_value, $user_id);
                         if ($stmt_update_user->execute()) {
-                            $success = true;
-                            // Redirect to signedup-login.php with user_id
-                            header("Location: signedup-login.php?id=$user_id");
+                            $response['success'] = true;
+                            echo json_encode($response);
                             exit();
                         } else {
-                            error_log("Error executing user update statement: " . $stmt_update_user->error);
-                            echo "An error occurred while updating your account. Please try again.";
+                            $response['error'] = 'db_error';
+                            echo json_encode($response);
+                            exit();
                         }
                         $stmt_update_user->close();
                     } else {
-                        error_log("Error preparing user update statement: " . $conn->error);
-                        echo "An error occurred while updating your account. Please try again.";
+                        $response['error'] = 'db_error';
+                        echo json_encode($response);
+                        exit();
                     }
                 } else {
-                    error_log("Error executing credential update statement: " . $stmt_update_credential->error);
-                    echo "An error occurred while updating your account. Please try again.";
+                    $response['error'] = 'db_error';
+                    echo json_encode($response);
+                    exit();
                 }
                 $stmt_update_credential->close();
             } else {
-                error_log("Error preparing credential update statement: " . $conn->error);
-                echo "An error occurred while updating your account. Please try again.";
+                $response['error'] = 'db_error';
+                echo json_encode($response);
+                exit();
             }
         }
     } else {
-        die("Error preparing email check statement: " . $conn->error);
+        $response['error'] = 'db_error';
+        echo json_encode($response);
+        exit();
     }
 
     $conn->close();
+} else {
+    $response['error'] = 'invalid_request';
+    echo json_encode($response);
+    exit();
 }
 ?>
 
 
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<title>Register Email | GoBrik 3.0</title>
 
 <!--
 GoBrik.com site version 3.0
@@ -185,7 +185,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <label for="credential_value"><span data-lang-id="004-your">Your</span> <?php echo $credential_type; ?> please:</label><br>
             <input type="text" id="credential_value" name="credential_value" required>
             <p class="form-caption" data-lang-id="006-email-subcaption">💌 This is the way we will contact you to confirm your account</p>
-            <div id="duplicate-email-error" class="form-field-error" style="margin-top:10px; <?php if ($duplicate_email_error) echo 'display: block;'; ?>" data-lang-id="010-duplicate-error">🚧 Whoops! Looks like that e-mail address is already being used by a Buwana Account. Please choose another.</div>
+                        <div id="duplicate-email-error" class="form-field-error" style="margin-top:10px;" data-lang-id="010-pass-error-no-match">🚧 Whoops! Looks like that e-mail address is already being used by a Buwana Account. Please choose another.</div>
 
     </div>
 
@@ -241,6 +241,31 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 
+    <script>
+        $(document).ready(function() {
+            $('#password-confirm-form').on('submit', function(e) {
+                e.preventDefault(); // Prevent the form from submitting normally
+
+                $.ajax({
+                    url: '<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?id=' . htmlspecialchars($user_id); ?>',
+                    type: 'POST',
+                    data: $(this).serialize(), // Serialize the form data
+                    success: function(response) {
+                        // Parse JSON response
+                        var res = JSON.parse(response);
+
+                        if (res.success) {
+                            window.location.href = 'signedup-login.php?id=<?php echo htmlspecialchars($user_id); ?>';
+                        } else if (res.error === 'duplicate_email') {
+                            $('#duplicate-email-error').show();
+                        } else {
+                            alert('An unexpected error occurred. Please try again.');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 
     <script type="text/javascript">
 

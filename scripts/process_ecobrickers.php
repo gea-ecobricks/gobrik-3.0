@@ -159,6 +159,55 @@
                     echo "<p><strong>Email:</strong> " . htmlspecialchars($email) . "</p>";
                     echo "<p><strong>Connected Ecobricks:</strong> " . htmlspecialchars($connected_ecobricks) . "</p>";
                     echo "<p><strong>Ecobricker ID:</strong> " . htmlspecialchars($ecobricker_id) . "</p>";
+
+                    // Part 4: Make another API call to search ecobrick object
+                    $object_id_2 = "object_2";
+                    $filters_2 = [
+                        'match' => 'and',
+                        'rules' => [
+                            [
+                                'field' => 'field_73',
+                                'operator' => 'is',
+                                'value' => $record_id
+                            ]
+                        ]
+                    ];
+
+                    $url_2 = "https://api.knack.com/v1/objects/$object_id_2/records?filters=" . urlencode(json_encode($filters_2));
+
+                    // Initialize cURL session for second request
+                    $ch_2 = curl_init($url_2);
+
+                    // Set cURL options for second request
+                    curl_setopt($ch_2, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch_2, CURLOPT_HTTPHEADER, [
+                        "X-Knack-Application-ID: $app_id",
+                        "X-Knack-REST-API-Key: $api_key",
+                        "Content-Type: application/json"
+                    ]);
+
+                    // Execute cURL request for second request
+                    $response_2 = curl_exec($ch_2);
+
+                    // Check for cURL errors
+                    if ($response_2 === false) {
+                        echo '<p>Error retrieving ecobrick data: ' . curl_error($ch_2) . '</p>';
+                    } else {
+                        // Log the entire JSON response to the console
+                        echo "<script>console.log('Knack API Response for Ecobricks: " . addslashes($response_2) . "');</script>";
+
+                        $json_response_2 = json_decode($response_2, true);
+                        if (!empty($json_response_2['records'])) {
+                            $field_73_values = [];
+                            foreach ($json_response_2['records'] as $record_2) {
+                                $field_73_values[] = $record_2['field_73'];
+                            }
+                            echo "<p><strong>Ecobrick Field 73 Values:</strong> " . htmlspecialchars(implode(", ", $field_73_values)) . "</p>";
+                        } else {
+                            echo '<p>No ecobricks found for the provided Record ID.</p>';
+                        }
+                    }
+                    curl_close($ch_2);
                 }
             } else {
                 echo '<p>No ecobricker found with the provided email and criteria.</p>';
@@ -168,6 +217,8 @@
     }
     ?>
 </div>
+</body>
+</html>
 
 
 

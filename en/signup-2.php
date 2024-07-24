@@ -12,28 +12,35 @@ echo '<!DOCTYPE html>
 ';
 ?>
 
-
-
 <?php
+session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 $success = false;
 $user_id = $_GET['id'] ?? null;
 
-include '../buwana_env.php'; // this file provides the database server, user, dbname information to access the server
+include '../buwana_env.php'; // This file provides the database server, user, dbname information to access the server
 
-// Look up these fields from credentials_tb and users_tb using the user_id
+// PART 1: Check if the user is already logged in
+if (isset($_SESSION['user_id'])) {
+    echo "<script>
+        alert('Looks like you already have an account and are logged in! Let\'s take you to your dashboard.');
+        window.location.href = 'dashboard.php';
+    </script>";
+    exit();
+}
+
+// Initialize variables
 $credential_type = '';
 $credential_key = '';
 $first_name = '';
 $account_status = '';
 
 if (isset($user_id)) {
-    // First, look up the credential_type and credential_key from credentials_tb
+    // Look up the credential_type and credential_key from credentials_tb
     $sql_lookup_credential = "SELECT credential_type, credential_key FROM credentials_tb WHERE user_id = ?";
     $stmt_lookup_credential = $conn->prepare($sql_lookup_credential);
-
     if ($stmt_lookup_credential) {
         $stmt_lookup_credential->bind_param("i", $user_id);
         $stmt_lookup_credential->execute();
@@ -44,10 +51,9 @@ if (isset($user_id)) {
         die("Error preparing statement for credentials_tb: " . $conn->error);
     }
 
-    // Then, look up the first_name and account_status from users_tb
+    // Look up the first_name and account_status from users_tb
     $sql_lookup_user = "SELECT first_name, account_status FROM users_tb WHERE user_id = ?";
     $stmt_lookup_user = $conn->prepare($sql_lookup_user);
-
     if ($stmt_lookup_user) {
         $stmt_lookup_user->bind_param("i", $user_id);
         $stmt_lookup_user->execute();
@@ -58,12 +64,16 @@ if (isset($user_id)) {
         die("Error preparing statement for users_tb: " . $conn->error);
     }
 
-    $credential_type = htmlspecialchars($credential_type); // Sanitize to prevent XSS
-    $first_name = htmlspecialchars($first_name); // Sanitize to prevent XSS
+    // Sanitize output
+    $credential_type = htmlspecialchars($credential_type);
+    $first_name = htmlspecialchars($first_name);
 
     // Check the account_status
     if ($account_status !== 'name set only') {
-        echo "<script>alert('Sorry! It looks like the credentials for this account have already been set. Use your account management panel to change your password.'); window.location.href='update-account.php';</script>";
+        echo "<script>
+            alert('Sorry! It looks like the credentials for this account have already been set. Use your account management panel to change your password.');
+            window.location.href='update-account.php';
+        </script>";
         exit();
     }
 }
@@ -71,41 +81,63 @@ if (isset($user_id)) {
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
     // Retrieve and sanitize form data
     $credential_value = htmlspecialchars($_POST['credential_value']);
-    $password_hash = password_hash($_POST['password_hash'], PASSWORD_DEFAULT);
+    $password = $_POST['password_hash'];
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+    // CHECKS: Check if the email is already used
+    $sql_check_email = "SELECT COUNT(*) FROM users_tb WHERE email = ?";
+    $stmt_check_email = $conn->prepare($sql_check_email);
+    if ($stmt_check_email) {
+        $stmt_check_email->bind_param("s", $credential_value);
+        $stmt_check_email->execute();
+        $stmt_check_email->bind_result($email_count);
+        $stmt_check_email->fetch();
+        $stmt_check_email->close();
+
+        if ($email_count > 0) {
+            echo "<script>
+                alert('Whoops! Looks like that e-mail address is already being used by a Buwana Account. Please choose another.');
+                window.history.back();
+            </script>";
+            exit();
+        }
+    } else {
+        die("Error preparing email check statement: " . $conn->error);
+    }
 
     // Update the credentials_tb with the credential_key
     $sql_update_credential = "UPDATE credentials_tb SET credential_key = ? WHERE user_id = ?";
     $stmt_update_credential = $conn->prepare($sql_update_credential);
-
     if ($stmt_update_credential) {
         $stmt_update_credential->bind_param("si", $credential_value, $user_id);
-
         if ($stmt_update_credential->execute()) {
             // Update the users_tb with the password, email, and change the account status
             $sql_update_user = "UPDATE users_tb SET password_hash = ?, email = ?, account_status = 'registered no login' WHERE user_id = ?";
             $stmt_update_user = $conn->prepare($sql_update_user);
-
             if ($stmt_update_user) {
                 $stmt_update_user->bind_param("ssi", $password_hash, $credential_value, $user_id);
-
                 if ($stmt_update_user->execute()) {
                     $success = true;
                     // Redirect to signedup-login.php with user_id
                     header("Location: signedup-login.php?id=$user_id");
                     exit();
                 } else {
-                    echo "Error: " . $stmt_update_user->error;
+                    error_log("Error executing user update statement: " . $stmt_update_user->error);
+                    echo "An error occurred while updating your account. Please try again.";
                 }
                 $stmt_update_user->close();
             } else {
-                echo "Error preparing statement for users_tb: " . $conn->error;
+                error_log("Error preparing user update statement: " . $conn->error);
+                echo "An error occurred while updating your account. Please try again.";
             }
         } else {
-            echo "Error: " . $stmt_update_credential->error;
+            error_log("Error executing credential update statement: " . $stmt_update_credential->error);
+            echo "An error occurred while updating your account. Please try again.";
         }
         $stmt_update_credential->close();
     } else {
-        echo "Error preparing statement for credentials_tb: " . $conn->error;
+        error_log("Error preparing credential update statement: " . $conn->error);
+        echo "An error occurred while updating your account. Please try again.";
     }
 
     $conn->close();

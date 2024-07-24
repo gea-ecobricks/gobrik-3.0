@@ -1,10 +1,20 @@
 <?php
+session_start();
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 include '../ecobricks_env.php';
 $conn->set_charset("utf8mb4");
+
+// LOG IN CHECK
+if (!isset($_SESSION['user_id'])) {
+    echo "<script>
+        alert('You must be logged in to log an ecobrick.');
+        window.location.href = 'login.php';
+    </script>";
+    exit();
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Function to set serial number and ecobrick_unique_id
@@ -110,6 +120,7 @@ echo '<!DOCTYPE html>
 <meta charset="UTF-8">
 ';
 ?>
+
 
 
     <?php require_once ("../includes/log-inc.php");?>

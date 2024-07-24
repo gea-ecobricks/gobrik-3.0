@@ -92,7 +92,7 @@
         </div>
     </div>
 </div>
-
+<!--PART 3-->
 <h2>Retrieve Ecobricker Data from Knack</h2>
 <form id="knack-search-form" method="POST" action="">
     <label for="email">Enter Ecobricker Email Address:</label>
@@ -112,11 +112,6 @@
         $filters = [
             'match' => 'and',
             'rules' => [
-//                 [
-//                     'field' => 'field_2525',
-//                     'operator' => 'is',
-//                     'value' => 'no'
-//                 ],
                 [
                     'field' => 'field_103',
                     'operator' => 'is',
@@ -147,7 +142,15 @@
         } else {
             $json_response = json_decode($response, true);
             if (!empty($json_response['records'])) {
-                echo '<pre>' . json_encode($json_response['records'], JSON_PRETTY_PRINT) . '</pre>';
+                foreach ($json_response['records'] as $record) {
+                    $first_name = $record['field_198'];
+                    $email = $record['field_103'];
+                    $connected_ecobricks = $record['field_335'];
+
+                    echo "<p><strong>First Name:</strong> " . htmlspecialchars($first_name) . "</p>";
+                    echo "<p><strong>Email:</strong> " . htmlspecialchars($email) . "</p>";
+                    echo "<p><strong>Connected Ecobricks:</strong> " . htmlspecialchars($connected_ecobricks) . "</p>";
+                }
             } else {
                 echo '<p>No ecobricker found with the provided email and criteria.</p>';
             }
@@ -156,6 +159,7 @@
     }
     ?>
 </div>
+
 
 </body>
 </html>

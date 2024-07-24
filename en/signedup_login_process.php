@@ -71,7 +71,7 @@ if ($stmt_lookup_password) {
                 $stmt_insert_ecobricker->close();
             } else {
                 error_log("Error preparing insert statement in ecobricks_gobrik_msql_db: " . $conn2->error);
-                header("Location: signedup-login.php?id=$user_id&error=db_error");
+                header("Location: signedup-login.php?id=$user_id&gobrikdberror=db_error");
                 exit();
             }
             $conn2->close(); // Close the second database connection
@@ -97,5 +97,3 @@ if ($stmt_lookup_password) {
 
 $conn->close();
 ?>
-
-

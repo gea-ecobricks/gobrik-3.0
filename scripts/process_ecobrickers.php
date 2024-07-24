@@ -92,9 +92,39 @@
         </div>
     </div>
 </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Retrieve Ecobricker and Ecobrick Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #ddd;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .gallery div {
+            background: white;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
 
-<!--PART 4-->
-<h2>Retrieve Ecobrick Data from Knack</h2>
+<!--PART 3-->
+<h2>Retrieve Ecobricker Data from Knack</h2>
 <form id="knack-search-form" method="POST" action="">
     <label for="email">Enter Ecobricker Email Address:</label>
     <input type="email" id="email" name="email" required>
@@ -147,7 +177,17 @@
             $json_response = json_decode($response, true);
             if (!empty($json_response['records'])) {
                 foreach ($json_response['records'] as $record) {
+                    $record_id = $record['id'];
                     $first_name = $record['field_198'];
+                    $email = $record['field_103'];
+                    $connected_ecobricks = $record['field_335'];
+                    $ecobricker_id = $record['field_261'];
+
+                    echo "<p><strong>Record ID:</strong> " . htmlspecialchars($record_id) . "</p>";
+                    echo "<p><strong>First Name:</strong> " . htmlspecialchars($first_name) . "</p>";
+                    echo "<p><strong>Email:</strong> " . htmlspecialchars($email) . "</p>";
+                    echo "<p><strong>Connected Ecobricks:</strong> " . htmlspecialchars($connected_ecobricks) . "</p>";
+                    echo "<p><strong>Ecobricker ID:</strong> " . htmlspecialchars($ecobricker_id) . "</p>";
 
                     // Part 4: Make another API call to search ecobrick object
                     $object_id_2 = "object_2";
@@ -157,7 +197,7 @@
                             [
                                 'field' => 'field_335',
                                 'operator' => 'contains',
-                                'value' => $first_name
+                                'value' => $record_id
                             ]
                         ]
                     ];
@@ -193,7 +233,7 @@
                             }
                             echo "<p><strong>Ecobrick Field 73 Values:</strong> " . htmlspecialchars(implode(", ", $field_73_values)) . "</p>";
                         } else {
-                            echo '<p>No ecobricks found for the provided First Name.</p>';
+                            echo '<p>No ecobricks found for the provided Record ID.</p>';
                         }
                     }
                     curl_close($ch_2);
@@ -206,7 +246,7 @@
     }
     ?>
 </div>
-
 </body>
 </html>
+
 

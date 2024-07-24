@@ -287,6 +287,16 @@ input[type="date"] {
   display: none;
 }
 
+.form-warning {
+  color: green;
+  margin-top: -15px;
+  margin-bottom: 20px;
+  padding-left: 10px;
+  padding-bottom: 15px;
+  display: none;
+}
+
+
 .form-container {
   width: 80%;
   background-color: var(--form-background);

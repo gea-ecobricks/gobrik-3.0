@@ -29,28 +29,12 @@
     </style>
 </head>
 <body>
-<div class="control-buttons">
-    <button class="button" onclick="stopProcessing()">Stop Processing</button>
-    <button class="button" onclick="startProcessing()">ᐉ Start Processing</button>
-</div>
-<p>We're migrating ecobricks from our old server to our new. Help us out by running this page on your computer or phone. Just keep it up. If it crashes or stops, reload the page. Thank you! 🙏</p>
 
-<script>
-    function stopProcessing() {
-        if (confirm('Are you sure you want to stop the processing?')) {
-            window.location.href = 'process_ecobrick.php?action=stop';
-        }
-    }
+<p>We're migrating ecobrickers from our old server to our new. Help us out by running this page on your computer or phone. Just keep it up. If it crashes or stops, reload the page. Thank you! 🙏</p>
 
-    function startProcessing() {
-        if (confirm('Are you sure you want to start the processing?')) {
-            window.location.href = 'process_ecobrick.php?action=start';
-        }
-    }
-</script>
 
-<div id="ecobrick-being-processed">
-    <div id="ecobricks-processed-gallery">
+<div id="ecobrickers-being-processed">
+    <div id="ecobrickers-processed-gallery">
         <?php
         ini_set('display_errors', 1);
         error_reporting(E_ALL);
@@ -126,7 +110,7 @@
                     'value' => 'no'
                 ],
                 [
-                    'field' => 'field_737',
+                    'field' => 'field_103',
                     'operator' => 'is',
                     'value' => $email
                 ]

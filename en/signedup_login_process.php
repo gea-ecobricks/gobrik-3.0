@@ -56,14 +56,21 @@ if ($stmt_lookup_password) {
                 header("Location: signedup-login.php?id=$user_id&error=db_connection_failed");
                 exit();
             }
+
             $sql_insert_ecobricker = "INSERT INTO load_ecobricker_trim (first_name, buwana_id, date_registered) VALUES (?, ?, NOW())";
             $stmt_insert_ecobricker = $conn2->prepare($sql_insert_ecobricker);
             if ($stmt_insert_ecobricker) {
                 $stmt_insert_ecobricker->bind_param("si", $first_name, $user_id);
-                $stmt_insert_ecobricker->execute();
+                if ($stmt_insert_ecobricker->execute()) {
+                    error_log("New user inserted into load_ecobricker_trim: $first_name, $user_id");
+                } else {
+                    error_log("Error executing insert statement in ecobricks_gobrik_msql_db: " . $stmt_insert_ecobricker->error);
+                    header("Location: signedup-login.php?id=$user_id&error=db_insert_failed");
+                    exit();
+                }
                 $stmt_insert_ecobricker->close();
             } else {
-                error_log("Error preparing statement in ecobricks_gobrik_msql_db: " . $conn2->error);
+                error_log("Error preparing insert statement in ecobricks_gobrik_msql_db: " . $conn2->error);
                 header("Location: signedup-login.php?id=$user_id&error=db_error");
                 exit();
             }

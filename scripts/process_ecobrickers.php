@@ -107,7 +107,7 @@
                 [
                     'field' => 'field_2525',
                     'operator' => 'is',
-                    'value' => 'no'
+                    'value' => ''
                 ],
                 [
                     'field' => 'field_103',

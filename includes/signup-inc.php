@@ -421,7 +421,7 @@ input[type="date"] {
 .input-container {
     position: relative;
     display: inline-block;
-    width: 100%
+    width: 100%;
     z-index: 10;
 }
 

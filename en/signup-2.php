@@ -142,62 +142,66 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <!--FOOTER STARTS HERE-->
     <?php require_once ("../footer-2024.php"); ?>
 
-     <script>
-        $(document).ready(function() {
-            // Live email checking
-            $('#credential_value').on('blur', function() {
-                var email = $(this).val();
-                if (email) {
-                    $('#loading-spinner').show();
-                    $.ajax({
-                        url: 'check_email.php',
-                        type: 'POST',
-                        data: {credential_value: email},
-                        success: function(response) {
-                            $('#loading-spinner').hide();
-                            var res = JSON.parse(response);
-                            if (res.error === 'duplicate_email') {
-                                $('#duplicate-email-error').show();
-                            } else {
-                                $('#duplicate-email-error').hide();
-                            }
-                        },
-                        error: function() {
-                            $('#loading-spinner').hide();
-                            alert('An error occurred while checking the email. Please try again.');
-                        }
-                    });
-                }
-            });
-
-            // Form submission
-            $('#password-confirm-form').on('submit', function(e) {
-                e.preventDefault(); // Prevent the form from submitting normally
-                $('#loading-spinner').show();
-
+    <script>
+    $(document).ready(function() {
+        // Live email checking
+        $('#credential_value').on('blur', function() {
+            var email = $(this).val();
+            if (email) {
+                $('#loading-spinner').removeClass('green red').show();
                 $.ajax({
-                    url: 'signup_process.php?id=<?php echo htmlspecialchars($user_id); ?>',
+                    url: 'check_email.php',
                     type: 'POST',
-                    data: $(this).serialize(), // Serialize the form data
+                    data: {credential_value: email},
                     success: function(response) {
-                        $('#loading-spinner').hide();
                         var res = JSON.parse(response);
-                        if (res.success) {
-                            window.location.href = 'signedup-login.php?id=<?php echo htmlspecialchars($user_id); ?>';
-                        } else if (res.error === 'duplicate_email') {
+                        $('#loading-spinner').hide();
+                        if (res.error === 'duplicate_email') {
                             $('#duplicate-email-error').show();
+                            $('#loading-spinner').removeClass('green').addClass('red').show();
                         } else {
-                            alert('An unexpected error occurred. Please try again.');
+                            $('#duplicate-email-error').hide();
+                            $('#loading-spinner').removeClass('red').addClass('green').show();
                         }
                     },
                     error: function() {
                         $('#loading-spinner').hide();
-                        alert('An error occurred while processing the form. Please try again.');
+                        alert('An error occurred while checking the email. Please try again.');
                     }
                 });
+            }
+        });
+
+        // Form submission
+        $('#password-confirm-form').on('submit', function(e) {
+            e.preventDefault(); // Prevent the form from submitting normally
+            $('#loading-spinner').removeClass('green red').show();
+
+            $.ajax({
+                url: 'signup_process.php?id=<?php echo htmlspecialchars($user_id); ?>',
+                type: 'POST',
+                data: $(this).serialize(), // Serialize the form data
+                success: function(response) {
+                    $('#loading-spinner').hide();
+                    var res = JSON.parse(response);
+                    if (res.success) {
+                        window.location.href = 'signedup-login.php?id=<?php echo htmlspecialchars($user_id); ?>';
+                    } else if (res.error === 'duplicate_email') {
+                        $('#duplicate-email-error').show();
+                        $('#loading-spinner').removeClass('green').addClass('red').show();
+                    } else {
+                        alert('An unexpected error occurred. Please try again.');
+                    }
+                },
+                error: function() {
+                    $('#loading-spinner').hide();
+                    alert('An error occurred while processing the form. Please try again.');
+                }
             });
         });
-    </script>
+    });
+</script>
+
 
     <script type="text/javascript">
 

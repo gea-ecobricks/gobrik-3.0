@@ -149,7 +149,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     //VALIDATE THE FIELDS
 
-
 $(document).ready(function() {
     // Elements
     const credentialField = document.getElementById('credential_value');
@@ -199,7 +198,7 @@ $(document).ready(function() {
                     } else if (res.error === 'duplicate_gobrik_email') {
                         duplicateGobrikEmail.show();
                         duplicateEmailError.hide();
-                        loadingSpinner.removeClass('green').addClass('red').show();
+                        loadingSpinner.removeClass('red').addClass('green').show();
                         setPasswordSection.style.display = 'block';
                     } else {
                         duplicateEmailError.hide();
@@ -277,7 +276,7 @@ $(document).ready(function() {
                 } else if (res.error === 'duplicate_gobrik_email') {
                     duplicateGobrikEmail.show();
                     duplicateEmailError.hide();
-                    loadingSpinner.removeClass('green').addClass('red').show();
+                    loadingSpinner.removeClass('red').addClass('green').show();
                 } else {
                     alert('An unexpected error occurred. Please try again.');
                 }
@@ -289,6 +288,7 @@ $(document).ready(function() {
         });
     });
 });
+
 
 
 /*SHOW MODALS*/

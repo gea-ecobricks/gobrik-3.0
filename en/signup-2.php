@@ -95,10 +95,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     <label for="credential_value"><span data-lang-id="004-your">Your</span> <?php echo $credential_type; ?> please:</label><br>
                     <div id="duplicate-email-error" class="form-field-error" style="margin-top:10px;  margin-bottom: -12px;" data-lang-id="010-pass-error-no-match">🚧 Whoops! Looks like that e-mail address is already being used by a Buwana Account. Please choose another.</div>
 
-                    <input type="text" id="credential_value" name="credential_value" required style="padding-left:45px;" aria-label="your email">
+                    <div class="input-container">
+                        <input type="text" id="credential_value" name="credential_value" required style="padding-left:45px;" aria-label="your email">
+                        <div id="loading-spinner" class="spinner" style="display: none;"></div>
+                    </div>
                     <p class="form-caption" data-lang-id="006-email-subcaption">💌 This is the way we will contact you to confirm your account</p>
-                    <div id="loading-spinner" class="spinner" style="display: none;"></div>
-                </div>
+                    </div>
 
                 <div class="form-item" id="set-password" style="display: none;">
                     <label for="password_hash" data-lang-id="007-set-your-pass">Set your password:</label><br>

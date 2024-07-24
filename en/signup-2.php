@@ -1,18 +1,4 @@
 <?php
-$directory = basename(dirname($_SERVER['SCRIPT_NAME']));
-$lang = $directory;
-$version = '0.372';
-$page = 'signup';
-$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
-
-echo '<!DOCTYPE html>
-<html lang="' . $lang . '">
-<head>
-<meta charset="UTF-8">
-';
-?>
-
-<?php
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -144,7 +130,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
 
 
 
-
 <title>Register Email | GoBrik 3.0</title>
 
 <!--
@@ -182,9 +167,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <label for="credential_value"><span data-lang-id="004-your">Your</span> <?php echo $credential_type; ?> please:</label><br>
             <input type="text" id="credential_value" name="credential_value" required>
             <p class="form-caption" data-lang-id="006-email-subcaption">💌 This is the way we will contact you to confirm your account</p>
-            <?php if ($duplicate_email_error): ?>
-                <div id="duplicate-email-error" class="form-field-error" style="margin-top:10px;" data-lang-id="010-pass-error-no-match">🚧 Whoops! Looks like that e-mail address is already being used by a Buwana Account. Please choose another.</div>
-            <?php endif; ?>
+            <div id="duplicate-email-error" class="form-field-error" style="margin-top:10px; <?php if ($duplicate_email_error) echo 'display: block;'; ?>" data-lang-id="010-pass-error-no-match">🚧 Whoops! Looks like that e-mail address is already being used by a Buwana Account. Please choose another.</div>
 
     </div>
 

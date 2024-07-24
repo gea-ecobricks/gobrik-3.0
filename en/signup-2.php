@@ -77,7 +77,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="splash-content-block"></div>
     <div id="splash-bar"></div>
 
-    <!-- PAGE CONTENT-->
+     <!-- PAGE CONTENT-->
     <div id="form-submission-box" style="height:100vh;">
         <div class="form-container">
             <div class="my-ecobricks" style="margin-top:-45px;">
@@ -138,8 +138,29 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <!--FOOTER STARTS HERE-->
     <?php require_once ("../footer-2024.php"); ?>
 
-    <script>
+     <script>
         $(document).ready(function() {
+            // Live email checking
+            $('#credential_value').on('blur', function() {
+                var email = $(this).val();
+                if (email) {
+                    $.ajax({
+                        url: 'check_email.php',
+                        type: 'POST',
+                        data: {credential_value: email},
+                        success: function(response) {
+                            var res = JSON.parse(response);
+                            if (res.error === 'duplicate_email') {
+                                $('#duplicate-email-error').show();
+                            } else {
+                                $('#duplicate-email-error').hide();
+                            }
+                        }
+                    });
+                }
+            });
+
+            // Form submission
             $('#password-confirm-form').on('submit', function(e) {
                 e.preventDefault(); // Prevent the form from submitting normally
 
@@ -148,9 +169,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     type: 'POST',
                     data: $(this).serialize(), // Serialize the form data
                     success: function(response) {
-                        // Parse JSON response
                         var res = JSON.parse(response);
-
                         if (res.success) {
                             window.location.href = 'signedup-login.php?id=<?php echo htmlspecialchars($user_id); ?>';
                         } else if (res.error === 'duplicate_email') {

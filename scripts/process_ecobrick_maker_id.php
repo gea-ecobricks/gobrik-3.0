@@ -227,12 +227,10 @@ if (isset($data['records']) && count($data['records']) > 0) {
 ?>
 
 
-
-
 <?php
 // PART 3 of the code
 // Connect to the MySQL database and update the ecobrick record
-    echo "<p>Contacting Brikchain server...</p>";
+echo "<p>Contacting Brikchain server...</p>";
 
 $servername = "localhost";
 $username = "ecobricks_brikchain_viewer";
@@ -267,13 +265,10 @@ if ($stmt_update_ecobrick) {
 
 $conn2->close();
 
-// Display button to restart the script
-echo '<button class="button" onclick="window.location.href=\'process_ecobricks.php\'">Restart Processing</button>';
+// Meta refresh to reload the page after a delay
+echo '<meta http-equiv="refresh" content="5">';
 ?>
 
-
-</body>
-</html>
 
 
 

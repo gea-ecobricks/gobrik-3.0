@@ -1,17 +1,14 @@
 <?php
+session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Set initial variables
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
 $version = '0.35';
 $page = 'dashboard';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
-
-echo '<!DOCTYPE html>
-<html lang="' . $lang . '">
-<head>
-<meta charset="UTF-8">
-';
-
-session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
@@ -21,12 +18,16 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// Include database connection
-include '../buwana_env.php'; // this file provides the database server, user, dbname information to access the server
+// Include database connections
+include '../buwana_env.php';
+include '../gobrik_env.php';
 
-// Look up fields from users_tb using the user_id
+// Variables to store data
 $first_name = '';
+$ecobrick_count = 0;
+$total_weight = 0;
 
+// Fetch user data from Buwana Database
 $sql_lookup_user = "SELECT first_name FROM users_tb WHERE user_id = ?";
 $stmt_lookup_user = $conn->prepare($sql_lookup_user);
 
@@ -40,45 +41,67 @@ if ($stmt_lookup_user) {
     die("Error preparing statement for users_tb: " . $conn->error);
 }
 
-$conn->close();
-?>
+$conn->close(); // Close Buwana database connection
 
+// Create connection to GoBrik Database
+$conn2 = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn2->connect_error) {
+    die("Connection failed: " . $conn2->connect_error);
+}
+
+// Fetch ecobrick data
+$sql = "SELECT COUNT(*) as ecobrick_count, SUM(weight_authenticated_kg) as total_weight FROM tb_ecobricks";
+$result = $conn2->query($sql);
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $ecobrick_count = $row['ecobrick_count'];
+    $total_weight = $row['total_weight'];
+}
+
+$conn2->close(); // Close GoBrik database connection
+
+echo '<!DOCTYPE html>
+<html lang="' . $lang . '">
+<head>
+<meta charset="UTF-8">
 <title>Dashboard | GoBrik 3.0</title>
-
 <!--
 GoBrik.com site version 3.0
 Developed and made open source by the Global Ecobrick Alliance
 See our git hub repository for the full code and to help out:
 https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
-
-<?php require_once ("../includes/dashboard-inc.php"); ?>
-
+<link rel="stylesheet" href="../includes/dashboard-inc.php">
+</head>
+<body>
 <div class="splash-content-block"></div>
 <div id="splash-bar"></div>
 
-<!-- PAGE CONTENT -->
-<div id="form-submission-box"  style="height:100vh;">
+<!-- DASHBOARD CONTENT -->
+<div id="form-submission-box" style="height:fit-content;">
     <div class="form-container">
         <div class="dolphin-pic" style="margin-top:-45px;background-size:contain;">
             <img src="../webps/earth-community.webp" width="80%">
         </div>
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2>Welcome <?php echo htmlspecialchars($first_name); ?>!</h2>
-            <p>You're logged into the brand new GoBrik 3.0!</p>
+            <h2>Welcome ' . htmlspecialchars($first_name) . '!</h2>
+            <p>You\'re logged into the brand new GoBrik 3.0!</p>
+            <h3>As of today, ' . $ecobrick_count . ' ecobricks have been logged on GoBrik, representing over ' . $total_weight . ' kg of sequestered plastic!</h3>
         </div>
 
-         <div style="display:flex;flex-flow:row;width:100%;justify-content:center;">
-
+        <div style="display:flex;flex-flow:row;width:100%;justify-content:center;">
             <button class="go-button" id="log-ecobrick-button">➕ Log an Ecobrick</button>
-
-             <!-- Logout Button -->
+            <!-- Logout Button -->
             <button class="go-button" id="logout-button" onclick="logoutUser()">📤 Logout</button>
         </div>
     </div>
-</div><!--closes Landing content-->
+</div><!--closes dashboard content-->
 
-</div>
+
+</div>';
+?>
 
 </div><!--closes main and starry background-->
 

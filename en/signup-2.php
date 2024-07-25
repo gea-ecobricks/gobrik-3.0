@@ -182,7 +182,6 @@ function isValidEmail(email) {
     return emailRegex.test(email);
 }
 
-
     // Live email checking
     $('#credential_value').on('blur', function() {
         var email = $(this).val();

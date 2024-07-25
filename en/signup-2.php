@@ -63,7 +63,7 @@ if ($user_id) {
 <html lang="<?php echo $lang; ?>">
 <head>
 <meta charset="UTF-8">
-<title>Sign Up</title>
+<title>Sign Up | Step 2 | GoBrik</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!--

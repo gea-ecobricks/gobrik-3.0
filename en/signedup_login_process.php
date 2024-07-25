@@ -36,18 +36,19 @@ if ($stmt_lookup_password) {
                             account_status = 'registration login complete',
                             created_at = NOW(),
                             last_login = NOW(),
-                            languages_id = ?,
+                            languages_id = 'en',
                             login_count = login_count + 1
                             WHERE user_id = ?";
         $stmt_update_user = $conn->prepare($sql_update_user);
         if ($stmt_update_user) {
-            $stmt_update_user->bind_param("si", $lang, $user_id);
+            $stmt_update_user->bind_param("i", $user_id);
             $stmt_update_user->execute();
             $stmt_update_user->close();
             $conn->close(); // Close the first database connection
 
-            // Secondary database connection
-            require_once ("../gobrik_env.php");
+
+//Secondary database connection
+require_once ("../gobrik_env.php");
 
             // Create connection
             $conn2 = new mysqli($servername, $username, $password, $dbname); // Establish new connection
@@ -70,13 +71,12 @@ if ($stmt_lookup_password) {
                     $sql_update_ecobricker = "UPDATE ecobricker_live_tb SET
                                                 first_name = ?,
                                                 buwana_id = ?,
-                                                buwana_activated = 1,
-                                                buwana_activation_dt = NOW(),
-                                                language_pref = ?
+                                                buwana_activated = 'YES',
+                                                buwana_activation_dt = NOW()
                                               WHERE email_addr = ?";
                     $stmt_update_ecobricker = $conn2->prepare($sql_update_ecobricker);
                     if ($stmt_update_ecobricker) {
-                        $stmt_update_ecobricker->bind_param("siss", $first_name, $user_id, $lang, $credential_value);
+                        $stmt_update_ecobricker->bind_param("sis", $first_name, $user_id, $credential_value);
                         if ($stmt_update_ecobricker->execute()) {
                             error_log("Updated existing ecobricker in ecobricker_live_tb: $first_name, $user_id");
                         } else {
@@ -92,11 +92,11 @@ if ($stmt_lookup_password) {
                     }
                 } else {
                     // Insert new ecobricker
-                    $sql_insert_ecobricker = "INSERT INTO ecobricker_live_tb (first_name, buwana_id, email_addr, date_registered, maker_id, buwana_activated, buwana_activation_dt, language_pref)
-                                              VALUES (?, ?, ?, NOW(), ?, 1, NOW(), ?)";
+                    $sql_insert_ecobricker = "INSERT INTO ecobricker_live_tb (first_name, buwana_id, email_addr, date_registered, maker_id, buwana_activated, buwana_activation_dt)
+                                              VALUES (?, ?, ?, NOW(), ?, 'YES', NOW())";
                     $stmt_insert_ecobricker = $conn2->prepare($sql_insert_ecobricker);
                     if ($stmt_insert_ecobricker) {
-                        $stmt_insert_ecobricker->bind_param("sisi", $first_name, $user_id, $credential_value, $user_id, $lang);
+                        $stmt_insert_ecobricker->bind_param("sisi", $first_name, $user_id, $credential_value, $user_id);
                         if ($stmt_insert_ecobricker->execute()) {
                             error_log("New user inserted into ecobricker_live_tb: $first_name, $user_id");
                         } else {

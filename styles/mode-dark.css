@@ -509,7 +509,7 @@ background-size: 38px;
 
 .my-ecobricks {
 
-background: url(../svgs/my-ecobricks-night.svg) no-repeat;
+background: url(../svgs/my-ecobricks-night.svg) center no-repeat;
 background-size: contain;
 }
 

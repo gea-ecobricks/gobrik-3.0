@@ -105,7 +105,7 @@ echo '<!DOCTYPE html>
         background-color: #ccc;
     }
     img {
-        max-width: 100px;
+        max-width: 60px;
         height: auto;
     }
 </style>'
@@ -135,8 +135,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <div style="text-align:center;width:100%;margin:auto;">
             <h2>Welcome <?php echo htmlspecialchars($first_name); ?>!</h2>
-            <3>You're logged into the brand new GoBrik 3.0!</3>
-            <p>As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik, representing over <?php echo $total_weight; ?> kg of sequestered plastic!</p>
+            <h3>You're logged into the brand new GoBrik 3.0!</3>
+            <p>As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik, representing over <?php echo round($total_weight); ?> kg of sequestered plastic!</p>
         </div>
 
 

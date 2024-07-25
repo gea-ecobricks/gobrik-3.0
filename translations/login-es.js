@@ -12,8 +12,12 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 
 
 const es_Page_Translations = {
-
-
-
-}
+    "001-login-heading": "Iniciar sesión",
+    "002-login-subheading": "¡Bienvenido de nuevo a GoBrik!",
+    "003-login-email": "Tu correo electrónico...",
+    "004-login-password": "Tu contraseña..",
+    "005-password-error": "👉 La contraseña es incorrecta.",
+    "006-login-button": "Iniciar sesión",
+    "000-no-account-yet": "¿Aún no tienes una cuenta? <a href=\"signup.php\">¡Regístrate!</a>"
+};
 

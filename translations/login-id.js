@@ -12,8 +12,11 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 
 
 const id_Page_Translations = {
-
-
-
-}
-
+    "001-login-heading": "Masuk",
+    "002-login-subheading": "Selamat datang kembali di GoBrik!",
+    "003-login-email": "Email Anda...",
+    "004-login-password": "Kata sandi Anda..",
+    "005-password-error": "👉 Kata sandi salah.",
+    "006-login-button": "Masuk",
+    "000-no-account-yet": "Belum punya akun? <a href=\"signup.php\">Daftar!</a>"
+};

@@ -1,7 +1,7 @@
 <?php
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));  //grabs language directory from url
 $lang = $directory;
-$version = '0.341';
+$version = '0.342';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -47,24 +47,26 @@ https://github.com/gea-ecobricks/gobrik-3.0/blob/main/en/login.php-->
         </div>
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="001-login-heading-">Login</h2>
+            <h2 data-lang-id="001-login-heading">Login</h2>
             <p data-lang-id="002-login-subheading">Welcome back to GoBrik!</p>
         </div>
 
         <!-- Login form -->
           <form id="login" method="post" action="login_process.php">
             <div class="form-item">
-                <label for="credential_value">Your e-mail:</label><br>
-                <input type="text" id="credential_value" name="credential_value" required>
+                <!--<label for="credential_value">Your e-mail:</label><br>-->
+                <span data-lang-id="003-login-email">
+                    <input type="text" id="credential_value" name="credential_value" required placeholder="Your e-mail...">
+                <span>
             </div>
-            <div class="form-item">
+            <div class="form-item" data-lang-id="004-login-password">
 
                 <!--<label for="password">Your Password:</label><br>-->
                 <input type="password" id="password" name="password" required placeholder="Your password..">
                 <p class="form-caption">Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
                 <div id="password-error" class="form-field-error" style="display:none;">👉 Password is wrong.</div>
             </div>
-            <div style="text-align:center;">
+            <div style="text-align:center;" data-lang-id="006-login-button-">
                 <input type="submit" style="text-align:center;margin-top:15px;width:30%" id="submit-button" value="Login" class="enabled">
             </div>
         </form>

@@ -15,7 +15,7 @@ if (!$user_id || !$credential_value || !$password) {
     exit();
 }
 
-// Prepare and execute the query in the first database
+// Prepare and execute the query into the Buwana Database
 $sql_lookup_password = "SELECT password_hash, first_name FROM users_tb WHERE user_id = ?";
 $stmt_lookup_password = $conn->prepare($sql_lookup_password);
 
@@ -43,7 +43,7 @@ if ($stmt_lookup_password) {
             $stmt_update_user->close();
             $conn->close(); // Close the first database connection
 
-            // Update the second database
+            // Update the GoBrik Database
             $servername = "localhost";
             $username = "ecobricks_brikchain_viewer";
             $password = "desperate-like-the-Dawn";

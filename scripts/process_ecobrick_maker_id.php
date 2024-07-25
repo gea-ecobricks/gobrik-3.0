@@ -86,8 +86,23 @@ $result = $conn->query($query);
         ?>
     </div>
 
-    <?php
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Process Ecobrick</title>
+    <style>
+        .button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
 
+<?php
 // PART 2 of the code
 // Go to knack database and get ecobrick to extract maker ID from.
 
@@ -96,12 +111,18 @@ $api_key = "360aa2b0-af19-11e8-bd38-41d9fc3da0cf";
 $app_id = "5b8c28c2a1152679c209ce0c";
 
 // Create connection to the database
+$servername = "your_server_name"; // Ensure this is defined correctly
+$username = "your_username"; // Ensure this is defined correctly
+$password = "your_password"; // Ensure this is defined correctly
+$dbname = "your_database_name"; // Ensure this is defined correctly
+
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
     die("<script>confirm('Connection failed: " . $conn->connect_error . ". Do you want to proceed to the next ecobrick?'); window.location.href = 'process_ecobricks.php';</script>");
 }
+echo "<p>Connected to Knack server...</p>";
 
 // Prepare filters to get records with the transfer status field field_2526 set to "No" and field_534 containing "Authenticated"
 $filters = [
@@ -109,8 +130,8 @@ $filters = [
     'rules' => [
         [
             'field' => 'field_2526',
-            'operator' => 'is',
-            'value' => 'No'
+            'operator' => 'is not',
+            'value' => 'Yes'
         ],
         [
             'field' => 'field_534',
@@ -143,6 +164,7 @@ if ($response === false) {
     curl_close($ch);
     exit;
 }
+echo "<h3>Starting to retrieve ecobrick data</h3>";
 
 // Close cURL session
 curl_close($ch);
@@ -171,14 +193,19 @@ if (isset($data['records']) && count($data['records']) > 0) {
     }
 
     // Displaying the serial number and message
-    echo "<h3>Starting to retrieve ecobrick $ecobrick_unique_id for processing</h3>";
-    echo "<p>Connected to Knack server...</p>";
+    echo "<h3>Now processing ecobrick $ecobrick_unique_id ...</h3>";
     echo "<p>Maker record ID was retrieved! $maker_record_id</p>";
 } else {
     echo "<p>No ecobrick records found with the provided criteria.</p>";
 }
 
+// Display button to restart the script
+echo '<button class="button" onclick="window.location.href=\'process_ecobricks.php\'">Restart Processing</button>';
 ?>
+
+</body>
+</html>
+
 
 
 

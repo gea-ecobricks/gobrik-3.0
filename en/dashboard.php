@@ -55,7 +55,10 @@ if ($conn2->connect_error) {
 }
 
 // SQL query to fetch the count of ecobricks and the sum of weight_authenticated_kg
-$sql = "SELECT COUNT(*) as ecobrick_count, SUM(weight_authenticated_kg) as total_weight FROM tb_ecobricks";
+// $sql = "SELECT COUNT(*) as ecobrick_count, SUM(weight_authenticated_kg) as total_weight FROM tb_ecobricks";
+// $result = $conn2->query($sql);
+
+$sql = "SELECT COUNT(*) as ecobrick_count, SUM(weight_g) / 1000 as total_weight FROM tb_ecobricks";
 $result = $conn2->query($sql);
 
 if ($result->num_rows > 0) {

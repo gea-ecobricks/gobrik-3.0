@@ -125,7 +125,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <div style="text-align:center;width:100%;margin:auto;">
             <h2 data-lang-id="001-signup-heading">Create Your Account</h2>
-            <p data-lang-id="002-gobrik-subtext">GoBrik is developed by volunteers just as passionate about plastic transition as you!</p>
+            <p data-lang-id="002-gobrik-subtext">GoBrik is 100% developed by volunteers as planet passionate as you!</p>
         </div>
 
        <!--SIGNUP FORM-->
@@ -153,7 +153,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <option value="mail" disabled>Mail</option>
             <option value="sms" disabled>SMS</option>
         </select>
-        <p class="form-caption" data-lang-id="006-way-to-contact">This is the way we will contact you to confirm your account</p>
+        <p class="form-caption" data-lang-id="006-way-to-contact">How we'll contact you to confirm your account.</p>
         <!--ERRORS-->
         <div id="credential-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
     </div>

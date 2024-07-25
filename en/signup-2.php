@@ -152,9 +152,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <script>
 
-    //VALIDATE THE FIELDS
-
-$(document).ready(function() {
+ $(document).ready(function() {
     // Elements
     const credentialField = document.getElementById('credential_value');
     const passwordField = document.getElementById('password_hash');
@@ -177,12 +175,21 @@ $(document).ready(function() {
     humanCheckSection.style.display = 'none';
     submitSection.style.display = 'none';
 
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
 
     // Live email checking
+    $('#credential_value').on('input', function() {
+        var email = $(this).val();
+        if (isValidEmail(email)) {
+            setPasswordSection.style.display = 'block'; // Show the set password section
+        } else {
+            setPasswordSection.style.display = 'none'; // Hide the set password section if email is not valid
+        }
+    });
+
     $('#credential_value').on('blur', function() {
         var email = $(this).val();
         if (email) {
@@ -281,6 +288,7 @@ function isValidEmail(email) {
                     duplicateGobrikEmail.show();
                     duplicateEmailError.hide();
                     loadingSpinner.removeClass('red').addClass('green').show();
+                    $('#password-confirm-form').off('submit').submit(); // Allow the form to submit
                 } else {
                     alert('An unexpected error occurred. Please try again.');
                 }
@@ -292,6 +300,7 @@ function isValidEmail(email) {
         });
     });
 });
+
 
 
 

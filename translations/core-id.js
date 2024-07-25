@@ -46,11 +46,6 @@ const id_Translations = {
            '1003-reset-preferences': '❌ Reiniciar preferencias',
            '1004-gea-vision': 'Kami membayangkan Transisi dari Plastik di Rumah Tangga, Komunitas, dan Perusahaan kami menuju Harmoni yang Lebih Hijau dengan Siklus Bumi',
 
-   
-   
-
-
-        
             /* Subscribtion Curtain */
    
             "105-subscription-registration": "",
@@ -126,7 +121,4 @@ const id_Translations = {
            "421-conclusion-data": "Semua konten pendidikan di situs kami (foto, video, dan teks) tersedia untuk dibagikan oleh Aliansi Ecobrick di bawah <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Lisensi Internasional Creative Commons Atribusi-BerbagiSerupa 4.0</a>.<br>Harap atribusikan semua penggunaan ke \"The Global Ecobrick Alliance, ecobricks.org\" menggunakan lisensi yang sama.",
            "422-conclusion-copyright": "Logo dan emblem Ecobricks.org, GEA, Earthen, AES dan Gobrik dilindungi hak cipta 2010-2024 oleh Global Ecobrick Alliance.",
 
-
-
-   
 }

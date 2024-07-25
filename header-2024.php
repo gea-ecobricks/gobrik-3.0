@@ -360,7 +360,8 @@ display: none;
 
  <!-- RIGHT PAGE MENU -->
 
-    <div id="main-menu-overlay" class="overlay-settings" style="display:none;">
+    <div id="main-menu-overlay" class="overlay-settings" style="display:none;display: flex;
+  justify-content: center;">
         <button type="button" onclick="closeSettings()" aria-label="Click to close settings page" class="x-button">
         </button>
         <div class="overlay-content-settings" style="margin:auto;min-width: 300px;">

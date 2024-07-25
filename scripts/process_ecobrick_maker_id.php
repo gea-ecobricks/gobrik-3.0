@@ -106,20 +106,19 @@ $result = $conn->query($query);
 // PART 2 of the code
 // Go to knack database and get ecobrick to extract maker ID from.
 
+include '../ecobricks_env.php';
 
-    include '../ecobricks_env.php';
+// Knack API settings
+$api_key = "360aa2b0-af19-11e8-bd38-41d9fc3da0cf";
+$app_id = "5b8c28c2a1152679c209ce0c";
 
-    // Knack API settings
-    $api_key = "360aa2b0-af19-11e8-bd38-41d9fc3da0cf";
-    $app_id = "5b8c28c2a1152679c209ce0c";
+// Create connection to the database
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Create connection to the database
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("<script>confirm('Connection failed: " . $conn->connect_error . ". Do you want to proceed to the next ecobrick?'); window.location.href = 'process_ecobricks.php';</script>");
-    }
+// Check connection
+if ($conn->connect_error) {
+    die("<script>confirm('Connection failed: " . $conn->connect_error . ". Do you want to proceed to the next ecobrick?'); window.location.href = 'process_ecobricks.php';</script>");
+}
 
 // Prepare filters to get records with the transfer status field field_2526 set to "No" and field_534 containing "Authenticated"
 $filters = [
@@ -192,10 +191,43 @@ if (isset($data['records']) && count($data['records']) > 0) {
     // Displaying the serial number and message
     echo "<h3>Now processing ecobrick $ecobrick_unique_id ...</h3>";
     echo "<p>Maker record ID was retrieved! $maker_record_id</p>";
+
+    // Update field_2526 to 'Yes'
+    $update_data = [
+        'field_2526' => 'Yes'
+    ];
+
+    $update_url = "https://api.knack.com/v1/objects/object_2/records/$knack_record_id";
+
+    $ch_update = curl_init($update_url);
+    curl_setopt($ch_update, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch_update, CURLOPT_CUSTOMREQUEST, 'PUT');
+    curl_setopt($ch_update, CURLOPT_HTTPHEADER, [
+        "X-Knack-Application-ID: $app_id",
+        "X-Knack-REST-API-Key: $api_key",
+        "Content-Type: application/json"
+    ]);
+    curl_setopt($ch_update, CURLOPT_POSTFIELDS, json_encode($update_data));
+
+    $update_response = curl_exec($ch_update);
+
+    // Check for cURL errors during the update
+    if ($update_response === false) {
+        $error = curl_error($ch_update);
+        echo "<p>Error updating Knack record: " . addslashes($error) . "</p>";
+    } else {
+        echo "<p>Successfully updated Knack record with field_2526 set to 'Yes'.</p>";
+    }
+
+    curl_close($ch_update);
+
 } else {
     echo "<p>No ecobrick records found with the provided criteria.</p>";
 }
 ?>
+
+
+
 
 <?php
 // PART 3 of the code

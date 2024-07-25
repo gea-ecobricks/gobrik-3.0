@@ -195,10 +195,50 @@ if (isset($data['records']) && count($data['records']) > 0) {
 } else {
     echo "<p>No ecobrick records found with the provided criteria.</p>";
 }
+?>
+
+<?php
+// PART 3 of the code
+// Connect to the MySQL database and update the ecobrick record
+    echo "<p>Contacting Brikchain server...</p>";
+
+$servername = "localhost";
+$username = "ecobricks_brikchain_viewer";
+$password = "desperate-like-the-Dawn";
+$dbname = "ecobricks_gobrik_msql_db";
+
+// Create connection to the database
+$conn2 = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn2->connect_error) {
+    die("<script>confirm('Connection failed: " . $conn2->connect_error . ". Do you want to proceed to the next ecobrick?'); window.location.href = 'process_ecobricks.php';</script>");
+}
+echo "<p>Connected to Brikchain database...</p>";
+
+// Update the ecobrick record
+$sql_update_ecobrick = "UPDATE tb_ecobricks SET maker_id = ? WHERE serial_number = ?";
+
+$stmt_update_ecobrick = $conn2->prepare($sql_update_ecobrick);
+if ($stmt_update_ecobrick) {
+    $stmt_update_ecobrick->bind_param("ss", $maker_record_id, $ecobrick_unique_id);
+
+    if ($stmt_update_ecobrick->execute()) {
+        echo "<p>Successfully updated ecobrick with serial number $ecobrick_unique_id. Maker ID set to $maker_record_id.</p>";
+    } else {
+        echo "<p>Error updating ecobrick: " . $stmt_update_ecobrick->error . "</p>";
+    }
+    $stmt_update_ecobrick->close();
+} else {
+    echo "<p>Error preparing statement: " . $conn2->error . "</p>";
+}
+
+$conn2->close();
 
 // Display button to restart the script
 echo '<button class="button" onclick="window.location.href=\'process_ecobricks.php\'">Restart Processing</button>';
 ?>
+
 
 </body>
 </html>

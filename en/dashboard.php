@@ -104,7 +104,7 @@ echo '<!DOCTYPE html>
     tr:nth-child(odd) {
         background-color: #ccc;
     }
-    img {
+    #latest-ecobricks img {
         max-width: 60px;
         height: auto;
     }
@@ -144,9 +144,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <button class="go-button" id="logout-button" onclick="logoutUser()">📤 Logout</button>
         </div>
 
-        <div style="text-align:center;width:100%;margin:auto;">
+        <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
             <h3>Most Recent Ecobricks</h3>
-            <table>
+            <table id="latest-ecobricks">
                 <tr>
                     <th>Brik</th>
                     <th>Weight (g)</th>

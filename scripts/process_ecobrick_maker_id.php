@@ -265,8 +265,9 @@ if ($stmt_update_ecobrick) {
 
 $conn2->close();
 
-// Meta refresh to reload the page after a delay
-echo '<meta http-equiv="refresh" content="5">';
+// Redirect to the next script after processing
+header("Location: https://beta.gobrik.com/scripts/process_ecobrickers.php");
+exit();
 ?>
 
 

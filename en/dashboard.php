@@ -1,17 +1,14 @@
 <?php
+session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Set up page variables
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.35';
+$version = '0.351';
 $page = 'dashboard';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
-
-echo '<!DOCTYPE html>
-<html lang="' . $lang . '">
-<head>
-<meta charset="UTF-8">
-';
-
-session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
@@ -26,6 +23,11 @@ include '../buwana_env.php'; // this file provides the database server, user, db
 
 // Look up fields from users_tb using the user_id
 $first_name = '';
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 $sql_lookup_user = "SELECT first_name FROM users_tb WHERE user_id = ?";
 $stmt_lookup_user = $conn->prepare($sql_lookup_user);
@@ -41,16 +43,13 @@ if ($stmt_lookup_user) {
 }
 
 $conn->close();
-?>
 
-<?php
-// Include your GoBrik database credentials
+// Include GoBrik database credentials
 include '../gobrik_env.php';
 
-// Create connection
-$conn2 = new mysqli($servername, $username, $password, $dbname); // Establish new connection
+// Create connection to GoBrik database
+$conn2 = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
 if ($conn2->connect_error) {
     die("Connection failed: " . $conn2->connect_error);
 }
@@ -69,6 +68,15 @@ if ($result->num_rows > 0) {
 }
 
 $conn2->close();
+
+echo '<!DOCTYPE html>
+<html lang="' . $lang . '">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+</head>
+<body>';
+
 ?>
 
 

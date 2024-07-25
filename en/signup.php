@@ -1,7 +1,7 @@
 <?php
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.371';
+$version = '0.372';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -120,7 +120,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
 
         <div class="signup-team">
-        <img src="../svgs/signup-team.svg?v=2" width="60%">
+        <img src="../webp/ecobrick-team-blank.webp" width="60%">
     </div>
 
         <div style="text-align:center;width:100%;margin:auto;">
@@ -146,7 +146,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     <div class="form-item">
         <label for="credential" data-lang-id="006-credential">With which credentials would you like to register?</label><br>
-        <select id="credential" name="credential" aria-label="Preferred Credential" required>
+        <select id="credential" name="credential" aria-label="Preferred Credential" required placeholder="Select...">
             <option value="" disabled selected data-lang-id="000-select">Select...</option>
 
             <option value="email">E-mail</option>

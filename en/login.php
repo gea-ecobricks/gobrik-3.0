@@ -43,7 +43,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/blob/main/en/login.php-->
     <div class="form-container">
 
           <div class="earth-community" style="margin-top:-65px;margin-bottom:-10px">
-            <img src="../webps/earth-community.webp" width="70%">
+            <img src="../webps/earth-community.webp" style="width:65%;">
         </div>
 
         <div style="text-align:center;width:100%;margin:auto;">

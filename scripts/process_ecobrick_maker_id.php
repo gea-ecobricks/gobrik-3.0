@@ -44,6 +44,7 @@
 
 
        <?php
+//PART 1 show latest transfers
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
@@ -55,7 +56,7 @@ $conn->set_charset("utf8mb4");
 $query = "SELECT serial_no, ecobrick_thumb_photo_url FROM tb_ecobricks
           WHERE status = 'authenticated' AND maker_id != '000000000000000000000000'
           ORDER BY date_published_ts DESC
-          LIMIT 18";
+          LIMIT 6";
 
 $result = $conn->query($query);
 ?>

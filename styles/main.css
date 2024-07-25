@@ -1523,32 +1523,32 @@ body.modal-open {
 }
 
 @media screen and (max-width: 700px) {
-    earth-community  {
+    .earth-community  {
         margin-top:-50px;
         margin-bottom:-10px;
     }
-    signup-team  {
+    .signup-team  {
         margin-top:-50px;
         margin-bottom:-10px;
 }
 
-        my-ecobricks  {
+        .my-ecobricks  {
         margin-top:-35px;
         margin-bottom:-10px;
     }
 }
 
 @media screen and (min-width: 700px) {
-    earth-community  {
+    .earth-community  {
         margin-top:-65px;
         margin-bottom:-10px;
     }
-    signup-team  {
+    .signup-team  {
         margin-top:-65px;
         margin-bottom:-10px;
     }
 
-        my-ecobricks  {
+        .my-ecobricks  {
         margin-top:-45px;
         margin-bottom:-10px;
     }

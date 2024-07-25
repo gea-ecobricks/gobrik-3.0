@@ -106,23 +106,20 @@ $result = $conn->query($query);
 // PART 2 of the code
 // Go to knack database and get ecobrick to extract maker ID from.
 
-// Knack API settings
-$api_key = "360aa2b0-af19-11e8-bd38-41d9fc3da0cf";
-$app_id = "5b8c28c2a1152679c209ce0c";
 
-// Create connection to the database
-$servername = "your_server_name"; // Ensure this is defined correctly
-$username = "your_username"; // Ensure this is defined correctly
-$password = "your_password"; // Ensure this is defined correctly
-$dbname = "your_database_name"; // Ensure this is defined correctly
+    include '../ecobricks_env.php';
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+    // Knack API settings
+    $api_key = "360aa2b0-af19-11e8-bd38-41d9fc3da0cf";
+    $app_id = "5b8c28c2a1152679c209ce0c";
 
-// Check connection
-if ($conn->connect_error) {
-    die("<script>confirm('Connection failed: " . $conn->connect_error . ". Do you want to proceed to the next ecobrick?'); window.location.href = 'process_ecobricks.php';</script>");
-}
-echo "<p>Connected to Knack server...</p>";
+    // Create connection to the database
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("<script>confirm('Connection failed: " . $conn->connect_error . ". Do you want to proceed to the next ecobrick?'); window.location.href = 'process_ecobricks.php';</script>");
+    }
 
 // Prepare filters to get records with the transfer status field field_2526 set to "No" and field_534 containing "Authenticated"
 $filters = [

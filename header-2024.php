@@ -368,7 +368,7 @@ display: none;
             <div style="margin-bottom: 20px;">
                 <div class="menu-page-item" ><a href="dashboard.php"  aria-label="Dashboard" data-lang-id="1000-dashboard">Dashboard</a></div>
                 <div class="menu-page-item"><a data-lang-id="1001-gobrik-tour"onclick="closeSettings(); setTimeout(guidedTour, 500);">GoBrik Tour</a></div>
-                <div class="menu-page-item"><a href="login.php" aria-label="Register" data-lang-id="1000-login" style="margin-right:0px">Login</a>   |   <a href="signup.php" aria-label="Signup" data-lang-id="1000-signup" style="margin-left:0px">Signup</a ></div>
+                <div class="menu-page-item"><a href="login.php" aria-label="Register" data-lang-id="1000-login" style="margin-right:10px">Login</a>   |   <a href="signup.php" aria-label="Signup" data-lang-id="1000-signup" style="margin-left:10px">Signup</a ></div>
 
                 <div class="menu-page-item"><a href="log.php" aria-label="Log" data-lang-id="1000-log-ecobrick">Log Ecobrick</a></div>
                 <div class="menu-page-item"><a href="brikchain.php" data-lang-id="1000-brikchain">The Brikchain</a></div>

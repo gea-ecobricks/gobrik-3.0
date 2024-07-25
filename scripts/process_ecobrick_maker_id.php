@@ -265,8 +265,12 @@ if ($stmt_update_ecobrick) {
 
 $conn2->close();
 
-// Redirect to the next script after processing
-header("Location: https://beta.gobrik.com/scripts/process_ecobrickers.php");
+
+
+echo "<div class='message'>Now closing databse session, an moving to next ecobrick...</div>";
+
+echo "<script>window.location.href = 'process_ecobrick_maker_id.php';</script>";
+
 exit();
 ?>
 

@@ -360,11 +360,11 @@ display: none;
 
  <!-- RIGHT PAGE MENU -->
 
-    <div id="main-menu-overlay" class="overlay-settings" style="display:none;display: flex;
-  justify-content: center;">
+    <div id="main-menu-overlay" class="overlay-settings" style="display:none;">
         <button type="button" onclick="closeSettings()" aria-label="Click to close settings page" class="x-button">
         </button>
-        <div class="overlay-content-settings" style="margin:auto;min-width: 300px;">
+        <div class="overlay-content-settings" style="margin:auto;min-width: 300px;display: flex;
+  justify-content: center;">
             <div style="margin-bottom: 20px;">
                 <div class="menu-page-item" ><a href="dashboard.php"  aria-label="Dashboard" data-lang-id="1000-dashboard">Dashboard</a></div>
                 <div class="menu-page-item"><a data-lang-id="1001-gobrik-tour"onclick="closeSettings(); setTimeout(guidedTour, 500);">GoBrik Tour</a></div>

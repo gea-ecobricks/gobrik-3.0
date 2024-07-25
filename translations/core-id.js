@@ -37,7 +37,7 @@ const id_Translations = {
     "1000-featured-projects": "Proyek Unggulan",
     "1000-latest-trainings": "Pelatihan Terbaru",
     "1000-landing-page": "Halaman Depan",
-    "1000-about-gobrik": `<a href="https://ecobricks.org/gobrik" target="_blank">Proyek GoBrik</a> dikembangkan oleh <a href="https://ecobricks.org/about" target="_blank">Aliansi Ecobrick Global</a>, sebuah perusahaan bumi nirlaba yang didedikasikan untuk mempercepat transisi plastik dan petro-kapital.`
+    "1000-about-gobrik": `<a href="https://ecobricks.org/gobrik" target="_blank">Proyek GoBrik</a> dikembangkan oleh <a href="https://ecobricks.org/about" target="_blank">Aliansi Ecobrick Global</a>, sebuah perusahaan bumi nirlaba yang didedikasikan untuk mempercepat transisi plastik dan petro-kapital.`,
 
 
 

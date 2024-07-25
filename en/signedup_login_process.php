@@ -43,11 +43,9 @@ if ($stmt_lookup_password) {
             $stmt_update_user->close();
             $conn->close(); // Close the first database connection
 
-            // Update the GoBrik Database
-            $servername = "localhost";
-            $username = "ecobricks_brikchain_viewer";
-            $password = "desperate-like-the-Dawn";
-            $dbname = "ecobricks_gobrik_msql_db";
+
+//Secondary database connection
+require_once ("../gobrik_env.php");
 
             // Create connection
             $conn2 = new mysqli($servername, $username, $password, $dbname); // Establish new connection

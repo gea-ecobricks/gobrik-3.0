@@ -157,13 +157,15 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <!--ERRORS-->
         <div id="credential-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
     </div>
-    <!--  <div style="margin:auto;text-align: center;">
+    <!-- <div style="margin:auto;text-align: center;">
+        <input type="submit" id="submit-button" value="🔑 Next: Set Password" aria-label="Submit Form" class="enabled">
+    </div> -->
+
+
+<div style="margin:auto;text-align: center;">
         <button  type="submit" id="submit-button" aria-label="Submit Form" class="enabled">
         🔑 <span data-lang-id="016-submit-to-password" id="submit-button-text">Next: Set Password</span>
         </button>
-    </div>-->
-  <div style="margin:auto;text-align: center;">
-        <input type="submit" id="submit-button" value="🔑 Next: Set Password" aria-label="Submit Form" class="enabled">
     </div>
 </form>
 

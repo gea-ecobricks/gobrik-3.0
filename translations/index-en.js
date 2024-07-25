@@ -13,7 +13,7 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 
 const en_Page_Translations = {
 
-    "000-lead-header": "Together we can keep our plastic out of the biosphere.",
+    "000-lead-header": "Together we can keep our plastic out of the biosphere and out of industry.",
     "001-welcome-text": "GoBrik helps manage your ecobricks, projects and plastic transition so that together we can build our greenest visions.",
     "002-sign-in": "Sign in",
     "003-sign-up": "Sign up",

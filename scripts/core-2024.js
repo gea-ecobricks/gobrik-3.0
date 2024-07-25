@@ -82,7 +82,7 @@ function scrollMoreThan40() {
 /* RIGHT SETTINGS OVERLAY */
 
 function openSideMenu() {
-  document.getElementById("main-menu-overlay").style.width = "90%";
+  document.getElementById("main-menu-overlay").style.width = "100%";
   document.getElementById("main-menu-overlay").style.display = "block";
   document.body.style.overflowY = "hidden";
   document.body.style.maxHeight = "101vh";

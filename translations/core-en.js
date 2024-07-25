@@ -32,15 +32,17 @@ const en_Translations = {
       /*Menu of pages curtain*/
 
 
-
-
-
-
-      
-
-      
-  
-
+        "1000-dashboard": "Dashboard",
+    "1001-gobrik-tour": "GoBrik Tour",
+    "1000-login": "Login",
+    "1000-signup": "Signup",
+    "1000-log-ecobrick": "Log Ecobrick",
+    "1000-brikchain": "The Brikchain",
+    "1000-latest-ecobricks": "Latest Ecobricks",
+    "1000-featured-projects": "Featured Projects",
+    "1000-latest-trainings": "Latest Trainings",
+    "1000-landing-page": "Landing Page",
+    "1000-about-gobrik": `<a href="https://ecobricks.org/gobrik" target="_blank">The GoBrik project</a> is developed by the <a href="https://ecobricks.org/about" target="_blank">Global Ecobrick Alliance</a> a not-for-profit Earth enterprise dedicated to accelerating plastic and petro-capital transition.`,
 
         /*General Texts*/
         '1000-learn-more': 'Learn More',

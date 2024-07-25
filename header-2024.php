@@ -365,19 +365,20 @@ display: none;
         </button>
         <div class="overlay-content-settings" style="margin:auto;min-width: 300px;">
             <div style="margin-bottom: 20px;">
-                <div class="menu-page-item" ><a href="index.php"  aria-label="Return Home" data-lang-id="1000">Home</a></div>
-                <div class="menu-page-item"><a data-lang-id="1001-gobrik-tour"onclick="sendDownRegistration(); closeSettings(); setTimeout(guidedTour, 500);">What is GoBrik?</a></div>
-                <div class="menu-page-item"><a href="login.php" aria-label="Register" data-lang-id="1002-login">Login</a></div>
-                <div class="menu-page-item"><a href="signup.php" aria-label="Signup" data-lang-id="1003-signup">Signup</a></div>
-                <div class="menu-page-item"><a href="log.php" aria-label="Log" data-lang-id="1004-log">Log Ecobrick</a></div>
-                <div class="menu-page-item"><a href="brikchain.php" data-lang-id="1005-brikchain">The Brikchain</a></div>
-              <!--<div class="menu-page-item"><a href="latest" data-lang-id="1005-latest-ecobricks">Latest Ecobricks</a></div>
-                <div class="menu-page-item"><a href="latest" data-lang-id="1005-latest-projects">Latest Projects</a></div>
-                <div class="menu-page-item"><a href="latest" data-lang-id="1005-latest-trainings">Latest Trainings</a></div>
--->
+                <div class="menu-page-item" ><a href="dashboard.php"  aria-label="Dashboard" data-lang-id="1000-dashboard">Dashboard</a></div>
+                <div class="menu-page-item"><a data-lang-id="1001-gobrik-tour"onclick="closeSettings(); setTimeout(guidedTour, 500);">GoBrik Tour</a></div>
+                <div class="menu-page-item"><a href="login.php" aria-label="Register" data-lang-id="1000-login">Login</a>  |  <a href="signup.php" aria-label="Signup" data-lang-id="1000-signup">Signup</a></div>
+
+                <div class="menu-page-item"><a href="log.php" aria-label="Log" data-lang-id="1000-log-ecobrick">Log Ecobrick</a></div>
+                <div class="menu-page-item"><a href="brikchain.php" data-lang-id="1000-brikchain">The Brikchain</a></div>
+              <div class="menu-page-item"><a href="newest.php" data-lang-id="1000-latest-ecobricks">Latest Ecobricks</a></div>
+                <div class="menu-page-item"><a href="projects.php" data-lang-id="1000-featured-projects">Featured Projects</a></div>
+                <div class="menu-page-item"><a href="trainings.php" data-lang-id="1000-latest-trainings">Latest Trainings</a></div>
+                <div class="menu-page-item"><a href="index.php" data-lang-id="1000-landing-page">Landing Page</a></div>
+
 
              </div>
-             <p style="font-size:smaller;margin-bottom: 20px;" data-lang-id="1006-about-stuff"><a href="https://ecobricks.org/gobrik" target="_blank">The GoBrik project</a> is developed by the <a href="https://ecobricks.org/about" target="_blank">Global Ecobrick Alliance</a> a not-for-profit Earth enterprise dedicated to accelerating plastic and petro-capital transition.</p>
+             <p style="font-size:smaller;margin-bottom: 20px;" data-lang-id="1000-about-gobrik"><a href="https://ecobricks.org/gobrik" target="_blank">The GoBrik project</a> is developed by the <a href="https://ecobricks.org/about" target="_blank">Global Ecobrick Alliance</a> a not-for-profit Earth enterprise dedicated to accelerating plastic and petro-capital transition.</p>
         </div> <!--close overlay-content-settings-->
     </div> <!-- close right page menu-->
 
@@ -464,7 +465,8 @@ display: none;
 
                 <button type="button" id="top-settings-button"  aria-label="Open site settings"></button>
 
-                <button type="button" class="top-lang-button" onclick="showLangSelector()" aria-label="Switch languages"></button>
+                <!--<button type="button" class="top-lang-button" onclick="showLangSelector()" aria-label="Switch languages"></button>-->
+                <div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>
 
                 <button type="button" class="top-login-button" onclick="showLoginSelector()" aria-label="Login options"></button>
 

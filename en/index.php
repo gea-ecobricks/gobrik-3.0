@@ -1,6 +1,6 @@
 <?php
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
-$lang = $directory;$version = '0.346';
+$lang = $directory;$version = '0.347';
 $version = '0.347';
 $page = 'index';
 include '../ecobricks_env.php';
@@ -38,7 +38,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <div class="main-landing-graphic">
             <img src="../webps/ecobrick-team-blanked.webp" style="width:100%;height:43%;" alt="Unite with ecobrickers around the world">
         </div>
-        <div class="big-header" data-lang-id="000-lead-header">Together we can keep our plastic out of the biosphere.</div>
+        <div class="big-header" data-lang-id="000-lead-header">Together we can keep our plastic out of the biosphere and out of industry.</div>
         <div class="welcome-text" data-lang-id="001-welcome-text">GoBrik helps manage your ecobricks, projects and plastic transition so that together we can build our greenest visions.</div>
         <div class="sign-buttons" style="display:flex;flex-flow:row;justify-content: center;">
             <div>

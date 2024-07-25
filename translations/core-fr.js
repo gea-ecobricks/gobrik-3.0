@@ -27,119 +27,17 @@ const fr_Translations = {
 
     /*Menu of pages*/
 
-
-    "000a-menu-0-main-item": 'FAQs sur les Écobriques<span class="circle" title="Cette page est traduite à 100% en français" style="color:green !important; font-size:12px;padding-right:5px; ">●</span>',
-    "000a-menu-1-trans-text-1": '🏴 faqs.php a été traduit à 100% | <a href="https://github.com/gea-ecobricks/ecobricks-org/blob/main/translations/faqs-fr-translation.js" class="translate-link">traduction ⇗</a> | <a href="https://github.com/gea-ecobricks/ecobricks-org/blob/main/fr/faqs.php" class="translate-link">code ⇗</a>',
-    "000b-menu-0-main-item": 'Introduction aux Écobriques<span class="circle" title="Cette page est traduite à 100% en français" style="color:green !important; font-size:12px;padding-right:5px; ">●</span>',
-    "00b-menu-1-trans-text-1": '🏴 guidedTour.js a été traduit à 100% | <a href="https://github.com/gea-ecobricks/ecobricks-org/blob/main/translations/core-fr-translation.js" class="translate-link">traduction ⇗</a> | <a href="https://github.com/gea-ecobricks/ecobricks-org/blob/main/guidedTour.js" class="translate-link">code ⇗</a>',
-
-
-    
-
-
-    "001-menu-1-main-item": "<b>Les bases de l'écobrique</b><span class=\"toggle-icon\">+</span>",
-    "002-menu-1-sub-item-1": '<a href="what.php">Écobriques et normes</a><span class="circle" title="Cette page est traduite à 60%" style="color:yellow ;">●</span>',
-    "003-menu-1-trans-text-1": '🇫🇷 what.php a été traduit à 50% | <a href="https://github.com/gea-ecobricks/ecobricks-org/blob/main/translations/what-fr-translation.js" class="translate-link">traduction ⇗</a> | <a href="https://github.com/gea-ecobricks/ecobricks-org/blob/main/fr/what.php" class="translate-link">code ⇗</a>',
-    "004-menu-1-sub-item-2": '<a href="/cigbricks">Cigbriques</a><span class="circle" title="Cette page est traduite à 0% " style="color:red;">●</span>',
-    "005-menu-1-trans-text-2": '🇫🇷 /cigbricks a été traduit à 0% | migration vers le nouveau site git en attente',
-
-    "004-menu-1-sub-item-3": '<a href="/ocean">Ecobricks Océaniques</a><span class="circle" title="Cette page est traduite à 0% et est dans notre format non-git. En attente de migration." style="color:red">●</span>',
-    "005-menu-1-trans-text-3": "🏴 /ocean a été traduit à 0% | migration vers le nouveau site git en attente",
-    "006-menu-1-sub-item-4": '<a href="plastic.php">La Longue Histoire du Plastique</a><span class="circle" title="Cette page est traduite à 0% et est dans notre format non-git. Migration en cours" style="color:red;  ">●</span>',
-    "005-menu-1-trans-text-4": "🏴 /plastic a été traduit à 0% | migration vers le nouveau site git en cours !",
-
-
-    /*BUILD*/
-
-    "007-menu-2-main-item": "Construction",
-    "008-menu-2-sub-item-1": '<a href="build.php">Applications d\'Ecobricks</a><span class="circle" title="Cette page a été traduite à 10%" style="color:yellow;  ">●</span>',
-    "009-menu-2-trans-text-1": "🏴 build.php a été traduit à 10% | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/translations/build-fr-translation.js\" class=\"translate-link\">traduction ⇗  | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/fr/build.php\" class=\"translate-link\">code ⇗</a>",
-    
-    "010-menu-2-sub-item-2": '<a href="modules.php">Modules Milstein</a><span class="circle" title="Cette page a été traduite à 10" style="color:yellow;  ">●</span>',
-    "011-menu-2-trans-text-2": "🏴 modules.php a été traduit à 10% | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/translations/modules-fr-translation.js\" class=\"translate-link\">traduction ⇗  | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/en/modules.php\" class=\"translate-link\">code ⇗</a>",
-    "020-menu-2-sub-item-7": '<a href="/dms">Modules Dieleman</a><span class="circle" title="Cette page a été traduite à 0% et est dans notre format non-git.   En attente de migration." style="color:red">●</span>',
-    "021-menu-2-trans-text-7": "🏴 /earth-methods a été traduit à 0% | migration vers le nouveau site git en attente",
-    "012-menu-2-sub-item-3": '<a href="earth.php">Construction Terrestre</a><span class="circle" title="Cette page a été traduite à 15%" style="color:yellow;  ">●</span>',
-    "013-menu-2-trans-text-3": "earth.php a été traduit à 15% | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/translations/earth-fr-translation.js\" class=\"translate-link\">aidez à éditer ⇗</a>",
-
-    "014-menu-2-sub-item-4": '<a href="/earth-methods">Méthodes de Construction Terrestre</a><span class="circle" title="Cette page a été traduite à 0% et est dans notre format non-git.   En attente de migration." style="color:red">●</span>',
-    "015-menu-2-trans-text-4": "🏴 /earth-methods a été traduit à 0% | migration vers le nouveau site git en attente",
-    "018-menu-2-sub-item-6": '<a href="/openspace">Espaces Ouverts</a><span class="circle" title="Cette page a été traduite à 100% en anglais mais dans notre format non-git.   En attente de migration." style="color:red">●</span>',
-    "019-menu-2-trans-text-6": "🏴 /openspace a été traduit à 0% | migration vers le nouveau site git en attente",
-    "016-menu-2-sub-item-5": '<a href="/fire">Sécurité Incendie</a><span class="circle" title="Cette page a été traduite à 0% en anglais et est dans notre format non-git.   En attente de migration." style="color:red">●</span>',
-    "017-menu-2-trans-text-5": "🏴 /fire a été traduit à 0% | migration vers le nouveau site git en attente",
-
-
-
-/*MAKING */
-
-
-"022-menu-3-main-item": "Fabrication d'écobriques",
-    "023-menu-3-sub-item-1": '<a href="how.php">Notre guide en 10 étapes</a><span class="circle" title="Cette page a été traduite à 100%" style="color:green;  ">●</span>',
-    "024-menu-3-trans-text-1": "🇫🇷 how.php a été traduit à 100% | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/translations/how-fr-translation.js\">traduction ⇗  | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/fr/how.php\" class=\"translate-link\">code ⇗</a>",
-
-    "025-menu-3-sub-item-2": '<a href="earthwand.php">Earthwands (Bâtons d\'écobriquage)</a><span class="circle" title="Cette page a été traduite à 100%" style="color:green;  ">●</span>',
-    "026-menu-3-trans-text-2": "🏴 earthwand.php a été traduit à 100% | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/translations/earthwand-fr-translation.js\" class=\"translate-link\">traduction ⇗</a> | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/fr/earthwand.php\" class=\"translate-link\">code ⇗</a>",
-    "027-menu-3-sub-item-3": '<a href="transition.php">Transition Plastique</a><span class="circle" title="Cette page a été traduite à 50%" style="color:yellow;  ">●</span>',
-    "028-menu-3-trans-text-3": "🏴 transition.php a été traduit à 50% | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/translations/transition-fr-translation.js\" class=\"translate-link\">traduction ⇗</a> | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/fr/transition.php\" class=\"translate-link\">code ⇗</a>",
-
-    "029-menu-4-main-item": "Nos Principes",
-    "030-menu-4-sub-item-1": '<a href="principles.php">Principes Terrestre et Regeneratives</a><span class="circle" title="Cette page a été traduite à 100%" style="color:green;  ">●</span>',
-    "031-menu-4-trans-text-1": "🇫🇷 principles.php a été traduit à 100% |  | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/translations/principles-fr-translation.js\" class=\"translate-link\">traduction ⇗</a> | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/fr/principles.php\" class=\"translate-link\">code ⇗</a>",
-
-    "032-menu-4-sub-item-2": '<a href="sequest.php">Séquestration du plastique</a><span class="circle" title="Cette page a été traduite à 100%" style="color:yellow;  ">●</span>',
-    "033-menu-4-trans-text-2": "🇫🇷 sequest.php a été traduit à 10% | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/translations/sequest-fr-translation.js\" class=\"translate-link\">traduction ⇗</a> | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/fr/sequest.php\" class=\"translate-link\">code ⇗</a>",
-    "034-menu-4-sub-item-3": '<a href="brickable.php">Conception Brikable</a><span class="circle" title="Cette page a été traduite à 10%" style="color:orange;  ">●</span>',
-    "035-menu-4-trans-text-3": "🏴 brickable.php a été traduit à 10%  | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/translations/brickable-fr-translation.js\" class=\"translate-link\">traduction ⇗</a> | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/fr/brickable.php\" class=\"translate-link\">code ⇗</a>",
-    "036-menu-4-sub-item-4": '<a href="spiral.php">Conception en spirale</a><span class="circle" title="Cette page a été traduite à 100%" style="color:green;  ">●</span>',
-    "037-menu-4-trans-text-4": "🏴 spiral.php a été traduit à 100%  | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/translations/spiral-fr-translation.js\" class=\"translate-link\">traduction ⇗</a> | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/fr/spiral.php\" class=\"translate-link\">code ⇗</a>",
-    "038-menu-4-sub-item-5": '<a href="/ayyew">Ayyew</a><span class="circle" title="Cette page a été traduite à 0% et est dans notre format non-git. En attente de migration." style="color:red; ">●</span>',
-    "039-menu-4-trans-text-5": "🏴 /ayyew a été traduit à 0% | migration vers le nouveau site git en attente",
-    "040-menu-4-sub-item-6": '<a href="/mandalic">Collaboration mandalique</a><span class="circle" title="Cette page a été traduite à 0% et est dans notre format non-git. En attente de migration." style="color:red; ">●</span>',
-    "041-menu-4-trans-text-6": "🏴 /mandalic a été traduit à 0% | migration vers le nouveau site git en attente",
-
-
-/*GEA*/
-
-"042-menu-5-main-item": "Alliance Globale d'Écobriques",
-    "043-menu-5-sub-item-1": '<a href="about.php">À propos de nous</a><span class="circle" title="Cette page a été traduite à 100%" style="color:green;  ">●</span>',
-    "044-menu-5-trans-text-1": "🏴 about.php a été traduit à 100%  | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/translations/about-fr-translation.js\" class=\"translate-link\">traduction ⇗</a> | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/fr/about.php\" class=\"translate-link\">code ⇗</a>",
-    "045-menu-5-sub-item-2": '<a href="/story">Notre Histoire</a><span class="circle" title="Cette page a été traduite à 0% et est dans notre format non-git. En attente de migration." style="color:red; ">●</span>',
-    "046-menu-5-trans-text-2": "🏴 /story a été traduit à 0% | migration vers le nouveau site git en attente",
-    "047-menu-5-sub-item-3": '<a href="/gobrik">Notre Projet GoBrik</a><span class="circle" title="Cette page a été traduite à 0% et est dans notre format non-git. En attente de migration." style="color:red; ">●</span>',
-    "048-menu-5-trans-text-3": "🏴 /gobrik a été traduit à 0% | migration vers le nouveau site git en attente",
-    "051-menu-5-sub-item-5": '<a href="/trainings">Nos Formations</a><span class="circle" title="Cette page a été traduite à 0% mais dans notre format non-git. En attente de migration." style="color:red; ">●</span>',
-    "052-menu-5-trans-text-5": "🏴 /trainings a été traduit à 0% | migration vers le nouveau site git en attente",
-    "057-menu-5-sub-item-8": '<a href="open-books.php">Nos Livres Ouverts</a><span class="circle" title="Cette page a été traduite à 20%" style="color:yellow;  ">●</span>',
-    "058-menu-5-trans-text-8": "🏴 open-books.php a été traduit à 20%  | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/translations/open-books-fr-translation.js\" class=\"translate-link\">traduction ⇗</a> | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/fr/open-books.php\" class=\"translate-link\">code ⇗</a>",
-    "065-menu-5-sub-item-12": '<a href="regenreports.php">Nos Rapports de Régénération</a><span class="circle" title="Cette page a été traduite à 10% " style="color:orange;  ">●</span>',
-    "066-menu-5-trans-text-12": "🏴 regenreports.php a été traduit à 15%  | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/translations/regenreports-fr-translation.js\" class=\"translate-link\">traduction ⇗</a> | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/fr/regenreports.php\" class=\"translate-link\">code ⇗</a>",
-    "067-menu-5-sub-item-13": '<a href="coefficients.php">Nos Coefficients Plastiques</a><span class="circle" title="Cette page a été traduite à 10%" style="color:orange;  ">●</span>',
-    "068-menu-5-trans-text-13": "🏴 est à 10% | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/translations/coefficients-fr-translation.js\" class=\"translate-link\">traduction ⇗</a> | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/fr/coeffecients.php\" class=\"translate-link\">code ⇗</a>",
-    "059-menu-5-sub-item-9": '<a href="movement.php">Le Mouvement</a><span class="circle" title="Cette page a été traduite à 0% et est dans notre format non-git. En attente de migration." style="color:red; ">●</span>',
-    "060-menu-5-trans-text-9": "🏴  /movement est à 0%  et est est dans notre système non-git | en attente de transition",
-
-
-    /*PLATFORMS*/
-
-    
-    "061-menu-1-main-item": "Plateformes & Projets",
-    "062-menu-5-sub-item-4": '<a href="/aes">Plastique AES</a><span class="circle" title=" 🏴 Cette page a été traduite à 0% et est dans notre format non-git. En attente de migration." style="color:red; ">●</span>',
-    "063-menu-5-trans-text-4": "/aes a été traduit à 0% et est dans notre format non-git. En attente de migration",
-    "064-menu-5-sub-item-6": '<a href="brikcoins.php">Brikcoins</a><span class="circle" title="Cette page a été traduite à 10%" style="color:yellow;  ">●</span>',
-    "065-menu-5-trans-text-6": "🏴 brikcoins.php a été traduit à 100% | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/translations/brikcoins-fr-translation.js\" class=\"translate-link\">traduction ⇗</a> | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/fr/brikcoins.php\" class=\"translate-link\">code ⇗</a>",
-    "066-menu-5-sub-item-7": '<a href="brikchain.php">Brikchain</a><span class="circle" title="Cette page a été traduite à 10% en anglais" style="color:yellow;  ">●</span>',
-    "067-menu-5-trans-text-7": "🏴 brikchain.php a été traduit à 10% | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/translations/brikchain-fr-translation.js\" class=\"translate-link\">traduction ⇗</a> | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/fr/brikchain.php\" class=\"translate-link\">code ⇗</a>",
-    "068-menu-5-sub-item-7": '<a href="offsets.php">Compensation Plastique</a><span class="circle" title="Cette page a été traduite à 100%" style="color:green;  ">●</span>',
-    "069-menu-5-trans-text-7": "🏴 offsets.php a été traduit à 100% | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/translations/offsetting-fr-translation.js\" class=\"translate-link\">traduction ⇗</a> | <a href=\"https://github.com/gea-ecobricks/ecobricks-org/blob/main/fr/offsets.php\" class=\"translate-link\">code ⇗</a>",
-
-
-
-
-
-
-
-
+ "1000-dashboard": "Tableau de bord",
+    "1001-gobrik-tour": "Visite de GoBrik",
+    "1000-login": "Connexion",
+    "1000-signup": "Inscription",
+    "1000-log-ecobrick": "Enregistrer l'écobrique",
+    "1000-brikchain": "La Brikchain",
+    "1000-latest-ecobricks": "Dernières écobriques",
+    "1000-featured-projects": "Projets en vedette",
+    "1000-latest-trainings": "Dernières formations",
+    "1000-landing-page": "Page d'accueil",
+    "1000-about-gobrik": `<a href="https://ecobricks.org/gobrik" target="_blank">Le projet GoBrik</a> est développé par l'<a href="https://ecobricks.org/about" target="_blank">Alliance Globale d'Écobriques</a>, une entreprise terrestre à but non lucratif dédiée à l'accélération de la transition du plastique et du pétro-capital.`,
 
 
 

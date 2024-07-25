@@ -108,7 +108,8 @@
     <?php
 
     // PART 1 of the code
-    // Access the gobrik database to get the most recently added ecobricks
+    // process_ecobricks.php  here we go
+//    session_start();
 
     if (isset($_GET['action'])) {
         $action = $_GET['action'];
@@ -159,7 +160,7 @@
     ];
 
     // Prepare the API request to retrieve multiple ecobrick records
-    $url = "https://api.knack.com/v1/objects/object_2/records?filters=" . urlencode(json_encode($filters)) . "&sort_field=field_73&sort_order=asc&rows_per_page=1";
+    $url = "https://api.knack.com/v1/objects/object_2/records?filters=" . urlencode(json_encode($filters)) . "&sort_field=field_73&sort_order=desc&rows_per_page=1";
 
     // Initialize cURL session
     $ch = curl_init($url);

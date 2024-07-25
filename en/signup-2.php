@@ -8,7 +8,7 @@ $response = ['success' => false];
 $user_id = $_GET['id'] ?? null;
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.3777';
+$version = '0.378';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $credential_type = '';
@@ -80,8 +80,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
      <!-- PAGE CONTENT-->
     <div id="form-submission-box" style="height:100vh;">
         <div class="form-container">
-            <div class="my-ecobricks" style="margin-top:-45px;">
-                <img src="../webps/earth-community.webp" width="60%">
+            <div class="my-ecobricks">
+                <img src="../webps/earth-community.webp" style="width:65%">
             </div>
 
             <div style="text-align:center;width:100%;margin:auto;">
@@ -135,10 +135,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 </div>
             </form>
 
-            <div style="text-align:center;width:100%;margin:auto;">
+
+        </div>
+
+     <div style="text-align:center;width:100%;margin:auto;">
                 <p style="font-size:medium;" data-land-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
             </div>
-        </div>
+
+
     </div>
 </div>
 
@@ -173,11 +177,11 @@ $(document).ready(function() {
     humanCheckSection.style.display = 'none';
     submitSection.style.display = 'none';
 
-    function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const isDuplicateErrorVisible = duplicateEmailError.is(':visible');
-        return emailRegex.test(email) && !isDuplicateErrorVisible;
-    }
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
 
     // Live email checking
     $('#credential_value').on('blur', function() {

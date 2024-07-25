@@ -466,8 +466,10 @@ display: none;
 
                 <button type="button" id="top-settings-button"  aria-label="Open site settings"></button>
 
-                <!--<button type="button" class="top-lang-button" onclick="showLangSelector()" aria-label="Switch languages"></button>-->
-                <div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>
+                <!--<div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>-->
+
+
+                <button type="button" class="top-lang-button" onclick="showLangSelector()" aria-label="Switch languages"></button>
 
                 <button type="button" class="top-login-button" onclick="showLoginSelector()" aria-label="Login options"></button>
 

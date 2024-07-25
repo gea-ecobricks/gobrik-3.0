@@ -1531,6 +1531,11 @@ body.modal-open {
         margin-top:-50px;
         margin-bottom:-10px;
 }
+
+        my-ecobricks  {
+        margin-top:-35px;
+        margin-bottom:-10px;
+    }
 }
 
 @media screen and (min-width: 700px) {
@@ -1540,6 +1545,11 @@ body.modal-open {
     }
     signup-team  {
         margin-top:-65px;
+        margin-bottom:-10px;
+    }
+
+        my-ecobricks  {
+        margin-top:-45px;
         margin-bottom:-10px;
     }
 }

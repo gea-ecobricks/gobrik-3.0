@@ -17,6 +17,8 @@ FRENCH SNIPPETS FOR ECOBRICKS.ORG
 
 const fr_Translations = {
 
+
+"000-language-code": "FR",
  "000-your": "Votre",
     "000-already-have-account": "Vous avez déjà un compte? <a href=\"login.php\">Connexion</a>",
     "000-select": "Sélectionner...",

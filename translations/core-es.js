@@ -16,7 +16,8 @@ SPANISH SNIPPETS FOR ECOBRICKS.ORG
 
 
 const es_Translations = {
-  
+
+  "000-language-code": "ES",
     "000-your": "Tu",
     "000-already-have-account": "¿Ya tienes una cuenta? <a href=\"login.php\">Iniciar Sesión</a>",
     "000-select": "Seleccionar...",

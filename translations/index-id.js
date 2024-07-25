@@ -12,7 +12,7 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 
 
 const id_Page_Translations = {
-    "000-lead-header": "Bersama-sama kita bisa menjaga plastik kita keluar dari biosfer.",
+    "000-lead-header": "Bersama-sama kita bisa menjaga plastik kita keluar dari biosfer dan industri.",
     "001-welcome-text": "GoBrik membantu mengelola ecobrick, proyek, dan transisi plastik Anda sehingga bersama-sama kita dapat membangun visi hijau kita.",
     "002-sign-in": "Masuk",
     "003-sign-up": "Daftar",

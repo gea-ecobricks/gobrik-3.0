@@ -135,8 +135,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <div style="text-align:center;width:100%;margin:auto;">
             <h2>Welcome <?php echo htmlspecialchars($first_name); ?>!</h2>
-            <p>You're logged into the brand new GoBrik 3.0!</p>
-            <h3>As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik, representing over <?php echo $total_weight; ?> kg of sequestered plastic!</h3>
+            <3>You're logged into the brand new GoBrik 3.0!</3>
+            <p>As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik, representing over <?php echo $total_weight; ?> kg of sequestered plastic!</p>
         </div>
 
 
@@ -144,7 +144,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <h3>Recent Ecobricks</h3>
             <table>
                 <tr>
-                    <th>Thumbnail</th>
+                    <th>Brik</th>
                     <th>Weight (g)</th>
                     <th>Location</th>
                     <th>Maker</th>
@@ -152,11 +152,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 </tr>
                 <?php foreach ($recent_ecobricks as $ecobrick) : ?>
                     <tr>
-                        <td><img src="<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>" alt="Ecobrick Thumbnail"></td>
-                        <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?></td>
+                        <td><img src="https://ecobricks.org/<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>" alt="Ecobrick Thumbnail"></td>
+                        <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?>g</td>
                         <td><?php echo htmlspecialchars($ecobrick['location_full']); ?></td>
                         <td><?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?></td>
-                        <td><a href="brik.php?serial_no=<?php echo htmlspecialchars($ecobrick['serial_no']); ?>"><?php echo htmlspecialchars($ecobrick['serial_no']); ?></a></td>
+                        <td>🔎 <a href="brik.php?serial_no=<?php echo htmlspecialchars($ecobrick['serial_no']); ?>"><?php echo htmlspecialchars($ecobrick['serial_no']); ?></a></td>
                     </tr>
                 <?php endforeach; ?>
             </table>
@@ -167,7 +167,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <!-- Logout Button -->
             <button class="go-button" id="logout-button" onclick="logoutUser()">📤 Logout</button>
         </div>
-    </div>
 </div><!--closes dashboard content-->
 
 </div>

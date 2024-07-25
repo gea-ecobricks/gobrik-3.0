@@ -120,7 +120,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
 
         <div class="signup-team">
-        <img src="../webp/ecobrick-team-blank.webp" width="60%">
+        <img src="../webps/ecobrick-team-blank.webp" width="60%">
     </div>
 
         <div style="text-align:center;width:100%;margin:auto;">

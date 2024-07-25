@@ -1527,10 +1527,18 @@ body.modal-open {
         margin-top:-50px;
         margin-bottom:-10px;
     }
+    signup-team  {
+        margin-top:-50px;
+        margin-bottom:-10px;
+}
 }
 
 @media screen and (min-width: 700px) {
     earth-community  {
+        margin-top:-65px;
+        margin-bottom:-10px;
+    }
+    signup-team  {
         margin-top:-65px;
         margin-bottom:-10px;
     }

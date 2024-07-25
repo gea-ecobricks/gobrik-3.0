@@ -4,9 +4,9 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Uncomment the following lines when you want to enable email functionality
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-require '../vendor/autoload.php';
+// use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\Exception;
+// require '../vendor/autoload.php';
 
 $response = ['success' => false];
 $user_id = $_GET['id'] ?? null;
@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($user_id)) {
                         $stmt_update_user->bind_param("ssi", $password_hash, $credential_value, $user_id);
                         if ($stmt_update_user->execute()) {
                             // Uncomment the following block when you want to enable email functionality
-
+                            /*
                             $mail = new PHPMailer(true);
                             try {
                                 // Server settings
@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($user_id)) {
                             } catch (Exception $e) {
                                 $response['error'] = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
                             }
-
+                            */
                             $response['success'] = true;
                         } else {
                             $response['error'] = 'db_error';

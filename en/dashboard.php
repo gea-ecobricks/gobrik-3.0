@@ -135,13 +135,17 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <div style="text-align:center;width:100%;margin:auto;">
             <h2>Welcome <?php echo htmlspecialchars($first_name); ?>!</h2>
-            <h3>You're logged into the brand new GoBrik 3.0!</3>
+            <h3>You're logged into the brand new GoBrik 3.0!</h3>
             <p>As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik, representing over <?php echo round($total_weight); ?> kg of sequestered plastic!</p>
         </div>
-
+   <div style="display:flex;flex-flow:row;width:100%;justify-content:center;">
+            <button class="go-button" id="log-ecobrick-button">➕ Log an Ecobrick</button>
+            <!-- Logout Button -->
+            <button class="go-button" id="logout-button" onclick="logoutUser()">📤 Logout</button>
+        </div>
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h3>Recent Ecobricks</h3>
+            <h3>Most Recent Ecobricks</h3>
             <table>
                 <tr>
                     <th>Brik</th>
@@ -162,11 +166,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             </table>
         </div>
 
-        <div style="display:flex;flex-flow:row;width:100%;justify-content:center;">
-            <button class="go-button" id="log-ecobrick-button">➕ Log an Ecobrick</button>
-            <!-- Logout Button -->
-            <button class="go-button" id="logout-button" onclick="logoutUser()">📤 Logout</button>
-        </div>
+
 </div><!--closes dashboard content-->
 
 </div>

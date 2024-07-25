@@ -217,7 +217,7 @@ if ($conn2->connect_error) {
 echo "<p>Connected to Brikchain database...</p>";
 
 // Update the ecobrick record
-$sql_update_ecobrick = "UPDATE tb_ecobricks SET maker_id = ? WHERE serial_number = ?";
+$sql_update_ecobrick = "UPDATE tb_ecobricks SET maker_id = ? WHERE serial_no = ?";
 
 $stmt_update_ecobrick = $conn2->prepare($sql_update_ecobrick);
 if ($stmt_update_ecobrick) {

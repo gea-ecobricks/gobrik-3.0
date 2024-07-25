@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 // Set up page variables
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.351';
+$version = '0.35';
 $page = 'dashboard';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -67,6 +67,17 @@ if ($result->num_rows > 0) {
     $total_weight = 0;
 }
 
+// SQL query to fetch the 20 most recent ecobricks
+$sql_recent = "SELECT ecobrick_thumb_photo_url, weight_g, location_full, ecobricker_maker, serial_no FROM tb_ecobricks ORDER BY date_logged_ts DESC LIMIT 20";
+$result_recent = $conn2->query($sql_recent);
+
+$recent_ecobricks = [];
+if ($result_recent->num_rows > 0) {
+    while($row = $result_recent->fetch_assoc()) {
+        $recent_ecobricks[] = $row;
+    }
+}
+
 $conn2->close();
 
 echo '<!DOCTYPE html>
@@ -74,9 +85,30 @@ echo '<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <title>Dashboard</title>
-</head>
-<body>';
-
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 10px;
+        text-align: left;
+    }
+    th {
+        background-color: #333;
+        color: #fff;
+    }
+    tr:nth-child(even) {
+        background-color: #ddd;
+    }
+    tr:nth-child(odd) {
+        background-color: #ccc;
+    }
+    img {
+        max-width: 100px;
+        height: auto;
+    }
+</style>'
 ?>
 
 
@@ -105,6 +137,29 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <h2>Welcome <?php echo htmlspecialchars($first_name); ?>!</h2>
             <p>You're logged into the brand new GoBrik 3.0!</p>
             <h3>As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik, representing over <?php echo $total_weight; ?> kg of sequestered plastic!</h3>
+        </div>
+
+
+        <div style="text-align:center;width:100%;margin:auto;">
+            <h3>Recent Ecobricks</h3>
+            <table>
+                <tr>
+                    <th>Thumbnail</th>
+                    <th>Weight (g)</th>
+                    <th>Location</th>
+                    <th>Maker</th>
+                    <th>Serial No</th>
+                </tr>
+                <?php foreach ($recent_ecobricks as $ecobrick) : ?>
+                    <tr>
+                        <td><img src="<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>" alt="Ecobrick Thumbnail"></td>
+                        <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?></td>
+                        <td><?php echo htmlspecialchars($ecobrick['location_full']); ?></td>
+                        <td><?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?></td>
+                        <td><a href="brik.php?serial_no=<?php echo htmlspecialchars($ecobrick['serial_no']); ?>"><?php echo htmlspecialchars($ecobrick['serial_no']); ?></a></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
         </div>
 
         <div style="display:flex;flex-flow:row;width:100%;justify-content:center;">

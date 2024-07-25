@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ᐉ Help the Great GoBrik Migration</title>
+    <title>ᐉ Maker ID Update</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -34,69 +34,50 @@
     </style>
 </head>
 <body>
-<div class="control-buttons">
-    <button class="button" onclick="stopProcessing()">Stop Processing</button>
-    <button class="button" onclick="startProcessing()">ᐉ Start Processing</button>
-</div>
-<p>We're migrating ecobricks from our old server to our new.  Help us out by running this page on your computer or phone.  Just keep it up.  If it crashes or stops, reload page. Thank you! 🙏</p>
 
-<script>
-    function stopProcessing() {
-        if (confirm('Are you sure you want to stop the processing?')) {
-            window.location.href = 'process_ecobrick.php?action=stop';
-        }
-    }
-
-    function startProcessing() {
-        if (confirm('Are you sure you want to start the processing?')) {
-            window.location.href = 'process_ecobrick.php?action=start';
-        }
-    }
-</script>
+<p>We're updating ecobrick records with the maker id</p>
 
 <div id="ecobrick-being-processed">
-
 
     <div id="ecobricks-processed-gallery">
 
 
 
-        <?php
+       <?php
 
-        ini_set('display_errors', 1);
-        error_reporting(E_ALL);
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
-        include '../ecobricks_env.php';
-        $conn->set_charset("utf8mb4");
+include '../ecobricks_env.php';
+$conn->set_charset("utf8mb4");
 
-        // SQL query to fetch the latest 100 authenticated ecobricks
-        $query = "SELECT serial_no, ecobrick_thumb_photo_url FROM tb_ecobricks
+// SQL query to fetch the latest 18 authenticated ecobricks whose maker_id is not '000000000000000000000000'
+$query = "SELECT serial_no, ecobrick_thumb_photo_url FROM tb_ecobricks
           WHERE status = 'authenticated' AND maker_id != '000000000000000000000000'
           ORDER BY date_published_ts DESC
           LIMIT 18";
 
-        $result = $conn->query($query);
-        ?>
+$result = $conn->query($query);
+?>
 
-
-        <body>
-
-        <h1>Latest Ecobrick Imports</h1>
-        <div class="gallery">
-            <?php
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $serial_no = $row['serial_no'];
-                    $thumb_url = $row['ecobrick_thumb_photo_url'];
-                    echo "<a href='https://ecobricks.org/en/details-ecobrick-page.php?serial_no=$serial_no' target='_blank'>
+<body>
+<h1>Latest Ecobrick Imports</h1>
+<div class="gallery">
+    <?php
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $serial_no = $row['serial_no'];
+            $thumb_url = $row['ecobrick_thumb_photo_url'];
+            echo "<a href='https://ecobricks.org/en/details-ecobrick-page.php?serial_no=$serial_no' target='_blank'>
                     <img src='https://ecobricks.org/$thumb_url' alt='Ecobrick $serial_no' title='Ecobrick $serial_no'>
                   </a>";
-                }
-            } else {
-                echo "<p>No ecobricks found.</p>";
-            }
-            ?>
-        </div>
+        }
+    } else {
+        echo "<p>No ecobricks found.</p>";
+    }
+    ?>
+</div>
+</body>
 
 
 

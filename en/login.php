@@ -1,7 +1,7 @@
 <?php
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));  //grabs language directory from url
 $lang = $directory;
-$version = '0.36';
+$version = '0.37';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 

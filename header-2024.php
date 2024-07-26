@@ -407,10 +407,10 @@ display: none;
             <table id="ecobrick-search-return">
                 <tr>
                     <th data-lang-id="1103-brik">Brik</th>
-                    <th data-lang-id="1104-weight">Weight (g)</th>
+                    <th data-lang-id="1104-weight">Weight</th>
                     <th data-lang-id="1105-location">Location</th>
                     <th data-lang-id="1106-maker">Maker</th>
-                    <th data-lang-id="1107-serial">Serial No</th>
+                    <th data-lang-id="1107-serial">Serial</th>
                 </tr>
             </table>
            <p style="var(--subdued-text);font-size:medium;" data-lang-id="1108-search-footer">Looking for general information about ecobricks? Search on <a target="_blank" href="https://ecobricks.org/faqs">ecobricks.org</a></p>

@@ -221,7 +221,7 @@ function ecobrickSearch() {
             presentEcobrickResults(data, query);
         }
     };
-    xmlhttp.open("GET", "ecobrick_search.php?query=" + encodeURIComponent(query), true);
+    xmlhttp.open("GET", "../ecobrick_search.php?query=" + encodeURIComponent(query), true);
     xmlhttp.send();
 }
 

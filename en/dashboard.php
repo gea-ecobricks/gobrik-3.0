@@ -140,7 +140,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                         <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?>g</td>
                         <td><?php echo htmlspecialchars($ecobrick['location_full']); ?></td>
                         <td><?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?></td>
-                        <td><a href="brik.php?serial_no=<?php echo htmlspecialchars($ecobrick['serial_no']); ?></td>
+                        <td><a href="brik.php?serial_no=<?php echo htmlspecialchars($ecobrick['serial_no']); ?><?php echo htmlspecialchars($ecobrick['serial_no']); ?></a></td>
                     </tr>
                 <?php endforeach; ?>
             </table>

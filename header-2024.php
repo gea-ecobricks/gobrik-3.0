@@ -137,7 +137,7 @@ function logoutUser() {
 
 <script src="../scripts/guided-tour.js?v=1.4" defer></script>
 
-<script src="../scripts/site-search.js?v=7" defer></script>
+<script src="../scripts/site-search.js?v=7.1" defer></script>
 
 
 

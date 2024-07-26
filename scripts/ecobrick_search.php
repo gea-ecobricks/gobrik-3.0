@@ -28,17 +28,19 @@ $search_param = '%' . $query . '%';
 $stmt->bind_param("sss", $search_param, $search_param, $search_param);
 
 $stmt->execute();
-$result = $stmt->get_result();
 
-if ($result === false) {
-    http_response_code(500);
-    echo json_encode(['error' => 'SQL execute failed: ' . $stmt->error]);
-    exit();
-}
+// Bind results to variables
+$stmt->bind_result($ecobrick_thumb_photo_url, $weight_g, $location_full, $ecobricker_maker, $serial_no);
 
 $ecobricks = [];
-while ($row = $result->fetch_assoc()) {
-    $ecobricks[] = $row;
+while ($stmt->fetch()) {
+    $ecobricks[] = [
+        'ecobrick_thumb_photo_url' => $ecobrick_thumb_photo_url,
+        'weight_g' => $weight_g,
+        'location_full' => $location_full,
+        'ecobricker_maker' => $ecobricker_maker,
+        'serial_no' => $serial_no
+    ];
 }
 
 $stmt->close();

@@ -119,10 +119,7 @@ echo '<!DOCTYPE html>
 </style>'
 ?>
 
-<?php
-$serial_no = htmlspecialchars($ecobrick['serial_no']);
-$wrapped_serial_no = substr($serial_no, 0, 3) . '<br>' . substr($serial_no, 3, 3);
-?>
+
 
 
 <title>Dashboard | GoBrik 3.0</title>
@@ -172,7 +169,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                         <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?>g</td>
                         <td><?php echo htmlspecialchars($ecobrick['location_full']); ?></td>
                         <td><?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?></td>
-                        <td><a href="brik.php?serial_no=<?php echo $serial_no; ?>"><?php echo $wrapped_serial_no; ?></a>"><?php echo htmlspecialchars($ecobrick['serial_no']); ?></a></td>
+                        <td><?php $serial_no = htmlspecialchars($ecobrick['serial_no']);
+$wrapped_serial_no = substr($serial_no, 0, 3) . '<br>' . substr($serial_no, 3, 3);
+?>
+<a href="brik.php?serial_no=<?php echo $serial_no; ?>"><?php echo $wrapped_serial_no; ?></a>
+</td>
                     </tr>
                 <?php endforeach; ?>
             </table>

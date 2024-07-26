@@ -76,10 +76,10 @@ function presentEcobrickResults(ecobricks) {
     resultsTable.innerHTML = `
         <tr>
             <th data-lang-id="1103-brik">Brik</th>
-            <th data-lang-id="1104-weight">Weight (g)</th>
+            <th data-lang-id="1104-weight">Weight</th>
             <th data-lang-id="1105-location">Location</th>
             <th data-lang-id="1106-maker">Maker</th>
-            <th data-lang-id="1107-serial">Serial No</th>
+            <th data-lang-id="1107-serial">Serial</th>
         </tr>
     `;
 

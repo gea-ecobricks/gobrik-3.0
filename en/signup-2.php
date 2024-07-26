@@ -80,7 +80,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
      <!-- PAGE CONTENT-->
     <div id="form-submission-box" style="height:100vh;">
         <div class="form-container">
-            <div class="my-ecobricks">
+            <div class="credentials-banner">
                 <img src="../webps/earth-community.webp" style="width:65%">
             </div>
 

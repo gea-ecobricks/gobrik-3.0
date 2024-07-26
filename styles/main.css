@@ -1536,6 +1536,11 @@ body.modal-open {
         margin-top:-35px;
         margin-bottom:-10px;
     }
+
+           .credentials-banner  {
+        margin-top:-35px;
+        margin-bottom:-10px;
+    }
 }
 
 @media screen and (min-width: 700px) {
@@ -1549,6 +1554,11 @@ body.modal-open {
     }
 
         .my-ecobricks  {
+        margin-top:-45px;
+        margin-bottom:-10px;
+    }
+
+           .credentials-banner  {
         margin-top:-45px;
         margin-bottom:-10px;
     }

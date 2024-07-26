@@ -196,7 +196,6 @@ document.getElementById('user-signup-form').addEventListener('submit', function(
 
     // Helper function to display error messages
     function displayError(elementId, showError) {
-    alert('elementId');
         var errorDiv = document.getElementById(elementId);
         if (showError) {
             errorDiv.style.display = 'block'; // Show the error message

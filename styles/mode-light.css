@@ -1,3 +1,4 @@
+
 /*LIGHT STYLE SHEET*/
 
 /* light.css: 👉 dark-on-light  */
@@ -495,3 +496,8 @@ light.css
       background: url(../svgs/my-ecobricks-day.svg) no-repeat center;
       background-size: contain;
       }
+
+        .credentials-banner {
+  background: url(../svgs/credentials-banner-day.svg?v=2) no-repeat center;
+  background-size: contain;
+}

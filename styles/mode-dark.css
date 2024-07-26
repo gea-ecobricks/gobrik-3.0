@@ -580,3 +580,8 @@ background-size: contain;
   background: url(../svgs/earth-community-night.svg?v=2) no-repeat center;
   background-size: contain;
 }
+
+  .credentials-banner {
+  background: url(../svgs/credentials-banner-night.svg?v=2) no-repeat center;
+  background-size: contain;
+}

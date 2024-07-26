@@ -96,7 +96,8 @@ if ($stmt_lookup_password) {
                                               VALUES (?, ?, ?, NOW(), ?, 1, NOW(), ?)";
                     $stmt_insert_ecobricker = $conn2->prepare($sql_insert_ecobricker);
                     if ($stmt_insert_ecobricker) {
-                        $stmt_insert_ecobricker->bind_param("sisi", $first_name, $user_id, $credential_value, $user_id, $lang);
+                    //error is here on line 99:
+                            $stmt_insert_ecobricker->bind_param("sisisi", $first_name, $user_id, $credential_value, $user_id, $lang);
                         if ($stmt_insert_ecobricker->execute()) {
                             error_log("New user inserted into ecobricker_live_tb: $first_name, $user_id");
                         } else {

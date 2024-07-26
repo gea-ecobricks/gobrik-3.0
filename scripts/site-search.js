@@ -210,20 +210,29 @@ console.log('Day Image URL:', currentPost.image_url);
 
 
 //ECOBRICK SEARCH FUNCTION
-
 function ecobrickSearch() {
     var query = document.getElementById("search_input").value.toLowerCase();
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var data = JSON.parse(this.responseText);
-            presentEcobrickResults(data, query);
+        if (this.readyState == 4) {
+            if (this.status == 200) {
+                try {
+                    var data = JSON.parse(this.responseText);
+                    presentEcobrickResults(data, query);
+                } catch (e) {
+                    console.error("Error parsing JSON:", e);
+                    console.error("Response:", this.responseText);
+                }
+            } else {
+                console.error("Error with search request:", this.status, this.statusText);
+            }
         }
     };
     xmlhttp.open("GET", "../scripts/ecobrick_search.php?query=" + encodeURIComponent(query), true);
     xmlhttp.send();
 }
+
 
 function presentEcobrickResults(ecobricks, query) {
     var resultsTable = document.getElementById("ecobrick-search-return");

@@ -6,7 +6,9 @@ $query = isset($_GET['query']) ? $_GET['query'] : '';
 $conn2 = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn2->connect_error) {
-    die("Connection failed: " . $conn2->connect_error);
+    http_response_code(500);
+    echo json_encode(['error' => 'Database connection failed: ' . $conn2->connect_error]);
+    exit();
 }
 
 $sql = "SELECT ecobrick_thumb_photo_url, weight_g, location_full, ecobricker_maker, serial_no
@@ -16,10 +18,23 @@ $sql = "SELECT ecobrick_thumb_photo_url, weight_g, location_full, ecobricker_mak
         LIMIT 20";
 
 $stmt = $conn2->prepare($sql);
+if ($stmt === false) {
+    http_response_code(500);
+    echo json_encode(['error' => 'SQL prepare failed: ' . $conn2->error]);
+    exit();
+}
+
 $search_param = '%' . $query . '%';
 $stmt->bind_param("sss", $search_param, $search_param, $search_param);
+
 $stmt->execute();
 $result = $stmt->get_result();
+
+if ($result === false) {
+    http_response_code(500);
+    echo json_encode(['error' => 'SQL execute failed: ' . $stmt->error]);
+    exit();
+}
 
 $ecobricks = [];
 while ($row = $result->fetch_assoc()) {

@@ -1594,3 +1594,5 @@ body.modal-open {
         max-width: 60px;
         height: auto;
     }
+
+    table a {color: var(--h1);}

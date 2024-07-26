@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 // Set up page variables
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.362';
+$version = '0.363';
 $page = 'dashboard';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 

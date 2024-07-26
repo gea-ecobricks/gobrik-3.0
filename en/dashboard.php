@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 // Set up page variables
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.36';
+$version = '0.361';
 $page = 'dashboard';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -140,7 +140,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                         <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?>g</td>
                         <td><?php echo htmlspecialchars($ecobrick['location_full']); ?></td>
                         <td><?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?></td>
-                        <td><a href="brik.php?serial_no=<?php echo $serial_no; ?>"><?php echo $wrapped_serial_no; ?></a>"><?php echo htmlspecialchars($ecobrick['serial_no']); ?></a></td>
+                        <td><a href="brik.php?serial_no=<?php echo htmlspecialchars($ecobrick['serial_no']); ?></td>
                     </tr>
                 <?php endforeach; ?>
             </table>

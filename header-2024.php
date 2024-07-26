@@ -397,7 +397,7 @@ display: none;
     <div class="search-overlay-content">
         <div>
             <h1 style="font-family:'Arvo', serif;text-shadow: none;" data-lang-id="100-search-title">Search</h1>
-            <p style="text-align:center; width:100%;" data-lang-id="101-search-intro">Find any ecobrick on the Brikchain.<a style="color:var(--emblem-blue)" href="brikchain.php">brikchain search</a>.</p>
+            <p style="text-align:center; width:100%;" data-lang-id="101-search-intro">Find any ecobrick on the Brikchain<a style="color:var(--emblem-blue)" href="brikchain.php">brikchain search</a>.</p>
         </div>
 
         <div class="search-box">
@@ -408,7 +408,7 @@ display: none;
         </div>
 
         <!-- Search results div -->
-        <div id="search_results">
+        <div id="search-results" style="display: none;">
             <h6 style="color:grey;" data-lang-id="104-search-bottom-text">Looking for general information about ecobricks? Search on <a target="_blank" href="https://ecobricks.org">ecobricks.org</a></h6>
         </div>
 

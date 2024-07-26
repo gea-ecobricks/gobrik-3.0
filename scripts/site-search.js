@@ -31,7 +31,7 @@ function closeSearch() {
 
 function clearResults() {
     document.getElementById('search_input').value = '';
-    document.getElementById('search-results').innerHTML = '';
+    document.getElementById('search-results').style.display = 'none';
     var overlayContent = document.querySelector('.search-overlay-content');
     overlayContent.style.height = '';
     overlayContent.style.marginTop = '';
@@ -46,6 +46,7 @@ function handleKeyPress(event) {
 
 //ECOBRICK SEARCH FUNCTION
 function ecobrickSearch() {
+    console.log("Search function called"); // Debugging statement
     var query = document.getElementById("search_input").value.toLowerCase();
 
     // Hide the search results initially
@@ -55,6 +56,7 @@ function ecobrickSearch() {
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4) {
             if (this.status == 200) {
+                console.log("Response received:", this.responseText); // Debugging statement
                 try {
                     var data = JSON.parse(this.responseText);
                     presentEcobrickResults(data, query);
@@ -72,6 +74,7 @@ function ecobrickSearch() {
 }
 
 function presentEcobrickResults(ecobricks) {
+    console.log("Present results called with data:", ecobricks); // Debugging statement
     var resultsTable = document.getElementById("ecobrick-search-return");
     resultsTable.innerHTML = `
         <tr>

@@ -426,9 +426,7 @@ display: none;
     </div>
 </div>
 
-<script>
 
-</script>
 
 
 

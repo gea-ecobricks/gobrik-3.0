@@ -8,7 +8,7 @@ $response = ['success' => false];
 $user_id = $_GET['id'] ?? null;
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.38';
+$version = '0.39';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $credential_type = '';
@@ -138,7 +138,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         </div>
 
-     <div style="text-align:center;width:100%;margin:auto;">
+     <div style="text-align:center;width:100%;margin:auto;margin-top: 20px;">
                 <p style="font-size:medium;" data-land-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
             </div>
 

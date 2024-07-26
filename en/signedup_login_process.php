@@ -10,10 +10,10 @@ include '../buwana_env.php'; // This file provides the first database server, us
 
 // Retrieve form data
 $user_id = filter_input(INPUT_POST, 'user_id', FILTER_SANITIZE_NUMBER_INT);
-$credential_key = filter_input(INPUT_POST, 'credential_value', FILTER_SANITIZE_EMAIL);
+$credential_value = filter_input(INPUT_POST, 'credential_value', FILTER_SANITIZE_EMAIL);
 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 
-if (!$user_id || !$credential_key || !$password) {
+if (!$user_id || !$credential_value || !$password) {
     header("Location: signedup-login.php?id=$user_id&error=invalid_input");
     exit();
 }
@@ -61,7 +61,7 @@ if ($stmt_lookup_password) {
             $sql_check_email = "SELECT ecobricker_id FROM ecobricker_live_tb WHERE email_addr = ?";
             $stmt_check_email = $conn2->prepare($sql_check_email);
             if ($stmt_check_email) {
-                $stmt_check_email->bind_param("s", $credential_key);
+                $stmt_check_email->bind_param("s", $credential_value);
                 $stmt_check_email->execute();
                 $stmt_check_email->store_result();
 
@@ -76,7 +76,7 @@ if ($stmt_lookup_password) {
                                               WHERE email_addr = ?";
                     $stmt_update_ecobricker = $conn2->prepare($sql_update_ecobricker);
                     if ($stmt_update_ecobricker) {
-                        $stmt_update_ecobricker->bind_param("siss", $first_name, $user_id, $lang, $credential_key);
+                        $stmt_update_ecobricker->bind_param("siss", $first_name, $user_id, $lang, $credential_value);
                         if ($stmt_update_ecobricker->execute()) {
                             error_log("Updated existing ecobricker in ecobricker_live_tb: $first_name, $user_id");
                         } else {
@@ -97,7 +97,7 @@ if ($stmt_lookup_password) {
                     $stmt_insert_ecobricker = $conn2->prepare($sql_insert_ecobricker);
                     if ($stmt_insert_ecobricker) {
                     //error is here on line 99:
-                            $stmt_insert_ecobricker->bind_param("sisiss", $first_name, $user_id, $credential_key, $user_id, $lang);
+                            $stmt_insert_ecobricker->bind_param("sisiss", $first_name, $user_id, $credential_value, $user_id, $lang);
                         if ($stmt_insert_ecobricker->execute()) {
                             error_log("New user inserted into ecobricker_live_tb: $first_name, $user_id");
                         } else {

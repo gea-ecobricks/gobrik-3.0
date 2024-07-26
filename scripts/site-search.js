@@ -10,63 +10,48 @@
  /* RIGHT SEARCH CURTAIN OVERLAY
 
  Triggers the right search panel*/
+function openSearch() {
+    document.body.style.overflow = 'hidden';
+    document.body.style.maxHeight = '100vh';
+    document.body.style.overflowY = "clip";
 
- function openSearch() {
-   document.body.style.overflow = 'hidden';
-   document.body.style.maxHeight = '100vh';
-   document.getElementById("right-search-overlay").style.width = "100%";
-//   document.getElementById("right-search-overlay").style.display = "block";
+    var modal = document.getElementById('right-search-overlay');
+    modal.style.width = "100%";
 
-   document.body.style.overflowY = "clip";
+    modal.setAttribute('tabindex', '0');
+    modal.focus();
 
-   var modal = document.getElementById('right-search-overlay');
-
-   function modalShow() {
-       modal.setAttribute('tabindex', '0');
-       modal.focus();
-   }
-
-   function focusRestrict(event) {
-       document.addEventListener('focus', function(event) {
-           if (modalOpen && !modal.contains(event.target)) {
-               event.stopPropagation();
-               modal.focus();
-           }
-       }, true);
-   }
-
-
-   modalShow(); // Ensure the modal is shown correctly
+    document.addEventListener('focus', function(event) {
+        if (!modal.contains(event.target)) {
+            event.stopPropagation();
+            modal.focus();
+        }
+    }, true);
 }
 
+/* Close when someone clicks on the "x" symbol inside the overlay */
+function closeSearch() {
+    document.getElementById("right-search-overlay").style.width = "0%";
 
+    // Allow scrolling on the body again
+    document.body.style.overflow = '';
+    document.body.style.maxHeight = '';
+}
 
- /* Close when someone clicks on the "x" symbol inside the overlay */
- function closeSearch() {
-   document.getElementById("right-search-overlay").style.width = "0%";
+function clearResults() {
+    document.getElementById('search_input').value = '';
+    document.getElementById('search_results').innerHTML = '';
+    var overlayContent = document.querySelector('.search-overlay-content');
+    overlayContent.style.height = '';
+    overlayContent.style.marginTop = '';
+}
 
-        // Allow scrolling on the body again
-        document.body.style.overflow = '';
-        document.body.style.maxHeight = '';
- }
-
-
-
-
-
-//
-//function clearResults() {
-//  var searchInput = document.getElementById('search_input');
-//  var resultsContainer = document.getElementById('search_results');
-//  var overlayContent = document.querySelector('.search-overlay-content');
-//  searchInput.value = '';
-//  resultsContainer.innerHTML = '';
-//  overlayContent.style.height = '';
-//  overlayContent.style.marginTop = '';
-//
-//}
-
-
+function handleKeyPress(event) {
+    if (event.keyCode === 13) { // 13 is the key code for the enter key
+        event.preventDefault(); // Prevent the default action to stop form submission
+        ecobrickSearch(); // Call your search function without arguments
+    }
+}
 
 //ECOBRICK SEARCH FUNCTION
 function ecobrickSearch() {
@@ -92,8 +77,7 @@ function ecobrickSearch() {
     xmlhttp.send();
 }
 
-
-function presentEcobrickResults(ecobricks, query) {
+function presentEcobrickResults(ecobricks) {
     var resultsTable = document.getElementById("ecobrick-search-return");
     resultsTable.innerHTML = `
         <tr>

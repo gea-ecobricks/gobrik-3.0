@@ -426,22 +426,7 @@ display: none;
 </div>
 
 <script>
-function handleKeyPress(event) {
-    if (event.keyCode === 13) { // 13 is the key code for the enter key
-        event.preventDefault(); // Prevent the default action to stop form submission
-        ecobrickSearch(); // Call your search function without arguments
-    }
-}
 
-function clearResults() {
-    var searchInput = document.getElementById('search_input');
-    var resultsContainer = document.getElementById('search_results');
-    var overlayContent = document.querySelector('.search-overlay-content');
-    searchInput.value = '';
-    resultsContainer.innerHTML = '';
-    overlayContent.style.height = '';
-    overlayContent.style.marginTop = '';
-}
 </script>
 
 

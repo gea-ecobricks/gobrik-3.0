@@ -98,14 +98,14 @@ echo '<!DOCTYPE html>
         text-align: left;
     }
     th {
-        background-color: #333;
-        color: #fff;
+        background-color: var(--table-background-heading);
+        color: var(--main-background);
     }
     tr:nth-child(even) {
-        background-color: #ddd;
+        background-color:  var(--table-background-1);
     }
     tr:nth-child(odd) {
-        background-color: #ccc;
+        background-color:  var(--table-background-2);
     }
     #latest-ecobricks img {
         max-width: 60px;

@@ -1,15 +1,3 @@
-
-
- /* -------------------------------------------------------------------------- */
-
- /*	SITE SEARCH
-
- /* -------------------------------------------------------------------------- */
-
-
- /* RIGHT SEARCH CURTAIN OVERLAY
-
- Triggers the right search panel*/
 function openSearch() {
     document.body.style.overflow = 'hidden';
     document.body.style.maxHeight = '100vh';
@@ -27,6 +15,9 @@ function openSearch() {
             modal.focus();
         }
     }, true);
+
+    // Hide the search results initially
+    document.getElementById('search-results').style.display = 'none';
 }
 
 /* Close when someone clicks on the "x" symbol inside the overlay */
@@ -40,7 +31,7 @@ function closeSearch() {
 
 function clearResults() {
     document.getElementById('search_input').value = '';
-    document.getElementById('search_results').innerHTML = '';
+    document.getElementById('search-results').innerHTML = '';
     var overlayContent = document.querySelector('.search-overlay-content');
     overlayContent.style.height = '';
     overlayContent.style.marginTop = '';
@@ -56,6 +47,9 @@ function handleKeyPress(event) {
 //ECOBRICK SEARCH FUNCTION
 function ecobrickSearch() {
     var query = document.getElementById("search_input").value.toLowerCase();
+
+    // Hide the search results initially
+    document.getElementById('search-results').style.display = 'none';
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
@@ -103,4 +97,7 @@ function presentEcobrickResults(ecobricks) {
             </tr>
         `;
     });
+
+    // Show the search results
+    document.getElementById('search-results').style.display = 'block';
 }

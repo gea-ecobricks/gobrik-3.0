@@ -412,7 +412,6 @@ display: none;
             <h6 style="color:grey;" data-lang-id="104-search-bottom-text">Looking for general information about ecobricks? Search on <a target="_blank" href="https://ecobricks.org">ecobricks.org</a></h6>
         </div>
 
-        <h3>Matching Ecobricks</h3>
         <table id="ecobrick-search-return">
             <tr>
                 <th>Brik</th>

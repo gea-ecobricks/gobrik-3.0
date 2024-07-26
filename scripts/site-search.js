@@ -195,14 +195,60 @@ console.log('Day Image URL:', currentPost.image_url);
 
 
 
+//
+//function clearResults() {
+//  var searchInput = document.getElementById('search_input');
+//  var resultsContainer = document.getElementById('search_results');
+//  var overlayContent = document.querySelector('.search-overlay-content');
+//  searchInput.value = '';
+//  resultsContainer.innerHTML = '';
+//  overlayContent.style.height = '';
+//  overlayContent.style.marginTop = '';
+//
+//}
 
-function clearResults() {
-  var searchInput = document.getElementById('search_input');
-  var resultsContainer = document.getElementById('search_results');
-  var overlayContent = document.querySelector('.search-overlay-content');
-  searchInput.value = '';
-  resultsContainer.innerHTML = '';
-  overlayContent.style.height = '';
-  overlayContent.style.marginTop = '';
 
+
+//ECOBRICK SEARCH FUNCTION
+
+function ecobrickSearch() {
+    var query = document.getElementById("search_input").value.toLowerCase();
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var data = JSON.parse(this.responseText);
+            presentEcobrickResults(data, query);
+        }
+    };
+    xmlhttp.open("GET", "ecobrick_search.php?query=" + encodeURIComponent(query), true);
+    xmlhttp.send();
+}
+
+function presentEcobrickResults(ecobricks, query) {
+    var resultsTable = document.getElementById("ecobrick-search-return");
+    resultsTable.innerHTML = `
+        <tr>
+            <th>Brik</th>
+            <th>Weight (g)</th>
+            <th>Location</th>
+            <th>Maker</th>
+            <th>Serial No</th>
+        </tr>
+    `;
+
+    ecobricks.forEach(function(ecobrick) {
+        var serial_no = ecobrick.serial_no;
+        var wrapped_serial_no = serial_no.slice(0, 3) + '<br>' + serial_no.slice(3);
+
+        resultsTable.innerHTML += `
+            <tr>
+                <td><img src="https://ecobricks.org/${ecobrick.ecobrick_thumb_photo_url}" alt="Ecobrick Thumbnail" style="max-width: 100px;"></td>
+                <td>${ecobrick.weight_g}g</td>
+                <td>${ecobrick.location_full}</td>
+                <td>${ecobrick.ecobricker_maker}</td>
+                <td><a href="brik.php?serial_no=${serial_no}">${wrapped_serial_no}</a></td>
+            </tr>
+        `;
+    });
 }

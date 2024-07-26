@@ -1563,3 +1563,34 @@ body.modal-open {
         margin-bottom:-10px;
     }
 }
+
+
+/* TABLES */
+
+ table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: \'Mulish\', Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  font-weight: 300;
+  color: var(--text-color);
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: left;
+    }
+    th {
+        background-color: var(--table-background-heading);
+        color: var(--main-background);
+    }
+    tr:nth-child(even) {
+        background-color:  var(--table-background-1);
+    }
+    tr:nth-child(odd) {
+        background-color:  var(--table-background-2);
+    }
+    #latest-ecobricks img {
+        max-width: 60px;
+        height: auto;
+    }

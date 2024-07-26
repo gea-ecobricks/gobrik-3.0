@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 // Set up page variables
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.35';
+$version = '0.36';
 $page = 'dashboard';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -88,37 +88,8 @@ echo '<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <title>Dashboard</title>
-<style>
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        font-family: \'Mulish\', Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  font-weight: 300;
-  color: var(--text-color);
-    }
-
-    th, td {
-        padding: 10px;
-        text-align: left;
-    }
-    th {
-        background-color: var(--table-background-heading);
-        color: var(--main-background);
-    }
-    tr:nth-child(even) {
-        background-color:  var(--table-background-1);
-    }
-    tr:nth-child(odd) {
-        background-color:  var(--table-background-2);
-    }
-    #latest-ecobricks img {
-        max-width: 60px;
-        height: auto;
-    }
-</style>'
+'
 ?>
-
 
 
 
@@ -169,11 +140,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                         <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?>g</td>
                         <td><?php echo htmlspecialchars($ecobrick['location_full']); ?></td>
                         <td><?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?></td>
-                        <td><?php $serial_no = htmlspecialchars($ecobrick['serial_no']);
-$wrapped_serial_no = substr($serial_no, 0, 3) . '<br>' . substr($serial_no, 3, 3);
-?>
-<a href="brik.php?serial_no=<?php echo $serial_no; ?>"><?php echo $wrapped_serial_no; ?></a>
-</td>
+                        <td><a href="brik.php?serial_no=<?php echo $serial_no; ?>"><?php echo $wrapped_serial_no; ?></a>"><?php echo htmlspecialchars($ecobrick['serial_no']); ?></a></td>
                     </tr>
                 <?php endforeach; ?>
             </table>

@@ -390,37 +390,39 @@ display: none;
 
 <!--SEARCH PAGE-->
 <div id="right-search-overlay" class="search-overlay">
-    <div class="right-close-button">
-        <button type="button" onclick="closeSearch(), clearResults()" aria-label="Close Search" class="x-button"></button>
-    </div>
+
+    <button type="button" onclick="closeSearch(), clearResults()" aria-label="Close Search" class="x-button"></button>
+
 
     <div class="search-overlay-content">
         <div>
-            <h1 style="font-family:'Arvo', serif;text-shadow: none;" data-lang-id="100-search-title">Search</h1>
-            <p style="text-align:center; width:100%;" data-lang-id="101-search-intro">Find any ecobrick on the Brikchain<a style="color:var(--emblem-blue)" href="brikchain.php">brikchain search</a>.</p>
+            <h1 style="font-family:'Arvo', serif;text-shadow: none;" data-lang-id="1100-search-title">Search</h1>
+            <p style="text-align:center; width:100%;" data-lang-id="1101-search-intro">Find any ecobrick on the Brikchain<a style="color:var(--emblem-blue)" href="brikchain.php">brikchain search</a>.</p>
         </div>
 
         <div class="search-box">
-            <div class="search-section">
-                <input id="search_input" type="text" placeholder="Enter search..." aria-label="Enter search..." onkeypress="handleKeyPress(event)">
+            <div class="search-section" data-lang-id="1102-search-section">
+                <input id="search_input" type="text" placeholder="Enter serial..." aria-label="Enter Serial..." onkeypress="handleKeyPress(event)">
                 <button class="btn main-search-button" onclick="ecobrickSearch()" aria-label="Search Button"></button>
             </div>
         </div>
 
         <!-- Search results div -->
         <div id="search-results" style="display: none;">
-            <h6 style="color:grey;" data-lang-id="104-search-bottom-text">Looking for general information about ecobricks? Search on <a target="_blank" href="https://ecobricks.org">ecobricks.org</a></h6>
-        </div>
 
-        <table id="ecobrick-search-return">
-            <tr>
-                <th>Brik</th>
-                <th>Weight (g)</th>
-                <th>Location</th>
-                <th>Maker</th>
-                <th>Serial No</th>
-            </tr>
-        </table>
+
+            <table id="ecobrick-search-return">
+                <tr>
+                    <th data-lang-id="1103-brik">Brik</th>
+                    <th data-lang-id="1104-weight">Weight (g)</th>
+                    <th data-lang-id="1105-location">Location</th>
+                    <th data-lang-id="1106-maker">Maker</th>
+                    <th data-lang-id="1107-serial">Serial No</th>
+                </tr>
+            </table>
+
+           <p style="var(--subdued-text);font-size:medium;" data-lang-id="1108-search-footer">Looking for general information about ecobricks? Search on <a target="_blank" href="https://ecobricks.org/faqs">ecobricks.org</a></p>
+        </div>
     </div>
 </div>
 

@@ -11,7 +11,7 @@ if ($conn2->connect_error) {
     exit();
 }
 
-$sql = "SELECT ecobrick_thumb_photo_url, weight_g, location_full, ecobricker_maker, serial_no
+$sql = "SELECT ecobrick_thumb_photo_url, ecobrick_photo_url, weight_g, location_full, ecobricker_maker, serial_no
         FROM tb_ecobricks
         WHERE LOWER(serial_no) LIKE ? OR LOWER(location_full) LIKE ? OR LOWER(ecobricker_maker) LIKE ?
         ORDER BY date_logged_ts DESC
@@ -30,12 +30,13 @@ $stmt->bind_param("sss", $search_param, $search_param, $search_param);
 $stmt->execute();
 
 // Bind results to variables
-$stmt->bind_result($ecobrick_thumb_photo_url, $weight_g, $location_full, $ecobricker_maker, $serial_no);
+$stmt->bind_result($ecobrick_thumb_photo_url, $ecobrick_photo_url, $weight_g, $location_full, $ecobricker_maker, $serial_no);
 
 $ecobricks = [];
 while ($stmt->fetch()) {
     $ecobricks[] = [
         'ecobrick_thumb_photo_url' => $ecobrick_thumb_photo_url,
+        'ecobrick_photo_url' => $ecobrick_photo_url,
         'weight_g' => $weight_g,
         'location_full' => $location_full,
         'ecobricker_maker' => $ecobricker_maker,

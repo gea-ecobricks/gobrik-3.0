@@ -1,7 +1,7 @@
 <?php
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.38';
+$version = '0.381';
 $page = 'index';
 include '../ecobricks_env.php';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
@@ -94,7 +94,7 @@ if ($result->num_rows > 0) {
 <a class="photo-box-end" href="brikchain.php"></a>
 
 
-
+</div>
 
 
         <div class="feature-content-box">

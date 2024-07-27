@@ -1595,10 +1595,24 @@ body.modal-open {
         height: auto;
     }
 
-serial-button {
+.serial-button {
 color: var(--text-color);
   border: 1px solid;
   padding: 15px;
   border-radius: 5px;
   background: var(--darker);
+}
+
+
+@media screen and (min-width: 700px) {
+.table-thumbnail {
+max-width: 100px;
+}
+}
+
+
+@media screen and (max-width: 700px) {
+.table-thumbnail {
+max-width: 50px;
+}
 }

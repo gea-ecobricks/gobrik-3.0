@@ -89,7 +89,7 @@ function presentEcobrickResults(ecobricks) {
 
         resultsTable.innerHTML += `
             <tr>
-                <td><img src="https://ecobricks.org/${ecobrick.ecobrick_thumb_photo_url}" alt="Ecobrick Thumbnail" style="max-width: 100px;"></td>
+                <td><img src="https://ecobricks.org/${ecobrick.ecobrick_thumb_photo_url}" alt="Ecobrick Thumbnail" class="table-thumbnail"></td>
                 <td>${ecobrick.weight_g}g</td>
                 <td>${ecobrick.location_full}</td>
                 <td>${ecobrick.ecobricker_maker}</td>

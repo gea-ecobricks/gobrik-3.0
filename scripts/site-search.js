@@ -93,7 +93,8 @@ function presentEcobrickResults(ecobricks) {
 
         resultsTable.innerHTML += `
             <tr>
-                <td><img src="https://ecobricks.org/${ecobrick.ecobrick_thumb_photo_url}" alt="Ecobrick ${serial_no} by ${ecobrick.ecobricker_maker} in ${ecobrick.location_full}" title="Ecobrick ${serial_no} by ${ecobrick.ecobricker_maker} in ${ecobrick.location_full}" loading="lazy" onclick="ecobrickPreview('${ecobrick.ecobrick_full_photo_url}','${serial_no}','${ecobrick.weight_g}g','${ecobrick.ecobricker_maker}','${ecobrick.location_full}')" class="table-thumbnail"></td>
+                <td><img src="https://ecobricks.org/${ecobrick.ecobrick_thumb_photo_url}" alt="Ecobrick ${serial_no} by ${ecobrick.ecobricker_maker} in ${ecobrick.location_full}" title="Ecobrick ${serial_no} by ${ecobrick.ecobricker_maker} in ${ecobrick.location_full}" loading="lazy" onclick="ecobrickPreview('https://ecobricks.org/${ecobrick.ecobrick_full_photo_url}','${serial_no}','${ecobrick.weight_g}g','${ecobrick.ecobricker_maker}','${ecobrick.location_full}')" class="table-thumbnail"></td>
+
                 <td>${ecobrick.weight_g}g</td>
                 <td>${ecobrick.location_full}</td>
                 <td>${ecobrick.ecobricker_maker}</td>

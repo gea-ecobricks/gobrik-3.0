@@ -264,7 +264,7 @@ function ecobrickPreview(imageUrl, brik_serial, weight, owner, location) {
 
     // Create and append the ecobrick image to the photo container
     var img = document.createElement('img');
-    img.src = 'https://ecobricks.org' + imageUrl;
+    img.src = 'https://ecobricks.org/' + imageUrl;
     img.alt = "Ecobrick " + brik_serial;
     img.style.maxWidth = '90%';
     img.style.maxHeight = '75vh';

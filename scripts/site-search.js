@@ -93,7 +93,7 @@ function presentEcobrickResults(ecobricks) {
                 <td>${ecobrick.weight_g}g</td>
                 <td>${ecobrick.location_full}</td>
                 <td>${ecobrick.ecobricker_maker}</td>
-                <td><a href="brik.php?serial_no=${serial_no}" class="serial-button">${wrapped_serial_no}</a></td>
+<td><button class="serial-button"><a href="brik.php?serial_no=${serial_no}">${wrapped_serial_no}</a></button></td>
             </tr>
         `;
     });

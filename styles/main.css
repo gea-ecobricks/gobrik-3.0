@@ -1595,4 +1595,10 @@ body.modal-open {
         height: auto;
     }
 
-    table a {color: var(--h1);}
+serial-button {
+color: var(--text-color);
+  border: 1px solid;
+  padding: 15px;
+  border-radius: 5px;
+  background: var(--darker);
+}

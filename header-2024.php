@@ -394,7 +394,7 @@ display: none;
     <div class="search-overlay-content">
         <div>
             <h1 style="font-family:'Arvo', serif;text-shadow: none;" data-lang-id="1100-search-title">Search</h1>
-            <p style="text-align:center; width:100%;" data-lang-id="1101-search-intro">Find any ecobrick on the Brikchain<a style="color:var(--emblem-blue)" href="brikchain.php">brikchain search</a>.</p>
+            <p style="text-align:center; width:100%;" data-lang-id="1101-search-intro">Find any ecobrick on the Brikchain</p>
         </div>
         <div class="search-box">
             <div class="search-section" data-lang-id="1102-search-section">

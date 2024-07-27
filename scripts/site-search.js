@@ -50,6 +50,9 @@ function ecobrickSearch() {
 
     // Hide the search results initially
     document.getElementById('search-results').style.display = 'none';
+    var overlayContent = document.querySelector('.search-overlay-content');
+    overlayContent.style.height = 'fit-content';
+    overlayContent.style.marginTop = '8%';
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {

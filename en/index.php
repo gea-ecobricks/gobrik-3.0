@@ -71,7 +71,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <p data-lang-id="005-featured-live-brikchain"><span class="blink">⬤  </span>Live brikchain feed of authenticated ecobricks.  Click to preview.</p>
         </div>
         <div class="gallery-flex-container">
-      <?php
+
+
+    <?php
 $sql = "SELECT * FROM vw_gallery_feed;";
 $result = $conn->query($sql);
 
@@ -88,7 +90,6 @@ if ($result->num_rows > 0) {
     echo "Failed to connect to the Brikchain database";
 }
 ?>
-
 
 <a class="photo-box-end" href="brikchain.php"></a>
 

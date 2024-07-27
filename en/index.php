@@ -89,10 +89,12 @@ if ($result->num_rows > 0) {
 }
 ?>
 
-<a class="photo-box-end" href="brikchain.php"></a>
-
 
 <a class="photo-box-end" href="brikchain.php"></a>
+
+</div>
+
+
 
 
         <div class="feature-content-box">

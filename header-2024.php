@@ -135,7 +135,7 @@ function logoutUser() {
 <script type="module" src="../scripts/mode-toggle.mjs.js?v=<?php echo ($version); ;?>"></script>
 <!-- <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>  -->
 
-<script src="../scripts/guided-tour.js?v=1.4" defer></script>
+<script src="../scripts/guided-tour.js?v=<?php echo ($version); ;?>" defer></script>
 
 <script src="../scripts/site-search.js?v=<?php echo ($version); ;?>" defer></script>
 

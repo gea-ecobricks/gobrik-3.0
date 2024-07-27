@@ -92,7 +92,9 @@ function presentEcobrickResults(ecobricks) {
 
         resultsTable.innerHTML += `
             <tr>
-                <td><img src="https://ecobricks.org/${ecobrick.ecobrick_thumb_photo_url}" alt="Ecobrick Thumbnail" class="table-thumbnail"></td>
+
+
+                <td><img src="https://ecobricks.org/' . $row["thumb_url"] . '?v=1" alt="Ecobrick ' . $row["ecobrick_unique_id"] . ' by ' . $row["ecobrick_owner"] . ' in ' . $row["location"] . '" title="Ecobrick ' . $row["ecobrick_unique_id"] . ' by ' . $row["ecobrick_owner"] . ' in ' . $row["location"] . '" loading="lazy" onclick="ecobrickPreview(\'' . $row["ecobrick_unique_id"] . '\', \'' . $row["weight_in_g"] . '\', \'' . $row["ecobrick_owner"] . '\', \'' . $row["location"] . '\') class="table-thumbnail"></td>
                 <td>${ecobrick.weight_g}g</td>
                 <td>${ecobrick.location_full}</td>
                 <td>${ecobrick.ecobricker_maker}</td>

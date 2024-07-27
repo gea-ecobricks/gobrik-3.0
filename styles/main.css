@@ -1601,10 +1601,12 @@ color: var(--text-color);
   padding: 10px;
   border-radius: 5px;
   background: var(--darker);
+  cursor: pointer;
 }
 
 .serial-button a {
 color: var(--text-color);
+text-decoration: none;
 }
 
 .serial-button:hover {

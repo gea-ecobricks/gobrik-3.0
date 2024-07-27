@@ -822,7 +822,7 @@ legend {
     /* margin-right: -6%;
     padding-right: 6%; */
     width: 100%;
-    padding: 10px;
+    /*padding: 10px;*/
   }
   .btn {
     font-size: 12px;
@@ -838,7 +838,7 @@ legend {
     font-size: 15px;
     line-height: 1.6;
     width: 100%;
-    padding: 1em 1.5em;
+    /*padding: 1em 1.5em;*/
     border-radius: 5px 0px 0px 5px;
 
   }
@@ -1611,6 +1611,12 @@ text-decoration: none;
 
 .serial-button:hover {
   background: var(--lighter);
+}
+
+
+
+.table-thumbnail {
+cursor:pointer;
 }
 
 

@@ -249,12 +249,7 @@ document.querySelectorAll('.x-button').forEach(button => {
 
 //ECOBRICK MODAL PREVIEW
 
-
-/*  To be fixed:  IMAGE URL NEEDS TO BE INPUTED DIRECTLY*/
-function ecobrickPreview(brik_serial, weight, owner, location) {
-    // Construct the image source URL FIX:
-    var imageUrl = 'https://ecobricks.org/briks/ecobrick-' + brik_serial + '-file.webp';
-
+function ecobrickPreview(imageUrl, brik_serial, weight, owner, location) {
     const modal = document.getElementById('form-modal-message');
     const contentBox = modal.querySelector('.modal-content-box'); // This is the part we want to hide
     const photoBox = modal.querySelector('.modal-photo-box'); // This is where we'll show the image
@@ -269,20 +264,20 @@ function ecobrickPreview(brik_serial, weight, owner, location) {
 
     // Create and append the ecobrick image to the photo container
     var img = document.createElement('img');
-    img.src = imageUrl;
+    img.src = 'https://ecobricks.org/' + imageUrl;
     img.alt = "Ecobrick " + brik_serial;
     img.style.maxWidth = '90%';
     img.style.maxHeight = '75vh';
-    img.style.minHeight ="400px";
-    img.style.minWidth ="400px";
+    img.style.minHeight = "400px";
+    img.style.minWidth = "400px";
     img.style.margin = 'auto';
-    // img.style.backgroundColor ='#8080802e';
+    // img.style.backgroundColor = '#8080802e';
     photoContainer.appendChild(img);
 
     // Add ecobrick details and view details button inside photo container
     var details = document.createElement('div');
     details.className = 'ecobrick-details';
-    details.innerHTML = '<p>Ecobrick ' + brik_serial + ' | ' + weight + 'g of plastic sequestered by ' + owner + ' in ' + location + '.</p>' +
+    details.innerHTML = '<p>Ecobrick ' + brik_serial + ' | ' + weight + ' of plastic sequestered by ' + owner + ' in ' + location + '.</p>' +
                         '<a href="brik.php?serial_no=' + brik_serial + '" class="preview-btn" style="margin-bottom: 50px;height: 25px;padding: 5px;border: none;padding: 5px 12px;">ℹ️ View Full Details</a>';
     photoContainer.appendChild(details);
 
@@ -296,3 +291,4 @@ function ecobrickPreview(brik_serial, weight, owner, location) {
     document.getElementById('page-content')?.classList.add('blurred');
     document.getElementById('footer-full')?.classList.add('blurred');
     document.body.classList.add('modal-open');
+}

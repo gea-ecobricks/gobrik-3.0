@@ -19,34 +19,59 @@ if (!isset($_SESSION['buwana_id'])) {
 
 // PART 2: ADD USER INFO
 include '../buwana_env.php'; // Include Buwana database credentials
-$user_id = $_SESSION['buwana_id'];
+$buwana_id = $_SESSION['buwana_id'];
 
 // Fetch first and last name from the Buwana database
 $sql_user = "SELECT first_name, last_name FROM users_tb WHERE buwana_id = ?";
 $stmt_user = $conn->prepare($sql_user);
 
 if ($stmt_user) {
-    $stmt_user->bind_param("i", $user_id);
+    $stmt_user->bind_param("i", $buwana_id);
     $stmt_user->execute();
     $stmt_user->bind_result($first_name, $last_name);
     $stmt_user->fetch();
     $stmt_user->close();
 
-    if (empty($first_name) || empty($last_name)) {
+    $log_full_name = $first_name . ' ' . $last_name;
+
+    echo "<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('ecobricker_maker').value = '" . htmlspecialchars($log_full_name, ENT_QUOTES) . "';
+        });
+    </script>";
+
+    if (empty($last_name)) {
         echo "<script>
-            alert('Uh-oh, looks like we don\'t yet have your last name.');
-        </script>";
-    } else {
-        $log_full_name = $first_name . ' ' . $last_name;
-        echo "<script>
-            document.addEventListener('DOMContentLoaded', function() {
-                document.getElementById('ecobricker_maker').value = '" . htmlspecialchars($log_full_name, ENT_QUOTES) . "';
-            });
+            setTimeout(function() {
+                const modal = document.getElementById('form-modal-message');
+                const messageContainer = modal.querySelector('.modal-message');
+                messageContainer.innerHTML = `
+                    <h2>Oops! We're missing your last name.</h2>
+                    <p>Looks like your GoBrik account is missing your last name. Ecobricks are best logged with your full name for posterity. Please save your last name here to make ecobrick logging faster:</p>
+                    <form id='update-name-form' method='post' action='update_last_name.php'>
+                        <label for='first_name'>First Name:</label>
+                        <input type='text' id='first_name' name='first_name' value='" . htmlspecialchars($first_name, ENT_QUOTES) . "' required><br>
+                        <label for='last_name'>Last Name:</label>
+                        <input type='text' id='last_name' name='last_name' required><br>
+                        <input type='checkbox' id='update_buwana' name='update_buwana' checked>
+                        <label for='update_buwana'>Update my Buwana account too</label><br>
+                        <button type='submit'>Save</button>
+                        <button type='button' onclick='closeInfoModal()'>Cancel</button>
+                    </form>
+                `;
+                modal.style.display = 'flex';
+                document.getElementById('page-content').classList.add('blurred');
+                document.getElementById('footer-full').classList.add('blurred');
+                document.body.classList.add('modal-open');
+            }, 5000);
         </script>";
     }
 } else {
     echo "Error fetching user information: " . $conn->error;
 }
+
+
+//PART 3 POST ECOBRICK DATA to GOBRIK DATABASE
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Function to set serial number and ecobrick_unique_id

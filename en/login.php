@@ -23,9 +23,28 @@ if (isset($_SESSION['user_id'])) {
     exit();
 }
 
-const errorType = "<?php echo isset($_GET['error']) ? htmlspecialchars($_GET['error']) : ''; ?>";
 ?>
 
+
+<script>
+// Check if there's an error message and show the error div if needed
+document.addEventListener("DOMContentLoaded", function() {
+    const errorType = "<?php echo isset($_GET['error']) ? htmlspecialchars($_GET['error']) : ''; ?>";
+    if (errorType === "invalid_password") {
+        validatePassword(false);
+    }
+});
+
+function validatePassword(isValid) {
+    const passwordErrorDiv = document.getElementById('password-error');
+    if (!isValid) {
+        alert('password problem!');
+        passwordErrorDiv.style.display = 'block';
+    } else {
+        passwordErrorDiv.style.display = 'none';
+    }
+}
+</script>
 
 <!--
 GoBrik.com site version 3.0

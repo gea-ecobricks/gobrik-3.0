@@ -1,6 +1,5 @@
 <?php
-$directory = basename(dirname($_SERVER['SCRIPT_NAME']));
-$lang = $directory;
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.375';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
@@ -115,13 +114,19 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT-->
+   <div id="top-page-image" class="signup-team" style="margin-top: -40px;margin-bottom: 50px;z-index: 222;position: absolute;
+  text-align: center;
+  width: 100%;
+  height: 150px;">
+      <!-- <img src="../webps/earth-community.webp" style="width:65%;">-->
+    </div>
 
 <div id="form-submission-box" style="height:100vh;">
     <div class="form-container">
 
-        <div class="signup-team">
+   <!-- <div class="signup-team">
         <img src="../webps/ecobrick-team-blank.webp" width="60%">
-    </div>
+    </div> -->
 
         <div style="text-align:center;width:100%;margin:auto;">
             <h2 data-lang-id="001-signup-heading">Create Your Account</h2>

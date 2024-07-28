@@ -11,7 +11,7 @@ if (empty($credential_key) || empty($password)) {
     exit();
 }
 
-// PART 2: Check the GoBrik database
+// PART 2: Check the GoBrik database to see if user has an unactivated account
 $servername = "localhost";
 $username = "ecobricks_brikchain_viewer";
 $password = "desperate-like-the-Dawn";
@@ -49,65 +49,95 @@ if ($stmt_check_email) {
 }
 
 // PART 3: Check Buwana user credentials
-include '../buwana_env.php';
-
+// include '../buwana_env.php';
+// SQL query to get buwana_id from credentials_tb using credential_key
 $sql_credential = "SELECT buwana_id FROM credentials_tb WHERE credential_key = ?";
 $stmt_credential = $conn->prepare($sql_credential);
 if ($stmt_credential) {
+    // Bind the credential_key parameter to the SQL query
     $stmt_credential->bind_param('s', $credential_key);
+    // Execute the query
     $stmt_credential->execute();
+    // Store the result
     $stmt_credential->store_result();
 
+    // Check if exactly one record is found
     if ($stmt_credential->num_rows === 1) {
+        // Bind the result to $buwana_id
         $stmt_credential->bind_result($buwana_id);
+        // Fetch the result
         $stmt_credential->fetch();
+        // Close the statement
         $stmt_credential->close();
 
+        // SQL query to get password_hash from users_tb using buwana_id
         $sql_user = "SELECT password_hash FROM users_tb WHERE buwana_id = ?";
         $stmt_user = $conn->prepare($sql_user);
         if ($stmt_user) {
+            // Bind the buwana_id parameter to the SQL query
             $stmt_user->bind_param('i', $buwana_id);
+            // Execute the query
             $stmt_user->execute();
+            // Store the result
             $stmt_user->store_result();
 
+            // Check if exactly one record is found
             if ($stmt_user->num_rows === 1) {
+                // Bind the result to $password_hash
                 $stmt_user->bind_result($password_hash);
+                // Fetch the result
                 $stmt_user->fetch();
 
+                // Verify the password entered by the user
                 if (password_verify($password, $password_hash)) {
-                    // PART 4: Update last_login field
+
+
+                    // PART 4: Update last_login field in users_tb
                     $sql_update_last_login = "UPDATE users_tb SET last_login = NOW() WHERE buwana_id = ?";
                     $stmt_update_last_login = $conn->prepare($sql_update_last_login);
                     if ($stmt_update_last_login) {
+                        // Bind the buwana_id parameter to the SQL query
                         $stmt_update_last_login->bind_param('i', $buwana_id);
+                        // Execute the query
                         $stmt_update_last_login->execute();
+                        // Close the statement
                         $stmt_update_last_login->close();
                     } else {
+                        // If there's an error preparing the update statement, terminate the script with an error message
                         die('Error preparing statement for updating last_login: ' . $conn->error);
                     }
 
+                    // Set the session variable to indicate the user is logged in
                     $_SESSION['buwana_id'] = $buwana_id;
+                    // Redirect to the dashboard page
                     header("Location: dashboard.php");
                     exit();
                 } else {
+                    // Redirect to login page with an error message if the password is incorrect
                     header("Location: login.php?error=invalid_password");
                     exit();
                 }
             } else {
+                // Redirect to login page with an error message if the user is not found
                 header("Location: login.php?error=invalid_user");
                 exit();
             }
+            // Close the statement
             $stmt_user->close();
         } else {
+            // If there's an error preparing the user statement, terminate the script with an error message
             die('Error preparing statement for users_tb: ' . $conn->error);
         }
     } else {
+        // Redirect to login page with an error message if the credential is invalid
         header("Location: login.php?error=invalid_credential");
         exit();
     }
 } else {
+    // If there's an error preparing the credential statement, terminate the script with an error message
     die('Error preparing statement for credentials_tb: ' . $conn->error);
 }
+
 
 $conn->close();
 $conn2->close();

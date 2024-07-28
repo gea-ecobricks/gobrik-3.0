@@ -9,11 +9,11 @@ ini_set('display_errors', 1);
 // require '../vendor/autoload.php';
 
 $response = ['success' => false];
-$user_id = $_GET['id'] ?? null;
+$buwana_id = $_GET['id'] ?? null;
 
-include '../buwana_env.php'; // This file provides the database server, user, dbname information to access the server
+include '../buwana_env.php'; // This file provides the database server, user, dbname information to access the Buwana server
 
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($user_id)) {
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($buwana_id)) {
     // Sanitize and validate inputs
     $credential_value = filter_var($_POST['credential_value'], FILTER_SANITIZE_EMAIL);
     $password = $_POST['password_hash'];
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($user_id)) {
 
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-    // Check if the email already exists
+    // Check if the email already exists in the Buwana database
     $sql_check_email = "SELECT COUNT(*) FROM users_tb WHERE email = ?";
     $stmt_check_email = $conn->prepare($sql_check_email);
     if ($stmt_check_email) {
@@ -41,16 +41,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($user_id)) {
             $response['error'] = 'duplicate_email';
         } else {
             // Update credentials_tb with the new credential key
-            $sql_update_credential = "UPDATE credentials_tb SET credential_key = ? WHERE user_id = ?";
+            $sql_update_credential = "UPDATE credentials_tb SET credential_key = ? WHERE buwana_id = ?";
             $stmt_update_credential = $conn->prepare($sql_update_credential);
             if ($stmt_update_credential) {
-                $stmt_update_credential->bind_param("si", $credential_value, $user_id);
+                $stmt_update_credential->bind_param("si", $credential_value, $buwana_id);
                 if ($stmt_update_credential->execute()) {
                     // Update users_tb with the new password, email, and account status
-                    $sql_update_user = "UPDATE users_tb SET password_hash = ?, email = ?, account_status = 'registered no login' WHERE user_id = ?";
+                    $sql_update_user = "UPDATE users_tb SET password_hash = ?, email = ?, account_status = 'registered no login' WHERE buwana_id = ?";
                     $stmt_update_user = $conn->prepare($sql_update_user);
                     if ($stmt_update_user) {
-                        $stmt_update_user->bind_param("ssi", $password_hash, $credential_value, $user_id);
+                        $stmt_update_user->bind_param("ssi", $password_hash, $credential_value, $buwana_id);
                         if ($stmt_update_user->execute()) {
                             // Uncomment the following block when you want to enable email functionality
                             /*

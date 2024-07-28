@@ -11,17 +11,17 @@ $page = 'dashboard';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 // Check if the user is logged in
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['buwana_id'])) {
     echo '<script>alert("Please login before viewing this page."); window.location.href = "login.php";</script>';
     exit();
 }
 
-$user_id = $_SESSION['user_id'];
+$buwana_id = $_SESSION['buwana_id'];
 
 // Include database connection
 include '../buwana_env.php'; // this file provides the database server, user, dbname information to access the server
 
-// Look up fields from users_tb using the user_id
+// Look up fields from users_tb using the buwana_id
 $first_name = '';
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -29,11 +29,11 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql_lookup_user = "SELECT first_name FROM users_tb WHERE user_id = ?";
+$sql_lookup_user = "SELECT first_name FROM users_tb WHERE buwana_id = ?";
 $stmt_lookup_user = $conn->prepare($sql_lookup_user);
 
 if ($stmt_lookup_user) {
-    $stmt_lookup_user->bind_param("i", $user_id);
+    $stmt_lookup_user->bind_param("i", $buwana_id);
     $stmt_lookup_user->execute();
     $stmt_lookup_user->bind_result($first_name);
     $stmt_lookup_user->fetch();

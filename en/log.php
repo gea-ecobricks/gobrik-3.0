@@ -67,7 +67,7 @@ if ($stmt_user) {
                 const modal = document.getElementById('form-modal-message');
                 const messageContainer = modal.querySelector('.modal-message');
                 messageContainer.innerHTML = `
-                    <h2>Oops! We're missing your last name.</h2>
+                    <h4>Oops! We're missing your last name.</h4>
                     <p>Looks like your GoBrik account is missing your last name. Ecobricks are best logged with your full name for posterity. Please save your last name here to make ecobrick logging faster:</p>
                     <form id='update-name-form' method='post' action='update_last_name.php'>
                         <label for='first_name'>First Name:</label>
@@ -440,7 +440,8 @@ echo '<!DOCTYPE html>
 
         </div>
     </div>
-</HTML>
+</div> <!-- main? -->
+
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

@@ -406,7 +406,7 @@ input[type="submit"]:hover {
 }
 
 .form-item .form-caption {
-    font-size: 1.0;
+    font-size: 1.0em;
 
 
 }

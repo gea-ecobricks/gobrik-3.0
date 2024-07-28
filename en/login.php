@@ -87,10 +87,11 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="splash-content-block"></div>
 <div id="splash-bar"></div>
 <div id="form-submission-box" style="height:100vh;">
-    <div class="form-container">
-        <div class="earth-community" style="margin-top:-65px;margin-bottom:-10px">
+    <div id="earth-community" class="top-page-image" style="margin-top:-65px;margin-bottom:-10px">
             <img src="../webps/earth-community.webp" style="width:65%;">
         </div>
+    <div class="form-container">
+
         <div style="text-align:center;width:100%;margin:auto;">
             <h2 data-lang-id="001-login-heading">Welcome back!</h2>
             <p data-lang-id="002-login-subheading">Login with your GoBrik or Buwana account credentials.</p>
@@ -115,10 +116,13 @@ document.addEventListener("DOMContentLoaded", function() {
             </div>
         </form>
     </div>
-    <div style="text-align:center;width:100%;margin:auto;margin-top:30px;margin-bottom:50px;">
-        <p style="font-size:medium;" data-lang-id="000-no-account-yet">Don't have an account yet? <a href="signup.php">Signup!</a></p>
-    </div>
 </div>
+<div style="text-align:center;width:100%;margin:auto;margin-top:30px;margin-bottom:50px;">
+    <p style="font-size:medium;" data-lang-id="000-no-account-yet">Don't have an account yet? <a href="signup.php">Signup!</a></p>
+</div>
+</div>
+
+</div> <!--main-->
 
 <!-- FOOTER STARTS HERE -->
 <?php require_once ("../footer-2024.php");?>

@@ -1,41 +1,31 @@
 <?php
 session_start();
 
-
 // PART 1
-
-// Retrieve form data
 $credential_key = $_POST['credential_key'] ?? '';
 $password = $_POST['password'] ?? '';
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));  //grabs language directory from url
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 
-// Validate input
 if (empty($credential_key) || empty($password)) {
     header("Location: ../$lang/login.php?error=empty_fields");
     exit();
 }
 
-// PART 2
-//Check the GoBrik database.
+// PART 2: Check the GoBrik database
+$servername = "localhost";
+$username = "ecobricks_brikchain_viewer";
+$password = "desperate-like-the-Dawn";
+$dbname = "ecobricks_gobrik_msql_db";
 
-// For connection 2 updating of the GoBrik Database
-            $servername = "localhost";
-            $username = "ecobricks_brikchain_viewer";
-            $password = "desperate-like-the-Dawn";
-            $dbname = "ecobricks_gobrik_msql_db";
+$conn2 = new mysqli($servername, $username, $password, $dbname);
+if ($conn2->connect_error) {
+    error_log("Connection failed: " . $conn2->connect_error);
+    header("Location: login.php?error=db_connection_failed");
+    exit();
+}
 
-                 // Create connection
-            $conn2 = new mysqli($servername, $username, $password, $dbname); // Establish new connection
-            if ($conn2->connect_error) {
-                error_log("Connection failed: " . $conn2->connect_error);
-                header("Location: login_process.php?id=$user_id&error=db_connection_failed");
-                exit();
-            }
-
-//Prepare and execute query to check if the email exists in the gobrik database and if the gobrik account has had its Buwana account activated or not (accounts that have been imported from knack don't have their buwana account activated yet).
 $sql_check_email = "SELECT ecobricker_id, buwana_activated FROM ecobricker_live_id WHERE email = ?";
-$stmt_check_email = $conn->prepare($sql_check_email);
-
+$stmt_check_email = $conn2->prepare($sql_check_email);
 if ($stmt_check_email) {
     $stmt_check_email->bind_param('s', $credential_key);
     $stmt_check_email->execute();
@@ -45,43 +35,36 @@ if ($stmt_check_email) {
         $stmt_check_email->bind_result($ecobricker_id, $buwana_activated);
         $stmt_check_email->fetch();
 
-        if ($legacy_unactivated === 'yes') {
+        if ($buwana_activated === 'yes') {
             header("Location: activate.php?user_id=$ecobricker_id");
             exit();
         }
 
         $stmt_check_email->close();
     } else {
-        // If email does not exist, continue with credential validation
         $stmt_check_email->close();
     }
 } else {
-    die('Error preparing statement for checking email: ' . $conn->error);
+    die('Error preparing statement for checking email: ' . $conn2->error);
 }
 
-//PART 3
-//CHECK BUWANA USER CREDENTIALS
+// PART 3: Check Buwana user credentials
+include '../buwana_env.php';
 
-include '../buwana_env.php'; //Buwana Credentials in this file
-
-// Prepare and execute query to check credentials
 $sql_credential = "SELECT buwana_id FROM credentials_tb WHERE credential_key = ?";
 $stmt_credential = $conn->prepare($sql_credential);
-
 if ($stmt_credential) {
     $stmt_credential->bind_param('s', $credential_key);
     $stmt_credential->execute();
     $stmt_credential->store_result();
 
     if ($stmt_credential->num_rows === 1) {
-        $stmt_credential->bind_result($user_id);
+        $stmt_credential->bind_result($buwana_id);
         $stmt_credential->fetch();
         $stmt_credential->close();
 
-        // Now retrieve the password hash from users_tb
         $sql_user = "SELECT password_hash FROM users_tb WHERE buwana_id = ?";
         $stmt_user = $conn->prepare($sql_user);
-
         if ($stmt_user) {
             $stmt_user->bind_param('i', $buwana_id);
             $stmt_user->execute();
@@ -91,7 +74,6 @@ if ($stmt_credential) {
                 $stmt_user->bind_result($password_hash);
                 $stmt_user->fetch();
 
-                // Verify password
                 if (password_verify($password, $password_hash)) {
                     $_SESSION['buwana_id'] = $buwana_id;
                     header("Location: dashboard.php");
@@ -117,4 +99,5 @@ if ($stmt_credential) {
 }
 
 $conn->close();
+$conn2->close();
 ?>

@@ -75,6 +75,17 @@ if ($stmt_credential) {
                 $stmt_user->fetch();
 
                 if (password_verify($password, $password_hash)) {
+                    // PART 4: Update last_login field
+                    $sql_update_last_login = "UPDATE users_tb SET last_login = NOW() WHERE buwana_id = ?";
+                    $stmt_update_last_login = $conn->prepare($sql_update_last_login);
+                    if ($stmt_update_last_login) {
+                        $stmt_update_last_login->bind_param('i', $buwana_id);
+                        $stmt_update_last_login->execute();
+                        $stmt_update_last_login->close();
+                    } else {
+                        die('Error preparing statement for updating last_login: ' . $conn->error);
+                    }
+
                     $_SESSION['buwana_id'] = $buwana_id;
                     header("Location: dashboard.php");
                     exit();
@@ -101,3 +112,4 @@ if ($stmt_credential) {
 $conn->close();
 $conn2->close();
 ?>
+

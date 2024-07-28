@@ -17,7 +17,7 @@ const en_Page_Translations = {
     "003-login-email": "<input type=\"text\" id=\"credential_key\" name=\"credential_key\" required placeholder=\"Your e-mail...\">",
     "004-login-password": " <input type=\"password\" id=\"password\" name=\"password\" required placeholder=\"Your password..\">",
     "005-forgot-password": "<p class=\"form-caption\">Forget your password? <a href=\"#\" onclick=\"showModalInfo('reset')\" class=\"underline-link\">Reset it.</a></p>",
-    "006-login-button": "Login",
+    "006-login-button": "🔑 Login",
     "000-no-account-yet": "Don't have an account yet? <a href=\"signup.php\">Signup!</a>"
 };
 

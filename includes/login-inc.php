@@ -273,10 +273,7 @@ input[type="date"] {
 
 .form-field-error {
   color: red;
-  margin-top: -15px;
-  margin-bottom: 20px;
-  padding-left: 10px;
-  padding-bottom: 15px;
+  margin-top: 5px;
 }
 
 .form-container {

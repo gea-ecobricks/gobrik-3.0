@@ -90,14 +90,13 @@ if ($stmt_user) {
 } else {
     echo "Error fetching user information: " . $buwana_conn->error;
 }
-
-//PART 3 POST ECOBRICK DATA to GOBRIK DATABASE
+// PART 3: POST ECOBRICK DATA to GOBRIK DATABASE
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Function to set serial number and ecobrick_unique_id
-    function setSerialNumber($conn) {
+    function setSerialNumber($gobrik_conn) {
         $query = "SELECT MAX(ecobrick_unique_id) as max_unique_id FROM tb_ecobricks";
-        $result = $conn->query($query);
+        $result = $gobrik_conn->query($query);
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $max_unique_id = $row['max_unique_id'];
@@ -113,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
         // Set serial number and ecobrick ID
-        $ids = setSerialNumber($conn);
+        $ids = setSerialNumber($gobrik_conn);
         $ecobrick_unique_id = $ids['ecobrick_unique_id'];
         $serial_no = $ids['serial_no'];
         $brik_notes = "Directly logged on beta.GoBrik.com";
@@ -148,7 +147,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type, plastic_from, location_full, location_lat, location_long, community_name, project_id, training_id, brand_name, owner, status, universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change, actual_maker_name, brik_notes, date_published_ts
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        if ($stmt = $conn->prepare($sql)) {
+        if ($stmt = $gobrik_conn->prepare($sql)) {
             error_log("Statement prepared successfully.");
 
             $stmt->bind_param("issiiissddssiisssdsdssss",
@@ -160,7 +159,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 error_log("Statement executed successfully.");
 
                 $stmt->close();
-                $conn->close();
+                $gobrik_conn->close();
 
                 // Redirect to log-2.php with the correct ecobrick_unique_id
                 echo "<script>window.location.href = 'log-2.php?id=" . $serial_no . "';</script>";
@@ -171,17 +170,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($stmt) $stmt->close();
         } else {
-            error_log("Prepare failed: " . $conn->error);
-            echo "Prepare failed: " . $conn->error;
+            error_log("Prepare failed: " . $gobrik_conn->error);
+            echo "Prepare failed: " . $gobrik_conn->error;
         }
 
-        if ($conn) $conn->close();
+        if ($gobrik_conn) $gobrik_conn->close();
     } catch (Exception $e) {
         error_log("Error: " . $e->getMessage());
         echo "Error: " . $e->getMessage() . "<br>";
     }
 }
 ?>
+
 
 <?php
 

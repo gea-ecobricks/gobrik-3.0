@@ -12,20 +12,25 @@ if (empty($credential_key) || empty($password)) {
 }
 
 // PART 2: Check the GoBrik database to see if user has an unactivated account
-$servername = "localhost";
-$username = "ecobricks_brikchain_viewer";
-$password = "desperate-like-the-Dawn";
-$dbname = "ecobricks_gobrik_msql_db";
+// GoBrik database credentials
+$gobrik_servername = "localhost";
+$gobrik_username = "ecobricks_brikchain_viewer";
+$gobrik_password = "desperate-like-the-Dawn";
+$gobrik_dbname = "ecobricks_gobrik_msql_db";
 
-$conn2 = new mysqli($servername, $username, $password, $dbname);
-if ($conn2->connect_error) {
+
+// Create connection for GoBrik database
+$gobrik_conn = new mysqli($gobrik_servername, $gobrik_username, $gobrik_password, $gobrik_dbname);
+if ($gobrik_conn->connect_error) {
     error_log("Connection failed: " . $conn2->connect_error);
     header("Location: login.php?error=db_connection_failed");
     exit();
 }
+$gobrik_conn->set_charset("utf8mb4");
+
 
 $sql_check_email = "SELECT ecobricker_id, buwana_activated FROM tb_ecobrickers WHERE email_addr = ?";
-$stmt_check_email = $conn2->prepare($sql_check_email);
+$stmt_check_email = $gobrik_conn->prepare($sql_check_email);
 if ($stmt_check_email) {
     $stmt_check_email->bind_param('s', $credential_key);
     $stmt_check_email->execute();
@@ -49,10 +54,17 @@ if ($stmt_check_email) {
 }
 
 // PART 3: Check Buwana user credentials
-// include '../buwana_env.php';
+$buwana_servername = "localhost";
+$buwana_username = "ecobricks_gobrik_app";
+$buwana_password = "1EarthenAuth!";
+$buwana_dbname = "ecobricks_earthenAuth_db";
+
+// Establish connections to both databases
+$buwana_conn = new mysqli($buwana_servername, $buwana_username, $buwana_password, $buwana_dbname);
+
 // SQL query to get buwana_id from credentials_tb using credential_key
 $sql_credential = "SELECT buwana_id FROM credentials_tb WHERE credential_key = ?";
-$stmt_credential = $conn->prepare($sql_credential);
+$stmt_credential = $buwana_conn->prepare($sql_credential);
 if ($stmt_credential) {
     // Bind the credential_key parameter to the SQL query
     $stmt_credential->bind_param('s', $credential_key);

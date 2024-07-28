@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 
 // Initialize variables
 $response = ['success' => false];
-$user_id = $_GET['id'] ?? null;
+$buwana_id = $_GET['id'] ?? null;
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
 $version = '0.39';
@@ -19,17 +19,17 @@ $account_status = '';
 include '../buwana_env.php'; // This file provides the database server, user, dbname information to access the server
 
 // PART 1: Check if the user is already logged in
-if (isset($_SESSION['user_id'])) {
+if (isset($_SESSION['buwana_id'])) {
     header("Location: dashboard.php");
     exit();
 }
 
-// Look up user information if user_id is provided
-if ($user_id) {
-    $sql_lookup_credential = "SELECT credential_type, credential_key FROM credentials_tb WHERE user_id = ?";
+// Look up user information if buwana_id is provided
+if ($buwana_id) {
+    $sql_lookup_credential = "SELECT credential_type, credential_key FROM credentials_tb WHERE buwana_id = ?";
     $stmt_lookup_credential = $conn->prepare($sql_lookup_credential);
     if ($stmt_lookup_credential) {
-        $stmt_lookup_credential->bind_param("i", $user_id);
+        $stmt_lookup_credential->bind_param("i", $buwana_id);
         $stmt_lookup_credential->execute();
         $stmt_lookup_credential->bind_result($credential_type, $credential_key);
         $stmt_lookup_credential->fetch();
@@ -38,10 +38,10 @@ if ($user_id) {
         $response['error'] = 'db_error';
     }
 
-    $sql_lookup_user = "SELECT first_name, account_status FROM users_tb WHERE user_id = ?";
+    $sql_lookup_user = "SELECT first_name, account_status FROM users_tb WHERE buwana_id = ?";
     $stmt_lookup_user = $conn->prepare($sql_lookup_user);
     if ($stmt_lookup_user) {
-        $stmt_lookup_user->bind_param("i", $user_id);
+        $stmt_lookup_user->bind_param("i", $buwana_id);
         $stmt_lookup_user->execute();
         $stmt_lookup_user->bind_result($first_name, $account_status);
         $stmt_lookup_user->fetch();
@@ -91,7 +91,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
             <!--SIGNUP FORM-->
-            <form id="password-confirm-form" method="post" action="signup_process.php?id=<?php echo htmlspecialchars($user_id); ?>">
+            <form id="password-confirm-form" method="post" action="signup_process.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
                 <div class="form-item" id="credential-section">
                     <label for="credential_value"><span data-lang-id="004-your">Your</span> <?php echo $credential_type; ?> please:</label><br>
                     <div id="duplicate-email-error" class="form-field-error" style="margin-top:10px;margin-bottom:-13px;" data-lang-id="010-duplicate-email">🚧 Whoops! Looks like that e-mail address is already being used by a Buwana Account. Please choose another.</div>
@@ -272,14 +272,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         loadingSpinner.removeClass('green red').show();
 
         $.ajax({
-            url: 'signup_process.php?id=<?php echo htmlspecialchars($user_id); ?>',
+            url: 'signup_process.php?id=<?php echo htmlspecialchars($buwana_id); ?>',
             type: 'POST',
             data: $(this).serialize(), // Serialize the form data
             success: function(response) {
                 loadingSpinner.hide();
                 var res = JSON.parse(response);
                 if (res.success) {
-                    window.location.href = 'signedup-login.php?id=<?php echo htmlspecialchars($user_id); ?>';
+                    window.location.href = 'signedup-login.php?id=<?php echo htmlspecialchars($buwana_id); ?>';
                 } else if (res.error === 'duplicate_email') {
                     duplicateEmailError.show();
                     duplicateGobrikEmail.hide();

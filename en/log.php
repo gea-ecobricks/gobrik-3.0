@@ -5,16 +5,12 @@ session_start();
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// Include database credentials
+// GoBrik database credentials
 $gobrik_servername = "localhost";
 $gobrik_username = "ecobricks_brikchain_viewer";
 $gobrik_password = "desperate-like-the-Dawn";
 $gobrik_dbname = "ecobricks_gobrik_msql_db";
 
-$buwana_servername = "localhost";
-$buwana_username = "ecobricks_gobrik_app";
-$buwana_password = "1EarthenAuth!";
-$buwana_dbname = "ecobricks_earthenAuth_db";
 
 // Create connection for GoBrik database
 $gobrik_conn = new mysqli($gobrik_servername, $gobrik_username, $gobrik_password, $gobrik_dbname);
@@ -23,6 +19,12 @@ if ($gobrik_conn->connect_error) {
 }
 $gobrik_conn->set_charset("utf8mb4");
 
+// Buwana database credentials
+$buwana_servername = "localhost";
+$buwana_username = "ecobricks_gobrik_app";
+$buwana_password = "1EarthenAuth!";
+$buwana_dbname = "ecobricks_earthenAuth_db";
+
 // Create connection for Buwana database
 $buwana_conn = new mysqli($buwana_servername, $buwana_username, $buwana_password, $buwana_dbname);
 if ($buwana_conn->connect_error) {
@@ -30,7 +32,7 @@ if ($buwana_conn->connect_error) {
 }
 $buwana_conn->set_charset("utf8mb4");
 
-// PART 1: LOG IN CHECK
+// PART 1: CHECK IF USER LOGGED IN
 if (!isset($_SESSION['buwana_id'])) {
     echo "<script>
         alert('You must be logged in to log an ecobrick.');

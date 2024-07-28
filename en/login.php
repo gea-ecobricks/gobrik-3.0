@@ -14,22 +14,23 @@ echo '<!DOCTYPE html>
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Check if a session is already active
+// Check if user is logged in and session active
 session_start();
 if (isset($_SESSION['buwana_id'])) {
     header('Location: dashboard.php');
     exit();
 }
 ?>
+
+
 <script>
 // Function to validate password
 function validatePassword(isValid) {
     const passwordErrorDiv = document.getElementById('password-error');
     if (!isValid) {
-        alert('bad pass');
-        passwordErrorDiv.style.display = 'block';
-    } else {
         passwordErrorDiv.style.display = 'flex';
+    } else {
+        passwordErrorDiv.style.display = 'none';
     }
 }
 
@@ -94,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function() {
   text-align: center;
   width: 100%;
   height: 150px;">
-        <img src="../webps/earth-community.webp" style="width:65%;">
+      <!-- <img src="../webps/earth-community.webp" style="width:65%;">-->
     </div>
     <div class="form-container" style="padding-top:115px;">
 

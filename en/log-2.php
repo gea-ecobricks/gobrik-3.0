@@ -5,6 +5,8 @@ error_reporting(E_ALL);
 ini_set('memory_limit', '256M'); // Increase memory limit
 ob_start(); // Start output buffering
 
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));  //grabs language directory from url
+
 include '../ecobricks_env.php';
 
 $error_message = '';

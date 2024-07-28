@@ -1,5 +1,5 @@
 <?php
-
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));  //grabs language directory from url
 session_start();
 
 ini_set('display_errors', 1);

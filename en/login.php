@@ -38,7 +38,6 @@ document.addEventListener("DOMContentLoaded", function() {
 function validatePassword(isValid) {
     const passwordErrorDiv = document.getElementById('password-error');
     if (!isValid) {
-        alert('password problem!');
         passwordErrorDiv.style.display = 'flex';
     } else {
         passwordErrorDiv.style.display = 'none';

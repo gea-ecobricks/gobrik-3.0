@@ -316,16 +316,15 @@ $lang = $directory;
                     <input type="submit" value="⬆️ Upload Photos" id="upload-progress-button" aria-label="Submit photos for upload">
                 </div>
             </form>
-
-
-
-    </div>
+        </div>
         <div style="margin: auto; margin-bottom:100px; margin-top: 50px; text-align:center;">
             <a href="#" onclick="goBack()" aria-label="Go back to re-enter data" class="back-link" data-lang-id="015-go-back-link">↩ Back to Step 1</a>
         </div>
     <br><br>
 
     </div>
+
+</div>
 
 
 

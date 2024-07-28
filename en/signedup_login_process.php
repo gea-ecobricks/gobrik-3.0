@@ -58,7 +58,7 @@ if ($stmt_lookup_password) {
             }
 
             // Check for existing ecobricker by email
-            $sql_check_email = "SELECT ecobricker_id FROM ecobricker_live_tb WHERE email_addr = ?";
+            $sql_check_email = "SELECT ecobricker_id FROM tb_ecobrickers WHERE email_addr = ?";
             $stmt_check_email = $conn2->prepare($sql_check_email);
             if ($stmt_check_email) {
                 $stmt_check_email->bind_param("s", $credential_value);
@@ -67,7 +67,7 @@ if ($stmt_lookup_password) {
 
                 if ($stmt_check_email->num_rows > 0) {
                     // Update existing ecobricker
-                    $sql_update_ecobricker = "UPDATE ecobricker_live_tb SET
+                    $sql_update_ecobricker = "UPDATE tb_ecobrickers SET
                                                 first_name = ?,
                                                 buwana_id = ?,
                                                 buwana_activated = 1,
@@ -78,7 +78,7 @@ if ($stmt_lookup_password) {
                     if ($stmt_update_ecobricker) {
                         $stmt_update_ecobricker->bind_param("siss", $first_name, $buwana_id, $lang, $credential_value);
                         if ($stmt_update_ecobricker->execute()) {
-                            error_log("Updated existing ecobricker in ecobricker_live_tb: $first_name, $buwana_id");
+                            error_log("Updated existing ecobricker in tb_ecobrickers: $first_name, $buwana_id");
                         } else {
                             error_log("Error executing update statement in ecobricks_gobrik_msql_db: " . $stmt_update_ecobricker->error);
                             header("Location: signedup-login.php?id=$buwana_id&error=db_update_failed");
@@ -92,14 +92,14 @@ if ($stmt_lookup_password) {
                     }
                 } else {
                     // Insert new ecobricker
-                    $sql_insert_ecobricker = "INSERT INTO ecobricker_live_tb (first_name, buwana_id, email_addr, date_registered, maker_id, buwana_activated, buwana_activation_dt, language_pref)
+                    $sql_insert_ecobricker = "INSERT INTO tb_ecobrickers (first_name, buwana_id, email_addr, date_registered, maker_id, buwana_activated, buwana_activation_dt, language_pref)
                                               VALUES (?, ?, ?, NOW(), ?, 1, NOW(), ?)";
                     $stmt_insert_ecobricker = $conn2->prepare($sql_insert_ecobricker);
                     if ($stmt_insert_ecobricker) {
                     //error is here on line 99:
                             $stmt_insert_ecobricker->bind_param("sisis", $first_name, $buwana_id, $credential_value, $buwana_id, $lang);
                         if ($stmt_insert_ecobricker->execute()) {
-                            error_log("New user inserted into ecobricker_live_tb: $first_name, $buwana_id");
+                            error_log("New user inserted into tb_ecobrickers: $first_name, $buwana_id");
                         } else {
                             error_log("Error executing insert statement in ecobricks_gobrik_msql_db: " . $stmt_insert_ecobricker->error);
                             header("Location: signedup-login.php?id=$buwana_id&error=db_insert_failed");

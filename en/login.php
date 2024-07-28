@@ -85,7 +85,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/blob/main/en/login.php-->
                 <!--<label for="password">Your Password:</label><br>-->
                 <input type="password" id="password" name="password" required placeholder="Your password..">
                 <p class="form-caption">Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
-                <div id="password-error" class="form-field-error" style="display:none;">👉 Password is wrong.</div>
+                <div id="password-error" class="form-field-error">👉 Password is wrong.</div>
             </div>
             <div style="text-align:center;" data-lang-id="006-login-button-">
                 <input type="submit" style="text-align:center;margin-top:15px;width:30%" id="submit-button" value="Login" class="enabled">
@@ -151,25 +151,6 @@ function showModalInfo(type) {
     document.body.classList.add('modal-open');
 }
 
-// Check if there's an error message and show the error div if needed
-document.addEventListener("DOMContentLoaded", function() {
-    const errorType = "<?php echo isset($_GET['error']) ? htmlspecialchars($_GET['error']) : ''; ?>";
-    console.log("Error Type:", errorType); // Debugging line
-    if (errorType === "invalid_password") { // Make sure this matches the URL parameter
-        validatePassword(false);
-    }
-});
-
-
-    function validatePassword(isValid) {
-        const passwordErrorDiv = document.getElementById('password-error');
-        if (!isValid) {
-            alert('password problem!');
-            passwordErrorDiv.style.display = 'block';
-        } else {
-            passwordErrorDiv.style.display = 'none';
-        }
-    }
 
 </script>
 </body>

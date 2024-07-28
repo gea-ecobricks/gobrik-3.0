@@ -28,12 +28,12 @@ if (empty($credential_value) || empty($password)) {
             $conn2 = new mysqli($servername, $username, $password, $dbname); // Establish new connection
             if ($conn2->connect_error) {
                 error_log("Connection failed: " . $conn2->connect_error);
-                header("Location: signedup-login.php?id=$user_id&error=db_connection_failed");
+                header("Location: login_process.php?id=$user_id&error=db_connection_failed");
                 exit();
             }
 
 //Prepare and execute query to check if the email exists and if legacy_unactivated is set to yes
-$sql_check_email = "SELECT user_id, legacy_unactivated FROM users_tb WHERE email = ?";
+$sql_check_email = "SELECT user_id, legacy_unactivated FROM live WHERE email = ?";
 $stmt_check_email = $conn->prepare($sql_check_email);
 
 if ($stmt_check_email) {

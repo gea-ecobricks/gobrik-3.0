@@ -109,8 +109,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>
                     <div id="password-error" class="field-error" style="display:none;" data-lang-id="000-password-wrong">👉 Password is wrong.</div>
                     <p class="form-caption" data-lang-id="005-forgot-password">Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
-
-
             </div>
             <div style="text-align:center;" data-lang-id="006-login-button-">
                 <input type="submit" style="text-align:center;margin-top:15px;width:30%" id="submit-button" value="Login" class="enabled">

@@ -1,7 +1,7 @@
 <?php
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));  //grabs language directory from url
 $lang = $directory;
-$version = '0.45';
+$version = '0.46';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -85,7 +85,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/blob/main/en/login.php-->
                 <!--<label for="password">Your Password:</label><br>-->
                 <input type="password" id="password" name="password" required placeholder="Your password..">
                 <p class="form-caption">Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
-                <div id="password-error" class="form-field-error" style="display:none">👉 Password is wrong.</div>
+                <div id="password-error" class="form-field-error">👉 Password is wrong.</div>
             </div>
             <div style="text-align:center;" data-lang-id="006-login-button-">
                 <input type="submit" style="text-align:center;margin-top:15px;width:30%" id="submit-button" value="Login" class="enabled">

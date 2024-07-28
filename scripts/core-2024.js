@@ -292,3 +292,13 @@ function ecobrickPreview(imageUrl, brik_serial, weight, owner, location) {
     document.getElementById('footer-full')?.classList.add('blurred');
     document.body.classList.add('modal-open');
 }
+
+
+    function validatePassword(isValid) {
+        const passwordErrorDiv = document.getElementById('password-error');
+        if (!isValid) {
+            passwordErrorDiv.style.display = 'block';
+        } else {
+            passwordErrorDiv.style.display = 'none';
+        }
+    }

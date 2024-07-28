@@ -1,4 +1,3 @@
-<?php
 session_start();
 
 ini_set('display_errors', 1);
@@ -7,13 +6,44 @@ error_reporting(E_ALL);
 include '../ecobricks_env.php';
 $conn->set_charset("utf8mb4");
 
-// LOG IN CHECK
-if (!isset($_SESSION['user_id'])) {
+// PART 1: LOG IN CHECK
+if (!isset($_SESSION['buwana_id'])) {
     echo "<script>
         alert('You must be logged in to log an ecobrick.');
         window.location.href = 'login.php';
     </script>";
     exit();
+}
+
+// PART 2: ADD USER INFO
+include '../buwana_env.php'; // Include Buwana database credentials
+$user_id = $_SESSION['buwana_id'];
+
+// Fetch first and last name from the Buwana database
+$sql_user = "SELECT first_name, last_name FROM users_tb WHERE buwana_id = ?";
+$stmt_user = $conn->prepare($sql_user);
+
+if ($stmt_user) {
+    $stmt_user->bind_param("i", $user_id);
+    $stmt_user->execute();
+    $stmt_user->bind_result($first_name, $last_name);
+    $stmt_user->fetch();
+    $stmt_user->close();
+
+    if (empty($first_name) || empty($last_name)) {
+        echo "<script>
+            alert('Uh-oh, looks like we don\'t yet have your last name.');
+        </script>";
+    } else {
+        $log_full_name = $first_name . ' ' . $last_name;
+        echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('ecobricker_maker').value = '" . htmlspecialchars($log_full_name, ENT_QUOTES) . "';
+            });
+        </script>";
+    }
+} else {
+    echo "Error fetching user information: " . $conn->error;
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -30,7 +60,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'serial_no' => $new_unique_id
             ];
         } else {
-            // Handle case where there are no records
             throw new Exception('No records found in the database.');
         }
     }
@@ -55,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $community_name = trim($_POST['community_name']);
         $project_id = (int)trim($_POST['project_id']);
         $training_id = (int)trim($_POST['training_id']);
-        $brand_name = trim($_POST['brand_name']); // Collecting the brand_name field
+        $brand_name = trim($_POST['brand_name']);
 
         // Background settings
         $owner = $ecobricker_maker;
@@ -106,6 +135,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 <?php
 
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
@@ -120,6 +150,7 @@ echo '<!DOCTYPE html>
 <meta charset="UTF-8">
 ';
 ?>
+
 
 
 

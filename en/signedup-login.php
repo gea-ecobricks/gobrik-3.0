@@ -18,18 +18,18 @@ ini_set('display_errors', 1);
 
 include '../buwana_env.php'; // This file provides the database server, user, dbname information to access the server
 
-$user_id = $_GET['id'] ?? null;
+$buwana_id = $_GET['id'] ?? null;
 
 // Initialize variables
 $credential_type = '';
 $credential_key = '';
 $first_name = '';
 
-if ($user_id) {
+if ($buwana_id) {
     // Prepare the SQL statement for credentials_tb
-    $sql_lookup_credential = "SELECT credential_type, credential_key FROM credentials_tb WHERE user_id = ?";
+    $sql_lookup_credential = "SELECT credential_type, credential_key FROM credentials_tb WHERE buwana_id = ?";
     if ($stmt_lookup_credential = $conn->prepare($sql_lookup_credential)) {
-        $stmt_lookup_credential->bind_param("i", $user_id);
+        $stmt_lookup_credential->bind_param("i", $buwana_id);
         $stmt_lookup_credential->execute();
         $stmt_lookup_credential->bind_result($credential_type, $credential_key);
         $stmt_lookup_credential->fetch();
@@ -39,9 +39,9 @@ if ($user_id) {
     }
 
     // Prepare the SQL statement for users_tb
-    $sql_lookup_user = "SELECT first_name FROM users_tb WHERE user_id = ?";
+    $sql_lookup_user = "SELECT first_name FROM users_tb WHERE buwana_id = ?";
     if ($stmt_lookup_user = $conn->prepare($sql_lookup_user)) {
-        $stmt_lookup_user->bind_param("i", $user_id);
+        $stmt_lookup_user->bind_param("i", $buwana_id);
         $stmt_lookup_user->execute();
         $stmt_lookup_user->bind_result($first_name);
         $stmt_lookup_user->fetch();
@@ -93,7 +93,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <!-- LOGIN FORM -->
         <form id="signed-up-login" method="post" action="signedup_login_process.php">
-            <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>">
+            <input type="hidden" name="buwana_id" value="<?php echo htmlspecialchars($buwana_id); ?>">
             <div class="form-item">
                 <label for="credential_value"><span data-lang-id="000-your">Your</span> <?php echo htmlspecialchars($credential_type); ?> :</label><br>
                 <input type="text" id="credential_value" name="credential_value" value="<?php echo htmlspecialchars($credential_key); ?>" required>

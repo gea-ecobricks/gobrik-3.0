@@ -84,12 +84,12 @@ document.addEventListener("DOMContentLoaded", function() {
 <?php require_once ("../includes/login-inc.php");?>
 
 <!-- PAGE CONTENT -->
-<div class="splash-content-block"></div>
-<div id="splash-bar"></div>
-<div id="form-submission-box" style="height:100vh;">
-    <div id="earth-community" class="top-page-image" style="margin-top:-65px;margin-bottom:-10px">
-            <img src="../webps/earth-community.webp" style="width:65%;">
-        </div>
+    <div class="splash-content-block"></div>
+    <div id="splash-bar"></div>
+    <div id="form-submission-box" style="height:100vh;">
+    <div id="top-page-image" class="earth-community" style="margin-top:-65px;margin-bottom:-10px">
+        <img src="../webps/earth-community.webp" style="width:65%;">
+    </div>
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">

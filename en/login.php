@@ -28,6 +28,17 @@ document.addEventListener("DOMContentLoaded", function() {
     if (errorType === "invalid_password") {
         validatePassword(false);
     }
+
+    // Add the submit event listener after the DOM is fully loaded
+    document.getElementById('login').addEventListener('submit', function(event) {
+        var credentialValue = document.getElementById('credential_key').value;
+        var password = document.getElementById('password').value;
+
+        if (credentialValue === '' || password === '') {
+            event.preventDefault();
+            document.getElementById('password-error').style.display = 'block';
+        }
+    });
 });
 
 function validatePassword(isValid) {

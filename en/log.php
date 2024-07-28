@@ -699,7 +699,7 @@ echo '<!DOCTYPE html>
 </script>
 
 <br><br>
-</div> <!--closes main-->
+
 
 <!--FOOTER STARTS HERE-->
 <?php require_once ("../footer-2024.php");?>

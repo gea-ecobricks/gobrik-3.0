@@ -17,7 +17,7 @@ ini_set('display_errors', 1);
 
 // Check if a session is already active
 session_start();
-if (isset($_SESSION['user_id'])) {
+if (isset($_SESSION['buwana_id'])) {
     header('Location: dashboard.php');
     exit();
 }
@@ -76,7 +76,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/blob/main/en/login.php-->
 
                 <!--<label for="password">Your Password:</label><br>-->
                 <div data-lang-id="004-login-password">
-                    <input type="password" id="password" name="password" required placeholder="Your password..">
+                    <div data-lang-id="004-login-password">
+                    <input type="password" id="password" name="password" required placeholder="Your password...">
                     <p class="form-caption">Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
                 </div>
                 <div id="password-error" style="display:none;" data-lang-id="000-password-wrong">👉 Password is wrong.</div>

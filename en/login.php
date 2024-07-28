@@ -1,6 +1,6 @@
 <?php
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));  //grabs language directory from url
-$version = '0.472';
+$version = '0.473';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -31,6 +31,7 @@ if (isset($_SESSION['buwana_id'])) {
 function validatePassword(isValid) {
     const passwordErrorDiv = document.getElementById('password-error');
     if (!isValid) {
+        alert('bad pass');
         passwordErrorDiv.style.display = 'block';
     } else {
         passwordErrorDiv.style.display = 'flex';

@@ -82,9 +82,9 @@ if ($stmt_credential) {
         // Close the statement
         $stmt_credential->close();
 
-        // SQL query to get password_hash from users_tb using buwana_id
+        // SQL query to get password_hash from users_tb using buwana_id in Buwana database
         $sql_user = "SELECT password_hash FROM users_tb WHERE buwana_id = ?";
-        $stmt_user = $conn->prepare($sql_user);
+        $stmt_user = $buwana_conn->prepare($sql_user);
         if ($stmt_user) {
             // Bind the buwana_id parameter to the SQL query
             $stmt_user->bind_param('i', $buwana_id);
@@ -104,9 +104,9 @@ if ($stmt_credential) {
                 if (password_verify($password, $password_hash)) {
 
 
-                    // PART 4: Update last_login field in users_tb
+                    // PART 4: Update last_login field in users_tb in Buwana
                     $sql_update_last_login = "UPDATE users_tb SET last_login = NOW() WHERE buwana_id = ?";
-                    $stmt_update_last_login = $conn->prepare($sql_update_last_login);
+                    $stmt_update_last_login = $buwana_conn->prepare($sql_update_last_login);
                     if ($stmt_update_last_login) {
                         // Bind the buwana_id parameter to the SQL query
                         $stmt_update_last_login->bind_param('i', $buwana_id);
@@ -151,7 +151,7 @@ if ($stmt_credential) {
 }
 
 
-$conn->close();
-$conn2->close();
+$buwana_conn->close();
+$gobrik_conn->close();
 ?>
 

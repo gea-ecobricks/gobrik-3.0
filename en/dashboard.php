@@ -128,7 +128,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     <th data-lang-id="1103-brik">Brik</th>
                     <th data-lang-id="1104-weight">Weight</th>
                     <th data-lang-id="1105-location">Location</th>
-                    <th data-lang-id="1106-maker">Maker</th>
+                    <th data-lang-id="1106-status">Status</th>
                     <th data-lang-id="1107-serial">Serial</th>
                 </tr>
                <?php foreach ($recent_ecobricks as $ecobrick) : ?>
@@ -142,7 +142,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?>g</td>
         <td><?php echo htmlspecialchars($ecobrick['location_full']); ?></td>
-        <td><?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?></td>
+        <td><?php echo htmlspecialchars($ecobrick['status']); ?></td>
         <td>
             <button class="serial-button">
                 <?php $serial_no = htmlspecialchars($ecobrick['serial_no']); $wrapped_serial_no = substr($serial_no, 0, 3) . '<br>' . substr($serial_no, 3, 3);?>

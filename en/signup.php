@@ -1,6 +1,6 @@
 <?php
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.375';
+$version = '0.4';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -114,7 +114,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT-->
-   <div id="top-page-image" class="signup-team" style="margin-top: 640px;margin-bottom: 50px;z-index:35;position: absolute;
+   <div id="top-page-image" class="signup-team" style="margin-top: 60px;margin-bottom: 50px;z-index:35;position: absolute;
   text-align: center;
   width: 100%;
   height: 150px;">

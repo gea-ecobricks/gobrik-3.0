@@ -277,7 +277,6 @@ input[type="date"] {
   margin-bottom: 20px;
   padding-left: 10px;
   padding-bottom: 15px;
-  display: none;
 }
 
 .form-container {

@@ -1,7 +1,7 @@
 <?php
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));  //grabs language directory from url
 $lang = $directory;
-$version = '0.46';
+$version = '0.47';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -39,7 +39,7 @@ function validatePassword(isValid) {
     const passwordErrorDiv = document.getElementById('password-error');
     if (!isValid) {
         alert('password problem!');
-        passwordErrorDiv.style.display = 'block';
+        passwordErrorDiv.style.display = 'flex';
     } else {
         passwordErrorDiv.style.display = 'none';
     }

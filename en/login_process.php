@@ -8,6 +8,7 @@ include '../buwana_env.php';
 // Retrieve form data
 $credential_key = $_POST['credential_key'] ?? '';
 $password = $_POST['password'] ?? '';
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));  //grabs language directory from url
 
 // Validate input
 if (empty($credential_key) || empty($password)) {

@@ -114,14 +114,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT-->
-   <div id="top-page-image" class="signup-team" style="margin-top: -40px;margin-bottom: 50px;z-index: 222;position: absolute;
+   <div id="top-page-image" class="signup-team" style="margin-top: 640px;margin-bottom: 50px;z-index:35;position: absolute;
   text-align: center;
   width: 100%;
   height: 150px;">
       <!-- <img src="../webps/earth-community.webp" style="width:65%;">-->
     </div>
 
-<div id="form-submission-box" style="height:100vh;">
+<div id="form-submission-box" style="height:100vh;padding-top:65px;">
     <div class="form-container">
 
    <!-- <div class="signup-team">
@@ -129,8 +129,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div> -->
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="001-signup-heading">Create Your Account</h2>
-            <p data-lang-id="002-gobrik-subtext2">We use the Buwana Credential system-- an open source, Earth-first alternative to corporate logins.  Buwana gives you access to GoBrik and other regenereative apps.</p>
+            <h3 data-lang-id="001-signup-heading">Create Your Account</h3>
+            <h4 data-lang-id="002-gobrik-subtext2">GoBrik uses Buwana accounts-- an open source, Earth-first alternative to corporate logins.  Buwana will soon work for other regenerative apps.</h4>
         </div>
 
        <!--SIGNUP FORM-->
@@ -179,7 +179,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div><!--closes Landing content-->
 
 
-    <div style="text-align:center;width:100%;margin:auto;"><p style="font-size:medium;" data-land-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
+    <div style="text-align:center;width:100%;margin:auto;margin-top:34px;"><p style="font-size:medium;" data-land-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
         </div>
 
 

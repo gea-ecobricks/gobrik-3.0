@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="splash-content-block"></div>
     <div id="splash-bar"></div>
     <div id="form-submission-box" style="height:100vh;margin:5px;">
-    <div id="top-page-image" class="earth-community" style="margin-top: -40px;margin-bottom: 50px;z-index: 222;position: absolute;
+    <div id="top-page-image" class="earth-community" style="margin-top: -40px;margin-bottom: 50px;z-index: 35;position: absolute;
   text-align: center;
   width: 100%;
   height: 150px;">

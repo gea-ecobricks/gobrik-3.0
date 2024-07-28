@@ -5,8 +5,14 @@ session_start();
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+// Include database credentials
 include '../ecobricks_env.php';
+include '../buwana_env.php';
+
+// Set charset for both connections
 $conn->set_charset("utf8mb4");
+$buwana_conn->set_charset("utf8mb4");
+$gobrik_conn->set_charset("utf8mb4");
 
 // PART 1: LOG IN CHECK
 if (!isset($_SESSION['buwana_id'])) {
@@ -17,13 +23,7 @@ if (!isset($_SESSION['buwana_id'])) {
     exit();
 }
 
-
 // PART 2: ADD USER INFO
-include '../buwana_env.php'; // Include Buwana database credentials
-include '../ecobricks_env.php'; // Include GoBrik database credentials
-
-$buwana_conn->set_charset("utf8mb4");
-$gobrik_conn->set_charset("utf8mb4");
 
 $buwana_id = $_SESSION['buwana_id'];
 
@@ -75,8 +75,6 @@ if ($stmt_user) {
 } else {
     echo "Error fetching user information: " . $buwana_conn->error;
 }
-
-
 
 //PART 3 POST ECOBRICK DATA to GOBRIK DATABASE
 

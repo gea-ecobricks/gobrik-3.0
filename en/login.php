@@ -1,6 +1,6 @@
 <?php
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));  //grabs language directory from url
-$version = '0.4761';
+$version = '0.48';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="splash-content-block"></div>
     <div id="splash-bar"></div>
     <div id="form-submission-box" style="height:100vh;">
-    <div id="top-page-image" class="earth-community" style="margin-top: -50px;
+    <div id="top-page-image" class="earth-community" style="margin-top: -40px;
   margin-bottom: 50px;
   z-index: 222;
   position: absolute;
@@ -96,11 +96,11 @@ document.addEventListener("DOMContentLoaded", function() {
   height: 150px;">
         <img src="../webps/earth-community.webp" style="width:65%;">
     </div>
-    <div class="form-container" style="padding-top:100px;">
+    <div class="form-container" style="padding-top:115px;">
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="001-login-heading">Welcome back!</h2>
-            <p data-lang-id="002-login-subheading">Login with your GoBrik or Buwana account credentials.</p>
+            <h3 data-lang-id="001-login-heading">Welcome back!</h3>
+            <h4 data-lang-id="002-login-subheading">Login with your GoBrik or Buwana account credentials.</h4>
         </div>
 
         <!-- Login form -->

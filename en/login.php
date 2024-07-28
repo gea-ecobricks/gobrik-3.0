@@ -67,16 +67,16 @@ https://github.com/gea-ecobricks/gobrik-3.0/blob/main/en/login.php-->
         </div>
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="001-login-heading">Login</h2>
-            <p data-lang-id="002-login-subheading">Welcome back to GoBrik!</p>
+            <h2 data-lang-id="001-login-heading">Welcome back!</h2>
+            <p data-lang-id="002-login-subheading">Login with your GoBrik or Buwana account credentials.</p>
         </div>
 
         <!-- Login form -->
           <form id="login" method="post" action="login_process.php">
             <div class="form-item">
-                <!--<label for="credential_value">Your e-mail:</label><br>-->
+                <!--<label for="credential_key">Your e-mail:</label><br>-->
                 <span data-lang-id="003-login-email">
-                    <input type="text" id="credential_value" name="credential_value" required placeholder="Your e-mail...">
+                    <input type="text" id="credential_key" name="credential_key" required placeholder="Your e-mail...">
                 <span>
             </div>
             <div class="form-item" data-lang-id="004-login-password">
@@ -110,7 +110,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/blob/main/en/login.php-->
 <script type="text/javascript">
     document.getElementById('login').addEventListener('submit', function(event) {
         // Example validation, modify as needed
-        var credentialValue = document.getElementById('credential_value').value;
+        var credentialValue = document.getElementById('credential_key').value;
         var password = document.getElementById('password').value;
 
         if (credentialValue === '' || password === '') {

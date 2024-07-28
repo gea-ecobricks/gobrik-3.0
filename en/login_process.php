@@ -6,11 +6,11 @@ include '../buwana_env.php';
 // PART 1
 
 // Retrieve form data
-$credential_value = $_POST['credential_value'] ?? '';
+$credential_key = $_POST['credential_key'] ?? '';
 $password = $_POST['password'] ?? '';
 
 // Validate input
-if (empty($credential_value) || empty($password)) {
+if (empty($credential_key) || empty($password)) {
     header("Location: ../$lang/login.php?error=empty_fields");
     exit();
 }
@@ -32,21 +32,21 @@ if (empty($credential_value) || empty($password)) {
                 exit();
             }
 
-//Prepare and execute query to check if the email exists and if legacy_unactivated is set to yes
-$sql_check_email = "SELECT user_id, legacy_unactivated FROM live WHERE email = ?";
+//Prepare and execute query to check if the email exists in the gobrik database and if the gobrik account has had its Buwana account activated or not (accounts that have been imported from knack don't have their buwana account activated yet).
+$sql_check_email = "SELECT ecobricker_id, buwana_activated FROM ecobricker_live_id WHERE email = ?";
 $stmt_check_email = $conn->prepare($sql_check_email);
 
 if ($stmt_check_email) {
-    $stmt_check_email->bind_param('s', $credential_value);
+    $stmt_check_email->bind_param('s', $credential_key);
     $stmt_check_email->execute();
     $stmt_check_email->store_result();
 
     if ($stmt_check_email->num_rows === 1) {
-        $stmt_check_email->bind_result($user_id, $legacy_unactivated);
+        $stmt_check_email->bind_result($ecobricker_id, $buwana_activated);
         $stmt_check_email->fetch();
 
         if ($legacy_unactivated === 'yes') {
-            header("Location: activate.php?user_id=$user_id");
+            header("Location: activate.php?user_id=$ecobricker_id");
             exit();
         }
 
@@ -68,7 +68,7 @@ $sql_credential = "SELECT user_id FROM credentials_tb WHERE credential_key = ?";
 $stmt_credential = $conn->prepare($sql_credential);
 
 if ($stmt_credential) {
-    $stmt_credential->bind_param('s', $credential_value);
+    $stmt_credential->bind_param('s', $credential_key);
     $stmt_credential->execute();
     $stmt_credential->store_result();
 

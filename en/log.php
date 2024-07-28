@@ -444,6 +444,11 @@ echo '<!DOCTYPE html>
 
 </div> <!-- main? -->
 
+
+
+<!--FOOTER STARTS HERE-->
+<?php require_once ("../footer-2024.php");?>
+
 </div> <!--page content-->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -700,12 +705,8 @@ echo '<!DOCTYPE html>
 
 </script>
 
-<br><br>
 
 
-<!--FOOTER STARTS HERE-->
-<?php require_once ("../footer-2024.php");?>
-</div>
 
 </body>
 </html>

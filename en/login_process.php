@@ -1,6 +1,7 @@
 <?php
 session_start();
-include '../buwana_env.php'; // Adjust path as needed
+
+// PART 1
 
 // Retrieve form data
 $credential_value = $_POST['credential_value'] ?? '';
@@ -12,32 +13,39 @@ if (empty($credential_value) || empty($password)) {
     exit();
 }
 
-// Prepare and execute query to check if the email exists and if legacy_unactivated is set to yes
-$sql_check_email = "SELECT user_id, legacy_unactivated FROM users_tb WHERE email = ?";
-$stmt_check_email = $conn->prepare($sql_check_email);
+// PART 2
+//Check the GoBrik database.
+//Prepare and execute query to check if the email exists and if legacy_unactivated is set to yes
+// $sql_check_email = "SELECT user_id, legacy_unactivated FROM users_tb WHERE email = ?";
+// $stmt_check_email = $conn->prepare($sql_check_email);
+//
+// if ($stmt_check_email) {
+//     $stmt_check_email->bind_param('s', $credential_value);
+//     $stmt_check_email->execute();
+//     $stmt_check_email->store_result();
+//
+//     if ($stmt_check_email->num_rows === 1) {
+//         $stmt_check_email->bind_result($user_id, $legacy_unactivated);
+//         $stmt_check_email->fetch();
+//
+//         if ($legacy_unactivated === 'yes') {
+//             header("Location: activate.php?user_id=$user_id");
+//             exit();
+//         }
+//
+//         $stmt_check_email->close();
+//     } else {
+//         // If email does not exist, continue with credential validation
+//         $stmt_check_email->close();
+//     }
+// } else {
+//     die('Error preparing statement for checking email: ' . $conn->error);
+// }
 
-if ($stmt_check_email) {
-    $stmt_check_email->bind_param('s', $credential_value);
-    $stmt_check_email->execute();
-    $stmt_check_email->store_result();
+//PART 3
+//CHECK BUWANA USER CREDENTIALS
+include '../buwana_env.php';
 
-    if ($stmt_check_email->num_rows === 1) {
-        $stmt_check_email->bind_result($user_id, $legacy_unactivated);
-        $stmt_check_email->fetch();
-
-        if ($legacy_unactivated === 'yes') {
-            header("Location: activate.php?user_id=$user_id");
-            exit();
-        }
-
-        $stmt_check_email->close();
-    } else {
-        // If email does not exist, continue with credential validation
-        $stmt_check_email->close();
-    }
-} else {
-    die('Error preparing statement for checking email: ' . $conn->error);
-}
 
 // Prepare and execute query to check credentials
 $sql_credential = "SELECT user_id FROM credentials_tb WHERE credential_key = ?";

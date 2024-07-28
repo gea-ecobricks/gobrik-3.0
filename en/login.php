@@ -81,14 +81,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/blob/main/en/login.php-->
 
 </div><!--closes main and starry background-->
 
-<!-- FOOTER STARTS HERE
-language files are loaded there
-
--->
-
+<!-- FOOTER STARTS HERE-->
 
 <?php require_once ("../footer-2024.php");?>
-
 
 <!-- CUSTOM SCRIPTS -->
 
@@ -142,6 +137,16 @@ document.addEventListener("DOMContentLoaded", function() {
         validatePassword(false);
     }
 });
+
+    function validatePassword(isValid) {
+        const passwordErrorDiv = document.getElementById('password-error');
+        if (!isValid) {
+            passwordErrorDiv.style.display = 'block';
+        } else {
+            passwordErrorDiv.style.display = 'none';
+        }
+    }
+
 </script>
 </body>
 </html>

@@ -294,11 +294,4 @@ function ecobrickPreview(imageUrl, brik_serial, weight, owner, location) {
 }
 
 
-    function validatePassword(isValid) {
-        const passwordErrorDiv = document.getElementById('password-error');
-        if (!isValid) {
-            passwordErrorDiv.style.display = 'block';
-        } else {
-            passwordErrorDiv.style.display = 'none';
-        }
-    }
+

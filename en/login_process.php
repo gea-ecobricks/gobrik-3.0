@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-include '../buwana_env.php';
 
 // PART 1
 
@@ -63,9 +62,10 @@ if ($stmt_check_email) {
 //PART 3
 //CHECK BUWANA USER CREDENTIALS
 
+include '../buwana_env.php'; //Buwana Credentials in this file
 
 // Prepare and execute query to check credentials
-$sql_credential = "SELECT user_id FROM credentials_tb WHERE credential_key = ?";
+$sql_credential = "SELECT buwana_id FROM credentials_tb WHERE credential_key = ?";
 $stmt_credential = $conn->prepare($sql_credential);
 
 if ($stmt_credential) {
@@ -79,11 +79,11 @@ if ($stmt_credential) {
         $stmt_credential->close();
 
         // Now retrieve the password hash from users_tb
-        $sql_user = "SELECT password_hash FROM users_tb WHERE user_id = ?";
+        $sql_user = "SELECT password_hash FROM users_tb WHERE buwana_id = ?";
         $stmt_user = $conn->prepare($sql_user);
 
         if ($stmt_user) {
-            $stmt_user->bind_param('i', $user_id);
+            $stmt_user->bind_param('i', $buwana_id);
             $stmt_user->execute();
             $stmt_user->store_result();
 
@@ -93,7 +93,7 @@ if ($stmt_credential) {
 
                 // Verify password
                 if (password_verify($password, $password_hash)) {
-                    $_SESSION['user_id'] = $user_id;
+                    $_SESSION['buwana_id'] = $buwana_id;
                     header("Location: dashboard.php");
                     exit();
                 } else {

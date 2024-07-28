@@ -24,7 +24,7 @@ if ($conn2->connect_error) {
     exit();
 }
 
-$sql_check_email = "SELECT ecobricker_id, buwana_activated FROM ecobricker_live_id WHERE email = ?";
+$sql_check_email = "SELECT ecobricker_id, buwana_activated FROM ecobricker_live_tb WHERE email = ?";
 $stmt_check_email = $conn2->prepare($sql_check_email);
 if ($stmt_check_email) {
     $stmt_check_email->bind_param('s', $credential_key);

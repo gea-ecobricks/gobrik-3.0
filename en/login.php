@@ -22,14 +22,54 @@ if (isset($_SESSION['buwana_id'])) {
 }
 ?>
 <script>
+// Function to validate password
+function validatePassword(isValid) {
+    const passwordErrorDiv = document.getElementById('password-error');
+    if (!isValid) {
+        alert('bad pass');
+        passwordErrorDiv.style.display = 'block';
+    } else {
+        passwordErrorDiv.style.display = 'flex';
+    }
+}
+
+// Function to show modal information
+function showModalInfo(type) {
+    const modal = document.getElementById('form-modal-message');
+    const photobox = document.getElementById('modal-photo-box');
+    const messageContainer = modal.querySelector('.modal-message');
+    const modalBox = document.getElementById('modal-content-box');
+    let content = '';
+    photobox.style.display = 'none';
+    switch (type) {
+        case 'reset':
+            content = `
+                <img src="../pngs/exchange-bird.png" alt="Reset Password" height="250px" width="250px" class="preview-image">
+                <div class="preview-title">Reset Password</div>
+                <div class="preview-text">Oops! This function is not yet operational. Create another account for the moment as all accounts will be deleted once we migrate from beta to live.</div>
+            `;
+            break;
+        default:
+            content = '<p>Invalid term selected.</p>';
+    }
+    messageContainer.innerHTML = content;
+
+    modal.style.display = 'flex';
+    document.getElementById('page-content').classList.add('blurred');
+    document.getElementById('footer-full').classList.add('blurred');
+    document.body.classList.add('modal-open');
+}
+
 // Check if there's an error message and show the error div if needed
 document.addEventListener("DOMContentLoaded", function() {
     const errorType = "<?php echo isset($_GET['error']) ? htmlspecialchars($_GET['error']) : ''; ?>";
     if (errorType === "invalid_password") {
         validatePassword(false);
     }
+});
 
-    // Add the submit event listener after the DOM is fully loaded
+// Form submission validation
+document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('login').addEventListener('submit', function(event) {
         var credentialValue = document.getElementById('credential_key').value;
         var password = document.getElementById('password').value;
@@ -40,18 +80,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
-
-function validatePassword(isValid) {
-    const passwordErrorDiv = document.getElementById('password-error');
-    if (!isValid) {
-        alert('bad pass');
-        passwordErrorDiv.style.display = 'block';
-    } else {
-        passwordErrorDiv.style.display = 'flex';
-    }
-}
 </script>
-<!-- this file contains the custom meta tags for this page along with the loading of our header and custom css -->
 <?php require_once ("../includes/login-inc.php");?>
 
 <!-- PAGE CONTENT -->
@@ -93,47 +122,5 @@ function validatePassword(isValid) {
 
 <!-- FOOTER STARTS HERE -->
 <?php require_once ("../footer-2024.php");?>
-
-<!-- CUSTOM SCRIPTS -->
-<script type="text/javascript">
-document.getElementById('login').addEventListener('submit', function(event) {
-    var credentialValue = document.getElementById('credential_key').value;
-    var password = document.getElementById('password').value;
-
-    if (credentialValue === '' || password === '') {
-        event.preventDefault();
-        document.getElementById('password-error').style.display = 'block';
-    }
-});
-</script>
-
-<!-- CUSTOM MODALS -->
-<script type="text/javascript">
-function showModalInfo(type) {
-    const modal = document.getElementById('form-modal-message');
-    const photobox = document.getElementById('modal-photo-box');
-    const messageContainer = modal.querySelector('.modal-message');
-    const modalBox = document.getElementById('modal-content-box');
-    let content = '';
-    photobox.style.display = 'none';
-    switch (type) {
-        case 'reset':
-            content = `
-                <img src="../pngs/exchange-bird.png" alt="Reset Password" height="250px" width="250px" class="preview-image">
-                <div class="preview-title">Reset Password</div>
-                <div class="preview-text">Oops! This function is not yet operational. Create another account for the moment as all accounts will be deleted once we migrate from beta to live.</div>
-            `;
-            break;
-        default:
-            content = '<p>Invalid term selected.</p>';
-    }
-    messageContainer.innerHTML = content;
-
-    modal.style.display = 'flex';
-    document.getElementById('page-content').classList.add('blurred');
-    document.getElementById('footer-full').classList.add('blurred');
-    document.body.classList.add('modal-open');
-}
-</script>
 </body>
 </html>

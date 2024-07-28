@@ -6,13 +6,29 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // Include database credentials
-include '../ecobricks_env.php';
-include '../buwana_env.php';
+$gobrik_servername = "localhost";
+$gobrik_username = "ecobricks_brikchain_viewer";
+$gobrik_password = "desperate-like-the-Dawn";
+$gobrik_dbname = "ecobricks_gobrik_msql_db";
 
-// Set charset for both connections
-$conn->set_charset("utf8mb4");
-$buwana_conn->set_charset("utf8mb4");
+$buwana_servername = "localhost";
+$buwana_username = "ecobricks_gobrik_app";
+$buwana_password = "1EarthenAuth!";
+$buwana_dbname = "ecobricks_earthenAuth_db";
+
+// Create connection for GoBrik database
+$gobrik_conn = new mysqli($gobrik_servername, $gobrik_username, $gobrik_password, $gobrik_dbname);
+if ($gobrik_conn->connect_error) {
+    die("Connection failed: " . $gobrik_conn->connect_error);
+}
 $gobrik_conn->set_charset("utf8mb4");
+
+// Create connection for Buwana database
+$buwana_conn = new mysqli($buwana_servername, $buwana_username, $buwana_password, $buwana_dbname);
+if ($buwana_conn->connect_error) {
+    die("Connection failed: " . $buwana_conn->connect_error);
+}
+$buwana_conn->set_charset("utf8mb4");
 
 // PART 1: LOG IN CHECK
 if (!isset($_SESSION['buwana_id'])) {
@@ -24,7 +40,6 @@ if (!isset($_SESSION['buwana_id'])) {
 }
 
 // PART 2: ADD USER INFO
-
 $buwana_id = $_SESSION['buwana_id'];
 
 // Fetch first and last name from the Buwana database

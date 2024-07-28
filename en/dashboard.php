@@ -53,11 +53,7 @@ $conn2 = new mysqli($servername, $username, $password, $dbname);
 if ($conn2->connect_error) {
     die("Connection failed: " . $conn2->connect_error);
 }
-
-// SQL query to fetch the count of ecobricks and the sum of weight_authenticated_kg
-// $sql = "SELECT COUNT(*) as ecobrick_count, SUM(weight_authenticated_kg) as total_weight FROM tb_ecobricks";
-// $result = $conn2->query($sql);
-
+// SQL query to fetch the count of ecobricks and the sum of weight_g divided by 1000 to get kg
 $sql = "SELECT COUNT(*) as ecobrick_count, SUM(weight_g) / 1000 as total_weight FROM tb_ecobricks";
 $result = $conn2->query($sql);
 
@@ -70,8 +66,8 @@ if ($result->num_rows > 0) {
     $total_weight = 0;
 }
 
-// SQL query to fetch the 20 most recent ecobricks
-$sql_recent = "SELECT ecobrick_thumb_photo_url, weight_g, location_full, ecobricker_maker, serial_no FROM tb_ecobricks ORDER BY date_logged_ts DESC LIMIT 20";
+// SQL query to fetch the 12 most recent ecobricks
+$sql_recent = "SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, location_full, ecobricker_maker, serial_no, status FROM tb_ecobricks ORDER BY date_logged_ts DESC LIMIT 12";
 $result_recent = $conn2->query($sql_recent);
 
 $recent_ecobricks = [];
@@ -90,6 +86,7 @@ echo '<!DOCTYPE html>
 <title>Dashboard</title>
 '
 ?>
+
 
 
 

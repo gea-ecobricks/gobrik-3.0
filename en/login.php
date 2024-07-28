@@ -26,20 +26,14 @@ if (isset($_SESSION['user_id'])) {
 
 
 <script>
-// Check if there's an error message and show the error div if needed
-document.addEventListener("DOMContentLoaded", function() {
-    const errorType = "<?php echo isset($_GET['error']) ? htmlspecialchars($_GET['error']) : ''; ?>";
-    if (errorType === "invalid_password") {
-        validatePassword(false);
-    }
-});
+
 
 function validatePassword(isValid) {
     const passwordErrorDiv = document.getElementById('password-error');
     if (!isValid) {
-        passwordErrorDiv.style.display = 'flex';
+        passwordErrorDiv.style.display = 'block';
     } else {
-        passwordErrorDiv.style.display = 'none';
+        passwordErrorDiv.style.display = 'flex';
     }
 }
 </script>
@@ -149,6 +143,13 @@ function showModalInfo(type) {
     document.body.classList.add('modal-open');
 }
 
+// Check if there's an error message and show the error div if needed
+document.addEventListener("DOMContentLoaded", function() {
+    const errorType = "<?php echo isset($_GET['error']) ? htmlspecialchars($_GET['error']) : ''; ?>";
+    if (errorType === "invalid_password") {
+        validatePassword(false);
+    }
+});
 
 </script>
 </body>

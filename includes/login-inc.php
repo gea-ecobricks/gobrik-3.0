@@ -184,9 +184,9 @@
 
 }
 
-#main {
-  background-color: #0003 !important;
-}
+/* #main { */
+/*   background-color: #0003 !important; */
+/* } */
 
 /*
 #form-submission-box {

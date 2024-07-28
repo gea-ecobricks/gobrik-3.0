@@ -136,7 +136,16 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 </tr>
                 <?php foreach ($recent_ecobricks as $ecobrick) : ?>
                     <tr>
-                        <td><img src="https://ecobricks.org/<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>" alt="Ecobrick Thumbnail"></td>
+                        <td>
+                            <img src="https://ecobricks.org/<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>"
+                                 alt="Ecobrick Thumbnail"
+                                 onclick="ecobrickPreview('<?php echo htmlspecialchars($ecobrick['ecobrick_full_photo_url']); ?>',
+                                                         '<?php echo htmlspecialchars($ecobrick['serial_no']); ?>',
+                                                         '<?php echo htmlspecialchars($ecobrick['weight_g']); ?>g',
+                                                         '<?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?>',
+                                                         '<?php echo htmlspecialchars($ecobrick['location_full']); ?>')"
+                                 class="table-thumbnail">
+                        </td>
                         <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?>g</td>
                         <td><?php echo htmlspecialchars($ecobrick['location_full']); ?></td>
                         <td><?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?></td>

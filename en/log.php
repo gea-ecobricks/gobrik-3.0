@@ -17,13 +17,19 @@ if (!isset($_SESSION['buwana_id'])) {
     exit();
 }
 
+
 // PART 2: ADD USER INFO
 include '../buwana_env.php'; // Include Buwana database credentials
+include '../ecobricks_env.php'; // Include GoBrik database credentials
+
+$buwana_conn->set_charset("utf8mb4");
+$gobrik_conn->set_charset("utf8mb4");
+
 $buwana_id = $_SESSION['buwana_id'];
 
 // Fetch first and last name from the Buwana database
 $sql_user = "SELECT first_name, last_name FROM users_tb WHERE buwana_id = ?";
-$stmt_user = $conn->prepare($sql_user);
+$stmt_user = $buwana_conn->prepare($sql_user);
 
 if ($stmt_user) {
     $stmt_user->bind_param("i", $buwana_id);
@@ -67,8 +73,9 @@ if ($stmt_user) {
         </script>";
     }
 } else {
-    echo "Error fetching user information: " . $conn->error;
+    echo "Error fetching user information: " . $buwana_conn->error;
 }
+
 
 
 //PART 3 POST ECOBRICK DATA to GOBRIK DATABASE

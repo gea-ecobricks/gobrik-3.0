@@ -9,21 +9,21 @@ $lang = $directory;
 include '../buwana_env.php'; // This file provides the first database server, user, dbname information
 
 // Retrieve form data
-$user_id = filter_input(INPUT_POST, 'user_id', FILTER_SANITIZE_NUMBER_INT);
+$buwana_id = filter_input(INPUT_POST, 'buwana_id', FILTER_SANITIZE_NUMBER_INT);
 $credential_value = filter_input(INPUT_POST, 'credential_value', FILTER_SANITIZE_EMAIL);
 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 
-if (!$user_id || !$credential_value || !$password) {
-    header("Location: signedup-login.php?id=$user_id&error=invalid_input");
+if (!$buwana_id || !$credential_value || !$password) {
+    header("Location: signedup-login.php?id=$buwana_id&error=invalid_input");
     exit();
 }
 
 // Prepare and execute the query into the Buwana Database
-$sql_lookup_password = "SELECT password_hash, first_name FROM users_tb WHERE user_id = ?";
+$sql_lookup_password = "SELECT password_hash, first_name FROM users_tb WHERE buwana_id = ?";
 $stmt_lookup_password = $conn->prepare($sql_lookup_password);
 
 if ($stmt_lookup_password) {
-    $stmt_lookup_password->bind_param("i", $user_id);
+    $stmt_lookup_password->bind_param("i", $buwana_id);
     $stmt_lookup_password->execute();
     $stmt_lookup_password->bind_result($stored_password_hash, $first_name);
     $stmt_lookup_password->fetch();
@@ -38,10 +38,10 @@ if ($stmt_lookup_password) {
                             last_login = NOW(),
                             languages_id = ?,
                             login_count = login_count + 1
-                            WHERE user_id = ?";
+                            WHERE buwana_id = ?";
         $stmt_update_user = $conn->prepare($sql_update_user);
         if ($stmt_update_user) {
-            $stmt_update_user->bind_param("si", $lang, $user_id);
+            $stmt_update_user->bind_param("si", $lang, $buwana_id);
             $stmt_update_user->execute();
             $stmt_update_user->close();
             $conn->close(); // Close the first database connection
@@ -53,7 +53,7 @@ if ($stmt_lookup_password) {
             $conn2 = new mysqli($servername, $username, $password, $dbname); // Establish new connection
             if ($conn2->connect_error) {
                 error_log("Connection failed: " . $conn2->connect_error);
-                header("Location: signedup-login.php?id=$user_id&error=db_connection_failed");
+                header("Location: signedup-login.php?id=$buwana_id&error=db_connection_failed");
                 exit();
             }
 
@@ -76,18 +76,18 @@ if ($stmt_lookup_password) {
                                               WHERE email_addr = ?";
                     $stmt_update_ecobricker = $conn2->prepare($sql_update_ecobricker);
                     if ($stmt_update_ecobricker) {
-                        $stmt_update_ecobricker->bind_param("siss", $first_name, $user_id, $lang, $credential_value);
+                        $stmt_update_ecobricker->bind_param("siss", $first_name, $buwana_id, $lang, $credential_value);
                         if ($stmt_update_ecobricker->execute()) {
-                            error_log("Updated existing ecobricker in ecobricker_live_tb: $first_name, $user_id");
+                            error_log("Updated existing ecobricker in ecobricker_live_tb: $first_name, $buwana_id");
                         } else {
                             error_log("Error executing update statement in ecobricks_gobrik_msql_db: " . $stmt_update_ecobricker->error);
-                            header("Location: signedup-login.php?id=$user_id&error=db_update_failed");
+                            header("Location: signedup-login.php?id=$buwana_id&error=db_update_failed");
                             exit();
                         }
                         $stmt_update_ecobricker->close();
                     } else {
                         error_log("Error preparing update statement in ecobricks_gobrik_msql_db: " . $conn2->error);
-                        header("Location: signedup-login.php?id=$user_id&gobrikdberror=db_error");
+                        header("Location: signedup-login.php?id=$buwana_id&gobrikdberror=db_error");
                         exit();
                     }
                 } else {
@@ -97,18 +97,18 @@ if ($stmt_lookup_password) {
                     $stmt_insert_ecobricker = $conn2->prepare($sql_insert_ecobricker);
                     if ($stmt_insert_ecobricker) {
                     //error is here on line 99:
-                            $stmt_insert_ecobricker->bind_param("sisis", $first_name, $user_id, $credential_value, $user_id, $lang);
+                            $stmt_insert_ecobricker->bind_param("sisis", $first_name, $buwana_id, $credential_value, $buwana_id, $lang);
                         if ($stmt_insert_ecobricker->execute()) {
-                            error_log("New user inserted into ecobricker_live_tb: $first_name, $user_id");
+                            error_log("New user inserted into ecobricker_live_tb: $first_name, $buwana_id");
                         } else {
                             error_log("Error executing insert statement in ecobricks_gobrik_msql_db: " . $stmt_insert_ecobricker->error);
-                            header("Location: signedup-login.php?id=$user_id&error=db_insert_failed");
+                            header("Location: signedup-login.php?id=$buwana_id&error=db_insert_failed");
                             exit();
                         }
                         $stmt_insert_ecobricker->close();
                     } else {
                         error_log("Error preparing insert statement in ecobricks_gobrik_msql_db: " . $conn2->error);
-                        header("Location: signedup-login.php?id=$user_id&gobrikdberror=db_error");
+                        header("Location: signedup-login.php?id=$buwana_id&gobrikdberror=db_error");
                         exit();
                     }
                 }
@@ -116,28 +116,28 @@ if ($stmt_lookup_password) {
                 $stmt_check_email->close();
             } else {
                 error_log("Error preparing select statement in ecobricks_gobrik_msql_db: " . $conn2->error);
-                header("Location: signedup-login.php?id=$user_id&gobrikdberror=db_error");
+                header("Location: signedup-login.php?id=$buwana_id&gobrikdberror=db_error");
                 exit();
             }
 
             $conn2->close(); // Close the second database connection
 
             // Redirect to dashboard
-            $_SESSION['user_id'] = $user_id;
+            $_SESSION['buwana_id'] = $buwana_id;
             header("Location: dashboard.php");
             exit();
         } else {
             error_log("Error updating user data: " . $conn->error);
-            header("Location: signedup-login.php?id=$user_id&error=db_error");
+            header("Location: signedup-login.php?id=$buwana_id&error=db_error");
             exit();
         }
     } else {
-        header("Location: signedup-login.php?id=$user_id&error=wrong_password");
+        header("Location: signedup-login.php?id=$buwana_id&error=wrong_password");
         exit();
     }
 } else {
     error_log("Error preparing statement for users_tb: " . $conn->error);
-    header("Location: signedup-login.php?id=$user_id&error=db_error");
+    header("Location: signedup-login.php?id=$buwana_id&error=db_error");
     exit();
 }
 

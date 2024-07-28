@@ -36,7 +36,7 @@ $ecobricks = [];
 while ($stmt->fetch()) {
     $ecobricks[] = [
         'ecobrick_thumb_photo_url' => $ecobrick_thumb_photo_url,
-        'ecobrick_full_photo_url' => $ecobrick_full_photo_url,
+        'ecobrick_full_photo_url' => 'https://ecobricks.org' . $ecobrick_full_photo_url,
         'weight_g' => $weight_g,
         'location_full' => $location_full,
         'ecobricker_maker' => $ecobricker_maker,

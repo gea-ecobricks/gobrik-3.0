@@ -226,6 +226,7 @@ display: none;
         min-height: 50%;
         min-width: 70%;
         width: 50%;
+
     }
 }
 
@@ -236,6 +237,7 @@ display: none;
         border-radius: 8px;
         width: 88%;
         height: 80%;
+        background: none !important;
     }
 
 }

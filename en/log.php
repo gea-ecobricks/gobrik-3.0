@@ -191,7 +191,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php
 
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.16';
+$version = '0.17';
 $page = 'log';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -479,6 +479,7 @@ echo '<!DOCTYPE html>
                 <div class="preview-title" style=\"text-align:center;\">Cigbricks</div>
                 <div class="preview-text" style=\"text-align:center;\">Cigbricks are a new class of ecobrick design to transform the habit of smoking and the acetate from the cigarette filter into a personal and environmental solution. Cigbricks are made exclusively from the packed acetate filters of cigarette butts (with the paper removed).</div>
                 <a class="preview-btn" href="/cigbricks">Learn more ↗️</a>
+                <p style="font-size:smaller">Link opens to Ecobricks.org</p>
             `;
                 break;
             case 'regular':

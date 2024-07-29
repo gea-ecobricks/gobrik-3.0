@@ -628,13 +628,14 @@ border-color: #00a112 !important;
   margin-right: 30px;
   margin-top: 30px;
   border:none;
-  height: 60px;
-  width: 60px;
+  height: 50px;
+  width: 50px;
   justify-content: center;
   display: flex;
   cursor: pointer;
   background: url('../svgs/x-button-night.svg?v=2') no-repeat center;
   background-size: contain;
+  z-index: 40;
 }
 
 .x-button:hover {

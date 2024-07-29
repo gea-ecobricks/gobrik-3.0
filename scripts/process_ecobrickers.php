@@ -28,6 +28,8 @@
     </style>
 </head>
 <body>
+
+<!-- Part 1: Control Buttons and Instructions -->
 <div class="control-buttons">
     <button class="button" onclick="stopProcessing()">Stop Processing</button>
     <button class="button" onclick="startProcessing()">ᐉ Start Processing</button>
@@ -48,6 +50,7 @@
     }
 </script>
 
+<!-- Part 2: Display Latest Ecobrickers -->
 <div id="ecobrick-being-processed">
     <div id="ecobricks-processed-gallery">
         <?php
@@ -58,14 +61,13 @@
         $conn->set_charset("utf8mb4");
 
         // SQL query to fetch the latest 10 ecobrickers
-        $query = "SELECT first_name, buwana_id, location_full_txt, date_registered, email_addr FROM tb_ecobrickers
+        $query = "SELECT first_name, buwana_id, location_full_txt, date_registered, email_addr FROM ecobricker_live_tb
                   ORDER BY date_registered DESC
                   LIMIT 10";
 
         $result = $conn->query($query);
         ?>
 
-        <body>
         <h1>Latest Ecobrickers Added</h1>
         <div class="gallery">
             <?php
@@ -93,6 +95,7 @@
     </div>
 </div>
 
+<!-- Part 3: Retrieve Ecobricker Data from Knack -->
 <h2>Retrieve Ecobricker Data from Knack</h2>
 <form id="knack-search-form" method="POST" action="">
     <label for="email">Enter Ecobricker Email Address:</label>
@@ -100,6 +103,7 @@
     <button type="submit">Retrieve</button>
 </form>
 
+<!-- Part 4: Process and Upload Data to GoBrik Database -->
 <div id="knack-response">
     <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['email'])) {
@@ -150,9 +154,9 @@
                 $record_id = $record['id'];
                 $legacy_gobrik_user_id = $record['field_261'];
                 $username = ""; // Assume there's no field for username
-                $first_name = $record['field_198'];
-//                 $last_name = $record['field_102'];
-                $full_name = $record['field_102'];
+                $first_name = strtolower($record['field_102_raw']['first']);
+                $last_name = $record['field_102_raw']['last'];
+                $full_name = $record['field_102_raw']['full'];
                 $user_roles = $record['field_106'];
                 $gea_status = $record['field_273'];
                 $community = $record['field_125'];
@@ -167,7 +171,7 @@
                 $region_txt = $record['field_359'];
                 $city_txt = $record['field_342'];
                 $location_full_txt = $record['field_429'];
-                $household_ttx = $record['field_2028'];
+                $household_txt = $record['field_2028'];
                 $gender = $record['field_283'];
                 $personal_catalyst = $record['field_1676'];
                 $trainer_availability = $record['field_430'];
@@ -205,7 +209,7 @@
                         $region_txt,
                         $city_txt,
                         $location_full_txt,
-                        $household_ttx,
+                        $household_txt,
                         $gender,
                         $personal_catalyst,
                         $trainer_availability,

@@ -69,7 +69,7 @@ if ($stmt_user) {
                 const modal = document.getElementById('form-modal-message');
                 const messageContainer = modal.querySelector('.modal-message');
                 messageContainer.innerHTML = `
-                    <h4 style=\"text-align:center;\">Oops! We're missing your last name.</h4>
+                    <h3 style=\"text-align:center;\">Oops! We're missing your last name.</h3>
                     <p style=\"text-align:center;\">Looks like your GoBrik account is missing your last name. Ecobricks are best logged with your full name for posterity. Please save your last name here to make ecobrick logging faster:</p>
                     <form id='update-name-form' method='post' action='update_last_name.php'>
                         <label for='first_name'>First Name:</label>
@@ -187,9 +187,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <?php
 
-$directory = basename(dirname($_SERVER['SCRIPT_NAME']));
-$lang = $directory;
-$version = '0.11';
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$version = '0.12';
 $page = 'log';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -209,9 +208,13 @@ echo '<!DOCTYPE html>
     <div id="splash-bar"></div>
 
     <!-- PAGE CONTENT-->
+<div id="top-page-image" class="log-ecobricks" style="margin-top: -40px;margin-bottom: 50px;z-index: 35;position: absolute;
+  text-align: center;
+  width: 100%;
+  height: 150px;"></div>
 
     <div id="form-submission-box">
-        <div class="form-container">
+    <div class="form-container" style="padding-top:115px;">
             <div class="form-top-header" style="display:flex;flex-flow:row;">
                 <div class="step-graphic">
                     <img src="../svgs/step1-log-project.svg" style="height:25px;" loading="eager">
@@ -219,14 +222,11 @@ echo '<!DOCTYPE html>
                 <div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>
             </div>
 
-            <div class="splash-form-content-block">
-                <div class="splash-box">
-                    <div class="splash-heading" data-lang-id="001-splash-title">Log an Ecobrick</div>
-                </div>
-                <div class="splash-image" data-lang-id="003-splash-image-alt">
-                    <img src="../webps/eb-sky-400px.webp" style="width:65%; text-align:center;" alt="There are many ways to make an ecobrick">
-                </div>
-            </div>
+           <div style="text-align:center;width:100%;margin:auto;">
+            <h3 data-lang-id="001-log-title">Log an Ecobrick</h3>
+            <h4 data-lang-id="002-log-subheading">Record your ecobrick to the brikchain.</h4>
+        </div>
+
 
             <div class="lead-page-paragraph">
                 <p data-lang-id="004-form-description">Share your ecobrick with the world. Use this form to log your ecobrick into our database.</p>

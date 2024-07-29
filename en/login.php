@@ -91,9 +91,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <div id="top-page-image" class="earth-community" style="margin-top: -40px;margin-bottom: 50px;z-index: 35;position: absolute;
   text-align: center;
   width: 100%;
-  height: 150px;">
-      <!-- <img src="../webps/earth-community.webp" style="width:65%;">-->
-    </div>
+  height: 150px;"></div>
     <div class="form-container" style="padding-top:115px;">
 
         <div style="text-align:center;width:100%;margin:auto;">

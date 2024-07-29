@@ -289,20 +289,7 @@ input[type="date"] {
   padding-top: 100px; /* Adjust this to make room for the floating image */
 }
 
-.signup-team {
-  text-align: center;
-  width: 100%;
-/*   position: absolute; */
-/*   top: -60px;  *//* Adjust this to position the image above the form */
-/*   left: 50%; */
-/*   transform: translateX(-50%); */
-/*   z-index: 22; */
-  margin-top: -55px;
-}
 
-.signup-team img {
-  width: 60%;
-}
 
 /* Media Query for screens under 700px */
 @media screen and (max-width: 700px) {
@@ -417,25 +404,6 @@ input[type="date"] {
 #location_address {
     width: 100%;
     padding-right: 30px; /* Make space for the spinner */
-}
-
-.spinner {
-    display: none;
-    position: absolute;
-    top: 30%;  /* Center vertically in the input field */
-    left: 11px; /* Distance from the right edge of the input field */
-    transform: translateY(-50%); /* Ensures the spinner is exactly centered vertically */
-    width: 20px;
-    height: 20px;
-    border: 4px solid rgba(0,0,0,0.1);
-    border-top: 4px solid var(--emblem-pink);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); translateY(-50%); }
-    100% { transform: rotate(360deg); translateY(-50%); }
 }
 
 

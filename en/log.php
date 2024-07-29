@@ -211,10 +211,8 @@ echo '<!DOCTYPE html>
     <div id="splash-bar"></div>
 
     <!-- PAGE CONTENT-->
-<div id="top-page-image" class="log-ecobrick" style="margin-top: 65px;margin-bottom: 50px;z-index: 35;position: absolute;
-  text-align: center;
-  width:100% ;
-  height: 50px;"></div>
+<div id="top-page-image" class="log-ecobrick" style="margin-top: 135px;z-index: 35;position: absolute;
+  text-align:center;width:100% ; height: 40px;"></div>
 
     <div id="form-submission-box">
     <div class="form-container" style="padding-top:100px;">
@@ -228,12 +226,9 @@ echo '<!DOCTYPE html>
 
            <div style="text-align:center;width:100%;margin:auto;">
             <h2 data-lang-id="001-log-title">Log an Ecobrick</h2>
-            <!--<h4 data-lang-id="002-log-subheading">Record your ecobrick to the brikchain.</h4>-->
+            <p data-lang-id="002-log-subheading">Share your ecobrick with the world. Use this form to log your ecobrick into the brikchain system.</p>-->
         </div>
 
-
-
-                <p data-lang-id="004-form-description">Share your ecobrick with the world. Use this form to log your ecobrick into the brikchain system.</p>
 
 
             <!--LOG FORM-->

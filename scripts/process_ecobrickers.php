@@ -62,7 +62,7 @@
 
         // SQL query to fetch the latest 10 ecobrickers
         $query = "SELECT first_name, buwana_id, location_full_txt, date_registered, email_addr FROM tb_ecobrickers
-                  ORDER BY date_registered DESC
+                  ORDER BY gobrik_migrated_dt DESC
                   LIMIT 1";
 
         $result = $conn->query($query);

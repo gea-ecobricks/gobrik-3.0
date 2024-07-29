@@ -191,7 +191,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php
 
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.15';
+$version = '0.16';
 $page = 'log';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 

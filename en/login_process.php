@@ -11,7 +11,7 @@ if (empty($credential_key) || empty($password)) {
     exit();
 }
 
-// PART 2: GoBrik validation
+// PART 2: GoBrik Account validation
 
 // GoBrik database credentials (we'll hide this soon!)
 $gobrik_servername = "localhost";
@@ -160,6 +160,9 @@ $_SESSION['buwana_id'] = $buwana_id;
 header("Location: dashboard.php");
 exit();
 
+
+
+//PART 6 ERROR HANDLING
 
 
                 } else {

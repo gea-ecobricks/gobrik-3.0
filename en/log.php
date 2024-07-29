@@ -191,7 +191,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php
 
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.17';
+$version = '0.18';
 $page = 'log';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -215,7 +215,7 @@ echo '<!DOCTYPE html>
   text-align:center;width:100% ; height: 40px;"></div>
 
     <div id="form-submission-box">
-    <div class="form-container" style="padding-top:100px;">
+    <div class="form-container" style="height:100vh;padding-top:65px;">>
                <!--<div class="form-top-header" style="display:flex;flex-flow:row;">
 
                      <div class="step-graphic">

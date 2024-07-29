@@ -466,26 +466,27 @@ echo '<!DOCTYPE html>
         switch(type) {
             case 'ocean':
                 content = `
-                <img class="preview-image" class="brik-type-image" src="../svgs/oebs.svg" alt="Ocean Ecobrick Image" height="200" width="200">
-                <h4>Ocean Ecobricks</h4>
-                <div class="preview-text">The Ocean Ecobrick are designed for plastics found on beaches, rivers and in the ocean where plastics tend to be large, chunky, dirty, and wet and are not suited to make a regular ecobrick. The Ocean Ecobrick enables these plastics to be easily transformed into a practical, useful, and reusable building block.</p>
-                <a class="preview-btn" href="/ocean">Learn more</a>
+                <img class="preview-image" class="brik-type-image" src="../svgs/oebs.svg" alt="Ocean Ecobrick Image" height="200" width="200" style=\"text-align:center;\">
+                <h4 style=\"text-align:center;\">Ocean Ecobricks</h4>
+                <div class="preview-text" style=\"text-align:center;\">The Ocean Ecobrick are designed for plastics found on beaches, rivers and in the ocean where plastics tend to be large, chunky, dirty, and wet and are not suited to make a regular ecobrick. The Ocean Ecobrick enables these plastics to be easily transformed into a practical, useful, and reusable building block.</p>
+                <a class="submit-button cancel" href="https://ecobricks.org/ocean" target=_blank>Learn more ↗️</a>
+                <p style="font-size:smaller">Link opens to Ecobricks.org</p>
             `;
                 break;
             case 'cigbrick':
                 content = `
-                <img src="../svgs/cigbrick.svg" alt="Cigbrick Image" height="250px" width="250px" class="preview-image">
-                <div class="preview-title">Cigbricks</div>
-                <div class="preview-text">Cigbricks are a new class of ecobrick design to transform the habit of smoking and the acetate from the cigarette filter into a personal and environmental solution. Cigbricks are made exclusively from the packed acetate filters of cigarette butts (with the paper removed).</div>
-                <a class="preview-btn" href="/cigbricks">Learn more</a>
+                <img src="../svgs/cigbrick.svg" alt="Cigbrick Image" height="250px" width="250px" class="preview-image" style=\"text-align:center;\">
+                <div class="preview-title" style=\"text-align:center;\">Cigbricks</div>
+                <div class="preview-text" style=\"text-align:center;\">Cigbricks are a new class of ecobrick design to transform the habit of smoking and the acetate from the cigarette filter into a personal and environmental solution. Cigbricks are made exclusively from the packed acetate filters of cigarette butts (with the paper removed).</div>
+                <a class="preview-btn" href="/cigbricks">Learn more ↗️</a>
             `;
                 break;
             case 'regular':
                 content = `
-                <img class="preview-image" src="../pngs/justandecobrick.png" alt="Regular Ecobrick Image" height="300" width="300">
-                 <div class="preview-title">Regular Ecobricks</div>
-                <p class="preview-text">An ecobrick is a PET bottle packed solid with used plastic to the standards of plastic sequestration in order to make a reusable building block.  A regular ecobrick is an uncut bottle packed solid with used plastic to a set density (between 0.33 and 0.7 g/ml) to make a reusable building block.</p>
-                <a class="preview-btn" href="what.php">Learn more</a>
+                <img class="preview-image" src="../pngs/justandecobrick.png" alt="Regular Ecobrick Image" height="300" width="300" style=\"text-align:center;\">
+                 <div class="preview-title" style=\"text-align:center;\">Regular Ecobricks</div>
+                <p class="preview-text" style=\"text-align:center;\">An ecobrick is a PET bottle packed solid with used plastic to the standards of plastic sequestration in order to make a reusable building block.  A regular ecobrick is an uncut bottle packed solid with used plastic to a set density (between 0.33 and 0.7 g/ml) to make a reusable building block.</p>
+                <a class="submit-button cancel" href="what.php">Learn more ↗️</a>
             `;
                 break;
             default:

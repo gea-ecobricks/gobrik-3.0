@@ -478,7 +478,10 @@ light.css
 
       }
 
-
+.log-ecobrick {
+  background: url(../svgs/step1.svg) no-repeat center bottom;
+  background-size: contain;
+}
 
     .earth-community {
       background: url(../svgs/earth-community-day.svg) no-repeat center;

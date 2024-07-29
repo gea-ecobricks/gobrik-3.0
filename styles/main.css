@@ -1656,13 +1656,15 @@ max-width: 60px;
 .cancel {
     background-color: #444;
     cursor: pointer;
-    color: #ddd;
+    color: grey;
 }
 
 /* Styles for the enabled state */
 .enabled {
     background-color: var(--button-2-1);
     cursor: pointer;
+    padding-right:20px;
+    padding-left:20px;
 }
 
 /* Hover effect for enabled state */

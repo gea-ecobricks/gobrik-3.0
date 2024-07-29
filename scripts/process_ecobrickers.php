@@ -103,7 +103,6 @@
     <button type="submit">Retrieve</button>
 </form>
 
-
 <!-- Part 4: Process and Upload Data to GoBrik Database -->
 <div id="knack-response">
     <?php
@@ -184,7 +183,7 @@
                 $household = $record['field_2038'];
 
                 // Insert the data into tb_ecobrickers
-                $sql_insert = "INSERT INTO tb_ecobrickers (maker_id, legacy_gobrik_user_id, username, first_name, last_name, full_name, user_roles, gea_status, community, email_addr, date_registered, phone_no, ecobricks_made, brk_balance, aes_balance, aes_purchased, country_txt, region_txt, city_txt, location_full_txt, household_ttx, gender, personal_catalyst, trainer_availability, pronouns, household_generation, country_per_capita_consumption, my_consumption_estimate, household_members, household, buwana_activated, gobrik_migrated, account_notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 1, 'migrated from knack gobrik on July 29th, 2024')";
+                $sql_insert = "INSERT INTO tb_ecobrickers (maker_id, legacy_gobrik_user_id, username, first_name, last_name, full_name, user_roles, gea_status, community, email_addr, date_registered, phone_no, ecobricks_made, brk_balance, aes_balance, aes_purchased, country_txt, region_txt, city_txt, location_full_txt, household_ttx, gender, personal_catalyst, trainer_availability, pronouns, household_generation, country_per_capita_consumption, my_consumption_estimate, household_members, household, buwana_activated, gobrik_migrated, account_notes, gobrik_migrated_dt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 1, 'migrated from knack gobrik on July 29th, 2024', NOW())";
 
                 $stmt_insert = $conn->prepare($sql_insert);
                 if ($stmt_insert) {
@@ -242,6 +241,7 @@
     }
     ?>
 </div>
+
 
 </body>
 </html>

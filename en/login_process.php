@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// PART 1
+// PART 1 Grab user credentials from the login form submission
 $credential_key = $_POST['credential_key'] ?? '';
 $password = $_POST['password'] ?? '';
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
@@ -11,13 +11,13 @@ if (empty($credential_key) || empty($password)) {
     exit();
 }
 
-// PART 2: Check the GoBrik database to see if user has an unactivated account
-// GoBrik database credentials
+// PART 2: GoBrik validation
+
+// GoBrik database credentials (we'll hide this soon!)
 $gobrik_servername = "localhost";
 $gobrik_username = "ecobricks_brikchain_viewer";
 $gobrik_password = "desperate-like-the-Dawn";
 $gobrik_dbname = "ecobricks_gobrik_msql_db";
-
 
 // Create connection for GoBrik database
 $gobrik_conn = new mysqli($gobrik_servername, $gobrik_username, $gobrik_password, $gobrik_dbname);
@@ -28,7 +28,7 @@ if ($gobrik_conn->connect_error) {
 }
 $gobrik_conn->set_charset("utf8mb4");
 
-
+// Check the GoBrik database to see if user has an unactivated account
 $sql_check_email = "SELECT ecobricker_id, buwana_activated FROM tb_ecobrickers WHERE email_addr = ?";
 $stmt_check_email = $gobrik_conn->prepare($sql_check_email);
 if ($stmt_check_email) {
@@ -41,7 +41,7 @@ if ($stmt_check_email) {
         $stmt_check_email->fetch();
 
         if ($buwana_activated === 'yes') {
-            header("Location: activate.php?user_id=$ecobricker_id");
+            header("Location: activate.php?user_id=$ecobricker_id");  // page will let users activate their Buwana account
             exit();
         }
 
@@ -53,7 +53,10 @@ if ($stmt_check_email) {
     die('Error preparing statement for checking email: ' . $conn2->error);
 }
 
-// PART 3: Check Buwana user credentials
+
+// PART 3: Check Buwana Database
+// Buwana DB access credentials (we'll hid this soon too!)
+
 $buwana_servername = "localhost";
 $buwana_username = "ecobricks_gobrik_app";
 $buwana_password = "1EarthenAuth!";
@@ -104,24 +107,25 @@ if ($stmt_credential) {
                 if (password_verify($password, $password_hash)) {
 
 
-                    // PART 4: Update last_login field in users_tb in Buwana
-                    $sql_update_last_login = "UPDATE users_tb SET last_login = NOW() WHERE buwana_id = ?";
-                    $stmt_update_last_login = $buwana_conn->prepare($sql_update_last_login);
-                    if ($stmt_update_last_login) {
-                        // Bind the buwana_id parameter to the SQL query
-                        $stmt_update_last_login->bind_param('i', $buwana_id);
-                        // Execute the query
-                        $stmt_update_last_login->execute();
-                        // Close the statement
-                        $stmt_update_last_login->close();
-                    } else {
-                        // If there's an error preparing the update statement, terminate the script with an error message
-                        die('Error preparing statement for updating last_login: ' . $conn->error);
-                    }
+                    // Part 4: Successful login
 
-                    // Set the session variable to indicate the user is logged in
-                    $_SESSION['buwana_id'] = $buwana_id;
-                    // Redirect to the dashboard page
+                    // Assuming buwana_id is obtained after successful login
+                    $buwana_id = $user_row['buwana_id'];
+
+                    // Update login_count in users_tb
+                    $updateLoginCountStmt = $conn->prepare("UPDATE users_tb SET login_count = login_count + 1 WHERE buwana_id = ?");
+                    $updateLoginCountStmt->bind_param("i", $buwana_id);
+                    $updateLoginCountStmt->execute();
+                    $updateLoginCountStmt->close();
+
+                    // Update last_login and times_used in credentials_tb
+                    $currentDateTime = date("Y-m-d H:i:s");
+                    $updateCredentialsStmt = $conn->prepare("UPDATE credentials_tb SET last_login = ?, times_used = times_used + 1 WHERE buwana_id = ?");
+                    $updateCredentialsStmt->bind_param("si", $currentDateTime, $buwana_id);
+                    $updateCredentialsStmt->execute();
+                    $updateCredentialsStmt->close();
+
+                    // Redirect to the appropriate page after login
                     header("Location: dashboard.php");
                     exit();
                 } else {

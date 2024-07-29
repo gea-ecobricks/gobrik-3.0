@@ -30,7 +30,7 @@ if (isset($_GET['id'])) {
 
     // Fetch the ecobrick details from the database
     $sql = "SELECT universal_volume_ml, serial_no, density, weight_g FROM tb_ecobricks WHERE ecobrick_unique_id = ?";
-    $stmt = $conn->prepare($sql);
+    $stmt = $gobrik_conn->prepare($sql);
     $stmt->bind_param("i", $ecobrick_unique_id);
     $stmt->execute();
     $stmt->bind_result($universal_volume_ml, $serial_no, $density, $weight_g);
@@ -91,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ecobrick_unique_id']))
         $db_values[] = $ecobrick_unique_id;
         $db_types .= "i";
 
-        $update_stmt = $conn->prepare($update_sql);
+        $update_stmt = $gobrik_conn->prepare($update_sql);
         $update_stmt->bind_param($db_types, ...$db_values);
         if (!$update_stmt->execute()) {
             $error_message .= "Database update failed: " . $update_stmt->error;
@@ -123,10 +123,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ecobrick_unique_id']))
 echo "<script>var density = $density, volume = '$universal_volume_ml', weight = '$weight_g';</script>";
 
 
-function deleteEcobrick($ecobrick_unique_id, $conn) {
-    // Dummy function to handle ecobrick deletion, replace with actual implementation
-    return true;
-}
 
 ?>
 

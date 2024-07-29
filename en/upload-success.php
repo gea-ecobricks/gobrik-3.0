@@ -26,7 +26,7 @@ if (isset($_GET['id'])) {
     $sql = "SELECT serial_no, ecobrick_full_photo_url, ecobrick_thumb_photo_url, selfie_photo_url, selfie_thumb_url
             FROM tb_ecobricks
             WHERE ecobrick_unique_id = ?";
-    $stmt = $conn->prepare($sql);
+    $stmt = $gobrik_conn->prepare($sql);
     $stmt->bind_param("i", $ecobrick_unique_id);
     $stmt->execute();
     $stmt->bind_result($serial_no, $ecobrick_full_photo_url, $ecobrick_thumb_photo_url, $selfie_photo_url, $selfie_thumb_url);

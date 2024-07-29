@@ -76,7 +76,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     <div class="splash-content-block"></div>
     <div id="splash-bar"></div>
-           <div class="credentials-banner"></div>
+           <div class="credentials-banner" style="margin-top:60px;margin-bottom: 50px;z-index:35;position: absolute;
+  text-align: center;
+  width: 100%;
+  height: 150px;"></div>
      <!-- PAGE CONTENT-->
     <div id="form-submission-box" style="height:100vh;">
         <div class="form-container">

@@ -227,14 +227,13 @@ echo '<!DOCTYPE html>
 
 
            <div style="text-align:center;width:100%;margin:auto;">
-            <h1 data-lang-id="001-log-title">Log an Ecobrick</h1>
+            <h2 data-lang-id="001-log-title">Log an Ecobrick</h2>
             <!--<h4 data-lang-id="002-log-subheading">Record your ecobrick to the brikchain.</h4>-->
         </div>
 
 
-            <div class="lead-page-paragraph">
+
                 <p data-lang-id="004-form-description">Share your ecobrick with the world. Use this form to log your ecobrick into the brikchain system.</p>
-            </div>
 
 
             <!--LOG FORM-->

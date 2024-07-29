@@ -69,8 +69,8 @@ if ($stmt_user) {
                 const modal = document.getElementById('form-modal-message');
                 const messageContainer = modal.querySelector('.modal-message');
                 messageContainer.innerHTML = `
-                    <h4>Oops! We're missing your last name.</h4>
-                    <p>Looks like your GoBrik account is missing your last name. Ecobricks are best logged with your full name for posterity. Please save your last name here to make ecobrick logging faster:</p>
+                    <h4 style=\"text-align:center;\">Oops! We're missing your last name.</h4>
+                    <p style=\"text-align:center;\">Looks like your GoBrik account is missing your last name. Ecobricks are best logged with your full name for posterity. Please save your last name here to make ecobrick logging faster:</p>
                     <form id='update-name-form' method='post' action='update_last_name.php'>
                         <label for='first_name'>First Name:</label>
                         <input type='text' id='first_name' name='first_name' value='" . htmlspecialchars($first_name, ENT_QUOTES) . "' required><br>
@@ -78,7 +78,7 @@ if ($stmt_user) {
                         <input type='text' id='last_name' name='last_name' required><br>
                         <input type='checkbox' id='update_buwana' name='update_buwana' checked>
                         <label for='update_buwana'>Update my Buwana account too</label><br>
-                        <button type='submit'>Save</button>
+                        <button type='submit' class=\"submit-button\">Save</button>
                         <button type='button' onclick='closeInfoModal()'>Cancel</button>
                     </form>
                 `;

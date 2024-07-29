@@ -516,7 +516,7 @@ input[type="submit"].progress-bar {
 input[type="submit"]:hover {
   background-color: var(--button-2-1-over);
 } */
-
+/*
 #submit-button {
     padding: 10px 20px;
     border: none;
@@ -528,26 +528,26 @@ input[type="submit"]:hover {
    font-size: 1.3em;
 }
 
-/* Styles for the disabled state */
+ *//* Styles for the disabled state *//*
 .disabled {
     background-color: #444;
     cursor: not-allowed !important;
 }
 
-/* Styles for the enabled state */
+ *//* Styles for the enabled state *//*
 .enabled {
     background-color: var(--button-2-1);
     cursor: pointer;
 }
 
-/* Hover effect for enabled state */
+ *//* Hover effect for enabled state *//*
 .enabled:hover {
     background-color: var(--button-2-1-over);
 }
 
 .underline-link {
 color: var(--text-color);
-}
+} */
 
 </style>
 

@@ -212,7 +212,7 @@ display: none;
 
   display: flex;
   margin: auto;
-    text-align: center;
+
 }
 
 @media screen and (min-width: 700px) {
@@ -226,7 +226,6 @@ display: none;
         min-height: 50%;
         min-width: 70%;
         width: 50%;
-        font-size: 1.4em;
     }
 }
 
@@ -237,7 +236,6 @@ display: none;
         border-radius: 8px;
         width: 88%;
         height: 80%;
-        font-size: 1.2em;
     }
 
 }

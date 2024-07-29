@@ -1633,3 +1633,37 @@ max-width: 100px;
 max-width: 60px;
 }
 }
+
+
+
+.submit-button {
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    transition: background-color 0.3s, cursor 0.3s;
+     padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+   font-size: 1.3em;
+}
+
+/* Styles for the disabled state */
+.disabled {
+    background-color: #444;
+    cursor: not-allowed !important;
+}
+
+/* Styles for the enabled state */
+.enabled {
+    background-color: var(--button-2-1);
+    cursor: pointer;
+}
+
+/* Hover effect for enabled state */
+.enabled:hover {
+    background-color: var(--button-2-1-over);
+}
+
+.underline-link {
+color: var(--text-color);
+}

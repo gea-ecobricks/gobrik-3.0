@@ -110,14 +110,14 @@ if ($stmt_credential) {
                     // Part 4: Successful login
 
                     // Update login_count in users_tb
-                    $updateLoginCountStmt = $conn->prepare("UPDATE users_tb SET login_count = login_count + 1 WHERE buwana_id = ?");
+                    $updateLoginCountStmt = $buwana_conn->prepare("UPDATE users_tb SET login_count = login_count + 1 WHERE buwana_id = ?");
                     $updateLoginCountStmt->bind_param("i", $buwana_id);
                     $updateLoginCountStmt->execute();
                     $updateLoginCountStmt->close();
 
                     // Update last_login and times_used in credentials_tb
                     $currentDateTime = date("Y-m-d H:i:s");
-                    $updateCredentialsStmt = $conn->prepare("UPDATE credentials_tb SET last_login = ?, times_used = times_used + 1 WHERE buwana_id = ?");
+                    $updateCredentialsStmt = $buwana_conn->prepare("UPDATE credentials_tb SET last_login = ?, times_used = times_used + 1 WHERE buwana_id = ?");
                     $updateCredentialsStmt->bind_param("si", $currentDateTime, $buwana_id);
                     $updateCredentialsStmt->execute();
                     $updateCredentialsStmt->close();

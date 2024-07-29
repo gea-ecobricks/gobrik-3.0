@@ -152,7 +152,7 @@
                 $username = ""; // Assume there's no field for username
                 $first_name = $record['field_198'];
                 $last_name = $record['field_102'];
-                $full_name = $record['field_10'];
+                $full_name = $record['field_102.last'];
                 $user_roles = $record['field_106'];
                 $gea_status = $record['field_273'];
                 $community = $record['field_125'];

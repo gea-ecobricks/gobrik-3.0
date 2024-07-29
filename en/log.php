@@ -81,7 +81,7 @@ if ($stmt_user) {
                         <div style=\"text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;\">
 
 <button type='submit' class=\"submit-button enabled\">Save</button>
-//                         <button type='button' onclick='closeInfoModal()'>Cancel</button>
+<button type='button' onclick='closeInfoModal()' class=\"submit-button cancel\">Cancel</button>
 </div>
                     </form>
                 `;
@@ -213,7 +213,7 @@ echo '<!DOCTYPE html>
     <!-- PAGE CONTENT-->
 <div id="top-page-image" class="my-ecobricks" style="margin-top: -40px;margin-bottom: 50px;z-index: 35;position: absolute;
   text-align: center;
-  width: ;
+  width:100% ;
   height: 150px;"></div>
 
     <div id="form-submission-box">

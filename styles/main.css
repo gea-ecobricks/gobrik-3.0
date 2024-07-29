@@ -1653,6 +1653,11 @@ max-width: 60px;
     cursor: not-allowed !important;
 }
 
+.cancel {
+    background-color: #444;
+    cursor: pointer;
+}
+
 /* Styles for the enabled state */
 .enabled {
     background-color: var(--button-2-1);

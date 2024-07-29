@@ -99,7 +99,7 @@ if (isset($_GET['id'])) {
     <div class="form-container" style="margin-top:-50px;" >
         <div class="splash-form-content-block" style="text-align:center; display:flex;flex-flow:column;">
             <div class="splash-image-2" data-lang-id="003-weigh-plastic-image-alt">
-                <img src="../svgs/Happy-turtle-dolphin-opti.svg" style="width:35%; margin:auto; margin-top:-60px;" alt="The Earth Thanks You">
+                <img src="../svgs/Happy-turtle-dolphin-opti.svg" style="width:39%; margin:auto; margin-top:-100px;" alt="The Earth Thanks You">
             </div>
             <div>
                 <h2 data-lang-id="001-form-title">Your Ecobrick <?php echo $serial_no; ?> has been successfully logged!</h2>
@@ -107,13 +107,13 @@ if (isset($_GET['id'])) {
             <div id="upload-success-message">
                 <?php if ($ecobrick_full_photo_url): ?>
                     <div class="photo-container">
-                        <img src="https://ecobricks.org<?php echo $ecobrick_thumb_photo_url; ?>" alt="Basic Ecobrick Photo">
+                        <img src="<?php echo $ecobrick_thumb_photo_url; ?>" alt="Basic Ecobrick Photo">
                         <p>Basic Ecobrick Photo</p>
                     </div>
                 <?php endif; ?>
                 <?php if ($selfie_photo_url): ?>
                     <div class="photo-container">
-                        <img src="https://ecobricks.org<?php echo $selfie_thumb_url; ?>" alt="Ecobrick Selfie Photo">
+                        <img src="<?php echo $selfie_thumb_url; ?>" alt="Ecobrick Selfie Photo">
                         <p>Ecobrick Selfie Photo</p>
                     </div>
                 <?php endif; ?>

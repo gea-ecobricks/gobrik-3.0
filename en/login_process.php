@@ -109,9 +109,6 @@ if ($stmt_credential) {
 
                     // Part 4: Successful login
 
-                    // Assuming buwana_id is obtained after successful login
-                    $buwana_id = $user_row['buwana_id'];
-
                     // Update login_count in users_tb
                     $updateLoginCountStmt = $conn->prepare("UPDATE users_tb SET login_count = login_count + 1 WHERE buwana_id = ?");
                     $updateLoginCountStmt->bind_param("i", $buwana_id);

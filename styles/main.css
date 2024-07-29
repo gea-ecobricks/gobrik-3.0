@@ -2029,7 +2029,9 @@ input[type="date"] {
 
 input[type="text"], input[type="name"], input[type="credential"],  input[type="password"] {
   width: 100%;
+/*
   height: 100%;
+*/
   padding: 8px 10px;
   margin: 4px 0;
   font-size: 18px !important;
@@ -2043,7 +2045,9 @@ input[type="text"], input[type="name"], input[type="credential"],  input[type="p
 
 select {
   width: 100%;
+/*
   height: 100%;
+*/
   padding: 8px 10px;
   margin: 4px 0;
   font-size: 18px !important;

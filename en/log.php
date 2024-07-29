@@ -191,7 +191,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php
 
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.2';
+$version = '0.21';
 $page = 'log';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -214,7 +214,7 @@ echo '<!DOCTYPE html>
 <div id="top-page-image" class="log-ecobrick" style="margin-top: 105px;z-index: 35;position: absolute;
   text-align:center;width:100% ; height: 36px;"></div>
 
-    <div id="form-submission-box" style="height:100vh;padding-top:95px;">
+    <div id="form-submission-box">
     <div class="form-container" >
                <!--<div class="form-top-header" style="display:flex;flex-flow:row;">
 

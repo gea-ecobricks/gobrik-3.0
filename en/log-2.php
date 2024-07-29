@@ -130,7 +130,6 @@ function deleteEcobrick($ecobrick_unique_id, $conn) {
     <?php $version='2.47';?>
     <?php $page='log';?>
 
-    <?php require_once ("../includes/log-inc.php");?>
 
     <script>
 
@@ -214,13 +213,13 @@ function deleteEcobrick($ecobrick_unique_id, $conn) {
 
 
 
-    </script>
+   <?php require_once ("../includes/log-inc.php");?>
 
     <div class="splash-content-block"></div>
     <div id="splash-bar"></div>
 
     <!-- PAGE CONTENT-->
-<div id="top-page-image" class="log-step-2" style="margin-top: 105px;z-index: 35;position: absolute;
+<div id="top-page-image" class="log-ecobrick" style="margin-top: 105px;z-index: 35;position: absolute;
   text-align:center;width:100% ; height: 36px;"></div>
 
     <div id="form-submission-box">
@@ -229,7 +228,7 @@ function deleteEcobrick($ecobrick_unique_id, $conn) {
             <div class="splash-form-content-block" style="text-align:center; display:flex;flex-flow:column;">
 
                 <div class="splash-image-2" data-lang-id="003-weigh-plastic-image-alt">
-                    <img src="../svgs/snapit.svg?v=3" style="width:55%; margin:auto" alt="Please take a square photo">
+                    <img src="../svgs/snapit.svg?v=3" style="width:35%; margin:auto" alt="Please take a square photo">
                 </div>
                 <div><h2 data-lang-id="001-form-title">Record Serial & Take Photo</h2></div>
 

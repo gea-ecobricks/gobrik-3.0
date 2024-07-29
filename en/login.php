@@ -85,13 +85,15 @@ document.addEventListener("DOMContentLoaded", function() {
 <?php require_once ("../includes/login-inc.php");?>
 
 <!-- PAGE CONTENT -->
-    <div class="splash-content-block"></div>
-    <div id="splash-bar"></div>
-     <div id="top-page-image" class="earth-community" style="margin-top: 105px;z-index: 35;position: absolute;
-  text-align:center;width:100% ; height: 36px;"></div>
-      <div id="form-submission-box" style="margin-top:80px;">
-    <div class="form-container" style="margin-top:-50px;" >
+   <div id="top-page-image" class="signup-team" style="margin-top:60px;margin-bottom: 50px;z-index:35;position: absolute;
+  text-align: center;
+  width: 100%;
+  height: 150px;">
+      <!-- <img src="../webps/earth-community.webp" style="width:65%;">-->
+    </div>
 
+<div id="form-submission-box" style="height:100vh;padding-top:65px;">
+    <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
             <h3 data-lang-id="001-login-heading">Welcome back!</h3>

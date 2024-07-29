@@ -1,11 +1,12 @@
 <?php
 
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 ini_set('memory_limit', '256M'); // Increase memory limit
 ob_start(); // Start output buffering
 
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));  //grabs language directory from url
 
 include '../ecobricks_env.php';
 
@@ -160,22 +161,22 @@ $lang = $directory;
         `;
             } else if (density >= 0.36 && density < 0.65) {
                 content = `
-            <h1>👍</h1>
-            <h4>Great job!</h4>
-            <div class="preview-text">Your ecobrick's density of ${density} is ideal. It passes the minimum standard of 0.33g/ml making it solid, fire safe and reusable.</p>
+            <h1 style=\"text-align:center;\">👍</h1>
+            <h4 style=\"text-align:center;\">Great job!</h4>
+            <div class="preview-text" style=\"text-align:center;\">Your ecobrick's density of ${density} is ideal. It passes the minimum standard of 0.33g/ml making it solid, fire safe and reusable.</p>
             <a class="preview-btn" onclick="closeInfoModal()" aria-label="Click to close modal">Next: Register Serial</a>
         `;
             } else if (density >= 0.65 && density < 0.73) {
                 content = `
-            <h1>⚠️</h1>
-            <h4>High Density</h4>
-            <div class="preview-text">Careful, your ecobrick's density of ${density} is very high. Your ${volume} bottle packed with ${weight} of plastic is under the maximum density of 0.73g/ml however, its high density makes it nearly too solid and too heavy for certain ecobrick applications.</p>
+            <h1 style=\"text-align:center;\">⚠️</h1>
+            <h4 style=\"text-align:center;\">High Density</h4>
+            <div class="preview-text" style=\"text-align:center;\">Careful, your ecobrick's density of ${density} is very high. Your ${volume} bottle packed with ${weight} of plastic is under the maximum density of 0.73g/ml however, its high density makes it nearly too solid and too heavy for certain ecobrick applications.</p>
             <a class="preview-btn" onclick="closeInfoModal()" aria-label="Click to close modal">Next: Register Serial</a>
         `;
             } else if (density >= 0.73) {
                 content = `
-            <h1>⛔</h1>
-            <h4>Over Max Density</h4>
+            <h1 style=\"text-align:center;\">⛔</h1>
+            <h4 style=\"text-align:center;\">Over Max Density</h4>
             <div class="preview-text">Your ecobrick's density of ${density} is over the GEA standard of 0.73g/ml. Please check that you have entered the weight and volume correctly. If so, then please repack your ecobrick with less plastic. GEA guidelines are developed to ensure the safety and usability of ecobricks for all short and long term applications.</p>
             <a class="preview-btn" href="log.php">Go Back</a>
         `;

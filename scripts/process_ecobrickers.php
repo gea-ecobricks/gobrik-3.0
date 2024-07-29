@@ -233,7 +233,8 @@
 
                     if ($stmt_insert->execute()) {
                         // Redirect to the processing page upon successful insert
-                        header("Location: https://beta.gobrik.com/scripts/process_ecobrickers.php");
+                        echo '<p>Ecobricker inserted into GoBrik 3.0 database!</p>';
+                        echo "<script>window.location.href = 'process_ecobrickers.php';</script>";
                         exit();
                     } else {
                         echo '<p>Error inserting data: ' . $stmt_insert->error . '</p>';

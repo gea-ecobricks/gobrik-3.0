@@ -1,6 +1,6 @@
 <?php
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.42';
+$version = '0.43';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -168,7 +168,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 <div style="margin:auto;text-align: center;">
-        <button  type="submit" id="submit-button" aria-label="Submit Form" class="enabled">
+        <button  type="submit" id="submit-button" aria-label="Submit Form" class="submit-button enabled">
         🔑 <span data-lang-id="016-submit-to-password" id="submit-button-text">Next: Set Password</span>
         </button>
     </div>

@@ -591,3 +591,9 @@ background-size: contain;
   background: url(../svgs/credentials-banner-night.svg?v=2) no-repeat center;
   background-size: contain;
 }
+
+       .signup-team {
+
+      background: url(../svgs/signup-team.svg) no-repeat center;
+      background-size: contain;
+      }

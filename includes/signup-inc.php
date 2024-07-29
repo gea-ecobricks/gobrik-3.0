@@ -17,6 +17,7 @@
 <STYLE>
 
 
+/*
 
 
     .signup-team {
@@ -31,6 +32,7 @@
           height: fit-content;
           text-align: center;
   }
+ */
 
 
 

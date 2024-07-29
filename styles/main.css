@@ -1522,7 +1522,7 @@ body.modal-open {
     0% { transform: rotate(0deg); translateY(-50%); }
     100% { transform: rotate(360deg); translateY(-50%); }
 }
-
+/*
 @media screen and (max-width: 700px) {
     .earth-community  {
         margin-top:-50px;
@@ -1563,7 +1563,7 @@ body.modal-open {
         margin-top:-45px;
         margin-bottom:-10px;
     }
-}
+}*/
 
 
 /* TABLES */
@@ -1917,20 +1917,7 @@ input[type="date"] {
   padding-top: 100px; /* Adjust this to make room for the floating image */
 }
 
-.signup-team {
-  text-align: center;
-  width: 100%;
-/*   position: absolute; */
-/*   top: -60px;  *//* Adjust this to position the image above the form */
-/*   left: 50%; */
-/*   transform: translateX(-50%); */
-/*   z-index: 22; */
-  margin-top: -55px;
-}
 
-.signup-team img {
-  width: 60%;
-}
 
 /* Media Query for screens under 700px */
 @media screen and (max-width: 700px) {

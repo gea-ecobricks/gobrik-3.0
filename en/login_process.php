@@ -107,24 +107,43 @@ if ($stmt_credential) {
                 if (password_verify($password, $password_hash)) {
 
 
-                    // Part 4: Successful login
+                   // PART 4: Update Buwana Account
+// Update last_login with current date and time stamp and increment login_count
+$sql_update_user = "UPDATE users_tb SET last_login = NOW(), login_count = login_count + 1 WHERE buwana_id = ?";
+$stmt_update_user = $buwana_conn->prepare($sql_update_user);
+if ($stmt_update_user) {
+    // Bind the buwana_id parameter to the SQL query
+    $stmt_update_user->bind_param('i', $buwana_id);
+    // Execute the query
+    $stmt_update_user->execute();
+    // Close the statement
+    $stmt_update_user->close();
+} else {
+    // If there's an error preparing the update statement, terminate the script with an error message
+    die('Error preparing statement for updating users_tb: ' . $buwana_conn->error);
+}
 
-                    // Update login_count in users_tb
-                    $updateLoginCountStmt = $buwana_conn->prepare("UPDATE users_tb SET login_count = login_count + 1 WHERE buwana_id = ?");
-                    $updateLoginCountStmt->bind_param("i", $buwana_id);
-                    $updateLoginCountStmt->execute();
-                    $updateLoginCountStmt->close();
+// Update last_login with current date and time stamp and increment times_used in credentials_tb
+$sql_update_credential = "UPDATE credentials_tb SET last_login = NOW(), times_used = times_used + 1 WHERE buwana_id = ?";
+$stmt_update_credential = $buwana_conn->prepare($sql_update_credential);
+if ($stmt_update_credential) {
+    // Bind the buwana_id parameter to the SQL query
+    $stmt_update_credential->bind_param('i', $buwana_id);
+    // Execute the query
+    $stmt_update_credential->execute();
+    // Close the statement
+    $stmt_update_credential->close();
+} else {
+    // If there's an error preparing the update statement, terminate the script with an error message
+    die('Error preparing statement for updating credentials_tb: ' . $buwana_conn->error);
+}
 
-                    // Update last_login and times_used in credentials_tb
-                    $currentDateTime = date("Y-m-d H:i:s");
-                    $updateCredentialsStmt = $buwana_conn->prepare("UPDATE credentials_tb SET last_login = ?, times_used = times_used + 1 WHERE buwana_id = ?");
-                    $updateCredentialsStmt->bind_param("si", $currentDateTime, $buwana_id);
-                    $updateCredentialsStmt->execute();
-                    $updateCredentialsStmt->close();
+// Set the session variable to indicate the user is logged in
+$_SESSION['buwana_id'] = $buwana_id;
+// Redirect to the dashboard page
+header("Location: dashboard.php");
+exit();
 
-                    // Redirect to the appropriate page after login
-                    header("Location: dashboard.php");
-                    exit();
                 } else {
                     // Redirect to login page with an error message if the password is incorrect
                     header("Location: login.php?error=invalid_password");

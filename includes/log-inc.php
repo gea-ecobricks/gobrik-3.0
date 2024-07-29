@@ -211,12 +211,27 @@ label {
   margin-bottom: 10px;
 }
 
+/* input[type="text"],
+input[type="number"],
+textarea,
+input[type="date"] {
+  font-family: "Mulish", sans-serif;
+  font-weight: 300;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid var(--divider-line);
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-top: 8px;
+
+} */
 input[type="text"],
 input[type="number"],
 textarea,
 input[type="date"] {
   width: 100%;
-  height: 100%;
+/*   height: 100%; */
   padding: 8px 10px;
   margin: 4px 0;
   font-size: 18px !important;

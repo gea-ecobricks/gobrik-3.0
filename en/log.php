@@ -226,7 +226,7 @@ echo '<!DOCTYPE html>
 
            <div style="text-align:center;width:100%;margin:auto;">
             <h2 data-lang-id="001-log-title">Log an Ecobrick</h2>
-            <p data-lang-id="002-log-subheading">Share your ecobrick with the world. Use this form to log your ecobrick into the brikchain system.</p>-->
+            <p data-lang-id="002-log-subheading">Share your ecobrick with the world!<br>Use this form to log your ecobrick into the brikchain system.</p>
         </div>
 
 

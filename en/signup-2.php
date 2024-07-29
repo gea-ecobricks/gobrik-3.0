@@ -81,7 +81,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
   width: 100%;
   height: 150px;"></div>
      <!-- PAGE CONTENT-->
-    <div id="form-submission-box" style="height:100vh;">
+    <div id="form-submission-box" style="height:100vh;padding-top:65px;">
         <div class="form-container">
 
 

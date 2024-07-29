@@ -103,6 +103,9 @@
     <button type="submit">Retrieve</button>
 </form>
 
+
+
+
 <!-- Part 4: Process and Upload Data to GoBrik Database -->
 <div id="knack-response">
     <?php
@@ -181,13 +184,19 @@
                 $household_members = $record['field_1851'];
                 $household = $record['field_2038'];
 
+                // Manually set fields
+                $buwana_activated = 0;
+                $gobrik_migrated = 1;
+                $account_notes = 'migrated from knack gobrik on July 29th, 2024';
+                $gobrik_migrated_dt = date('Y-m-d H:i:s');
+
                 // Insert the data into tb_ecobrickers
-                $sql_insert = "INSERT INTO tb_ecobrickers (maker_id, legacy_gobrik_user_id, first_name, last_name, full_name, user_roles, gea_status, community, email_addr, date_registered, phone_no, ecobricks_made, brk_balance, aes_balance, aes_purchased, country_txt, region_txt, city_txt, location_full_txt, household_txt, gender, personal_catalyst, trainer_availability, pronouns, household_generation, country_per_capita_consumption, my_consumption_estimate, household_members, household, buwana_activated, gobrik_migrated, account_notes, gobrik_migrated_dt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 1, 'migrated from knack gobrik on July 29th, 2024', NOW())";
+                $sql_insert = "INSERT INTO tb_ecobrickers (maker_id, legacy_gobrik_user_id, first_name, last_name, full_name, user_roles, gea_status, community, email_addr, date_registered, phone_no, ecobricks_made, brk_balance, aes_balance, aes_purchased, country_txt, region_txt, city_txt, location_full_txt, household_txt, gender, personal_catalyst, trainer_availability, pronouns, household_generation, country_per_capita_consumption, my_consumption_estimate, household_members, household, buwana_activated, gobrik_migrated, account_notes, gobrik_migrated_dt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
                 $stmt_insert = $conn->prepare($sql_insert);
                 if ($stmt_insert) {
                     $stmt_insert->bind_param(
-                        'sisssssssssidsssssssssssdddiiiis',
+                        'sisssssssssidsssssssssssdddiiiss',
                         $record_id,
                         $legacy_gobrik_user_id,
                         $first_name,
@@ -216,7 +225,11 @@
                         $country_per_capita_consumption,
                         $my_consumption_estimate,
                         $household_members,
-                        $household
+                        $household,
+                        $buwana_activated,
+                        $gobrik_migrated,
+                        $account_notes,
+                        $gobrik_migrated_dt
                     );
 
                     if ($stmt_insert->execute()) {
@@ -238,6 +251,8 @@
         curl_close($ch);
     }
     ?>
+
+
 </div>
 
 

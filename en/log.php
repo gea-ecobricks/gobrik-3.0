@@ -211,28 +211,29 @@ echo '<!DOCTYPE html>
     <div id="splash-bar"></div>
 
     <!-- PAGE CONTENT-->
-<div id="top-page-image" class="my-ecobricks" style="margin-top: -40px;margin-bottom: 50px;z-index: 35;position: absolute;
+<div id="top-page-image" class="log-ecobrick" style="margin-top: 65px;margin-bottom: 50px;z-index: 35;position: absolute;
   text-align: center;
   width:100% ;
-  height: 150px;"></div>
+  height: 50px;"></div>
 
     <div id="form-submission-box">
-    <div class="form-container" style="padding-top:115px;">
-            <div class="form-top-header" style="display:flex;flex-flow:row;">
-                <div class="step-graphic">
+    <div class="form-container" style="padding-top:100px;">
+               <!--<div class="form-top-header" style="display:flex;flex-flow:row;">
+
+                     <div class="step-graphic">
                     <img src="../svgs/step1-log-project.svg" style="height:25px;" loading="eager">
-                </div>
-                <!--<div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>-->
-            </div>
+                </div><div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>
+            </div>-->
+
 
            <div style="text-align:center;width:100%;margin:auto;">
-            <h3 data-lang-id="001-log-title">Log an Ecobrick</h3>
-            <h4 data-lang-id="002-log-subheading">Record your ecobrick to the brikchain.</h4>
+            <h1 data-lang-id="001-log-title">Log an Ecobrick</h1>
+            <!--<h4 data-lang-id="002-log-subheading">Record your ecobrick to the brikchain.</h4>-->
         </div>
 
 
             <div class="lead-page-paragraph">
-                <p data-lang-id="004-form-description">Share your ecobrick with the world. Use this form to log your ecobrick into our database.</p>
+                <p data-lang-id="004-form-description">Share your ecobrick with the world. Use this form to log your ecobrick into the brikchain system.</p>
             </div>
 
 

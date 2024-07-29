@@ -1656,6 +1656,7 @@ max-width: 60px;
 .cancel {
     background-color: #444;
     cursor: pointer;
+    color: #ddd;
 }
 
 /* Styles for the enabled state */

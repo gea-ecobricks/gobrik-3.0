@@ -520,16 +520,21 @@ background-size: contain;
 
 }
 
-.log-ecobricks {
+/*.log-ecobricks {
   background: url(../webps/log-ecobricks-night.webp) no-repeat;
   background-size: contain;
 
-}
+}*/
 
 .biosphere {
   background: url(../webps/biosphere2.webp) no-repeat center bottom;
   background-size: contain;
 
+}
+
+.log-ecobrick {
+  background: url(../svgs/step1.svg) no-repeat center bottom;
+  background-size: contain;
 }
 
 

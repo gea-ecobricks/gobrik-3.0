@@ -77,9 +77,12 @@ if ($stmt_user) {
                         <label for='last_name'>Last Name:</label>
                         <input type='text' id='last_name' name='last_name' required><br>
                         <input type='checkbox' id='update_buwana' name='update_buwana' checked>
-                        <label for='update_buwana'>Update my Buwana account too</label><br>
-                        <button type='submit' class=\"submit-button\">Save</button>
-                        <button type='button' onclick='closeInfoModal()'>Cancel</button>
+                        <label for='update_buwana' style=\"font-size:0.9em\">Update my Buwana account too</label><br>
+                        <div style=\"text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;\">
+
+<button type='submit' class=\"submit-button enabled\">Save</button>
+//                         <button type='button' onclick='closeInfoModal()'>Cancel</button>
+</div>
                     </form>
                 `;
                 modal.style.display = 'flex';
@@ -188,7 +191,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php
 
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.13';
+$version = '0.14';
 $page = 'log';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -208,9 +211,9 @@ echo '<!DOCTYPE html>
     <div id="splash-bar"></div>
 
     <!-- PAGE CONTENT-->
-<div id="top-page-image" class="log-ecobricks" style="margin-top: -40px;margin-bottom: 50px;z-index: 35;position: absolute;
+<div id="top-page-image" class="my-ecobricks" style="margin-top: -40px;margin-bottom: 50px;z-index: 35;position: absolute;
   text-align: center;
-  width: 100%;
+  width: ;
   height: 150px;"></div>
 
     <div id="form-submission-box">
@@ -219,7 +222,7 @@ echo '<!DOCTYPE html>
                 <div class="step-graphic">
                     <img src="../svgs/step1-log-project.svg" style="height:25px;" loading="eager">
                 </div>
-                <div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>
+                <!--<div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>-->
             </div>
 
            <div style="text-align:center;width:100%;margin:auto;">

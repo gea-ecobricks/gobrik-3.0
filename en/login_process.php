@@ -107,7 +107,7 @@ if ($stmt_credential) {
                 if (password_verify($password, $password_hash)) {
 
 
-                   // PART 4: Update Buwana Account
+  // PART 4: Update Buwana Account
 // Update last_login with current date and time stamp and increment login_count
 $sql_update_user = "UPDATE users_tb SET last_login = NOW(), login_count = login_count + 1 WHERE buwana_id = ?";
 $stmt_update_user = $buwana_conn->prepare($sql_update_user);
@@ -138,11 +138,29 @@ if ($stmt_update_credential) {
     die('Error preparing statement for updating credentials_tb: ' . $buwana_conn->error);
 }
 
+// PART 5: Update GoBrik Account
+// Update last_login with current date and time stamp and increment login_count in tb_ecobrickers
+$sql_update_ecobricker = "UPDATE tb_ecobrickers SET last_login = NOW(), login_count = login_count + 1 WHERE email_addr = ?";
+$stmt_update_ecobricker = $gobrik_conn->prepare($sql_update_ecobricker);
+if ($stmt_update_ecobricker) {
+    // Bind the email_addr parameter to the SQL query
+    $stmt_update_ecobricker->bind_param('s', $credential_key);
+    // Execute the query
+    $stmt_update_ecobricker->execute();
+    // Close the statement
+    $stmt_update_ecobricker->close();
+} else {
+    // If there's an error preparing the update statement, terminate the script with an error message
+    die('Error preparing statement for updating tb_ecobrickers: ' . $gobrik_conn->error);
+}
+
 // Set the session variable to indicate the user is logged in
 $_SESSION['buwana_id'] = $buwana_id;
 // Redirect to the dashboard page
 header("Location: dashboard.php");
 exit();
+
+
 
                 } else {
                     // Redirect to login page with an error message if the password is incorrect

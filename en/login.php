@@ -84,6 +84,9 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 <?php require_once ("../includes/login-inc.php");?>
 
+<div class="splash-content-block"></div>
+<div id="splash-bar"></div>
+
 <!-- PAGE CONTENT -->
    <div id="top-page-image" class="signup-team" style="margin-top:60px;margin-bottom: 50px;z-index:35;position: absolute;
   text-align: center;

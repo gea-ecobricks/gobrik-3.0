@@ -195,7 +195,7 @@
                 $stmt_insert = $conn->prepare($sql_insert);
                 if ($stmt_insert) {
                     $stmt_insert->bind_param(
-                        'sisssssssssidsssssssssssdddiiiss',
+                        'sisssssssssiddsssssssssssdddiiiss',
                         $record_id,
                         $legacy_gobrik_user_id,
                         $first_name,

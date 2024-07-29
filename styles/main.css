@@ -1914,7 +1914,8 @@ input[type="date"] {
   z-index: 20;
   font-family: "Mulish", sans-serif;
   position: relative;
-  padding-top: 100px; /* Adjust this to make room for the floating image */
+  padding-top: 140px; /* Adjust this to make room for the floating image */
+  margin-top:40px;
 }
 
 
@@ -1925,8 +1926,8 @@ input[type="date"] {
     width: calc(100% - 50px);
     margin-right: 4px;
     margin-left: 4px;
+    margin-top:40px;
     /* border: none; */
-    padding: 20px 20px 0 20px;
     max-width: 600px;
     padding: 20px;
     position: relative;
@@ -1963,6 +1964,7 @@ input[type="date"] {
     margin-bottom: auto;
     padding: 30px;
     padding-top: 140px;
+    margin-top:40px;
 
   }
 }

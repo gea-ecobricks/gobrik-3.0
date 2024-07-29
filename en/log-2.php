@@ -45,10 +45,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ecobrick_unique_id']))
     include '../scripts/photo-functions.php';
 
     $upload_dirs = [
-        "basic" => 'https://ecobricks.org/briks/2024/basic/',
-        "basic-thumb" => 'https://ecobricks.org/briks/2024/basic-thumb/',
-        "selfie" => 'https://ecobricks.org/briks/2024/selfie/',
-        "selfie-thumb" => 'https://ecobricks.org/briks/2024/selfie-thumb/'
+        "basic" => '../briks/2024/basic/',
+        "basic-thumb" => '../briks/2024/basic-thumb/',
+        "selfie" => '../briks/2024/selfie/',
+        "selfie-thumb" => '../briks/2024/selfie-thumb/'
     ];
 
     $db_fields = [];

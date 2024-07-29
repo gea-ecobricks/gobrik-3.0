@@ -92,38 +92,7 @@
         </div>
     </div>
 </div>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Retrieve Ecobricker and Ecobrick Data</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #ddd;
-        }
-        .gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .gallery div {
-            background: white;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .button {
-            padding: 10px 20px;
-            margin: 10px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
 
-<!--PART 3-->
 <h2>Retrieve Ecobricker Data from Knack</h2>
 <form id="knack-search-form" method="POST" action="">
     <label for="email">Enter Ecobricker Email Address:</label>
@@ -176,67 +145,89 @@
 
             $json_response = json_decode($response, true);
             if (!empty($json_response['records'])) {
-                foreach ($json_response['records'] as $record) {
-                    $record_id = $record['id'];
-                    $first_name = $record['field_198'];
-                    $email = $record['field_103'];
-                    $connected_ecobricks = $record['field_335'];
-                    $ecobricker_id = $record['field_261'];
+                $record = $json_response['records'][0]; // Take the first record
 
-                    echo "<p><strong>Record ID:</strong> " . htmlspecialchars($record_id) . "</p>";
-                    echo "<p><strong>First Name:</strong> " . htmlspecialchars($first_name) . "</p>";
-                    echo "<p><strong>Email:</strong> " . htmlspecialchars($email) . "</p>";
-                    echo "<p><strong>Connected Ecobricks:</strong> " . htmlspecialchars($connected_ecobricks) . "</p>";
-                    echo "<p><strong>Ecobricker ID:</strong> " . htmlspecialchars($ecobricker_id) . "</p>";
+                $record_id = $record['id'];
+                $legacy_gobrik_user_id = $record['field_261'];
+                $username = ""; // Assume there's no field for username
+                $first_name = $record['field_198'];
+                $last_name = $record['field_102'];
+                $full_name = $record['field_10'];
+                $user_roles = $record['field_106'];
+                $gea_status = $record['field_273'];
+                $community = $record['field_125'];
+                $email_addr = $record['field_103'];
+                $date_registered = $record['field_294'];
+                $phone_no = $record['field_421'];
+                $ecobricks_made = $record['field_141'];
+                $brk_balance = $record['field_400'];
+                $aes_balance = $record['field_1747'];
+                $aes_purchased = $record['field_2000'];
+                $country_txt = $record['field_326'];
+                $region_txt = $record['field_359'];
+                $city_txt = $record['field_342'];
+                $location_full_txt = $record['field_429'];
+                $household_ttx = $record['field_2028'];
+                $gender = $record['field_283'];
+                $personal_catalyst = $record['field_1676'];
+                $trainer_availability = $record['field_430'];
+                $pronouns = $record['field_552'];
+                $household_generation = $record['field_2231'];
+                $country_per_capita_consumption = $record['field_2106'];
+                $my_consumption_estimate = $record['field_2221'];
+                $household_members = $record['field_1851'];
+                $household = $record['field_2038'];
 
-                    // Part 4: Make another API call to search ecobrick object
-                    $object_id_2 = "object_2";
-                    $filters_2 = [
-                        'match' => 'and',
-                        'rules' => [
-                            [
-                                'field' => 'field_335',
-                                'operator' => 'contains',
-                                'value' => $record_id
-                            ]
-                        ]
-                    ];
+                // Insert the data into tb_ecobrickers
+                $sql_insert = "INSERT INTO tb_ecobrickers (maker_id, legacy_gobrik_user_id, username, first_name, last_name, full_name, user_roles, gea_status, community, email_addr, date_registered, phone_no, ecobricks_made, brk_balance, aes_balance, aes_purchased, country_txt, region_txt, city_txt, location_full_txt, household_ttx, gender, personal_catalyst, trainer_availability, pronouns, household_generation, country_per_capita_consumption, my_consumption_estimate, household_members, household, buwana_activated, gobrik_migrated, account_notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'No', '1', 'migrated from knack gobrik on July 29th, 2024')";
 
-                    $url_2 = "https://api.knack.com/v1/objects/$object_id_2/records?filters=" . urlencode(json_encode($filters_2));
+                $stmt_insert = $conn->prepare($sql_insert);
+                if ($stmt_insert) {
+                    $stmt_insert->bind_param(
+                        'sissssssssssssssssssssssssssssi',
+                        $record_id,
+                        $legacy_gobrik_user_id,
+                        $username,
+                        $first_name,
+                        $last_name,
+                        $full_name,
+                        $user_roles,
+                        $gea_status,
+                        $community,
+                        $email_addr,
+                        $date_registered,
+                        $phone_no,
+                        $ecobricks_made,
+                        $brk_balance,
+                        $aes_balance,
+                        $aes_purchased,
+                        $country_txt,
+                        $region_txt,
+                        $city_txt,
+                        $location_full_txt,
+                        $household_ttx,
+                        $gender,
+                        $personal_catalyst,
+                        $trainer_availability,
+                        $pronouns,
+                        $household_generation,
+                        $country_per_capita_consumption,
+                        $my_consumption_estimate,
+                        $household_members,
+                        $household
+                    );
 
-                    // Initialize cURL session for second request
-                    $ch_2 = curl_init($url_2);
-
-                    // Set cURL options for second request
-                    curl_setopt($ch_2, CURLOPT_RETURNTRANSFER, true);
-                    curl_setopt($ch_2, CURLOPT_HTTPHEADER, [
-                        "X-Knack-Application-ID: $app_id",
-                        "X-Knack-REST-API-Key: $api_key",
-                        "Content-Type: application/json"
-                    ]);
-
-                    // Execute cURL request for second request
-                    $response_2 = curl_exec($ch_2);
-
-                    // Check for cURL errors
-                    if ($response_2 === false) {
-                        echo '<p>Error retrieving ecobrick data: ' . curl_error($ch_2) . '</p>';
+                    if ($stmt_insert->execute()) {
+                        // Redirect to the processing page upon successful insert
+                        header("Location: https://beta.gobrik.com/scripts/process_ecobrickers.php");
+                        exit();
                     } else {
-                        // Log the entire JSON response to the console
-                        echo "<script>console.log('Knack API Response for Ecobricks: " . addslashes($response_2) . "');</script>";
-
-                        $json_response_2 = json_decode($response_2, true);
-                        if (!empty($json_response_2['records'])) {
-                            $field_73_values = [];
-                            foreach ($json_response_2['records'] as $record_2) {
-                                $field_73_values[] = $record_2['field_73'];
-                            }
-                            echo "<p><strong>Ecobrick Field 73 Values:</strong> " . htmlspecialchars(implode(", ", $field_73_values)) . "</p>";
-                        } else {
-                            echo '<p>No ecobricks found for the provided Record ID.</p>';
-                        }
+                        echo '<p>Error inserting data: ' . $stmt_insert->error . '</p>';
                     }
-                    curl_close($ch_2);
+
+                    $stmt_insert->close();
+                } else {
+                    echo '<p>Error preparing statement: ' . $conn->error . '</p>';
                 }
             } else {
                 echo '<p>No ecobricker found with the provided email and criteria.</p>';
@@ -248,5 +239,3 @@
 </div>
 </body>
 </html>
-
-

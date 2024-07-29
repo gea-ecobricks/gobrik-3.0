@@ -1,14 +1,23 @@
 <?php
-
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));  //grabs language directory from url
+session_start();
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-ini_set('memory_limit', '256M'); // Increase memory limit
-ob_start(); // Start output buffering
+
+// GoBrik database credentials
+$gobrik_servername = "localhost";
+$gobrik_username = "ecobricks_brikchain_viewer";
+$gobrik_password = "desperate-like-the-Dawn";
+$gobrik_dbname = "ecobricks_gobrik_msql_db";
 
 
-include '../ecobricks_env.php';
+// Create connection for GoBrik database
+$gobrik_conn = new mysqli($gobrik_servername, $gobrik_username, $gobrik_password, $gobrik_dbname);
+if ($gobrik_conn->connect_error) {
+    die("Connection failed: " . $gobrik_conn->connect_error);
+}
+$gobrik_conn->set_charset("utf8mb4");
 
 $error_message = '';
 $full_urls = [];

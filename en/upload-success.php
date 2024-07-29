@@ -1,11 +1,23 @@
 <?php
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));  //grabs language directory from url
+session_start();
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));  //grabs language directory from url
+// GoBrik database credentials
+$gobrik_servername = "localhost";
+$gobrik_username = "ecobricks_brikchain_viewer";
+$gobrik_password = "desperate-like-the-Dawn";
+$gobrik_dbname = "ecobricks_gobrik_msql_db";
 
-include '../ecobricks_env.php';
+
+// Create connection for GoBrik database
+$gobrik_conn = new mysqli($gobrik_servername, $gobrik_username, $gobrik_password, $gobrik_dbname);
+if ($gobrik_conn->connect_error) {
+    die("Connection failed: " . $gobrik_conn->connect_error);
+}
+$gobrik_conn->set_charset("utf8mb4");
 
 if (isset($_GET['id'])) {
     $ecobrick_unique_id = (int)$_GET['id'];
@@ -85,8 +97,6 @@ if (isset($_GET['id'])) {
 
     <div id="form-submission-box" style="margin-top:80px;">
     <div class="form-container" style="margin-top:-50px;" >
-
-
         <div class="splash-form-content-block" style="text-align:center; display:flex;flex-flow:column;">
             <div class="splash-image-2" data-lang-id="003-weigh-plastic-image-alt">
                 <img src="../svgs/Happy-turtle-dolphin-opti.svg" style="width:55%; margin:auto" alt="The Earth Thanks You">
@@ -97,13 +107,13 @@ if (isset($_GET['id'])) {
             <div id="upload-success-message">
                 <?php if ($ecobrick_full_photo_url): ?>
                     <div class="photo-container">
-                        <img src="<?php echo $ecobrick_thumb_photo_url; ?>" alt="Basic Ecobrick Photo">
+                        <img src="https://ecobricks.org/<?php echo $ecobrick_thumb_photo_url; ?>" alt="Basic Ecobrick Photo">
                         <p>Basic Ecobrick Photo</p>
                     </div>
                 <?php endif; ?>
                 <?php if ($selfie_photo_url): ?>
                     <div class="photo-container">
-                        <img src="<?php echo $selfie_thumb_url; ?>" alt="Ecobrick Selfie Photo">
+                        <img src="https://ecobricks.org/<?php echo $selfie_thumb_url; ?>" alt="Ecobrick Selfie Photo">
                         <p>Ecobrick Selfie Photo</p>
                     </div>
                 <?php endif; ?>
@@ -120,6 +130,8 @@ if (isset($_GET['id'])) {
         </div>
     </div>
     <br><br>
+</div>
+
 </div>
 <!--FOOTER STARTS HERE-->
 <?php require_once ("../footer-2024.php");?>

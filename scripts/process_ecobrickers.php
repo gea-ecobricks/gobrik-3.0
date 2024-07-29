@@ -68,7 +68,7 @@
         $result = $conn->query($query);
         ?>
 
-        <h1>Latest Ecobrickers Added</h1>
+        <h1>Latest Ecobrickers Transferred</h1>
         <div class="gallery">
             <?php
             if ($result->num_rows > 0) {
@@ -153,7 +153,6 @@
 
                 $record_id = $record['id'];
                 $legacy_gobrik_user_id = $record['field_261'];
-                $username = ""; // Assume there's no field for username
                 $first_name = strtolower($record['field_102_raw']['first']);
                 $last_name = $record['field_102_raw']['last'];
                 $full_name = $record['field_102_raw']['full'];
@@ -171,7 +170,7 @@
                 $region_txt = $record['field_359'];
                 $city_txt = $record['field_342'];
                 $location_full_txt = $record['field_429'];
-                $household_ttx = $record['field_2028'];
+                $household_txt = $record['field_2028'];
                 $gender = $record['field_283'];
                 $personal_catalyst = $record['field_1676'];
                 $trainer_availability = $record['field_430'];
@@ -183,7 +182,7 @@
                 $household = $record['field_2038'];
 
                 // Insert the data into tb_ecobrickers
-                $sql_insert = "INSERT INTO tb_ecobrickers (maker_id, legacy_gobrik_user_id, username, first_name, last_name, full_name, user_roles, gea_status, community, email_addr, date_registered, phone_no, ecobricks_made, brk_balance, aes_balance, aes_purchased, country_txt, region_txt, city_txt, location_full_txt, household_ttx, gender, personal_catalyst, trainer_availability, pronouns, household_generation, country_per_capita_consumption, my_consumption_estimate, household_members, household, buwana_activated, gobrik_migrated, account_notes, gobrik_migrated_dt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 1, 'migrated from knack gobrik on July 29th, 2024', NOW())";
+                $sql_insert = "INSERT INTO tb_ecobrickers (maker_id, legacy_gobrik_user_id, first_name, last_name, full_name, user_roles, gea_status, community, email_addr, date_registered, phone_no, ecobricks_made, brk_balance, aes_balance, aes_purchased, country_txt, region_txt, city_txt, location_full_txt, household_txt, gender, personal_catalyst, trainer_availability, pronouns, household_generation, country_per_capita_consumption, my_consumption_estimate, household_members, household, buwana_activated, gobrik_migrated, account_notes, gobrik_migrated_dt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 1, 'migrated from knack gobrik on July 29th, 2024', NOW())";
 
                 $stmt_insert = $conn->prepare($sql_insert);
                 if ($stmt_insert) {
@@ -191,7 +190,6 @@
                         'sissssssssssssssssssssssssssssi',
                         $record_id,
                         $legacy_gobrik_user_id,
-                        $username,
                         $first_name,
                         $last_name,
                         $full_name,
@@ -209,7 +207,7 @@
                         $region_txt,
                         $city_txt,
                         $location_full_txt,
-                        $household_ttx,
+                        $household_txt,
                         $gender,
                         $personal_catalyst,
                         $trainer_availability,

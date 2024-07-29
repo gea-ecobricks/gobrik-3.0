@@ -191,7 +191,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php
 
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.21';
+$version = '0.22';
 $page = 'log';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -422,7 +422,7 @@ echo '<!DOCTYPE html>
                     </div>
                 </div>
 
-                <div data-lang-id="016-submit-button">
+                <div data-lang-id="016-submit-button" style="margin:auto;text-align: center;">
                     <input type="submit" class="submit-button enabled" value="Next: Check Ecobrick Density" aria-label="Submit Form">
                 </div>
 

@@ -211,7 +211,7 @@ function deleteEcobrick($ecobrick_unique_id, $conn) {
         // Assuming density, volume, and weight are set in your PHP and passed to JavaScript
         showDensityConfirmation(density, volume, weight);
 
-
+</script>
 
    <?php require_once ("../includes/log-inc.php");?>
 

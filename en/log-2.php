@@ -222,7 +222,7 @@ function deleteEcobrick($ecobrick_unique_id, $conn) {
 <div id="top-page-image" class="log-ecobrick" style="margin-top: 105px;z-index: 35;position: absolute;
   text-align:center;width:100% ; height: 36px;"></div>
 
-    <div id="form-submission-box">
+    <div id="form-submission-box" style="margin-top:80px;">
     <div class="form-container" >
 
             <div class="splash-form-content-block" style="text-align:center; display:flex;flex-flow:column;">

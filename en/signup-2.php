@@ -8,7 +8,7 @@ $response = ['success' => false];
 $buwana_id = $_GET['id'] ?? null;
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.4';
+$version = '0.41';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $credential_type = '';
@@ -76,13 +76,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     <div class="splash-content-block"></div>
     <div id="splash-bar"></div>
-
+           <div class="credentials-banner"></div>
      <!-- PAGE CONTENT-->
     <div id="form-submission-box" style="height:100vh;">
         <div class="form-container">
-            <div class="credentials-banner">
-                <img src="../webps/earth-community.webp" style="width:65%">
-            </div>
+
 
             <div style="text-align:center;width:100%;margin:auto;">
                 <h2 data-lang-id="001-signup-heading2">Setup Your Access</h2>
@@ -131,7 +129,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 </div>
 
                 <div id="submit-section" style="display:none;text-align:center;margin-top:15px;" title="Be sure you wrote ecobrick correctly!">
-                    <input type="submit" id="submit-button" value="Register" disabled>
+                    <input type="submit" id="submit-button" value="Register" class="submit-button disabled">
                 </div>
             </form>
 

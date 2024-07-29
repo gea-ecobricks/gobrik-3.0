@@ -127,9 +127,7 @@ function deleteEcobrick($ecobrick_unique_id, $conn) {
 <HTML lang="en">
 <HEAD>
     <META charset="UTF-8">
-    $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
-$lang = $directory;
-    <?php $version='2.46';?>
+    <?php $version='2.47';?>
     <?php $page='log';?>
 
     <?php require_once ("../includes/log-inc.php");?>

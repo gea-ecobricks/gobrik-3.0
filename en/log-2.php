@@ -220,14 +220,11 @@ function deleteEcobrick($ecobrick_unique_id, $conn) {
     <div id="splash-bar"></div>
 
     <!-- PAGE CONTENT-->
+<div id="top-page-image" class="log-step-2" style="margin-top: 105px;z-index: 35;position: absolute;
+  text-align:center;width:100% ; height: 36px;"></div>
 
-    <div id="photos-submission-box" style="display:flex;flex-flow:column;">
-
-        <div class="form-container" id="upload-photo-form">
-
-            <div class="step-graphic" style="width:fit-content;margin:auto;">
-                <img src="../svgs/step2-log-project.svg" style="height:30px;margin-bottom:25px;" alt="Step 2: Upload images">
-            </div>
+    <div id="form-submission-box">
+    <div class="form-container" >
 
             <div class="splash-form-content-block" style="text-align:center; display:flex;flex-flow:column;">
 

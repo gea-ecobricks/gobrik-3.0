@@ -511,3 +511,9 @@ light.css
   background: url(../svgs/credentials-banner-day.svg?v=2) no-repeat center;
   background-size: contain;
 }
+
+.log-step-2 {
+
+      background: url(../svgs/step2-log-project.svg) no-repeat center;
+      background-size: contain;
+      }

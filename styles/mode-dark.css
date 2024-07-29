@@ -592,8 +592,16 @@ background-size: contain;
   background-size: contain;
 }
 
-       .signup-team {
+.signup-team {
 
       background: url(../svgs/signup-team.svg) no-repeat center;
+      background-size: contain;
+      }
+
+
+
+.log-step-2 {
+
+      background: url(../svgs/step2-log-project.svg) no-repeat center;
       background-size: contain;
       }

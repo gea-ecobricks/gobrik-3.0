@@ -517,3 +517,9 @@ light.css
       background: url(../svgs/step2-log-project.svg) no-repeat center;
       background-size: contain;
       }
+
+ .log-step-3 {
+
+      background: url(../svgs/step3-log-project.svg) no-repeat center;
+      background-size: contain;
+      }

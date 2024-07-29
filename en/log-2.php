@@ -223,7 +223,7 @@ function deleteEcobrick($ecobrick_unique_id, $conn) {
   text-align:center;width:100% ; height: 36px;"></div>
 
     <div id="form-submission-box" style="margin-top:80px;">
-    <div class="form-container" >
+    <div class="form-container" style="margin-top:-50px;" >
 
             <div class="splash-form-content-block" style="text-align:center; display:flex;flex-flow:column;">
 
@@ -308,7 +308,7 @@ function deleteEcobrick($ecobrick_unique_id, $conn) {
                 </div>
 
                 <div data-lang-id="013-submit-upload-button">
-                    <input type="submit" value="⬆️ Upload Photos" id="upload-progress-button" aria-label="Submit photos for upload">
+                    <input type="submit" value="⬆️ Upload Photos" id="upload-progress-button" aria-label="Submit photos for upload" class="submit-button enabled">
                 </div>
             </form>
         </div>

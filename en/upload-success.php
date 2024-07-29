@@ -34,13 +34,11 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <?php $lang='en';?>
-    <?php $version='2.42';?>
+    <?php $version='2.43';?>
     <?php $page='log';?>
-    <?php require_once ("../includes/log-inc.php");?>
 
 
     <script>
-
 
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('deleteButton').addEventListener('click', function(event) {
@@ -75,15 +73,20 @@ if (isset($_GET['id'])) {
         });
 
     </script>
-</head>
-<body>
-<div class="splash-content-block"></div>
-<div id="splash-bar"></div>
-<div id="photos-submission-box" style="display:flex;flex-flow:column;">
-    <div class="form-container" id="upload-photo-form">
-        <div class="step-graphic" style="width:fit-content;margin:auto;">
-            <img src="../svgs/step3-log-project.svg" style="height:30px;margin-bottom:25px;" alt="Upload Successful!">
-        </div>
+
+   <?php require_once ("../includes/log-inc.php");?>
+
+  <div class="splash-content-block"></div>
+    <div id="splash-bar"></div>
+
+    <!-- PAGE CONTENT-->
+<div id="top-page-image" class="log-step-3" style="margin-top: 105px;z-index: 35;position: absolute;
+  text-align:center;width:100% ; height: 36px;"></div>
+
+    <div id="form-submission-box" style="margin-top:80px;">
+    <div class="form-container" style="margin-top:-50px;" >
+
+
         <div class="splash-form-content-block" style="text-align:center; display:flex;flex-flow:column;">
             <div class="splash-image-2" data-lang-id="003-weigh-plastic-image-alt">
                 <img src="../svgs/Happy-turtle-dolphin-opti.svg" style="width:55%; margin:auto" alt="The Earth Thanks You">

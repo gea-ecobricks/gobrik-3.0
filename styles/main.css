@@ -1909,13 +1909,12 @@ input[type="date"] {
   background-color: var(--form-background);
   border: 1px solid var(--divider-line);
   border-radius: 15px;
-  margin: 0 auto;
   max-width: 1000px;
   z-index: 20;
   font-family: "Mulish", sans-serif;
   position: relative;
   padding-top: 140px; /* Adjust this to make room for the floating image */
-  margin-top:40px;
+  margin: 40px auto auto auto;
 }
 
 
@@ -1926,7 +1925,6 @@ input[type="date"] {
     width: calc(100% - 50px);
     margin-right: 4px;
     margin-left: 4px;
-    margin-top:40px;
     /* border: none; */
     max-width: 600px;
     padding: 20px;
@@ -1960,11 +1958,8 @@ input[type="date"] {
   } */
 
   .form-container {
-    margin-top: auto;
-    margin-bottom: auto;
     padding: 30px;
     padding-top: 140px;
-    margin-top:40px;
 
   }
 }

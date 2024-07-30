@@ -191,7 +191,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php
 
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.23';
+$version = '0.24';
 $page = 'log';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -207,15 +207,15 @@ echo '<!DOCTYPE html>
 
     <?php require_once ("../includes/log-inc.php");?>
 
-    <div class="splash-content-block"></div>
-    <div id="splash-bar"></div>
 
-    <!-- PAGE CONTENT-->
-<div id="top-page-image" class="log-ecobrick" style="margin-top: 105px;z-index: 35;position: absolute;
-  text-align:center;width:100% ; height: 36px;"></div>
+<div class="splash-title-block"></div>
+<div id="splash-bar"></div>
 
-    <div id="form-submission-box" style="margin-top:80px;">
-    <div class="form-container" >
+<!-- PAGE CONTENT -->
+   <div id="top-page-image" class="log ecobrick top-page-image"></div>
+
+<div id="form-submission-box" class="landing-page-form">
+    <div class="form-container">
                <!--<div class="form-top-header" style="display:flex;flex-flow:row;">
 
                      <div class="step-graphic">

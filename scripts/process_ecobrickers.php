@@ -154,7 +154,7 @@
                 $record = $json_response['records'][0]; // Take the first record
                 $record_id = $record['id'];
                 $legacy_gobrik_user_id = $record['field_261'];
-                $first_name = strtolower($record['field_102_raw']['first']);
+                $first_name = strtolower($record['field_198']);
                 $last_name = $record['field_102_raw']['last'];
                 $full_name = $record['field_102_raw']['full'];
                 $user_roles = $record['records'][0]['profile_keys'];
@@ -171,13 +171,13 @@
                 $region_txt = $record['field_359_raw']['identifier'];
                 $city_txt = $record['field_342_raw']['identifier'];
                 $location_full_txt = $record['field_429'];
-                $household_txt = $record['field_2028'];
+                $household_txt = $record['field_2028_raw']['identifier'];
                 $gender = $record['field_283'];
-                $personal_catalyst = $record['field_1676'];
+                $personal_catalyst = $record['field_1676_raw']['identifier'];
                 $trainer_availability = $record['field_430'];
                 $pronoun = $record['field_552'];
-                $household_generation = $record['field_2231'];
-                $country_per_capita_consumption = $record['field_2106'];
+                $household_generation = $record['field_2231_raw'];
+                $country_per_capita_consumption = $record['field_2106_raw'];
                 $my_consumption_estimate = $record['field_2221'];
                 $household_members = $record['field_1851'];
                 $household = $record['field_2038'];

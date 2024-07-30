@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <!-- PAGE CONTENT -->
    <div id="top-page-image" class="signup-team top-page-image"></div>
 
-<div id="form-submission-box" style="height:100vh;padding-top:65px;">
+<div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">

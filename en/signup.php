@@ -1,6 +1,6 @@
 <?php
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.463';
+$version = '0.47';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -110,18 +110,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </script>
 <?php endif; ?>
 
-<div class="splash-content-block"></div>
+
+<div class="splash-title-block"></div>
 <div id="splash-bar"></div>
 
-<!-- PAGE CONTENT-->
-   <div id="top-page-image" class="signup-team" style="margin-top:60px;margin-bottom: 50px;z-index:35;position: absolute;
-  text-align: center;
-  width: 100%;
-  height: 150px;">
-      <!-- <img src="../webps/earth-community.webp" style="width:65%;">-->
-    </div>
+<!-- PAGE CONTENT -->
+   <div id="top-page-image" class="signup-team top-page-image"></div>
 
-<div id="form-submission-box" style="height:100vh;padding-top:65px;">
+<div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">

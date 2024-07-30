@@ -61,7 +61,7 @@
         $result = $conn->query($query);
         ?>
 
-        <h1>Latest Ecobrickers Transferred</h1>
+        <h1>Latest Ecobrickers Transferred v.1</h1>
         <div class="gallery">
             <?php
             if ($result->num_rows > 0) {
@@ -93,6 +93,8 @@
 <form id="knack-migration-form" method="POST" action="">
     <button type="submit">Start Migration</button>
 </form>
+
+
 
 <!-- Part 4: Process and Upload Data to GoBrik Database -->
 <div id="knack-response">

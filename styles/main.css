@@ -2120,7 +2120,10 @@ position: absolute;
 
   }
 
-
+.splash-title-block {
+position: relative;
+z-index:5;
+}
 
 @media screen and (max-width: 700px) {
 	.splash-title-block {

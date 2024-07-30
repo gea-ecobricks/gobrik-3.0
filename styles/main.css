@@ -2120,3 +2120,29 @@ position: absolute;
   width: 100%;
   height: 150px;
   }
+
+
+
+@media screen and (max-width: 700px) {
+	.splash-title-block {
+        background-color: var(--top-header);
+        filter: none !important;
+        min-height: 20vh !important;
+        height: 20vh !important;
+
+	}
+
+  /*.splash-image {display: none !important;}*/
+
+  /* .splash-image img  {height: 200px;} */
+}
+
+
+@media screen and (min-width: 700px) {
+	.splash-title-block {
+        background-color: var(--top-header);
+        filter: none !important;
+        min-height: 20vh !important;
+        height: 20vh !important;
+}
+}

@@ -95,7 +95,6 @@
 </form>
 
 
-
 <!-- Part 4: Process and Upload Data to GoBrik Database -->
 <div id="knack-response">
     <?php
@@ -139,8 +138,13 @@
             echo "<script>console.log('Knack API Response: " . addslashes($response) . "');</script>";
 
             $json_response = json_decode($response, true);
+            $record_count = 0; // Initialize record counter
+
             if (!empty($json_response['records'])) {
                 foreach ($json_response['records'] as $record) {
+                    $record_count++; // Increment record counter
+                    if ($record_count > 20) break; // Stop processing after 20 records
+
                     $record_id = $record['id'] ?? null;
                     $legacy_gobrik_user_id = $record['field_261'] ?? null;
                     $first_name = $record['field_198'] ?? '';
@@ -254,6 +258,12 @@
                         echo '<p>Error preparing statement: ' . $conn->error . '</p>';
                     }
                 }
+
+                echo '<script>
+                    setTimeout(function() {
+                        window.location.href = "process_ecobrickers.php";
+                    }, 5000); // Redirect after 5 seconds
+                </script>';
             } else {
                 echo '<p>No ecobrickers found that match the criteria.</p>';
             }

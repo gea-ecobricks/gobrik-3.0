@@ -32,7 +32,7 @@
         function autoReload() {
             setInterval(function() {
                 window.location.reload();
-            }, 120000); // 120,000 milliseconds = 2 minutes
+            }, 60000); // 120,000 milliseconds = 2 minutes
         }
 
         // Call the autoReload function when the page loads

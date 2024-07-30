@@ -80,6 +80,7 @@
     <button type="submit">Start Migration</button>
 </form>
 
+
 <!-- Part 4: Process and Upload Data to GoBrik Database -->
 <div id="knack-response">
     <?php
@@ -118,17 +119,15 @@
         // Check for cURL errors
         if ($response === false) {
             echo '<p>Error retrieving data: ' . curl_error($ch) . '</p>';
-            ob_flush();
-            flush();
         } else {
             // Log the entire JSON response to the console
             echo "<script>console.log('Knack API Response: " . addslashes($response) . "');</script>";
-            ob_flush();
-            flush();
 
-               $json_response = json_decode($response, true);
+            $json_response = json_decode($response, true);
             if (!empty($json_response['records'])) {
+                $counter = 0; // Initialize the counter
                 foreach ($json_response['records'] as $record) {
+                    $counter++;
                     $record_id = $record['id'] ?? null;
                     $legacy_gobrik_user_id = $record['field_261'] ?? null;
                     $first_name = $record['field_198'] ?? '';
@@ -207,11 +206,8 @@
                             $gobrik_migrated_dt
                         );
 
-
                         if ($stmt_insert->execute()) {
                             echo '<p>' . htmlspecialchars($full_name, ENT_QUOTES) . ' has been added to the GoBrik 3.0 database!</p>';
-                            ob_flush();
-                            flush();
 
                             // Part 5: Update Knack database
                             $update_data = [
@@ -235,31 +231,30 @@
                             } else {
                                 echo '<p>' . htmlspecialchars($full_name, ENT_QUOTES) . "'s account has been updated on the knack GoBrik 2.0 database as migrated!</p>";
                             }
-                            ob_flush();
-                            flush();
                             curl_close($update_ch);
                         } else {
                             echo '<p>Error inserting data: ' . $stmt_insert->error . '</p>';
-                            ob_flush();
-                            flush();
                         }
 
                         $stmt_insert->close();
                     } else {
                         echo '<p>Error preparing statement: ' . $conn->error . '</p>';
-                        ob_flush();
-                        flush();
+                    }
+
+                    // Check if 20 records have been processed
+                    if ($counter >= 20) {
+                        echo "<script>window.location.href = 'process_ecobrickers.php';</script>";
+                        exit();
                     }
                 }
             } else {
                 echo '<p>No ecobrickers found that match the criteria.</p>';
-                ob_flush();
-                flush();
             }
         }
         curl_close($ch);
     }
     ?>
 </div>
+
 
 </html>

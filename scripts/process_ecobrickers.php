@@ -157,7 +157,7 @@
                 $first_name = strtolower($record['field_102_raw']['first']);
                 $last_name = $record['field_102_raw']['last'];
                 $full_name = $record['field_102_raw']['full'];
-                $user_roles = $record['id']['profile_key'];
+                $user_roles = $record['records'][0]['profile_keys'];
                 $gea_status = $record['field_273'];
                 $community = $record['field_125'];
                 $email_addr = $record['field_103_raw']['email'];

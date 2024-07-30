@@ -2112,13 +2112,13 @@ color: var(--text-color);
 
 
 .top-page-image {
-margin-top:60px;
+
 margin-bottom: 50px;
 z-index:35;
 position: absolute;
   text-align: center;
   width: 100%;
-  height: 150px;
+
   }
 
 
@@ -2129,12 +2129,12 @@ position: absolute;
         filter: none !important;
         min-height: 20vh !important;
         height: 20vh !important;
-
 	}
 
-  /*.splash-image {display: none !important;}*/
-
-  /* .splash-image img  {height: 200px;} */
+  .top-page-image {
+   height: 150px;
+   margin-top:60px;
+  }
 }
 
 
@@ -2145,6 +2145,10 @@ position: absolute;
         min-height: 20vh !important;
         height: 20vh !important;
 }
+  .top-page-image {
+   height: 170px;
+   margin-top:50px;
+  }
 }
 
 

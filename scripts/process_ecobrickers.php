@@ -109,21 +109,22 @@
         $app_id = "5b8c28c2a1152679c209ce0c";
         $object_id = "object_14";
 
-        $filters = [
-            'match' => 'and',
-            'rules' => [
-                [
-                    'field' => 'field_2525',
-                    'operator' => 'is not',
-                    'value' => 'yes'
-                ]
-                                [
-                    'field' => 'field_103_raw',
-                    'operator' => 'contains',
-                    'value' => 'russmaier@gmail.com'
-                ]
-            ]
-        ];
+$filters = [
+    'match' => 'and',
+    'rules' => [
+        [
+            'field' => 'field_2525',
+            'operator' => 'is not',
+            'value' => 'yes'
+        ],
+        [
+            'field' => 'field_103',
+            'operator' => 'contains',
+            'value' => 'russmaier@gmail.com'
+        ]
+    ]
+];
+
 
         $url = "https://api.knack.com/v1/objects/$object_id/records?filters=" . urlencode(json_encode($filters)) . "&sort_field=field_261&sort_order=asc";
 

@@ -11,11 +11,11 @@
         .gallery {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 4px;
         }
         .gallery div {
             background: white;
-            padding: 10px;
+            padding: 2px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
@@ -114,7 +114,7 @@
 
         // Execute cURL request
         $response = curl_exec($ch);
-
+        echo '<p>Knack data acquired.</p>";
         // Check for cURL errors
         if ($response === false) {
             echo '<p>Error retrieving data: ' . curl_error($ch) . '</p>';
@@ -202,6 +202,7 @@
                             $account_notes,
                             $gobrik_migrated_dt
                         );
+                         echo '<p>' . htmlspecialchars($full_name, ENT_QUOTES) . "'s account has been migrated!</p>";
 
                         if ($stmt_insert->execute()) {
                             echo '<p>' . htmlspecialchars($full_name, ENT_QUOTES) . ' has been added to the GoBrik 3.0 database!</p>';

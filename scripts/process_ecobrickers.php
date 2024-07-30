@@ -157,7 +157,7 @@
                 $first_name = ($record['field_198']);
                 $last_name = $record['field_102_raw']['last'];
                 $full_name = $record['field_102_raw']['full'];
-                $user_roles = ($record['field_106'];
+                $user_roles = $record['field_106'];
                 $gea_status = $record['field_273'];
                 $community = strip_tags($record['field_125']);
                 $email_addr = $record['field_103_raw']['email'];

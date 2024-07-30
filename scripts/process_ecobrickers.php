@@ -152,7 +152,6 @@
             $json_response = json_decode($response, true);
             if (!empty($json_response['records'])) {
                 $record = $json_response['records'][0]; // Take the first record
-
                 $record_id = $record['id'];
                 $legacy_gobrik_user_id = $record['field_261'];
                 $first_name = strtolower($record['field_102_raw']['first']);

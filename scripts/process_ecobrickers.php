@@ -95,22 +95,16 @@
     </div>
 </div>
 
-<!-- Part 3: Retrieve Ecobricker Data from Knack -->
-<h2>Retrieve Ecobricker Data from Knack</h2>
-<form id="knack-search-form" method="POST" action="">
-    <label for="email">Enter Ecobricker Email Address:</label>
-    <input type="email" id="email" name="email" required>
-    <button type="submit">Retrieve</button>
+<!-- Part 3: Start Migration Button -->
+<h2>Start Ecobricker Migration from Knack</h2>
+<form id="knack-migration-form" method="POST" action="">
+    <button type="submit">Start Migration</button>
 </form>
-
-
 
 <!-- Part 4: Process and Upload Data to GoBrik Database -->
 <div id="knack-response">
     <?php
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['email'])) {
-        $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $api_key = "360aa2b0-af19-11e8-bd38-41d9fc3da0cf";
         $app_id = "5b8c28c2a1152679c209ce0c";
         $object_id = "object_14";
@@ -119,14 +113,14 @@
             'match' => 'and',
             'rules' => [
                 [
-                    'field' => 'field_103',
-                    'operator' => 'is',
-                    'value' => $email
+                    'field' => 'field_2525',
+                    'operator' => 'is not',
+                    'value' => 'yes'
                 ]
             ]
         ];
 
-        $url = "https://api.knack.com/v1/objects/$object_id/records?filters=" . urlencode(json_encode($filters));
+        $url = "https://api.knack.com/v1/objects/$object_id/records?filters=" . urlencode(json_encode($filters)) . "&sort_field=field_261&sort_order=asc";
 
         // Initialize cURL session
         $ch = curl_init($url);
@@ -151,106 +145,105 @@
 
             $json_response = json_decode($response, true);
             if (!empty($json_response['records'])) {
-                $record = $json_response['records'][0]; // Take the first record
-                $record_id = $record['id'];
-                $legacy_gobrik_user_id = $record['field_261'];
-                $first_name = ($record['field_198']);
-                $last_name = $record['field_102_raw']['last'];
-                $full_name = $record['field_102_raw']['full'];
-                $user_roles = $record['profile_keys'];
-                $gea_status = $record['field_273'];
-                $community = strip_tags($record['field_125']);
-                $email_addr = $record['field_103_raw']['email'];
-                $date_registered = $record['field_294'];
-                $phone_no = $record['field_421_raw']['full'];
-                $ecobricks_made = $record['field_141_raw'];
-                $brk_balance = $record['field_400_raw'];
-                $aes_balance = $record['field_1747_raw'];
-                $aes_purchased = $record['field_2000_raw'];
-                $country_txt = strip_tags($record['field_326']);
-                $region_txt = strip_tags($record['field_359']);
-                $city_txt = strip_tags($record['field_342']);
-                $location_full_txt = $record['field_429'];
-                $household_txt = strip_tags($record['field_2028']);
-                $gender = $record['field_283'];
-                $personal_catalyst = strip_tags($record['field_1676']);
-                $trainer_availability = $record['field_430'];
-                $pronoun = $record['field_552'];
-                $household_generation = $record['field_2231_raw'];
-                $country_per_capita_consumption = $record['field_2106_raw'];
-                $my_consumption_estimate = $record['field_2221'];
-                $household_members = $record['field_1851'];
-                $household = $record['field_2038'];
+                foreach ($json_response['records'] as $record) {
+                    $record_id = $record['id'];
+                    $legacy_gobrik_user_id = $record['field_261'];
+                    $first_name = strtolower($record['field_102_raw']['first']);
+                    $last_name = $record['field_102_raw']['last'];
+                    $full_name = $record['field_102_raw']['full'];
+                    $user_roles = $record['field_106'];
+                    $gea_status = $record['field_273'];
+                    $community = $record['field_125'];
+                    $email_addr = $record['field_103'];
+                    $date_registered = $record['field_294'];
+                    $phone_no = $record['field_421'];
+                    $ecobricks_made = $record['field_141'];
+                    $brk_balance = $record['field_400'];
+                    $aes_balance = $record['field_1747'];
+                    $aes_purchased = $record['field_2000'];
+                    $country_txt = $record['field_326'];
+                    $region_txt = $record['field_359'];
+                    $city_txt = $record['field_342'];
+                    $location_full_txt = $record['field_429'];
+                    $household_txt = $record['field_2028'];
+                    $gender = $record['field_283'];
+                    $personal_catalyst = $record['field_1676'];
+                    $trainer_availability = $record['field_430'];
+                    $pronouns = $record['field_552'];
+                    $household_generation = $record['field_2231'];
+                    $country_per_capita_consumption = $record['field_2106'];
+                    $my_consumption_estimate = $record['field_2221'];
+                    $household_members = $record['field_1851'];
+                    $household = $record['field_2038'];
 
-                // Manually set fields
-                $buwana_activated = 0;
-                $gobrik_migrated = 1;
-                $account_notes = 'migrated from knack gobrik on July 29th, 2024';
-                $gobrik_migrated_dt = date('Y-m-d H:i:s');
+                    // Manually set fields
+                    $buwana_activated = 0;
+                    $gobrik_migrated = 1;
+                    $account_notes = 'migrated from knack gobrik on July 29th, 2024';
+                    $gobrik_migrated_dt = date('Y-m-d H:i:s');
 
-                // Insert the data into tb_ecobrickers
-                $sql_insert = "INSERT INTO tb_ecobrickers (maker_id, legacy_gobrik_user_id, first_name, last_name, full_name, user_roles, gea_status, community, email_addr, date_registered, phone_no, ecobricks_made, brk_balance, aes_balance, aes_purchased, country_txt, region_txt, city_txt, location_full_txt, household_txt, gender, personal_catalyst, trainer_availability, pronoun, household_generation, country_per_capita_consumption, my_consumption_estimate, household_members, household, buwana_activated, gobrik_migrated, account_notes, gobrik_migrated_dt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    // Insert the data into tb_ecobrickers
+                    $sql_insert = "INSERT INTO tb_ecobrickers (maker_id, legacy_gobrik_user_id, first_name, last_name, full_name, user_roles, gea_status, community, email_addr, date_registered, phone_no, ecobricks_made, brk_balance, aes_balance, aes_purchased, country_txt, region_txt, city_txt, location_full_txt, household_txt, gender, personal_catalyst, trainer_availability, pronouns, household_generation, country_per_capita_consumption, my_consumption_estimate, household_members, household, buwana_activated, gobrik_migrated, account_notes, gobrik_migrated_dt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-                $stmt_insert = $conn->prepare($sql_insert);
-                if ($stmt_insert) {
-                    $stmt_insert->bind_param(
-                        'sisssssssssiddsssssssssssdddiiiss',
-                        $record_id,
-                        $legacy_gobrik_user_id,
-                        $first_name,
-                        $last_name,
-                        $full_name,
-                        $user_roles,
-                        $gea_status,
-                        $community,
-                        $email_addr,
-                        $date_registered,
-                        $phone_no,
-                        $ecobricks_made,
-                        $brk_balance,
-                        $aes_balance,
-                        $aes_purchased,
-                        $country_txt,
-                        $region_txt,
-                        $city_txt,
-                        $location_full_txt,
-                        $household_txt,
-                        $gender,
-                        $personal_catalyst,
-                        $trainer_availability,
-                        $pronoun,
-                        $household_generation,
-                        $country_per_capita_consumption,
-                        $my_consumption_estimate,
-                        $household_members,
-                        $household,
-                        $buwana_activated,
-                        $gobrik_migrated,
-                        $account_notes,
-                        $gobrik_migrated_dt
-                    );
+                    $stmt_insert = $conn->prepare($sql_insert);
+                    if ($stmt_insert) {
+                        $stmt_insert->bind_param(
+                            'sisssssssssidsssssssssssdddiiiss',
+                            $record_id,
+                            $legacy_gobrik_user_id,
+                            $first_name,
+                            $last_name,
+                            $full_name,
+                            $user_roles,
+                            $gea_status,
+                            $community,
+                            $email_addr,
+                            $date_registered,
+                            $phone_no,
+                            $ecobricks_made,
+                            $brk_balance,
+                            $aes_balance,
+                            $aes_purchased,
+                            $country_txt,
+                            $region_txt,
+                            $city_txt,
+                            $location_full_txt,
+                            $household_txt,
+                            $gender,
+                            $personal_catalyst,
+                            $trainer_availability,
+                            $pronouns,
+                            $household_generation,
+                            $country_per_capita_consumption,
+                            $my_consumption_estimate,
+                            $household_members,
+                            $household,
+                            $buwana_activated,
+                            $gobrik_migrated,
+                            $account_notes,
+                            $gobrik_migrated_dt
+                        );
 
-                    if ($stmt_insert->execute()) {
-                        // Redirect to the processing page upon successful insert
-                        echo '<p>Ecobricker inserted into GoBrik 3.0 database!</p>';
-//                         echo "<script>window.location.href = 'process_ecobrickers.php';</script>";
-                        exit();
+                        if ($stmt_insert->execute()) {
+                            echo '<p>Ecobricker inserted into GoBrik database!</p>';
+                        } else {
+                            echo '<p>Error inserting data: ' . $stmt_insert->error . '</p>';
+                        }
+
+                        $stmt_insert->close();
                     } else {
-                        echo '<p>Error inserting data: ' . $stmt_insert->error . '</p>';
+                        echo '<p>Error preparing statement: ' . $conn->error . '</p>';
                     }
-
-                    $stmt_insert->close();
-                } else {
-                    echo '<p>Error preparing statement: ' . $conn->error . '</p>';
                 }
             } else {
-                echo '<p>No ecobricker found with the provided email and criteria.</p>';
+                echo '<p>No ecobrickers found that match the criteria.</p>';
             }
         }
         curl_close($ch);
     }
     ?>
 </div>
+
 
 
 

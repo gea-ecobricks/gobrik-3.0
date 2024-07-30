@@ -2135,6 +2135,12 @@ position: absolute;
    height: 150px;
    margin-top:60px;
   }
+
+  .landing-page-form {
+height:100vh;
+padding-top:45px;
+}
+
 }
 
 
@@ -2149,10 +2155,12 @@ position: absolute;
    height: 170px;
    margin-top:50px;
   }
-}
 
-
-.landing-page-form {
+  .landing-page-form {
 height:100vh;
-padding-top:45px;
+padding-top:55px;
 }
+
+}
+
+

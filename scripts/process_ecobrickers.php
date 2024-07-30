@@ -124,10 +124,13 @@
             echo "<script>console.log('Knack API Response: " . addslashes($response) . "');</script>";
 
             $json_response = json_decode($response, true);
+            $record_count = 0; // Initialize record counter
+
             if (!empty($json_response['records'])) {
-                $counter = 0; // Initialize the counter
                 foreach ($json_response['records'] as $record) {
-                    $counter++;
+                    $record_count++; // Increment record counter
+                    if ($record_count > 20) break; // Stop processing after 20 records
+
                     $record_id = $record['id'] ?? null;
                     $legacy_gobrik_user_id = $record['field_261'] ?? null;
                     $first_name = $record['field_198'] ?? '';
@@ -240,13 +243,13 @@
                     } else {
                         echo '<p>Error preparing statement: ' . $conn->error . '</p>';
                     }
-
-                    // Check if 20 records have been processed
-                    if ($counter >= 20) {
-                        echo "<script>window.location.href = 'process_ecobrickers.php';</script>";
-                        exit();
-                    }
                 }
+
+                echo '<script>
+                    setTimeout(function() {
+                        window.location.href = "process_ecobrickers.php";
+                    }, 5000); // Redirect after 5 seconds
+                </script>';
             } else {
                 echo '<p>No ecobrickers found that match the criteria.</p>';
             }

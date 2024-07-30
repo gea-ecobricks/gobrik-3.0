@@ -1915,7 +1915,7 @@ input[type="date"] {
   z-index: 20;
   font-family: "Mulish", sans-serif;
   position: relative;
-  padding-top: 140px; /* Adjust this to make room for the floating image */
+  padding-top: 130px; /* Adjust this to make room for the floating image */
   margin: 40px auto auto auto;
 }
 
@@ -1931,7 +1931,7 @@ input[type="date"] {
     max-width: 600px;
     padding: 20px;
     position: relative;
-    padding-top: 125px;
+    padding-top: 112px;
   }
 }
 

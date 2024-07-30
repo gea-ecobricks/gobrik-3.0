@@ -29,27 +29,6 @@
 </head>
 <body>
 
-<!-- Part 1: Control Buttons and Instructions -->
-<div class="control-buttons">
-    <button class="button" onclick="stopProcessing()">Stop Processing</button>
-    <button class="button" onclick="startProcessing()">ᐉ Start Processing</button>
-</div>
-<p>We're migrating ecobricker from our old server to our new. Help us out by running this page on your computer or phone. Just keep it up. If it crashes or stops, reload the page. Thank you! 🙏</p>
-
-<script>
-    function stopProcessing() {
-        if (confirm('Are you sure you want to stop the processing?')) {
-            window.location.href = 'process_ecobrick.php?action=stop';
-        }
-    }
-
-    function startProcessing() {
-        if (confirm('Are you sure you want to start the processing?')) {
-            window.location.href = 'process_ecobrick.php?action=start';
-        }
-    }
-</script>
-
 <!-- Part 2: Display Latest Ecobrickers -->
 <div id="ecobrick-being-processed">
     <div id="ecobricks-processed-gallery">
@@ -267,8 +246,6 @@
                             echo '<p>Error preparing statement: ' . $conn->error . '</p>';
                         }
                     }
-
-                    flush();
                 }
 
                 echo '<p>Pausing for a breath as to not trigger IP blacklisting...</p>';
@@ -278,15 +255,12 @@
                 echo '<p>No ecobrickers found that match the criteria.</p>';
                 break; // Exit the loop if no records are found
             }
-        }
+        } while (true);
+
         curl_close($ch);
     }
     ?>
 </div>
-
-
-
-
 
 </body>
 </html>

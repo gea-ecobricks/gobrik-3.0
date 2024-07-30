@@ -168,10 +168,10 @@
                 $aes_balance = $record['field_1747_raw'];
                 $aes_purchased = $record['field_2000_raw'];
                 $country_txt = strip_tags($record['field_326']);
-                $region_txt = $record['field_359_raw']['identifier'];
-                $city_txt = $record['field_342_raw']['identifier'];
+                $region_txt = strip_tags($record['field_359']);
+                $city_txt = strip_tags($record['field_342']);
                 $location_full_txt = $record['field_429'];
-                $household_txt = $record['field_2028_raw']['identifier'];
+                $household_txt = strip_tags($record['field_2028']);
                 $gender = $record['field_283'];
                 $personal_catalyst = $record['field_1676_raw']['identifier'];
                 $trainer_availability = $record['field_430'];
@@ -233,7 +233,7 @@
                     if ($stmt_insert->execute()) {
                         // Redirect to the processing page upon successful insert
                         echo '<p>Ecobricker inserted into GoBrik 3.0 database!</p>';
-                        echo "<script>window.location.href = 'process_ecobrickers.php';</script>";
+//                         echo "<script>window.location.href = 'process_ecobrickers.php';</script>";
                         exit();
                     } else {
                         echo '<p>Error inserting data: ' . $stmt_insert->error . '</p>';

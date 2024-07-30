@@ -80,7 +80,6 @@
     <button type="submit">Start Migration</button>
 </form>
 
-
 <!-- Part 4: Process and Upload Data to GoBrik Database -->
 <div id="knack-response">
     <?php
@@ -89,17 +88,16 @@
         $app_id = "5b8c28c2a1152679c209ce0c";
         $object_id = "object_14";
 
-$filters = [
-    'match' => 'and',
-    'rules' => [
-        [
-            'field' => 'field_2525',
-            'operator' => 'is not',
-            'value' => 'yes'
-        ],
-    ]
-];
-
+        $filters = [
+            'match' => 'and',
+            'rules' => [
+                [
+                    'field' => 'field_2525',
+                    'operator' => 'is not',
+                    'value' => 'yes'
+                ]
+            ]
+        ];
 
         $url = "https://api.knack.com/v1/objects/$object_id/records?filters=" . urlencode(json_encode($filters)) . "&sort_field=field_261&sort_order=asc";
 
@@ -142,7 +140,7 @@ $filters = [
                     $brk_balance = $record['field_400_raw'] ?? 0;
                     $aes_balance = $record['field_1747_raw'] ?? '';
                     $aes_purchased = $record['field_2000_raw'] ?? '';
-                    $country_txt = str_replace(', , ', '', strip_tags($record['field_326'] ?? ''));
+                    $country_txt = strip_tags($record['field_326'] ?? '');
                     $region_txt = strip_tags($record['field_359'] ?? '');
                     $city_txt = strip_tags($record['field_342'] ?? '');
                     $location_full_txt = $record['field_429'] ?? '';
@@ -208,7 +206,6 @@ $filters = [
                         if ($stmt_insert->execute()) {
                             echo '<p>' . htmlspecialchars($full_name, ENT_QUOTES) . ' has been added to the GoBrik 3.0 database!</p>';
 
-
                             // Part 5: Update Knack database
                             $update_data = [
                                 'field_2525' => '1'
@@ -249,6 +246,7 @@ $filters = [
     }
     ?>
 </div>
+
 
 </body>
 </html>

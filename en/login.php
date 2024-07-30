@@ -1,6 +1,6 @@
 <?php
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));  //grabs language directory from url
-$version = '0.493';
+$version = '0.494';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -88,12 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT -->
-   <div id="top-page-image" class="signup-team" style="margin-top:60px;margin-bottom: 50px;z-index:35;position: absolute;
-  text-align: center;
-  width: 100%;
-  height: 150px;">
-      <!-- <img src="../webps/earth-community.webp" style="width:65%;">-->
-    </div>
+   <div id="top-page-image" class="signup-team top-page-image"></div>
 
 <div id="form-submission-box" style="height:100vh;padding-top:65px;">
     <div class="form-container">

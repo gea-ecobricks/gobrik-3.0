@@ -154,10 +154,10 @@
                 $record = $json_response['records'][0]; // Take the first record
                 $record_id = $record['id'];
                 $legacy_gobrik_user_id = $record['field_261'];
-                $first_name = strtolower($record['field_198']);
+                $first_name = ($record['field_198']);
                 $last_name = $record['field_102_raw']['last'];
                 $full_name = $record['field_102_raw']['full'];
-                $user_roles = $record['records'][0]['profile_keys'];
+                $user_roles = strip_tags($record['filed_106']);
                 $gea_status = $record['field_273'];
                 $community = strip_tags($record['field_125']);
                 $email_addr = $record['field_103_raw']['email'];
@@ -173,7 +173,7 @@
                 $location_full_txt = $record['field_429'];
                 $household_txt = strip_tags($record['field_2028']);
                 $gender = $record['field_283'];
-                $personal_catalyst = $record['field_1676_raw']['identifier'];
+                $personal_catalyst = strip_tags($record['field_1676']);
                 $trainer_availability = $record['field_430'];
                 $pronoun = $record['field_552'];
                 $household_generation = $record['field_2231_raw'];

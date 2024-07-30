@@ -1931,8 +1931,7 @@ input[type="date"] {
     max-width: 600px;
     padding: 20px;
     position: relative;
-    padding-top: 140px;
-
+    padding-top: 125px;
   }
 }
 
@@ -2127,8 +2126,8 @@ position: absolute;
 	.splash-title-block {
         background-color: var(--top-header);
         filter: none !important;
-        min-height: 20vh !important;
-        height: 20vh !important;
+        min-height: 22vh !important;
+        height: 22vh !important;
 	}
 
   .top-page-image {
@@ -2148,8 +2147,8 @@ padding-top:55px;
 	.splash-title-block {
         background-color: var(--top-header);
         filter: none !important;
-        min-height: 20vh !important;
-        height: 20vh !important;
+        min-height: 22vh !important;
+        height: 22vh !important;
 }
   .top-page-image {
    height: 170px;

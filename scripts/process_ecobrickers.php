@@ -126,24 +126,24 @@
             ob_flush();
             flush();
 
-            $json_response = json_decode($response, true);
+               $json_response = json_decode($response, true);
             if (!empty($json_response['records'])) {
                 foreach ($json_response['records'] as $record) {
                     $record_id = $record['id'] ?? null;
                     $legacy_gobrik_user_id = $record['field_261'] ?? null;
-                    $first_name = strtolower($record['field_102_raw']['first'] ?? '');
+                    $first_name = $record['field_198'] ?? '';
                     $last_name = $record['field_102_raw']['last'] ?? '';
                     $full_name = $record['field_102_raw']['full'] ?? '';
-                    $user_roles = $record['field_106'] ?? '';
+                    $user_roles = $record['profile_keys'] ?? '';
                     $gea_status = $record['field_273'] ?? '';
                     $community = strip_tags($record['field_125'] ?? '');
-                    $email_addr = $record['field_103'] ?? '';
+                    $email_addr = $record['field_103_raw']['email'] ?? '';
                     $date_registered = $record['field_294'] ?? '';
-                    $phone_no = $record['field_421'] ?? '';
-                    $ecobricks_made = $record['field_141'] ?? 0;
-                    $brk_balance = $record['field_400'] ?? 0;
-                    $aes_balance = $record['field_1747'] ?? '';
-                    $aes_purchased = $record['field_2000'] ?? '';
+                    $phone_no = $record['field_421_raw']['full'] ?? '';
+                    $ecobricks_made = $record['field_141_raw'] ?? 0;
+                    $brk_balance = $record['field_400_raw'] ?? 0;
+                    $aes_balance = $record['field_1747_raw'] ?? '';
+                    $aes_purchased = $record['field_2000_raw'] ?? '';
                     $country_txt = strip_tags($record['field_326'] ?? '');
                     $region_txt = strip_tags($record['field_359'] ?? '');
                     $city_txt = strip_tags($record['field_342'] ?? '');
@@ -153,8 +153,8 @@
                     $personal_catalyst = strip_tags($record['field_1676'] ?? '');
                     $trainer_availability = $record['field_430'] ?? '';
                     $pronoun = $record['field_552'] ?? '';
-                    $household_generation = $record['field_2231'] ?? 0;
-                    $country_per_capita_consumption = $record['field_2106'] ?? 0;
+                    $household_generation = $record['field_2231_raw'] ?? 0;
+                    $country_per_capita_consumption = $record['field_2106_raw'] ?? 0;
                     $my_consumption_estimate = $record['field_2221'] ?? 0;
                     $household_members = $record['field_1851'] ?? 0;
                     $household = $record['field_2038'] ?? 0;
@@ -171,7 +171,7 @@
                     $stmt_insert = $conn->prepare($sql_insert);
                     if ($stmt_insert) {
                         $stmt_insert->bind_param(
-                            'sisssssssssidsssssssssssdddiiiss',
+                            'sisssssssssiddsssssssssssdddiiiss',
                             $record_id,
                             $legacy_gobrik_user_id,
                             $first_name,
@@ -206,6 +206,7 @@
                             $account_notes,
                             $gobrik_migrated_dt
                         );
+
 
                         if ($stmt_insert->execute()) {
                             echo '<p>' . htmlspecialchars($full_name, ENT_QUOTES) . ' has been added to the GoBrik 3.0 database!</p>';

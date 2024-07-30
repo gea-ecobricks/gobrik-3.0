@@ -27,18 +27,6 @@
         }
     </style>
 
-    <script type="text/javascript">
-        // Function to reload the page every 2 minutes
-        function autoReload() {
-            setInterval(function() {
-                window.location.reload();
-            }, 20000); // 60,000 milliseconds = 2 minutes
-        }
-
-        // Call the autoReload function when the page loads
-        document.addEventListener('DOMContentLoaded', autoReload);
-    </script>
-
 
 </head>
 <body>
@@ -94,6 +82,7 @@
     <button type="submit">Start Migration</button>
 </form>
 
+
 <!-- Part 4: Process and Upload Data to GoBrik Database -->
 <div id="knack-response">
     <?php
@@ -142,8 +131,20 @@
 
             $json_response = json_decode($response, true);
             if (!empty($json_response['records'])) {
+                $processed_count = 0;
+
                 foreach ($json_response['records'] as $record) {
-                     $record_id = $record['id'] ?? null;
+                    $processed_count++;
+                    if ($processed_count > 20) {
+                        echo '<script>
+                            setTimeout(function() {
+                                window.location.href = "process_ecobrickers.php";
+                            }, 5000);
+                        </script>';
+                        break;
+                    }
+
+                    $record_id = $record['id'] ?? null;
                     $legacy_gobrik_user_id = $record['field_261'] ?? null;
                     $first_name = $record['field_198'] ?? '';
                     $last_name = $record['field_102_raw']['last'] ?? '';
@@ -264,6 +265,12 @@
                         flush();
                     }
                 }
+
+                echo '<script>
+                    setTimeout(function() {
+                        window.location.href = "process_ecobrickers.php";
+                    }, 5000); // Redirect after 5 seconds
+                </script>';
             } else {
                 echo '<p>No ecobrickers found that match the criteria.</p>';
                 ob_flush();
@@ -274,6 +281,7 @@
     }
     ?>
 </div>
+
 
 
 

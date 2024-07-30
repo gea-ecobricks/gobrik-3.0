@@ -26,6 +26,20 @@
             cursor: pointer;
         }
     </style>
+
+    <script type="text/javascript">
+        // Function to reload the page every 2 minutes
+        function autoReload() {
+            setInterval(function() {
+                window.location.reload();
+            }, 120000); // 120,000 milliseconds = 2 minutes
+        }
+
+        // Call the autoReload function when the page loads
+        document.addEventListener('DOMContentLoaded', autoReload);
+    </script>
+
+
 </head>
 <body>
 
@@ -73,12 +87,6 @@
         </div>
     </div>
 </div>
-
-<!-- Part 3: Start Migration Button -->
-<h2>Start Ecobricker Migration from Knack</h2>
-<form id="knack-migration-form" method="POST" action="">
-    <button type="submit">Start Migration</button>
-</form>
 
 <!-- Part 4: Process and Upload Data to GoBrik Database -->
 <div id="knack-response">
@@ -246,6 +254,5 @@
     }
     ?>
 </div>
-
 
 </html>

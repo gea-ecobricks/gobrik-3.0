@@ -1,6 +1,6 @@
 <?php
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));  //grabs language directory from url
-$version = '0.51';
+$version = '0.521';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         <div style="text-align:center;width:100%;margin:auto;">
             <h3 data-lang-id="001-login-heading">Welcome back!</h3>
-            <h4 data-lang-id="002-login-subheading">Login with your GoBrik or Buwana account credentials.</h4>
+            <h4 data-lang-id="002-login-subheading" style="margin-top:5px, margin-bottom:5px;">Login with your GoBrik or Buwana account credentials.</h4>
         </div>
 
         <!-- Login form -->
@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <p class="form-caption" data-lang-id="005-forgot-password">Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
             </div>
             <div style="text-align:center;" data-lang-id="006-login-button-">
-                <input type="submit" style="text-align:center;margin-top:15px;width:30%" id="submit-button" value="🔑 Login" class="submit-button enabled">
+                <input type="submit" style="text-align:center;margin-top:15px;width:30%; min-width: 175px;" id="submit-button" value="🔑 Login" class="submit-button enabled">
             </div>
         </form>
     </div>

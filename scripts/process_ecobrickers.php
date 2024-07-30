@@ -63,7 +63,7 @@
         // SQL query to fetch the latest 10 ecobrickers
         $query = "SELECT first_name, buwana_id, location_full_txt, date_registered, email_addr FROM tb_ecobrickers
                   ORDER BY gobrik_migrated_dt DESC
-                  LIMIT 10";
+                  LIMIT 1";
 
         $result = $conn->query($query);
         ?>
@@ -101,7 +101,6 @@
     <button type="submit">Start Migration</button>
 </form>
 
-
 <!-- Part 4: Process and Upload Data to GoBrik Database -->
 <div id="knack-response">
     <?php
@@ -121,164 +120,161 @@
             ]
         ];
 
-        $limit = 25;
-        $page = 1;
+        $url = "https://api.knack.com/v1/objects/$object_id/records?filters=" . urlencode(json_encode($filters)) . "&sort_field=field_261&sort_order=asc";
 
-        do {
-            $url = "https://api.knack.com/v1/objects/$object_id/records?filters=" . urlencode(json_encode($filters)) . "&sort_field=field_261&sort_order=asc&rows_per_page=$limit&page=$page";
+        // Initialize cURL session
+        $ch = curl_init($url);
 
-            // Initialize cURL session
-            $ch = curl_init($url);
+        // Set cURL options
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            "X-Knack-Application-ID: $app_id",
+            "X-Knack-REST-API-Key: $api_key",
+            "Content-Type: application/json"
+        ]);
 
-            // Set cURL options
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                "X-Knack-Application-ID: $app_id",
-                "X-Knack-REST-API-Key: $api_key",
-                "Content-Type: application/json"
-            ]);
+        // Execute cURL request
+        $response = curl_exec($ch);
 
-            // Execute cURL request
-            $response = curl_exec($ch);
+        // Check for cURL errors
+        if ($response === false) {
+            echo '<p>Error retrieving data: ' . curl_error($ch) . '</p>';
+        } else {
+            // Log the entire JSON response to the console
+            echo "<script>console.log('Knack API Response: " . addslashes($response) . "');</script>";
 
-            // Check for cURL errors
-            if ($response === false) {
-                echo '<p>Error retrieving data: ' . curl_error($ch) . '</p>';
-                break;
-            } else {
-                // Log the entire JSON response to the console
-                echo "<script>console.log('Knack API Response: " . addslashes($response) . "');</script>";
-
-                $json_response = json_decode($response, true);
-                if (!empty($json_response['records'])) {
-                    foreach ($json_response['records'] as $record) {
-                        $record_id = $record['id'] ?? null;
-                        $legacy_gobrik_user_id = $record['field_261'] ?? null;
-                        $first_name = $record['field_198'] ?? '';
-                        $last_name = $record['field_102_raw']['last'] ?? '';
-                        $full_name = $record['field_102_raw']['full'] ?? '';
-                        $user_roles = $record['profile_keys'] ?? '';
-                        $gea_status = $record['field_273'] ?? '';
-                        $community = strip_tags($record['field_125'] ?? '');
-                        $email_addr = $record['field_103_raw']['email'] ?? '';
-                        $date_registered = $record['field_294'] ?? '';
-                        $phone_no = $record['field_421_raw']['full'] ?? '';
-                        $ecobricks_made = $record['field_141_raw'] ?? 0;
-                        $brk_balance = $record['field_400_raw'] ?? 0;
-                        $aes_balance = $record['field_1747_raw'] ?? '';
-                        $aes_purchased = $record['field_2000_raw'] ?? '';
-                        $country_txt = strip_tags($record['field_326'] ?? '');
-                        $region_txt = strip_tags($record['field_359'] ?? '');
-                        $city_txt = strip_tags($record['field_342'] ?? '');
-                        $location_full_txt = $record['field_429'] ?? '';
-                        $household_txt = strip_tags($record['field_2028'] ?? '');
-                        $gender = $record['field_283'] ?? '';
-                        $personal_catalyst = strip_tags($record['field_1676'] ?? '');
-                        $trainer_availability = $record['field_430'] ?? '';
-                        $pronoun = $record['field_552'] ?? '';
-                        $household_generation = $record['field_2231_raw'] ?? 0;
-                        $country_per_capita_consumption = $record['field_2106_raw'] ?? 0;
-                        $my_consumption_estimate = $record['field_2221'] ?? 0;
-                        $household_members = $record['field_1851'] ?? 0;
-                        $household = $record['field_2038'] ?? 0;
-
-                        // Manually set fields
-                        $buwana_activated = 0;
-                        $gobrik_migrated = 1;
-                        $account_notes = 'migrated from knack gobrik on July 29th, 2024';
-                        $gobrik_migrated_dt = date('Y-m-d H:i:s');
-
-                        // Insert the data into tb_ecobrickers
-                        $sql_insert = "INSERT INTO tb_ecobrickers (maker_id, legacy_gobrik_user_id, first_name, last_name, full_name, user_roles, gea_status, community, email_addr, date_registered, phone_no, ecobricks_made, brk_balance, aes_balance, aes_purchased, country_txt, region_txt, city_txt, location_full_txt, household_txt, gender, personal_catalyst, trainer_availability, pronoun, household_generation, country_per_capita_consumption, my_consumption_estimate, household_members, household, buwana_activated, gobrik_migrated, account_notes, gobrik_migrated_dt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-                        $stmt_insert = $conn->prepare($sql_insert);
-                        if ($stmt_insert) {
-                            $stmt_insert->bind_param(
-                                'sisssssssssiddsssssssssssdddiiiss',
-                                $record_id,
-                                $legacy_gobrik_user_id,
-                                $first_name,
-                                $last_name,
-                                $full_name,
-                                $user_roles,
-                                $gea_status,
-                                $community,
-                                $email_addr,
-                                $date_registered,
-                                $phone_no,
-                                $ecobricks_made,
-                                $brk_balance,
-                                $aes_balance,
-                                $aes_purchased,
-                                $country_txt,
-                                $region_txt,
-                                $city_txt,
-                                $location_full_txt,
-                                $household_txt,
-                                $gender,
-                                $personal_catalyst,
-                                $trainer_availability,
-                                $pronoun,
-                                $household_generation,
-                                $country_per_capita_consumption,
-                                $my_consumption_estimate,
-                                $household_members,
-                                $household,
-                                $buwana_activated,
-                                $gobrik_migrated,
-                                $account_notes,
-                                $gobrik_migrated_dt
-                            );
-
-                            if ($stmt_insert->execute()) {
-                                echo '<p>' . htmlspecialchars($full_name, ENT_QUOTES) . ' has been added to the GoBrik 3.0 database!</p>';
-
-                                // Part 5: Update Knack database
-                                $update_data = [
-                                    'field_2525' => '1'
-                                ];
-
-                                $update_url = "https://api.knack.com/v1/objects/$object_id/records/$record_id";
-                                $update_ch = curl_init($update_url);
-                                curl_setopt($update_ch, CURLOPT_RETURNTRANSFER, true);
-                                curl_setopt($update_ch, CURLOPT_HTTPHEADER, [
-                                    "X-Knack-Application-ID: $app_id",
-                                    "X-Knack-REST-API-Key: $api_key",
-                                    "Content-Type: application/json"
-                                ]);
-                                curl_setopt($update_ch, CURLOPT_CUSTOMREQUEST, "PUT");
-                                curl_setopt($update_ch, CURLOPT_POSTFIELDS, json_encode($update_data));
-
-                                $update_response = curl_exec($update_ch);
-                                if ($update_response === false) {
-                                    echo '<p>Error updating Knack database: ' . curl_error($update_ch) . '</p>';
-                                } else {
-                                    echo '<p>' . htmlspecialchars($full_name, ENT_QUOTES) . "'s account has been updated on the knack GoBrik 2.0 database as migrated!</p>";
-                                }
-                                curl_close($update_ch);
-                            } else {
-                                echo '<p>Error inserting data: ' . $stmt_insert->error . '</p>';
-                            }
-
-                            $stmt_insert->close();
-                        } else {
-                            echo '<p>Error preparing statement: ' . $conn->error . '</p>';
-                        }
+            $json_response = json_decode($response, true);
+            if (!empty($json_response['records'])) {
+                $record_count = 0;
+                foreach ($json_response['records'] as $record) {
+                    if ($record_count >= 25) {
+                        $record_count = 0;
+                        echo '<p>Pausing for a breath as to not trigger IP blacklisting...</p>';
+                        flush(); // Send output to browser immediately
+                        ob_flush();
+                        sleep(5); // Pause for 5 seconds
                     }
-                } else {
-                    echo '<p>No ecobrickers found that match the criteria.</p>';
-                    break;
+
+                    $record_id = $record['id'] ?? null;
+                    $legacy_gobrik_user_id = $record['field_261'] ?? null;
+                    $first_name = $record['field_198'] ?? '';
+                    $last_name = $record['field_102_raw']['last'] ?? '';
+                    $full_name = $record['field_102_raw']['full'] ?? '';
+                    $user_roles = $record['profile_keys'] ?? '';
+                    $gea_status = $record['field_273'] ?? '';
+                    $community = strip_tags($record['field_125'] ?? '');
+                    $email_addr = $record['field_103_raw']['email'] ?? '';
+                    $date_registered = $record['field_294'] ?? '';
+                    $phone_no = $record['field_421_raw']['full'] ?? '';
+                    $ecobricks_made = $record['field_141_raw'] ?? 0;
+                    $brk_balance = $record['field_400_raw'] ?? 0;
+                    $aes_balance = $record['field_1747_raw'] ?? '';
+                    $aes_purchased = $record['field_2000_raw'] ?? '';
+                    $country_txt = str_replace(', , ', '', strip_tags($record['field_326'] ?? ''));
+                    $region_txt = strip_tags($record['field_359'] ?? '');
+                    $city_txt = strip_tags($record['field_342'] ?? '');
+                    $location_full_txt = $record['field_429'] ?? '';
+                    $household_txt = strip_tags($record['field_2028'] ?? '');
+                    $gender = $record['field_283'] ?? '';
+                    $personal_catalyst = strip_tags($record['field_1676'] ?? '');
+                    $trainer_availability = $record['field_430'] ?? '';
+                    $pronoun = $record['field_552'] ?? '';
+                    $household_generation = $record['field_2231_raw'] ?? 0;
+                    $country_per_capita_consumption = $record['field_2106_raw'] ?? 0;
+                    $my_consumption_estimate = $record['field_2221'] ?? 0;
+                    $household_members = $record['field_1851'] ?? 0;
+                    $household = $record['field_2038'] ?? 0;
+
+                    // Manually set fields
+                    $buwana_activated = 0;
+                    $gobrik_migrated = 1;
+                    $account_notes = 'migrated from knack gobrik on July 29th, 2024';
+                    $gobrik_migrated_dt = date('Y-m-d H:i:s');
+
+                    // Insert the data into tb_ecobrickers
+                    $sql_insert = "INSERT INTO tb_ecobrickers (maker_id, legacy_gobrik_user_id, first_name, last_name, full_name, user_roles, gea_status, community, email_addr, date_registered, phone_no, ecobricks_made, brk_balance, aes_balance, aes_purchased, country_txt, region_txt, city_txt, location_full_txt, household_txt, gender, personal_catalyst, trainer_availability, pronoun, household_generation, country_per_capita_consumption, my_consumption_estimate, household_members, household, buwana_activated, gobrik_migrated, account_notes, gobrik_migrated_dt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+                    $stmt_insert = $conn->prepare($sql_insert);
+                    if ($stmt_insert) {
+                        $stmt_insert->bind_param(
+                            'sisssssssssiddsssssssssssdddiiiss',
+                            $record_id,
+                            $legacy_gobrik_user_id,
+                            $first_name,
+                            $last_name,
+                            $full_name,
+                            $user_roles,
+                            $gea_status,
+                            $community,
+                            $email_addr,
+                            $date_registered,
+                            $phone_no,
+                            $ecobricks_made,
+                            $brk_balance,
+                            $aes_balance,
+                            $aes_purchased,
+                            $country_txt,
+                            $region_txt,
+                            $city_txt,
+                            $location_full_txt,
+                            $household_txt,
+                            $gender,
+                            $personal_catalyst,
+                            $trainer_availability,
+                            $pronoun,
+                            $household_generation,
+                            $country_per_capita_consumption,
+                            $my_consumption_estimate,
+                            $household_members,
+                            $household,
+                            $buwana_activated,
+                            $gobrik_migrated,
+                            $account_notes,
+                            $gobrik_migrated_dt
+                        );
+
+                        if ($stmt_insert->execute()) {
+                            echo '<p>' . htmlspecialchars($full_name, ENT_QUOTES) . ' has been added to the GoBrik 3.0 database!</p>';
+
+                            // Part 5: Update Knack database
+                            $update_data = [
+                                'field_2525' => '1'
+                            ];
+
+                            $update_url = "https://api.knack.com/v1/objects/$object_id/records/$record_id";
+                            $update_ch = curl_init($update_url);
+                            curl_setopt($update_ch, CURLOPT_RETURNTRANSFER, true);
+                            curl_setopt($update_ch, CURLOPT_HTTPHEADER, [
+                                "X-Knack-Application-ID: $app_id",
+                                "X-Knack-REST-API-Key: $api_key",
+                                "Content-Type: application/json"
+                            ]);
+                            curl_setopt($update_ch, CURLOPT_CUSTOMREQUEST, "PUT");
+                            curl_setopt($update_ch, CURLOPT_POSTFIELDS, json_encode($update_data));
+
+                            $update_response = curl_exec($update_ch);
+                            if ($update_response === false) {
+                                echo '<p>Error updating Knack database: ' . curl_error($update_ch) . '</p>';
+                            } else {
+                                echo '<p>' . htmlspecialchars($full_name, ENT_QUOTES) . "'s account has been updated on the knack GoBrik 2.0 database as migrated!</p>";
+                            }
+                            curl_close($update_ch);
+                        } else {
+                            echo '<p>Error inserting data: ' . $stmt_insert->error . '</p>';
+                        }
+
+                        $stmt_insert->close();
+                    } else {
+                        echo '<p>Error preparing statement: ' . $conn->error . '</p>';
+                    }
+
+                    $record_count++;
                 }
+            } else {
+                echo '<p>No ecobrickers found that match the criteria.</p>';
             }
-            curl_close($ch);
-
-            // Increment the page number
-            $page++;
-
-            // Pause for 5 seconds
-            echo '<p>Pausing for a breath as to not trigger IP blacklisting...</p>';
-            sleep(5);
-        } while (count($json_response['records']) == $limit); // Continue if there are still records being fetched
+        }
+        curl_close($ch);
     }
     ?>
 </div>

@@ -8,7 +8,7 @@ $response = ['success' => false];
 $buwana_id = $_GET['id'] ?? null;
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.44';
+$version = '0.45';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $credential_type = '';
@@ -74,15 +74,15 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <?php require_once ("../includes/signup-inc.php");?>
 
-    <div class="splash-content-block"></div>
-    <div id="splash-bar"></div>
-           <div class="credentials-banner" style="margin-top:60px;margin-bottom: 50px;z-index:35;position: absolute;
-  text-align: center;
-  width: 100%;
-  height: 150px;"></div>
-     <!-- PAGE CONTENT-->
-    <div id="form-submission-box" style="height:100vh;padding-top:65px;">
-        <div class="form-container">
+
+<div class="splash-title-block"></div>
+<div id="splash-bar"></div>
+
+<!-- PAGE CONTENT -->
+   <div id="top-page-image" class="credentials-banner top-page-image"></div>
+
+<div id="form-submission-box" class="landing-page-form">
+    <div class="form-container">
 
 
             <div style="text-align:center;width:100%;margin:auto;">

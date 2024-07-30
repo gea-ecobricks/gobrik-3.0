@@ -34,7 +34,7 @@
     <button class="button" onclick="stopProcessing()">Stop Processing</button>
     <button class="button" onclick="startProcessing()">ᐉ Start Processing</button>
 </div>
-<p>We're migrating raw ecobricker account data from our old server to our new. Help us out by running this page on your computer or phone. Just keep it up. If it crashes or stops, reload the page. Thank you! 🙏</p>
+<p>We're migrating ecobricks from our old server to our new. Help us out by running this page on your computer or phone. Just keep it up. If it crashes or stops, reload the page. Thank you! 🙏</p>
 
 <script>
     function stopProcessing() {
@@ -158,10 +158,10 @@
                 $first_name = strtolower($record['field_102_raw']['first']);
                 $last_name = $record['field_102_raw']['last'];
                 $full_name = $record['field_102_raw']['full'];
-                $user_roles = $record['field_102_raw'];
-                $gea_status = $record['field_102_raw'];
-                $community = $record['field_102_raw'];
-                $email_addr = $record['field_102_raw'];
+                $user_roles = $record['id']['profile_key'];
+                $gea_status = $record['field_273'];
+                $community = $record['field_125'];
+                $email_addr = $record['field_103_raw']['email'];
                 $date_registered = $record['field_294'];
                 $phone_no = $record['field_421'];
                 $ecobricks_made = $record['field_141'];

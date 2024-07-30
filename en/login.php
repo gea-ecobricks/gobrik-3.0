@@ -1,6 +1,6 @@
 <?php
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));  //grabs language directory from url
-$version = '0.494';
+$version = '0.495';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -84,7 +84,6 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 <?php require_once ("../includes/login-inc.php");?>
 
-<div class="splash-content-block"></div>
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT -->

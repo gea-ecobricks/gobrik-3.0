@@ -94,7 +94,6 @@
     <button type="submit">Start Migration</button>
 </form>
 
-
 <!-- Part 4: Process and Upload Data to GoBrik Database -->
 <div id="knack-response">
     <?php
@@ -272,6 +271,7 @@
     }
     ?>
 </div>
+
 
 </body>
 

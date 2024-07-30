@@ -133,116 +133,115 @@
             "Content-Type: application/json"
         ]);
 
-        // Execute cURL request
-        $response = curl_exec($ch);
 
-        // Check for cURL errors
-        if ($response === false) {
-            echo '<p>Error retrieving data: ' . curl_error($ch) . '</p>';
-        } else {
-            // Log the entire JSON response to the console
-            echo "<script>console.log('Knack API Response: " . addslashes($response) . "');</script>";
+// Execute cURL request
+$response = curl_exec($ch);
 
-            $json_response = json_decode($response, true);
-            if (!empty($json_response['records'])) {
-                foreach ($json_response['records'] as $record) {
-                     $record = $json_response['records'][0]; // Take the first record
-                $record_id = $record['id'];
-                $legacy_gobrik_user_id = $record['field_261'];
-                $first_name = ($record['field_198']);
-                $last_name = $record['field_102_raw']['last'];
-                $full_name = $record['field_102_raw']['full'];
-                $user_roles = $record['profile_keys'];
-                $gea_status = $record['field_273'];
-                $community = strip_tags($record['field_125']);
-                $email_addr = $record['field_103_raw']['email'];
-                $date_registered = $record['field_294'];
-                $phone_no = $record['field_421_raw']['full'];
-                $ecobricks_made = $record['field_141_raw'];
-                $brk_balance = $record['field_400_raw'];
-                $aes_balance = $record['field_1747_raw'];
-                $aes_purchased = $record['field_2000_raw'];
-                $country_txt = strip_tags($record['field_326']);
-                $region_txt = strip_tags($record['field_359']);
-                $city_txt = strip_tags($record['field_342']);
-                $location_full_txt = $record['field_429'];
-                $household_txt = strip_tags($record['field_2028']);
-                $gender = $record['field_283'];
-                $personal_catalyst = strip_tags($record['field_1676']);
-                $trainer_availability = $record['field_430'];
-                $pronoun = $record['field_552'];
-                $household_generation = $record['field_2231_raw'];
-                $country_per_capita_consumption = $record['field_2106_raw'];
-                $my_consumption_estimate = $record['field_2221'];
-                $household_members = $record['field_1851'];
-                $household = $record['field_2038'];
+// Check for cURL errors
+if ($response === false) {
+    echo '<p>Error retrieving data: ' . curl_error($ch) . '</p>';
+} else {
+    // Log the entire JSON response to the console
+    echo "<script>console.log('Knack API Response: " . addslashes($response) . "');</script>";
 
-                // Manually set fields
-                $buwana_activated = 0;
-                $gobrik_migrated = 1;
-                $account_notes = 'migrated from knack gobrik on July 29th, 2024';
-                $gobrik_migrated_dt = date('Y-m-d H:i:s');
+    $json_response = json_decode($response, true);
+    if (!empty($json_response['records'])) {
+        foreach ($json_response['records'] as $record) {
+            $record_id = $record['id'] ?? null;
+            $legacy_gobrik_user_id = $record['field_261'] ?? null;
+            $first_name = $record['field_198'] ?? '';
+            $last_name = $record['field_102_raw']['last'] ?? '';
+            $full_name = $record['field_102_raw']['full'] ?? '';
+            $user_roles = $record['profile_keys'] ?? '';
+            $gea_status = $record['field_273'] ?? '';
+            $community = strip_tags($record['field_125'] ?? '');
+            $email_addr = $record['field_103_raw']['email'] ?? '';
+            $date_registered = $record['field_294'] ?? '';
+            $phone_no = $record['field_421_raw']['full'] ?? '';
+            $ecobricks_made = $record['field_141_raw'] ?? 0;
+            $brk_balance = $record['field_400_raw'] ?? 0;
+            $aes_balance = $record['field_1747_raw'] ?? '';
+            $aes_purchased = $record['field_2000_raw'] ?? '';
+            $country_txt = strip_tags($record['field_326'] ?? '');
+            $region_txt = strip_tags($record['field_359'] ?? '');
+            $city_txt = strip_tags($record['field_342'] ?? '');
+            $location_full_txt = $record['field_429'] ?? '';
+            $household_txt = strip_tags($record['field_2028'] ?? '');
+            $gender = $record['field_283'] ?? '';
+            $personal_catalyst = strip_tags($record['field_1676'] ?? '');
+            $trainer_availability = $record['field_430'] ?? '';
+            $pronoun = $record['field_552'] ?? '';
+            $household_generation = $record['field_2231_raw'] ?? 0;
+            $country_per_capita_consumption = $record['field_2106_raw'] ?? 0;
+            $my_consumption_estimate = $record['field_2221'] ?? 0;
+            $household_members = $record['field_1851'] ?? 0;
+            $household = $record['field_2038'] ?? 0;
 
-                // Insert the data into tb_ecobrickers
-                $sql_insert = "INSERT INTO tb_ecobrickers (maker_id, legacy_gobrik_user_id, first_name, last_name, full_name, user_roles, gea_status, community, email_addr, date_registered, phone_no, ecobricks_made, brk_balance, aes_balance, aes_purchased, country_txt, region_txt, city_txt, location_full_txt, household_txt, gender, personal_catalyst, trainer_availability, pronoun, household_generation, country_per_capita_consumption, my_consumption_estimate, household_members, household, buwana_activated, gobrik_migrated, account_notes, gobrik_migrated_dt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            // Manually set fields
+            $buwana_activated = 0;
+            $gobrik_migrated = 1;
+            $account_notes = 'migrated from knack gobrik on July 29th, 2024';
+            $gobrik_migrated_dt = date('Y-m-d H:i:s');
 
-                $stmt_insert = $conn->prepare($sql_insert);
-                if ($stmt_insert) {
-                    $stmt_insert->bind_param(
-                        'sisssssssssiddsssssssssssdddiiiss',
-                        $record_id,
-                        $legacy_gobrik_user_id,
-                        $first_name,
-                        $last_name,
-                        $full_name,
-                        $user_roles,
-                        $gea_status,
-                        $community,
-                        $email_addr,
-                        $date_registered,
-                        $phone_no,
-                        $ecobricks_made,
-                        $brk_balance,
-                        $aes_balance,
-                        $aes_purchased,
-                        $country_txt,
-                        $region_txt,
-                        $city_txt,
-                        $location_full_txt,
-                        $household_txt,
-                        $gender,
-                        $personal_catalyst,
-                        $trainer_availability,
-                        $pronoun,
-                        $household_generation,
-                        $country_per_capita_consumption,
-                        $my_consumption_estimate,
-                        $household_members,
-                        $household,
-                        $buwana_activated,
-                        $gobrik_migrated,
-                        $account_notes,
-                        $gobrik_migrated_dt
-                    );
+            // Insert the data into tb_ecobrickers
+            $sql_insert = "INSERT INTO tb_ecobrickers (maker_id, legacy_gobrik_user_id, first_name, last_name, full_name, user_roles, gea_status, community, email_addr, date_registered, phone_no, ecobricks_made, brk_balance, aes_balance, aes_purchased, country_txt, region_txt, city_txt, location_full_txt, household_txt, gender, personal_catalyst, trainer_availability, pronoun, household_generation, country_per_capita_consumption, my_consumption_estimate, household_members, household, buwana_activated, gobrik_migrated, account_notes, gobrik_migrated_dt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-                        if ($stmt_insert->execute()) {
-                            echo '<p>Ecobricker inserted into GoBrik database!</p>';
-                        } else {
-                            echo '<p>Error inserting data: ' . $stmt_insert->error . '</p>';
-                        }
+            $stmt_insert = $conn->prepare($sql_insert);
+            if ($stmt_insert) {
+                $stmt_insert->bind_param(
+                    'sisssssssssiddsssssssssssdddiiiss',
+                    $record_id,
+                    $legacy_gobrik_user_id,
+                    $first_name,
+                    $last_name,
+                    $full_name,
+                    $user_roles,
+                    $gea_status,
+                    $community,
+                    $email_addr,
+                    $date_registered,
+                    $phone_no,
+                    $ecobricks_made,
+                    $brk_balance,
+                    $aes_balance,
+                    $aes_purchased,
+                    $country_txt,
+                    $region_txt,
+                    $city_txt,
+                    $location_full_txt,
+                    $household_txt,
+                    $gender,
+                    $personal_catalyst,
+                    $trainer_availability,
+                    $pronoun,
+                    $household_generation,
+                    $country_per_capita_consumption,
+                    $my_consumption_estimate,
+                    $household_members,
+                    $household,
+                    $buwana_activated,
+                    $gobrik_migrated,
+                    $account_notes,
+                    $gobrik_migrated_dt
+                );
 
-                        $stmt_insert->close();
-                    } else {
-                        echo '<p>Error preparing statement: ' . $conn->error . '</p>';
-                    }
+                if ($stmt_insert->execute()) {
+                    echo '<p>Ecobricker inserted into GoBrik database!</p>';
+                } else {
+                    echo '<p>Error inserting data: ' . $stmt_insert->error . '</p>';
                 }
+
+                $stmt_insert->close();
             } else {
-                echo '<p>No ecobrickers found that match the criteria.</p>';
+                echo '<p>Error preparing statement: ' . $conn->error . '</p>';
             }
         }
-        curl_close($ch);
+    } else {
+        echo '<p>No ecobrickers found that match the criteria.</p>';
     }
-    ?>
+    curl_close($ch);
+}
+?>
 </div>
 
 

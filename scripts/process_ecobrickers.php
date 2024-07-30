@@ -117,6 +117,11 @@
                     'operator' => 'is not',
                     'value' => 'yes'
                 ]
+                                [
+                    'field' => 'field_103_raw',
+                    'operator' => 'contains',
+                    'value' => 'russmaier@gmail.com'
+                ]
             ]
         ];
 
@@ -225,7 +230,31 @@
                         );
 
                         if ($stmt_insert->execute()) {
-                            echo '<p>Ecobricker inserted into GoBrik database!</p>';
+                            echo '<p>' . htmlspecialchars($full_name, ENT_QUOTES) . ' has been added to the GoBrik 3.0 database!</p>';
+
+                            // Part 5: Update Knack database
+                            $update_data = [
+                                'field_2525' => '1'
+                            ];
+
+                            $update_url = "https://api.knack.com/v1/objects/$object_id/records/$record_id";
+                            $update_ch = curl_init($update_url);
+                            curl_setopt($update_ch, CURLOPT_RETURNTRANSFER, true);
+                            curl_setopt($update_ch, CURLOPT_HTTPHEADER, [
+                                "X-Knack-Application-ID: $app_id",
+                                "X-Knack-REST-API-Key: $api_key",
+                                "Content-Type: application/json"
+                            ]);
+                            curl_setopt($update_ch, CURLOPT_CUSTOMREQUEST, "PUT");
+                            curl_setopt($update_ch, CURLOPT_POSTFIELDS, json_encode($update_data));
+
+                            $update_response = curl_exec($update_ch);
+                            if ($update_response === false) {
+                                echo '<p>Error updating Knack database: ' . curl_error($update_ch) . '</p>';
+                            } else {
+                                echo '<p>' . htmlspecialchars($full_name, ENT_QUOTES) . "'s account has been updated on the knack GoBrik 2.0 database as migrated!</p>";
+                            }
+                            curl_close($update_ch);
                         } else {
                             echo '<p>Error inserting data: ' . $stmt_insert->error . '</p>';
                         }
@@ -243,7 +272,6 @@
     }
     ?>
 </div>
-
 
 
 

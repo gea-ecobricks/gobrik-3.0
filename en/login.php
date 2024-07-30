@@ -84,6 +84,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 <?php require_once ("../includes/login-inc.php");?>
 
+<div class="splash-content-block"></div>
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT -->

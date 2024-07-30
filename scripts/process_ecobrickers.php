@@ -97,11 +97,6 @@ $filters = [
             'operator' => 'is not',
             'value' => 'yes'
         ],
-        [
-            'field' => 'field_103',
-            'operator' => 'contains',
-            'value' => 'carlygayle@gmail.com'
-        ]
     ]
 ];
 

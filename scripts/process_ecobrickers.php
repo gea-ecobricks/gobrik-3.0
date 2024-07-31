@@ -226,6 +226,8 @@
                             echo '<p>Error updating Knack database: ' . curl_error($update_ch) . '</p>';
                         } else {
                             echo '<p>' . htmlspecialchars($full_name, ENT_QUOTES) . "'s account has been updated on the knack GoBrik 2.0 database as migrated!</p>";
+                                                    echo '<script>window.location.href = "process_ecobrickers.php";</script>';
+
                         }
                         ob_flush();
                         flush();

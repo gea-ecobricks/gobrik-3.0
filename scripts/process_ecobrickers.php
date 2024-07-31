@@ -68,6 +68,9 @@
         </div>
     </div>
 </div>
+
+
+
 <!-- Part 4: Process and Upload Data to GoBrik Database -->
 <div id="knack-response">
     <?php
@@ -121,15 +124,7 @@
 
         $json_response = json_decode($response, true);
         if (!empty($json_response['records'])) {
-            $processed_count = 0;
-
             foreach ($json_response['records'] as $record) {
-                $processed_count++;
-                if ($processed_count > 15) {
-                    echo '<script>window.location.href = "process_ecobrickers.php";</script>';
-                    break;
-                }
-
                 $record_id = $record['id'] ?? null;
                 $legacy_gobrik_user_id = $record['field_261'] ?? null;
                 $first_name = $record['field_198'] ?? '';

@@ -125,16 +125,15 @@
         if (!empty($json_response['records'])) {
             $processed_count = 0;
 
-            foreach ($json_response['records'] as $record) {
-                $processed_count++;
-                if ($processed_count > 20) {
-                    echo '<script>
-                        setTimeout(function() {
-                            window.location.href = "process_ecobrickers.php";
-                        }, 5000);
-                    </script>';
-                    break;
-                }
+  foreach ($json_response['records'] as $record) {
+    $processed_count++;
+    if ($processed_count > 15) {
+        echo '<script>
+            window.location.href = "process_ecobrickers.php";
+        </script>';
+        break;
+    }
+}
 
                 $record_id = $record['id'] ?? null;
                 $legacy_gobrik_user_id = $record['field_261'] ?? null;

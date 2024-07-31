@@ -269,5 +269,36 @@
     });
 </script>
 
+
+<script>
+    (function() {
+        let lastActivity = Date.now();
+
+        // Function to update last activity time
+        function updateLastActivity() {
+            lastActivity = Date.now();
+        }
+
+        // Check for inactivity every second
+        setInterval(function() {
+            if (Date.now() - lastActivity > 8000) {
+                window.location.href = "process_ecobrickers.php";
+            }
+        }, 1000);
+
+        // Listen for various user activity events
+        ['mousemove', 'keydown', 'scroll', 'click', 'touchstart'].forEach(event => {
+            window.addEventListener(event, updateLastActivity, false);
+        });
+
+        // Catch script errors
+        window.addEventListener('error', function() {
+            setTimeout(function() {
+                window.location.href = "process_ecobrickers.php";
+            }, 10000);
+        });
+    })();
+</script>
+
 </body>
 </html>

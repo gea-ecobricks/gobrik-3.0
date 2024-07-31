@@ -136,88 +136,6 @@ echo "<script>var density = $density, volume = '$universal_volume_ml', weight = 
     <?php $page='log';?>
 
 
-    <script>
-
-        function showDensityConfirmation(density, volume, weight) {
-            const modal = document.getElementById('form-modal-message');
-            const messageContainer = modal.querySelector('.modal-message');
-            let content = '';
-
-            // Hide all buttons with class "x-button"
-            const xButtons = document.querySelectorAll('.x-button');
-            xButtons.forEach(button => button.style.display = 'none');
-
-            if (density < 0.33) {
-                content = `
-            <h1>⛔</h1>
-            <h4>Under Density</h4>
-            <div class="preview-text">Your ecobrick's density of ${density} is under the GEA standard of 0.33g/ml. Please check that you have entered the weight and volume correctly. If so, then please repack your ecobrick with more plastic to achieve minimum density. GEA guidelines are developed to ensure the building integrity, fire safety and reusability of an ecobrick.</p>
-            <a class="preview-btn" href="/what">GEA Standards</a>
-        `;
-            } else if (density >= 0.33 && density < 0.36) {
-                content = `
-            <h1>⚠️</h1>
-            <h4>Low Density</h4>
-            <div class="preview-text">Careful, your ecobrick's density of ${density}ml is on the low side. It passes the minimum standard of 0.33g/ml however, its density makes it less solid, fire safe and reusable than it could be. Keep going and log this ecobrick, but see if you can pack more plastic next time.</p>
-            <a class="module-btn" onclick="closeInfoModal()" aria-label="Click to close modal">Next: Register Serial</a>
-        `;
-            } else if (density >= 0.36 && density < 0.65) {
-                content = `
-            <h1 style=\"text-align:center;\">👍</h1>
-            <h4 style=\"text-align:center;\">Great job!</h4>
-            <div class="preview-text" style=\"text-align:center;\">Your ecobrick's density of ${density} is ideal. It passes the minimum standard of 0.33g/ml making it solid, fire safe and reusable.</p>
-            <a class="preview-btn" onclick="closeInfoModal()" aria-label="Click to close modal">Next: Register Serial</a>
-        `;
-            } else if (density >= 0.65 && density < 0.73) {
-                content = `
-            <h1 style=\"text-align:center;\">⚠️</h1>
-            <h4 style=\"text-align:center;\">High Density</h4>
-            <div class="preview-text" style=\"text-align:center;\">Careful, your ecobrick's density of ${density} is very high. Your ${volume} bottle packed with ${weight} of plastic is under the maximum density of 0.73g/ml however, its high density makes it nearly too solid and too heavy for certain ecobrick applications.</p>
-            <a class="preview-btn" onclick="closeInfoModal()" aria-label="Click to close modal">Next: Register Serial</a>
-        `;
-            } else if (density >= 0.73) {
-                content = `
-            <h1 style=\"text-align:center;\">⛔</h1>
-            <h4 style=\"text-align:center;\">Over Max Density</h4>
-            <div class="preview-text">Your ecobrick's density of ${density} is over the GEA standard of 0.73g/ml. Please check that you have entered the weight and volume correctly. If so, then please repack your ecobrick with less plastic. GEA guidelines are developed to ensure the safety and usability of ecobricks for all short and long term applications.</p>
-            <a class="preview-btn" href="log.php">Go Back</a>
-        `;
-            }
-
-            messageContainer.innerHTML = content;
-
-            // Show the modal and update other page elements
-            modal.style.display = 'flex';
-            document.getElementById('page-content').classList.add('blurred');
-            // document.getElementById('footer-full').classList.add('blurred');
-            document.body.classList.add('modal-open');
-
-            // Disable body scrolling
-            // document.body.style.overflow = 'hidden';
-            //
-            // // Prevent page from scrolling to the top
-            // const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            // modal.style.top = `${scrollTop}px`;
-        }
-
-        // function closeModal() {
-        //     const modal = document.getElementById('form-modal-message');
-        //     modal.style.display = 'none';
-        //     document.getElementById('page-content').classList.remove('blurred');
-        //     // document.getElementById('footer-full').classList.remove('blurred');
-        //     document.body.classList.remove('modal-open');
-        //     document.body.style.overflow = ''; // Re-enable body scrolling
-        //
-        //     // Show all buttons with class "x-button" again
-        //     const xButtons = document.querySelectorAll('.x-button');
-        //     xButtons.forEach(button => button.style.display = 'inline-block');
-        // }
-
-        // Assuming density, volume, and weight are set in your PHP and passed to JavaScript
-        showDensityConfirmation(density, volume, weight);
-
-</script>
-
    <?php require_once ("../includes/log-inc.php");?>
 
 
@@ -463,14 +381,91 @@ echo "<script>var density = $density, volume = '$universal_volume_ml', weight = 
     }
 
 
+</script>
 
 
+    <script>
 
+        function showDensityConfirmation(density, volume, weight) {
+            const modal = document.getElementById('form-modal-message');
+            const messageContainer = modal.querySelector('.modal-message');
+            let content = '';
 
-s
+            // Hide all buttons with class "x-button"
+            const xButtons = document.querySelectorAll('.x-button');
+            xButtons.forEach(button => button.style.display = 'none');
 
+            if (density < 0.33) {
+                content = `
+            <h1>⛔</h1>
+            <h4>Under Density</h4>
+            <div class="preview-text">Your ecobrick's density of ${density} is under the GEA standard of 0.33g/ml. Please check that you have entered the weight and volume correctly. If so, then please repack your ecobrick with more plastic to achieve minimum density. GEA guidelines are developed to ensure the building integrity, fire safety and reusability of an ecobrick.</p>
+            <a class="preview-btn" href="/what">GEA Standards</a>
+        `;
+            } else if (density >= 0.33 && density < 0.36) {
+                content = `
+            <h1>⚠️</h1>
+            <h4>Low Density</h4>
+            <div class="preview-text">Careful, your ecobrick's density of ${density}ml is on the low side. It passes the minimum standard of 0.33g/ml however, its density makes it less solid, fire safe and reusable than it could be. Keep going and log this ecobrick, but see if you can pack more plastic next time.</p>
+            <a class="module-btn" onclick="closeInfoModal()" aria-label="Click to close modal">Next: Register Serial</a>
+        `;
+            } else if (density >= 0.36 && density < 0.65) {
+                content = `
+            <h1 style=\"text-align:center;\">👍</h1>
+            <h4 style=\"text-align:center;\">Great job!</h4>
+            <div class="preview-text" style=\"text-align:center;\">Your ecobrick's density of ${density} is ideal. It passes the minimum standard of 0.33g/ml making it solid, fire safe and reusable.</p>
+            <a class="preview-btn" onclick="closeInfoModal()" aria-label="Click to close modal">Next: Register Serial</a>
+        `;
+            } else if (density >= 0.65 && density < 0.73) {
+                content = `
+            <h1 style=\"text-align:center;\">⚠️</h1>
+            <h4 style=\"text-align:center;\">High Density</h4>
+            <div class="preview-text" style=\"text-align:center;\">Careful, your ecobrick's density of ${density} is very high. Your ${volume} bottle packed with ${weight} of plastic is under the maximum density of 0.73g/ml however, its high density makes it nearly too solid and too heavy for certain ecobrick applications.</p>
+            <a class="preview-btn" onclick="closeInfoModal()" aria-label="Click to close modal">Next: Register Serial</a>
+        `;
+            } else if (density >= 0.73) {
+                content = `
+            <h1 style=\"text-align:center;\">⛔</h1>
+            <h4 style=\"text-align:center;\">Over Max Density</h4>
+            <div class="preview-text">Your ecobrick's density of ${density} is over the GEA standard of 0.73g/ml. Please check that you have entered the weight and volume correctly. If so, then please repack your ecobrick with less plastic. GEA guidelines are developed to ensure the safety and usability of ecobricks for all short and long term applications.</p>
+            <a class="preview-btn" href="log.php">Go Back</a>
+        `;
+            }
+
+            messageContainer.innerHTML = content;
+
+            // Show the modal and update other page elements
+            modal.style.display = 'flex';
+            document.getElementById('page-content').classList.add('blurred');
+            // document.getElementById('footer-full').classList.add('blurred');
+            document.body.classList.add('modal-open');
+
+            // Disable body scrolling
+            // document.body.style.overflow = 'hidden';
+            //
+            // // Prevent page from scrolling to the top
+            // const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            // modal.style.top = `${scrollTop}px`;
+        }
+
+        // function closeModal() {
+        //     const modal = document.getElementById('form-modal-message');
+        //     modal.style.display = 'none';
+        //     document.getElementById('page-content').classList.remove('blurred');
+        //     // document.getElementById('footer-full').classList.remove('blurred');
+        //     document.body.classList.remove('modal-open');
+        //     document.body.style.overflow = ''; // Re-enable body scrolling
+        //
+        //     // Show all buttons with class "x-button" again
+        //     const xButtons = document.querySelectorAll('.x-button');
+        //     xButtons.forEach(button => button.style.display = 'inline-block');
+        // }
+
+        // Assuming density, volume, and weight are set in your PHP and passed to JavaScript
+        showDensityConfirmation(density, volume, weight);
 
 </script>
+
 
 
 </body>

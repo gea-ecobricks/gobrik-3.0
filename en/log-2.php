@@ -132,7 +132,7 @@ echo "<script>var density = $density, volume = '$universal_volume_ml', weight = 
 <HTML lang="en">
 <HEAD>
     <META charset="UTF-8">
-    <?php $version='2.47';?>
+    <?php $version='2.48';?>
     <?php $page='log';?>
 
 

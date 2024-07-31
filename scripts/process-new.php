@@ -13,15 +13,12 @@
             flex-wrap: wrap;
             gap: 10px;
         }
-        .gallery img {
-            max-width: 150px;
-            height: auto;
-            cursor: pointer;
+        .gallery div {
+            padding: 10px;
+            background: white;
             border: 1px solid #ccc;
             border-radius: 5px;
-        }
-        .gallery a {
-            text-decoration: none;
+            margin-bottom: 10px;
         }
         .button {
             padding: 10px 20px;
@@ -43,10 +40,10 @@
     <button class="button" onclick="stopProcessing()">Stop Processing</button>
     <button class="button" onclick="startProcessing()">ᐉ Start Processing</button>
 </div>
-<p>We're migrating ecobricks from our old server to our new. Help us out by running this page on your computer or phone. Just keep it up. If it crashes or stops, reload the page. Thank you!</p>
+<p>We're migrating ecobrickers from our old server to our new. Help us out by running this page on your computer or phone. Just keep it up. If it crashes or stops, reload the page. Thank you!</p>
 
 <div id="ecobrick-being-processed">
-    <div id="ecobricks-processed-gallery">
+    <div id="ecobrickers-processed-gallery">
         <?php
         ini_set('display_errors', 1);
         error_reporting(E_ALL);
@@ -54,27 +51,34 @@
         include '../ecobricks_env.php';
         $conn->set_charset("utf8mb4");
 
-        $query = "SELECT serial_no, ecobrick_thumb_photo_url FROM tb_ecobricks
-                  WHERE status = 'authenticated'
-                  ORDER BY date_published_ts DESC
+        $query = "SELECT first_name, buwana_id, location_full_txt, date_registered, email_addr FROM tb_ecobrickers
+                  ORDER BY gobrik_migrated_dt DESC
                   LIMIT 18";
 
         $result = $conn->query($query);
         ?>
 
-        <h1>Latest Ecobrick Imports</h1>
+        <h1>Latest Ecobricker Imports</h1>
         <div class="gallery">
             <?php
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    $serial_no = $row['serial_no'];
-                    $thumb_url = $row['ecobrick_thumb_photo_url'];
-                    echo "<a href='https://ecobricks.org/en/details-ecobrick-page.php?serial_no=$serial_no' target='_blank'>
-                    <img src='$thumb_url' alt='Ecobrick $serial_no' title='Ecobrick $serial_no'>
-                  </a>";
+                    $first_name = htmlspecialchars($row['first_name']);
+                    $buwana_id = htmlspecialchars($row['buwana_id']);
+                    $location = htmlspecialchars($row['location_full_txt']);
+                    $date_registered = htmlspecialchars($row['date_registered']);
+                    $email = htmlspecialchars($row['email_addr']);
+
+                    echo "<div>
+                        <p><strong>Name:</strong> $first_name</p>
+                        <p><strong>Buwana ID:</strong> $buwana_id</p>
+                        <p><strong>Location:</strong> $location</p>
+                        <p><strong>Date Registered:</strong> $date_registered</p>
+                        <p><strong>Email:</strong> $email</p>
+                      </div>";
                 }
             } else {
-                echo "<p>No ecobricks found.</p>";
+                echo "<p>No ecobrickers found.</p>";
             }
             ?>
         </div>
@@ -85,7 +89,17 @@
 <div id="knack-response"></div>
 
 <script>
+    function stopProcessing() {
+        if (confirm('Are you sure you want to stop the processing?')) {
+            window.location.href = 'process_ecobricker_news.php?action=stop';
+        }
+    }
 
+    function startProcessing() {
+        if (confirm('Are you sure you want to start the processing?')) {
+            window.location.href = 'process_ecobricker_news.php?action=start';
+        }
+    }
 
     function processEcobricker() {
         const xhr = new XMLHttpRequest();

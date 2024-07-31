@@ -91,13 +91,13 @@
 <script>
     function stopProcessing() {
         if (confirm('Are you sure you want to stop the processing?')) {
-            window.location.href = 'process_ecobricker_news.php?action=stop';
+            window.location.href = 'process_ecobricker_new.php?action=stop';
         }
     }
 
     function startProcessing() {
         if (confirm('Are you sure you want to start the processing?')) {
-            window.location.href = 'process_ecobricker_news.php?action=start';
+            window.location.href = 'process_ecobricker_new.php?action=start';
         }
     }
 

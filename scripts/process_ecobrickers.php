@@ -89,7 +89,7 @@
              [
                 'field' => 'field_141',
                 'operator' => 'gt',
-                'value' => '2'
+                'value' => '1'
             ]
         ]
     ];

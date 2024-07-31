@@ -127,7 +127,7 @@
 
   foreach ($json_response['records'] as $record) {
     $processed_count++;
-    if ($processed_count > 20) {
+    if ($processed_count > 15) {
         echo '<script>
             window.location.href = "process_ecobrickers.php";
         </script>';

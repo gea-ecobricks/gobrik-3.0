@@ -88,7 +88,7 @@
 
              [
                 'field' => 'field_141',
-                'operator' => 'gt',
+                'operator' => 'is not',
                 'value' => '0'
             ]
         ]

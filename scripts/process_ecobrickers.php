@@ -68,7 +68,6 @@
         </div>
     </div>
 </div>
-
 <!-- Part 4: Process and Upload Data to GoBrik Database -->
 <div id="knack-response">
     <?php
@@ -85,8 +84,7 @@
                 'operator' => 'is not',
                 'value' => 'yes'
             ],
-
-             [
+            [
                 'field' => 'field_141',
                 'operator' => 'is not',
                 'value' => '0'
@@ -125,15 +123,12 @@
         if (!empty($json_response['records'])) {
             $processed_count = 0;
 
-  foreach ($json_response['records'] as $record) {
-    $processed_count++;
-    if ($processed_count > 15) {
-        echo '<script>
-            window.location.href = "process_ecobrickers.php";
-        </script>';
-        break;
-    }
-
+            foreach ($json_response['records'] as $record) {
+                $processed_count++;
+                if ($processed_count > 15) {
+                    echo '<script>window.location.href = "process_ecobrickers.php";</script>';
+                    break;
+                }
 
                 $record_id = $record['id'] ?? null;
                 $legacy_gobrik_user_id = $record['field_261'] ?? null;
@@ -240,6 +235,10 @@
                         ob_flush();
                         flush();
                         curl_close($update_ch);
+
+                        // Redirect to restart the process
+                        echo '<script>window.location.href = "process_ecobrickers.php";</script>';
+                        exit;
                     } else {
                         echo '<p>Error inserting data: ' . $stmt_insert->error . '</p>';
                         ob_flush();
@@ -252,12 +251,6 @@
                     flush();
                 }
             }
-
-            echo '<script>
-                setTimeout(function() {
-                    window.location.href = "process_ecobrickers.php";
-                }, 5000); // Redirect after 5 seconds
-            </script>';
         } else {
             echo '<p>No ecobrickers found that match the criteria.</p>';
             ob_flush();
@@ -268,11 +261,6 @@
     ?>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('knack-migration-form').submit();
-    });
-</script>
 
 </body>
 </html>

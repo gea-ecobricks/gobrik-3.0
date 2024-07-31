@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['buwana_id'])) {
         }
 
         echo "<script>
-            alert('Name updated successfully.');
+//             alert('Name updated successfully.');
             window.location.href = 'log.php';
         </script>";
     } else {

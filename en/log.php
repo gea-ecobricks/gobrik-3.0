@@ -191,7 +191,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php
 
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.24';
+$version = '0.25';
 $page = 'log';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -441,6 +441,8 @@ echo '<!DOCTYPE html>
         </div>
 
     </div>
+
+</div>
 
 </div> <!-- main? -->
 

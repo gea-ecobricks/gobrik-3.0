@@ -212,7 +212,7 @@ echo '<!DOCTYPE html>
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT -->
-   <div id="top-page-image" class="log-ecobrick top-page-image"></div>
+   <div id="top-page-image" class="log-ecobrick top-page-image" style="height: 30px; margin-top: 150px;"></div>
 
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">

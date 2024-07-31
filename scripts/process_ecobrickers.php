@@ -88,13 +88,13 @@
 
              [
                 'field' => 'field_141',
-                'operator' => 'higher than',
+                'operator' => 'gt',
                 'value' => '2'
             ]
         ]
     ];
 
-    $url = "https://api.knack.com/v1/objects/$object_id/records?filters=" . urlencode(json_encode($filters)) . "&sort_field=field_261&sort_order=asc";
+    $url = "https://api.knack.com/v1/objects/$object_id/records?filters=" . urlencode(json_encode($filters)) . "&sort_field=field_261&sort_order=desc";
 
     // Initialize cURL session
     $ch = curl_init($url);

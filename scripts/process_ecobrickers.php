@@ -84,6 +84,12 @@
                 'field' => 'field_2525',
                 'operator' => 'is not',
                 'value' => 'yes'
+            ],
+
+                  [
+                'field' => 'field_141_raw',
+                'operator' => 'is not',
+                'value' => '0'
             ]
         ]
     ];

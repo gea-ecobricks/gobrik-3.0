@@ -27,7 +27,11 @@
   margin-bottom: -10px;
 }
 
-
+#splash-bar {
+  background-color: var(--top-header);
+  filter: none !important;
+  margin-bottom: -200px !important;
+}
 
 
 

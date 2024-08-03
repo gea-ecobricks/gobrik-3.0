@@ -1,7 +1,4 @@
 
-text/x-generic .htaccess ( UTF-8 Unicode text )
-
-
 RewriteEngine On
 
 # Check for the language in the HTTP_ACCEPT_LANGUAGE header for index.html
@@ -25,31 +22,36 @@ RewriteRule ^index\.html$ /en/ [L,R=302]
 RewriteCond %{THE_REQUEST} /index\.html [NC]
 RewriteRule ^index\.html$ /en/ [L,R=302]
 
+# Ensure www is redirected to non-www
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
 
+# Redirect to offsets.php
+RedirectMatch "^/offsets/" "/en/offsets.php"
+RedirectMatch "^/offsetting" "/en/offsets.php"
+RedirectMatch "^/offset" "/en/offsets.php"
+RedirectMatch "^/offsetting.php" "/en/offsets.php"
+RedirectMatch "^/en/offsetting.php" "/en/offsets.php"
+
+# Directory index files
 DirectoryIndex index.php index.html
 
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-    RewriteBase /
+# Custom 404 error pages based on language directory
+RewriteCond %{REQUEST_URI} ^/en/ [OR]
+RewriteCond %{REQUEST_URI} ^/id/ [OR]
+RewriteCond %{REQUEST_URI} ^/es/ [OR]
+RewriteCond %{REQUEST_URI} ^/fr/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /%{REQUEST_URI}/404.php [L]
 
-    # Check if the requested file is in one of the language directories
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} /(en|fr|id|es)/ [NC]
-    RewriteRule !404\.php$ - [L]
+# Custom 404 error page for the root directory
+RewriteCond %{REQUEST_URI} !^/(en|id|es|fr)/ [NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /en/404.php [L]
 
-    # Condition 1: If the requested file is not found, redirect to 404.php in the language directory
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} /(en|fr|id|es)/ [NC]
-    RewriteRule !404\.php$ %{REQUEST_URI}404.php [L]
-
-    # Condition 2: If the requested file is not found in language directories, redirect to index.php in the root directory
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule . /index.php [L]
-</IfModule>
 
 #
 #
@@ -75,21 +77,4 @@ DirectoryIndex index.php index.html
 
 
 
-RewriteEngine On
-RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
-
-
-
-
-
-
-
-
-
-RedirectMatch "^/offsets/" "/en/offsets.php"
-RedirectMatch "^/offsetting" "/en/offsets.php"
-RedirectMatch "^/offset" "/en/offsets.php"
-RedirectMatch "^/offsetting.php" "/en/offsets.php"
-RedirectMatch "^/en/offsetting.php" "/en/offsets.php"
 

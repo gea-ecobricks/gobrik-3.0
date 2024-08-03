@@ -524,6 +524,14 @@ input[type="submit"]:hover {
 color: var(--text-color);
 }
 
+
+#splash-bar {
+  background-color: var(--top-header);
+  filter: none !important;
+  margin-bottom: -200px !important;
+}
+
+
 </style>
 
 

@@ -304,6 +304,7 @@ require_once ("../includes/brikchain-inc.php");
 <br>
 
 	</DIV>
+</div>
 
 
 	<!--FOOTER STARTS HERE-->

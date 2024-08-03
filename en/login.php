@@ -1,6 +1,6 @@
 <?php
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));  //grabs language directory from url
-$version = '0.57';
+$version = '0.58';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT -->
-   <div id="top-page-image" class="earth-community top-page-image"></div>
+   <div class="earth-community top-page-image"></div>
 
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">

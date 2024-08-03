@@ -99,13 +99,8 @@ $(document).ready(function() {
 }
 
 
-
-
 #splash-bar {
-
 	background-color: #2A91DA;
-
-
 }
 
 
@@ -284,6 +279,7 @@ $(document).ready(function() {
   .reg-content-block {
 background: var(--accordion-background) !important;
   }
+
 
 </style>
 

@@ -2,7 +2,7 @@
 <?php
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.345';
+$version = '0.35';
 
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 

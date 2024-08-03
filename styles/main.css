@@ -1787,13 +1787,6 @@ color: red;
 }
 }
 
-#splash-bar {
-
-    background-color: var(--top-header);
-    filter: none !important;
-    margin-bottom: -200px !important;
-
-}
 
 #main-background {
   background-size: cover;

@@ -1,6 +1,6 @@
 <?php
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));  //grabs language directory from url
-$version = '0.555';
+$version = '0.56';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT -->
-   <div class="earth-community top-page-image"></div>
+   <div id="top-page-image" class="earth-community top-page-image"></div>
 
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
@@ -149,7 +149,5 @@ function scrollMoreThan41() {
 }
 
  </script>
-
-
 </body>
 </html>

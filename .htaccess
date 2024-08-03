@@ -1,7 +1,11 @@
 
 RewriteEngine On
 
-# Check for the language in the HTTP_ACCEPT_LANGUAGE header for index.html
+# Ensure www is redirected to non-www
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+# Language-based redirection for index.html
 RewriteCond %{THE_REQUEST} /index\.html [NC]
 RewriteCond %{HTTP:Accept-Language} ^fr [NC]
 RewriteRule ^index\.html$ /fr/ [L,R=302]
@@ -22,11 +26,6 @@ RewriteRule ^index\.html$ /en/ [L,R=302]
 RewriteCond %{THE_REQUEST} /index\.html [NC]
 RewriteRule ^index\.html$ /en/ [L,R=302]
 
-# Ensure www is redirected to non-www
-RewriteEngine On
-RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
-
 # Redirect to offsets.php
 RedirectMatch "^/offsets/" "/en/offsets.php"
 RedirectMatch "^/offsetting" "/en/offsets.php"
@@ -38,19 +37,17 @@ RedirectMatch "^/en/offsetting.php" "/en/offsets.php"
 DirectoryIndex index.php index.html
 
 # Custom 404 error pages based on language directory
-RewriteCond %{REQUEST_URI} ^/en/ [OR]
-RewriteCond %{REQUEST_URI} ^/id/ [OR]
-RewriteCond %{REQUEST_URI} ^/es/ [OR]
-RewriteCond %{REQUEST_URI} ^/fr/
+RewriteCond %{REQUEST_URI} ^/(en|id|es|fr)/ [NC]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /%{REQUEST_URI}/404.php [L]
+RewriteRule . %{REQUEST_URI}/404.php [L]
 
 # Custom 404 error page for the root directory
 RewriteCond %{REQUEST_URI} !^/(en|id|es|fr)/ [NC]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /en/404.php [L]
+
 
 
 #

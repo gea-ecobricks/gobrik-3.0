@@ -40,7 +40,7 @@ DirectoryIndex index.php index.html
 RewriteCond %{REQUEST_URI} ^/(en|id|es|fr)/ [NC]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . %{REQUEST_URI}/404.php [L]
+RewriteRule ^(en|id|es|fr)/(.+)$ /$1/404.php [L]
 
 # Custom 404 error page for the root directory
 RewriteCond %{REQUEST_URI} !^/(en|id|es|fr)/ [NC]

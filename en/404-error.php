@@ -13,7 +13,7 @@ $lang = isset($path_segments[0]) ? $path_segments[0] : 'en'; // Default to Engli
 <HTML lang="en">
 <HEAD>
 <META charset="UTF-8">
-<?php $version='2.43';?>
+<?php $version='2.44';?>
 <?php $page='404';?>
 
 <?php require_once ("../includes/404-inc.php");?>
@@ -62,6 +62,7 @@ $lang = isset($path_segments[0]) ? $path_segments[0] : 'en'; // Default to Engli
                     </div>
                 </div>
 
+
                 <div class="side">
 
 
@@ -71,6 +72,7 @@ $lang = isset($path_segments[0]) ? $path_segments[0] : 'en'; // Default to Engli
             </div>
             <br><br>
          </div>
+     </div>
 
 	<!--FOOTER STARTS HERE-->
 

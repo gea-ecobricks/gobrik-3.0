@@ -3,6 +3,7 @@
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
 $version = '0.35';
+$page='brikchain';
 
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 

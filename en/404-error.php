@@ -57,11 +57,10 @@ $lang = isset($path_segments[0]) ? $path_segments[0] : 'en'; // Default to Engli
 
                         <button type="button" class="module-btn" style="margin-top:20px;" onclick="openSearch()" data-lang-id="009-search-button">🔎 Search Site</button>
                         <br><br>
-                        <a class="module-btn" href="index.php" style="margin-top:50px;" data-lang-id="011-faqs-button">🏡 Home</a>
+                        <a class="module-btn" href="index.php" style="margin-top:50px;" data-lang-id="011-home-button">🏡 Home</a>
 
                     </div>
                 </div>
-
 
                 <div class="side">
 

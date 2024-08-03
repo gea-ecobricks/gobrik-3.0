@@ -143,14 +143,9 @@ document.addEventListener('keydown', modalCloseCurtains);
 //   }
 // }
 
-
 /* ---------- ------------------------------
-
-LANGUAGE SELECTOR  
-
+LANGUAGE SELECTOR
 -------------------------------------------*/
-
-
 
 function showLangSelector() {
     hideLoginSelector();
@@ -159,6 +154,12 @@ function showLangSelector() {
     var currentMarginTop = window.getComputedStyle(slider).marginTop;
     slider.style.display = 'flex';
     slider.style.marginTop = currentMarginTop === '70px' ? '0px' : '70px';
+
+    // Set zIndex of top-page-image
+    var topPageImage = document.querySelector('.top-page-image');
+    if (topPageImage) {
+        topPageImage.style.zIndex = '25';
+    }
 
     // Prevent event from bubbling to document
     event.stopPropagation();
@@ -171,6 +172,12 @@ function hideLangSelector() {
     var slider = document.getElementById('language-menu-slider');
     slider.style.marginTop = '0px'; // Reset margin-top to 0px
 
+    // Set zIndex of top-page-image
+    var topPageImage = document.querySelector('.top-page-image');
+    if (topPageImage) {
+        topPageImage.style.zIndex = '35';
+    }
+
     // Remove the named event listener from the document
     document.removeEventListener('click', documentClickListener);
 }
@@ -180,21 +187,23 @@ function documentClickListener() {
     hideLangSelector();
 }
 
-
-
 /* ---------- ------------------------------
-
-SERVICE SELECTOR  
-
+SERVICE SELECTOR
 -------------------------------------------*/
 
 function showLoginSelector() {
-  hideLangSelector();
+    hideLangSelector();
 
     var slider = document.getElementById('login-menu-slider');
     var currentMarginTop = window.getComputedStyle(slider).marginTop;
     slider.style.display = 'flex';
     slider.style.marginTop = currentMarginTop === '70px' ? '0px' : '70px';
+
+    // Set zIndex of top-page-image
+    var topPageImage = document.querySelector('.top-page-image');
+    if (topPageImage) {
+        topPageImage.style.zIndex = '25';
+    }
 
     // Prevent event from bubbling to document
     event.stopPropagation();
@@ -207,8 +216,14 @@ function hideLoginSelector() {
     var slider = document.getElementById('login-menu-slider');
     slider.style.marginTop = '0px'; // Reset margin-top to 0px
 
+    // Set zIndex of top-page-image
+    var topPageImage = document.querySelector('.top-page-image');
+    if (topPageImage) {
+        topPageImage.style.zIndex = '35';
+    }
+
     // Remove the named event listener from the document
-    document.removeEventListener('click', documentClickListener);
+    document.removeEventListener('click', documentClickListenerLogin);
 }
 
 // Named function to be used as an event listener

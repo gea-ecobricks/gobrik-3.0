@@ -280,27 +280,28 @@ require_once ("../includes/brikchain-inc.php");
 
 
 			<br><br>
-	<div class="page-paragraph-reg">
-    <div class="row">
-        <div class="main2">
-            <h3 data-lang-id="043-more-accounting-header">More Accounting!</h3>
+<!--	<div class="page-paragraph-reg">
+        <div class="row">
+            <div class="main2">
+                <h3 data-lang-id="043-more-accounting-header">More Accounting!</h3>
 
-            <p data-lang-id="044-accounting-intro">Who said accounting is boring?  We believe that accounting done right is far more than just financials.  Every year we not only count our coins, but also the very species we host in our spaces. We also account for our give and take of plastic and CO2.</p>
+                <p data-lang-id="044-accounting-intro">Who said accounting is boring?  We believe that accounting done right is far more than just financials.  Every year we not only count our coins, but also the very species we host in our spaces. We also account for our give and take of plastic and CO2.</p>
 
-            <p data-lang-id="045-financial-transactions">🟢 All our financial transaction are maintained in our <a href="open-books.php" data-lang-id="046-open-books-link">Open Books</a> accounting system.</p>
+                <p data-lang-id="045-financial-transactions">🟢 All our financial transaction are maintained in our <a href="open-books.php" data-lang-id="046-open-books-link">Open Books</a> accounting system.</p>
 
-            <p data-lang-id="047-ecological-accounting">🟢 Our ecological accounting is disclosed separately in our <a href="regenreports" data-lang-id="048-annual-regen-reports-link">annual regenerative reports</a>.</p>
+                <p data-lang-id="047-ecological-accounting">🟢 Our ecological accounting is disclosed separately in our <a href="regenreports" data-lang-id="048-annual-regen-reports-link">annual regenerative reports</a>.</p>
+            </div>
+
+            <div class="side2">
+                <br><img src="../icons/eco-accounting-icon-from-ecobricks-org.svg?v=5" width="77%" padding="15%" alt="ecological accounting" loading="lazy">
+            </div>
         </div>
+        <p data-lang-id="049-earthen-ethics">Our accounting is grounded in the principles of Earthen Ethics.  Learn more about our principles of financial and ecological energy management, ecological accounting and disclosure.</p><br><br>
 
-        <div class="side2">
-            <br><img src="../icons/eco-accounting-icon-from-ecobricks-org.svg?v=5" width="77%" padding="15%" alt="ecological accounting" loading="lazy">
-        </div>
+        <a class="action-btn" href="https://ecobricks.org/principles.php" data-lang-id="051-our-principles-btn">🚀 Our Principles</a>
+        <p style="font-size: 0.85em; margin-top:20px;" data-lang-id="052-guided-by-principles">Our Accounting is guided by our regenerative principles</p>
     </div>
-    <p data-lang-id="049-earthen-ethics">Our accounting is grounded in the principles of Earthen Ethics.  Learn more about our principles of financial and ecological energy management, ecological accounting and disclosure.</p><br><br>
-
-    <a class="action-btn" href="https://ecobricks.org/principles.php" data-lang-id="051-our-principles-btn">🚀 Our Principles</a>
-    <p style="font-size: 0.85em; margin-top:20px;" data-lang-id="052-guided-by-principles">Our Accounting is guided by our regenerative principles</p>
-</div>
+-->
 <br>
 
 	</DIV>

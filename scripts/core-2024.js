@@ -43,7 +43,7 @@ document.addEventListener("scroll", function() {
 //        document.getElementById("main-header-buttons").style.marginTop = "0px";
         document.getElementById("language-menu-slider").style.top = "-15px";  
         document.getElementById("login-menu-slider").style.top = "-15px";
-        document.getElementById("top-page-image").style.zIndex = "35";
+        document.querySelector(".top-page-image").style.zIndex = "35";
 
 
 
@@ -64,11 +64,7 @@ function scrollMoreThan40() {
 //        document.getElementById("main-header-buttons").style.marginTop = "-5px";
         document.getElementById("language-menu-slider").style.top = "-35px";  
         document.getElementById("login-menu-slider").style.top = "-35px";
-                document.getElementById("top-page-image").style.zIndex = "25";
-
-
-
-
+        document.querySelector(".top-page-image").style.zIndex = "25";
     }
 }
 

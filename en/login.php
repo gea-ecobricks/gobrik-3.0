@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT -->
-   <div id="top-page-image" class="earth-community top-page-image"></div>
+   <div class="earth-community top-page-image"></div>
 
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
@@ -128,5 +128,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <!-- FOOTER STARTS HERE -->
 <?php require_once ("../footer-2024.php");?>
+<script>
+
+    let lastScrollTop = 0;
+
+     window.onscroll = function() {
+            scrollLessThan41();
+            scrollMoreThan41();
+            // showHideHeader();
+        };
+
+        function scrollLessThan41() {
+    if (window.pageYOffset <= 41) {
+            document.getElementById("top-page-image").style.zIndex = "35";
+}
+
+function scrollMoreThan41() {
+    if (window.pageYOffset >= 41) {
+                    document.getElementById("top-page-image").style.zIndex = "25";
+}
+
+ </script>
+
+
 </body>
 </html>

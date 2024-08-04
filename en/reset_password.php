@@ -34,16 +34,16 @@ if ($email) {
         $user = $result->fetch_assoc();
 
         if ($user) {
-            // Generate a new password (for demonstration purposes)
-            $newPassword = bin2hex(random_bytes(4)); // Generates a random 8-character password
-            $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+            // Generate a unique token
+            $password_reset_token = bin2hex(random_bytes(16)); // Generates a random 32-character token
+            $password_reset_deadline = date('Y-m-d H:i:s', strtotime('+10 minutes'));
 
-            // Update the user's password in the database
-            $stmt = $buwana_conn->prepare("UPDATE users SET password = ? WHERE email = ?");
-            $stmt->bind_param("ss", $hashedPassword, $email);
+            // Update the user's password reset token and deadline in the database
+            $stmt = $buwana_conn->prepare("UPDATE users_tb SET password_reset_token = ?, password_reset_deadline = ? WHERE email = ?");
+            $stmt->bind_param("sss", $password_reset_token, $password_reset_deadline, $email);
             $stmt->execute();
 
-            // Send the new password to the user's email
+            // Send the password reset link to the user's email
             $mail = new PHPMailer(true);
             try {
                 $mail->isSMTP();
@@ -61,21 +61,21 @@ if ($email) {
                 // Content
                 $mail->isHTML(true); // Set email format to HTML
                 $mail->Subject = 'Password Reset';
-                $mail->Body    = "Your new password is: $newPassword";
+                $mail->Body    = "Please click the following link to reset your password: <a href='https://beta.gobrik.com/{$lang}/password-reset.php?token={$password_reset_token}'>Reset Password</a>";
 
                 $mail->send();
-                echo '<script>alert("An email with your password has been sent!"); window.location.href = "login.php";</script>';
+                echo '<script>alert("An email with your password reset link has been sent!"); window.location.href = "../' . $lang . '/login.php";</script>';
             } catch (Exception $e) {
-                echo '<script>alert("Message could not be sent. Mailer Error: ' . $mail->ErrorInfo . '"); window.location.href = "login.php";</script>';
+                echo '<script>alert("Message could not be sent. Mailer Error: ' . $mail->ErrorInfo . '"); window.location.href = "../' . $lang . '/login.php";</script>';
             }
         } else {
-            echo '<script>alert("Email not found!"); window.location.href = "login.php";</script>';
+            echo '<script>alert("Sorry! There\'s no account with that email on GoBrik."); window.location.href = "../' . $lang . '/login.php";</script>';
         }
     } catch (Exception $e) {
         echo 'Error: ' . $e->getMessage();
     }
 } else {
-    echo '<script>alert("Please enter a valid email address."); window.location.href = "login.php";</script>';
+    echo '<script>alert("Please enter a valid email address."); window.location.href = "../' . $lang . '/login.php";</script>';
 }
 
 // Close the database connection

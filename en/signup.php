@@ -1,20 +1,29 @@
 <?php
+// Turn on or off error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Start the session before any output
+session_start();
+
+// Check if user is logged in and session active
+if (isset($_SESSION['buwana_id'])) {
+    header('Location: dashboard.php');
+    exit();
+}
+
+// Grab language directory from URL
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.47';
-$page = 'signup';
+$version = '0.583';
+$page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
+// Echo the HTML structure
 echo '<!DOCTYPE html>
-<html lang="' . $lang . '">
+<html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">
 <head>
 <meta charset="UTF-8">
 ';
-?>
-
-<?php
-session_start();
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 $success = false;
 

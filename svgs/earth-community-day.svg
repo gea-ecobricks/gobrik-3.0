@@ -8,7 +8,7 @@
    viewBox="0 0 156.42 63.157"
    id="svg93062"
    sodipodi:docname="earth-community-day.svg"
-   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   inkscape:version="1.3.2 (1:1.3.2+202404261509+091e20ef0f)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -27,9 +27,9 @@
      showgrid="false"
      inkscape:zoom="0.98867371"
      inkscape:cx="202.29121"
-     inkscape:cy="119.35181"
-     inkscape:window-width="1503"
-     inkscape:window-height="934"
+     inkscape:cy="119.85754"
+     inkscape:window-width="1803"
+     inkscape:window-height="1125"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -131,7 +131,7 @@
   </defs>
   <path
      id="path95385"
-     style="opacity:0.8;fill:#00ffff;stroke:none;stroke-width:0.0677481;stroke-linecap:round"
+     style="opacity:1;fill:#00ffff;stroke:none;stroke-width:0.0677481;stroke-linecap:round"
      inkscape:label="blue sky"
      d="m 148.16172,23.986174 c 0,13.927346 -34.91179,33.053679 -70.516326,33.053678 -35.604539,0 -71.1907482,-18.149789 -71.1907482,-32.077134 0,-13.927345 35.4213682,-22.6983487 71.0259062,-22.6983487 35.604538,-8e-7 70.681168,7.7944587 70.681168,21.7218047 z"
      sodipodi:nodetypes="sssss" />

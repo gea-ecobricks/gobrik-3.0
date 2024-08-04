@@ -54,12 +54,18 @@ function showModalInfo(type) {
     switch (type) {
         case 'reset':
             content = `
-                <img src="../pngs/exchange-bird.png" alt="Reset Password" height="250px" width="250px" class="preview-image">
-                <div class="preview-title">Reset Password</div>
-                <form id="resetPasswordForm" action="../scripts/reset_password.php" method="POST" onsubmit="return validateForm()">
+                <div style=\"text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;\">
+                    <h1>🔓</h1>
+                 </div>
+
+<div class="preview-title">Reset Password</div>
+                <form id="resetPasswordForm" action="../reset_password.php" method="POST" onsubmit="return validateForm()">
                     <div class="preview-text">Enter your email to reset your password:</div>
                     <input type="email" name="email" required>
-                    <button type="submit" class=\"submit-button enabled\">Reset Password</button>
+                    <div style=\"text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;\">
+                        <button type="submit" class=\"submit-button enabled\">Reset Password</button>
+                    </div>
+
                 </form>
             `;
             break;

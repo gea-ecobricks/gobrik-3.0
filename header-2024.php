@@ -68,9 +68,11 @@
 
 
 
-<script src="../scripts/language-switcher.js?v=<?php echo ($version); ;?>"></script>-->
+<script src="../scripts/language-switcher.js?v=<?php echo ($version); ;?>"></script>
 
 <script>
+
+
 /*ROLL CALL*/
 
 window.onload = function() {
@@ -263,9 +265,9 @@ display: none;
 
 
 
+
 </HEAD>
 
-<!-- MAIN CONTENT -->
 
 <BODY>
 

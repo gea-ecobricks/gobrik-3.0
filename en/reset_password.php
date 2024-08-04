@@ -67,7 +67,7 @@ if ($email) {
                 $mail->Host = 'ecobricks.org'; // Set the SMTP server to send through
                 $mail->SMTPAuth = true;
                 $mail->Username = 'gobrik@ecobricks.org'; // SMTP username
-                $mail->Password = '1Welcome!'; // SMTP password
+                $mail->Password = '1Welcome!111'; // SMTP password
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Enable SSL encryption
                 $mail->Port = 465; // TCP port to connect to
 

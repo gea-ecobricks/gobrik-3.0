@@ -29,7 +29,6 @@ echo '<!DOCTYPE html>
 
 <script>
 
-            let lastScrollTop = 0;
 
     window.onscroll = function() {
         scrollLessThan30();
@@ -66,17 +65,13 @@ function validatePassword(isValid) {
         passwordErrorDiv.style.display = 'none';
     }
 }
-<!-- Modal HTML -->
-<div id="form-modal-message" class="modal">
-    <div id="modal-content-box" class="modal-content">
-        <div id="modal-photo-box" class="modal-photo-box"></div>
-        <div class="modal-message"></div>
-        <button onclick="closeModal()">Close</button>
-    </div>
-</div>
 
-<!-- Include this in your existing JavaScript -->
-<script>
+
+
+
+
+
+
 function showModalInfo(type) {
     const modal = document.getElementById('form-modal-message');
     const photobox = document.getElementById('modal-photo-box');
@@ -129,7 +124,11 @@ document.addEventListener("DOMContentLoaded", function() {
         alert(errorType);
     }
 });
-</script>
+
+
+
+
+
 
 
 // Form submission validation

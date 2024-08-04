@@ -1,9 +1,7 @@
-
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-
 
 require '../vendor/autoload.php'; // Include Composer's autoloader
 
@@ -57,12 +55,14 @@ if ($email) {
             // Send the password reset link to the user's email
             $mail = new PHPMailer(true);
             try {
+                //Server settings
+                $mail->SMTPDebug = 2; // Enable verbose debug output
                 $mail->isSMTP();
                 $mail->Host = 'ecobricks.org'; // Set the SMTP server to send through
                 $mail->SMTPAuth = true;
                 $mail->Username = 'gobrik@ecobricks.org'; // SMTP username
                 $mail->Password = '1Welcome!'; // SMTP password
-                $mail->SMTPSecure = 'tls'; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Enable SSL encryption
                 $mail->Port = 465; // TCP port to connect to
 
                 // Recipients
@@ -92,4 +92,3 @@ if ($email) {
 // Close the database connection
 $buwana_conn->close();
 ?>
-

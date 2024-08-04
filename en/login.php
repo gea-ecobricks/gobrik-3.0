@@ -14,7 +14,7 @@ if (isset($_SESSION['buwana_id'])) {
 
 // Grab language directory from URL
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.581';
+$version = '0.582';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -59,7 +59,7 @@ function showModalInfo(type) {
                 <form id="resetPasswordForm" action="../scripts/reset_password.php" method="POST" onsubmit="return validateForm()">
                     <div class="preview-text">Enter your email to reset your password:</div>
                     <input type="email" name="email" required>
-                    <button type="submit">Reset Password</button>
+                    <button type="submit" class=\"submit-button enabled\">Reset Password</button>
                 </form>
             `;
             break;

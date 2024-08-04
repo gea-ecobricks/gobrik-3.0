@@ -28,7 +28,7 @@ echo '<!DOCTYPE html>
 
 
 <script>
-    let lastScrollTop2 = 0;
+    let lastScrollTop = 0;
 
     window.onscroll = function() {
         scrollLessThan30();

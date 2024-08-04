@@ -43,14 +43,14 @@ if ($email) {
         if ($result_email) {
             // Generate a unique token
             $password_reset_token = bin2hex(random_bytes(16)); // Generates a random 32-character token
-            $password_reset_deadline = date('Y-m-d H:i:s', strtotime('+10 minutes'));
+            $password_reset_expires = date('Y-m-d H:i:s', strtotime('+10 minutes'));
 
             // Update the user's password reset token and deadline in the database
-            $stmt = $buwana_conn->prepare("UPDATE users_tb SET password_reset_token = ?, password_reset_deadline = ? WHERE email = ?");
+            $stmt = $buwana_conn->prepare("UPDATE users_tb SET password_reset_token = ?, password_reset_expires = ? WHERE email = ?");
             if (!$stmt) {
                 throw new Exception("Prepare statement failed: " . $buwana_conn->error);
             }
-            $stmt->bind_param("sss", $password_reset_token, $password_reset_deadline, $email);
+            $stmt->bind_param("sss", $password_reset_token, $password_reset_expires, $email);
             $stmt->execute();
             $stmt->close();
 

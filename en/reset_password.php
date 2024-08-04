@@ -52,11 +52,17 @@ if ($email) {
             $stmt->execute();
             $stmt->close();
 
+            // Capture PHPMailer debug output
+            ob_start();
+
             // Send the password reset link to the user's email
             $mail = new PHPMailer(true);
             try {
                 //Server settings
                 $mail->SMTPDebug = 2; // Enable verbose debug output
+                $mail->Debugoutput = function($str, $level) {
+                    echo "Debug level $level; message: $str\n";
+                };
                 $mail->isSMTP();
                 $mail->Host = 'ecobricks.org'; // Set the SMTP server to send through
                 $mail->SMTPAuth = true;
@@ -79,6 +85,11 @@ if ($email) {
             } catch (Exception $e) {
                 echo '<script>alert("Message could not be sent. Mailer Error: ' . $mail->ErrorInfo . '"); window.location.href = "../' . $lang . '/login.php";</script>';
             }
+
+            // Get the debug output and save it to a log file
+            $debug_output = ob_get_clean();
+            file_put_contents('mailer-logfile.log', $debug_output, FILE_APPEND);
+
         } else {
             echo '<script>alert("Sorry! There\'s no account with that email on GoBrik."); window.location.href = "../' . $lang . '/login.php";</script>';
         }

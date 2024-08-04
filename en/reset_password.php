@@ -64,7 +64,7 @@ if ($email) {
                     echo "Debug level $level; message: $str\n";
                 };
                 $mail->isSMTP();
-                $mail->Host = 'ecobricks.org'; // Set the SMTP server to send through
+                $mail->Host = 'smtp.ecobricks.org'; // Set the SMTP server to send through
                 $mail->SMTPAuth = true;
                 $mail->Username = 'gobrik@ecobricks.org'; // SMTP username
                 $mail->Password = '1Welcome!'; // SMTP password
@@ -83,16 +83,13 @@ if ($email) {
                 $mail->send();
                 echo '<script>alert("An email with your password reset link has been sent!"); window.location.href = "../' . $lang . '/login.php";</script>';
             } catch (Exception $e) {
+                $debug_output = ob_get_clean();
+                $debug_output = htmlspecialchars($debug_output, ENT_QUOTES); // Sanitize output for JavaScript
+                echo "<script>console.error('SMTP Debug Output:\\n$debug_output');</script>";
                 echo '<script>alert("Message could not be sent. Mailer Error: ' . $mail->ErrorInfo . '"); window.location.href = "../' . $lang . '/login.php";</script>';
             }
-
-            // Get the debug output and log it to the console
-            $debug_output = ob_get_clean();
-            $debug_output = htmlspecialchars($debug_output, ENT_QUOTES); // Sanitize output for JavaScript
-            echo "<script>console.log('SMTP Debug Output:\\n$debug_output');</script>";
-
         } else {
-            echo '<script>alert("Sorry! There\'s no account with that email on GoBrik."); window.location.href = "../' . $lang . '/login.php";</script>';
+            echo '<script>document.getElementById("no-buwana-email").style.display = "block";</script>';
         }
     } catch (Exception $e) {
         echo "<script>console.error('Error: " . $e->getMessage() . "');</script>";

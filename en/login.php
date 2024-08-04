@@ -64,6 +64,7 @@ function showModalInfo(type) {
                     <input type="email" name="email" required>
                     <div style=\"text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;\">
                         <button type="submit" class=\"submit-button enabled\">Reset Password</button>
+                        <div id="no-buwana-email" class="form-warning" style="margin-top:10px;margin-bottom:-13px;" data-lang-id="010-no-buwana-email">🌏 It looks like this email is not being used!</div>
                     </div>
 
                 </form>

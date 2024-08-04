@@ -17,6 +17,9 @@ document.addEventListener("scroll", function() {
   });
 
 
+
+        let lastScrollTop = 0;
+
         window.onscroll = function() {
             scrollLessThan40();
             scrollMoreThan40();

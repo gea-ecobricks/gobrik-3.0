@@ -58,12 +58,12 @@ if ($email) {
             $mail = new PHPMailer(true);
             try {
                 $mail->isSMTP();
-                $mail->Host = 'smtp.ecobricks.org'; // Set the SMTP server to send through
+                $mail->Host = 'ecobricks.org'; // Set the SMTP server to send through
                 $mail->SMTPAuth = true;
                 $mail->Username = 'gobrik@ecobricks.org'; // SMTP username
                 $mail->Password = '1Welcome!'; // SMTP password
                 $mail->SMTPSecure = 'tls'; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
-                $mail->Port = 587; // TCP port to connect to
+                $mail->Port = 465; // TCP port to connect to
 
                 // Recipients
                 $mail->setFrom('gobrik@ecobricks.org', 'GoBrik');

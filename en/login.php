@@ -66,13 +66,21 @@ function validatePassword(isValid) {
         passwordErrorDiv.style.display = 'none';
     }
 }
+<!-- Modal HTML -->
+<div id="form-modal-message" class="modal">
+    <div id="modal-content-box" class="modal-content">
+        <div id="modal-photo-box" class="modal-photo-box"></div>
+        <div class="modal-message"></div>
+        <button onclick="closeModal()">Close</button>
+    </div>
+</div>
 
-// Function to show modal information
+<!-- Include this in your existing JavaScript -->
+<script>
 function showModalInfo(type) {
     const modal = document.getElementById('form-modal-message');
     const photobox = document.getElementById('modal-photo-box');
     const messageContainer = modal.querySelector('.modal-message');
-    const modalBox = document.getElementById('modal-content-box');
     let content = '';
     photobox.style.display = 'none';
     switch (type) {
@@ -80,7 +88,11 @@ function showModalInfo(type) {
             content = `
                 <img src="../pngs/exchange-bird.png" alt="Reset Password" height="250px" width="250px" class="preview-image">
                 <div class="preview-title">Reset Password</div>
-                <div class="preview-text">Oops! This function is not yet operational. Create another account for the moment as all accounts will be deleted once we migrate from beta to live.</div>
+                <form id="resetPasswordForm" action="reset_password.php" method="POST" onsubmit="return validateForm()">
+                    <div class="preview-text">Enter your email to reset your password:</div>
+                    <input type="email" name="email" required>
+                    <button type="submit">Reset Password</button>
+                </form>
             `;
             break;
         default:
@@ -94,13 +106,31 @@ function showModalInfo(type) {
     document.body.classList.add('modal-open');
 }
 
-// Check if there's an error message and show the error div if needed
+function closeModal() {
+    const modal = document.getElementById('form-modal-message');
+    modal.style.display = 'none';
+    document.getElementById('page-content').classList.remove('blurred');
+    document.getElementById('footer-full').classList.remove('blurred');
+    document.body.classList.remove('modal-open');
+}
+
+function validateForm() {
+    const email = document.querySelector('input[name="email"]').value;
+    if (!email) {
+        alert('Please enter a valid email address.');
+        return false;
+    }
+    return true;
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     const errorType = "<?php echo isset($_GET['error']) ? htmlspecialchars($_GET['error']) : ''; ?>";
-    if (errorType === "invalid_password") {
-        validatePassword(false);
+    if (errorType) {
+        alert(errorType);
     }
 });
+</script>
+
 
 // Form submission validation
 document.addEventListener("DOMContentLoaded", function() {

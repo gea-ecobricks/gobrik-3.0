@@ -28,16 +28,16 @@ echo '<!DOCTYPE html>
 
 
 <script>
-    let lastScrollTop = 0;
+    let lastScrollTop2 = 0;
 
     window.onscroll = function() {
-        scrollLessThan41();
-        scrollMoreThan41();
+        scrollLessThan30();
+        scrollMoreThan30();
         // showHideHeader();
     };
 
     function scrollLessThan41() {
-        if (window.pageYOffset <= 41) {
+        if (window.pageYOffset <= 30) {
             var topPageImage = document.getElementById("top-page-image");
             if (topPageImage) {
                 topPageImage.style.zIndex = "35";
@@ -45,8 +45,8 @@ echo '<!DOCTYPE html>
         }
     }
 
-    function scrollMoreThan41() {
-        if (window.pageYOffset >= 41) {
+    function scrollMoreThan30() {
+        if (window.pageYOffset >= 30) {
             var topPageImage = document.getElementById("top-page-image");
             if (topPageImage) {
                 topPageImage.style.zIndex = "25";
@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         <div style="text-align:center;width:100%;margin:auto;">
             <h3 data-lang-id="001-login-heading">Welcome back!</h3>
-            <h4 data-lang-id="002-login-subheading" style="margin-top:5px, margin-bottom:5px;">Login with your GoBrik or Buwana account credentials.</h4>
+            <h4 data-lang-id="002-login-subheading" style="margin-top:5px, margin-bottom:5px;">Login with your account credentials.</h4>
         </div>
 
         <!-- Login form -->

@@ -1,6 +1,8 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+
 
 require '../vendor/autoload.php'; // Include Composer's autoloader
 
@@ -27,13 +29,14 @@ $email = isset($_POST['email']) ? trim($_POST['email']) : '';
 if ($email) {
     try {
         // Check if email exists in the database
-        $stmt = $buwana_conn->prepare("SELECT * FROM users_tb WHERE email = ?");
+        $stmt = $buwana_conn->prepare("SELECT email FROM users_tb WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
-        $result = $stmt->get_result();
-        $user = $result->fetch_assoc();
+        $stmt->bind_result($result_email);
+        $stmt->fetch();
+        $stmt->close();
 
-        if ($user) {
+        if ($result_email) {
             // Generate a unique token
             $password_reset_token = bin2hex(random_bytes(16)); // Generates a random 32-character token
             $password_reset_deadline = date('Y-m-d H:i:s', strtotime('+10 minutes'));
@@ -42,6 +45,7 @@ if ($email) {
             $stmt = $buwana_conn->prepare("UPDATE users_tb SET password_reset_token = ?, password_reset_deadline = ? WHERE email = ?");
             $stmt->bind_param("sss", $password_reset_token, $password_reset_deadline, $email);
             $stmt->execute();
+            $stmt->close();
 
             // Send the password reset link to the user's email
             $mail = new PHPMailer(true);

@@ -1,3 +1,4 @@
+
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -30,6 +31,9 @@ if ($email) {
     try {
         // Check if email exists in the database
         $stmt = $buwana_conn->prepare("SELECT email FROM users_tb WHERE email = ?");
+        if (!$stmt) {
+            throw new Exception("Prepare statement failed: " . $buwana_conn->error);
+        }
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $stmt->bind_result($result_email);
@@ -43,6 +47,9 @@ if ($email) {
 
             // Update the user's password reset token and deadline in the database
             $stmt = $buwana_conn->prepare("UPDATE users_tb SET password_reset_token = ?, password_reset_deadline = ? WHERE email = ?");
+            if (!$stmt) {
+                throw new Exception("Prepare statement failed: " . $buwana_conn->error);
+            }
             $stmt->bind_param("sss", $password_reset_token, $password_reset_deadline, $email);
             $stmt->execute();
             $stmt->close();
@@ -85,3 +92,4 @@ if ($email) {
 // Close the database connection
 $buwana_conn->close();
 ?>
+

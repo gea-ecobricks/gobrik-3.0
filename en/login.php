@@ -27,6 +27,34 @@ echo '<!DOCTYPE html>
 ?>
 
 
+<script>
+
+            let lastScrollTop = 0;
+
+    window.onscroll = function() {
+        scrollLessThan30();
+        scrollMoreThan30();
+        // showHideHeader();
+    };
+
+    function scrollLessThan30() {
+        if (window.pageYOffset <= 30) {
+    var topPageImage = document.querySelector('.top-page-image');
+                if (topPageImage) {
+                topPageImage.style.zIndex = "35";
+            }
+        }
+    }
+
+    function scrollMoreThan30() {
+        if (window.pageYOffset >= 30) {
+    var topPageImage = document.querySelector('.top-page-image');
+                if (topPageImage) {
+                topPageImage.style.zIndex = "25";
+            }
+        }
+    }
+</script>
 
 <script>
 // Function to validate password
@@ -138,34 +166,6 @@ document.addEventListener("DOMContentLoaded", function() {
 <?php require_once ("../footer-2024.php");?>
 
 
-<script>
-
-            let lastScrollTop = 0;
-
-    window.onscroll = function() {
-        scrollLessThan30();
-        scrollMoreThan30();
-        // showHideHeader();
-    };
-
-    function scrollLessThan30() {
-        if (window.pageYOffset <= 30) {
-    var topPageImage = document.querySelector('.top-page-image');
-                if (topPageImage) {
-                topPageImage.style.zIndex = "35";
-            }
-        }
-    }
-
-    function scrollMoreThan30() {
-        if (window.pageYOffset >= 30) {
-    var topPageImage = document.querySelector('.top-page-image');
-                if (topPageImage) {
-                topPageImage.style.zIndex = "25";
-            }
-        }
-    }
-</script>
 
 </body>
 </html>

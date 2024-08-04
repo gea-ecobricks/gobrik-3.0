@@ -140,6 +140,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <script>
 
+            let lastScrollTop = 0;
+
     window.onscroll = function() {
         scrollLessThan30();
         scrollMoreThan30();

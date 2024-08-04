@@ -28,7 +28,7 @@ echo '<!DOCTYPE html>
 
 
 <script>
-    let lastScrollTop = 0;
+    let lastScrollTop2 = 0;
 
     window.onscroll = function() {
         scrollLessThan30();
@@ -36,10 +36,10 @@ echo '<!DOCTYPE html>
         // showHideHeader();
     };
 
-    function scrollLessThan41() {
+    function scrollLessThan30() {
         if (window.pageYOffset <= 30) {
-            var topPageImage = document.getElementById("top-page-image");
-            if (topPageImage) {
+    var topPageImage = document.querySelector('.top-page-image');
+                if (topPageImage) {
                 topPageImage.style.zIndex = "35";
             }
         }
@@ -47,8 +47,8 @@ echo '<!DOCTYPE html>
 
     function scrollMoreThan30() {
         if (window.pageYOffset >= 30) {
-            var topPageImage = document.getElementById("top-page-image");
-            if (topPageImage) {
+    var topPageImage = document.querySelector('.top-page-image');
+                if (topPageImage) {
                 topPageImage.style.zIndex = "25";
             }
         }

@@ -59,7 +59,7 @@ function showModalInfo(type) {
                  </div>
 
 <div class="preview-title">Reset Password</div>
-                <form id="resetPasswordForm" action="../reset_password.php" method="POST" onsubmit="return validateForm()">
+                <form id="resetPasswordForm" action="reset_password.php" method="POST" onsubmit="return validateForm()">
                     <div class="preview-text">Enter your email to reset your password:</div>
                     <input type="email" name="email" required>
                     <div style=\"text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;\">

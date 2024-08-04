@@ -27,33 +27,6 @@ echo '<!DOCTYPE html>
 ?>
 
 
-<script>
-
-
-    window.onscroll = function() {
-        scrollLessThan30();
-        scrollMoreThan30();
-        // showHideHeader();
-    };
-
-    function scrollLessThan30() {
-        if (window.pageYOffset <= 30) {
-    var topPageImage = document.querySelector('.top-page-image');
-                if (topPageImage) {
-                topPageImage.style.zIndex = "35";
-            }
-        }
-    }
-
-    function scrollMoreThan30() {
-        if (window.pageYOffset >= 30) {
-    var topPageImage = document.querySelector('.top-page-image');
-                if (topPageImage) {
-                topPageImage.style.zIndex = "25";
-            }
-        }
-    }
-</script>
 
 <script>
 // Function to validate password
@@ -83,7 +56,7 @@ function showModalInfo(type) {
             content = `
                 <img src="../pngs/exchange-bird.png" alt="Reset Password" height="250px" width="250px" class="preview-image">
                 <div class="preview-title">Reset Password</div>
-                <form id="resetPasswordForm" action="reset_password.php" method="POST" onsubmit="return validateForm()">
+                <form id="resetPasswordForm" action="../scripts/reset_password.php" method="POST" onsubmit="return validateForm()">
                     <div class="preview-text">Enter your email to reset your password:</div>
                     <input type="email" name="email" required>
                     <button type="submit">Reset Password</button>
@@ -195,6 +168,33 @@ document.addEventListener("DOMContentLoaded", function() {
 <?php require_once ("../footer-2024.php");?>
 
 
+<script>
+
+
+    window.onscroll = function() {
+        scrollLessThan30();
+        scrollMoreThan30();
+        // showHideHeader();
+    };
+
+    function scrollLessThan30() {
+        if (window.pageYOffset <= 30) {
+    var topPageImage = document.querySelector('.top-page-image');
+                if (topPageImage) {
+                topPageImage.style.zIndex = "35";
+            }
+        }
+    }
+
+    function scrollMoreThan30() {
+        if (window.pageYOffset >= 30) {
+    var topPageImage = document.querySelector('.top-page-image');
+                if (topPageImage) {
+                topPageImage.style.zIndex = "25";
+            }
+        }
+    }
+</script>
 
 </body>
 </html>

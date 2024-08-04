@@ -81,7 +81,7 @@
 
     <div class="footer-bottom">
         <div class="footer-conclusion">
-            <div class="row">
+            <div class="row" style="overflow-x: clip;"> <!--FIX: This should be fixed to no overflow-->
 
                 <div class="virtue" data-lang-id="416-banner-earth-enterprise">
                     <a href="https://ecobricks.org/about" target="_blank"><img src="../webps/banners/forearth-dark-350px.webp" style="width:300px" alt="Click to learn more about our Earth Enterprise structure" loading="lazy" title="Learn more about our Earth Enterprise structure"></a>

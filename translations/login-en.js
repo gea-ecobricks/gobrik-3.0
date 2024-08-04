@@ -13,7 +13,7 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 
 const en_Page_Translations = {
     "001-login-heading": "Welcome back!",
-    "002-login-subheading": "Login with your GoBrik or Buwana account credentials.",
+    "002-login-subheading": "Login with your account credentials.",
     "003-login-email": "<input type=\"text\" id=\"credential_key\" name=\"credential_key\" required placeholder=\"Your e-mail...\">",
     "004-login-password": " <input type=\"password\" id=\"password\" name=\"password\" required placeholder=\"Your password..\">",
     "005-forgot-password": "<p class=\"form-caption\">Forget your password? <a href=\"#\" onclick=\"showModalInfo('reset')\" class=\"underline-link\">Reset it.</a></p>",

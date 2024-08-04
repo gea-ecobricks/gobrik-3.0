@@ -122,7 +122,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <div style="text-align:center;width:100%;margin:auto;">
             <h3 data-lang-id="001-signup-heading">Create Your Account</h3>
-            <h4 data-lang-id="002-gobrik-subtext2">GoBrik uses Buwana accounts-- an open source, Earth-first alternative to corporate logins.  Buwana will soon work for other regenerative apps.</h4>
+            <h4 data-lang-id="002-gobrik-subtext2">GoBrik uses Buwana accounts— an open source, for-Earth alternative to corporate logins.</h4>
         </div>
 
        <!--SIGNUP FORM-->

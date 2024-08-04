@@ -238,6 +238,36 @@ document.getElementById('user-signup-form').addEventListener('submit', function(
 </script>
 
 
+<script>
+    let lastScrollTop = 0;
+
+    window.onscroll = function() {
+        scrollLessThan41();
+        scrollMoreThan41();
+        // showHideHeader();
+    };
+
+    function scrollLessThan41() {
+        if (window.pageYOffset <= 41) {
+            var topPageImage = document.getElementById("top-page-image");
+            if (topPageImage) {
+                topPageImage.style.zIndex = "35";
+            }
+        }
+    }
+
+    function scrollMoreThan41() {
+        if (window.pageYOffset >= 41) {
+            var topPageImage = document.getElementById("top-page-image");
+            if (topPageImage) {
+                topPageImage.style.zIndex = "25";
+            }
+        }
+    }
+</script>
+
+
+
 </body>
 
 </html>

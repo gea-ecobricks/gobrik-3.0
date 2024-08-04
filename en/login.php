@@ -83,27 +83,6 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
-<script>
-
-    let lastScrollTop = 0;
-
-     window.onscroll = function() {
-            scrollLessThan41();
-            scrollMoreThan41();
-            // showHideHeader();
-        };
-
-        function scrollLessThan41() {
-    if (window.pageYOffset <= 41) {
-            document.getElementById("top-page-image").style.zIndex = "35";
-}
-
-function scrollMoreThan41() {
-    if (window.pageYOffset >= 41) {
-                    document.getElementById("top-page-image").style.zIndex = "25";
-}
-
- </script>
 
 
 <?php require_once ("../includes/login-inc.php");?>

@@ -67,7 +67,7 @@ if ($email) {
                 $mail->Host = 'ecobricks.org'; // Set the SMTP server to send through
                 $mail->SMTPAuth = true;
                 $mail->Username = 'gobrik@ecobricks.org'; // SMTP username
-                $mail->Password = '1Welcome!111'; // SMTP password
+                $mail->Password = '1Welcome!'; // SMTP password
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Enable SSL encryption
                 $mail->Port = 465; // TCP port to connect to
 
@@ -86,15 +86,16 @@ if ($email) {
                 echo '<script>alert("Message could not be sent. Mailer Error: ' . $mail->ErrorInfo . '"); window.location.href = "../' . $lang . '/login.php";</script>';
             }
 
-            // Get the debug output and save it to a log file
+            // Get the debug output and log it to the console
             $debug_output = ob_get_clean();
-            file_put_contents('mailer-logfile.log', $debug_output, FILE_APPEND);
+            $debug_output = htmlspecialchars($debug_output, ENT_QUOTES); // Sanitize output for JavaScript
+            echo "<script>console.log('SMTP Debug Output:\\n$debug_output');</script>";
 
         } else {
             echo '<script>alert("Sorry! There\'s no account with that email on GoBrik."); window.location.href = "../' . $lang . '/login.php";</script>';
         }
     } catch (Exception $e) {
-        echo 'Error: ' . $e->getMessage();
+        echo "<script>console.error('Error: " . $e->getMessage() . "');</script>";
     }
 } else {
     echo '<script>alert("Please enter a valid email address."); window.location.href = "../' . $lang . '/login.php";</script>';

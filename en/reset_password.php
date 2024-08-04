@@ -27,7 +27,7 @@ $email = isset($_POST['email']) ? trim($_POST['email']) : '';
 if ($email) {
     try {
         // Check if email exists in the database
-        $stmt = $buwana_conn->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt = $buwana_conn->prepare("SELECT * FROM users_tb WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();

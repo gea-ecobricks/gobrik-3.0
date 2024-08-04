@@ -38,8 +38,8 @@ echo '<!DOCTYPE html>
 
     function scrollLessThan41() {
         if (window.pageYOffset <= 30) {
-            var topPageImage = document.getElementById("top-page-image");
-            if (topPageImage) {
+    var topPageImage = document.querySelector('.top-page-image');
+                if (topPageImage) {
                 topPageImage.style.zIndex = "35";
             }
         }
@@ -47,8 +47,8 @@ echo '<!DOCTYPE html>
 
     function scrollMoreThan30() {
         if (window.pageYOffset >= 30) {
-            var topPageImage = document.getElementById("top-page-image");
-            if (topPageImage) {
+    var topPageImage = document.querySelector('.top-page-image');
+                if (topPageImage) {
                 topPageImage.style.zIndex = "25";
             }
         }

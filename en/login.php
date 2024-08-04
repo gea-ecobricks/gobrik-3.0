@@ -1,27 +1,59 @@
 <?php
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));  //grabs language directory from url
-$version = '0.58';
-$page = 'login';
-$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
-
-echo '<!DOCTYPE html>
-<html lang="' . $lang . '">
-<head>
-<meta charset="UTF-8">
-';
-
 // Turn on or off error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Check if user is logged in and session active
+// Start the session before any output
 session_start();
+
+// Check if user is logged in and session active
 if (isset($_SESSION['buwana_id'])) {
     header('Location: dashboard.php');
     exit();
 }
+
+// Grab language directory from URL
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$version = '0.581';
+$page = 'login';
+$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+
+// Echo the HTML structure
+echo '<!DOCTYPE html>
+<html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">
+<head>
+<meta charset="UTF-8">
+';
 ?>
 
+
+<script>
+    let lastScrollTop = 0;
+
+    window.onscroll = function() {
+        scrollLessThan41();
+        scrollMoreThan41();
+        // showHideHeader();
+    };
+
+    function scrollLessThan41() {
+        if (window.pageYOffset <= 41) {
+            var topPageImage = document.getElementById("top-page-image");
+            if (topPageImage) {
+                topPageImage.style.zIndex = "35";
+            }
+        }
+    }
+
+    function scrollMoreThan41() {
+        if (window.pageYOffset >= 41) {
+            var topPageImage = document.getElementById("top-page-image");
+            if (topPageImage) {
+                topPageImage.style.zIndex = "25";
+            }
+        }
+    }
+</script>
 
 <script>
 // Function to validate password

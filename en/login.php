@@ -1,6 +1,6 @@
 <?php
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));  //grabs language directory from url
-$version = '0.581';
+$version = '0.58';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -140,12 +140,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
         function scrollLessThan41() {
     if (window.pageYOffset <= 41) {
-            document.querySelector(".top-page-image").style.zIndex = "35";
+            document.getElementById("top-page-image").style.zIndex = "35";
 }
 
 function scrollMoreThan41() {
     if (window.pageYOffset >= 41) {
-                    document.querySelector(".top-page-image").style.zIndex = "25";
+                    document.getElementById("top-page-image").style.zIndex = "25";
 }
 
  </script>

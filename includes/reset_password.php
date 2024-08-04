@@ -64,18 +64,18 @@ if ($email) {
                 $mail->Body    = "Your new password is: $newPassword";
 
                 $mail->send();
-                echo '<script>alert("An email with your password has been sent!"); window.location.href = "login.php";</script>';
+                echo '<script>alert("An email with your password has been sent!"); window.location.href = "' . $lang . '/login.php";</script>';
             } catch (Exception $e) {
-                echo '<script>alert("Message could not be sent. Mailer Error: ' . $mail->ErrorInfo . '"); window.location.href = "login.php";</script>';
+                echo '<script>alert("Message could not be sent. Mailer Error: ' . $mail->ErrorInfo . '"); window.location.href = "' . $lang . '/login.php";</script>';
             }
         } else {
-            echo '<script>alert("Email not found!"); window.location.href = "login.php";</script>';
+echo '<script>alert("Email not found!"); window.location.href = "' . $lang . '/login.php";</script>';
         }
     } catch (Exception $e) {
         echo 'Error: ' . $e->getMessage();
     }
 } else {
-    echo '<script>alert("Please enter a valid email address."); window.location.href = "login.php";</script>';
+    echo '<script>alert("Please enter a valid email address."); window.location.href = "' . $lang . '/login.php";</script>';
 }
 
 // Close the database connection

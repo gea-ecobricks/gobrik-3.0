@@ -2,7 +2,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'vendor/autoload.php'; // Include Composer's autoloader
+require '../vendor/autoload.php'; // Include Composer's autoloader
 
 // Turn on or off error reporting
 error_reporting(E_ALL);

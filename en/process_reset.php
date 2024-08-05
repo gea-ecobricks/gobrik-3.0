@@ -32,6 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($password === $confirmPassword && strlen($password) >= 6) {
             // Check if token is valid
             $stmt = $buwana_conn->prepare("SELECT email FROM users_tb WHERE password_reset_token = ?");
+            if (!$stmt) {
+                die("Prepare statement failed: " . $buwana_conn->error);
+            }
             $stmt->bind_param("s", $token);
             $stmt->execute();
             $stmt->bind_result($email);
@@ -42,6 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Update the user's password in the database
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                 $stmt = $buwana_conn->prepare("UPDATE users_tb SET password = ?, password_reset_token = NULL, password_reset_expires = NULL WHERE email = ?");
+                if (!$stmt) {
+                    die("Prepare statement failed: " . $buwana_conn->error);
+                }
                 $stmt->bind_param("ss", $hashedPassword, $email);
                 $stmt->execute();
                 $stmt->close();

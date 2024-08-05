@@ -30,8 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($token && $password && $confirmPassword) {
         if ($password === $confirmPassword && strlen($password) >= 6) {
-            // Check if token is valid and not expired
-            $stmt = $buwana_conn->prepare("SELECT email FROM users_tb WHERE password_reset_token = ? AND password_reset_expires < NOW()");
+            // Check if token is valid
+            $stmt = $buwana_conn->prepare("SELECT email FROM users_tb WHERE password_reset_token = ?");
             $stmt->bind_param("s", $token);
             $stmt->execute();
             $stmt->bind_result($email);
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo '<script>alert("Your password has been reset! You can now log in using your new password."); window.location.href = "login.php";</script>';
                 exit();
             } else {
-                echo '<script>alert("Invalid or expired token. Please try again."); window.location.href = "login.php";</script>';
+                echo '<script>alert("Invalid token. Please try again."); window.location.href = "login.php";</script>';
                 exit();
             }
         } else {

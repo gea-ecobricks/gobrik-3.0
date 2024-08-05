@@ -35,8 +35,8 @@ if ($buwana_conn->connect_error) {
 $token = isset($_GET['token']) ? trim($_GET['token']) : '';
 
 if ($token) {
-    // Check if token is valid and not expired
-    $stmt = $buwana_conn->prepare("SELECT email FROM users_tb WHERE password_reset_token = ? AND password_reset_expires > NOW()");
+    // Check if token is valid
+    $stmt = $buwana_conn->prepare("SELECT email FROM users_tb WHERE password_reset_token = ?");
     $stmt->bind_param("s", $token);
     $stmt->execute();
     $stmt->bind_result($email);
@@ -44,7 +44,7 @@ if ($token) {
     $stmt->close();
 
     if (!$email) {
-        echo '<script>alert("Invalid or expired token. Please try again."); window.location.href = "login.php";</script>';
+        echo '<script>alert("Invalid token. Please try again."); window.location.href = "login.php";</script>';
         exit();
     }
 } else {
@@ -74,7 +74,7 @@ echo '
 
         <div style="text-align:center;width:100%;margin:auto;">
             <h3>Let\'s Reset Your Password</h3>
-            <h4 style="margin-top:5px, margin-bottom:5px;">Enter your new password for your Buwana account. Be sure it is over six characters long.</h4>
+            <h4 style="margin-top:5px; margin-bottom:5px;">Enter your new password for your Buwana account. Be sure it is over six characters long.</h4>
         </div>
 
         <!-- Reset password form -->
@@ -152,4 +152,3 @@ function scrollMoreThan30() {
 </body>
 </html>';
 ?>
-

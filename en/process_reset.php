@@ -42,13 +42,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->close();
 
             if ($email) {
-                // Update the user's password in the database
+                // Update the user's password and reset token details in the database
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                $stmt = $buwana_conn->prepare("UPDATE users_tb SET password_hash = ?, password_reset_token = NULL, password_reset_expires = NULL WHERE email = ?");
+                $currentDateTime = date('Y-m-d H:i:s');
+                $stmt = $buwana_conn->prepare("UPDATE users_tb SET password_hash = ?, password_reset_token = NULL, password_reset_expires = NULL, password_last_reset_dt = ? WHERE email = ?");
                 if (!$stmt) {
                     die("Prepare statement failed: " . $buwana_conn->error);
                 }
-                $stmt->bind_param("ss", $hashedPassword, $email);
+                $stmt->bind_param("sss", $hashedPassword, $currentDateTime, $email);
                 $stmt->execute();
                 $stmt->close();
 

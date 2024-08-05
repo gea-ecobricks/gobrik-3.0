@@ -67,14 +67,14 @@ echo '
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT -->
-<div id="top-page-image" class="earth-community top-page-image"></div>
+<div id="top-page-image" class="credentials-banner top-page-image"></div>
 
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
             <h3>Let\'s Reset Your Password</h3>
-            <h4 style="margin-top:5px; margin-bottom:5px;">Enter your new password for your Buwana account. Be sure it is over six characters long.</h4>
+            <h4 style="margin-top:12px; margin-bottom:8px;">Enter your new password for your Buwana account.</h4>
         </div>
 
         <!-- Reset password form -->
@@ -83,13 +83,14 @@ echo '
             <div class="form-item">
                 <p>New password:</p>
                 <input type="password" id="password" name="password" required placeholder="Your new password...">
-                <div id="password-error" class="form-field-error" style="display:none;">👉 Password must be at least 6 characters long.</div>
+                <p class="form-caption" data-lang-id="011-six-characters">Password must be at least 6 characters long.</p>
+                <div id="password-error" class="form-field-error" style="display:none;margin-top:15px;">👉 Not long enough!</div>
             </div>
 
             <div class="form-item">
                 <p>Re-enter password to confirm:</p>
                 <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Re-enter password...">
-                <div id="confirm-password-error" class="form-field-error" style="display:none;">👉 Passwords do not match.</div>
+                <div id="confirm-password-error" class="form-field-error" style="display:none;margin-top:15px;">👉 Passwords do not match.</div>
             </div>
 
             <div style="text-align:center;">
@@ -98,7 +99,11 @@ echo '
         </form>
     </div>
     <div style="text-align:center;width:100%;margin:auto;margin-top:34px;"><p style="font-size:medium;">Already have an account? <a href="login.php">Login</a></p></div>
-</div>
+</div>';
+
+require_once ("../footer-2024.php")
+
+echo '
 
 <script>
 document.getElementById("resetForm").addEventListener("submit", function(event) {

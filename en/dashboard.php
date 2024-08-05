@@ -4,9 +4,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Set up page variables
-$directory = basename(dirname($_SERVER['SCRIPT_NAME']));
-$lang = $directory;
-$version = '0.363';
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$version = '0.364';
 $page = 'dashboard';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -102,14 +101,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <div class="splash-content-block"></div>
 <div id="splash-bar"></div>
+<div id="top-page-image" class="dolphin-pic top-page-image"></div>
 
 <!-- DASHBOARD CONTENT -->
 <div id="form-submission-box" style="height:fit-content;">
     <div class="form-container">
-        <div class="dolphin-pic" style="margin-top:-45px;background-size:contain;">
-            <img src="../webps/earth-community.webp" width="80%">
-        </div>
-
         <div style="text-align:center;width:100%;margin:auto;">
             <h2>Welcome <?php echo htmlspecialchars($first_name); ?>!</h2>
             <h3>You're logged into the brand new GoBrik 3.0!</h3>

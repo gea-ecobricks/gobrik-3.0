@@ -91,7 +91,7 @@ if ($email) {
         } else {
             echo '<script>
                     function showNoBuwanaEmail() {\
-                        alert('checking')
+                        alert(checking);
                         var noBuwanaEmail = document.getElementById("no-buwana-email");
                         if (noBuwanaEmail) {
                             noBuwanaEmail.style.display = "block";

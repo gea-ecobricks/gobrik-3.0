@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($token && $password && $confirmPassword) {
         if ($password === $confirmPassword && strlen($password) >= 6) {
             // Check if token is valid and not expired
-            $stmt = $buwana_conn->prepare("SELECT email FROM users_tb WHERE password_reset_token = ? AND password_reset_expires > NOW()");
+            $stmt = $buwana_conn->prepare("SELECT email FROM users_tb WHERE password_reset_token = ? AND password_reset_expires < NOW()");
             $stmt->bind_param("s", $token);
             $stmt->execute();
             $stmt->bind_result($email);

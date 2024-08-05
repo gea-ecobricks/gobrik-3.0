@@ -89,7 +89,7 @@ if ($email) {
                 echo '<script>alert("Message could not be sent. Mailer Error: ' . $mail->ErrorInfo . '"); window.location.href = "../' . $lang . '/login.php";</script>';
             }
         } else {
-            header('Location: ../' . $lang . '/login.php?email_not_found');
+            header('Location: ../' . $lang . '/login.php?email_not_found&email=' . urlencode($email));
             exit();
         }
     } catch (Exception $e) {

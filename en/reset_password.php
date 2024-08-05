@@ -28,13 +28,13 @@ $email = isset($_POST['email']) ? trim($_POST['email']) : '';
 if ($email) {
     try {
         // Check if email exists in the database
-        $stmt = $buwana_conn->prepare("SELECT email FROM users_tb WHERE email = ?");
+        $stmt = $buwana_conn->prepare("SELECT email, first_name FROM users_tb WHERE email = ?");
         if (!$stmt) {
             throw new Exception("Prepare statement failed: " . $buwana_conn->error);
         }
         $stmt->bind_param("s", $email);
         $stmt->execute();
-        $stmt->bind_result($result_email);
+        $stmt->bind_result($result_email, $first_name);
         $stmt->fetch();
         $stmt->close();
 
@@ -77,11 +77,20 @@ if ($email) {
 
                 // Content
                 $mail->isHTML(true); // Set email format to HTML
-                $mail->Subject = 'Password Reset';
-                $mail->Body    = "Please click the following link to reset your password: <a href='https://beta.gobrik.com/{$lang}/password-reset.php?token={$password_reset_token}'>Reset Password</a>";
+                $mail->Subject = 'Reset your GoBrik password';
+                $mail->Body    = "$first_name,<br><br>
+                A password reset was requested at " . date('Y-m-d H:i:s') . " on GoBrik.com for your Buwana account. If you didn't request this, please disregard! To reset your password, please click the following link:<br>
+                <a href='https://beta.gobrik.com/{$lang}/password-reset.php?token={$password_reset_token}'>Reset Password</a><br><br>
+                Have a great and green day!<br><br>
+                The GoBrik Team<br>
+                gobrik@ecobricks.org<br>
+                app: GoBrik.com<br>
+                news: earthen.io<br>
+                briks: ecobricks.org<br>
+                ";
 
                 $mail->send();
-                echo '<script>alert("An email with your password reset link has been sent!"); window.location.href = "../' . $lang . '/login.php";</script>';
+                echo '<script>alert("An email with a link to reset your GoBrik Buwana password has been sent!"); window.location.href = "../' . $lang . '/login.php";</script>';
             } catch (Exception $e) {
                 $debug_output = ob_get_clean();
                 $debug_output = htmlspecialchars($debug_output, ENT_QUOTES); // Sanitize output for JavaScript

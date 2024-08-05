@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             <div class="preview-text" style="font-size:medium;">Enter your email to reset your password:</div>
                             <input type="email" name="email" required value="${email}">
                             <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
-                                <div id="no-buwana-email" class="form-warning" style="margin-top:10px;margin-bottom:-13px;" data-lang-id="010-no-buwana-email">🤔 Hmmm... we can't find an account that uses this email!</div>
+                                <div id="no-buwana-email" class="form-warning" style="margin-top:5px;margin-bottom:5px;" data-lang-id="010-no-buwana-email">🤔 Hmmm... we can't find an account that uses this email!</div>
                                 <button type="submit" class="submit-button enabled">Reset Password</button>
 
                             </div>

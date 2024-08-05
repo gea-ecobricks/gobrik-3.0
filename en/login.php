@@ -44,42 +44,44 @@ function validatePassword(isValid) {
 
 
 
+ function showModalInfo(type) {
+            const modal = document.getElementById('form-modal-message');
+            const photobox = document.getElementById('modal-photo-box');
+            const messageContainer = modal.querySelector('.modal-message');
+            let content = '';
+            photobox.style.display = 'none';
+            switch (type) {
+                case 'reset':
+                    content = `
+                        <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
+                            <h1>🔓</h1>
+                        </div>
+                        <div class="preview-title">Reset Password</div>
+                        <form id="resetPasswordForm" action="reset_password.php" method="POST" onsubmit="return validateForm()">
+                            <div class="preview-text" style="font-size:medium;">Enter your email to reset your password:</div>
+                            <input type="email" name="email" required>
+                            <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
+                                <button type="submit" class="submit-button enabled">Reset Password</button>
+                                <div id="no-buwana-email" class="form-warning" style="margin-top:10px;margin-bottom:-13px;" data-lang-id="010-no-buwana-email">🌏 It looks like this email is not being used!</div>
+                            </div>
+                        </form>
+                    `;
+                    break;
+                default:
+                    content = '<p>Invalid term selected.</p>';
+            }
+            messageContainer.innerHTML = content;
 
-function showModalInfo(type) {
-    const modal = document.getElementById('form-modal-message');
-    const photobox = document.getElementById('modal-photo-box');
-    const messageContainer = modal.querySelector('.modal-message');
-    let content = '';
-    photobox.style.display = 'none';
-    switch (type) {
-        case 'reset':
-            content = `
-                <div style=\"text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;\">
-                    <h1>🔓</h1>
-                 </div>
+            modal.style.display = 'flex';
+            document.getElementById('page-content').classList.add('blurred');
+            document.getElementById('footer-full').classList.add('blurred');
+            document.body.classList.add('modal-open');
+        }
 
-<div class="preview-title">Reset Password</div>
-                <form id="resetPasswordForm" action="reset_password.php" method="POST" onsubmit="return validateForm()">
-                    <div class="preview-text" style="font-size:medium;">Enter your email to reset your password:</div>
-                    <input type="email" name="email" required>
-                    <div style=\"text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;\">
-                        <button type="submit" class=\"submit-button enabled\">Reset Password</button>
-                        <div id="no-buwana-email" class="form-warning" style="margin-top:10px;margin-bottom:-13px;" data-lang-id="010-no-buwana-email">🌏 It looks like this email is not being used!</div>
-                    </div>
-
-                </form>
-            `;
-            break;
-        default:
-            content = '<p>Invalid term selected.</p>';
-    }
-    messageContainer.innerHTML = content;
-
-    modal.style.display = 'flex';
-    document.getElementById('page-content').classList.add('blurred');
-    document.getElementById('footer-full').classList.add('blurred');
-    document.body.classList.add('modal-open');
-}
+        function validateForm() {
+            document.getElementById('no-buwana-email').style.display = 'none';
+            return true;
+        }
 
 function closeModal() {
     const modal = document.getElementById('form-modal-message');

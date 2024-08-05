@@ -67,7 +67,7 @@ echo '
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT -->
-<div id="top-page-image" class="credentials-banner top-page-image"></div>
+<div id="top-page-image" class="credentials-banner top-page-image" style="margin-top: 65px;"></div>
 
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
@@ -84,7 +84,7 @@ echo '
                 <p>New password:</p>
                 <input type="password" id="password" name="password" required placeholder="Your new password...">
                 <p class="form-caption" data-lang-id="011-six-characters">Password must be at least 6 characters long.</p>
-                <div id="password-error" class="form-field-error" style="display:none;margin-top:5px;">👉 Not long enough!</div>
+                <div id="password-error" class="form-field-error" style="display:none;margin-top:0px;">👉 New password is not long enough!</div>
             </div>
 
             <div class="form-item">

@@ -64,7 +64,7 @@ if ($email) {
                     echo "Debug level $level; message: $str\n";
                 };
                 $mail->isSMTP();
-                $mail->Host = 'ecobricks.org'; // Set the SMTP server to send through
+                $mail->Host = 'smtp.ecobricks.org'; // Set the SMTP server to send through
                 $mail->SMTPAuth = true;
                 $mail->Username = 'gobrik@ecobricks.org'; // SMTP username
                 $mail->Password = '1Welcome!'; // SMTP password

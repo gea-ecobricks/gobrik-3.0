@@ -14,7 +14,7 @@ if (isset($_SESSION['buwana_id'])) {
 
 // Grab language directory from URL
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.583';
+$version = '0.584';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -244,37 +244,33 @@ document.getElementById('user-signup-form').addEventListener('submit', function(
     }
 });
 
-</script>
 
 
-<script>
-    let lastScrollTop = 0;
 
     window.onscroll = function() {
-        scrollLessThan41();
-        scrollMoreThan41();
+        scrollLessThan30();
+        scrollMoreThan30();
         // showHideHeader();
     };
 
-    function scrollLessThan41() {
-        if (window.pageYOffset <= 41) {
-            var topPageImage = document.getElementById("top-page-image");
-            if (topPageImage) {
+    function scrollLessThan30() {
+        if (window.pageYOffset <= 30) {
+    var topPageImage = document.querySelector('.top-page-image');
+                if (topPageImage) {
                 topPageImage.style.zIndex = "35";
             }
         }
     }
 
-    function scrollMoreThan41() {
-        if (window.pageYOffset >= 41) {
-            var topPageImage = document.getElementById("top-page-image");
-            if (topPageImage) {
+    function scrollMoreThan30() {
+        if (window.pageYOffset >= 30) {
+    var topPageImage = document.querySelector('.top-page-image');
+                if (topPageImage) {
                 topPageImage.style.zIndex = "25";
             }
         }
     }
 </script>
-
 
 
 </body>

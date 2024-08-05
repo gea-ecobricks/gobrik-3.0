@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Update the user's password and reset token details in the database
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                 $currentDateTime = date('Y-m-d H:i:s');
-                $stmt = $buwana_conn->prepare("UPDATE users_tb SET password_hash = ?, password_reset_token = NULL, password_reset_expires = NULL, password_last_reset_dt = ? WHERE email = ?");
+                $stmt = $buwana_conn->prepare("UPDATE users_tb SET password_hash = ?, password_last_reset_dt = ?, password_reset_token = NULL, password_reset_expires = NULL WHERE email = ?");
                 if (!$stmt) {
                     die("Prepare statement failed: " . $buwana_conn->error);
                 }

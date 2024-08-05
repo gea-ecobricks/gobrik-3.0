@@ -89,17 +89,8 @@ if ($email) {
                 echo '<script>alert("Message could not be sent. Mailer Error: ' . $mail->ErrorInfo . '"); window.location.href = "../' . $lang . '/login.php";</script>';
             }
         } else {
-            echo '<script>
-                    function showNoBuwanaEmail() {
-                        var noBuwanaEmail = document.getElementById("no-buwana-email");
-                        if (noBuwanaEmail) {
-                            noBuwanaEmail.style.display = "block";
-                        } else {
-                            setTimeout(showNoBuwanaEmail, 1000); // Try again in 100ms
-                        }
-                    }
-                    showNoBuwanaEmail();
-                  </script>';
+            header('Location: ../' . $lang . '/login.php?email_not_found');
+            exit();
         }
     } catch (Exception $e) {
         echo "<script>console.error('Error: " . $e->getMessage() . "');</script>";

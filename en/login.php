@@ -43,8 +43,7 @@ function validatePassword(isValid) {
 
 
 
-
- function showModalInfo(type) {
+function showModalInfo(type) {
             const modal = document.getElementById('form-modal-message');
             const photobox = document.getElementById('modal-photo-box');
             const messageContainer = modal.querySelector('.modal-message');
@@ -81,6 +80,20 @@ function validatePassword(isValid) {
         function validateForm() {
             document.getElementById('no-buwana-email').style.display = 'none';
             return true;
+        }
+
+        // Check URL parameters on page load
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('email_not_found')) {
+                showModalInfo('reset');
+                setTimeout(() => {
+                    const noBuwanaEmail = document.getElementById('no-buwana-email');
+                    if (noBuwanaEmail) {
+                        noBuwanaEmail.style.display = 'block';
+                    }
+                }, 100);
+            }
         }
 
 function closeModal() {

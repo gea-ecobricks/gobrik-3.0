@@ -64,12 +64,12 @@ if ($email) {
                     echo "Debug level $level; message: $str\n";
                 };
                 $mail->isSMTP();
-                $mail->Host = 'smtp.ecobricks.org'; // Set the SMTP server to send through
+                $mail->Host = 'mail.ecobricks.org'; // Set the SMTP server to send through
                 $mail->SMTPAuth = true;
                 $mail->Username = 'gobrik@ecobricks.org'; // SMTP username
                 $mail->Password = '1Welcome!'; // SMTP password
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Enable SSL encryption
-                $mail->Port = 465; // TCP port to connect to
+                $mail->SMTPSecure = false; // Disable SSL encryption
+                $mail->Port = 26; // TCP port to connect to
 
                 // Recipients
                 $mail->setFrom('gobrik@ecobricks.org', 'GoBrik');
@@ -90,12 +90,13 @@ if ($email) {
             }
         } else {
             echo '<script>
-                    function showNoBuwanaEmail() {
+                    function showNoBuwanaEmail() {\
+                        alert('checking')
                         var noBuwanaEmail = document.getElementById("no-buwana-email");
                         if (noBuwanaEmail) {
                             noBuwanaEmail.style.display = "block";
                         } else {
-                            setTimeout(showNoBuwanaEmail, 100); // Try again in 100ms
+                            setTimeout(showNoBuwanaEmail, 1000); // Try again in 100ms
                         }
                     }
                     showNoBuwanaEmail();

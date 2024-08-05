@@ -64,10 +64,10 @@ if ($email) {
                     echo "Debug level $level; message: $str\n";
                 };
                 $mail->isSMTP();
-                $mail->Host = 'ecobricks.org'; // Set the SMTP server to send through
+                $mail->Host = 'smtp.ecobricks.org'; // Set the SMTP server to send through
                 $mail->SMTPAuth = true;
                 $mail->Username = 'gobrik@ecobricks.org'; // SMTP username
-                $mail->Password = '1Welcome!as'; // SMTP password
+                $mail->Password = '1Welcome!'; // SMTP password
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Enable SSL encryption
                 $mail->Port = 465; // TCP port to connect to
 
@@ -89,7 +89,17 @@ if ($email) {
                 echo '<script>alert("Message could not be sent. Mailer Error: ' . $mail->ErrorInfo . '"); window.location.href = "../' . $lang . '/login.php";</script>';
             }
         } else {
-            echo '<script>document.addEventListener("DOMContentLoaded", function() { document.getElementById("no-buwana-email").style.display = "block"; });</script>';
+            echo '<script>
+                    function showNoBuwanaEmail() {
+                        var noBuwanaEmail = document.getElementById("no-buwana-email");
+                        if (noBuwanaEmail) {
+                            noBuwanaEmail.style.display = "block";
+                        } else {
+                            setTimeout(showNoBuwanaEmail, 100); // Try again in 100ms
+                        }
+                    }
+                    showNoBuwanaEmail();
+                  </script>';
         }
     } catch (Exception $e) {
         echo "<script>console.error('Error: " . $e->getMessage() . "');</script>";

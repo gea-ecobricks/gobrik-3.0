@@ -101,7 +101,7 @@ echo '
     <div style="text-align:center;width:100%;margin:auto;margin-top:34px;"><p style="font-size:medium;">Already have an account? <a href="login.php">Login</a></p></div>
 </div>';
 
-require_once ("../footer-2024.php")
+require_once ("../footer-2024.php");
 
 echo '
 

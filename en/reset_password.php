@@ -52,17 +52,10 @@ if ($email) {
             $stmt->execute();
             $stmt->close();
 
-            // Capture PHPMailer debug output
-            ob_start();
-
             // Send the password reset link to the user's email
             $mail = new PHPMailer(true);
             try {
                 //Server settings
-                $mail->SMTPDebug = 2; // Enable verbose debug output
-                $mail->Debugoutput = function($str, $level) {
-                    echo "Debug level $level; message: $str\n";
-                };
                 $mail->isSMTP();
                 $mail->Host = 'mail.ecobricks.org'; // Set the SMTP server to send through
                 $mail->SMTPAuth = true;
@@ -92,9 +85,6 @@ if ($email) {
                 $mail->send();
                 echo '<script>alert("An email with a link to reset your GoBrik Buwana password has been sent!"); window.location.href = "../' . $lang . '/login.php";</script>';
             } catch (Exception $e) {
-                $debug_output = ob_get_clean();
-                $debug_output = htmlspecialchars($debug_output, ENT_QUOTES); // Sanitize output for JavaScript
-                echo "<script>console.error('SMTP Debug Output:\\n$debug_output');</script>";
                 echo '<script>alert("Message could not be sent. Mailer Error: ' . $mail->ErrorInfo . '"); window.location.href = "../' . $lang . '/login.php";</script>';
             }
         } else {

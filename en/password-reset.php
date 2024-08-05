@@ -84,13 +84,13 @@ echo '
                 <p>New password:</p>
                 <input type="password" id="password" name="password" required placeholder="Your new password...">
                 <p class="form-caption" data-lang-id="011-six-characters">Password must be at least 6 characters long.</p>
-                <div id="password-error" class="form-field-error" style="display:none;margin-top:15px;">👉 Not long enough!</div>
+                <div id="password-error" class="form-field-error" style="display:none;margin-top:5px;">👉 Not long enough!</div>
             </div>
 
             <div class="form-item">
                 <p>Re-enter password to confirm:</p>
                 <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Re-enter password...">
-                <div id="confirm-password-error" class="form-field-error" style="display:none;margin-top:15px;">👉 Passwords do not match.</div>
+                <div id="confirm-password-error" class="form-field-error" style="display:none;margin-top:5px;">👉 Passwords do not match.</div>
             </div>
 
             <div style="text-align:center;">
@@ -99,6 +99,7 @@ echo '
         </form>
     </div>
     <div style="text-align:center;width:100%;margin:auto;margin-top:34px;"><p style="font-size:medium;">Already have an account? <a href="login.php">Login</a></p></div>
+</div>
 </div>';
 
 require_once ("../footer-2024.php");

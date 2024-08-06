@@ -41,30 +41,41 @@ if ($stmt_lookup_user) {
     die("Error preparing statement for tb_ecobrickers: " . $conn->error);
 }
 
-// SQL query to fetch the 20 most recent ecobricks made by the user
-$sql_recent = "SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, location_full, ecobricker_maker, serial_no, status FROM tb_ecobricks WHERE maker_id = ? ORDER BY date_logged_ts DESC LIMIT 20";
+// SQL query to fetch the 20 most recent ecobricks made by the user and calculate totals
+$sql_recent = "SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, volume_ml, location_full, ecobricker_maker, serial_no, status FROM tb_ecobricks WHERE maker_id = ? ORDER BY date_logged_ts DESC LIMIT 20";
 $stmt_recent = $conn->prepare($sql_recent);
 
+$total_weight = 0;
+$total_volume = 0;
 $recent_ecobricks = [];
 if ($stmt_recent) {
     $stmt_recent->bind_param("s", $maker_id);
     $stmt_recent->execute();
-    $stmt_recent->bind_result($ecobrick_thumb_photo_url, $ecobrick_full_photo_url, $weight_g, $location_full, $ecobricker_maker, $serial_no, $status);
+    $stmt_recent->bind_result($ecobrick_thumb_photo_url, $ecobrick_full_photo_url, $weight_g, $volume_ml, $location_full, $ecobricker_maker, $serial_no, $status);
     while ($stmt_recent->fetch()) {
         $recent_ecobricks[] = [
             'ecobrick_thumb_photo_url' => $ecobrick_thumb_photo_url,
             'ecobrick_full_photo_url' => $ecobrick_full_photo_url,
             'weight_g' => $weight_g,
+            'volume_ml' => $volume_ml,
             'location_full' => $location_full,
             'ecobricker_maker' => $ecobricker_maker,
             'serial_no' => $serial_no,
             'status' => $status,
         ];
+        $total_weight += $weight_g;
+        $total_volume += $volume_ml;
     }
     $stmt_recent->close();
 }
 
 $conn->close();
+
+if ($total_volume > 0) {
+    $net_density = $total_weight / $total_volume;
+} else {
+    $net_density = 0;
+}
 
 echo '<!DOCTYPE html>
 <html lang="' . $lang . '">
@@ -92,14 +103,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="form-submission-box" style="height:fit-content;margin-top: 90px;">
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2>Welcome <?php echo htmlspecialchars($first_name); ?>! to the new GoBrik 3.0!</h2>
-            <p>So far you've logged <?php echo htmlspecialchars($ecobricks_made); ?> ecobricks in <?php echo htmlspecialchars($location_full_txt); ?>! Your knack maker id is <?php echo htmlspecialchars($maker_id); ?>.</p>
+            <h2 id="greeting">Hello <?php echo htmlspecialchars($first_name); ?>!</h2>
+            <p>Welcome to the new GoBrik 3.0! So far you've logged <?php echo htmlspecialchars($ecobricks_made); ?> ecobricks in <?php echo htmlspecialchars($location_full_txt); ?>! In total you've logged <?php echo $total_weight; ?> grams with a net density of <?php echo number_format($net_density, 2); ?> g/ml. Your knack maker id is <?php echo htmlspecialchars($maker_id); ?>.</p>
         </div>
         <div style="display:flex;flex-flow:row;width:100%;justify-content:center;">
             <button class="go-button" id="log-ecobrick-button">➕ Log an Ecobrick</button>
             <button class="go-button" id="newest-ecobricks-button" onclick="newestEcobricks()">📅 Newest Ecobricks</button>
-            <!-- Login Button -->
-            <button class="go-button" id="login-button" onclick="loginUser()">📤 Log In</button>
+            <!-- Logout Button -->
+            <button class="go-button" id="logout-button" onclick="logoutUser()">📤 Log Out</button>
         </div>
 
         <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
@@ -152,9 +163,31 @@ document.getElementById('newest-ecobricks-button').addEventListener('click', fun
     window.location.href = 'newest-briks.php';
 });
 
-function loginUser() {
-    // Redirect to the login.php page
-    window.location.href = 'login.php';
+document.getElementById('logout-button').addEventListener('click', function() {
+    // Log out and redirect to the login.php page
+    window.location.href = 'logout.php';
+});
+
+function logoutUser() {
+    // Redirect to the logout.php page
+    window.location.href = 'logout.php';
+}
+
+// JavaScript to determine the user's time of day and display an appropriate greeting
+window.onload = function() {
+    var now = new Date();
+    var hours = now.getHours();
+    var greeting;
+
+    if (hours < 12) {
+        greeting = "Good morning";
+    } else if (hours < 18) {
+        greeting = "Good afternoon";
+    } else {
+        greeting = "Good evening";
+    }
+
+    document.getElementById("greeting").innerHTML = greeting + " <?php echo htmlspecialchars($first_name); ?>!";
 }
 </script>
 

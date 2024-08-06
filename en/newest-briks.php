@@ -66,7 +66,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT -->
-   <div id="top-page-image" class="my-ecobricks top-page-image" style="margin-top:20px,margin-bottom:30px;"></div>
+   <div id="top-page-image" class="my-ecobricks top-page-image" style="margin-top:20px; margin-bottom:30px;"></div>
 
 <div id="form-submission-box" style="height:fit-content;">
     <div class="form-container">

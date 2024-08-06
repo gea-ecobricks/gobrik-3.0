@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.365';
+$version = '0.366';
 $page = 'dashboard';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -41,6 +41,21 @@ if ($stmt_lookup_user) {
     die("Error preparing statement for users_tb: " . $conn->error);
 }
 
+// Get the maker_id from ecobrickers_tb
+$maker_id = '';
+$sql_lookup_maker = "SELECT maker_id FROM ecobrickers_tb WHERE buwana_id = ?";
+$stmt_lookup_maker = $conn->prepare($sql_lookup_maker);
+
+if ($stmt_lookup_maker) {
+    $stmt_lookup_maker->bind_param("i", $buwana_id);
+    $stmt_lookup_maker->execute();
+    $stmt_lookup_maker->bind_result($maker_id);
+    $stmt_lookup_maker->fetch();
+    $stmt_lookup_maker->close();
+} else {
+    die("Error preparing statement for ecobrickers_tb: " . $conn->error);
+}
+
 $conn->close();
 
 // Include GoBrik database credentials
@@ -52,6 +67,7 @@ $conn2 = new mysqli($servername, $username, $password, $dbname);
 if ($conn2->connect_error) {
     die("Connection failed: " . $conn2->connect_error);
 }
+
 // SQL query to fetch the count of ecobricks and the sum of weight_g divided by 1000 to get kg
 $sql = "SELECT COUNT(*) as ecobrick_count, SUM(weight_g) / 1000 as total_weight FROM tb_ecobricks";
 $result = $conn2->query($sql);
@@ -65,15 +81,25 @@ if ($result->num_rows > 0) {
     $total_weight = 0;
 }
 
-// SQL query to fetch the 12 most recent ecobricks
-$sql_recent = "SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, location_full, ecobricker_maker, serial_no, status FROM tb_ecobricks ORDER BY date_logged_ts DESC LIMIT 12";
-$result_recent = $conn2->query($sql_recent);
+// SQL query to fetch the user's 20 most recent ecobricks
+$sql_recent = "SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, location_full, ecobricker_maker, serial_no, status FROM tb_ecobricks WHERE maker_id = ? ORDER BY date_logged_ts DESC LIMIT 20";
+$stmt_recent = $conn2->prepare($sql_recent);
 
-$recent_ecobricks = [];
-if ($result_recent->num_rows > 0) {
-    while($row = $result_recent->fetch_assoc()) {
-        $recent_ecobricks[] = $row;
+if ($stmt_recent) {
+    $stmt_recent->bind_param("s", $maker_id);
+    $stmt_recent->execute();
+    $result_recent = $stmt_recent->get_result();
+
+    $recent_ecobricks = [];
+    if ($result_recent->num_rows > 0) {
+        while ($row = $result_recent->fetch_assoc()) {
+            $recent_ecobricks[] = $row;
+        }
     }
+
+    $stmt_recent->close();
+} else {
+    die("Error preparing statement for recent ecobricks: " . $conn2->error);
 }
 
 $conn2->close();
@@ -83,11 +109,8 @@ echo '<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <title>Dashboard</title>
-'
+';
 ?>
-
-
-
 
 <title>Dashboard | GoBrik 3.0</title>
 
@@ -97,14 +120,13 @@ Developed and made open source by the Global Ecobrick Alliance
 See our git hub repository for the full code and to help out:
 https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
-<?php require_once ("../includes/dashboard-inc.php"); ?>
+<?php require_once("../includes/dashboard-inc.php"); ?>
 
-<div class="splash-title-block"></div>
+<div class="splash-content-block"></div>
 <div id="splash-bar"></div>
+<div id="top-page-image" class="dolphin-pic top-page-image"></div>
 
-<!-- PAGE CONTENT -->
-   <div id="top-page-image" class="dolphin-pic top-page-image"></div>
-
+<!-- DASHBOARD CONTENT -->
 <div id="form-submission-box" style="height:fit-content;">
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
@@ -112,14 +134,15 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <h3>You're logged into the brand new GoBrik 3.0!</h3>
             <p>As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik, representing over <?php echo round($total_weight); ?> kg of sequestered plastic!</p>
         </div>
-   <div style="display:flex;flex-flow:row;width:100%;justify-content:center;">
+        <div style="display:flex;flex-flow:row;width:100%;justify-content:center;">
             <button class="go-button" id="log-ecobrick-button">➕ Log an Ecobrick</button>
+            <button class="go-button" id="newest-ecobricks-button" onclick="newestEcobricks()">🆕 Newest Ecobricks</button>
             <!-- Logout Button -->
             <button class="go-button" id="logout-button" onclick="logoutUser()">📤 Logout</button>
         </div>
 
         <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
-            <h3>Most Recent Ecobricks</h3>
+            <h3>Your Most Recent Ecobricks</h3>
             <table id="latest-ecobricks">
                 <tr>
                     <th data-lang-id="1103-brik">Brik</th>
@@ -128,46 +151,51 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     <th data-lang-id="1106-status">Status</th>
                     <th data-lang-id="1107-serial">Serial</th>
                 </tr>
-               <?php foreach ($recent_ecobricks as $ecobrick) : ?>
-    <tr>
-<td>
-    <img src="https://ecobricks.org/<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>"
-         alt="Ecobrick Thumbnail"
-         class="table-thumbnail"
-         onclick="ecobrickPreview('<?php echo htmlspecialchars($ecobrick['ecobrick_full_photo_url']); ?>', '<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['weight_g']); ?>g', '<?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?>', '<?php echo htmlspecialchars($ecobrick['location_full']); ?>')">
-</td>
-
-        <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?>g</td>
-        <td><?php echo htmlspecialchars($ecobrick['location_full']); ?></td>
-        <td><?php echo htmlspecialchars($ecobrick['status']); ?></td>
-        <td>
-            <button class="serial-button">
-                <?php $serial_no = htmlspecialchars($ecobrick['serial_no']); $wrapped_serial_no = substr($serial_no, 0, 3) . '<br>' . substr($serial_no, 3, 3);?>
-                <a href="brik.php?serial_no=<?php echo $serial_no; ?>"><?php echo $wrapped_serial_no; ?></a>
-            </button>
-        </td>
-    </tr>
-<?php endforeach; ?>
-
+                <?php foreach ($recent_ecobricks as $ecobrick) : ?>
+                    <tr>
+                        <td>
+                            <img src="https://ecobricks.org/<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>"
+                                 alt="Ecobrick Thumbnail"
+                                 class="table-thumbnail"
+                                 onclick="ecobrickPreview('<?php echo htmlspecialchars($ecobrick['ecobrick_full_photo_url']); ?>', '<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['weight_g']); ?>g', '<?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?>', '<?php echo htmlspecialchars($ecobrick['location_full']); ?>')">
+                        </td>
+                        <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?>g</td>
+                        <td><?php echo htmlspecialchars($ecobrick['location_full']); ?></td>
+                        <td><?php echo htmlspecialchars($ecobrick['status']); ?></td>
+                        <td>
+                            <button class="serial-button">
+                                <?php $serial_no = htmlspecialchars($ecobrick['serial_no']); $wrapped_serial_no = substr($serial_no, 0, 3) . '<br>' . substr($serial_no, 3, 3); ?>
+                                <a href="brik.php?serial_no=<?php echo $serial_no; ?>"><?php echo $wrapped_serial_no; ?></a>
+                            </button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
             </table>
         </div>
-
-
-</div><!--closes dashboard content-->
-
-
+    </div>
 </div>
 
 </div><!--closes main and starry background-->
 
 <!-- FOOTER STARTS HERE -->
-<?php require_once ("../footer-2024.php"); ?>
+<?php require_once("../footer-2024.php"); ?>
 
-<script>
+<script type="text/javascript">
+
 document.getElementById('log-ecobrick-button').addEventListener('click', function() {
     // Redirect to the log.php page
     window.location.href = 'log.php';
 });
+
+function newestEcobricks() {
+    // Redirect to the newest-briks.php page
+    window.location.href = 'newest-briks.php';
+}
+
+function logoutUser() {
+    // Redirect to the logout.php page
+    window.location.href = 'logout.php';
+}
 </script>
 
 </body>

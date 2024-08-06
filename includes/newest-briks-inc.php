@@ -10,7 +10,6 @@
   padding-bottom: 100px;
     }
 
-
         .advanced-box-content {
     padding: 2px 15px 15px 15px;
     max-height: 0;  /* Initially set to 0 */
@@ -32,9 +31,6 @@
   filter: none !important;
   margin-bottom: -200px !important;
 }
-
-
-
 
 </style>
 

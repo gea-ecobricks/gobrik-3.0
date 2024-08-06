@@ -89,10 +89,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="top-page-image" class="dolphin-pic top-page-image"></div>
 
 <!-- DASHBOARD CONTENT -->
-<div id="form-submission-box" style="height:fit-content;">
+<div id="form-submission-box" style="height:fit-content;margin-top: 90px;">
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2>Welcome <?php echo htmlspecialchars($first_name); ?>!</h2>
+            <h2>Welcome <?php echo htmlspecialchars($first_name); ?>! to the new GoBrik 3.0!</h2>
             <p>So far you've logged <?php echo htmlspecialchars($ecobricks_made); ?> ecobricks in <?php echo htmlspecialchars($location_full_txt); ?>! Your knack maker id is <?php echo htmlspecialchars($maker_id); ?>.</p>
         </div>
         <div style="display:flex;flex-flow:row;width:100%;justify-content:center;">

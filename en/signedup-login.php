@@ -1,20 +1,30 @@
 <?php
-$directory = basename(dirname($_SERVER['SCRIPT_NAME']));
-$lang = $directory;
-$version = '0.366';
+// Turn on or off error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Start the session before any output
+session_start();
+
+// Check if user is logged in and session active
+if (isset($_SESSION['buwana_id'])) {
+    header('Location: dashboard.php');
+    exit();
+}
+
+// Grab language directory from URL
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$version = '0.586';
 $page = 'signedup-login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
+// Echo the HTML structure
 echo '<!DOCTYPE html>
-<html lang="' . $lang . '">
+<html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">
 <head>
 <meta charset="UTF-8">
 ';
-?>
 
-<?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 include '../buwana_env.php'; // This file provides the database server, user, dbname information to access the server
 
@@ -53,16 +63,68 @@ if ($buwana_id) {
 
 $conn->close();
 ?>
+
+
 <script>
-    function validatePassword(isValid) {
-        const passwordErrorDiv = document.getElementById('password-error');
-        if (!isValid) {
-            passwordErrorDiv.style.display = 'block';
-        } else {
-            passwordErrorDiv.style.display = 'none';
-        }
+// Function to validate password
+function validatePassword(isValid) {
+    const passwordErrorDiv = document.getElementById('password-error');
+    if (!isValid) {
+        passwordErrorDiv.style.display = 'flex';
+    } else {
+        passwordErrorDiv.style.display = 'none';
     }
+}
+
+
+
+
+
+
+function closeModal() {
+    const modal = document.getElementById('form-modal-message');
+    modal.style.display = 'none';
+    document.getElementById('page-content').classList.remove('blurred');
+    document.getElementById('footer-full').classList.remove('blurred');
+    document.body.classList.remove('modal-open');
+}
+
+function validateForm() {
+    const email = document.querySelector('input[name="email"]').value;
+    if (!email) {
+        alert('Please enter a valid email address.');
+        return false;
+    }
+    return true;
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const errorType = "<?php echo isset($_GET['error']) ? htmlspecialchars($_GET['error']) : ''; ?>";
+    if (errorType) {
+        alert(errorType);
+    }
+});
+
+
+
+
+
+
+
+// Form submission validation
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById('login').addEventListener('submit', function(event) {
+        var credentialValue = document.getElementById('credential_key').value;
+        var password = document.getElementById('password').value;
+
+        if (credentialValue === '' || password === '') {
+            event.preventDefault();
+            document.getElementById('password-error').style.display = 'block';
+        }
+    });
+});
 </script>
+
 
 <title>Login | GoBrik 3.0</title>
 
@@ -72,7 +134,6 @@ Developed and made open source by the Global Ecobrick Alliance
 See our git hub repository for the full code and to help out:
 https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
-<?php require_once ("../includes/signedup-login-inc.php");?>
 
 <?php require_once ("../includes/signedup-login-inc.php"); ?>
 
@@ -117,41 +178,96 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <!-- FOOTER STARTS HERE -->
 <?php require_once ("../footer-2024.php");?>
 
-<script type="text/javascript">
-function showModalInfo(type) {
-    const modal = document.getElementById('form-modal-message');
-    const photobox = document.getElementById('modal-photo-box');
-    const messageContainer = modal.querySelector('.modal-message');
-    const modalBox = document.getElementById('modal-content-box');
-    let content = '';
-    photobox.style.display = 'none';
-    switch (type) {
-        case 'reset':
-            content = `
-                <img src="../pngs/exchange-bird.png" alt="Reset Password" height="250px" width="250px" class="preview-image">
-                <div class="preview-title">Reset Password</div>
-                <div class="preview-text">Oops! This function is not yet operational. Create another account for the moment as all accounts will be deleted once we migrate from beta to live.</div>
-            `;
-            break;
-        default:
-            content = '<p>Invalid term selected.</p>';
-    }
-    messageContainer.innerHTML = content;
 
-    // Show the modal and update other page elements
-    modal.style.display = 'flex';
-    document.getElementById('page-content').classList.add('blurred');
-    document.getElementById('footer-full').classList.add('blurred');
-    document.body.classList.add('modal-open');
-}
+<script>
+ function showModalInfo(type, email = '') {
+            const modal = document.getElementById('form-modal-message');
+            const photobox = document.getElementById('modal-photo-box');
+            const messageContainer = modal.querySelector('.modal-message');
+            let content = '';
+            photobox.style.display = 'none';
+            switch (type) {
+                case 'reset':
+                    content = `
+                        <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
+                            <h1>🔓</h1>
+                        </div>
+                        <div class="preview-title">Reset Password</div>
+                        <form id="resetPasswordForm" action="reset_password.php" method="POST" onsubmit="return validateForm()">
+                            <div class="preview-text" style="font-size:medium;">Enter your email to reset your password:</div>
+                            <input type="email" name="email" required value="${email}">
+                            <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
+                                <div id="no-buwana-email" class="form-warning" style="margin-top:5px;margin-bottom:5px;" data-lang-id="010-no-buwana-email">🤔 Hmmm... we can't find an account that uses this email!</div>
+                                <button type="submit" class="submit-button enabled">Reset Password</button>
 
-// Check if there's an error message and show the error div if needed
-document.addEventListener("DOMContentLoaded", function() {
-    const errorType = "<?php echo isset($_GET['error']) ? htmlspecialchars($_GET['error']) : ''; ?>";
-    if (errorType === "wrong_password") {
-        validatePassword(false);
+                            </div>
+                        </form>
+                    `;
+                    break;
+                default:
+                    content = '<p>Invalid term selected.</p>';
+            }
+            messageContainer.innerHTML = content;
+
+            modal.style.display = 'flex';
+            document.getElementById('page-content').classList.add('blurred');
+            document.getElementById('footer-full').classList.add('blurred');
+            document.body.classList.add('modal-open');
+        }
+
+        function validateForm() {
+            document.getElementById('no-buwana-email').style.display = 'none';
+            return true;
+        }
+
+        // Check URL parameters on page load
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('email_not_found')) {
+                const email = urlParams.get('email') || '';
+                showModalInfo('reset', email);
+                setTimeout(() => {
+                    const noBuwanaEmail = document.getElementById('no-buwana-email');
+                    if (noBuwanaEmail) {
+                        noBuwanaEmail.style.display = 'block';
+                    }
+                }, 100);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+    window.onscroll = function() {
+        scrollLessThan30();
+        scrollMoreThan30();
+        // showHideHeader();
+    };
+
+    function scrollLessThan30() {
+        if (window.pageYOffset <= 30) {
+    var topPageImage = document.querySelector('.top-page-image');
+                if (topPageImage) {
+                topPageImage.style.zIndex = "35";
+            }
+        }
     }
-});
-</script>
+
+    function scrollMoreThan30() {
+        if (window.pageYOffset >= 30) {
+    var topPageImage = document.querySelector('.top-page-image');
+                if (topPageImage) {
+                topPageImage.style.zIndex = "25";
+            }
+        }
+    }
+
+    </script>
 </body>
 </html>

@@ -74,11 +74,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <h2>The Latest Ecobricks</h2>
             <p>As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik, representing over <?php echo round($total_weight); ?> kg of sequestered plastic!</p>
         </div>
-        <div style="display:flex;flex-flow:row;width:100%;justify-content:center;">
+        <!--<div style="display:flex;flex-flow:row;width:100%;justify-content:center;">
             <button class="go-button" id="log-ecobrick-button">➕ Log an Ecobrick</button>
-            <!-- Login Button -->
+
             <button class="go-button" id="login-button" onclick="loginUser()">📤 Log In</button>
-        </div>
+        </div>-->
 
         <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
             <h3>Most Recent Ecobricks</h3>

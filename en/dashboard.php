@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.366';
+$version = '0.365';
 $page = 'dashboard';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -18,91 +18,45 @@ if (!isset($_SESSION['buwana_id'])) {
 $buwana_id = $_SESSION['buwana_id'];
 
 // Include database connection
-include '../buwana_env.php'; // this file provides the database server, user, dbname information to access the server
+include '../gobrik_env.php'; // this file provides the database server, user, dbname information to access the GoBrik server
 
-// Look up fields from users_tb using the buwana_id
-$first_name = '';
+// Create connection to GoBrik database
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql_lookup_user = "SELECT first_name FROM users_tb WHERE buwana_id = ?";
+// Look up fields from tb_ecobrickers using the buwana_id
+$sql_lookup_user = "SELECT first_name, ecobricks_made, location_full_txt, maker_id FROM tb_ecobrickers WHERE buwana_id = ?";
 $stmt_lookup_user = $conn->prepare($sql_lookup_user);
 
 if ($stmt_lookup_user) {
     $stmt_lookup_user->bind_param("i", $buwana_id);
     $stmt_lookup_user->execute();
-    $stmt_lookup_user->bind_result($first_name);
+    $stmt_lookup_user->bind_result($first_name, $ecobricks_made, $location_full_txt, $maker_id);
     $stmt_lookup_user->fetch();
     $stmt_lookup_user->close();
-} else {
-    die("Error preparing statement for users_tb: " . $conn->error);
-}
-
-// Get the maker_id from tb_ecobrickers
-$maker_id = '';
-$sql_lookup_maker = "SELECT maker_id FROM tb_ecobrickers WHERE buwana_id = ?";
-$stmt_lookup_maker = $conn->prepare($sql_lookup_maker);
-
-if ($stmt_lookup_maker) {
-    $stmt_lookup_maker->bind_param("i", $buwana_id);
-    $stmt_lookup_maker->execute();
-    $stmt_lookup_maker->bind_result($maker_id);
-    $stmt_lookup_maker->fetch();
-    $stmt_lookup_maker->close();
 } else {
     die("Error preparing statement for tb_ecobrickers: " . $conn->error);
 }
 
-$conn->close();
-
-// Include GoBrik database credentials
-include '../gobrik_env.php';
-
-// Create connection to GoBrik database
-$conn2 = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn2->connect_error) {
-    die("Connection failed: " . $conn2->connect_error);
-}
-
-// SQL query to fetch the count of ecobricks and the sum of weight_g divided by 1000 to get kg
-$sql = "SELECT COUNT(*) as ecobrick_count, SUM(weight_g) / 1000 as total_weight FROM tb_ecobricks";
-$result = $conn2->query($sql);
-
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $ecobrick_count = $row['ecobrick_count'];
-    $total_weight = $row['total_weight'];
-} else {
-    $ecobrick_count = 0;
-    $total_weight = 0;
-}
-
-// SQL query to fetch the user's 20 most recent ecobricks
+// SQL query to fetch the 20 most recent ecobricks made by the user
 $sql_recent = "SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, location_full, ecobricker_maker, serial_no, status FROM tb_ecobricks WHERE maker_id = ? ORDER BY date_logged_ts DESC LIMIT 20";
-$stmt_recent = $conn2->prepare($sql_recent);
+$stmt_recent = $conn->prepare($sql_recent);
 
+$recent_ecobricks = [];
 if ($stmt_recent) {
-    $stmt_recent->bind_param("s", $maker_id);
+    $stmt_recent->bind_param("i", $maker_id);
     $stmt_recent->execute();
     $result_recent = $stmt_recent->get_result();
-
-    $recent_ecobricks = [];
-    if ($result_recent->num_rows > 0) {
-        while ($row = $result_recent->fetch_assoc()) {
-            $recent_ecobricks[] = $row;
-        }
+    while ($row = $result_recent->fetch_assoc()) {
+        $recent_ecobricks[] = $row;
     }
-
     $stmt_recent->close();
-} else {
-    die("Error preparing statement for recent ecobricks: " . $conn2->error);
 }
 
-$conn2->close();
+$conn->close();
 
 echo '<!DOCTYPE html>
 <html lang="' . $lang . '">
@@ -131,18 +85,17 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
             <h2>Welcome <?php echo htmlspecialchars($first_name); ?>!</h2>
-            <h3>You're logged into the brand new GoBrik 3.0!</h3>
-            <p>As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik, representing over <?php echo round($total_weight); ?> kg of sequestered plastic!</p>
+            <p>So far you've logged <?php echo htmlspecialchars($ecobricks_made); ?> ecobricks in <?php echo htmlspecialchars($location_full_txt); ?>!</p>
         </div>
         <div style="display:flex;flex-flow:row;width:100%;justify-content:center;">
             <button class="go-button" id="log-ecobrick-button">➕ Log an Ecobrick</button>
-            <button class="go-button" id="newest-ecobricks-button" onclick="newestEcobricks()">🆕 Newest Ecobricks</button>
-            <!-- Logout Button -->
-            <button class="go-button" id="logout-button" onclick="logoutUser()">📤 Logout</button>
+            <button class="go-button" id="newest-ecobricks-button" onclick="newestEcobricks()">📅 Newest Ecobricks</button>
+            <!-- Login Button -->
+            <button class="go-button" id="login-button" onclick="loginUser()">📤 Log In</button>
         </div>
 
         <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
-            <h3>Your Most Recent Ecobricks</h3>
+            <h3>Most Recent Ecobricks</h3>
             <table id="latest-ecobricks">
                 <tr>
                     <th data-lang-id="1103-brik">Brik</th>
@@ -181,20 +134,19 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once("../footer-2024.php"); ?>
 
 <script type="text/javascript">
-
 document.getElementById('log-ecobrick-button').addEventListener('click', function() {
     // Redirect to the log.php page
     window.location.href = 'log.php';
 });
 
-function newestEcobricks() {
+document.getElementById('newest-ecobricks-button').addEventListener('click', function() {
     // Redirect to the newest-briks.php page
     window.location.href = 'newest-briks.php';
-}
+});
 
-function logoutUser() {
-    // Redirect to the logout.php page
-    window.location.href = 'logout.php';
+function loginUser() {
+    // Redirect to the login.php page
+    window.location.href = 'login.php';
 }
 </script>
 

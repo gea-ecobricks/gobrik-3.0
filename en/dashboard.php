@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.365';
+$version = '0.368';
 $page = 'dashboard';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -84,7 +84,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <?php require_once("../includes/dashboard-inc.php"); ?>
 
-<div class="splash-content-block"></div>
+<div class="splash-title-block"></div>
 <div id="splash-bar"></div>
 <div id="top-page-image" class="dolphin-pic top-page-image"></div>
 
@@ -93,7 +93,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
             <h2>Welcome <?php echo htmlspecialchars($first_name); ?>!</h2>
-            <p>So far you've logged <?php echo htmlspecialchars($ecobricks_made); ?> ecobricks in <?php echo htmlspecialchars($location_full_txt); ?>!</p>
+            <p>So far you've logged <?php echo htmlspecialchars($ecobricks_made); ?> ecobricks in <?php echo htmlspecialchars($location_full_txt); ?>! Your knack maker id is <?php echo htmlspecialchars($maker_id); ?>.</p>
         </div>
         <div style="display:flex;flex-flow:row;width:100%;justify-content:center;">
             <button class="go-button" id="log-ecobrick-button">➕ Log an Ecobrick</button>
@@ -103,7 +103,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>
 
         <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
-            <h3>Most Recent Ecobricks</h3>
+            <h3>My Ecobricks</h3>
             <table id="latest-ecobricks">
                 <tr>
                     <th data-lang-id="1103-brik">Brik</th>

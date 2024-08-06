@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.365';
+$version = '0.367';
 $page = 'newest-briks';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -64,10 +64,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
-<div id="top-page-image" class="dolphin-pic top-page-image"></div>
 
-<!-- DASHBOARD CONTENT -->
-<div id="form-submission-box" style="height:fit-content;">
+<!-- PAGE CONTENT -->
+   <div id="top-page-image" class="dolphin-pic top-page-image"></div>
+
+<div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
             <h2>The Latest Ecobricks</h2>

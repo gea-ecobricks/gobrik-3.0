@@ -62,7 +62,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <?php require_once("../includes/newest-briks-inc.php"); ?>
 
-<div class="splash-content-block"></div>
+<div class="splash-title-block"></div>
 <div id="splash-bar"></div>
 <div id="top-page-image" class="dolphin-pic top-page-image"></div>
 

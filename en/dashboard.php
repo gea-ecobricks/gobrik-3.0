@@ -41,9 +41,9 @@ if ($stmt_lookup_user) {
     die("Error preparing statement for users_tb: " . $conn->error);
 }
 
-// Get the maker_id from ecobrickers_tb
+// Get the maker_id from tb_ecobrickers
 $maker_id = '';
-$sql_lookup_maker = "SELECT maker_id FROM ecobrickers_tb WHERE buwana_id = ?";
+$sql_lookup_maker = "SELECT maker_id FROM tb_ecobrickers WHERE buwana_id = ?";
 $stmt_lookup_maker = $conn->prepare($sql_lookup_maker);
 
 if ($stmt_lookup_maker) {
@@ -53,7 +53,7 @@ if ($stmt_lookup_maker) {
     $stmt_lookup_maker->fetch();
     $stmt_lookup_maker->close();
 } else {
-    die("Error preparing statement for ecobrickers_tb: " . $conn->error);
+    die("Error preparing statement for tb_ecobrickers: " . $conn->error);
 }
 
 $conn->close();

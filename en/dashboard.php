@@ -47,7 +47,7 @@ $stmt_recent = $conn->prepare($sql_recent);
 
 $recent_ecobricks = [];
 if ($stmt_recent) {
-    $stmt_recent->bind_param("i", $maker_id);
+    $stmt_recent->bind_param("s", $maker_id);
     $stmt_recent->execute();
     $stmt_recent->bind_result($ecobrick_thumb_photo_url, $ecobrick_full_photo_url, $weight_g, $location_full, $ecobricker_maker, $serial_no, $status);
     while ($stmt_recent->fetch()) {

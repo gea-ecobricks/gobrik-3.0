@@ -371,9 +371,9 @@ display: none;
 
                 <div class="menu-page-item"><a href="log.php" aria-label="Log" data-lang-id="1000-log-ecobrick">Log Ecobrick</a></div>
                 <div class="menu-page-item"><a href="brikchain.php" data-lang-id="1000-brikchain">The Brikchain</a></div>
-              <div class="menu-page-item"><a href="newest.php" data-lang-id="1000-latest-ecobricks">Latest Ecobricks</a></div>
-                <div class="menu-page-item"><a href="projects.php" data-lang-id="1000-featured-projects">Featured Projects</a></div>
-                <div class="menu-page-item"><a href="trainings.php" data-lang-id="1000-latest-trainings">Latest Trainings</a></div>
+              <div class="menu-page-item"><a href="newest-briks.php" data-lang-id="1000-latest-ecobricks">Latest Ecobricks</a></div>
+                <div class="menu-page-item"><a href="newest-projects.php" data-lang-id="1000-featured-projects">Featured Projects</a></div>
+                <div class="menu-page-item"><a href="newest-trainings.php" data-lang-id="1000-latest-trainings">Latest Trainings</a></div>
                 <div class="menu-page-item"><a href="index.php" data-lang-id="1000-landing-page">Landing Page</a></div>
 
 

@@ -66,9 +66,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT -->
-   <div id="top-page-image" class="dolphin-pic top-page-image"></div>
+   <div id="top-page-image" class="my-ecobricks top-page-image"></div>
 
-<div id="form-submission-box" class="landing-page-form">
+<div id="form-submission-box" style="height:fit-content;">
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
             <h2>The Latest Ecobricks</h2>
@@ -81,7 +81,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>-->
 
         <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
-            <h3>Most Recent Ecobricks</h3>
             <table id="latest-ecobricks">
                 <tr>
                     <th data-lang-id="1103-brik">Brik</th>

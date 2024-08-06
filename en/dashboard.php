@@ -101,9 +101,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
-<div id="top-page-image" class="dolphin-pic top-page-image"></div>
 
-<!-- DASHBOARD CONTENT -->
+<!-- PAGE CONTENT -->
+   <div id="top-page-image" class="dolphin-pic top-page-image"></div>
+
 <div id="form-submission-box" style="height:fit-content;">
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">

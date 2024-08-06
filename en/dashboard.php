@@ -49,9 +49,17 @@ $recent_ecobricks = [];
 if ($stmt_recent) {
     $stmt_recent->bind_param("i", $maker_id);
     $stmt_recent->execute();
-    $result_recent = $stmt_recent->get_result();
-    while ($row = $result_recent->fetch_assoc()) {
-        $recent_ecobricks[] = $row;
+    $stmt_recent->bind_result($ecobrick_thumb_photo_url, $ecobrick_full_photo_url, $weight_g, $location_full, $ecobricker_maker, $serial_no, $status);
+    while ($stmt_recent->fetch()) {
+        $recent_ecobricks[] = [
+            'ecobrick_thumb_photo_url' => $ecobrick_thumb_photo_url,
+            'ecobrick_full_photo_url' => $ecobrick_full_photo_url,
+            'weight_g' => $weight_g,
+            'location_full' => $location_full,
+            'ecobricker_maker' => $ecobricker_maker,
+            'serial_no' => $serial_no,
+            'status' => $status,
+        ];
     }
     $stmt_recent->close();
 }

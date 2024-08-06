@@ -224,7 +224,7 @@
 
 .dolphin-pic {
   background: url(../svgs/dolphin-top-optimized-dark.svg) no-repeat center;
-  background-size: cover;
+  background-size: contain;
 }
 
 .featured-content-3 {

@@ -1,7 +1,7 @@
 <?php
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.365';
+$version = '0.366';
 $page = 'signedup-login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -76,15 +76,15 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <?php require_once ("../includes/signedup-login-inc.php"); ?>
 
-<div class="splash-content-block"></div>
+
+<div class="splash-title-block"></div>
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT -->
-<div id="form-submission-box" style="height:100vh;">
+   <div id="top-page-image" class="dolphin-pic top-page-image"></div>
+
+<div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
-        <div class="dolphin-pic" style="margin-top:-65px;background-size:contain;" alt="Yeay!">
-            <img src="../webps/earth-community.webp" width="65%">
-        </div>
 
         <div style="text-align:center;width:100%;margin:auto;">
             <h2 data-lang-id="100-login-heading-signed-up">Your account is ready! 🎉</h2>

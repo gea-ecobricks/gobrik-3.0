@@ -60,7 +60,7 @@ Developed and made open source by the Global Ecobrick Alliance
 See our git hub repository for the full code and to help out:
 https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
-<?php require_once("../includes/dashboard-inc.php"); ?>
+<?php require_once("../includes/newest-briks-inc.php"); ?>
 
 <div class="splash-content-block"></div>
 <div id="splash-bar"></div>

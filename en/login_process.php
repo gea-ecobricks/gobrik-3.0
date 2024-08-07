@@ -19,7 +19,7 @@ $gobrik_username = "ecobricks_brikchain_viewer";
 $gobrik_password = "desperate-like-the-Dawn";
 $gobrik_dbname = "ecobricks_gobrik_msql_db";
 
-// Create connection for GoBrik database
+// Create connection to GoBrik database
 $gobrik_conn = new mysqli($gobrik_servername, $gobrik_username, $gobrik_password, $gobrik_dbname);
 if ($gobrik_conn->connect_error) {
     error_log("Connection failed: " . $conn2->connect_error);
@@ -40,8 +40,8 @@ if ($stmt_check_email) {
         $stmt_check_email->bind_result($ecobricker_id, $buwana_activated);
         $stmt_check_email->fetch();
 
-        if ($buwana_activated === 'yes') {
-            header("Location: activate.php?user_id=$ecobricker_id");  // page will let users activate their Buwana account
+        if ($buwana_activated !== 'yes') {
+            header("Location: activate.php?user_id=$ecobricker_id");  // Redirect to activation page
             exit();
         }
 
@@ -52,6 +52,7 @@ if ($stmt_check_email) {
 } else {
     die('Error preparing statement for checking email: ' . $conn2->error);
 }
+
 
 
 // PART 3: Check Buwana Database

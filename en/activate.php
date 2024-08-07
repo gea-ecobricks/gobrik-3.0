@@ -1,115 +1,70 @@
 <?php
-$directory = basename(dirname($_SERVER['SCRIPT_NAME']));
-$lang = $directory;
-$version = '0.35';
-$page = 'signup';
-$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
-
-echo '<!DOCTYPE html>
-<html lang="' . $lang . '">
-<head>
-<meta charset="UTF-8">
-';
-?>
-
-<?php
+session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$success = false;
-$user_id = $_GET['id'] ?? null;
-
-include '../buwana_env.php'; // this file provides the database server, user, dbname information to access the server
-
-
-// Look up these fields from credentials_tb and users_tb using the user_id
+// Initialize variables
+$response = ['success' => false];
+$buwana_id = $_GET['id'] ?? null;
+$directory = basename(dirname($_SERVER['SCRIPT_NAME']));
+$lang = $directory;
+$version = '0.45';
+$page = 'activate';
+$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $credential_type = '';
 $credential_key = '';
 $first_name = '';
+$account_status = '';
 
-if (isset($user_id)) {
-    // First, look up the credential_type and credential_key from credentials_tb
-    $sql_lookup_credential = "SELECT credential_type, credential_key FROM credentials_tb WHERE user_id = ?";
+include '../buwana_env.php'; // This file provides the database server, user, dbname information to access the server
+
+// PART 1: Check if the user is already logged in
+if (isset($_SESSION['buwana_id'])) {
+    header("Location: dashboard.php");
+    exit();
+}
+
+// Look up user information if buwana_id is provided
+if ($buwana_id) {
+    $sql_lookup_credential = "SELECT credential_type, credential_key FROM credentials_tb WHERE buwana_id = ?";
     $stmt_lookup_credential = $conn->prepare($sql_lookup_credential);
-
     if ($stmt_lookup_credential) {
-        $stmt_lookup_credential->bind_param("i", $user_id);
+        $stmt_lookup_credential->bind_param("i", $buwana_id);
         $stmt_lookup_credential->execute();
         $stmt_lookup_credential->bind_result($credential_type, $credential_key);
         $stmt_lookup_credential->fetch();
         $stmt_lookup_credential->close();
     } else {
-        die("Error preparing statement for credentials_tb: " . $conn->error);
+        $response['error'] = 'db_error';
     }
 
-    // Then, look up the first_name from users_tb
-    $sql_lookup_user = "SELECT first_name FROM users_tb WHERE user_id = ?";
+    $sql_lookup_user = "SELECT first_name, account_status FROM users_tb WHERE buwana_id = ?";
     $stmt_lookup_user = $conn->prepare($sql_lookup_user);
-
     if ($stmt_lookup_user) {
-        $stmt_lookup_user->bind_param("i", $user_id);
+        $stmt_lookup_user->bind_param("i", $buwana_id);
         $stmt_lookup_user->execute();
-        $stmt_lookup_user->bind_result($first_name);
+        $stmt_lookup_user->bind_result($first_name, $account_status);
         $stmt_lookup_user->fetch();
         $stmt_lookup_user->close();
     } else {
-        die("Error preparing statement for users_tb: " . $conn->error);
+        $response['error'] = 'db_error';
     }
 
-    $credential_type = htmlspecialchars($credential_type); // Sanitize to prevent XSS
-    $first_name = htmlspecialchars($first_name); // Sanitize to prevent XSS
-}
+    $credential_type = htmlspecialchars($credential_type);
+    $first_name = htmlspecialchars($first_name);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($user_id)) {
-    // Retrieve and sanitize form data
-    $credential_value = htmlspecialchars($_POST['credential_value']);
-    $password_hash = password_hash($_POST['password_hash'], PASSWORD_DEFAULT);
-
-    // Update the credentials_tb with the credential_key
-    $sql_update_credential = "UPDATE credentials_tb SET credential_key = ? WHERE user_id = ?";
-    $stmt_update_credential = $conn->prepare($sql_update_credential);
-
-    if ($stmt_update_credential) {
-        $stmt_update_credential->bind_param("si", $credential_value, $user_id);
-
-        if ($stmt_update_credential->execute()) {
-            // Update the users_tb with the password and change the account status
-            $sql_update_user = "UPDATE users_tb SET password_hash = ?, account_status = 'registered no login' WHERE user_id = ?";
-            $stmt_update_user = $conn->prepare($sql_update_user);
-
-            if ($stmt_update_user) {
-                $stmt_update_user->bind_param("si", $password_hash, $user_id);
-
-                if ($stmt_update_user->execute()) {
-                    $success = true;
-                    // Redirect to signedup-login.php with user_id
-                    header("Location: signedup-login.php?id=$user_id");
-                    exit();
-                } else {
-                    echo "Error: " . $stmt_update_user->error;
-                }
-                $stmt_update_user->close();
-            } else {
-                echo "Error preparing statement for users_tb: " . $conn->error;
-            }
-        } else {
-            echo "Error: " . $stmt_update_credential->error;
-        }
-        $stmt_update_credential->close();
-    } else {
-        echo "Error preparing statement for credentials_tb: " . $conn->error;
+    if ($account_status !== 'name set only') {
+        $response['error'] = 'account_status';
     }
-
-    $conn->close();
-} else {
-    echo "Invalid request method or missing user ID.";
 }
 ?>
 
-
-
-
-<title>Activate New Account | GoBrik 3.0</title>
+<!DOCTYPE html>
+<html lang="<?php echo $lang; ?>">
+<head>
+<meta charset="UTF-8">
+<title>Sign Up | Step 2 | GoBrik</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!--
 GoBrik.com site version 3.0
@@ -120,149 +75,89 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once ("../includes/signup-inc.php");?>
 
 
-<div class="splash-content-block"></div>
+<div class="splash-title-block"></div>
 <div id="splash-bar"></div>
 
-<!-- PAGE CONTENT-->
+<!-- PAGE CONTENT -->
+   <div id="top-page-image" class="credentials-banner top-page-image"></div>
 
-<div id="form-submission-box" style="height:100vh;">
+<div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
 
-        <div class="earth-com" style="margin-top:-45px;">
-        <img src="../webps/earth-community.webp" width="60%">
-    </div>
 
-        <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="001-signup-heading">Setup Your Access</h2>
-            <p data-lang-id="002-gobrik-subtext">Alright <?php echo $first_name; ?>: You've chosen to use <?php echo $credential_type; ?> as your means of registration and the way we contact you.</p>
+            <div style="text-align:center;width:100%;margin:auto;">
+                <h2 data-lang-id="001-signup-heading2">Welcome to GoBrik 3.0</h2>
+                <h4>Activate your Buwana Account</h3>
+                <p><?php echo $first_name; ?><span data-lang-id="002-activate-intro">, we've completed the transfer of GoBrik from corporate database servers, to our own!  The new GoBrik uses Buwana accounts to login: this is our own login alternative to Google Login, Facebook Connect and Apple accounts.  Like the new GoBrik 3.0 its simple to start.  However, soon it will provide a a way to login to other great apps in the regenerative movement!</p>
+
+                <p>Buwana accounts are designed with ecology, security and privacy in mind.  Check out our easy to read terms of use.  To keep using GoBrik, please activate your Buwana account.</p>
+            </div>
+
+
+            <!--SIGNUP FORM-->
+            <form id="activate-confirmation" method="post" action="activate_process.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
+                <div class="form-item" id="credential-section">
+                    <label for="credential_value"><span data-lang-id="004-your">Your</span> <?php echo $credential_type; ?> please:</label><br>
+                    <div id="duplicate-email-error" class="form-field-error" style="margin-top:10px;margin-bottom:-13px;" data-lang-id="010-duplicate-email">🚧 Whoops! Looks like that e-mail address is already being used by a Buwana Account. Please choose another.</div>
+                    <div id="duplicate-gobrik-email" class="form-warning" style="margin-top:10px;margin-bottom:-13px;" data-lang-id="010-gobrik-duplicate">🌏 It looks like this email is already being used with a legacy GoBrik account. By registering today you will upgrade your account to a Buwana account that can be used with GoBrik and other regenerative apps!</div>
+
+                    <div class="input-container">
+                        <input type="text" id="credential_value" name="credential_value" required style="padding-left:45px;" aria-label="your email">
+                        <div id="loading-spinner" class="spinner" style="display: none;"></div>
+                    </div>
+                <p class="form-caption" data-lang-id="006-email-subcaption">💌 This is the way we will contact you to confirm your account</p>
+                </div>
+
+                <div class="form-item" id="set-password" style="display: none;">
+                    <label for="password_hash" data-lang-id="007-set-your-pass">Set your password:</label><br>
+                    <input type="password" id="password_hash" name="password_hash" required minlength="6">
+                    <p class="form-caption" data-lang-id="008-password-advice">🔑 Your password must be at least 6 characters.</p>
+                </div>
+
+                <div class="form-item" id="confirm-password-section" style="display: none;">
+                    <label for="confirm_password" data-lang-id="009-confirm-pass">Confirm Your Password:</label><br>
+                    <input type="password" id="confirm_password" name="confirm_password" required>
+                    <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;" data-lang-id="010-pass-error-no-match">👉 Passwords do not match.</div>
+                </div>
+
+                <div class="form-item" id="human-check-section" style="display: none;">
+                    <label for="human_check" data-lang-id="011-prove-human">Please prove you are human by typing the word "ecobrick" below:</label><br>
+                    <input type="text" id="human_check" name="human_check" required>
+                    <p class="form-caption" data-lang-id="012-fun-fact"> 🤓 Fun fact: <a href="#" onclick="showModalInfo('ecobrick')" class="underline-link">'ecobrick'</a> is spelled without a space, capital or hyphen!</p>
+                    <div>
+                        <input type="checkbox" id="terms" name="terms" required checked>
+                        <label for="terms" style="font-size:medium;" class="form-caption" data-lang-id="013-by-registering">By registering today, I agree to the <a href="#" onclick="showModalInfo('terms')" class="underline-link">GoBrik Terms of Service</a></label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="newsletter" name="newsletter" checked>
+                        <label for="newsletter" style="font-size:medium;" class="form-caption" data-lang-id="014-i-agree-newsletter">I agree to receive the <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen newsletter</a> for app, ecobrick, and earthen updates</label>
+                    </div>
+                </div>
+
+                <div id="submit-section" style="display:none;text-align:center;margin-top:15px;" title="Be sure you wrote ecobrick correctly!">
+                    <input type="submit" id="submit-button" value="Register" class="submit-button disabled">
+                </div>
+            </form>
+
+
         </div>
 
-       <!--SIGNUP FORM-->
+     <div style="text-align:center;width:100%;margin:auto;margin-top: 20px;">
+                <p style="font-size:medium;" data-land-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
+            </div>
 
 
-
-<form id="password-confirm-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?id=' . htmlspecialchars($user_id); ?>">
-    <div class="form-item" id="credential-section">
-        <label for="credential_value">Your <?php echo $credential_type; ?> please:</label><br>
-        <input type="text" id="credential_value" name="credential_value" required>
-        <p class="form-caption" data-lang-id="006-volume-ml-caption">💌 This is the way we will contact you to confirm your account</p>
     </div>
-
-    <div class="form-item" id="set-password" style="display: none;">
-        <label for="password_hash">Set your password:</label><br>
-        <input type="password" id="password_hash" name="password_hash" required minlength="6">
-        <p class="form-caption" data-lang-id="006-volume-ml-caption">🔑 Your password must be at least 6 characters.</p>
-    </div>
-
-    <div class="form-item" id="confirm-password-section" style="display: none;">
-        <label for="confirm_password">Confirm Your Password:</label><br>
-        <input type="password" id="confirm_password" name="confirm_password" required>
-        <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;" data-lang-id="005b-name-error">👉 Passwords do not match.</div>
-    </div>
-
-    <div class="form-item" id="human-check-section" style="display: none;">
-        <label for="human_check">Please prove you are human by typing the word "ecobrick" below:</label><br>
-        <input type="text" id="human_check" name="human_check" required>
-        <p class="form-caption" data-lang-id="006-volume-ml-caption"> 🤓 Fun fact: <a href="#" onclick="showModalInfo('ecobrick')" class="underline-link">'ecobrick'</a> is spelled without a space, capital or hyphen!</p>
-        <div>
-            <input type="checkbox" id="terms" name="terms" required checked>
-            <label for="terms" style="font-size:medium;" class="form-caption">By registering today, I agree to the <a href="#" onclick="showModalInfo('terms')" class="underline-link">GoBrik Terms of Service</a></label>
-        </div>
-        <div>
-            <input type="checkbox" id="newsletter" name="newsletter" checked>
-            <label for="newsletter" style="font-size:medium;" class="form-caption">I agree to receive the <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen newsletter</a> for app, ecobrick, and earthen updates</label>
-        </div>
-    </div>
-
-    <div class="form-item" id="submit-section" style="display:none;text-align:center;margin-top:15px;" title="Be sure you wrote ecobrick correctly!">
-        <input type="submit" id="submit-button" value="Register" disabled>
-    </div>
-</form>
-
-        </div>
-
-
-<div style="text-align:center;width:100%;margin:auto;margin-top:50px;margin-bottom:50px;"><p style="font-size:medium;">Already have an account? <a href="login.php">Login</a></p>
-
-
-    </div><!--closes Landing content-->
 </div>
 
-</div><!--closes main and starry background-->
-
-<!--FOOTER STARTS HERE-->
-
-<?php require_once ("../footer-2024.php");?>
-
-</div><!--close page content-->
+    <!--FOOTER STARTS HERE-->
+    <?php require_once ("../footer-2024.php"); ?>
 
 
+<script>
 
-
-    <script type="text/javascript">
-
-
-function showModalInfo(type) {
-    const modal = document.getElementById('form-modal-message');
-    const photobox = document.getElementById('modal-photo-box');
-    const messageContainer = modal.querySelector('.modal-message');
-    const modalBox = document.getElementById('modal-content-box');
-    let content = '';
-    photobox.style.display = 'none';
-    switch (type) {
-        case 'terms':
-            content = `
-                <div style="font-size: small;">
-                    <?php include 'terms.php'; ?>
-                </div>
-            `;
-            modal.style.position = 'absolute';
-            modal.style.overflow = 'auto';
-            modalBox.style.textAlign = 'left';
-            modalBox.style.maxHeight = 'unset';
-            modalBox.style.marginTop = '30px';
-            modalBox.style.marginBottom = '30px';
-
-    // Set scroll position to the top of the modal content
-    modalBox.scrollTop = 0;
-
-            break;
-        case 'earthen':
-            content = `
-                <img src="../svgs/earthen-newsletter-logo.svg" alt="Earthen Newsletter" height="250px" width="250px" class="preview-image">
-                <div class="preview-title">Earthen Newsletter</div>
-                <div class="preview-text">Receive our bi-monthly Earthen newsletter and follow the latest developments in the plastic transition movement.</div>
-            `;
-            break;
-        case 'ecobrick':
-            content = `
-                <img src="../webps/faqs-400px.webp" alt="Ecobrick Term and Types" height="200px" width="200px" class="preview-image">
-                <div class="preview-title">The Term</div>
-                <div class="preview-text">In 2016 plastic transition leaders around the world, agreed to use the non-hyphenated, non-capitalize term ‘ecobrick’ as the consistent, standardized term of reference in the guidebook and their materials. In this way, ecobrickers around the world would be able to refer with one word to same concept and web searches and hashtags would accelerate global dissemination.</div>
-            `;
-            break;
-        default:
-            content = '<p>Invalid term selected.</p>';
-    }
-
-    messageContainer.innerHTML = content;
-
-
-    // Show the modal and update other page elements
-    modal.style.display = 'flex';
-    document.getElementById('page-content').classList.add('blurred');
-    document.getElementById('footer-full').classList.add('blurred');
-    document.body.classList.add('modal-open');
-}
-
-
-
-
-
-
-
-
-    document.addEventListener('DOMContentLoaded', function() {
+ $(document).ready(function() {
+    // Elements
     const credentialField = document.getElementById('credential_value');
     const passwordField = document.getElementById('password_hash');
     const confirmPasswordField = document.getElementById('confirm_password');
@@ -274,6 +169,9 @@ function showModalInfo(type) {
     const submitSection = document.getElementById('submit-section');
     const setPasswordSection = document.getElementById('set-password');
     const makerErrorInvalid = document.getElementById('maker-error-invalid');
+    const duplicateEmailError = $('#duplicate-email-error');
+    const duplicateGobrikEmail = $('#duplicate-gobrik-email');
+    const loadingSpinner = $('#loading-spinner');
 
     // Initially show only the credential field
     setPasswordSection.style.display = 'none';
@@ -281,21 +179,54 @@ function showModalInfo(type) {
     humanCheckSection.style.display = 'none';
     submitSection.style.display = 'none';
 
-    // Function to validate email
     function isValidEmail(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     }
 
-    // Show password field when a valid email is entered
-    credentialField.addEventListener('input', function() {
-        if (isValidEmail(credentialField.value)) {
-            setPasswordSection.style.display = 'block';
+    // Live email checking
+    $('#credential_value').on('input', function() {
+        var email = $(this).val();
+        if (isValidEmail(email)) {
+            setPasswordSection.style.display = 'block'; // Show the set password section
         } else {
-            setPasswordSection.style.display = 'none';
-            confirmPasswordSection.style.display = 'none';
-            humanCheckSection.style.display = 'none';
-            submitSection.style.display = 'none';
+            setPasswordSection.style.display = 'none'; // Hide the set password section if email is not valid
+        }
+    });
+
+    $('#credential_value').on('blur', function() {
+        var email = $(this).val();
+        if (email) {
+            loadingSpinner.removeClass('green red').show();
+            $.ajax({
+                url: 'check_email.php',
+                type: 'POST',
+                data: { credential_value: email },
+                success: function(response) {
+                    loadingSpinner.hide();
+                    var res = JSON.parse(response);
+                    if (res.error === 'duplicate_email') {
+                        duplicateEmailError.show();
+                        duplicateGobrikEmail.hide();
+                        loadingSpinner.removeClass('green').addClass('red').show();
+                        setPasswordSection.style.display = 'none';
+                    } else if (res.error === 'duplicate_gobrik_email') {
+                        duplicateGobrikEmail.show();
+                        duplicateEmailError.hide();
+                        loadingSpinner.removeClass('red').addClass('green').show();
+                        setPasswordSection.style.display = 'block';
+                    } else {
+                        duplicateEmailError.hide();
+                        duplicateGobrikEmail.hide();
+                        loadingSpinner.removeClass('red').addClass('green').show();
+                        setPasswordSection.style.display = 'block';
+                    }
+                },
+                error: function() {
+                    loadingSpinner.hide();
+                    alert('An error occurred while checking the email. Please try again.');
+                }
+            });
         }
     });
 
@@ -338,7 +269,107 @@ function showModalInfo(type) {
 
     humanCheckField.addEventListener('input', updateSubmitButtonState);
     termsCheckbox.addEventListener('change', updateSubmitButtonState);
+
+    // Form submission
+    $('#password-confirm-form').on('submit', function(e) {
+        e.preventDefault(); // Prevent the form from submitting normally
+        loadingSpinner.removeClass('green red').show();
+
+        $.ajax({
+            url: 'signup_process.php?id=<?php echo htmlspecialchars($buwana_id); ?>',
+            type: 'POST',
+            data: $(this).serialize(), // Serialize the form data
+            success: function(response) {
+                loadingSpinner.hide();
+                var res = JSON.parse(response);
+                if (res.success) {
+                    window.location.href = 'signedup-login.php?id=<?php echo htmlspecialchars($buwana_id); ?>';
+                } else if (res.error === 'duplicate_email') {
+                    duplicateEmailError.show();
+                    duplicateGobrikEmail.hide();
+                    loadingSpinner.removeClass('green').addClass('red').show();
+                } else if (res.error === 'duplicate_gobrik_email') {
+                    duplicateGobrikEmail.show();
+                    duplicateEmailError.hide();
+                    loadingSpinner.removeClass('red').addClass('green').show();
+                    $('#password-confirm-form').off('submit').submit(); // Allow the form to submit
+                } else {
+                    alert('An unexpected error occurred. Please try again.');
+                }
+            },
+            error: function() {
+                loadingSpinner.hide();
+                alert('An error occurred while processing the form. Please try again.');
+            }
+        });
+    });
 });
+
+
+
+
+/*SHOW MODALS*/
+
+
+function showModalInfo(type) {
+    const modal = document.getElementById('form-modal-message');
+    const photobox = document.getElementById('modal-photo-box');
+    const messageContainer = modal.querySelector('.modal-message');
+    const modalBox = document.getElementById('modal-content-box');
+    let content = '';
+    photobox.style.display = 'none';
+    switch (type) {
+        case 'terms':
+            content = `
+                <div style="font-size: small;">
+                    <?php include "../files/terms-$lang.php"; ?>
+                </div>
+            `;
+            modal.style.position = 'absolute';
+            modal.style.overflow = 'auto';
+            modalBox.style.textAlign = 'left';
+            modalBox.style.maxHeight = 'unset';
+            modalBox.style.marginTop = '30px';
+            modalBox.style.marginBottom = '30px';
+            modalBox.scrollTop = 0;
+            modal.style.alignItems = 'flex-start';
+
+            break;
+        case 'earthen':
+            content = `
+                <img src="../svgs/earthen-newsletter-logo.svg" alt="Earthen Newsletter" height="250px" width="250px" class="preview-image">
+                <div class="preview-title">Earthen Newsletter</div>
+                <div class="preview-text">We use our Earthen email newsletter to keep our users informed of the latest developments in the plastic transition movement and the world of ecobricking.  Free with your GoBrik account or unclick to opt-out. We use ghost.org's open source newsletter platform that makes it easy to unsubscribe anytime.</div>
+            `;
+            break;
+        case 'ecobrick':
+            content = `
+                <img src="../webps/faqs-400px.webp" alt="Ecobrick Term and Types" height="200px" width="200px" class="preview-image">
+                <div class="preview-title">The Term</div>
+                <div class="preview-text">In 2016 plastic transition leaders around the world, agreed to use the non-hyphenated, non-capitalize term ‘ecobrick’ as the consistent, standardized term of reference in the guidebook and their materials. In this way, ecobrickers around the world would be able to refer with one word to same concept and web searches and hashtags would accelerate global dissemination.</div>
+            `;
+            break;
+        default:
+            content = '<p>Invalid term selected.</p>';
+    }
+
+    messageContainer.innerHTML = content;
+
+
+    // Show the modal and update other page elements
+    modal.style.display = 'flex';
+    document.getElementById('page-content').classList.add('blurred');
+    document.getElementById('footer-full').classList.add('blurred');
+    document.body.classList.add('modal-open');
+}
+
+
+
+
+
+
+
+
 
 </script>
 

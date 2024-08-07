@@ -87,7 +87,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
             <div style="text-align:center;width:100%;margin:auto;">
                 <h2 data-lang-id="001-signup-heading2">Setup Your Access</h2>
-                <p>Alright <span data-lang-id="002-alright"><?php echo $first_name; ?></span>:<span data-lang-id="002-let-use-you"> Let's use your</span> <?php echo $credential_type; ?> <span data-lang-id="003-as-your-means">as your means of registration and the way we contact you.</span></p>
+                <p><span data-lang-id="002-alright">Alright </span> <?php echo $first_name; ?>:<span data-lang-id="002-let-use-you"> Let's use your</span> <?php echo $credential_type; ?> <span data-lang-id="003-as-your-means">as your means of registration and the way we contact you.</span></p>
             </div>
 
 

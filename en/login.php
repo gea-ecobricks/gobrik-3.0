@@ -14,7 +14,7 @@ if (isset($_SESSION['buwana_id'])) {
 
 // Grab language directory from URL
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.586';
+$version = '0.587';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -68,12 +68,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-
-
-
-
-
-
 // Form submission validation
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('login').addEventListener('submit', function(event) {
@@ -87,8 +81,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 </script>
-
-
 
 <?php require_once ("../includes/login-inc.php");?>
 

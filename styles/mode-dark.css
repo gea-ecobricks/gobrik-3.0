@@ -572,7 +572,7 @@ background-size: contain;
 }
 
 .main-landing-graphic {
-  background: url(../svgs/richard-and-team-night.svg?v=3) no-repeat center center;
+  background: url(../svgs/richard-and-team-night.svg?v=3) no-repeat center bottom;
   background-size: contain;
   }
 

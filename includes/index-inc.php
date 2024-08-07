@@ -282,7 +282,7 @@ margin-bottom: -50vh;
 margin-top: 70px;
       margin-bottom: -5px;
       min-width: 250px;
-    min-height: 145px;
+    min-height: 200px;
     }
   }
 

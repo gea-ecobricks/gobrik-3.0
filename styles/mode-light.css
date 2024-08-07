@@ -450,7 +450,7 @@ light.css
 
 
       .main-landing-graphic {
-      background: url(../svgs/richard-and-team-day.svg) no-repeat center center;
+      background: url(../svgs/richard-and-team-day.svg) no-repeat center bottom;
       background-size: contain;
       }
 

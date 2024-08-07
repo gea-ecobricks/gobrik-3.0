@@ -1,7 +1,7 @@
 <?php
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.385';
+$version = '0.386';
 $page = 'index';
 include '../ecobricks_env.php';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));

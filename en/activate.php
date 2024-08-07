@@ -8,7 +8,7 @@ $response = ['success' => false];
 $ecobricker_id = $_GET['user_id'] ?? null;
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.45';
+$version = '0.46';
 $page = 'activate';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $first_name = '';

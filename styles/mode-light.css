@@ -11,10 +11,12 @@
     --subdued-text: #454545;
     --logo-color: #666;
     --top-header: #fff;
+    --top-header-main: ffffffbf;
     --header-accent: rgb(133, 133, 133);
     --accordion-background: #f6f6f6;
     --accordion-highlight: #fff;
     --advanced-background: #bad0d8;
+
 
     --settings-background: rgb(213, 213, 213);
     --settings-border: rgb(220, 220, 222);

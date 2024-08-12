@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 $response = ['success' => false];
 $ecobricker_id = $_GET['user_id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.463';
+$version = '0.464';
 $page = 'activate';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $first_name = '';
@@ -87,7 +87,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2><?php echo htmlspecialchars($first_name); ?>, <span data-lang-id="003-explanation">since you've last logged in, we've made a massive upgrade of GoBrik.</span></h2>
+            <h2><?php echo htmlspecialchars($first_name); ?>, <span data-lang-id="003-explanation">since you've last logged in, we've made a massive upgrade to GoBrik.</span></h2>
 
             <p data-lang-id="003-explanation-2">We've ditched our old corporate server and migrated all our data to our own.  Our new GoBrik 3.0 is running on fully <a href="https://github.com/gea-ecobricks/gobrik-3.0" targ="_blank">revamped open source code base</a> and our own database!  We've also developed our own Buwana login system as an alternative to Google and Apple login.</p>
 
@@ -95,7 +95,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>
 
         <!--SIGNUP FORM-->
-        <form id="activate-confirmation" method="post" action="activate-1.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
+        <form id="activate-confirmation" method="post" action="activate-2.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
 
          <div style=\"text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;\">
 

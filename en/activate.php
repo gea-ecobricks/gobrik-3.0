@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 $response = ['success' => false];
 $ecobricker_id = $_GET['user_id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.462';
+$version = '0.463';
 $page = 'activate';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $first_name = '';
@@ -89,7 +89,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <div style="text-align:center;width:100%;margin:auto;">
             <h2><?php echo htmlspecialchars($first_name); ?>, <span data-lang-id="003-explanation">since you've last logged in, we've made a massive upgrade of GoBrik.</span></h2>
 
-            <p data-lang-id="003-explanation-2">We've ditched our own corporate server and migrated all our data to our own.  Our new GoBrik 3.0 is running on fully revamped open source code base and our own database!  We've also developed our own Buwana login system as an alternative to Google, Facebook and Apple login.  Soon, you'll be able to login to other great regenerative apps movement in the same way you login to GoBrik!</p>
+            <p data-lang-id="003-explanation-2">We've ditched our own corporate server and migrated all our data to our own.  Our new GoBrik 3.0 is running on fully revamped open source code base and our own database!  We've also developed our own Buwana login system as an alternative to Google and Apple login.</p>
 
             <p>To keep using GoBrik, please take a minute to upgrade to a Buwana account.  If you're not interested and would like your old account completely deleted, you can do that too.</p>
         </div>
@@ -100,13 +100,13 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
          <div style=\"text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;\">
 
             <div id="submit-section" style="text-align:center;margin-top:15px;" title="Start Activation proces">
-                <input type="submit" id="submit-button" value="Activate!" class="submit-button enabled">
+                <input type="submit" id="submit-button" value="Activate!" class="submit-button activate">
                 <button type='button' class="submit-button delete">Delete my account</button>
 
             </div>
         </form>
 
-        <p data-lang-id="005-links" style="font-size:small">Buwana accounts are designed with ecology, security, and privacy in mind. Check out our easy to read <a href="#" onclick="showModalInfo('terms')" class="underline-link">GoBrik Terms of Service</a>. Get our <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen monthly newsletter</a>. To keep using GoBrik, please activate your Buwana account.</p>
+        <p data-lang-id="005-links" style="font-size:small; text-align: center;">Buwana accounts are designed with ecology, security, and privacy in mind. Soon, you'll be able to login to other great regenerative apps movement in the same way you login to GoBrik! Check out our easy to read <a href="#" onclick="showModalInfo('terms')" class="underline-link">GoBrik Terms of Service</a>. Get our <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen monthly newsletter</a>. To keep using GoBrik, please activate your Buwana account.</p>
 
     </div>
 

@@ -3,25 +3,34 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Check if the user is logged in
-if (!isset($_SESSION['buwana_id'])) {
-    header("Location: login.php");
+// Initialize variables
+$response = ['success' => false];
+$ecobricker_id = $_GET['user_id'] ?? null;
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$version = '0.464';
+$page = 'activate';
+$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+$first_name = '';
+$email_addr = '';
+
+// PART 1: Check if the user is already logged in
+if (isset($_SESSION['buwana_id'])) {
+    header("Location: dashboard.php");
     exit();
 }
 
-// Get the ecobricker_id from the URL
-$ecobricker_id = $_GET['id'] ?? null;
-
-// Check if ecobricker_id is valid
+// PART 2: Check if ecobricker_id is passed in the URL
 if (is_null($ecobricker_id)) {
     echo '<script>
-        alert("No ecobricker ID was provided. Please try again.");
-        window.location.href = "activate.php";
+        alert("Hmm... something went wrong. No ecobricker ID was passed along. Please try logging in again. If this problem persists, you\'ll need to create a new account.");
+        window.location.href = "login.php";
     </script>';
     exit();
 }
 
-// GoBrik database credentials
+// PART 3: Look up user information using ecobricker_id provided in URL
+
+// GoBrik database credentials (we'll hide this soon!)
 $gobrik_servername = "localhost";
 $gobrik_username = "ecobricks_brikchain_viewer";
 $gobrik_password = "desperate-like-the-Dawn";
@@ -34,28 +43,22 @@ if ($gobrik_conn->connect_error) {
 }
 $gobrik_conn->set_charset("utf8mb4");
 
-// Prepare and execute SQL statement to delete the user
-$sql_delete_user = "DELETE FROM tb_ecobrickers WHERE ecobricker_id = ?";
-$stmt_delete_user = $gobrik_conn->prepare($sql_delete_user);
-if ($stmt_delete_user) {
-    $stmt_delete_user->bind_param('i', $ecobricker_id);
-    $stmt_delete_user->execute();
-    $stmt_delete_user->close();
-
-    // Destroy session and redirect to confirmation page
-    session_destroy();
-    echo '<script>
-        alert("Your account has been permanently deleted.");
-        window.location.href = "goodbye.php";
-    </script>';
-    exit();
+// Prepare and execute SQL statement to fetch user details
+$sql_user_info = "SELECT first_name, email_addr FROM tb_ecobrickers WHERE ecobricker_id = ?";
+$stmt_user_info = $gobrik_conn->prepare($sql_user_info);
+if ($stmt_user_info) {
+    $stmt_user_info->bind_param('i', $ecobricker_id);
+    $stmt_user_info->execute();
+    $stmt_user_info->bind_result($first_name, $email_addr);
+    $stmt_user_info->fetch();
+    $stmt_user_info->close();
 } else {
-    die('Error preparing statement for deleting user: ' . $gobrik_conn->error);
+    die('Error preparing statement for fetching user info: ' . $gobrik_conn->error);
 }
 
 $gobrik_conn->close();
-?>
 
+?>
 
 <!DOCTYPE html>
 <html lang="<?php echo $lang; ?>">
@@ -88,22 +91,21 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <p data-lang-id="003-explanation-3" style="font-weight:500">To keep using GoBrik with <?php echo htmlspecialchars($email_addr); ?>, please take a minute to upgrade to a Buwana account. If you're not interested and would like your old <?php echo htmlspecialchars($email_addr); ?> account completely deleted, you can do that too.</p>
         </div>
 
-       <!--SIGNUP FORM-->
-<form id="activate-confirmation" method="post" action="activate-2.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
-    <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
-        <div id="submit-section" style="text-align:center;margin-top:15px;" title="Start Activation process">
-            <input type="submit" id="submit-button" value="Activate!" class="submit-button activate">
-        </div>
-    </div>
-</form>
+        <!--SIGNUP FORM-->
+        <form id="activate-confirmation" method="post" action="activate-2.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
+            <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
+                <div id="submit-section" style="text-align:center;margin-top:15px;" title="Start Activation process">
+                    <input type="submit" id="submit-button" value="Activate!" class="submit-button activate">
+                </div>
+            </div>
+        </form>
 
-<!-- DELETE ACCOUNT FORM -->
-<form id="delete-account-form" method="post" action="delete_account.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
-    <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
-        <button type="button" class="submit-button delete" onclick="confirmDeletion()">Delete my account</button>
-    </div>
-</form>
-
+        <!-- DELETE ACCOUNT FORM -->
+        <form id="delete-account-form" method="post" action="delete_account.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
+            <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
+                <button type="button" class="submit-button delete" onclick="confirmDeletion()">Delete my account</button>
+            </div>
+        </form>
 
         <p data-lang-id="005-links" style="font-size:small; text-align: center;">Buwana accounts are designed with ecology, security, and privacy in mind. Soon, you'll be able to login to other great regenerative apps movement in the same way you login to GoBrik! Check out our easy to read <a href="#" onclick="showModalInfo('terms')" class="underline-link">GoBrik Terms of Service</a>. Get our <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen monthly newsletter</a>.</p>
 
@@ -172,7 +174,6 @@ function showModalInfo(type) {
 
 </script>
 
-
 <script>
 function confirmDeletion() {
     if (confirm("Are you certain you wish to delete your account? This cannot be undone.")) {
@@ -182,6 +183,7 @@ function confirmDeletion() {
     }
 }
 </script>
+
 
 </body>
 </html>

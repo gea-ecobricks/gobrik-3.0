@@ -91,7 +91,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
             <p data-lang-id="003-explanation-2">We've ditched our old corporate server and migrated all our data to our own.  Our new GoBrik 3.0 is running on fully <a href="https://github.com/gea-ecobricks/gobrik-3.0" targ="_blank">revamped open source code base</a> and our own database!  We've also developed our own Buwana login system as an alternative to Google and Apple login.</p>
 
-            <p>To keep using GoBrik, please take a minute to upgrade to a Buwana account.  If you're not interested and would like your old account completely deleted, you can do that too.</p>
+            <p data-lang-id="003-explanation-3" style="font-weight:500">To keep using GoBrik, please take a minute to upgrade to a Buwana account.  If you're not interested and would like your old account completely deleted, you can do that too.</p>
         </div>
 
         <!--SIGNUP FORM-->
@@ -104,10 +104,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <button type='button' class="submit-button delete">Delete my account</button>
 
             </div>
-        <p>Read our blog about the <a href="https://earthen.io/gobrik-regen" target="_blank">GoBrik rgeneration</a> process.</p>
+
         </form>
 
-        <p data-lang-id="005-links" style="font-size:small; text-align: center;">Buwana accounts are designed with ecology, security, and privacy in mind. Soon, you'll be able to login to other great regenerative apps movement in the same way you login to GoBrik! Check out our easy to read <a href="#" onclick="showModalInfo('terms')" class="underline-link">GoBrik Terms of Service</a>. Get our <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen monthly newsletter</a>. To keep using GoBrik, please activate your Buwana account.</p>
+        <p data-lang-id="005-links" style="font-size:small; text-align: center;">Buwana accounts are designed with ecology, security, and privacy in mind. Soon, you'll be able to login to other great regenerative apps movement in the same way you login to GoBrik! Check out our easy to read <a href="#" onclick="showModalInfo('terms')" class="underline-link">GoBrik Terms of Service</a>. Get our <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen monthly newsletter</a>.</p>
+
+         <p data-lang-id="003-read-more"  style="font-size:medium; text-align: center;">Read our blog about the <a href="https://earthen.io/gobrik-regen" target="_blank">GoBrik rgeneration</a> process.</p>
 
     </div>
 

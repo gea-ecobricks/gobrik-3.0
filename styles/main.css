@@ -2091,6 +2091,19 @@ select {
     color: black;
 }
 
+.delete {
+    background-color: red;
+    cursor: pointer;
+    color: #999;
+}
+
+.delete:hover {
+    background-color: red;
+    cursor: pointer;
+    color: black;
+}
+
+
 /* Hover effect for enabled state */
 .enabled:hover {
     background-color: var(--button-2-1-over);

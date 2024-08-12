@@ -14,8 +14,8 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 const en_Page_Translations = {
 
     "000-lead-header": "Together we can keep our plastic out of the biosphere and out of industry.",
-    "001-welcome-text": "GoBrik helps manage your ecobricks, projects and plastic transition so that together we can build our greenest visions.",
-    "002-sign-in": "Sign in",
+    "001-welcome-text": "GoBrik helps manage your ecobricks, plastic and projects so that together we can build our greenest visions.",
+    "002-sign-in": "Log in",
     "003-sign-up": "Sign up",
     "004-account-options": "Use your GoBrik or Buwana account to sign in. No account? Sign up for free!",
     "005-featured-live-brikchain": "<span class=\"blink\">⬤  </span>Live brikchain feed of authenticated ecobricks. Click to preview.",

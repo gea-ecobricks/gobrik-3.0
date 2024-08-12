@@ -80,9 +80,9 @@ if ($stmt_user) {
                         <label for='update_buwana' style=\"font-size:0.9em\">Update my Buwana account too</label><br>
                         <div style=\"text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;\">
 
-<button type='submit' class=\"submit-button enabled\">Save</button>
-<button type='button' onclick='closeInfoModal()' class=\"submit-button cancel\">Cancel</button>
-</div>
+                            <button type='submit' class=\"submit-button enabled\">Save</button>
+                            <button type='button' onclick='closeInfoModal()' class=\"submit-button cancel\">Cancel</button>
+                        </div>
                     </form>
                 `;
                 modal.style.display = 'flex';

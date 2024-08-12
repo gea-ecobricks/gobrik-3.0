@@ -9,14 +9,13 @@ $buwana_id = $_GET['id'] ?? null;
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
 $version = '0.45';
-$page = 'signup';
+$page = 'activate';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $credential_type = '';
 $credential_key = '';
 $first_name = '';
 $account_status = '';
 
-include '../buwana_env.php'; // This file provides the database server, user, dbname information to access the server
 
 // PART 1: Check if the user is already logged in
 if (isset($_SESSION['buwana_id'])) {
@@ -24,39 +23,45 @@ if (isset($_SESSION['buwana_id'])) {
     exit();
 }
 
-// Look up user information if buwana_id is provided
-if ($buwana_id) {
-    $sql_lookup_credential = "SELECT credential_type, credential_key FROM credentials_tb WHERE buwana_id = ?";
-    $stmt_lookup_credential = $conn->prepare($sql_lookup_credential);
-    if ($stmt_lookup_credential) {
-        $stmt_lookup_credential->bind_param("i", $buwana_id);
-        $stmt_lookup_credential->execute();
-        $stmt_lookup_credential->bind_result($credential_type, $credential_key);
-        $stmt_lookup_credential->fetch();
-        $stmt_lookup_credential->close();
-    } else {
-        $response['error'] = 'db_error';
-    }
-
-    $sql_lookup_user = "SELECT first_name, account_status FROM users_tb WHERE buwana_id = ?";
-    $stmt_lookup_user = $conn->prepare($sql_lookup_user);
-    if ($stmt_lookup_user) {
-        $stmt_lookup_user->bind_param("i", $buwana_id);
-        $stmt_lookup_user->execute();
-        $stmt_lookup_user->bind_result($first_name, $account_status);
-        $stmt_lookup_user->fetch();
-        $stmt_lookup_user->close();
-    } else {
-        $response['error'] = 'db_error';
-    }
-
-    $credential_type = htmlspecialchars($credential_type);
-    $first_name = htmlspecialchars($first_name);
-
-    if ($account_status !== 'name set only') {
-        $response['error'] = 'account_status';
-    }
+// PART 2: Check if ecobricker_id is passed in the URL
+if (is_null($ecobricker_id)) {
+    echo '<script>
+        alert("Hmm... something went wrong. No ecobricker ID was passed along. Please try logging in again. If this problem persists, you\'ll need to create a new account.");
+        window.location.href = "login.php";
+    </script>';
+    exit();
 }
+
+// PART 3: Look up user information using ecobricker_id provided in URL
+
+// GoBrik database credentials (we'll hide this soon!)
+$gobrik_servername = "localhost";
+$gobrik_username = "ecobricks_brikchain_viewer";
+$gobrik_password = "desperate-like-the-Dawn";
+$gobrik_dbname = "ecobricks_gobrik_msql_db";
+
+// Create connection to GoBrik database
+$gobrik_conn = new mysqli($gobrik_servername, $gobrik_username, $gobrik_password, $gobrik_dbname);
+if ($gobrik_conn->connect_error) {
+    die("Connection failed: " . $gobrik_conn->connect_error);
+}
+$gobrik_conn->set_charset("utf8mb4");
+
+// Prepare and execute SQL statement to fetch user details
+$sql_user_info = "SELECT first_name, email_addr FROM tb_ecobrickers WHERE ecobricker_id = ?";
+$stmt_user_info = $gobrik_conn->prepare($sql_user_info);
+if ($stmt_user_info) {
+    $stmt_user_info->bind_param('i', $ecobricker_id);
+    $stmt_user_info->execute();
+    $stmt_user_info->bind_result($first_name, $email_addr);
+    $stmt_user_info->fetch();
+    $stmt_user_info->close();
+} else {
+    die('Error preparing statement for fetching user info: ' . $gobrik_conn->error);
+}
+
+$gobrik_conn->close();
+
 ?>
 
 <!DOCTYPE html>

@@ -225,8 +225,9 @@
             transition: top 0.3s, height 0.3s, transform 0.3s;
             transition: 0.4s;
             z-index: 30;
-            background: var(--top-header);
+            background: var(--top-header-main);
             width: 100%;
+            backdrop-filter: blur(10px);
         }
 
 @media screen and (min-width: 700px) {

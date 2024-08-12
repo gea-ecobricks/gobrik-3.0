@@ -6,16 +6,15 @@ ini_set('display_errors', 1);
 // Initialize variables
 $response = ['success' => false];
 $ecobricker_id = $_GET['user_id'] ?? null;
-$directory = basename(dirname($_SERVER['SCRIPT_NAME']));
-$lang = $directory;
-$version = '0.46';
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$version = '0.461';
 $page = 'activate';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $first_name = '';
 $email_addr = '';
 
 // Include database credentials
-include '../buwana_env.php'; // This file provides the database server, user, dbname information to access the server
+// include '../buwana_env.php'; // This file provides the database server, user, dbname information to access the server
 
 // PART 1: Check if the user is already logged in
 if (isset($_SESSION['buwana_id'])) {
@@ -68,7 +67,6 @@ $gobrik_conn->close();
 <html lang="<?php echo $lang; ?>">
 <head>
 <meta charset="UTF-8">
-<title>Sign Up | Step 2 | GoBrik</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!--
@@ -89,27 +87,24 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="001-signup-heading2">Welcome to GoBrik 3.0</h2>
-            <h4>Activate your Buwana Account</h4>
-            <p><?php echo htmlspecialchars($first_name); ?>, we've completed the transfer of GoBrik from corporate database servers to our own! In order to use the new GoBrik, your account requires an upgrade.</p>
-            <p>The new GoBrik uses Buwana accounts to login: this is our own login alternative to Google Login, Facebook Connect, and Apple accounts. Like the new GoBrik 3.0, it's simple to start. However, soon it will provide a way to login to other great apps in the regenerative movement!</p>
+            <h1 data-lang-id="001-heading">Welcome to GoBrik 3.0</h1>
+            <h2 data-lang-id="002-subheading">Activate your Buwana Account</h2>
+            <p><?php echo htmlspecialchars($first_name); ?>, <span data-lang-id="003-explanation">we've made a massive upgrade of GoBrik.</span></p>
+            <p data-lang-id="003-explanation-2">The new GoBrik uses Buwana accounts to login: this is our own login alternative to Google Login, Facebook Connect, and Apple accounts.  Soon, you'll be able to login to other great regenerative apps movement in the same way you login to GoBrik!</p>
         </div>
 
         <!--SIGNUP FORM-->
         <form id="activate-confirmation" method="post" action="activate-1.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
 
-            <div id="submit-section" style="display:none;text-align:center;margin-top:15px;" title="Be sure you wrote ecobrick correctly!">
+            <div id="submit-section" style="text-align:center;margin-top:15px;" title="Start Activation proces">
                 <input type="submit" id="submit-button" value="Activate!" class="submit-button enabled">
             </div>
         </form>
 
-        <p>Buwana accounts are designed with ecology, security, and privacy in mind. Check out our easy to read <a href="#" onclick="showModalInfo('terms')" class="underline-link">GoBrik Terms of Service</a>. Get our <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen monthly newsletter</a>. To keep using GoBrik, please activate your Buwana account.</p>
+        <p data-lang-id="005-links">Buwana accounts are designed with ecology, security, and privacy in mind. Check out our easy to read <a href="#" onclick="showModalInfo('terms')" class="underline-link">GoBrik Terms of Service</a>. Get our <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen monthly newsletter</a>. To keep using GoBrik, please activate your Buwana account.</p>
 
     </div>
 
-    <div style="text-align:center;width:100%;margin:auto;margin-top: 20px;">
-        <p style="font-size:medium;" data-land-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
-    </div>
 
 </div>
 

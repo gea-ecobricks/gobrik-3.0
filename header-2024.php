@@ -68,6 +68,7 @@
 
 
 
+
 <script src="../scripts/language-switcher.js?v=<?php echo ($version); ;?>"></script>
 
 <script>

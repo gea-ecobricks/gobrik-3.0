@@ -101,18 +101,18 @@ html {
 
 
 
-#header {
-  transition: 0.4s;
-  /*display: flex;
-  justify-content: center;*/
-  z-index: 25;
-position: relative;
-background: var(--top-header);
-/*box-shadow: 0px 0px 12px var(--shadow);	*/
-  width: 100%;
-  border-bottom: var(--header-accent) 0.5px solid;
-  box-shadow: 0px 0px 15px rgba(0, 0, 10, 0.805);
-}
+/* #header { */
+/*   transition: 0.4s; */
+/*   /*display: flex; */
+/*   justify-content: center;*/ */
+/*   z-index: 25; */
+/* position: relative; */
+/* background: var(--top-header); */
+/* /*box-shadow: 0px 0px 12px var(--shadow);	*/ */
+/*   width: 100%; */
+/*   border-bottom: var(--header-accent) 0.5px solid; */
+/*   box-shadow: 0px 0px 15px rgba(0, 0, 10, 0.805); */
+/* } */
 
   @media screen and (min-width: 701px) {
 #header {

@@ -138,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo json_encode([
         'success' => false,
         'error' => 'duplicate_process',
-        'redirect' => 'login.php?id=' . $existing_buwana_id
+        'redirect' => 'activate-3.php?id=' . $existing_buwana_id
     ]);
     ob_end_flush();
     exit();

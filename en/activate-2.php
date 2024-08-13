@@ -187,7 +187,7 @@ if ($stmt_update_credential) {
                 }
 
                 // Redirect to the next activation step
-                header("Location: activate-3.php?id=$buwana_id");
+                header("Location: login.php?id=$buwana_id");
                 exit(); // Ensure no further code is executed
 
             } else {

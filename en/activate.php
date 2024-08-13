@@ -86,7 +86,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <div style="text-align:center;width:100%;margin:auto;">
             <h2><?php echo htmlspecialchars($first_name); ?>, <span data-lang-id="003-explanation">since you've last logged in, we've made a massive upgrade to GoBrik.</span></h2>
 
-            <p data-lang-id="003-explanation-2">We've ditched our old corporate server and migrated all our data to our own.  Our new GoBrik 3.0 is running on fully open source code base and our own database!  We've also developed our own Buwana login system as an alternative to Google and Apple login.  To keep using GoBrik with <?php echo htmlspecialchars($email_addr); ?>, please take a minute to upgrade to a Buwana account.</p>
+            <p data-lang-id="003-explanation-2">We've let our old version of GoBrik running on corporate servers and code pass away.   In its place, we have migrated all our data to our own independent, self-run server!  Our new GoBrik 3.0 is now 100% open source!  We've also developed our own Buwana login system as an alternative to Google and Apple login.  To join us on the regenerated GoBrik with <?php echo htmlspecialchars($email_addr); ?>, please take a minute to upgrade to a Buwana account.</p>
         </div>
 
         <!--SIGNUP FORM-->
@@ -103,8 +103,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <div style="display:flex;flex-flow:row;justify-content:center;width:100%;margin-top:10px">
             <div><a href="#" onclick="showModalInfo('terms')" class="underline-link" style="margin:auto;padding: 15px;text-align:center;">Buwana & GoBrik Terms of Service</a></div>
 
-            <div><a href="https://earthen.io/gobrik-regen" class="underline-link" target="_blank" style="margin:auto;padding: 15px;text-align:center;">Blog post on: The Great GoBrik Regeneration</a></div>
-            <div><a href="https://github.com/gea-ecobricks/gobrik-3.0" class="underline-link" target="_blank" style="margin:auto;padding: 15px;text-align:center;">GoBrik 3.0 Open Source Code Repository</a></div>
+            <div><a href="https://earthen.io/gobrik-regen" class="underline-link" target="_blank" style="margin:auto;padding: 15px;text-align:center;">Why?  Read our blog post.</a></div>
+            <div><a href="https://github.com/gea-ecobricks/gobrik-3.0" class="underline-link" target="_blank" style="margin:auto;padding: 15px;text-align:center;">Github Source Code Repository</a></div>
        </div>
 
 <hr style="margin: 70px 10px 40px 10px;">

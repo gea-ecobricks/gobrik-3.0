@@ -248,7 +248,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 $(document).ready(function() {
     // Form elements
     const passwordField = document.getElementById('password');
-    const confirmPasswordField = document.getElementById('confirm-password-section');
+    const confirmPasswordSection = document.getElementById('confirm-password-section');
+    const confirmPasswordField = document.getElementById('confirm_password');
     const makerErrorInvalid = document.getElementById('maker-error-invalid');
     const submitButton = document.getElementById('submit-button');
     const termsCheckbox = document.getElementById('terms');
@@ -256,9 +257,9 @@ $(document).ready(function() {
     // Show confirm password field when password length is at least 6 characters
     passwordField.addEventListener('input', function() {
         if (passwordField.value.length >= 6) {
-            confirmPasswordField.style.display = 'block';
+            confirmPasswordSection.style.display = 'block';
         } else {
-            confirmPasswordField.style.display = 'none';
+            confirmPasswordSection.style.display = 'none';
             makerErrorInvalid.style.display = 'none';
             updateSubmitButtonState();
         }

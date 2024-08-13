@@ -70,25 +70,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ob_start();
 
     // Validate passwords
-    $password = $_POST['password'];
+    $form_password = $_POST['form_password'];
     $confirm_password = $_POST['confirm_password'];
     $terms_accepted = isset($_POST['terms']);
     $newsletter_opt_in = isset($_POST['newsletter']) ? 1 : 0;
 
-    if ($password !== $confirm_password) {
+    if ($form_password !== $confirm_password) {
         echo json_encode(['success' => false, 'error' => 'password_mismatch']);
         ob_end_flush();
         exit();
     }
 
-    if (strlen($password) < 6) {
+    if (strlen($form_password) < 6) {
         echo json_encode(['success' => false, 'error' => 'password_too_short']);
         ob_end_flush();
         exit();
     }
 
     // Hash the password
-    $password_hash = password_hash($password, PASSWORD_BCRYPT);
+    $password_hash = password_hash($form_password, PASSWORD_BCRYPT);
 
     // Ensure that the password hash is being generated correctly
     if (!$password_hash) {
@@ -206,8 +206,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <!--SIGNUP FORM-->
 <form id="password-confirm-form" method="post" action="activate-2.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
     <div class="form-item" id="set-password">
-        <label for="password" data-lang-id="007-set-your-pass">Set your password:</label><br>
-        <input type="password" id="password" name="password" required minlength="6">
+        <label for="form_password" data-lang-id="007-set-your-pass">Set your password:</label><br>
+        <input type="password" id="form_password" name="form_password" required minlength="6">
         <p class="form-caption" data-lang-id="008-password-advice">🔑 Your password must be at least 6 characters.</p>
     </div>
 

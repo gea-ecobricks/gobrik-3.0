@@ -145,7 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         } else {
 
-         // PART 4
+       // PART 4
 // Update credentials_tb with the new credential key
 $sql_update_credential = "UPDATE credentials_tb SET credential_key = ? WHERE buwana_id = ?";
 $stmt_update_credential = $buwana_conn->prepare($sql_update_credential);
@@ -219,6 +219,7 @@ if ($stmt_update_credential) {
     ob_end_flush();
     exit();
 }
+
 
 
         } // Close the else block of existing_buwana_id check
@@ -378,7 +379,7 @@ $(document).ready(function() {
     // Update button state when terms checkbox is clicked
     termsCheckbox.addEventListener('change', updateSubmitButtonState);
 
-    // Handle form submission
+     // Handle form submission
     $('#password-confirm-form').on('submit', function(e) {
         e.preventDefault(); // Prevent the form from submitting normally
 
@@ -395,11 +396,11 @@ $(document).ready(function() {
 
                     if (res.success) {
                         console.log('Success: Redirecting to the next activation step.');
-                        // Redirect is handled by the server, no need to do it here.
+                        // No need to handle redirect in JS, it's done server-side
                     } else if (res.error === 'duplicate_process' && res.redirect) {
                         console.log('Duplicate process detected: Redirecting to update core information.');
                         alert("Whoops! Looks like you've already done this process. Continue now by updating your account's core information...");
-                        window.location.href = 'login.php'; // Redirect based on the provided URL
+                        window.location.href = res.redirect; // Redirect based on the provided URL
                     } else {
                         console.log('Error: Unexpected error occurred.');
                         alert('An unexpected error occurred. Please try again.'); // Show error alert

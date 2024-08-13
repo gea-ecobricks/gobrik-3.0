@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 // Initialize variables
 $ecobricker_id = $_GET['id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.45';
+$version = '0.451';
 $page = 'activate';
 $first_name = '';
 $last_name = '';

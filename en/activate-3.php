@@ -126,16 +126,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $buwana_conn->close();
 }
 ?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="<?php echo $lang; ?>">
 <head>
 <meta charset="UTF-8">
-<title>Activate your Buwana Account | Step 3 | GoBrik</title>
+<title>Activate your Buwana Account | Step 2 | GoBrik</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- Include necessary styles and scripts here -->
-</head>
 
-<body>
+<!--
+GoBrik.com site version 3.0
+Developed and made open source by the Global Ecobrick Alliance
+See our git hub repository for the full code and to help out:
+https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
+
+<?php require_once ("../includes/signup-inc.php");?>
+
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
 
@@ -146,11 +155,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2>Ok, <?php echo htmlspecialchars($first_name); ?>, your password has been set for your <?php echo htmlspecialchars($email_addr); ?> account!</h2>
-            <p>Now please tell us a little about yourself...</p>
+            <h2 data-lang-id="001-signup-heading2">Reset Your Password</h2>
+            <p><span data-lang-id="002-alright">Alright </span> <?php echo htmlspecialchars($first_name); ?>: <span data-lang-id="002-let-use-you"> to get going with your upgraded account please set a new password.</span></p>
         </div>
 
-        <!-- SIGNUP FORM -->
+        <!--ACTIVATE 3 FORM-->
         <form id="user-info-form" method="post" action="activate-3.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
             <div class="form-item" id="language-select">
                 <label for="language_id">Please tell us which language you prefer...</label><br>
@@ -178,9 +187,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
 
     </div>
-</div>
 
-<!-- FOOTER STARTS HERE -->
+    <div style="text-align:center;width:100%;margin:auto;margin-top: 20px;">
+        <p style="font-size:medium;" data-land-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
+    </div>
+
+</div>
+</div>
+    <!--FOOTER STARTS HERE-->
 <?php require_once ("../footer-2024.php"); ?>
 
 <script>

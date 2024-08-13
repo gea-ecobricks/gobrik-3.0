@@ -211,7 +211,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <p><span data-lang-id="002-alright">Alright </span> <?php echo htmlspecialchars($first_name); ?>: <span data-lang-id="002-let-use-you"> to get going with your upgraded account please set a new password.</span></p>
         </div>
 
-        <!--SIGNUP FORM-->
+        <!--ACTIVATE 2 FORM-->
 <form id="password-confirm-form" method="post" action="activate-2.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
     <div class="form-item" id="set-password">
         <label for="form_password" data-lang-id="007-set-your-pass">Set your password:</label><br>

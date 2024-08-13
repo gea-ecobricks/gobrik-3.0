@@ -192,20 +192,18 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>
 
         <!--SIGNUP FORM-->
-        <form id="password-confirm-form" method="post" action="activate-2.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
+<form id="password-confirm-form" method="post" action="activate-2.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
+    <div class="form-item" id="set-password">
+        <label for="password" data-lang-id="007-set-your-pass">Set your password:</label><br>
+        <input type="password" id="password" name="password" required minlength="6">
+        <p class="form-caption" data-lang-id="008-password-advice">🔑 Your password must be at least 6 characters.</p>
+    </div>
 
-            <div class="form-item" id="set-password">
-                <label for="```php
-password_hash" data-lang-id="007-set-your-pass">Set your password:</label><br>
-                <input type="password" id="password_hash" name="password_hash" required minlength="6">
-                <p class="form-caption" data-lang-id="008-password-advice">🔑 Your password must be at least 6 characters.</p>
-            </div>
-
-            <div class="form-item" id="confirm-password-section">
-                <label for="confirm_password" data-lang-id="009-confirm-pass">Confirm Your Password:</label><br>
-                <input type="password" id="confirm_password" name="confirm_password" required>
-                <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;display:none;" data-lang-id="010-pass-error-no-match">👉 Passwords do not match.</div>
-            </div>
+    <div class="form-item" id="confirm-password-section">
+        <label for="confirm_password" data-lang-id="009-confirm-pass">Confirm Your Password:</label><br>
+        <input type="password" id="confirm_password" name="confirm_password" required>
+        <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;display:none;" data-lang-id="010-pass-error-no-match">👉 Passwords do not match.</div>
+    </div>
 
             <div class="form-item" id="human-check-section">
                 <div>

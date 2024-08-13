@@ -134,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ]);
     ob_end_flush();
     exit();
-}
+
         } else {
 
             // PART 4
@@ -379,7 +379,7 @@ $(document).ready(function() {
             url: $(this).attr('action'), // Use form's action attribute as URL
             type: 'POST', // Send data via POST method
             data: $(this).serialize(), // Serialize the form data
-        success: function(response) {
+         success: function(response) {
     var res = JSON.parse(response); // Parse the JSON response
     if (res.success) {
         // Redirect to the next activation step if successful
@@ -392,6 +392,7 @@ $(document).ready(function() {
         alert('An unexpected error occurred. Please try again.'); // Show error alert
     }
 },
+
         });
     });
 });

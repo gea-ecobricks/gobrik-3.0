@@ -99,18 +99,18 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </form>
 
 
-        <p data-lang-id="005-links" style="font-size:1em; text-align: center;">Buwana accounts are designed with ecology, security, and privacy in mind. Soon, you'll be able to login to other great regenerative apps movement in the same way you login to GoBrik!.</p>>
+        <p data-lang-id="005-links" style="font-size:1em; text-align: center;">Buwana accounts are designed with ecology, security, and privacy in mind. Soon, you'll be able to login to other great regenerative apps movement in the same way you login to GoBrik!.</p>
         <div style="display:flex;flex-flow:row;justify-content:center;width:100%;">
-            <div><a href="#" onclick="showModalInfo('terms')" class="underline-link">Our new Terms of Service</a>.</div>
+            <div><a href="#" onclick="showModalInfo('terms')" class="underline-link" style="margin:auto;">Our new Terms of Service</a>.</div>
 
-            <div><a href="https://earthen.io/gobrik-regen" class="underline-link" target="_blank">The Great GoBrik Regeneration</a></div>
-            <div><a href="https://github.com/gea-ecobricks/gobrik-3.0" class="underline-link" target="_blank">GoBrik 3.0 Code Repository</a></div>
+            <div><a href="https://earthen.io/gobrik-regen" class="underline-link" target="_blank" style="margin:auto;">The Great GoBrik Regeneration</a></div>
+            <div><a href="https://github.com/gea-ecobricks/gobrik-3.0" class="underline-link" target="_blank" style="margin:auto;">GoBrik 3.0 Code Repository</a></div>
        </div>
 
 <hr style="margin: 70px 10px 40px 10px;">
 
 
-<p>If you're not interested and would like your old <?php echo htmlspecialchars($email_addr); ?> account completely deleted, you can do that too.</p>
+<p style="text-align:center;">If you're not interested and would like your old <?php echo htmlspecialchars($email_addr); ?> account completely deleted, you can do that too.</p>
         <!-- DELETE ACCOUNT FORM -->
         <form id="delete-account-form" method="post" action="delete_account.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
             <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
@@ -119,7 +119,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </form>
 
 
-        <p data-lang-id="003-read-more" style="font-size:medium; text-align: center;">Read our blog about the <a href="https://earthen.io/gobrik-regen" target="_blank">GoBrik regeneration</a> process.</p>
+        <p data-lang-id="003-warning" style="font-size:medium; text-align: center;">WARNING: This cannot be undone.</p>
 
     </div>
 </div>

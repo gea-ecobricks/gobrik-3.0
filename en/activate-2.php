@@ -377,18 +377,16 @@ $(document).ready(function() {
             url: $(this).attr('action'), // Use form's action attribute as URL
             type: 'POST', // Send data via POST method
             data: $(this).serialize(), // Serialize the form data
-            success: function(response) {
-                var res = JSON.parse(response); // Parse the JSON response
-                if (res.success) {
-                    // Redirect to the next activation step if successful
-                    window.location.href = 'activate-3.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>';
-                } else {
-                    alert('An unexpected error occurred. Please try again.'); // Show error alert
-                }
-            },
-            error: function() {
-                alert('An error occurred while processing the form. Please try again.'); // Show error alert
-            }
+          success: function(response) {
+    console.log(response); // Log the raw response from the server
+    var res = JSON.parse(response); // Parse the JSON response
+    if (res.success) {
+        // Redirect to the next activation step if successful
+        window.location.href = 'activate-3.php?id=1630';
+    } else {
+        alert('An unexpected error occurred. Please try again.'); // Show error alert
+    }
+},
         });
     });
 });

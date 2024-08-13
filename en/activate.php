@@ -92,7 +92,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <!--SIGNUP FORM-->
         <form id="activate-confirmation" method="post" action="activate-2.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
             <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
-                <div id="submit-section" style="text-align:center;margin-top:15px;" title="Start Activation process">
+                <div id="submit-section" style="text-align:center;margin-top:20px;padding-right:15px;padding-left:15px" title="Start Activation process">
                     <input type="submit" id="submit-button" value="Activate!" class="submit-button activate">
                 </div>
             </div>
@@ -101,7 +101,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <p data-lang-id="005-links" style="font-size:1em; text-align: center;">Buwana accounts are designed with ecology, security, and privacy in mind. Soon, you'll be able to login to other great regenerative apps movement in the same way you login to GoBrik!.</p>
         <div style="display:flex;flex-flow:row;justify-content:center;width:100%;">
-            <div><a href="#" onclick="showModalInfo('terms')" class="underline-link" style="margin:auto;padding: 15px;">Buwana & GoBrik Terms of Service</a>.</div>
+            <div><a href="#" onclick="showModalInfo('terms')" class="underline-link" style="margin:auto;padding: 15px;">Buwana & GoBrik Terms of Service</a></div>
 
             <div><a href="https://earthen.io/gobrik-regen" class="underline-link" target="_blank" style="margin:auto;padding: 15px;">Blog post on: The Great GoBrik Regeneration</a></div>
             <div><a href="https://github.com/gea-ecobricks/gobrik-3.0" class="underline-link" target="_blank" style="margin:auto;padding: 15px;">GoBrik 3.0 Open Source Code Repository</a></div>

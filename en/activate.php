@@ -99,10 +99,17 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </form>
 
 
-        <p data-lang-id="005-links" style="font-size:1em; text-align: center;">Buwana accounts are designed with ecology, security, and privacy in mind. Soon, you'll be able to login to other great regenerative apps movement in the same way you login to GoBrik!.<br>
-        Check out our easy to read <a href="#" onclick="showModalInfo('terms')" class="underline-link">GoBrik Terms of Service</a>. Get our <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen monthly newsletter</a>.</p>
+        <p data-lang-id="005-links" style="font-size:1em; text-align: center;">Buwana accounts are designed with ecology, security, and privacy in mind. Soon, you'll be able to login to other great regenerative apps movement in the same way you login to GoBrik!.</p>>
+        <div style=:display:flex;flex-flow:row;justify-content:center;width:100%;">
+            <div><a href="#" onclick="showModalInfo('terms')" class="underline-link">Our new Terms of Service</a>.</div>
 
-<hr>
+            <div><a href="https://earthen.io/gobrik-regen" class="underline-link">The Great GoBrik Regeneration</a></div>
+
+       </div>
+
+<hr style="margin: 70px 10px 40px 10px;">
+
+
 <p>If you're not interested and would like your old <?php echo htmlspecialchars($email_addr); ?> account completely deleted, you can do that too.</p>
         <!-- DELETE ACCOUNT FORM -->
         <form id="delete-account-form" method="post" action="delete_account.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">

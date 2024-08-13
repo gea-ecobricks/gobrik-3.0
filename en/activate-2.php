@@ -253,23 +253,24 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <!--ACTIVATE 2 FORM-->
 <form id="password-confirm-form" method="post" action="activate-2.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
-    <div class="form-item" id="set-password">
-        <label for="form_password" data-lang-id="007-set-your-pass">Set your password:</label><br>
-        <div class="password-wrapper">
-            <input type="password" id="form_password" name="form_password" required minlength="6">
-            <i class="toggle-password" toggle="#form_password" class="fa fa-eye">😆</i>
-        </div>
-        <p class="form-caption" data-lang-id="008-password-advice">🔑 Your password must be at least 6 characters.</p>
+   <div class="form-item" id="set-password">
+    <label for="form_password" data-lang-id="007-set-your-pass">Set your password:</label><br>
+    <div class="password-wrapper">
+        <input type="password" id="form_password" name="form_password" required minlength="6">
+        <span class="toggle-password" toggle="#form_password">🔒</span>
     </div>
+    <p class="form-caption" data-lang-id="008-password-advice">🔑 Your password must be at least 6 characters.</p>
+</div>
 
-    <div class="form-item" id="confirm-password-section" style="display:none;">
-        <label for="confirm_password" data-lang-id="009-confirm-pass">Confirm Your Password:</label><br>
-        <div class="password-wrapper">
-            <input type="password" id="confirm_password" name="confirm_password" required>
-            <i class="toggle-password" toggle="#confirm_password" class="fa fa-eye">😆</i>
-        </div>
-        <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;display:none;" data-lang-id="010-pass-error-no-match">👉 Passwords do not match.</div>
+<div class="form-item" id="confirm-password-section" style="display:none;">
+    <label for="confirm_password" data-lang-id="009-confirm-pass">Confirm Your Password:</label><br>
+    <div class="password-wrapper">
+        <input type="password" id="confirm_password" name="confirm_password" required>
+        <span class="toggle-password" toggle="#confirm_password">🔒</span>
     </div>
+    <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;display:none;" data-lang-id="010-pass-error-no-match">👉 Passwords do not match.</div>
+</div>
+
 
             <div class="form-item" id="human-check-section">
                 <div>
@@ -301,74 +302,21 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <script>
 
     //EYE ON AND OFF
-
-    $(document).ready(function() {
-    // Toggle password visibility
+$(document).ready(function() {
+    // Toggle password visibility and switch between the lock emojis
     $('.toggle-password').click(function() {
-        $(this).toggleClass('fa-eye fa-eye-slash');
         let input = $($(this).attr('toggle'));
         if (input.attr('type') === 'password') {
             input.attr('type', 'text');
+            $(this).text('🔓'); // Change to unlocked emoji
         } else {
             input.attr('type', 'password');
+            $(this).text('🔒'); // Change to locked emoji
         }
     });
 });
 
-
 $(document).ready(function() {
-    // Form elements
-    const passwordField = document.getElementById('form_password');
-    const confirmPasswordSection = document.getElementById('confirm-password-section');
-    const confirmPasswordField = document.getElementById('confirm_password');
-    const makerErrorInvalid = document.getElementById('maker-error-invalid');
-    const submitButton = document.getElementById('submit-button');
-    const termsCheckbox = document.getElementById('terms');
-
-    // Show confirm password field when password length is at least 6 characters
-    passwordField.addEventListener('input', function() {
-        if (passwordField.value.length >= 6) {
-            confirmPasswordSection.style.display = 'block';
-        } else {
-            confirmPasswordSection.style.display = 'none';
-            makerErrorInvalid.style.display = 'none';
-            updateSubmitButtonState();
-        }
-    });
-
-    // Enable submit button when passwords match and terms are checked
-    confirmPasswordField.addEventListener('input', function() {
-        if (passwordField.value === confirmPasswordField.value) {
-            makerErrorInvalid.style.display = 'none';
-            updateSubmitButtonState();
-        } else {
-            makerErrorInvalid.style.display = 'block';
-            submitButton.disabled = true;
-            submitButton.classList.add('disabled');
-            submitButton.classList.remove('enabled');
-        }
-    });
-
-    // Function to update the submit button state
-    function updateSubmitButtonState() {
-        if (
-            passwordField.value.length >= 6 &&
-            passwordField.value === confirmPasswordField.value &&
-            termsCheckbox.checked
-        ) {
-            submitButton.disabled = false;
-            submitButton.classList.remove('disabled');
-            submitButton.classList.add('enabled');
-        } else {
-            submitButton.disabled = true;
-            submitButton.classList.add('disabled');
-            submitButton.classList.remove('enabled');
-        }
-    }
-
-    // Update button state when terms checkbox is clicked
-    termsCheckbox.addEventListener('change', updateSubmitButtonState);
-
     // Handle form submission
     $('#password-confirm-form').on('submit', function(e) {
         e.preventDefault(); // Prevent the form from submitting normally
@@ -379,24 +327,32 @@ $(document).ready(function() {
             type: 'POST', // Send data via POST method
             data: $(this).serialize(), // Serialize the form data
             success: function(response) {
+                console.log('Server response:', response); // Log the raw response
                 var res = JSON.parse(response); // Parse the JSON response
+                console.log('Parsed response:', res); // Log the parsed response
+
                 if (res.success) {
+                    console.log('Success: Redirecting to the next activation step.');
                     // Redirect to the next activation step with the correct buwana_id
                     window.location.href = 'activate-3.php?id=' + res.buwana_id;
                 } else if (res.error === 'duplicate_process' && res.redirect) {
+                    console.log('Duplicate process detected: Redirecting to update core information.');
                     // Handle the case where the process has already been done
                     alert("Whoops! Looks like you've already done this process. Continue now by updating your account's core information...");
                     window.location.href = res.redirect; // Redirect based on the provided URL
                 } else {
+                    console.log('Error: Unexpected error occurred.');
                     alert('An unexpected error occurred. Please try again.'); // Show error alert
                 }
             },
             error: function() {
+                console.log('Error: An error occurred while processing the form.');
                 alert('An error occurred while processing the form. Please try again.'); // Show error alert
             }
         });
     });
 });
+
 
 
 // Function to show modal information

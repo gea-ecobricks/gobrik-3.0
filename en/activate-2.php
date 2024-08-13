@@ -133,16 +133,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ob_end_flush();
             exit();
         } else {
-            // Proceed with creating the new user
-        }
-    } else {
-        ob_clean(); // Clear the output buffer before sending JSON response
-        error_log('Error preparing email check: ' . $buwana_conn->error);
-        echo json_encode(['success' => false, 'error' => 'db_error']);
-        ob_end_flush();
-        exit();
-    }
-}
+
+
 
         //PART 4
             // Update credentials_tb with the new credential key

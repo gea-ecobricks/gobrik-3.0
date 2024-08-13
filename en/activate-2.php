@@ -64,14 +64,17 @@ if ($stmt_user_info) {
 
 $gobrik_conn->close();
 
+
+
+
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Start output buffering to capture any unintended output
     ob_start();
 
     // Validate passwords
-    $password = $_POST['password_hash'];
-    $confirm_password = $_POST['confirm_password'];
+    $password = $_POST['password'];  // Use 'password' key as per form input field
+    $confirm_password = $_POST['confirm_password'];  // Use 'confirm_password' key as per form input field
     $terms_accepted = isset($_POST['terms']);
     $newsletter_opt_in = isset($_POST['newsletter']) ? 1 : 0;
 
@@ -156,6 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ob_end_flush();
     exit();
 }
+
 ?>
 
 <!DOCTYPE html>

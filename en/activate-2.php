@@ -158,7 +158,7 @@ if ($stmt_update_credential) {
             VALUES (?, ?, ?, ?, ?, ?, ?, 'Just migrated from GoBrik, step 2 only', NOW(), 1, 'First experimental activations', 3, ?, ?)";
         $stmt_insert_buwana = $buwana_conn->prepare($sql_insert_buwana);
         if ($stmt_insert_buwana) {
-            $stmt_insert_buwana->bind_param('ssssissis', $first_name, $last_name, $full_name, $email_addr, $password_hash, $brk_balance, $user_roles, $newsletter_opt_in, $birth_date);
+            $stmt_insert_buwana->bind_param('sssssisis', $first_name, $last_name, $full_name, $email_addr, $password_hash, $brk_balance, $user_roles, $newsletter_opt_in, $birth_date);
             if ($stmt_insert_buwana->execute()) {
                 $buwana_id = $stmt_insert_buwana->insert_id;
 

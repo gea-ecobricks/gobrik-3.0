@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-
+//TUCK AND HIDE:  This code tucks the top banner image under the header after a scroll of 30 px
 
     window.onscroll = function() {
         scrollLessThan30();

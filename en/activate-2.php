@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 // Initialize variables
 $ecobricker_id = $_GET['id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.452';
+$version = '0.45';
 $page = 'activate';
 $first_name = '';
 $last_name = '';
@@ -64,7 +64,107 @@ if ($stmt_user_info) {
 
 $gobrik_conn->close();
 
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Start output buffering to capture any unintended output
+    ob_start();
+
+    // Validate passwords
+    $password = $_POST['password_hash'];
+    $confirm_password = $_POST['confirm_password'];
+    $terms_accepted = isset($_POST['terms']);
+    $newsletter_opt_in = isset($_POST['newsletter']) ? 1 : 0;
+
+    if ($password !== $confirm_password) {
+        echo json_encode(['success' => false, 'error' => 'password_mismatch']);
+        ob_end_flush();
+        exit();
+    }
+
+    if (strlen($password) < 6) {
+        echo json_encode(['success' => false, 'error' => 'password_too_short']);
+        ob_end_flush();
+        exit();
+    }
+
+    // Hash the password
+    $password_hash = password_hash($password, PASSWORD_BCRYPT);
+
+    // Buwana database credentials
+    $buwana_servername = "localhost";
+    $buwana_username = "ecobricks_gobrik_app";
+    $buwana_password = "1EarthenAuth!";
+    $buwana_dbname = "ecobricks_earthenAuth_db";
+
+    // Create connection for Buwana database
+    $buwana_conn = new mysqli($buwana_servername, $buwana_username, $buwana_password, $buwana_dbname);
+    if ($buwana_conn->connect_error) {
+        // Handle the connection error properly
+        error_log("Connection failed: " . $buwana_conn->connect_error);
+        echo json_encode(['success' => false, 'error' => 'db_connection_failed']);
+        ob_end_flush();
+        exit();
+    }
+    $buwana_conn->set_charset("utf8mb4");
+
+    // Insert new user into Buwana database
+    $sql_insert_buwana = "INSERT INTO users_tb (first_name, last_name, full_name, email, password_hash, brikcoin_balance, role, account_status, created_at, terms_of_service, notes, validation_credits, earthen_newsletter_join, birth_date)
+        VALUES (?, ?, ?, ?, ?, ?, ?, 'Just migrated from GoBrik, step 2 only', NOW(), 1, 'First experimental activations', 3, ?, ?)";
+    $stmt_insert_buwana = $buwana_conn->prepare($sql_insert_buwana);
+    if ($stmt_insert_buwana) {
+        $stmt_insert_buwana->bind_param('ssssissis', $first_name, $last_name, $full_name, $email_addr, $password_hash, $brk_balance, $user_roles, $newsletter_opt_in, $birth_date);
+        $stmt_insert_buwana->execute();
+        $buwana_id = $stmt_insert_buwana->insert_id; // Get the inserted ID
+        $stmt_insert_buwana->close();
+    } else {
+        error_log('Error preparing statement for inserting Buwana user: ' . $buwana_conn->error);
+        echo json_encode(['success' => false, 'error' => 'db_insert_failed']);
+        ob_end_flush();
+        exit();
+    }
+
+    // Update GoBrik database with Buwana ID
+    $gobrik_conn = new mysqli($gobrik_servername, $gobrik_username, $gobrik_password, $gobrik_dbname);
+    if ($gobrik_conn->connect_error) {
+        error_log("Connection failed: " . $gobrik_conn->connect_error);
+        echo json_encode(['success' => false, 'error' => 'db_connection_failed']);
+        ob_end_flush();
+        exit();
+    }
+    $gobrik_conn->set_charset("utf8mb4");
+
+    $sql_update_gobrik = "UPDATE tb_ecobrickers SET buwana_id = ?, buwana_activated = 1, buwana_activated_dt = NOW(), account_notes = 'First experimental migrations', gobrik_migrated_dt = NOW() WHERE ecobricker_id = ?";
+    $stmt_update_gobrik = $gobrik_conn->prepare($sql_update_gobrik);
+    if ($stmt_update_gobrik) {
+        $stmt_update_gobrik->bind_param('ii', $buwana_id, $ecobricker_id);
+        $stmt_update_gobrik->execute();
+        $stmt_update_gobrik->close();
+    } else {
+        error_log('Error preparing statement for updating GoBrik user: ' . $gobrik_conn->error);
+        echo json_encode(['success' => false, 'error' => 'db_update_failed']);
+        ob_end_flush();
+        exit();
+    }
+
+    $gobrik_conn->close();
+    $buwana_conn->close();
+
+    // If successful, send success response
+    echo json_encode(['success' => true]);
+
+    // Flush output buffer and end it
+    ob_end_flush();
+    exit();
+}
 ?>
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="<?php echo $lang; ?>">
 <head>
@@ -272,6 +372,35 @@ function showModalInfo(type) {
     document.getElementById('footer-full').classList.add('blurred');
     document.body.classList.add('modal-open');
 }
+
+
+
+//TUCK AND HIDE:  This code tucks the top banner image under the header after a scroll of 30 px
+
+    window.onscroll = function() {
+        scrollLessThan30();
+        scrollMoreThan30();
+        // showHideHeader();
+    };
+
+    function scrollLessThan30() {
+        if (window.pageYOffset <= 30) {
+    var topPageImage = document.querySelector('.top-page-image');
+                if (topPageImage) {
+                topPageImage.style.zIndex = "35";
+            }
+        }
+    }
+
+    function scrollMoreThan30() {
+        if (window.pageYOffset >= 30) {
+    var topPageImage = document.querySelector('.top-page-image');
+                if (topPageImage) {
+                topPageImage.style.zIndex = "25";
+            }
+        }
+    }
+
 
 </script>
 

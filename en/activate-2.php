@@ -187,8 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else {
         error_log('Error preparing email check: ' . $buwana_conn->error);
-        echo json_encode(['success```php
-        => false, 'error' => 'db_error']);
+        echo json_encode(['success' => false, 'error' => 'db_error']);
         ob_end_flush();
         exit();
     }

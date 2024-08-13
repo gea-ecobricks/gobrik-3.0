@@ -66,12 +66,11 @@ $gobrik_conn->close();
 
 // PART 4: Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Start output buffering to capture any unintended output
     ob_start();
 
     // Validate passwords
-    $password = $_POST['form_password'];  // Match the 'name' attribute in the form
-    $confirm_password = $_POST['confirm_password'];  // Match the 'name' attribute in the form
+    $password = $_POST['form_password'];
+    $confirm_password = $_POST['confirm_password'];
     $terms_accepted = isset($_POST['terms']);
     $newsletter_opt_in = isset($_POST['newsletter']) ? 1 : 0;
 
@@ -88,14 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Hash the password
-    $password_hash = password_hash($password, PASSWORD_BCRYPT);
-
-    // Ensure that the password hash is being generated correctly
-    if (!$password_hash) {
-        echo json_encode(['success' => false, 'error' => 'password_hash_failed']);
-        ob_end_flush();
-        exit();
-    }
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
     // Buwana database credentials
     $buwana_servername = "localhost";
@@ -113,62 +105,96 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $buwana_conn->set_charset("utf8mb4");
 
-    // Insert new user into Buwana database
-    $sql_insert_buwana = "INSERT INTO users_tb (first_name, last_name, full_name, email, password_hash, brikcoin_balance, role, account_status, created_at, terms_of_service, notes, validation_credits, earthen_newsletter_join, birth_date)
-        VALUES (?, ?, ?, ?, ?, ?, ?, 'Just migrated from GoBrik, step 2 only', NOW(), 1, 'First experimental activations', 3, ?, ?)";
-    $stmt_insert_buwana = $buwana_conn->prepare($sql_insert_buwana);
-    if ($stmt_insert_buwana) {
-        // Make sure we specify the correct data types. Use 's' for strings, 'i' for integers.
-        $stmt_insert_buwana->bind_param('ssssissis', $first_name, $last_name, $full_name, $email_addr, $password_hash, $brk_balance, $user_roles, $newsletter_opt_in, $birth_date);
-        $stmt_insert_buwana->execute();
+    // Check if the email already exists in the Buwana database
+    $sql_check_email = "SELECT buwana_id FROM users_tb WHERE email = ?";
+    $stmt_check_email = $buwana_conn->prepare($sql_check_email);
+    if ($stmt_check_email) {
+        $stmt_check_email->bind_param("s", $email_addr);
+        $stmt_check_email->execute();
+        $stmt_check_email->bind_result($existing_buwana_id);
+        $stmt_check_email->fetch();
+        $stmt_check_email->close();
 
-        // Check if the execution was successful
-        if ($stmt_insert_buwana->affected_rows === 0) {
-            error_log('Error inserting Buwana user: ' . $stmt_insert_buwana->error);
-            echo json_encode(['success' => false, 'error' => 'db_insert_failed']);
-            ob_end_flush();
+        if ($existing_buwana_id) {
+            echo '<script>
+                alert("Whoops! Looks like you\'ve already done this process. Continue now by updating your account\'s core information...");
+                window.location.href = "activate-3.php?id=' . $existing_buwana_id . '";
+            </script>';
             exit();
+        } else {
+            // Update credentials_tb with the new credential key
+            $sql_update_credential = "UPDATE credentials_tb SET credential_key = ? WHERE buwana_id = ?";
+            $stmt_update_credential = $buwana_conn->prepare($sql_update_credential);
+            if ($stmt_update_credential) {
+                $stmt_update_credential->bind_param("si", $email_addr, $ecobricker_id);
+                if ($stmt_update_credential->execute()) {
+                    // Insert new user into Buwana database
+                    $sql_insert_buwana = "INSERT INTO users_tb (first_name, last_name, full_name, email, password_hash, brikcoin_balance, role, account_status, created_at, terms_of_service, notes, validation_credits, earthen_newsletter_join, birth_date)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, 'Just migrated from GoBrik, step 2 only', NOW(), 1, 'First experimental activations', 3, ?, ?)";
+                    $stmt_insert_buwana = $buwana_conn->prepare($sql_insert_buwana);
+                    if ($stmt_insert_buwana) {
+                        $stmt_insert_buwana->bind_param('ssssissis', $first_name, $last_name, $full_name, $email_addr, $password_hash, $brk_balance, $user_roles, $newsletter_opt_in, $birth_date);
+                        $stmt_insert_buwana->execute();
+                        $buwana_id = $stmt_insert_buwana->insert_id;
+                        $stmt_insert_buwana->close();
+
+                        // Send welcome email
+                        $mail = new PHPMailer(true);
+                        try {
+                            $mail->isSMTP();
+                            $mail->Host = 'mail.ecobricks.org';
+                            $mail->SMTPAuth = true;
+                            $mail->Username = 'gobrik@ecobricks.org';
+                            $mail->Password = '1Welcome!';
+                            $mail->SMTPSecure = false;
+                            $mail->Port = 26;
+
+                            $mail->setFrom('no-reply@ecobricks.org', 'GoBrik Welcome');
+                            $mail->addAddress($email_addr);
+
+                            $mail->isHTML(true);
+                            $mail->Subject = 'Welcome to GoBrik!';
+                            $mail->Body    = 'Dear ' . $first_name . ',<br><br>Thank you for registering with GoBrik. We are excited to have you on board.<br><br>Best Regards,<br>GEA | Buwana Team';
+                            $mail->AltBody = 'Dear ' . $first_name . ',\n\nThank you for registering with GoBrik. We are excited to have you on board.\n\nBest Regards,\nGEA | Buwana Team';
+
+                            $mail->send();
+                        } catch (Exception $e) {
+                            error_log("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
+                        }
+
+                        // Redirect to the next activation step
+                        header("Location: activate-3.php?id=$buwana_id");
+                        exit();
+                    } else {
+                        error_log('Error preparing statement for inserting Buwana user: ' . $buwana_conn->error);
+                        echo json_encode(['success' => false, 'error' => 'db_insert_failed']);
+                        ob_end_flush();
+                        exit();
+                    }
+                } else {
+                    error_log('Error executing credential update: ' . $stmt_update_credential->error);
+                    echo json_encode(['success' => false, 'error' => 'db_update_failed']);
+                    ob_end_flush();
+                    exit();
+                }
+                $stmt_update_credential->close();
+            } else {
+                error_log('Error preparing credential update: ' . $buwana_conn->error);
+                echo json_encode(['success' => false, 'error' => 'db_update_failed']);
+                ob_end_flush();
+                exit();
+            }
         }
-
-        $buwana_id = $stmt_insert_buwana->insert_id; // Get the inserted ID
-        $stmt_insert_buwana->close();
     } else {
-        error_log('Error preparing statement for inserting Buwana user: ' . $buwana_conn->error);
-        echo json_encode(['success' => false, 'error' => 'db_insert_failed']);
+        error_log('Error preparing email check: ' . $buwana_conn->error);
+        echo json_encode(['success```php
+        => false, 'error' => 'db_error']);
         ob_end_flush();
         exit();
     }
 
-    // Update GoBrik database with Buwana ID
-    $gobrik_conn = new mysqli($gobrik_servername, $gobrik_username, $gobrik_password, $gobrik_dbname);
-    if ($gobrik_conn->connect_error) {
-        error_log("Connection failed: " . $gobrik_conn->connect_error);
-        echo json_encode(['success' => false, 'error' => 'db_connection_failed']);
-        ob_end_flush();
-        exit();
-    }
-    $gobrik_conn->set_charset("utf8mb4");
-
-    $sql_update_gobrik = "UPDATE tb_ecobrickers SET buwana_id = ?, buwana_activated = 1, buwana_activation_dt = NOW(), account_notes = 'First experimental migrations', gobrik_migrated_dt = NOW() WHERE ecobricker_id = ?";
-    $stmt_update_gobrik = $gobrik_conn->prepare($sql_update_gobrik);
-    if ($stmt_update_gobrik) {
-        $stmt_update_gobrik->bind_param('ii', $buwana_id, $ecobricker_id);
-        $stmt_update_gobrik->execute();
-        $stmt_update_gobrik->close();
-    } else {
-        error_log('Error preparing statement for updating GoBrik user: ' . $gobrik_conn->error);
-        echo json_encode(['success' => false, 'error' => 'db_update_failed']);
-        ob_end_flush();
-        exit();
-    }
-
-    $gobrik_conn->close();
+    // Close the database connection
     $buwana_conn->close();
-
-    // If successful, send success response
-    echo json_encode(['success' => true]);
-
-    // Flush output buffer and end it
     ob_end_flush();
     exit();
 }

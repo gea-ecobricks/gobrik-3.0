@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 $response = ['success' => false];
 $ecobricker_id = $_GET['user_id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.464';
+$version = '0.465';
 $page = 'activate';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $first_name = '';
@@ -86,9 +86,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <div style="text-align:center;width:100%;margin:auto;">
             <h2><?php echo htmlspecialchars($first_name); ?>, <span data-lang-id="003-explanation">since you've last logged in, we've made a massive upgrade to GoBrik.</span></h2>
 
-            <p data-lang-id="003-explanation-2">We've ditched our old corporate server and migrated all our data to our own.  Our new GoBrik 3.0 is running on fully <a href="https://github.com/gea-ecobricks/gobrik-3.0" targ="_blank">revamped open source code base</a> and our own database!  We've also developed our own Buwana login system as an alternative to Google and Apple login.</p>
+            <p data-lang-id="003-explanation-2" style="font-size:1em;">We've ditched our old corporate server and migrated all our data to our own.  Our new GoBrik 3.0 is running on fully <a href="https://github.com/gea-ecobricks/gobrik-3.0" targ="_blank">revamped open source code base</a> and our own database!  We've also developed our own Buwana login system as an alternative to Google and Apple login.</p>
 
-            <p data-lang-id="003-explanation-3" style="font-weight:500">To keep using GoBrik with <?php echo htmlspecialchars($email_addr); ?>, please take a minute to upgrade to a Buwana account. If you're not interested and would like your old <?php echo htmlspecialchars($email_addr); ?> account completely deleted, you can do that too.</p>
+            <p data-lang-id="003-explanation-3" style="font-size:1.3em;font-weight:500">To keep using GoBrik with <?php echo htmlspecialchars($email_addr); ?>, please take a minute to upgrade to a Buwana account.</p>
         </div>
 
         <!--SIGNUP FORM-->
@@ -100,6 +100,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             </div>
         </form>
 
+
+        <p data-lang-id="005-links" style="font-size:small; text-align: center;">Buwana accounts are designed with ecology, security, and privacy in mind. Soon, you'll be able to login to other great regenerative apps movement in the same way you login to GoBrik! Check out our easy to read <a href="#" onclick="showModalInfo('terms')" class="underline-link">GoBrik Terms of Service</a>. Get our <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen monthly newsletter</a>.</p>
+<hr>
+<p>If you're not interested and would like your old <?php echo htmlspecialchars($email_addr); ?> account completely deleted, you can do that too.</p>
         <!-- DELETE ACCOUNT FORM -->
         <form id="delete-account-form" method="post" action="delete_account.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
             <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
@@ -107,7 +111,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             </div>
         </form>
 
-        <p data-lang-id="005-links" style="font-size:small; text-align: center;">Buwana accounts are designed with ecology, security, and privacy in mind. Soon, you'll be able to login to other great regenerative apps movement in the same way you login to GoBrik! Check out our easy to read <a href="#" onclick="showModalInfo('terms')" class="underline-link">GoBrik Terms of Service</a>. Get our <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen monthly newsletter</a>.</p>
 
         <p data-lang-id="003-read-more" style="font-size:medium; text-align: center;">Read our blog about the <a href="https://earthen.io/gobrik-regen" target="_blank">GoBrik regeneration</a> process.</p>
 

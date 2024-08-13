@@ -316,7 +316,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 });
 
 
-
 $(document).ready(function() {
     // Form elements
     const passwordField = document.getElementById('form_password');
@@ -379,26 +378,26 @@ $(document).ready(function() {
             url: $(this).attr('action'), // Use form's action attribute as URL
             type: 'POST', // Send data via POST method
             data: $(this).serialize(), // Serialize the form data
-         success: function(response) {
-    var res = JSON.parse(response); // Parse the JSON response
-success: function(response) {
-    var res = JSON.parse(response); // Parse the JSON response
-    if (res.success) {
-        // Redirect to the next activation step with the correct buwana_id
-        window.location.href = 'activate-3.php?id=' + res.buwana_id;
-    } else if (res.error === 'duplicate_process' && res.redirect) {
-        // Handle the case where the process has already been done
-        alert("Whoops! Looks like you've already done this process. Continue now by updating your account's core information...");
-        window.location.href = res.redirect; // Redirect based on the provided URL
-    } else {
-        alert('An unexpected error occurred. Please try again.'); // Show error alert
-    }
-},
-
-
+            success: function(response) {
+                var res = JSON.parse(response); // Parse the JSON response
+                if (res.success) {
+                    // Redirect to the next activation step with the correct buwana_id
+                    window.location.href = 'activate-3.php?id=' + res.buwana_id;
+                } else if (res.error === 'duplicate_process' && res.redirect) {
+                    // Handle the case where the process has already been done
+                    alert("Whoops! Looks like you've already done this process. Continue now by updating your account's core information...");
+                    window.location.href = res.redirect; // Redirect based on the provided URL
+                } else {
+                    alert('An unexpected error occurred. Please try again.'); // Show error alert
+                }
+            },
+            error: function() {
+                alert('An error occurred while processing the form. Please try again.'); // Show error alert
+            }
         });
     });
 });
+
 
 // Function to show modal information
 function showModalInfo(type) {

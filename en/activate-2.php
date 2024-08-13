@@ -135,87 +135,86 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         } else {
 
-
-
-
-   // PART 4
-// Update credentials_tb with the new credential key
-$sql_update_credential = "UPDATE credentials_tb SET credential_key = ? WHERE buwana_id = ?";
-$stmt_update_credential = $buwana_conn->prepare($sql_update_credential);
-if ($stmt_update_credential) {
-    $stmt_update_credential->bind_param("si", $email_addr, $ecobricker_id);
-    if ($stmt_update_credential->execute()) {
-        // Insert new user into Buwana database
-        $sql_insert_buwana = "INSERT INTO users_tb (first_name, last_name, full_name, email, password_hash, brikcoin_balance, role, account_status, created_at, terms_of_service, notes, validation_credits, earthen_newsletter_join, birth_date)
-            VALUES (?, ?, ?, ?, ?, ?, ?, 'Just migrated from GoBrik, step 2 only', NOW(), 1, 'First experimental activations', 3, ?, ?)";
-        $stmt_insert_buwana = $buwana_conn->prepare($sql_insert_buwana);
-        if ($stmt_insert_buwana) {
-            $stmt_insert_buwana->bind_param('ssssissis', $first_name, $last_name, $full_name, $email_addr, $password_hash, $brk_balance, $user_roles, $newsletter_opt_in, $birth_date);
-            if ($stmt_insert_buwana->execute()) {
-                $buwana_id = $stmt_insert_buwana->insert_id;
+            // PART 4
+            // Update credentials_tb with the new credential key
+            $sql_update_credential = "UPDATE credentials_tb SET credential_key = ? WHERE buwana_id = ?";
+            $stmt_update_credential = $buwana_conn->prepare($sql_update_credential);
+            if ($stmt_update_credential) {
+                $stmt_update_credential->bind_param("si", $email_addr, $ecobricker_id);
+                if ($stmt_update_credential->execute()) {
+                    // Insert new user into Buwana database
+                    $sql_insert_buwana = "INSERT INTO users_tb (first_name, last_name, full_name, email, password_hash, brikcoin_balance, role, account_status, created_at, terms_of_service, notes, validation_credits, earthen_newsletter_join, birth_date)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, 'Just migrated from GoBrik, step 2 only', NOW(), 1, 'First experimental activations', 3, ?, ?)";
+                    $stmt_insert_buwana = $buwana_conn->prepare($sql_insert_buwana);
+                    if ($stmt_insert_buwana) {
+                        $stmt_insert_buwana->bind_param('ssssissis', $first_name, $last_name, $full_name, $email_addr, $password_hash, $brk_balance, $user_roles, $newsletter_opt_in, $birth_date);
+                        if ($stmt_insert_buwana->execute()) {
+                            $buwana_id = $stmt_insert_buwana->insert_id;
+                        } else {
+                            ob_clean(); // Clear the output buffer before sending JSON response
+                            error_log('Error executing insert into Buwana users_tb: ' . $stmt_insert_buwana->error);
+                            echo json_encode(['success' => false, 'error' => 'db_insert_failed']);
+                            ob_end_flush();
+                            exit();
+                        }
+                        $stmt_insert_buwana->close();
+                    } else {
+                        ob_clean(); // Clear the output buffer before sending JSON response
+                        error_log('Error preparing statement for inserting Buwana user: ' . $buwana_conn->error);
+                        echo json_encode(['success' => false, 'error' => 'db_insert_failed']);
+                        ob_end_flush();
+                        exit();
+                    }
+                } else {
+                    ob_clean(); // Clear the output buffer before sending JSON response
+                    error_log('Error executing credential update: ' . $stmt_update_credential->error);
+                    echo json_encode(['success' => false, 'error' => 'db_update_failed']);
+                    ob_end_flush();
+                    exit();
+                }
+                $stmt_update_credential->close();
             } else {
                 ob_clean(); // Clear the output buffer before sending JSON response
-                error_log('Error executing insert into Buwana users_tb: ' . $stmt_insert_buwana->error);
-                echo json_encode(['success' => false, 'error' => 'db_insert_failed']);
+                error_log('Error preparing credential update: ' . $buwana_conn->error);
+                echo json_encode(['success' => false, 'error' => 'db_update_failed']);
                 ob_end_flush();
                 exit();
             }
-            $stmt_insert_buwana->close();
-        } else {
-            ob_clean(); // Clear the output buffer before sending JSON response
-            error_log('Error preparing statement for inserting Buwana user: ' . $buwana_conn->error);
-            echo json_encode(['success' => false, 'error' => 'db_insert_failed']);
+
+            // PART 5: Send welcome email and redirect to next step
+            // Send welcome email
+            $mail = new PHPMailer(true);
+            try {
+                $mail->isSMTP();
+                $mail->Host = 'mail.ecobricks.org';
+                $mail->SMTPAuth = true;
+
+                $mail->Username = 'gobrik@ecobricks.org';
+                $mail->Password = '1Welcome!';
+                $mail->SMTPSecure = false;
+                $mail->Port = 26;
+
+                $mail->setFrom('no-reply@ecobricks.org', 'GoBrik Welcome');
+                $mail->addAddress($email_addr);
+
+                $mail->isHTML(true);
+                $mail->Subject = 'Welcome to GoBrik!';
+                $mail->Body    = 'Dear ' . $first_name . ',<br><br>Thank you for registering with GoBrik. We are excited to have you on board.<br><br>Best Regards,<br>GEA | Buwana Team';
+                $mail->AltBody = 'Dear ' . $first_name . ',\n\nThank you for registering with GoBrik. We are excited to have you on board.\n\nBest Regards,\nGEA | Buwana Team';
+
+                $mail->send();
+            } catch (Exception $e) {
+                error_log("Message could not be sent. Mailer Error: " . $mail->ErrorInfo);
+            }
+
+            // Redirect to the next activation step
+            header("Location: activate-3.php?id=$buwana_id");
             ob_end_flush();
             exit();
-        }
-    } else {
-        ob_clean(); // Clear the output buffer before sending JSON response
-        error_log('Error executing credential update: ' . $stmt_update_credential->error);
-        echo json_encode(['success' => false, 'error' => 'db_update_failed']);
-        ob_end_flush();
-        exit();
-    }
-    $stmt_update_credential->close();
-} else {
-    ob_clean(); // Clear the output buffer before sending JSON response
-    error_log('Error preparing credential update: ' . $buwana_conn->error);
-    echo json_encode(['success' => false, 'error' => 'db_update_failed']);
-    ob_end_flush();
-    exit();
-}
 
-
-// PART 5: Send welcome email and redirect to next step
-// Send welcome email
-$mail = new PHPMailer(true);
-try {
-    $mail->isSMTP();
-    $mail->Host = 'mail.ecobricks.org';
-    $mail->SMTPAuth = true;
-    $mail->Username = 'gobrik@ecobricks.org';
-    $mail->Password = '1Welcome!';
-    $mail->SMTPSecure = false;
-    $mail->Port = 26;
-
-    $mail->setFrom('no-reply@ecobricks.org', 'GoBrik Welcome');
-    $mail->addAddress($email_addr);
-
-    $mail->isHTML(true);
-    $mail->Subject = 'Welcome to GoBrik!';
-    $mail->Body    = 'Dear ' . $first_name . ',<br><br>Thank you for registering with GoBrik. We are excited to have you on board.<br><br>Best Regards,<br>GEA | Buwana Team';
-    $mail->AltBody = 'Dear ' . $first_name . ',\n\nThank you for registering with GoBrik. We are excited to have you on board.\n\nBest Regards,\nGEA | Buwana Team';
-
-    $mail->send();
-} catch (Exception $e) {
-    error_log("Message could not be sent. Mailer Error: " . $mail->ErrorInfo);
-}
-
-// Redirect to the next activation step
-header("Location: activate-3.php?id=$buwana_id");
-ob_end_flush();
-exit();
-
-} // Close the else block of existing_buwana_id check
+        } // Close the else block of existing_buwana_id check
+    } // Close the if block of $stmt_check_email
+} // Close the if block checking $_SERVER['REQUEST_METHOD']
 ?>
 
 

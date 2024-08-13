@@ -13,22 +13,10 @@ if (empty($credential_key) || empty($password)) {
 
 // PART 2: GoBrik Account validation
 
-// GoBrik database credentials (we'll hide this soon!)
-$gobrik_servername = "localhost";
-$gobrik_username = "ecobricks_brikchain_viewer";
-$gobrik_password = "desperate-like-the-Dawn";
-$gobrik_dbname = "ecobricks_gobrik_msql_db";
+//gobrik_conn
+require_once ("../gobrikconn_env.php");
 
-// Create connection to GoBrik database
-$gobrik_conn = new mysqli($gobrik_servername, $gobrik_username, $gobrik_password, $gobrik_dbname);
-if ($gobrik_conn->connect_error) {
-    error_log("Connection failed: " . $conn2->connect_error);
-    header("Location: login.php?error=db_connection_failed");
-    exit();
-}
-$gobrik_conn->set_charset("utf8mb4");
-
-// Check the GoBrik database to see if user has an unactivated account
+// Check the GoBrik database to see if the user has an unactivated account
 $sql_check_email = "SELECT ecobricker_id, buwana_activated FROM tb_ecobrickers WHERE email_addr = ?";
 $stmt_check_email = $gobrik_conn->prepare($sql_check_email);
 if ($stmt_check_email) {
@@ -40,7 +28,7 @@ if ($stmt_check_email) {
         $stmt_check_email->bind_result($ecobricker_id, $buwana_activated);
         $stmt_check_email->fetch();
 
-        if ($buwana_activated = '0') {
+        if ($buwana_activated == '0') {  // Ensure this is a comparison
             header("Location: activate.php?user_id=$ecobricker_id");  // Redirect to activation page
             exit();
         }
@@ -50,7 +38,8 @@ if ($stmt_check_email) {
         $stmt_check_email->close();
     }
 } else {
-    die('Error preparing statement for checking email: ' . $conn2->error);
+    error_log('Error preparing statement for checking email: ' . $gobrik_conn->error);
+    die('Database query failed.');
 }
 
 

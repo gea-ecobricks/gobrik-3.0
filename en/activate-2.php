@@ -212,7 +212,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <label for="form_password" data-lang-id="007-set-your-pass">Set your password:</label><br>
         <div class="password-wrapper">
             <input type="password" id="form_password" name="form_password" required minlength="6">
-            <i class="toggle-password" toggle="#form_password" class="fa fa-eye"></i>
+            <i class="toggle-password" toggle="#form_password" class="fa fa-eye">toggle</i>
         </div>
         <p class="form-caption" data-lang-id="008-password-advice">🔑 Your password must be at least 6 characters.</p>
     </div>
@@ -221,7 +221,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <label for="confirm_password" data-lang-id="009-confirm-pass">Confirm Your Password:</label><br>
         <div class="password-wrapper">
             <input type="password" id="confirm_password" name="confirm_password" required>
-            <i class="toggle-password" toggle="#confirm_password" class="fa fa-eye"></i>
+            <i class="toggle-password" toggle="#confirm_password" class="fa fa-eye">toggle</i>
         </div>
         <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;display:none;" data-lang-id="010-pass-error-no-match">👉 Passwords do not match.</div>
     </div>

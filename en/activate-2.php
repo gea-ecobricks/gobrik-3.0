@@ -316,7 +316,60 @@ $(document).ready(function() {
     });
 });
 
+
 $(document).ready(function() {
+    // Form elements
+    const passwordField = document.getElementById('form_password');
+    const confirmPasswordSection = document.getElementById('confirm-password-section');
+    const confirmPasswordField = document.getElementById('confirm_password');
+    const makerErrorInvalid = document.getElementById('maker-error-invalid');
+    const submitButton = document.getElementById('submit-button');
+    const termsCheckbox = document.getElementById('terms');
+
+    // Show confirm password field when password length is at least 6 characters
+    passwordField.addEventListener('input', function() {
+        if (passwordField.value.length >= 6) {
+            confirmPasswordSection.style.display = 'block';
+        } else {
+            confirmPasswordSection.style.display = 'none';
+            makerErrorInvalid.style.display = 'none';
+            updateSubmitButtonState();
+        }
+    });
+
+    // Enable submit button when passwords match and terms are checked
+    confirmPasswordField.addEventListener('input', function() {
+        if (passwordField.value === confirmPasswordField.value) {
+            makerErrorInvalid.style.display = 'none';
+            updateSubmitButtonState();
+        } else {
+            makerErrorInvalid.style.display = 'block';
+            submitButton.disabled = true;
+            submitButton.classList.add('disabled');
+            submitButton.classList.remove('enabled');
+        }
+    });
+
+    // Function to update the submit button state
+    function updateSubmitButtonState() {
+        if (
+            passwordField.value.length >= 6 &&
+            passwordField.value === confirmPasswordField.value &&
+            termsCheckbox.checked
+        ) {
+            submitButton.disabled = false;
+            submitButton.classList.remove('disabled');
+            submitButton.classList.add('enabled');
+        } else {
+            submitButton.disabled = true;
+            submitButton.classList.add('disabled');
+            submitButton.classList.remove('enabled');
+        }
+    }
+
+    // Update button state when terms checkbox is clicked
+    termsCheckbox.addEventListener('change', updateSubmitButtonState);
+
     // Handle form submission
     $('#password-confirm-form').on('submit', function(e) {
         e.preventDefault(); // Prevent the form from submitting normally
@@ -327,31 +380,25 @@ $(document).ready(function() {
             type: 'POST', // Send data via POST method
             data: $(this).serialize(), // Serialize the form data
             success: function(response) {
-                console.log('Server response:', response); // Log the raw response
                 var res = JSON.parse(response); // Parse the JSON response
-                console.log('Parsed response:', res); // Log the parsed response
-
                 if (res.success) {
-                    console.log('Success: Redirecting to the next activation step.');
                     // Redirect to the next activation step with the correct buwana_id
                     window.location.href = 'activate-3.php?id=' + res.buwana_id;
                 } else if (res.error === 'duplicate_process' && res.redirect) {
-                    console.log('Duplicate process detected: Redirecting to update core information.');
                     // Handle the case where the process has already been done
                     alert("Whoops! Looks like you've already done this process. Continue now by updating your account's core information...");
                     window.location.href = res.redirect; // Redirect based on the provided URL
                 } else {
-                    console.log('Error: Unexpected error occurred.');
                     alert('An unexpected error occurred. Please try again.'); // Show error alert
                 }
             },
             error: function() {
-                console.log('Error: An error occurred while processing the form.');
                 alert('An error occurred while processing the form. Please try again.'); // Show error alert
             }
         });
     });
 });
+
 
 
 

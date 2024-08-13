@@ -70,8 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ob_start();
 
     // Validate passwords
-    $form_password = $_POST['form_password'];
-    $confirm_password = $_POST['confirm_password'];
+$form_password = $_POST['form_password'];
+$confirm_password = $_POST['confirm_password'];
     $terms_accepted = isset($_POST['terms']);
     $newsletter_opt_in = isset($_POST['newsletter']) ? 1 : 0;
 

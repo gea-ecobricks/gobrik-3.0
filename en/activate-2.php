@@ -125,14 +125,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt_check_email->fetch();
         $stmt_check_email->close();
 
-        if ($existing_buwana_id) {
-            ob_clean(); // Clear the output buffer before sending the script
-            echo '<script>
-                alert("Whoops! Looks like you\'ve already done this process. Continue now by updating your account\'s core information...");
-                window.location.href = "activate-3.php?id=' . $existing_buwana_id . '";
-            </script>';
-            ob_end_flush();
-            exit();
+     if ($existing_buwana_id) {
+    ob_clean(); // Clear the output buffer
+    echo json_encode([
+        'success' => false,
+        'error' => 'duplicate_process',
+        'redirect' => 'activate-3.php?id=' . $existing_buwana_id
+    ]);
+    ob_end_flush();
+    exit();
+}
         } else {
 
             // PART 4
@@ -377,12 +379,15 @@ $(document).ready(function() {
             url: $(this).attr('action'), // Use form's action attribute as URL
             type: 'POST', // Send data via POST method
             data: $(this).serialize(), // Serialize the form data
-          success: function(response) {
-    console.log(response); // Log the raw response from the server
+        success: function(response) {
     var res = JSON.parse(response); // Parse the JSON response
     if (res.success) {
         // Redirect to the next activation step if successful
         window.location.href = 'activate-3.php?id=1630';
+    } else if (res.error === 'duplicate_process' && res.redirect) {
+        // Handle the case where the process has already been done
+        alert("Whoops! Looks like you've already done this process. Continue now by updating your account's core information...");
+        window.location.href = res.redirect; // Redirect based on the provided URL
     } else {
         alert('An unexpected error occurred. Please try again.'); // Show error alert
     }

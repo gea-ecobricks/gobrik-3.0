@@ -138,11 +138,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <script>
 $(document).ready(function() {
-    // Form validation
+    // Form elements
     const passwordField = document.getElementById('password_hash');
     const confirmPasswordField = document.getElementById('confirm_password');
     const makerErrorInvalid = document.getElementById('maker-error-invalid');
     const submitButton = document.getElementById('submit-button');
+    const termsCheckbox = document.getElementById('terms');
 
     // Show confirm password field when password length is at least 6 characters
     passwordField.addEventListener('input', function() {
@@ -150,21 +151,45 @@ $(document).ready(function() {
             confirmPasswordField.style.display = 'block';
         } else {
             confirmPasswordField.style.display = 'none';
-            submitButton.disabled = true;
             makerErrorInvalid.style.display = 'none';
+            updateSubmitButtonState();
         }
     });
 
-    // Enable submit button when passwords match
+    // Enable submit button when passwords match and terms are checked
     confirmPasswordField.addEventListener('input', function() {
         if (passwordField.value === confirmPasswordField.value) {
             makerErrorInvalid.style.display = 'none';
-            submitButton.disabled = false;
+            updateSubmitButtonState();
         } else {
             makerErrorInvalid.style.display = 'block';
             submitButton.disabled = true;
+            submitButton.classList.add('disabled');
+            submitButton.classList.remove('enabled');
         }
     });
+
+    // Function to update the submit button state
+    function updateSubmitButtonState() {
+        if (
+            passwordField.value.length >= 6 &&
+            passwordField.value === confirmPasswordField.value &&
+            termsCheckbox.checked
+        ) {
+            submitButton.disabled = false;
+            submitButton.classList.remove('disabled');
+            submitButton.classList.add('enabled');
+        } else {
+            submitButton.disabled = true;
+            submitButton.classList.add('disabled');
+            submitButton.classList.remove('enabled');
+        }
+    }
+
+    // Update button state when terms checkbox is clicked
+    termsCheckbox.addEventListener('change', updateSubmitButtonState);
+});
+
 
     // Form submission
     $('#password-confirm-form').on('submit', function(e) {

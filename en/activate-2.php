@@ -148,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $gobrik_conn->set_charset("utf8mb4");
 
-    $sql_update_gobrik = "UPDATE tb_ecobrickers SET buwana_id = ?, buwana_activated = 1, buwana_activated_dt = NOW(), account_notes = 'First experimental migrations', gobrik_migrated_dt = NOW() WHERE ecobricker_id = ?";
+    $sql_update_gobrik = "UPDATE tb_ecobrickers SET buwana_id = ?, buwana_activated = 1, buwana_activation_dt = NOW(), account_notes = 'First experimental migrations', gobrik_migrated_dt = NOW() WHERE ecobricker_id = ?";
     $stmt_update_gobrik = $gobrik_conn->prepare($sql_update_gobrik);
     if ($stmt_update_gobrik) {
         $stmt_update_gobrik->bind_param('ii', $buwana_id, $ecobricker_id);
@@ -211,7 +211,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <p class="form-caption" data-lang-id="008-password-advice">🔑 Your password must be at least 6 characters.</p>
     </div>
 
-    <div class="form-item" id="confirm-password-section">
+    <div class="form-item" id="confirm-password-section" style="display:none;">
         <label for="confirm_password" data-lang-id="009-confirm-pass">Confirm Your Password:</label><br>
         <input type="password" id="confirm_password" name="confirm_password" required>
         <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;display:none;" data-lang-id="010-pass-error-no-match">👉 Passwords do not match.</div>

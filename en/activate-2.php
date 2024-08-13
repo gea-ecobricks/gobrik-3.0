@@ -186,10 +186,9 @@ if ($stmt_update_credential) {
                     error_log("Message could not be sent. Mailer Error: " . $mail->ErrorInfo);
                 }
 
-                // Redirect to the next activation step
-                header("Location:activate-3.php?id=$buwana_id");
-                exit(); // Ensure no further code is executed
-
+         ob_clean(); // Clear any output that might have been buffered
+header("Location: login.php?id=" . urlencode($buwana_id));
+exit();
             } else {
                 ob_clean(); // Clear the output buffer before sending JSON response
                 error_log('Error executing insert into Buwana users_tb: ' . $stmt_insert_buwana->error);

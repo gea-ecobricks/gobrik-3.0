@@ -3,10 +3,11 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+
 // Initialize variables
 $ecobricker_id = $_GET['id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.453';
+$version = '0.454';
 $page = 'activate';
 $first_name = '';
 $last_name = '';
@@ -214,13 +215,19 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <form id="password-confirm-form" method="post" action="activate-2.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
     <div class="form-item" id="set-password">
         <label for="form_password" data-lang-id="007-set-your-pass">Set your password:</label><br>
-        <input type="password" id="form_password" name="form_password" required minlength="6">
+        <div class="password-wrapper">
+            <input type="password" id="form_password" name="form_password" required minlength="6">
+            <i class="toggle-password" toggle="#form_password" class="fa fa-eye"></i>
+        </div>
         <p class="form-caption" data-lang-id="008-password-advice">🔑 Your password must be at least 6 characters.</p>
     </div>
 
     <div class="form-item" id="confirm-password-section" style="display:none;">
         <label for="confirm_password" data-lang-id="009-confirm-pass">Confirm Your Password:</label><br>
-        <input type="password" id="confirm_password" name="confirm_password" required>
+        <div class="password-wrapper">
+            <input type="password" id="confirm_password" name="confirm_password" required>
+            <i class="toggle-password" toggle="#confirm_password" class="fa fa-eye"></i>
+        </div>
         <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;display:none;" data-lang-id="010-pass-error-no-match">👉 Passwords do not match.</div>
     </div>
 
@@ -236,7 +243,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             </div>
 
             <div id="submit-section" style="text-align:center;margin-top:15px;">
-                <input type="submit" id="submit-button" value="Register" class="submit-button disabled">
+                <input type="submit" id="submit-button" value="🔑 Confirm" class="submit-button disabled">
             </div>
         </form>
 
@@ -252,6 +259,24 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <?php require_once ("../footer-2024.php"); ?>
 
 <script>
+
+    //EYE ON AND OFF
+
+    $(document).ready(function() {
+    // Toggle password visibility
+    $('.toggle-password').click(function() {
+        $(this).toggleClass('fa-eye fa-eye-slash');
+        let input = $($(this).attr('toggle'));
+        if (input.attr('type') === 'password') {
+            input.attr('type', 'text');
+        } else {
+            input.attr('type', 'password');
+        }
+    });
+});
+
+
+
 $(document).ready(function() {
     // Form elements
     const passwordField = document.getElementById('form_password');

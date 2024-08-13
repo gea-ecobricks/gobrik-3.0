@@ -2182,4 +2182,24 @@ padding-top:55px;
 
 }
 
+/*EYE ON AND OFF*/
 
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    width: 100%;
+    padding-right: 30px; /* Adjust this value to make room for the eye icon */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 16px;
+    color: #555; /* Adjust the color as needed */
+}

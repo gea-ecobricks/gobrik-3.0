@@ -525,3 +525,9 @@ light.css
       background: url(../svgs/step3-log-project.svg) no-repeat center;
       background-size: contain;
       }
+
+      .regen-top {
+
+      background: url(../svgs/regen-top.svg) no-repeat center;
+      background-size: contain;
+      }

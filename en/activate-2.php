@@ -158,13 +158,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="<?php echo $lang; ?>">
 <head>
@@ -190,15 +183,16 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="001-signup-heading2">Set your new password</h2>
-            <p><span data-lang-id="002-alright">Alright </span> <?php echo htmlspecialchars($first_name); ?>: <span data-lang-id="002-let-use-you"> to get going with your new Buwana GoBrik account please set a new password.</span></p>
+            <h2 data-lang-id="001-signup-heading2">Reset Your Password</h2>
+            <p><span data-lang-id="002-alright">Alright </span> <?php echo htmlspecialchars($first_name); ?>: <span data-lang-id="002-let-use-you"> to get going with your upgraded account please set a new password.</span></p>
         </div>
 
         <!--SIGNUP FORM-->
         <form id="password-confirm-form" method="post" action="activate-2.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
 
             <div class="form-item" id="set-password">
-                <label for="password_hash" data-lang-id="007-set-your-pass">Set your password:</label><br>
+                <label for="```php
+password_hash" data-lang-id="007-set-your-pass">Set your password:</label><br>
                 <input type="password" id="password_hash" name="password_hash" required minlength="6">
                 <p class="form-caption" data-lang-id="008-password-advice">🔑 Your password must be at least 6 characters.</p>
             </div>
@@ -232,14 +226,13 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 
 </div>
-</div>
+
     <!--FOOTER STARTS HERE-->
     <?php require_once ("../footer-2024.php"); ?>
 
-
 <script>
 $(document).ready(function() {
-    // Initialize form elements
+    // Form elements
     const passwordField = document.getElementById('password_hash');
     const confirmPasswordField = document.getElementById('confirm_password');
     const makerErrorInvalid = document.getElementById('maker-error-invalid');
@@ -248,45 +241,42 @@ $(document).ready(function() {
 
     // Show confirm password field when password length is at least 6 characters
     passwordField.addEventListener('input', function() {
-        // Check if password length is at least 6 characters
         if (passwordField.value.length >= 6) {
-            confirmPasswordField.style.display = 'block'; // Show confirm password field
+            confirmPasswordField.style.display = 'block';
         } else {
-            confirmPasswordField.style.display = 'none'; // Hide confirm password field
-            makerErrorInvalid.style.display = 'none'; // Hide mismatch error message
-            updateSubmitButtonState(); // Update submit button state
+            confirmPasswordField.style.display = 'none';
+            makerErrorInvalid.style.display = 'none';
+            updateSubmitButtonState();
         }
     });
 
     // Enable submit button when passwords match and terms are checked
     confirmPasswordField.addEventListener('input', function() {
-        // Check if passwords match
         if (passwordField.value === confirmPasswordField.value) {
-            makerErrorInvalid.style.display = 'none'; // Hide mismatch error message
-            updateSubmitButtonState(); // Update submit button state
+            makerErrorInvalid.style.display = 'none';
+            updateSubmitButtonState();
         } else {
-            makerErrorInvalid.style.display = 'block'; // Show mismatch error message
-            submitButton.disabled = true; // Disable submit button
-            submitButton.classList.add('disabled'); // Add disabled class
-            submitButton.classList.remove('enabled'); // Remove enabled class
+            makerErrorInvalid.style.display = 'block';
+            submitButton.disabled = true;
+            submitButton.classList.add('disabled');
+            submitButton.classList.remove('enabled');
         }
     });
 
-    // Function to update the submit button state based on form validity
+    // Function to update the submit button state
     function updateSubmitButtonState() {
-        // Check if passwords match, are at least 6 characters, and terms are checked
         if (
             passwordField.value.length >= 6 &&
             passwordField.value === confirmPasswordField.value &&
             termsCheckbox.checked
         ) {
-            submitButton.disabled = false; // Enable submit button
-            submitButton.classList.remove('disabled'); // Remove disabled class
-            submitButton.classList.add('enabled'); // Add enabled class
+            submitButton.disabled = false;
+            submitButton.classList.remove('disabled');
+            submitButton.classList.add('enabled');
         } else {
-            submitButton.disabled = true; // Disable submit button
-            submitButton.classList.add('disabled'); // Add disabled class
-            submitButton.classList.remove('enabled'); // Remove enabled class
+            submitButton.disabled = true;
+            submitButton.classList.add('disabled');
+            submitButton.classList.remove('enabled');
         }
     }
 
@@ -374,7 +364,6 @@ function showModalInfo(type) {
 }
 
 
-
 //TUCK AND HIDE:  This code tucks the top banner image under the header after a scroll of 30 px
 
     window.onscroll = function() {
@@ -401,9 +390,7 @@ function showModalInfo(type) {
         }
     }
 
-
 </script>
-
 
 </body>
 </html>

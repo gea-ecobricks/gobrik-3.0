@@ -224,7 +224,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 </div>
                 <div>
                     <input type="checkbox" id="newsletter" name="newsletter" checked>
-                    <label for="newsletter" style="font-size:medium;" class="form-caption" data-lang-id="014-i-agree-newsletter">I agree to receive the <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen newsletter</a> for app, ecobrick, and earthen updates</label>
+                    <label for="newsletter" style="font-size:medium;" class="form-caption" data-lang-id="014-i-agree-newsletter">Please send me the <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen newsletter</a> for app, ecobrick, and earthen updates</label>
                 </div>
             </div>
 
@@ -248,7 +248,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 $(document).ready(function() {
     // Form elements
     const passwordField = document.getElementById('password');
-    const confirmPasswordField = document.getElementById('confirm_password');
+    const confirmPasswordField = document.getElementById('confirm-password-section');
     const makerErrorInvalid = document.getElementById('maker-error-invalid');
     const submitButton = document.getElementById('submit-button');
     const termsCheckbox = document.getElementById('terms');

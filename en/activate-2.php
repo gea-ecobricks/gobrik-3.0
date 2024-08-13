@@ -381,9 +381,11 @@ $(document).ready(function() {
             data: $(this).serialize(), // Serialize the form data
          success: function(response) {
     var res = JSON.parse(response); // Parse the JSON response
+success: function(response) {
+    var res = JSON.parse(response); // Parse the JSON response
     if (res.success) {
-        // Redirect to the next activation step if successful
-        window.location.href = 'activate-3.php?id=1630';
+        // Redirect to the next activation step with the correct buwana_id
+        window.location.href = 'activate-3.php?id=' + res.buwana_id;
     } else if (res.error === 'duplicate_process' && res.redirect) {
         // Handle the case where the process has already been done
         alert("Whoops! Looks like you've already done this process. Continue now by updating your account's core information...");
@@ -392,6 +394,7 @@ $(document).ready(function() {
         alert('An unexpected error occurred. Please try again.'); // Show error alert
     }
 },
+
 
         });
     });

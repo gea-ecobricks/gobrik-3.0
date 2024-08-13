@@ -235,7 +235,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <script>
 $(document).ready(function() {
     // Form elements
-    const passwordField = document.getElementById('password_hash');
+    const passwordField = document.getElementById('password');
     const confirmPasswordField = document.getElementById('confirm_password');
     const makerErrorInvalid = document.getElementById('maker-error-invalid');
     const submitButton = document.getElementById('submit-button');

@@ -293,7 +293,7 @@ margin-top: 70px;
      /* min-width: 644px;
       min-height:272px;*/
       margin-bottom: -5px;
-      margin-top: 70px;
+      margin-top: 110px;
     }
   }
 

@@ -64,31 +64,34 @@ if ($stmt_user_info) {
 
 $gobrik_conn->close();
 
+
+//PART 4 HANDLE FORM SUBMISSION
+// Handle form submission
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Start output buffering to capture any unintended output
     ob_start();
 
     // Validate passwords
-$form_password = $_POST['form_password'];
-$confirm_password = $_POST['confirm_password'];
+    $password = $_POST['form_password'];  // Match the 'name' attribute in the form
+    $confirm_password = $_POST['confirm_password'];  // Match the 'name' attribute in the form
     $terms_accepted = isset($_POST['terms']);
     $newsletter_opt_in = isset($_POST['newsletter']) ? 1 : 0;
 
-    if ($form_password !== $confirm_password) {
+    if ($password !== $confirm_password) {
         echo json_encode(['success' => false, 'error' => 'password_mismatch']);
         ob_end_flush();
         exit();
     }
 
-    if (strlen($form_password) < 6) {
+    if (strlen($password) < 6) {
         echo json_encode(['success' => false, 'error' => 'password_too_short']);
         ob_end_flush();
         exit();
     }
 
     // Hash the password
-    $password_hash = password_hash($form_password, PASSWORD_BCRYPT);
+    $password_hash = password_hash($password, PASSWORD_BCRYPT);
 
     // Ensure that the password hash is being generated correctly
     if (!$password_hash) {
@@ -171,6 +174,7 @@ $confirm_password = $_POST['confirm_password'];
     ob_end_flush();
     exit();
 }
+
 
 ?>
 

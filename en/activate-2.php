@@ -397,7 +397,7 @@ $(document).ready(function() {
                     console.log('Duplicate process detected: Redirecting to update core information.');
                     // Handle the case where the process has already been done
                     alert("Whoops! Looks like you've already done this process. Continue now by updating your account's core information...");
-                    window.location.href = 'loging.php'; // Redirect based on the provided URL
+                    window.location.href = 'login.php'; // Redirect based on the provided URL
                 } else {
                     console.log('Error: Unexpected error occurred.');
                     alert('An unexpected error occurred. Please try again.'); // Show error alert

@@ -86,7 +86,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <div style="text-align:center;width:100%;margin:auto;">
             <h2><?php echo htmlspecialchars($first_name); ?>, <span data-lang-id="003-explanation">since you've last logged in, we've made a massive upgrade to GoBrik.</span></h2>
 
-            <p data-lang-id="003-explanation-2">Our old version of GoBrik ran on corporate servers and code.   We've let this pass pass away! In its place, we have migrated all our data to our own independent, self-run server!  Our new GoBrik 3.0 is now 100% open source fully focused on being green!  We've also developed our own Buwana login system as an alternative to Google and Apple login.  To join us on the regenerated GoBrik with <?php echo htmlspecialchars($email_addr); ?>, please take a minute to upgrade to a Buwana account.</p>
+            <p data-lang-id="003-explanation-2">Our old version of GoBrik ran on corporate servers and code.   We've let this pass pass away! In its place, we have migrated all our data to our own independent, self-run server.  Our new GoBrik 3.0 is now 100% open source fully focused on ecological accountability.  We've also developed our own Buwana login system as an alternative to Google and Apple login.  To join us on the regenerated GoBrik with <?php echo htmlspecialchars($email_addr); ?>, please take a minute to upgrade to a Buwana account.</p>
         </div>
 
         <!--SIGNUP FORM-->
@@ -107,21 +107,19 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <div><a href="https://github.com/gea-ecobricks/gobrik-3.0" class="underline-link" target="_blank" style="margin:auto;padding: 15px;text-align:center;display:block;">New Github Source Code Repository</a></div>
        </div>
 
- <div class="form-item" style="margin: 70px 10px 40px 10px;">
-<p style="text-align:center;">If you're not interested and would like your old <?php echo htmlspecialchars($email_addr); ?> account completely deleted, you can do that too.</p>
-        <!-- DELETE ACCOUNT FORM -->
-        <form id="delete-account-form" method="post" action="delete_account.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
-            <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
-                <button type="button" class="submit-button delete" onclick="confirmDeletion()">Delete my account</button>
-            </div>
+         <div class="form-item" style="margin: 70px 10px 40px 10px;">
+            <p style="text-align:center;">If you're not interested and would like your old <?php echo htmlspecialchars($email_addr); ?> account completely deleted, you can do that too.</p>
+            <!-- DELETE ACCOUNT FORM -->
+            <form id="delete-account-form" method="post" action="delete_account.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
+                <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
+                    <button type="button" class="submit-button delete" onclick="confirmDeletion()">Delete my account</button>
+                </div>
 
-        </form>
-
-
-        <p data-lang-id="003-warning" style="font-size:medium; text-align: center;">WARNING: This cannot be undone.</p>
-
+            </form>
+            <p data-lang-id="003-warning" style="font-size:medium; text-align: center;">WARNING: This cannot be undone.</p>
+            <br>
+         </div>
     </div>
-</div>
 </div>
 
 <!--FOOTER STARTS HERE-->

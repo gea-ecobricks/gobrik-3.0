@@ -70,10 +70,9 @@ if ($stmt_user_info) {
 }
 
 $gobrik_conn->close();
-
 // PART 3: Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    ob_start();
+    ob_start(); // Start output buffering
 
     // Validate passwords
     $password = $_POST['form_password'];
@@ -82,13 +81,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $newsletter_opt_in = isset($_POST['newsletter']) ? 1 : 0;
 
     if ($password !== $confirm_password) {
-
+        ob_clean(); // Clear the output buffer before sending JSON response
         echo json_encode(['success' => false, 'error' => 'password_mismatch']);
         ob_end_flush();
         exit();
     }
 
     if (strlen($password) < 6) {
+        ob_clean(); // Clear the output buffer before sending JSON response
         echo json_encode(['success' => false, 'error' => 'password_too_short']);
         ob_end_flush();
         exit();
@@ -106,8 +106,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Create connection for Buwana database
     $buwana_conn = new mysqli($buwana_servername, $buwana_username, $buwana_password, $buwana_dbname);
     if ($buwana_conn->connect_error) {
+        ob_clean(); // Clear the output buffer before sending JSON response
         error_log("Connection failed: " . $buwana_conn->connect_error);
-        ob_clean(); // Clean the output buffer to remove any unintended output
         echo json_encode(['success' => false, 'error' => 'db_connection_failed']);
         ob_end_flush();
         exit();
@@ -125,12 +125,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt_check_email->close();
 
         if ($existing_buwana_id) {
+            ob_clean(); // Clear the output buffer before sending the script
             echo '<script>
                 alert("Whoops! Looks like you\'ve already done this process. Continue now by updating your account\'s core information...");
                 window.location.href = "activate-3.php?id=' . $existing_buwana_id . '";
             </script>';
+            ob_end_flush();
             exit();
         } else {
+            // Proceed with creating the new user
+        }
+    } else {
+        ob_clean(); // Clear the output buffer before sending JSON response
+        error_log('Error preparing email check: ' . $buwana_conn->error);
+        echo json_encode(['success' => false, 'error' => 'db_error']);
+        ob_end_flush();
+        exit();
+    }
+}
 
         //PART 4
             // Update credentials_tb with the new credential key

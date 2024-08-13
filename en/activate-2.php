@@ -3,6 +3,8 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+
+//PART 1 SETUP
 // Initialize variables
 $ecobricker_id = $_GET['id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
@@ -19,13 +21,13 @@ $password_hash = '';
 $terms_of_service = 1;  // Default to 1 as the checkbox is required
 $earthen_newsletter_join = 1;  // Default to 1, but will be updated based on form input
 
-// PART 1: Check if the user is already logged in
+// Check if the user is already logged in
 if (isset($_SESSION['buwana_id'])) {
     header("Location: dashboard.php");
     exit();
 }
 
-// PART 2: Check if ecobricker_id is passed in the URL
+// Check if ecobricker_id is passed in the URL
 if (is_null($ecobricker_id)) {
     echo '<script>
         alert("Hmm... something went wrong. No ecobricker ID was passed along. Please try logging in again. If this problem persists, you\'ll need to create a new account.");
@@ -34,7 +36,7 @@ if (is_null($ecobricker_id)) {
     exit();
 }
 
-// PART 3: Look up user information using ecobricker_id provided in URL
+// PART 2: Look up user information using ecobricker_id provided in URL
 
 // GoBrik database credentials
 $gobrik_servername = "localhost";
@@ -59,12 +61,17 @@ if ($stmt_user_info) {
     $stmt_user_info->fetch();
     $stmt_user_info->close();
 } else {
-    die('Error preparing statement for fetching user info: ' . $gobrik_conn->error);
+    // Clean buffer and log error if statement preparation fails
+    ob_clean();
+    error_log('Error preparing statement for fetching user info: ' . $gobrik_conn->error);
+    echo json_encode(['success' => false, 'error' => 'db_query_failed']);
+    ob_end_flush();
+    exit();
 }
 
 $gobrik_conn->close();
 
-// PART 4: Handle form submission
+// PART 3: Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ob_start();
 
@@ -124,6 +131,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </script>';
             exit();
         } else {
+
+        //PART 4
             // Update credentials_tb with the new credential key
             $sql_update_credential = "UPDATE credentials_tb SET credential_key = ? WHERE buwana_id = ?";
             $stmt_update_credential = $buwana_conn->prepare($sql_update_credential);
@@ -140,6 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $buwana_id = $stmt_insert_buwana->insert_id;
                         $stmt_insert_buwana->close();
 
+                //PART 5
                         // Send welcome email
                         $mail = new PHPMailer(true);
                         try {

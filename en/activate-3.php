@@ -57,11 +57,22 @@ if ($stmt_user_info) {
 }
 
 // Fetch languages from Buwana database
-$buwana_conn = new mysqli($gobrik_servername, $gobrik_username, $gobrik_password, "ecobricks_earthenAuth_db");
-if ($buwana_conn->connect_error) {
-    die("Connection failed: " . $buwana_conn->connect_error);
-}
-$buwana_conn->set_charset("utf8mb4");
+
+    // Buwana database credentials
+    $buwana_servername = "localhost";
+    $buwana_username = "ecobricks_gobrik_app";
+    $buwana_password = "1EarthenAuth!";
+    $buwana_dbname = "ecobricks_earthenAuth_db";
+
+    // Create connection for Buwana database
+    $buwana_conn = new mysqli($buwana_servername, $buwana_username, $buwana_password, $buwana_dbname);
+    if ($buwana_conn->connect_error) {
+        error_log("Connection failed: " . $buwana_conn->connect_error);
+        echo json_encode(['success' => false, 'error' => 'db_connection_failed']);
+        ob_end_flush();
+        exit();
+    }
+    $buwana_conn->set_charset("utf8mb4");
 
 $sql_languages = "SELECT languages_id, language_name FROM languages_tb ORDER BY language_name";
 $result_languages = $buwana_conn->query($sql_languages);

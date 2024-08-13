@@ -178,6 +178,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 ?>
 
+
+
+
 <!DOCTYPE html>
 <html lang="<?php echo $lang; ?>">
 <head>

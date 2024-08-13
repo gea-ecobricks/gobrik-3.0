@@ -40,7 +40,7 @@ if ($stmt_check_email) {
         $stmt_check_email->bind_result($ecobricker_id, $buwana_activated);
         $stmt_check_email->fetch();
 
-        if ($buwana_activated !== 'yes') {
+        if ($buwana_activated !== '1') {
             header("Location: activate.php?user_id=$ecobricker_id");  // Redirect to activation page
             exit();
         }

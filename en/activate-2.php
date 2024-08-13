@@ -417,6 +417,8 @@ $(document).ready(function() {
 
 
 
+
+
 // Function to show modal information
 function showModalInfo(type) {
     const modal = document.getElementById('form-modal-message');

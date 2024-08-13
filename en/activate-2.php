@@ -3,7 +3,6 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-
 // Initialize variables
 $ecobricker_id = $_GET['id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
@@ -65,10 +64,7 @@ if ($stmt_user_info) {
 
 $gobrik_conn->close();
 
-
-//PART 4 HANDLE FORM SUBMISSION
-// Handle form submission
-// Handle form submission
+// PART 4: Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Start output buffering to capture any unintended output
     ob_start();
@@ -122,6 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         VALUES (?, ?, ?, ?, ?, ?, ?, 'Just migrated from GoBrik, step 2 only', NOW(), 1, 'First experimental activations', 3, ?, ?)";
     $stmt_insert_buwana = $buwana_conn->prepare($sql_insert_buwana);
     if ($stmt_insert_buwana) {
+        // Make sure we specify the correct data types. Use 's' for strings, 'i' for integers.
         $stmt_insert_buwana->bind_param('ssssissis', $first_name, $last_name, $full_name, $email_addr, $password_hash, $brk_balance, $user_roles, $newsletter_opt_in, $birth_date);
         $stmt_insert_buwana->execute();
 
@@ -175,8 +172,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ob_end_flush();
     exit();
 }
-
-
 ?>
 
 

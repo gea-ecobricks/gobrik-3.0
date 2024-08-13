@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 // Initialize variables
 $ecobricker_id = $_GET['id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.451';
+$version = '0.453';
 $page = 'activate';
 $first_name = '';
 $last_name = '';
@@ -64,17 +64,14 @@ if ($stmt_user_info) {
 
 $gobrik_conn->close();
 
-
-
-
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Start output buffering to capture any unintended output
     ob_start();
 
     // Validate passwords
-    $password = $_POST['password'];  // Use 'password' key as per form input field
-    $confirm_password = $_POST['confirm_password'];  // Use 'confirm_password' key as per form input field
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
     $terms_accepted = isset($_POST['terms']);
     $newsletter_opt_in = isset($_POST['newsletter']) ? 1 : 0;
 
@@ -93,6 +90,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Hash the password
     $password_hash = password_hash($password, PASSWORD_BCRYPT);
 
+    // Ensure that the password hash is being generated correctly
+    if (!$password_hash) {
+        echo json_encode(['success' => false, 'error' => 'password_hash_failed']);
+        ob_end_flush();
+        exit();
+    }
+
     // Buwana database credentials
     $buwana_servername = "localhost";
     $buwana_username = "ecobricks_gobrik_app";
@@ -102,7 +106,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Create connection for Buwana database
     $buwana_conn = new mysqli($buwana_servername, $buwana_username, $buwana_password, $buwana_dbname);
     if ($buwana_conn->connect_error) {
-        // Handle the connection error properly
         error_log("Connection failed: " . $buwana_conn->connect_error);
         echo json_encode(['success' => false, 'error' => 'db_connection_failed']);
         ob_end_flush();
@@ -117,6 +120,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($stmt_insert_buwana) {
         $stmt_insert_buwana->bind_param('ssssissis', $first_name, $last_name, $full_name, $email_addr, $password_hash, $brk_balance, $user_roles, $newsletter_opt_in, $birth_date);
         $stmt_insert_buwana->execute();
+
+        // Check if the execution was successful
+        if ($stmt_insert_buwana->affected_rows === 0) {
+            error_log('Error inserting Buwana user: ' . $stmt_insert_buwana->error);
+            echo json_encode(['success' => false, 'error' => 'db_insert_failed']);
+            ob_end_flush();
+            exit();
+        }
+
         $buwana_id = $stmt_insert_buwana->insert_id; // Get the inserted ID
         $stmt_insert_buwana->close();
     } else {
@@ -228,7 +240,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 
 </div>
-
+</div>
     <!--FOOTER STARTS HERE-->
     <?php require_once ("../footer-2024.php"); ?>
 
@@ -366,31 +378,6 @@ function showModalInfo(type) {
 }
 
 
-//TUCK AND HIDE:  This code tucks the top banner image under the header after a scroll of 30 px
-
-    window.onscroll = function() {
-        scrollLessThan30();
-        scrollMoreThan30();
-        // showHideHeader();
-    };
-
-    function scrollLessThan30() {
-        if (window.pageYOffset <= 30) {
-    var topPageImage = document.querySelector('.top-page-image');
-                if (topPageImage) {
-                topPageImage.style.zIndex = "35";
-            }
-        }
-    }
-
-    function scrollMoreThan30() {
-        if (window.pageYOffset >= 30) {
-    var topPageImage = document.querySelector('.top-page-image');
-                if (topPageImage) {
-                topPageImage.style.zIndex = "25";
-            }
-        }
-    }
 
 </script>
 

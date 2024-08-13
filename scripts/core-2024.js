@@ -305,3 +305,29 @@ function ecobrickPreview(imageUrl, brik_serial, weight, owner, location) {
 
 
 
+
+//TUCK AND HIDE:  This code tucks the top banner image under the header after a scroll of 30 px
+
+    window.onscroll = function() {
+        scrollLessThan30();
+        scrollMoreThan30();
+        // showHideHeader();
+    };
+
+    function scrollLessThan30() {
+        if (window.pageYOffset <= 30) {
+    var topPageImage = document.querySelector('.top-page-image');
+                if (topPageImage) {
+                topPageImage.style.zIndex = "35";
+            }
+        }
+    }
+
+    function scrollMoreThan30() {
+        if (window.pageYOffset >= 30) {
+    var topPageImage = document.querySelector('.top-page-image');
+                if (topPageImage) {
+                topPageImage.style.zIndex = "25";
+            }
+        }
+    }

@@ -135,8 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
 
 
-
-    // PART 4
+  // PART 4
     // Update credentials_tb with the new credential key
     $sql_update_credential = "UPDATE credentials_tb SET credential_key = ? WHERE buwana_id = ?";
     $stmt_update_credential = $buwana_conn->prepare($sql_update_credential);
@@ -203,6 +202,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ob_end_flush();
         exit();
     }
+}
+
+    // Close the database connection
+    $buwana_conn->close();
+    ob_end_flush();
+    exit();
 }
 ?>
 

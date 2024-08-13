@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 // Initialize variables
 $ecobricker_id = $_GET['id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.45';
+$version = '0.451';
 $page = 'activate';
 $first_name = '';
 $last_name = '';
@@ -65,7 +65,6 @@ if ($stmt_user_info) {
 $gobrik_conn->close();
 
 ?>
-
 <!DOCTYPE html>
 <html lang="<?php echo $lang; ?>">
 <head>
@@ -91,8 +90,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="001-signup-heading2">Reset Your Password</h2>
-            <p><span data-lang-id="002-alright">Alright </span> <?php echo htmlspecialchars($first_name); ?>: <span data-lang-id="002-let-use-you"> to get going with your upgraded account please set a new password.</span></p>
+            <h2 data-lang-id="001-signup-heading2">Set your new password</h2>
+            <p><span data-lang-id="002-alright">Alright </span> <?php echo htmlspecialchars($first_name); ?>: <span data-lang-id="002-let-use-you"> to get going with your new Buwana GoBrik account please set a new password.</span></p>
         </div>
 
         <!--SIGNUP FORM-->
@@ -133,7 +132,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 
 </div>
-
+</div>
     <!--FOOTER STARTS HERE-->
     <?php require_once ("../footer-2024.php"); ?>
 
@@ -172,7 +171,7 @@ $(document).ready(function() {
         e.preventDefault(); // Prevent the form from submitting normally
 
         $.ajax({
-            url: 'activate-2.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>',
+            url: $(this).attr('action'),
             type: 'POST',
             data: $(this).serialize(), // Serialize the form data
             success: function(response) {
@@ -201,8 +200,7 @@ function showModalInfo(type) {
 
     switch (type) {
         case 'terms':
-            content```php
-                = `
+            content = `
                 <div style="font-size: small;">
                     <?php include "../files/terms-$lang.php"; ?>
                 </div>

@@ -102,12 +102,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <p data-lang-id="005-links" style="font-size:1em; text-align: center;">Buwana accounts are designed with ecology, security, and privacy in mind. Soon, you'll be able to login to other great regenerative apps movement in the same way you login to GoBrik!.</p>
         <div style="display:flex;flex-flow:row;justify-content:center;width:100%;margin-top:10px">
             <div><a href="#" onclick="showModalInfo('terms')" class="underline-link" style="margin:auto;padding: 15px;text-align:center;display:block;background: #ffffff47;
-  border-radius: 10px;">New Buwana & GoBrik Terms of Service</a></div>
+  border-radius: 10px;margin: 5px;">New Buwana & GoBrik Terms of Service</a></div>
 
             <div><a href="https://earthen.io/gobrik-regen" class="underline-link" target="_blank" style="margin:auto;padding: 15px;text-align:center;display:block;background: #ffffff47;
-  border-radius: 10px;">Why?  Read our 'Great GoBrik Regeneration' blog post.</a></div>
+  border-radius: 10px;margin: 5px;">Why?  Read our 'Great GoBrik Regeneration' blog post.</a></div>
             <div><a href="https://github.com/gea-ecobricks/gobrik-3.0" class="underline-link" target="_blank" style="margin:auto;padding: 15px;text-align:center;display:block;background: #ffffff47;
-  border-radius: 10px;">New Github Source Code Repository</a></div>
+  border-radius: 10px;margin: 5px;">New Github Source Code Repository</a></div>
        </div>
 
          <div class="form-item" style="margin: 70px 10px 40px 10px;">
@@ -123,6 +123,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <br>
          </div>
     </div>
+</div>
 </div>
 
 <!--FOOTER STARTS HERE-->

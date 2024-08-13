@@ -382,36 +382,33 @@ $(document).ready(function() {
     $('#password-confirm-form').on('submit', function(e) {
         e.preventDefault(); // Prevent the form from submitting normally
 
-        // Send form data via AJAX to the server
+         // Send form data via AJAX to the server
         $.ajax({
             url: $(this).attr('action'), // Use form's action attribute as URL
             type: 'POST', // Send data via POST method
             data: $(this).serialize(), // Serialize the form data
             success: function(response) {
-                try {
-                    var res = JSON.parse(response); // Parse the JSON response
-                    console.log('Parsed response:', res);
+                console.log('Server response:', response); // Log the raw response
+                var res = JSON.parse(response); // Parse the JSON response
+                console.log('Parsed response:', res); // Log the parsed response
 
-                    if (res.success) {
-                        console.log('Success: Redirecting to the next activation step.');
-                        // Redirect to the next activation step with the correct buwana_id
-                        window.location.href = 'activate-3.php?id=' + res.buwana_id;
-                    } else if (res.error === 'duplicate_process' && res.redirect) {
-                        console.log('Duplicate process detected: Redirecting to update core information.');
-                        // Handle the case where the process has already been done
-                        alert("Whoops! Looks like you've already done this process. Continue now by updating your account's core information...");
-                        window.location.href = res.redirect; // Redirect based on the provided URL
-                    } else {
-                        console.log('Error: Unexpected error occurred.');
-                        alert('An unexpected error occurred. Please try again.'); // Show error alert
-                    }
-                } catch (e) {
-                    console.error('Response is not valid JSON. It might be an HTML error page:', response);
-                    alert('An unexpected error occurred. Please try again later.');
+                if (res.success) {
+                    console.log('Success: Redirecting to the next activation step.');
+                    // Redirect to the next activation step with the correct buwana_id
+                    window.location.href = 'activate-3.php?id=' + res.buwana_id;
+                } else if (res.error === 'duplicate_process' && res.redirect) {
+                    console.log('Duplicate process detected: Redirecting to update core information.');
+                    // Handle the case where the process has already been done
+                    alert("Whoops! Looks like you've already done this process. Continue now by updating your account's core information...");
+                    window.location.href = 'login.php'; // Redirect based on the provided URL
+                } else {
+                    console.log('Error: Unexpected error occurred.');
+                    alert('An unexpected error occurred. Please try again.'); // Show error alert
                 }
             },
             error: function() {
-                alert('An error occurred while processing the form. Please try again.');
+                console.log('Error: An error occurred while processing the form.');
+                alert('An error occurred while processing the form. Please try again.'); // Show error alert
             }
         });
     });

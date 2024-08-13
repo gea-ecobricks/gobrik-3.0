@@ -138,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo json_encode([
         'success' => false,
         'error' => 'duplicate_process',
-        'redirect' => 'activate-3.php?id=' . $existing_buwana_id
+        'redirect' => 'login.php?id=' . $existing_buwana_id
     ]);
     ob_end_flush();
     exit();
@@ -152,6 +152,7 @@ $stmt_update_credential = $buwana_conn->prepare($sql_update_credential);
 if ($stmt_update_credential) {
     $stmt_update_credential->bind_param("si", $email_addr, $ecobricker_id);
     if ($stmt_update_credential->execute()) {
+
         // Insert new user into Buwana database
         $sql_insert_buwana = "INSERT INTO users_tb (first_name, last_name, full_name, email, password_hash, brikcoin_balance, role, account_status, created_at, terms_of_service, notes, validation_credits, earthen_newsletter_join, birth_date)
             VALUES (?, ?, ?, ?, ?, ?, ?, 'Just migrated from GoBrik, step 2 only', NOW(), 1, 'First experimental activations', 3, ?, ?)";

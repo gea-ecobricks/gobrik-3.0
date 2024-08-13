@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 // Initialize variables
 $ecobricker_id = $_GET['id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.451';
+$version = '0.452';
 $page = 'activate';
 $first_name = '';
 $last_name = '';
@@ -136,9 +136,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <!--FOOTER STARTS HERE-->
     <?php require_once ("../footer-2024.php"); ?>
 
+
 <script>
 $(document).ready(function() {
-    // Form elements
+    // Initialize form elements
     const passwordField = document.getElementById('password_hash');
     const confirmPasswordField = document.getElementById('confirm_password');
     const makerErrorInvalid = document.getElementById('maker-error-invalid');
@@ -147,74 +148,77 @@ $(document).ready(function() {
 
     // Show confirm password field when password length is at least 6 characters
     passwordField.addEventListener('input', function() {
+        // Check if password length is at least 6 characters
         if (passwordField.value.length >= 6) {
-            confirmPasswordField.style.display = 'block';
+            confirmPasswordField.style.display = 'block'; // Show confirm password field
         } else {
-            confirmPasswordField.style.display = 'none';
-            makerErrorInvalid.style.display = 'none';
-            updateSubmitButtonState();
+            confirmPasswordField.style.display = 'none'; // Hide confirm password field
+            makerErrorInvalid.style.display = 'none'; // Hide mismatch error message
+            updateSubmitButtonState(); // Update submit button state
         }
     });
 
     // Enable submit button when passwords match and terms are checked
     confirmPasswordField.addEventListener('input', function() {
+        // Check if passwords match
         if (passwordField.value === confirmPasswordField.value) {
-            makerErrorInvalid.style.display = 'none';
-            updateSubmitButtonState();
+            makerErrorInvalid.style.display = 'none'; // Hide mismatch error message
+            updateSubmitButtonState(); // Update submit button state
         } else {
-            makerErrorInvalid.style.display = 'block';
-            submitButton.disabled = true;
-            submitButton.classList.add('disabled');
-            submitButton.classList.remove('enabled');
+            makerErrorInvalid.style.display = 'block'; // Show mismatch error message
+            submitButton.disabled = true; // Disable submit button
+            submitButton.classList.add('disabled'); // Add disabled class
+            submitButton.classList.remove('enabled'); // Remove enabled class
         }
     });
 
-    // Function to update the submit button state
+    // Function to update the submit button state based on form validity
     function updateSubmitButtonState() {
+        // Check if passwords match, are at least 6 characters, and terms are checked
         if (
             passwordField.value.length >= 6 &&
             passwordField.value === confirmPasswordField.value &&
             termsCheckbox.checked
         ) {
-            submitButton.disabled = false;
-            submitButton.classList.remove('disabled');
-            submitButton.classList.add('enabled');
+            submitButton.disabled = false; // Enable submit button
+            submitButton.classList.remove('disabled'); // Remove disabled class
+            submitButton.classList.add('enabled'); // Add enabled class
         } else {
-            submitButton.disabled = true;
-            submitButton.classList.add('disabled');
-            submitButton.classList.remove('enabled');
+            submitButton.disabled = true; // Disable submit button
+            submitButton.classList.add('disabled'); // Add disabled class
+            submitButton.classList.remove('enabled'); // Remove enabled class
         }
     }
 
     // Update button state when terms checkbox is clicked
     termsCheckbox.addEventListener('change', updateSubmitButtonState);
-});
 
-
-    // Form submission
+    // Handle form submission
     $('#password-confirm-form').on('submit', function(e) {
         e.preventDefault(); // Prevent the form from submitting normally
 
+        // Send form data via AJAX to the server
         $.ajax({
-            url: $(this).attr('action'),
-            type: 'POST',
+            url: $(this).attr('action'), // Use form's action attribute as URL
+            type: 'POST', // Send data via POST method
             data: $(this).serialize(), // Serialize the form data
             success: function(response) {
-                var res = JSON.parse(response);
+                var res = JSON.parse(response); // Parse the JSON response
                 if (res.success) {
+                    // Redirect to the next activation step if successful
                     window.location.href = 'activate-3.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>';
                 } else {
-                    alert('An unexpected error occurred. Please try again.');
+                    alert('An unexpected error occurred. Please try again.'); // Show error alert
                 }
             },
             error: function() {
-                alert('An error occurred while processing the form. Please try again.');
+                alert('An error occurred while processing the form. Please try again.'); // Show error alert
             }
         });
     });
 });
 
-// Show modal information
+// Function to show modal information
 function showModalInfo(type) {
     const modal = document.getElementById('form-modal-message');
     const photobox = document.getElementById('modal-photo-box');
@@ -223,6 +227,7 @@ function showModalInfo(type) {
     let content = '';
     photobox.style.display = 'none';
 
+    // Set modal content based on the type of information requested
     switch (type) {
         case 'terms':
             content = `
@@ -258,9 +263,10 @@ function showModalInfo(type) {
             content = '<p>Invalid term selected.</p>';
     }
 
+    // Insert the content into the modal
     messageContainer.innerHTML = content;
 
-    // Show the modal and update other page elements
+    // Show the modal and blur the background
     modal.style.display = 'flex';
     document.getElementById('page-content').classList.add('blurred');
     document.getElementById('footer-full').classList.add('blurred');
@@ -268,6 +274,7 @@ function showModalInfo(type) {
 }
 
 </script>
+
 
 </body>
 </html>

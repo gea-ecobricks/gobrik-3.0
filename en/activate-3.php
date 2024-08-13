@@ -149,15 +149,15 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT -->
-<div id="top-page-image" class="credentials-banner top-page-image"></div>
+<div id="top-page-image" class="city-image top-page-image"></div>
 
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="001-signup-heading2">Reset Your Password</h2>
-            <p><span data-lang-id="002-alright">Alright </span> <?php echo htmlspecialchars($first_name); ?>: <span data-lang-id="002-let-use-you"> to get going with your upgraded account please set a new password.</span></p>
-        </div>
+                      <h2>Ok, <?php echo htmlspecialchars($first_name); ?>, your password has been set for your <?php echo htmlspecialchars($email_addr); ?> account!</h2>
+            <p>Now please tell us a little about yourself...</p>
+                    </div>
 
         <!--ACTIVATE 3 FORM-->
         <form id="user-info-form" method="post" action="activate-3.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">

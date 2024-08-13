@@ -75,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $newsletter_opt_in = isset($_POST['newsletter']) ? 1 : 0;
 
     if ($password !== $confirm_password) {
+
         echo json_encode(['success' => false, 'error' => 'password_mismatch']);
         ob_end_flush();
         exit();
@@ -99,6 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $buwana_conn = new mysqli($buwana_servername, $buwana_username, $buwana_password, $buwana_dbname);
     if ($buwana_conn->connect_error) {
         error_log("Connection failed: " . $buwana_conn->connect_error);
+        ob_clean(); // Clean the output buffer to remove any unintended output
         echo json_encode(['success' => false, 'error' => 'db_connection_failed']);
         ob_end_flush();
         exit();

@@ -136,82 +136,73 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-        //PART 4
-            // Update credentials_tb with the new credential key
-            $sql_update_credential = "UPDATE credentials_tb SET credential_key = ? WHERE buwana_id = ?";
-            $stmt_update_credential = $buwana_conn->prepare($sql_update_credential);
-            if ($stmt_update_credential) {
-                $stmt_update_credential->bind_param("si", $email_addr, $ecobricker_id);
-                if ($stmt_update_credential->execute()) {
-                    // Insert new user into Buwana database
-                    $sql_insert_buwana = "INSERT INTO users_tb (first_name, last_name, full_name, email, password_hash, brikcoin_balance, role, account_status, created_at, terms_of_service, notes, validation_credits, earthen_newsletter_join, birth_date)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, 'Just migrated from GoBrik, step 2 only', NOW(), 1, 'First experimental activations', 3, ?, ?)";
-                    $stmt_insert_buwana = $buwana_conn->prepare($sql_insert_buwana);
-                    if ($stmt_insert_buwana) {
-                        $stmt_insert_buwana->bind_param('ssssissis', $first_name, $last_name, $full_name, $email_addr, $password_hash, $brk_balance, $user_roles, $newsletter_opt_in, $birth_date);
-                        $stmt_insert_buwana->execute();
-                        $buwana_id = $stmt_insert_buwana->insert_id;
-                        $stmt_insert_buwana->close();
+    // PART 4
+    // Update credentials_tb with the new credential key
+    $sql_update_credential = "UPDATE credentials_tb SET credential_key = ? WHERE buwana_id = ?";
+    $stmt_update_credential = $buwana_conn->prepare($sql_update_credential);
+    if ($stmt_update_credential) {
+        $stmt_update_credential->bind_param("si", $email_addr, $ecobricker_id);
+        if ($stmt_update_credential->execute()) {
+            // Insert new user into Buwana database
+            $sql_insert_buwana = "INSERT INTO users_tb (first_name, last_name, full_name, email, password_hash, brikcoin_balance, role, account_status, created_at, terms_of_service, notes, validation_credits, earthen_newsletter_join, birth_date)
+                VALUES (?, ?, ?, ?, ?, ?, ?, 'Just migrated from GoBrik, step 2 only', NOW(), 1, 'First experimental activations', 3, ?, ?)";
+            $stmt_insert_buwana = $buwana_conn->prepare($sql_insert_buwana);
+            if ($stmt_insert_buwana) {
+                $stmt_insert_buwana->bind_param('ssssissis', $first_name, $last_name, $full_name, $email_addr, $password_hash, $brk_balance, $user_roles, $newsletter_opt_in, $birth_date);
+                $stmt_insert_buwana->execute();
+                $buwana_id = $stmt_insert_buwana->insert_id;
+                $stmt_insert_buwana->close();
 
-                //PART 5
-                        // Send welcome email
-                        $mail = new PHPMailer(true);
-                        try {
-                            $mail->isSMTP();
-                            $mail->Host = 'mail.ecobricks.org';
-                            $mail->SMTPAuth = true;
-                            $mail->Username = 'gobrik@ecobricks.org';
-                            $mail->Password = '1Welcome!';
-                            $mail->SMTPSecure = false;
-                            $mail->Port = 26;
+                // PART 5 (Handling email and redirect will follow here)
+                // Send welcome email
+                $mail = new PHPMailer(true);
+                try {
+                    $mail->isSMTP();
+                    $mail->Host = 'mail.ecobricks.org';
+                    $mail->SMTPAuth = true;
+                    $mail->Username = 'gobrik@ecobricks.org';
+                    $mail->Password = '1Welcome!';
+                    $mail->SMTPSecure = false;
+                    $mail->Port = 26;
 
-                            $mail->setFrom('no-reply@ecobricks.org', 'GoBrik Welcome');
-                            $mail->addAddress($email_addr);
+                    $mail->setFrom('no-reply@ecobricks.org', 'GoBrik Welcome');
+                    $mail->addAddress($email_addr);
 
-                            $mail->isHTML(true);
-                            $mail->Subject = 'Welcome to GoBrik!';
-                            $mail->Body    = 'Dear ' . $first_name . ',<br><br>Thank you for registering with GoBrik. We are excited to have you on board.<br><br>Best Regards,<br>GEA | Buwana Team';
-                            $mail->AltBody = 'Dear ' . $first_name . ',\n\nThank you for registering with GoBrik. We are excited to have you on board.\n\nBest Regards,\nGEA | Buwana Team';
+                    $mail->isHTML(true);
+                    $mail->Subject = 'Welcome to GoBrik!';
+                    $mail->Body    = 'Dear ' . $first_name . ',<br><br>Thank you for registering with GoBrik. We are excited to have you on board.<br><br>Best Regards,<br>GEA | Buwana Team';
+                    $mail->AltBody = 'Dear ' . $first_name . ',\n\nThank you for registering with GoBrik. We are excited to have you on board.\n\nBest Regards,\nGEA | Buwana Team';
 
-                            $mail->send();
-                        } catch (Exception $e) {
-                            error_log("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
-                        }
-
-                        // Redirect to the next activation step
-                        header("Location: activate-3.php?id=$buwana_id");
-                        exit();
-                    } else {
-                        error_log('Error preparing statement for inserting Buwana user: ' . $buwana_conn->error);
-                        echo json_encode(['success' => false, 'error' => 'db_insert_failed']);
-                        ob_end_flush();
-                        exit();
-                    }
-                } else {
-                    error_log('Error executing credential update: ' . $stmt_update_credential->error);
-                    echo json_encode(['success' => false, 'error' => 'db_update_failed']);
-                    ob_end_flush();
-                    exit();
+                    $mail->send();
+                } catch (Exception $e) {
+                    error_log("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
                 }
-                $stmt_update_credential->close();
+
+                // Redirect to the next activation step
+                header("Location: activate-3.php?id=$buwana_id");
+                exit();
             } else {
-                error_log('Error preparing credential update: ' . $buwana_conn->error);
-                echo json_encode(['success' => false, 'error' => 'db_update_failed']);
+                ob_clean(); // Clear the output buffer before sending JSON response
+                error_log('Error preparing statement for inserting Buwana user: ' . $buwana_conn->error);
+                echo json_encode(['success' => false, 'error' => 'db_insert_failed']);
                 ob_end_flush();
                 exit();
             }
+        } else {
+            ob_clean(); // Clear the output buffer before sending JSON response
+            error_log('Error executing credential update: ' . $stmt_update_credential->error);
+            echo json_encode(['success' => false, 'error' => 'db_update_failed']);
+            ob_end_flush();
+            exit();
         }
+        $stmt_update_credential->close();
     } else {
-        error_log('Error preparing email check: ' . $buwana_conn->error);
-        echo json_encode(['success' => false, 'error' => 'db_error']);
+        ob_clean(); // Clear the output buffer before sending JSON response
+        error_log('Error preparing credential update: ' . $buwana_conn->error);
+        echo json_encode(['success' => false, 'error' => 'db_update_failed']);
         ob_end_flush();
         exit();
     }
-
-    // Close the database connection
-    $buwana_conn->close();
-    ob_end_flush();
-    exit();
 }
 ?>
 
@@ -253,7 +244,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <label for="form_password" data-lang-id="007-set-your-pass">Set your password:</label><br>
         <div class="password-wrapper">
             <input type="password" id="form_password" name="form_password" required minlength="6">
-            <i class="toggle-password" toggle="#form_password" class="fa fa-eye">toggle</i>
+            <i class="toggle-password" toggle="#form_password" class="fa fa-eye">😆</i>
         </div>
         <p class="form-caption" data-lang-id="008-password-advice">🔑 Your password must be at least 6 characters.</p>
     </div>
@@ -262,7 +253,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <label for="confirm_password" data-lang-id="009-confirm-pass">Confirm Your Password:</label><br>
         <div class="password-wrapper">
             <input type="password" id="confirm_password" name="confirm_password" required>
-            <i class="toggle-password" toggle="#confirm_password" class="fa fa-eye">toggle</i>
+            <i class="toggle-password" toggle="#confirm_password" class="fa fa-eye">😆</i>
         </div>
         <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;display:none;" data-lang-id="010-pass-error-no-match">👉 Passwords do not match.</div>
     </div>

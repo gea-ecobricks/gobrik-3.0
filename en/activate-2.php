@@ -193,7 +193,7 @@ if ($stmt_insert_buwana->execute()) {
     header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
     exit();
 }
-
+}
 ?>
 
 

@@ -1,3 +1,6 @@
+
+
+
 <?php
 session_start();
 error_reporting(E_ALL);
@@ -10,8 +13,30 @@ require '../vendor/phpmailer/phpmailer/src/Exception.php';
 require '../vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require '../vendor/phpmailer/phpmailer/src/SMTP.php';
 
+
+// PART 1: Setup
 // Initialize variables
 $ecobricker_id = $_GET['id'] ?? null;
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$version = '0.455';
+$page = 'activate';
+$first_name = '';
+$last_name = '';
+$full_name = '';
+$email_addr = '';
+$brk_balance = 0;
+$user_roles = '';
+$birth_date = '';
+$password_hash = '';
+$terms_of_service = 1;  // Default to 1 as the checkbox is required
+$earthen_newsletter_join = 1;  // Default to 1, but will be updated based on form input
+
+// Check if the user is already logged in
+if (isset($_SESSION['buwana_id'])) {
+    header("Location: dashboard.php");
+    exit();
+}
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validate passwords

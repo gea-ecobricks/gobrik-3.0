@@ -1,6 +1,5 @@
 
 
-
 <?php
 session_start();
 error_reporting(E_ALL);
@@ -12,7 +11,6 @@ use PHPMailer\PHPMailer\Exception;
 require '../vendor/phpmailer/phpmailer/src/Exception.php';
 require '../vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require '../vendor/phpmailer/phpmailer/src/SMTP.php';
-
 
 // PART 1: Setup
 // Initialize variables
@@ -37,6 +35,25 @@ if (isset($_SESSION['buwana_id'])) {
     exit();
 }
 
+// PART 2: Fetch user details from the database (this should be done regardless of request method)
+require_once ("../gobrikconn_env.php");
+
+$sql_user_info = "SELECT first_name, last_name, full_name, email_addr, brk_balance, user_roles, birth_date FROM tb_ecobrickers WHERE ecobricker_id = ?";
+$stmt_user_info = $gobrik_conn->prepare($sql_user_info);
+if ($stmt_user_info) {
+    $stmt_user_info->bind_param('i', $ecobricker_id);
+    $stmt_user_info->execute();
+    $stmt_user_info->bind_result($first_name, $last_name, $full_name, $email_addr, $brk_balance, $user_roles, $birth_date);
+    $stmt_user_info->fetch();
+    $stmt_user_info->close();
+} else {
+    error_log('Error preparing statement for fetching user info: ' . $gobrik_conn->error);
+    $_SESSION['error_message'] = "An error occurred while fetching user details. Please try again.";
+    header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
+    exit();
+}
+
+$gobrik_conn->close();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validate passwords
@@ -61,27 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Hash the password
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-    // PART 1: Fetch user details from the database
-    require_once ("../gobrikconn_env.php");
-
-    $sql_user_info = "SELECT first_name, last_name, full_name, email_addr, brk_balance, user_roles, birth_date FROM tb_ecobrickers WHERE ecobricker_id = ?";
-    $stmt_user_info = $gobrik_conn->prepare($sql_user_info);
-    if ($stmt_user_info) {
-        $stmt_user_info->bind_param('i', $ecobricker_id);
-        $stmt_user_info->execute();
-        $stmt_user_info->bind_result($first_name, $last_name, $full_name, $email_addr, $brk_balance, $user_roles, $birth_date);
-        $stmt_user_info->fetch();
-        $stmt_user_info->close();
-    } else {
-        error_log('Error preparing statement for fetching user info: ' . $gobrik_conn->error);
-        $_SESSION['error_message'] = "An error occurred while fetching user details. Please try again.";
-        header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
-        exit();
-    }
-
-    $gobrik_conn->close();
-
-    // PART 2: Insert new user into Buwana database
+    // PART 3: Insert new user into Buwana database
     require_once ("../buwanaconn_env.php");
 
     // Check if the email already exists in the Buwana database
@@ -200,6 +197,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
 
 
 

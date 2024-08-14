@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (strlen($password) < 6) {
         ob_clean(); // Clear the output buffer before sending JSON response
-        echo json_encode(['success' => false, 'error' => 'password_too_short']);
+        echo json_encode(['success' => false, 'error' => 'password_too_short_my_friend']);
         ob_end_flush();
         exit();
     }

@@ -1,136 +1,116 @@
 <?php
-// Turn on or off error reporting
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// Turn off error reporting in production
+error_reporting(0);
+ini_set('display_errors', 0);
 
-// Start the session before any output
+// Start session
 session_start();
 
-// Check if user is logged in and session active
+// Regenerate session ID to prevent session fixation attacks
+session_regenerate_id(true);
+
+// Check if user is logged in
 if (isset($_SESSION['buwana_id'])) {
     header('Location: dashboard.php');
     exit();
 }
 
-// Grab language directory from URL
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.588';
-$page = 'login';
+// Sanitize and validate language directory from URL
+$lang = htmlspecialchars(basename(dirname($_SERVER['SCRIPT_NAME'])), ENT_QUOTES, 'UTF-8');
+
+// Version and Last Modified (can be externalized in a real application)
+$version = '0.59';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
-// Echo the HTML structure
-echo '<!DOCTYPE html>
-<html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">
-<head>
-<meta charset="UTF-8">
-';
+// Handle CSRF token generation
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 ?>
 
-
-
-<script>
-// Function to validate password
-function validatePassword(isValid) {
-    const passwordErrorDiv = document.getElementById('password-error');
-    if (!isValid) {
-        passwordErrorDiv.style.display = 'flex';
-    } else {
-        passwordErrorDiv.style.display = 'none';
-    }
-}
-
-
-
-
-
-
-function closeModal() {
-    const modal = document.getElementById('form-modal-message');
-    modal.style.display = 'none';
-    document.getElementById('page-content').classList.remove('blurred');
-    document.getElementById('footer-full').classList.remove('blurred');
-    document.body.classList.remove('modal-open');
-}
-
-function validateForm() {
-    const email = document.querySelector('input[name="email"]').value;
-    if (!email) {
-        alert('Please enter a valid email address.');
-        return false;
-    }
-    return true;
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-    const errorType = "<?php echo isset($_GET['error']) ? htmlspecialchars($_GET['error']) : ''; ?>";
-    if (errorType) {
-        alert(errorType);
-    }
-});
-
-// Form submission validation
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById('login').addEventListener('submit', function(event) {
-        var credentialValue = document.getElementById('credential_key').value;
-        var password = document.getElementById('password').value;
-
-        if (credentialValue === '' || password === '') {
-            event.preventDefault();
-            document.getElementById('password-error').style.display = 'block';
-        }
-    });
-});
-</script>
-
-<?php require_once ("../includes/login-inc.php");?>
-
-<div class="splash-title-block"></div>
-<div id="splash-bar"></div>
-
-<!-- PAGE CONTENT -->
-   <div id="top-page-image" class="earth-community top-page-image"></div>
-
-<div id="form-submission-box" class="landing-page-form">
-    <div class="form-container">
-
-        <div style="text-align:center;width:100%;margin:auto;">
-            <h3 data-lang-id="001-login-heading">Welcome back!</h3>
-            <h4 data-lang-id="002-login-subheading" style="margin-top:5px, margin-bottom:5px;">Login with your account credentials.</h4>
-        </div>
-
-        <!-- Login form -->
-        <form id="login" method="post" action="login_process.php">
-            <div class="form-item">
-                <span data-lang-id="003-login-email">
-                    <input type="text" id="credential_key" name="credential_key" required placeholder="Your e-mail...">
-                <span>
+<!DOCTYPE html>
+<html lang="<?php echo $lang; ?>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        .form-field-error { color: red; }
+        .toggle-password { cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div id="form-submission-box" class="landing-page-form">
+        <div class="form-container">
+            <div style="text-align:center;width:100%;margin:auto;">
+                <h3 data-lang-id="001-login-heading">Welcome back!</h3>
+                <h4 data-lang-id="002-login-subheading" style="margin-top:5px; margin-bottom:5px;">Login with your account credentials.</h4>
             </div>
-            <div class="form-item">
-                <div data-lang-id="004-login-password">
-                    <input type="password" id="password" name="password" required placeholder="Your password...">
+
+            <!-- Login form -->
+            <form id="login" method="post" action="login_process.php" onsubmit="return validateForm();">
+                <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+                <div class="form-item">
+                    <label for="credential_key" data-lang-id="003-login-email">Your e-mail:</label>
+                    <input type="text" id="credential_key" name="credential_key" required placeholder="Your e-mail...">
                 </div>
+                <div class="form-item">
+                    <label for="password" data-lang-id="004-login-password">Your password:</label>
+                    <div style="position: relative;">
+                        <input type="password" id="password" name="password" required placeholder="Your password...">
+                        <span class="toggle-password" toggle="#password" style="position:absolute; right:10px; top:50%; transform:translateY(-50%);">🔒</span>
+                    </div>
                     <div id="password-error" class="form-field-error" style="display:none;" data-lang-id="000-password-wrong">👉 Password is wrong.</div>
                     <p class="form-caption" data-lang-id="005-forgot-password">Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
-            </div>
-            <div style="text-align:center;" data-lang-id="006-login-button-">
-                <input type="submit" style="text-align:center;margin-top:15px;width:30%; min-width: 175px;" id="submit-button" value="🔑 Login" class="submit-button enabled">
-            </div>
-        </form>
+                </div>
+                <div style="text-align:center;" data-lang-id="006-login-button-">
+                    <input type="submit" style="text-align:center;margin-top:15px;width:30%; min-width: 175px;" id="submit-button" value="🔑 Login" class="submit-button enabled">
+                </div>
+            </form>
+        </div>
+        <div style="text-align:center;width:100%;margin:auto;margin-top:30px;margin-bottom:50px;">
+            <p style="font-size:medium;" data-lang-id="000-no-account-yet">Don't have an account yet? <a href="signup.php">Signup!</a></p>
+        </div>
     </div>
-<div style="text-align:center;width:100%;margin:auto;margin-top:30px;margin-bottom:50px;">
-    <p style="font-size:medium;" data-lang-id="000-no-account-yet">Don't have an account yet? <a href="signup.php">Signup!</a></p>
-</div>
-</div>
 
-</div>
+    <!-- Modal structure -->
+    <div id="form-modal-message" style="display:none;" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+        <div id="modal-photo-box"></div>
+        <div class="modal-message"></div>
+    </div>
 
-</div> <!--main-->
+    <!-- Footer -->
+    <?php require_once ("../footer-2024.php");?>
 
-<!-- FOOTER STARTS HERE -->
-<?php require_once ("../footer-2024.php");?>
+    <script>
+        // Toggle password visibility and switch between the lock emojis
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll('.toggle-password').forEach(function(toggleElement) {
+                toggleElement.addEventListener('click', function() {
+                    let input = document.querySelector(this.getAttribute('toggle'));
+                    if (input.getAttribute('type') === 'password') {
+                        input.setAttribute('type', 'text');
+                        this.textContent = '🔓'; // Change to unlocked emoji
+                    } else {
+                        input.setAttribute('type', 'password');
+                        this.textContent = '🔒'; // Change to locked emoji
+                    }
+                });
+            });
+        });
 
-<script>
- function showModalInfo(type, email = '') {
+        // Function to validate form
+        function validateForm() {
+            const email = document.querySelector('input[name="credential_key"]').value;
+            if (!email) {
+                alert('Please enter a valid email address.');
+                return false;
+            }
+            return true;
+        }
+
+        // Modal handling
+        function showModalInfo(type, email = '') {
             const modal = document.getElementById('form-modal-message');
             const photobox = document.getElementById('modal-photo-box');
             const messageContainer = modal.querySelector('.modal-message');
@@ -149,7 +129,6 @@ document.addEventListener("DOMContentLoaded", function() {
                             <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
                                 <div id="no-buwana-email" class="form-warning" style="margin-top:5px;margin-bottom:5px;" data-lang-id="010-no-buwana-email">🤔 Hmmm... we can't find an account that uses this email!</div>
                                 <button type="submit" class="submit-button enabled">Reset Password</button>
-
                             </div>
                         </form>
                     `;
@@ -163,11 +142,6 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById('page-content').classList.add('blurred');
             document.getElementById('footer-full').classList.add('blurred');
             document.body.classList.add('modal-open');
-        }
-
-        function validateForm() {
-            document.getElementById('no-buwana-email').style.display = 'none';
-            return true;
         }
 
         // Check URL parameters on page load
@@ -184,41 +158,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 }, 100);
             }
         }
-
-
-
-
-
-
-
-
-//TUCK AND HIDE:  This code tucks the top banner image under the header after a scroll of 30 px
-
-    window.onscroll = function() {
-        scrollLessThan30();
-        scrollMoreThan30();
-        // showHideHeader();
-    };
-
-    function scrollLessThan30() {
-        if (window.pageYOffset <= 30) {
-    var topPageImage = document.querySelector('.top-page-image');
-                if (topPageImage) {
-                topPageImage.style.zIndex = "35";
-            }
-        }
-    }
-
-    function scrollMoreThan30() {
-        if (window.pageYOffset >= 30) {
-    var topPageImage = document.querySelector('.top-page-image');
-                if (topPageImage) {
-                topPageImage.style.zIndex = "25";
-            }
-        }
-    }
-
     </script>
-
 </body>
 </html>

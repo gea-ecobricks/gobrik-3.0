@@ -67,12 +67,17 @@ if ($result_languages->num_rows > 0) {
 
 
 // Fetch countries from Buwana database
-$sql_countries = "SELECT country_id, country_name FROM tb_countries ORDER BY country_name";
+$countries = [];
+
+$sql_countries = "SELECT country_id, country_name FROM countries_tb ORDER BY country_name";
 $result_countries = $buwana_conn->query($sql_countries);
+
 if ($result_countries->num_rows > 0) {
     while ($row = $result_countries->fetch_assoc()) {
         $countries[] = $row;
     }
+} else {
+    echo "No countries found.";
 }
 
 $buwana_conn->close();
@@ -161,10 +166,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
             <div class="form-item" id="country-select" style="display:none;">
                 <label for="country_id">Please select your country of residence...</label><br>
-                <select name="country_id" id="country_id" required>
+              <select name="country_id" id="country_id" required>
                     <option value="">Select your country</option>
                     <?php foreach ($countries as $country) { ?>
-                        <option value="<?php echo $country['country_id']; ?>"><?php echo htmlspecialchars($country['country_name']); ?></option>
+                        <option value="<?php echo $country['country_id']; ?>">
+                            <?php echo htmlspecialchars($country['country_name']); ?>
+                        </option>
                     <?php } ?>
                 </select>
             </div>

@@ -163,9 +163,8 @@ document.addEventListener("DOMContentLoaded", function() {
     </script>
 
 
-
 <script>
-// Function to validate password
+// Function to validate password and show/hide the error message
 function validatePassword(isValid) {
     const passwordErrorDiv = document.getElementById('password-error');
     if (!isValid) {
@@ -174,11 +173,6 @@ function validatePassword(isValid) {
         passwordErrorDiv.style.display = 'none';
     }
 }
-
-
-
-
-
 
 function closeModal() {
     const modal = document.getElementById('form-modal-message');
@@ -197,11 +191,14 @@ function validateForm() {
     return true;
 }
 
-
 document.addEventListener("DOMContentLoaded", function() {
     const errorType = "<?php echo isset($_GET['error']) ? htmlspecialchars($_GET['error']) : ''; ?>";
     if (errorType) {
-        alert(errorType);
+        if (errorType === 'invalid_password') {
+            validatePassword(false);
+        } else {
+            alert(errorType);
+        }
     }
 });
 
@@ -218,6 +215,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 </script>
+
 
 </body>
 </html>

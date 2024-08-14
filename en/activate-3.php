@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Initialize variables
-$ecobricker_id = $_GET['id'] ?? null;
+$buwana_id = $_GET['id'] ?? null;  // Correctly initializing buwana_id
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.453';
 $page = 'activate';
@@ -19,35 +19,25 @@ if (isset($_SESSION['buwana_id'])) {
     exit();
 }
 
-// PART 2: Check if ecobricker_id is passed in the URL
-if (is_null($ecobricker_id)) {
+// PART 2: Check if buwana_id is passed in the URL
+if (is_null($buwana_id)) {
     echo '<script>
-        alert("Hmm... something went wrong. No ecobricker ID was passed along. Please try logging in again. If this problem persists, you\'ll need to create a new account.");
+        alert("Hmm... something went wrong. No buwana ID was passed along. Please try logging in again. If this problem persists, you\'ll need to create a new account.");
         window.location.href = "login.php";
     </script>';
     exit();
 }
 
-// PART 3: Look up user information using ecobricker_id provided in URL
+// PART 3: Look up user information using buwana_id provided in URL
 
 // GoBrik database credentials
-$gobrik_servername = "localhost";
-$gobrik_username = "ecobricks_brikchain_viewer";
-$gobrik_password = "desperate-like-the-Dawn";
-$gobrik_dbname = "ecobricks_gobrik_msql_db";
-
-// Create connection to GoBrik database
-$gobrik_conn = new mysqli($gobrik_servername, $gobrik_username, $gobrik_password, $gobrik_dbname);
-if ($gobrik_conn->connect_error) {
-    die("Connection failed: " . $gobrik_conn->connect_error);
-}
-$gobrik_conn->set_charset("utf8mb4");
+require_once ("../gobrikconn_env.php");
 
 // Fetch user information
-$sql_user_info = "SELECT first_name, email_addr FROM tb_ecobrickers WHERE ecobricker_id = ?";
+$sql_user_info = "SELECT first_name, email_addr FROM tb_ecobrickers WHERE buwana_id = ?";
 $stmt_user_info = $gobrik_conn->prepare($sql_user_info);
 if ($stmt_user_info) {
-    $stmt_user_info->bind_param('i', $ecobricker_id);
+    $stmt_user_info->bind_param('i', $buwana_id);
     $stmt_user_info->execute();
     $stmt_user_info->bind_result($first_name, $email_addr);
     $stmt_user_info->fetch();
@@ -58,21 +48,8 @@ if ($stmt_user_info) {
 
 // Fetch languages from Buwana database
 
-    // Buwana database credentials
-    $buwana_servername = "localhost";
-    $buwana_username = "ecobricks_gobrik_app";
-    $buwana_password = "1EarthenAuth!";
-    $buwana_dbname = "ecobricks_earthenAuth_db";
-
-    // Create connection for Buwana database
-    $buwana_conn = new mysqli($buwana_servername, $buwana_username, $buwana_password, $buwana_dbname);
-    if ($buwana_conn->connect_error) {
-        error_log("Connection failed: " . $buwana_conn->connect_error);
-        echo json_encode(['success' => false, 'error' => 'db_connection_failed']);
-        ob_end_flush();
-        exit();
-    }
-    $buwana_conn->set_charset("utf8mb4");
+// Buwana database credentials
+require_once ("../buwanaconn_env.php");
 
 $sql_languages = "SELECT languages_id, language_name FROM languages_tb ORDER BY language_name";
 $result_languages = $buwana_conn->query($sql_languages);
@@ -115,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt_update_buwana->close();
 
         // Redirect to the next step
-        header("Location: login.php?id=" . urlencode($ecobricker_id));
+        header("Location: login.php?id=" . urlencode($buwana_id));  // Correctly using buwana_id for redirection
         exit();
     } else {
         error_log('Error preparing statement for updating Buwana user: ' . $buwana_conn->error);

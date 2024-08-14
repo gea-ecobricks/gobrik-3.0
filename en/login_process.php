@@ -47,7 +47,6 @@ if ($stmt_check_email) {
 
 require_once ("../buwanaconn_env.php");
 
-
 // SQL query to get buwana_id from credentials_tb using credential_key
 $sql_credential = "SELECT buwana_id FROM credentials_tb WHERE credential_key = ?";
 $stmt_credential = $buwana_conn->prepare($sql_credential);

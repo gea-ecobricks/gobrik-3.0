@@ -18,6 +18,18 @@ $version = '0.588';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
+
+function getLogoutMessage($lang) {
+    $messages = [
+        'en' => "You've been logged out.",
+        'fr' => "Vous avez été déconnecté.",
+        'id' => "Anda telah keluar.",
+        'es' => "Has cerrado tu sesión."
+    ];
+    return $messages[$lang] ?? "You've been logged out."; // Default to English if $lang is not found
+}
+
+
 // Echo the HTML structure
 echo '<!DOCTYPE html>
 <html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">
@@ -41,7 +53,15 @@ echo '<!DOCTYPE html>
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h3 data-lang-id="001-login-heading">Welcome back!</h3>
+            <h3 data-lang-id="001-login-heading">
+                <?php
+                if (isset($_GET['status']) && $_GET['status'] === 'loggedout') {
+                    echo htmlspecialchars(getLogoutMessage($lang));
+                } else {
+                    echo "Welcome back!";
+                }
+                ?>
+            </h3>
             <h4 data-lang-id="002-login-subheading" style="margin-top:5px, margin-bottom:5px;">Login with your account credentials.</h4>
         </div>
 

@@ -12,6 +12,12 @@ if (isset($_SESSION['buwana_id'])) {
     exit();
 }
 
+// Generate CSRF token if not already set
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
+
 // Grab language directory from URL
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.588';

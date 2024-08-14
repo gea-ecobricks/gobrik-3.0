@@ -393,44 +393,41 @@ $(document).ready(function() {
 
      // Handle form submission
     $('#password-confirm-form').on('submit', function(e) {
-         $('#password-confirm-form').on('submit', function(e) {
         e.preventDefault(); // Prevent the form from submitting normally
 
-        // Ensure that the form is not being submitted prematurely by checking conditions
-        const passwordField = document.getElementById('form_password').value;
-        const confirmPasswordField = document.getElementById('confirm_password').value;
-        const termsCheckbox = document.getElementById('terms').checked;
+        // Send form data via AJAX to the server
+        $.ajax({
+            url: $(this).attr('action'), // Use form's action attribute as URL
+            type: 'POST', // Send data via POST method
+            data: $(this).serialize(), // Serialize the form data
+            success: function(response) {
+                console.log('Server response:', response); // Log the raw response
+                try {
+                    var res = JSON.parse(response); // Parse the JSON response
+                    console.log('Parsed response:', res); // Log the parsed response
 
-        if (passwordField.length >= 6 && passwordField === confirmPasswordField && termsCheckbox) {
-            // Proceed with AJAX submission
-            $.ajax({
-                url: $(this).attr('action'),
-                type: 'POST',
-                data: $(this).serialize(),
-                success: function(response) {
-                    // Handle server response
-                    try {
-                        var res = JSON.parse(response);
-                        if (res.success) {
-                            window.location.href = res.redirect || "activate-3.php";
-                        } else if (res.error === 'duplicate_process' && res.redirect) {
-                            alert("Whoops! Looks like you've already done this process. Continue now by updating your account's core information...");
-                            window.location.href = res.redirect;
-                        } else {
-                            alert('An unexpected error occurred. Please try again.');
-                        }
-                    } catch (e) {
-                        console.error('Error parsing JSON:', e);
-                        alert('An unexpected error occurred. Please try again later.');
+                    if (res.success) {
+                        console.log('Success: Redirecting to the next activation step.');
+                        // No need to handle redirect in JS, it's done server-side
+                    } else if (res.error === 'duplicate_process' && res.redirect) {
+                        console.log('Duplicate process detected: Redirecting to update core information.');
+                        alert("Whoops! Looks like you've already done this process. Continue now by updating your account's core information...");
+                        window.location.href = res.redirect; // Redirect based on the provided URL
+                    } else {
+                        console.log('Error: Unexpected error occurred.');
+                        alert('An unexpected error occurred. Please try again.'); // Show error alert
                     }
-                },
-                error: function() {
-                    alert('An error occurred while processing the form. Please try again.');
+                } catch (e) {
+                    console.error('Error parsing JSON:', e);
+                    console.log('Received response:', response);
+                    alert('An unexpected error occurred. Please try again later.');
                 }
-            });
-        } else {
-            alert('Please ensure all form fields are correctly filled out before submitting.');
-        }
+            },
+            error: function() {
+                console.log('Error: An error occurred while processing the form.');
+                alert('An error occurred while processing the form. Please try again.'); // Show error alert
+            }
+        });
     });
 });
 

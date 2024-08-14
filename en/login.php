@@ -53,13 +53,14 @@ function closeModal() {
 }
 
 function validateForm() {
-    const email = document.querySelector('input[name="email"]').value;
+    const email = document.querySelector('input[name="credential_key"]').value;
     if (!email) {
         alert('Please enter a valid email address.');
         return false;
     }
     return true;
 }
+
 
 document.addEventListener("DOMContentLoaded", function() {
     const errorType = "<?php echo isset($_GET['error']) ? htmlspecialchars($_GET['error']) : ''; ?>";
@@ -190,19 +191,26 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 // Toggle password visibility and switch between the lock emojis
-$(document).ready(function() {
-    $('.toggle-password').click(function() {
-        let input = $($(this).attr('toggle'));
-        if (input.attr('type') === 'password') {
-            input.attr('type', 'text');
-            $(this).text('🔓'); // Change to unlocked emoji
-        } else {
-            input.attr('type', 'password');
-            $(this).text('🔒'); // Change to locked emoji
-        }
+document.addEventListener("DOMContentLoaded", function() {
+    // Select all elements with the class 'toggle-password'
+    const togglePasswordIcons = document.querySelectorAll('.toggle-password');
+
+    togglePasswordIcons.forEach(function(icon) {
+        icon.addEventListener('click', function() {
+            // Find the associated input field using the 'toggle' attribute
+            const input = document.querySelector(icon.getAttribute('toggle'));
+            if (input) {
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.textContent = '🔓'; // Change to unlocked emoji
+                } else {
+                    input.type = 'password';
+                    icon.textContent = '🔒'; // Change to locked emoji
+                }
+            }
+        });
     });
 });
-
 
     </script>
 

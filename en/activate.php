@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 $response = ['success' => false];
 $ecobricker_id = $_GET['user_id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.47';
+$version = '0.471';
 $page = 'activate';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $first_name = '';
@@ -30,18 +30,8 @@ if (is_null($ecobricker_id)) {
 
 // PART 3: Look up user information using ecobricker_id provided in URL
 
-// GoBrik database credentials (we'll hide this soon!)
-$gobrik_servername = "localhost";
-$gobrik_username = "ecobricks_brikchain_viewer";
-$gobrik_password = "desperate-like-the-Dawn";
-$gobrik_dbname = "ecobricks_gobrik_msql_db";
-
-// Create connection to GoBrik database
-$gobrik_conn = new mysqli($gobrik_servername, $gobrik_username, $gobrik_password, $gobrik_dbname);
-if ($gobrik_conn->connect_error) {
-    die("Connection failed: " . $gobrik_conn->connect_error);
-}
-$gobrik_conn->set_charset("utf8mb4");
+//gobrik_conn creds
+require_once ("../gobrikconn_env.php");
 
 // Prepare and execute SQL statement to fetch user details
 $sql_user_info = "SELECT first_name, email_addr FROM tb_ecobrickers WHERE ecobricker_id = ?";

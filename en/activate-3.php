@@ -51,13 +51,15 @@ if ($stmt_user_info) {
 // Buwana database credentials
 require_once ("../buwanaconn_env.php");
 
-$sql_languages = "SELECT languages_id, language_name FROM languages_tb ORDER BY language_name";
+$sql_languages = "SELECT lang_id, languages_eng_name, language_active FROM languages_tb ORDER BY languages_eng_name";
 $result_languages = $buwana_conn->query($sql_languages);
+
 if ($result_languages->num_rows > 0) {
     while ($row = $result_languages->fetch_assoc()) {
         $languages[] = $row;
     }
 }
+
 
 // Fetch countries from Buwana database
 $sql_countries = "SELECT country_id, country_name FROM tb_countries ORDER BY country_name";
@@ -140,12 +142,15 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <form id="user-info-form" method="post" action="activate-3.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
             <div class="form-item" id="language-select">
                 <label for="language_id">Please tell us which language you prefer...</label><br>
-                <select name="language_id" id="language_id" required>
-                    <option value="">Select your language</option>
-                    <?php foreach ($languages as $language) { ?>
-                        <option value="<?php echo $language['languages_id']; ?>"><?php echo htmlspecialchars($language['language_name']); ?></option>
-                    <?php } ?>
+               <select name="language_id">
+                    <?php foreach ($languages as $language): ?>
+                        <option value="<?php echo htmlspecialchars($language['lang_id']); ?>"
+                            <?php echo $language['language_active'] == 0 ? 'disabled' : ''; ?>>
+                            <?php echo htmlspecialchars($language['languages_eng_name']); ?>
+                        </option>
+                    <?php endforeach; ?>
                 </select>
+
             </div>
 
             <div class="form-item" id="country-select" style="display:none;">

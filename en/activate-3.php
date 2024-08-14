@@ -167,7 +167,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <input type="submit" id="submit-button" value="Continue" class="submit-button disabled" disabled>
             </div>
         </form>
-
     </div>
 
     <div style="text-align:center;width:100%;margin:auto;margin-top: 20px;">

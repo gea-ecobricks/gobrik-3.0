@@ -192,26 +192,35 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once ("../footer-2024.php"); ?>
 
 <script>
-$(document).ready(function() {
+document.addEventListener('DOMContentLoaded', function() {
     // Show country selection after language is selected
-    $('#language_id').change(function() {
-        if ($(this).val() !== '') {
-            $('#country-select').slideDown();
+    var languageSelect = document.getElementById('language_id');
+    var countrySelect = document.getElementById('country-select');
+    var submitButton = document.getElementById('submit-button');
+    var countryDropdown = document.getElementById('country_id');
+
+    languageSelect.addEventListener('change', function() {
+        if (this.value !== '') {
+            countrySelect.style.display = 'block'; // Show the country select
         } else {
-            $('#country-select').slideUp();
-            $('#submit-button').prop('disabled', true).addClass('disabled');
+            countrySelect.style.display = 'none'; // Hide the country select
+            submitButton.disabled = true;
+            submitButton.classList.add('disabled');
         }
     });
 
     // Enable submit button after country is selected
-    $('#country_id').change(function() {
-        if ($(this).val() !== '') {
-            $('#submit-button').prop('disabled', false).removeClass('disabled');
+    countryDropdown.addEventListener('change', function() {
+        if (this.value !== '') {
+            submitButton.disabled = false;
+            submitButton.classList.remove('disabled');
         } else {
-            $('#submit-button').prop('disabled', true).addClass('disabled');
+            submitButton.disabled = true;
+            submitButton.classList.add('disabled');
         }
     });
 });
+
 </script>
 
 </body>

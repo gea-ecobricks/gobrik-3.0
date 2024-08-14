@@ -60,7 +60,7 @@ echo '<!DOCTYPE html>
                     <input type="password" id="password" name="password" required placeholder="Your password...">
                     <span toggle="#password" class="toggle-password" style="cursor: pointer;">🔒</span>
                 </div>
-                <div id="password-error" class="form-field-error" style="display:none;" data-lang-id="000-password-wrong">👉 Password is wrong.</div>
+                <div id="password-error" class="form-field-error" style="display:none;margin-top: 0px;" data-lang-id="000-password-wrong">👉 Password is wrong.</div>
                 <p class="form-caption" data-lang-id="005-forgot-password">Forget your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
             </div>
 

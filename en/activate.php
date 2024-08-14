@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 $response = ['success' => false];
 $ecobricker_id = $_GET['user_id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.467';
+$version = '0.468';
 $page = 'activate';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $first_name = '';
@@ -103,12 +103,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <p data-lang-id="005-links" style="font-size:1em; text-align: center;">Buwana accounts are designed with ecology, security, and privacy in mind. Soon, you'll be able to login to other great regenerative apps movement in the same way you login to GoBrik!.</p>
         <div style="display:flex;flex-flow:row;justify-content:center;width:100%;margin-top:10px">
-            <div><a href="#" onclick="showModalInfo('terms')" class="underline-link" style="margin:auto;padding: 15px;text-align:center;display:block;background: #ffffff47;
+            <div><a href="#" onclick="showModalInfo('terms')" class="underline-link" style="margin:auto;padding: 15px;text-align:center;display:block;background: var(--lighter);
   border-radius: 10px;margin: 5px;">New Buwana & GoBrik Terms of Service</a></div>
 
-            <div><a href="https://earthen.io/gobrik-regen" class="underline-link" target="_blank" style="margin:auto;padding: 15px;text-align:center;display:block;background: #ffffff47;
+            <div><a href="https://earthen.io/gobrik-regen" class="underline-link" target="_blank" style="margin:auto;padding: 15px;text-align:center;display:block;background: var(--lighter);
   border-radius: 10px;margin: 5px;">Why?  Read our 'Great GoBrik Regeneration' blog post.</a></div>
-            <div><a href="https://github.com/gea-ecobricks/gobrik-3.0" class="underline-link" target="_blank" style="margin:auto;padding: 15px;text-align:center;display:block;background: #ffffff47;
+            <div><a href="https://github.com/gea-ecobricks/gobrik-3.0" class="underline-link" target="_blank" style="margin:auto;padding: 15px;text-align:center;display:block;background: var(--lighter);
   border-radius: 10px;margin: 5px;">New Github Source Code Repository</a></div>
        </div>
 

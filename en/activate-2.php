@@ -97,21 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
     // Buwana database credentials
-    $buwana_servername = "localhost";
-    $buwana_username = "ecobricks_gobrik_app";
-    $buwana_password = "1EarthenAuth!";
-    $buwana_dbname = "ecobricks_earthenAuth_db";
-
-    // Create connection for Buwana database
-    $buwana_conn = new mysqli($buwana_servername, $buwana_username, $buwana_password, $buwana_dbname);
-    if ($buwana_conn->connect_error) {
-        ob_clean(); // Clear the output buffer before sending JSON response
-        error_log("Connection failed: " . $buwana_conn->connect_error);
-        echo json_encode(['success' => false, 'error' => 'db_connection_failed']);
-        ob_end_flush();
-        exit();
-    }
-    $buwana_conn->set_charset("utf8mb4");
+require_once ("../buwanaconn_env.php");
 
     // Check if the email already exists in the Buwana database
     $sql_check_email = "SELECT buwana_id FROM users_tb WHERE email = ?";
@@ -407,41 +393,44 @@ $(document).ready(function() {
 
      // Handle form submission
     $('#password-confirm-form').on('submit', function(e) {
+         $('#password-confirm-form').on('submit', function(e) {
         e.preventDefault(); // Prevent the form from submitting normally
 
-        // Send form data via AJAX to the server
-        $.ajax({
-            url: $(this).attr('action'), // Use form's action attribute as URL
-            type: 'POST', // Send data via POST method
-            data: $(this).serialize(), // Serialize the form data
-            success: function(response) {
-                console.log('Server response:', response); // Log the raw response
-                try {
-                    var res = JSON.parse(response); // Parse the JSON response
-                    console.log('Parsed response:', res); // Log the parsed response
+        // Ensure that the form is not being submitted prematurely by checking conditions
+        const passwordField = document.getElementById('form_password').value;
+        const confirmPasswordField = document.getElementById('confirm_password').value;
+        const termsCheckbox = document.getElementById('terms').checked;
 
-                    if (res.success) {
-                        console.log('Success: Redirecting to the next activation step.');
-                        // No need to handle redirect in JS, it's done server-side
-                    } else if (res.error === 'duplicate_process' && res.redirect) {
-                        console.log('Duplicate process detected: Redirecting to update core information.');
-                        alert("Whoops! Looks like you've already done this process. Continue now by updating your account's core information...");
-                        window.location.href = res.redirect; // Redirect based on the provided URL
-                    } else {
-                        console.log('Error: Unexpected error occurred.');
-                        alert('An unexpected error occurred. Please try again.'); // Show error alert
+        if (passwordField.length >= 6 && passwordField === confirmPasswordField && termsCheckbox) {
+            // Proceed with AJAX submission
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(response) {
+                    // Handle server response
+                    try {
+                        var res = JSON.parse(response);
+                        if (res.success) {
+                            window.location.href = res.redirect || "activate-3.php";
+                        } else if (res.error === 'duplicate_process' && res.redirect) {
+                            alert("Whoops! Looks like you've already done this process. Continue now by updating your account's core information...");
+                            window.location.href = res.redirect;
+                        } else {
+                            alert('An unexpected error occurred. Please try again.');
+                        }
+                    } catch (e) {
+                        console.error('Error parsing JSON:', e);
+                        alert('An unexpected error occurred. Please try again later.');
                     }
-                } catch (e) {
-                    console.error('Error parsing JSON:', e);
-                    console.log('Received response:', response);
-                    alert('An unexpected error occurred. Please try again later.');
+                },
+                error: function() {
+                    alert('An error occurred while processing the form. Please try again.');
                 }
-            },
-            error: function() {
-                console.log('Error: An error occurred while processing the form.');
-                alert('An error occurred while processing the form. Please try again.'); // Show error alert
-            }
-        });
+            });
+        } else {
+            alert('Please ensure all form fields are correctly filled out before submitting.');
+        }
     });
 });
 

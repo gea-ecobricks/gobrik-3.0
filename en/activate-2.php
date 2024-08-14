@@ -1,5 +1,4 @@
 
-
 <?php
 session_start();
 error_reporting(E_ALL);
@@ -102,99 +101,109 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($stmt_insert_buwana) {
                 $stmt_insert_buwana->bind_param('sssssisis', $first_name, $last_name, $full_name, $email_addr, $password_hash, $brk_balance, $user_roles, $newsletter_opt_in, $birth_date);
 
+                if ($stmt_insert_buwana->execute()) {
+                    $buwana_id = $stmt_insert_buwana->insert_id; // Ensure buwana_id is correctly set
 
+                    // Update credentials_tb with the new credential key (email)
+                    $sql_update_credential = "UPDATE credentials_tb SET credential_key = ? WHERE buwana_id = ?";
+                    $stmt_update_credential = $buwana_conn->prepare($sql_update_credential);
+                    if ($stmt_update_credential) {
+                        $stmt_update_credential->bind_param("si", $email_addr, $buwana_id);
+                        if ($stmt_update_credential->execute()) {
 
+                            // Update GoBrik database's ecobricker with Buwana ID and other details
+                            $gobrik_conn = new mysqli($gobrik_servername, $gobrik_username, $gobrik_password, $gobrik_dbname);
+                            if ($gobrik_conn->connect_error) {
+                                error_log("Connection failed: " . $gobrik_conn->connect_error);
+                                $_SESSION['error_message'] = "Database connection failed. Please try again.";
+                                header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
+                                exit();
+                            }
+                            $gobrik_conn->set_charset("utf8mb4");
 
+                            $sql_update_gobrik = "UPDATE tb_ecobrickers SET buwana_id = ?, buwana_activated = 1, buwana_activated_dt = NOW(), account_notes = 'Second experimental migrations' WHERE ecobricker_id = ?";
+                            $stmt_update_gobrik = $gobrik_conn->prepare($sql_update_gobrik);
+                            if ($stmt_update_gobrik) {
+                                $stmt_update_gobrik->bind_param('ii', $buwana_id, $ecobricker_id);
+                                if ($stmt_update_gobrik->execute()) {
+                                    $stmt_update_gobrik->close();
 
-if ($stmt_insert_buwana->execute()) {
-    $buwana_id = $stmt_insert_buwana->insert_id; // Ensure buwana_id is correctly set
+                                    // Send welcome email
+                                    $mail = new PHPMailer(true);
+                                    try {
+                                        $mail->isSMTP();
+                                        $mail->Host = 'mail.ecobricks.org';
+                                        $mail->SMTPAuth = true;
+                                        $mail->Username = 'gobrik@ecobricks.org';
+                                        $mail->Password = '1Welcome!';
+                                        $mail->SMTPSecure = false;
+                                        $mail->Port = 26;
 
-    // Update credentials_tb with the new credential key (email)
-    $sql_update_credential = "UPDATE credentials_tb SET credential_key = ? WHERE buwana_id = ?";
-    $stmt_update_credential = $buwana_conn->prepare($sql_update_credential);
-    if ($stmt_update_credential) {
-        $stmt_update_credential->bind_param("si", $email_addr, $buwana_id);
-        if ($stmt_update_credential->execute()) {
+                                        $mail->setFrom('no-reply@ecobricks.org', 'GoBrik Welcome');
+                                        $mail->addAddress($email_addr);
 
-            // Update GoBrik database's ecobricker with Buwana ID and other details
-            $gobrik_conn = new mysqli($gobrik_servername, $gobrik_username, $gobrik_password, $gobrik_dbname);
-            if ($gobrik_conn->connect_error) {
-                error_log("Connection failed: " . $gobrik_conn->connect_error);
-                $_SESSION['error_message'] = "Database connection failed. Please try again.";
-                header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
-                exit();
-            }
-            $gobrik_conn->set_charset("utf8mb4");
+                                        $mail->isHTML(true);
+                                        $mail->Subject = 'Welcome to GoBrik!';
+                                        $mail->Body = 'Dear ' . $first_name . ',<br><br>Thank you for registering with GoBrik. We are excited to have you on board.<br><br>Best Regards,<br>GEA | Buwana Team';
+                                        $mail->AltBody = 'Dear ' . $first_name . ',\n\nThank you for registering with GoBrik. We are excited to have you on board.\n\nBest Regards,\nGEA | Buwana Team';
 
-            $sql_update_gobrik = "UPDATE tb_ecobrickers SET buwana_id = ?, buwana_activated = 1, buwana_activated_dt = NOW(), account_notes = 'Second experimental migrations' WHERE ecobricker_id = ?";
-            $stmt_update_gobrik = $gobrik_conn->prepare($sql_update_gobrik);
-            if ($stmt_update_gobrik) {
-                $stmt_update_gobrik->bind_param('ii', $buwana_id, $ecobricker_id);
-                if ($stmt_update_gobrik->execute()) {
-                    $stmt_update_gobrik->close();
+                                        $mail->send();
+                                    } catch (Exception $e) {
+                                        error_log("Message could not be sent. Mailer Error: " . $mail->ErrorInfo);
+                                    }
 
-                    // Send welcome email
-                    $mail = new PHPMailer(true);
-                    try {
-                        $mail->isSMTP();
-                        $mail->Host = 'mail.ecobricks.org';
-                        $mail->SMTPAuth = true;
-                        $mail->Username = 'gobrik@ecobricks.org';
-                        $mail->Password = '1Welcome!';
-                        $mail->SMTPSecure = false;
-                        $mail->Port = 26;
+                                    // Redirect to the next activation step
+                                    header("Location: activate-3.php?id=" . urlencode($buwana_id));
+                                    exit();
 
-                        $mail->setFrom('no-reply@ecobricks.org', 'GoBrik Welcome');
-                        $mail->addAddress($email_addr);
+                                } else {
+                                    error_log('Error executing update on GoBrik tb_ecobrickers: ' . $stmt_update_gobrik->error);
+                                    $_SESSION['error_message'] = "Error updating GoBrik records. Please try again.";
+                                    header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
+                                    exit();
+                                }
+                            } else {
+                                error_log('Error preparing statement for updating GoBrik tb_ecobrickers: ' . $gobrik_conn->error);
+                                $_SESSION['error_message'] = "Error preparing update for GoBrik records. Please try again.";
+                                header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
+                                exit();
+                            }
 
-                        $mail->isHTML(true);
-                        $mail->Subject = 'Welcome to GoBrik!';
-                        $mail->Body = 'Dear ' . $first_name . ',<br><br>Thank you for registering with GoBrik. We are excited to have you on board.<br><br>Best Regards,<br>GEA | Buwana Team';
-                        $mail->AltBody = 'Dear ' . $first_name . ',\n\nThank you for registering with GoBrik. We are excited to have you on board.\n\nBest Regards,\nGEA | Buwana Team';
-
-                        $mail->send();
-                    } catch (Exception $e) {
-                        error_log("Message could not be sent. Mailer Error: " . $mail->ErrorInfo);
+                        } else {
+                            error_log('Error executing credential update: ' . $stmt_update_credential->error);
+                            $_SESSION['error_message'] = "Error updating credentials. Please try again.";
+                            header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
+                            exit();
+                        }
+                        $stmt_update_credential->close();
+                    } else {
+                        error_log('Error preparing statement for updating credentials: ' . $buwana_conn->error);
+                        $_SESSION['error_message'] = "Error preparing credential update. Please try again.";
+                        header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
+                        exit();
                     }
-
-                    // Redirect to the next activation step
-                    header("Location: activate-3.php?id=" . urlencode($buwana_id));
-                    exit();
-
                 } else {
-                    error_log('Error executing update on GoBrik tb_ecobrickers: ' . $stmt_update_gobrik->error);
-                    $_SESSION['error_message'] = "Error updating GoBrik records. Please try again.";
+                    error_log('Error executing insert into Buwana users_tb: ' . $stmt_insert_buwana->error);
+                    $_SESSION['error_message'] = "Error creating account. Please try again.";
                     header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
                     exit();
                 }
+                $stmt_insert_buwana->close();
             } else {
-                error_log('Error preparing statement for updating GoBrik tb_ecobrickers: ' . $gobrik_conn->error);
-                $_SESSION['error_message'] = "Error preparing update for GoBrik records. Please try again.";
+                error_log('Error preparing statement for inserting Buwana user: ' . $buwana_conn->error);
+                $_SESSION['error_message'] = "Error preparing account creation. Please try again.";
                 header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
                 exit();
             }
-
-        } else {
-            error_log('Error executing credential update: ' . $stmt_update_credential->error);
-            $_SESSION['error_message'] = "Error updating credentials. Please try again.";
-            header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
-            exit();
         }
-        $stmt_update_credential->close();
     } else {
-        error_log('Error preparing statement for updating credentials: ' . $buwana_conn->error);
-        $_SESSION['error_message'] = "Error preparing credential update. Please try again.";
+        error_log('Error preparing statement for checking email: ' . $buwana_conn->error);
+        $_SESSION['error_message'] = "Error checking email. Please try again.";
         header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
         exit();
     }
-} else {
-    error_log('Error executing insert into Buwana users_tb: ' . $stmt_insert_buwana->error);
-    $_SESSION['error_message'] = "Error creating account. Please try again.";
-    header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
-    exit();
 }
-}
-?>
+
 
 
 

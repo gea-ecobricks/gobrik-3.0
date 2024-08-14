@@ -43,15 +43,10 @@ if ($stmt_check_email) {
 }
 
 // PART 3: Check Buwana Database
-// Buwana DB access credentials (we'll hid this soon too!)
+// Buwana DB access credentials
 
-$buwana_servername = "localhost";
-$buwana_username = "ecobricks_gobrik_app";
-$buwana_password = "1EarthenAuth!";
-$buwana_dbname = "ecobricks_earthenAuth_db";
+require_once ("../buwanaconn_env.php");
 
-// Establish connections to both databases
-$buwana_conn = new mysqli($buwana_servername, $buwana_username, $buwana_password, $buwana_dbname);
 
 // SQL query to get buwana_id from credentials_tb using credential_key
 $sql_credential = "SELECT buwana_id FROM credentials_tb WHERE credential_key = ?";

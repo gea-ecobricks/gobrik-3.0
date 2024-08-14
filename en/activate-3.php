@@ -33,17 +33,22 @@ if (is_null($buwana_id)) {
 // GoBrik database credentials
 require_once ("../gobrikconn_env.php");
 
-// Fetch user information
-$sql_user_info = "SELECT first_name, email_addr FROM tb_ecobrickers WHERE buwana_id = ?";
+// Fetch user information using buwana_id
+$sql_user_info = "SELECT first_name FROM tb_ecobrickers WHERE buwana_id = ?";
 $stmt_user_info = $gobrik_conn->prepare($sql_user_info);
 if ($stmt_user_info) {
     $stmt_user_info->bind_param('i', $buwana_id);
     $stmt_user_info->execute();
-    $stmt_user_info->bind_result($first_name, $email_addr);
+    $stmt_user_info->bind_result($first_name);
     $stmt_user_info->fetch();
     $stmt_user_info->close();
 } else {
     die('Error preparing statement for fetching user info: ' . $gobrik_conn->error);
+}
+
+// Ensure $first_name is set and not empty
+if (empty($first_name)) {
+    $first_name = 'User'; // Fallback if first name is not set
 }
 
 // Fetch languages from Buwana database

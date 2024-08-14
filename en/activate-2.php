@@ -395,11 +395,71 @@ $(document).ready(function() {
 
 
 /*AJAX TO SERVER*/
-
 $(document).ready(function() {
+    // Form elements
+    const passwordField = document.getElementById('form_password');
+    const confirmPasswordSection = document.getElementById('confirm-password-section');
+    const confirmPasswordField = document.getElementById('confirm_password');
+    const makerErrorInvalid = document.getElementById('maker-error-invalid');
+    const submitButton = document.getElementById('submit-button');
+    const termsCheckbox = document.getElementById('terms');
+
+    // Flag to prevent auto-submit
+    let formSubmitted = false;
+
+    // Show confirm password field when password length is at least 6 characters
+    passwordField.addEventListener('input', function() {
+        if (passwordField.value.length >= 6) {
+            confirmPasswordSection.style.display = 'block';
+        } else {
+            confirmPasswordSection.style.display = 'none';
+            makerErrorInvalid.style.display = 'none';
+            updateSubmitButtonState();
+        }
+    });
+
+    // Enable submit button when passwords match and terms are checked
+    confirmPasswordField.addEventListener('input', function() {
+        if (passwordField.value === confirmPasswordField.value) {
+            makerErrorInvalid.style.display = 'none';
+            updateSubmitButtonState();
+        } else {
+            makerErrorInvalid.style.display = 'block';
+            submitButton.disabled = true;
+            submitButton.classList.add('disabled');
+            submitButton.classList.remove('enabled');
+        }
+    });
+
+    // Update button state when terms checkbox is clicked
+    termsCheckbox.addEventListener('change', updateSubmitButtonState);
+
+    // Function to update the submit button state
+    function updateSubmitButtonState() {
+        if (
+            passwordField.value.length >= 6 &&
+            passwordField.value === confirmPasswordField.value &&
+            termsCheckbox.checked
+        ) {
+            submitButton.disabled = false;
+            submitButton.classList.remove('disabled');
+            submitButton.classList.add('enabled');
+        } else {
+            submitButton.disabled = true;
+            submitButton.classList.add('disabled');
+            submitButton.classList.remove('enabled');
+        }
+    }
+
     // Handle form submission
     $('#password-confirm-form').on('submit', function(e) {
         e.preventDefault(); // Prevent the form from submitting normally
+
+        if (formSubmitted) {
+            return; // Prevent multiple submissions
+        }
+
+        formSubmitted = true; // Set the flag to true when form is submitted
 
         // Send form data via AJAX to the server
         $.ajax({
@@ -407,31 +467,29 @@ $(document).ready(function() {
             type: 'POST', // Send data via POST method
             data: $(this).serialize(), // Serialize the form data
             success: function(response) {
-                console.log('Server response:', response); // Log the raw response
+                formSubmitted = false; // Reset the flag after the response is handled
+
                 try {
                     var res = JSON.parse(response); // Parse the JSON response
-                    console.log('Parsed response:', res); // Log the parsed response
 
                     if (res.success) {
-                        console.log('Success: Redirecting to the next activation step.');
-                        // No need to handle redirect in JS, it's done server-side
+                        window.location.href = res.redirect || "activate-3.php";
                     } else if (res.error === 'duplicate_process' && res.redirect) {
-                        console.log('Duplicate process detected: Redirecting to update core information.');
                         alert("Whoops! Looks like you've already done this process. Continue now by updating your account's core information...");
-                        window.location.href = res.redirect; // Redirect based on the provided URL
+                        window.location.href = res.redirect;
+                    } else if (res.error === 'password_too_short') {
+                        alert("Whoops! Somehow you're trying to register a password that is too short! Please try again.");
                     } else {
-                        console.log('Error: Unexpected error occurred.');
-                        alert('An unexpected error occurred. Please try again.'); // Show error alert
+                        alert('An unexpected error occurred. Please try again.');
                     }
                 } catch (e) {
                     console.error('Error parsing JSON:', e);
-                    console.log('Received response:', response);
                     alert('An unexpected error occurred. Please try again later.');
                 }
             },
             error: function() {
-                console.log('Error: An error occurred while processing the form.');
-                alert('An error occurred while processing the form. Please try again.'); // Show error alert
+                formSubmitted = false; // Reset the flag if an error occurs
+                alert('An error occurred while processing the form. Please try again.');
             }
         });
     });

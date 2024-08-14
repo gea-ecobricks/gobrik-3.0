@@ -1,6 +1,4 @@
 <?php
-
-
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -12,92 +10,54 @@ require '../vendor/phpmailer/phpmailer/src/Exception.php';
 require '../vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require '../vendor/phpmailer/phpmailer/src/SMTP.php';
 
-// PART 1: Setup
 // Initialize variables
 $ecobricker_id = $_GET['id'] ?? null;
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.455';
-$page = 'activate';
-$first_name = '';
-$last_name = '';
-$full_name = '';
-$email_addr = '';
-$brk_balance = 0;
-$user_roles = '';
-$birth_date = '';
-$password_hash = '';
-$terms_of_service = 1;  // Default to 1 as the checkbox is required
-$earthen_newsletter_join = 1;  // Default to 1, but will be updated based on form input
 
-// Check if the user is already logged in
-if (isset($_SESSION['buwana_id'])) {
-    header("Location: dashboard.php");
-    exit();
-}
-
-// Check if ecobricker_id is passed in the URL
-if (is_null($ecobricker_id)) {
-    echo '<script>
-        alert("Hmm... something went wrong. No ecobricker ID was passed along. Please try logging in again. If this problem persists, you\'ll need to create a new account.");
-        window.location.href = "login.php";
-    </script>';
-    exit();
-}
-
-// PART 2: Look up user information using ecobricker_id provided in URL
-
-//gobrik_conn
-require_once ("../gobrikconn_env.php");
-
-// Prepare and execute SQL statement to fetch user details
-$sql_user_info = "SELECT first_name, last_name, full_name, email_addr, brk_balance, user_roles, birth_date FROM tb_ecobrickers WHERE ecobricker_id = ?";
-$stmt_user_info = $gobrik_conn->prepare($sql_user_info);
-if ($stmt_user_info) {
-    $stmt_user_info->bind_param('i', $ecobricker_id);
-    $stmt_user_info->execute();
-    $stmt_user_info->bind_result($first_name, $last_name, $full_name, $email_addr, $brk_balance, $user_roles, $birth_date);
-    $stmt_user_info->fetch();
-    $stmt_user_info->close();
-} else {
-    // Clean buffer and log error if statement preparation fails
-    ob_clean();
-    error_log('Error preparing statement for fetching user info: ' . $gobrik_conn->error);
-    echo json_encode(['success' => false, 'error' => 'db_query_failed']);
-    ob_end_flush();
-    exit();
-}
-
-$gobrik_conn->close();
-
-// PART 3: Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    ob_start(); // Start output buffering
-
     // Validate passwords
     $password = $_POST['form_password'];
     $confirm_password = $_POST['confirm_password'];
     $terms_accepted = isset($_POST['terms']);
     $newsletter_opt_in = isset($_POST['newsletter']) ? 1 : 0;
 
+    // Password validation
     if ($password !== $confirm_password) {
-        ob_clean(); // Clear the output buffer before sending JSON response
-        echo json_encode(['success' => false, 'error' => 'password_mismatch']);
-        ob_end_flush();
+        $_SESSION['error_message'] = "Your passwords don't match for some reason. Please try entering it again.";
+        header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
         exit();
     }
 
     if (strlen($password) < 6) {
-        ob_clean(); // Clear the output buffer before sending JSON response
-        echo json_encode(['success' => false, 'error' => 'password_too_short']);
-        ob_end_flush();
+        $_SESSION['error_message'] = "Your new password is too short! Please try entering it again.";
+        header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
         exit();
     }
 
     // Hash the password
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-    // Buwana database credentials
-require_once ("../buwanaconn_env.php");
+    // PART 1: Fetch user details from the database
+    require_once ("../gobrikconn_env.php");
+
+    $sql_user_info = "SELECT first_name, last_name, full_name, email_addr, brk_balance, user_roles, birth_date FROM tb_ecobrickers WHERE ecobricker_id = ?";
+    $stmt_user_info = $gobrik_conn->prepare($sql_user_info);
+    if ($stmt_user_info) {
+        $stmt_user_info->bind_param('i', $ecobricker_id);
+        $stmt_user_info->execute();
+        $stmt_user_info->bind_result($first_name, $last_name, $full_name, $email_addr, $brk_balance, $user_roles, $birth_date);
+        $stmt_user_info->fetch();
+        $stmt_user_info->close();
+    } else {
+        error_log('Error preparing statement for fetching user info: ' . $gobrik_conn->error);
+        $_SESSION['error_message'] = "An error occurred while fetching user details. Please try again.";
+        header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
+        exit();
+    }
+
+    $gobrik_conn->close();
+
+    // PART 2: Insert new user into Buwana database
+    require_once ("../buwanaconn_env.php");
 
     // Check if the email already exists in the Buwana database
     $sql_check_email = "SELECT buwana_id FROM users_tb WHERE email = ?";
@@ -109,135 +69,113 @@ require_once ("../buwanaconn_env.php");
         $stmt_check_email->fetch();
         $stmt_check_email->close();
 
-     if ($existing_buwana_id) {
-    ob_clean(); // Clear the output buffer
-    echo json_encode([
-        'success' => false,
-        'error' => 'duplicate_process',
-        'redirect' => 'activate-3.php?id=' . $existing_buwana_id
-    ]);
-    ob_end_flush();
-    exit();
-
+        if ($existing_buwana_id) {
+            $_SESSION['error_message'] = "Whoops! Looks like you've already done this process. Continue now by updating your account's core information.";
+            header("Location: activate-3.php?id=" . urlencode($existing_buwana_id));
+            exit();
         } else {
+            $sql_insert_buwana = "INSERT INTO users_tb (first_name, last_name, full_name, email, password_hash, brikcoin_balance, role, account_status, created_at, terms_of_service, notes, validation_credits, earthen_newsletter_join, birth_date)
+                                  VALUES (?, ?, ?, ?, ?, ?, ?, 'Just migrated from GoBrik, step 2 only', NOW(), 1, 'First experimental activations', 3, ?, ?)";
+            $stmt_insert_buwana = $buwana_conn->prepare($sql_insert_buwana);
+            if ($stmt_insert_buwana) {
+                $stmt_insert_buwana->bind_param('sssssisis', $first_name, $last_name, $full_name, $email_addr, $password_hash, $brk_balance, $user_roles, $newsletter_opt_in, $birth_date);
+                if ($stmt_insert_buwana->execute()) {
+                    $buwana_id = $stmt_insert_buwana->insert_id;
 
-      // PART 4: Insert new user into Buwana database
-$sql_insert_buwana = "INSERT INTO users_tb (first_name, last_name, full_name, email, password_hash, brikcoin_balance, role, account_status, created_at, terms_of_service, notes, validation_credits, earthen_newsletter_join, birth_date)
-    VALUES (?, ?, ?, ?, ?, ?, ?, 'Just migrated from GoBrik, step 2 only', NOW(), 1, 'First experimental activations', 3, ?, ?)";
-$stmt_insert_buwana = $buwana_conn->prepare($sql_insert_buwana);
-if ($stmt_insert_buwana) {
-    $stmt_insert_buwana->bind_param('sssssisis', $first_name, $last_name, $full_name, $email_addr, $password_hash, $brk_balance, $user_roles, $newsletter_opt_in, $birth_date);
-    if ($stmt_insert_buwana->execute()) {
-        $buwana_id = $stmt_insert_buwana->insert_id;  // Get the inserted Buwana ID
+                    // Update credentials_tb with the new credential key (email)
+                    $sql_update_credential = "UPDATE credentials_tb SET credential_key = ? WHERE buwana_id = ?";
+                    $stmt_update_credential = $buwana_conn->prepare($sql_update_credential);
+                    if ($stmt_update_credential) {
+                        $stmt_update_credential->bind_param("si", $email_addr, $buwana_id);
+                        if ($stmt_update_credential->execute()) {
 
-        // PART 4.1: Update credentials_tb with the new credential key (email)
-        $sql_update_credential = "UPDATE credentials_tb SET credential_key = ? WHERE buwana_id = ?";
-        $stmt_update_credential = $buwana_conn->prepare($sql_update_credential);
-        if ($stmt_update_credential) {
-            $stmt_update_credential->bind_param("si", $email_addr, $buwana_id);
-            if ($stmt_update_credential->execute()) {
+                            // Update GoBrik database's ecobricker with Buwana ID and other details
+                            $gobrik_conn = new mysqli($gobrik_servername, $gobrik_username, $gobrik_password, $gobrik_dbname);
+                            if ($gobrik_conn->connect_error) {
+                                error_log("Connection failed: " . $gobrik_conn->connect_error);
+                                $_SESSION['error_message'] = "Database connection failed. Please try again.";
+                                header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
+                                exit();
+                            }
+                            $gobrik_conn->set_charset("utf8mb4");
 
-                // PART 4.5: Update GoBrik database's ecobricker with Buwana ID and other details
-                $gobrik_conn = new mysqli($gobrik_servername, $gobrik_username, $gobrik_password, $gobrik_dbname);
-                if ($gobrik_conn->connect_error) {
-                    ob_clean(); // Clear the output buffer before sending JSON response
-                    error_log("Connection failed: " . $gobrik_conn->connect_error);
-                    echo json_encode(['success' => false, 'error' => 'db_connection_failed']);
-                    ob_end_flush();
-                    exit();
-                }
-                $gobrik_conn->set_charset("utf8mb4");
+                            $sql_update_gobrik = "UPDATE tb_ecobrickers SET buwana_id = ?, buwana_activated = 1, buwana_activated_dt = NOW(), account_notes = 'Second experimental migrations' WHERE ecobricker_id = ?";
+                            $stmt_update_gobrik = $gobrik_conn->prepare($sql_update_gobrik);
+                            if ($stmt_update_gobrik) {
+                                $stmt_update_gobrik->bind_param('ii', $buwana_id, $ecobricker_id);
+                                $stmt_update_gobrik->execute();
+                                $stmt_update_gobrik->close();
+                            } else {
+                                error_log('Error preparing statement for updating GoBrik tb_ecobrickers: ' . $gobrik_conn->error);
+                                $_SESSION['error_message'] = "Error updating GoBrik records. Please try again.";
+                                header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
+                                exit();
+                            }
 
-                $sql_update_gobrik = "UPDATE tb_ecobrickers SET buwana_id = ?, buwana_activated = 1, buwana_activated_dt = NOW(), account_notes = 'Second experimental migrations' WHERE ecobricker_id = ?";
-                $stmt_update_gobrik = $gobrik_conn->prepare($sql_update_gobrik);
-                if ($stmt_update_gobrik) {
-                    $stmt_update_gobrik->bind_param('ii', $buwana_id, $ecobricker_id);
-                    if ($stmt_update_gobrik->execute()) {
-                        $stmt_update_gobrik->close();
+                            // Send welcome email
+                            $mail = new PHPMailer(true);
+                            try {
+                                $mail->isSMTP();
+                                $mail->Host = 'mail.ecobricks.org';
+                                $mail->SMTPAuth = true;
+                                $mail->Username = 'gobrik@ecobricks.org';
+                                $mail->Password = '1Welcome!';
+                                $mail->SMTPSecure = false;
+                                $mail->Port = 26;
+
+                                $mail->setFrom('no-reply@ecobricks.org', 'GoBrik Welcome');
+                                $mail->addAddress($email_addr);
+
+                                $mail->isHTML(true);
+                                $mail->Subject = 'Welcome to GoBrik!';
+                                $mail->Body    = 'Dear ' . $first_name . ',<br><br>Thank you for registering with GoBrik. We are excited to have you on board.<br><br>Best Regards,<br>GEA | Buwana Team';
+                                $mail->AltBody = 'Dear ' . $first_name . ',\n\nThank you for registering with GoBrik. We are excited to have you on board.\n\nBest Regards,\nGEA | Buwana Team';
+
+                                $mail->send();
+                            } catch (Exception $e) {
+                                error_log("Message could not be sent. Mailer Error: " . $mail->ErrorInfo);
+                            }
+
+                            // Redirect to the next activation step
+                            header("Location: activate-3.php?id=" . urlencode($buwana_id));
+                            exit();
+
+                        } else {
+                            error_log('Error executing credential update: ' . $stmt_update_credential->error);
+                            $_SESSION['error_message'] = "Error updating credentials. Please try again.";
+                            header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
+                            exit();
+                        }
+                        $stmt_update_credential->close();
                     } else {
-                        ob_clean(); // Clear the output buffer before sending JSON response
-                        error_log('Error executing update on GoBrik tb_ecobrickers: ' . $stmt_update_gobrik->error);
-                        echo json_encode(['success' => false, 'error' => 'db_update_failed']);
-                        ob_end_flush();
+                        error_log('Error preparing statement for updating credentials: ' . $buwana_conn->error);
+                        $_SESSION['error_message'] = "Error preparing credential update. Please try again.";
+                        header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
                         exit();
                     }
                 } else {
-                    ob_clean(); // Clear the output buffer before sending JSON response
-                    error_log('Error preparing statement for updating GoBrik tb_ecobrickers: ' . $gobrik_conn->error);
-                    echo json_encode(['success' => false, 'error' => 'db_update_failed']);
-                    ob_end_flush();
+                    error_log('Error executing insert into Buwana users_tb: ' . $stmt_insert_buwana->error);
+                    $_SESSION['error_message'] = "Error creating account. Please try again.";
+                    header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
                     exit();
                 }
-
-                // Close the GoBrik connection after the update
-                $gobrik_conn->close();
-
-
-                // PART 5: Send welcome email and redirect to next step
-                $mail = new PHPMailer(true);
-                try {
-                    $mail->isSMTP();
-                    $mail->Host = 'mail.ecobricks.org';
-                    $mail->SMTPAuth = true;
-                    $mail->Username = 'gobrik@ecobricks.org';
-                    $mail->Password = '1Welcome!';
-                    $mail->SMTPSecure = false;
-                    $mail->Port = 26;
-
-                    $mail->setFrom('no-reply@ecobricks.org', 'GoBrik Welcome');
-                    $mail->addAddress($email_addr);
-
-                    $mail->isHTML(true);
-                    $mail->Subject = 'Welcome to GoBrik!';
-                    $mail->Body    = 'Dear ' . $first_name . ',<br><br>Thank you for registering with GoBrik. We are excited to have you on board.<br><br>Best Regards,<br>GEA | Buwana Team';
-                    $mail->AltBody = 'Dear ' . $first_name . ',\n\nThank you for registering with GoBrik. We are excited to have you on board.\n\nBest Regards,\nGEA | Buwana Team';
-
-                    $mail->send();
-                } catch (Exception $e) {
-                    error_log("Message could not be sent. Mailer Error: " . $mail->ErrorInfo);
-                }
-
-                ob_clean(); // Clear any output that might have been buffered
-                header("Location: activate-3.php?id=" . urlencode($buwana_id));
-                exit();
-
+                $stmt_insert_buwana->close();
             } else {
-                ob_clean(); // Clear the output buffer before sending JSON response
-                error_log('Error executing insert into Buwana users_tb: ' . $stmt_insert_buwana->error);
-                echo json_encode(['success' => false, 'error' => 'db_insert_failed']);
-                ob_end_flush();
+                error_log('Error preparing statement for inserting Buwana user: ' . $buwana_conn->error);
+                $_SESSION['error_message'] = "Error preparing account creation. Please try again.";
+                header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
                 exit();
             }
-            $stmt_insert_buwana->close();
-        } else {
-            ob_clean(); // Clear the output buffer before sending JSON response
-            error_log('Error preparing statement for inserting Buwana user: ' . $buwana_conn->error);
-            echo json_encode(['success' => false, 'error' => 'db_insert_failed']);
-            ob_end_flush();
-            exit();
         }
     } else {
-        ob_clean(); // Clear the output buffer before sending JSON response
-        error_log('Error executing credential update: ' . $stmt_update_credential->error);
-        echo json_encode(['success' => false, 'error' => 'db_update_failed']);
-        ob_end_flush();
+        error_log('Error preparing statement for checking email: ' . $buwana_conn->error);
+        $_SESSION['error_message'] = "Error checking email. Please try again.";
+        header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
         exit();
     }
-    $stmt_update_credential->close();
-} else {
-    ob_clean(); // Clear the output buffer before sending JSON response
-    error_log('Error preparing credential update: ' . $buwana_conn->error);
-    echo json_encode(['success' => false, 'error' => 'db_update_failed']);
-    ob_end_flush();
-    exit();
 }
-
-
-
-        } // Close the else block of existing_buwana_id check
-    } // Close the if block of $stmt_check_email
-} // Close the if block checking $_SERVER['REQUEST_METHOD']
 ?>
+
 
 
 
@@ -393,107 +331,14 @@ $(document).ready(function() {
 });
 
 
-
-/*AJAX TO SERVER*/
 $(document).ready(function() {
-    // Form elements
-    const passwordField = document.getElementById('form_password');
-    const confirmPasswordSection = document.getElementById('confirm-password-section');
-    const confirmPasswordField = document.getElementById('confirm_password');
-    const makerErrorInvalid = document.getElementById('maker-error-invalid');
-    const submitButton = document.getElementById('submit-button');
-    const termsCheckbox = document.getElementById('terms');
-
-    // Flag to prevent auto-submit
-    let formSubmitted = false;
-
-    // Show confirm password field when password length is at least 6 characters
-    passwordField.addEventListener('input', function() {
-        if (passwordField.value.length >= 6) {
-            confirmPasswordSection.style.display = 'block';
-        } else {
-            confirmPasswordSection.style.display = 'none';
-            makerErrorInvalid.style.display = 'none';
-            updateSubmitButtonState();
-        }
-    });
-
-    // Enable submit button when passwords match and terms are checked
-    confirmPasswordField.addEventListener('input', function() {
-        if (passwordField.value === confirmPasswordField.value) {
-            makerErrorInvalid.style.display = 'none';
-            updateSubmitButtonState();
-        } else {
-            makerErrorInvalid.style.display = 'block';
-            submitButton.disabled = true;
-            submitButton.classList.add('disabled');
-            submitButton.classList.remove('enabled');
-        }
-    });
-
-    // Update button state when terms checkbox is clicked
-    termsCheckbox.addEventListener('change', updateSubmitButtonState);
-
-    // Function to update the submit button state
-    function updateSubmitButtonState() {
-        if (
-            passwordField.value.length >= 6 &&
-            passwordField.value === confirmPasswordField.value &&
-            termsCheckbox.checked
-        ) {
-            submitButton.disabled = false;
-            submitButton.classList.remove('disabled');
-            submitButton.classList.add('enabled');
-        } else {
-            submitButton.disabled = true;
-            submitButton.classList.add('disabled');
-            submitButton.classList.remove('enabled');
-        }
-    }
-
-    // Handle form submission
+    // No need to prevent form submission or handle AJAX
     $('#password-confirm-form').on('submit', function(e) {
-        e.preventDefault(); // Prevent the form from submitting normally
-
-        if (formSubmitted) {
-            return; // Prevent multiple submissions
-        }
-
-        formSubmitted = true; // Set the flag to true when form is submitted
-
-        // Send form data via AJAX to the server
-        $.ajax({
-            url: $(this).attr('action'), // Use form's action attribute as URL
-            type: 'POST', // Send data via POST method
-            data: $(this).serialize(), // Serialize the form data
-            success: function(response) {
-                formSubmitted = false; // Reset the flag after the response is handled
-
-                try {
-                    var res = JSON.parse(response); // Parse the JSON response
-
-                    if (res.success) {
-                        window.location.href = res.redirect || "activate-3.php";
-                    } else if (res.error === 'duplicate_process' && res.redirect) {
-                        alert("Whoops! Looks like you've already done this process. Continue now by updating your account's core information...");
-                        window.location.href = res.redirect;
-                    } else if (res.error === 'password_too_short') {
-                        alert("Whoops! Somehow you're trying to register a password that is too short! Please try again.");
-                    } else {
-                        alert('An unexpected error occurred. Please try again.');
-                    }
-                } catch (e) {
-                    console.error('Error parsing JSON:', e);
-                    alert('An unexpected error occurred. Please try again later.');
-                }
-            },
-            error: function() {
-                formSubmitted = false; // Reset the flag if an error occurs
-                alert('An error occurred while processing the form. Please try again.');
-            }
-        });
+        // The form will submit normally
+        // Server-side validation will handle errors and redirection
     });
 });
+
 
 
 

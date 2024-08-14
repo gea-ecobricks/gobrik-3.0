@@ -51,7 +51,7 @@ echo '<!DOCTYPE html>
 
             <div class="form-item">
                 <label for="credential_key" data-lang-id="003-login-email">Your e-mail:</label>
-                <input type="text" id="credential_key" name="credential_key" required placeholder="Your e-mail...">
+                <input type="text" id="credential_key" name="credential_key" required placeholder="Your e-mail..." value="<?php echo isset($_GET['credential_key']) ? htmlspecialchars($_GET['credential_key']) : ''; ?>">
             </div>
 
             <div class="form-item">

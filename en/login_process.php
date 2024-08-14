@@ -7,7 +7,7 @@ $password = $_POST['password'] ?? '';
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 
 if (empty($credential_key) || empty($password)) {
-    header("Location: ../$lang/login.php?error=empty_fields");
+    header("Location: ../$lang/login.php?error=empty_fields&credential_key=" . urlencode($credential_key));
     exit();
 }
 
@@ -41,8 +41,6 @@ if ($stmt_check_email) {
     error_log('Error preparing statement for checking email: ' . $gobrik_conn->error);
     die('Database query failed.');
 }
-
-
 
 // PART 3: Check Buwana Database
 // Buwana DB access credentials (we'll hid this soon too!)
@@ -96,73 +94,67 @@ if ($stmt_credential) {
                 // Verify the password entered by the user
                 if (password_verify($password, $password_hash)) {
 
+                    // PART 4: Update Buwana Account
+                    // Update last_login with current date and time stamp and increment login_count
+                    $sql_update_user = "UPDATE users_tb SET last_login = NOW(), login_count = login_count + 1 WHERE buwana_id = ?";
+                    $stmt_update_user = $buwana_conn->prepare($sql_update_user);
+                    if ($stmt_update_user) {
+                        // Bind the buwana_id parameter to the SQL query
+                        $stmt_update_user->bind_param('i', $buwana_id);
+                        // Execute the query
+                        $stmt_update_user->execute();
+                        // Close the statement
+                        $stmt_update_user->close();
+                    } else {
+                        // If there's an error preparing the update statement, terminate the script with an error message
+                        die('Error preparing statement for updating users_tb: ' . $buwana_conn->error);
+                    }
 
-  // PART 4: Update Buwana Account
-// Update last_login with current date and time stamp and increment login_count
-$sql_update_user = "UPDATE users_tb SET last_login = NOW(), login_count = login_count + 1 WHERE buwana_id = ?";
-$stmt_update_user = $buwana_conn->prepare($sql_update_user);
-if ($stmt_update_user) {
-    // Bind the buwana_id parameter to the SQL query
-    $stmt_update_user->bind_param('i', $buwana_id);
-    // Execute the query
-    $stmt_update_user->execute();
-    // Close the statement
-    $stmt_update_user->close();
-} else {
-    // If there's an error preparing the update statement, terminate the script with an error message
-    die('Error preparing statement for updating users_tb: ' . $buwana_conn->error);
-}
+                    // Update last_login with current date and time stamp and increment times_used in credentials_tb
+                    $sql_update_credential = "UPDATE credentials_tb SET last_login = NOW(), times_used = times_used + 1 WHERE buwana_id = ?";
+                    $stmt_update_credential = $buwana_conn->prepare($sql_update_credential);
+                    if ($stmt_update_credential) {
+                        // Bind the buwana_id parameter to the SQL query
+                        $stmt_update_credential->bind_param('i', $buwana_id);
+                        // Execute the query
+                        $stmt_update_credential->execute();
+                        // Close the statement
+                        $stmt_update_credential->close();
+                    } else {
+                        // If there's an error preparing the update statement, terminate the script with an error message
+                        die('Error preparing statement for updating credentials_tb: ' . $buwana_conn->error);
+                    }
 
-// Update last_login with current date and time stamp and increment times_used in credentials_tb
-$sql_update_credential = "UPDATE credentials_tb SET last_login = NOW(), times_used = times_used + 1 WHERE buwana_id = ?";
-$stmt_update_credential = $buwana_conn->prepare($sql_update_credential);
-if ($stmt_update_credential) {
-    // Bind the buwana_id parameter to the SQL query
-    $stmt_update_credential->bind_param('i', $buwana_id);
-    // Execute the query
-    $stmt_update_credential->execute();
-    // Close the statement
-    $stmt_update_credential->close();
-} else {
-    // If there's an error preparing the update statement, terminate the script with an error message
-    die('Error preparing statement for updating credentials_tb: ' . $buwana_conn->error);
-}
+                    // PART 5: Update GoBrik Account
+                    // Update last_login with current date and time stamp and increment login_count in tb_ecobrickers
+                    $sql_update_ecobricker = "UPDATE tb_ecobrickers SET last_login = NOW(), login_count = login_count + 1 WHERE email_addr = ?";
+                    $stmt_update_ecobricker = $gobrik_conn->prepare($sql_update_ecobricker);
+                    if ($stmt_update_ecobricker) {
+                        // Bind the email_addr parameter to the SQL query
+                        $stmt_update_ecobricker->bind_param('s', $credential_key);
+                        // Execute the query
+                        $stmt_update_ecobricker->execute();
+                        // Close the statement
+                        $stmt_update_ecobricker->close();
+                    } else {
+                        // If there's an error preparing the update statement, terminate the script with an error message
+                        die('Error preparing statement for updating tb_ecobrickers: ' . $gobrik_conn->error);
+                    }
 
-// PART 5: Update GoBrik Account
-// Update last_login with current date and time stamp and increment login_count in tb_ecobrickers
-$sql_update_ecobricker = "UPDATE tb_ecobrickers SET last_login = NOW(), login_count = login_count + 1 WHERE email_addr = ?";
-$stmt_update_ecobricker = $gobrik_conn->prepare($sql_update_ecobricker);
-if ($stmt_update_ecobricker) {
-    // Bind the email_addr parameter to the SQL query
-    $stmt_update_ecobricker->bind_param('s', $credential_key);
-    // Execute the query
-    $stmt_update_ecobricker->execute();
-    // Close the statement
-    $stmt_update_ecobricker->close();
-} else {
-    // If there's an error preparing the update statement, terminate the script with an error message
-    die('Error preparing statement for updating tb_ecobrickers: ' . $gobrik_conn->error);
-}
-
-// Set the session variable to indicate the user is logged in
-$_SESSION['buwana_id'] = $buwana_id;
-// Redirect to the dashboard page
-header("Location: dashboard.php");
-exit();
-
-
-
-//PART 6 ERROR HANDLING
-
+                    // Set the session variable to indicate the user is logged in
+                    $_SESSION['buwana_id'] = $buwana_id;
+                    // Redirect to the dashboard page
+                    header("Location: dashboard.php");
+                    exit();
 
                 } else {
                     // Redirect to login page with an error message if the password is incorrect
-                    header("Location: login.php?error=invalid_password");
+                    header("Location: login.php?error=invalid_password&credential_key=" . urlencode($credential_key));
                     exit();
                 }
             } else {
                 // Redirect to login page with an error message if the user is not found
-                header("Location: login.php?error=invalid_user");
+                header("Location: login.php?error=invalid_user&credential_key=" . urlencode($credential_key));
                 exit();
             }
             // Close the statement
@@ -173,7 +165,7 @@ exit();
         }
     } else {
         // Redirect to login page with an error message if the credential is invalid
-        header("Location: login.php?error=invalid_credential");
+        header("Location: login.php?error=invalid_credential&credential_key=" . urlencode($credential_key));
         exit();
     }
 } else {
@@ -181,8 +173,6 @@ exit();
     die('Error preparing statement for credentials_tb: ' . $conn->error);
 }
 
-
 $buwana_conn->close();
 $gobrik_conn->close();
 ?>
-

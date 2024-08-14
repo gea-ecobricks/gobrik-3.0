@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (strlen($password) < 6) {
         ob_clean(); // Clear the output buffer before sending JSON response
-        echo json_encode(['success' => false, 'error' => 'password_too_short_my_friend']);
+        echo json_encode(['success' => false, 'error' => 'password_too_short']);
         ob_end_flush();
         exit();
     }
@@ -336,7 +336,7 @@ $(document).ready(function() {
     });
 });
 
-
+/*FORM FIELD VALIDATION*/
 
 $(document).ready(function() {
     // Form elements
@@ -371,6 +371,9 @@ $(document).ready(function() {
         }
     });
 
+    // Update button state when terms checkbox is clicked
+    termsCheckbox.addEventListener('change', updateSubmitButtonState);
+
     // Function to update the submit button state
     function updateSubmitButtonState() {
         if (
@@ -387,11 +390,14 @@ $(document).ready(function() {
             submitButton.classList.remove('enabled');
         }
     }
+});
 
-    // Update button state when terms checkbox is clicked
-    termsCheckbox.addEventListener('change', updateSubmitButtonState);
 
-     // Handle form submission
+
+/*AJAX TO SERVER*/
+
+$(document).ready(function() {
+    // Handle form submission
     $('#password-confirm-form').on('submit', function(e) {
         e.preventDefault(); // Prevent the form from submitting normally
 

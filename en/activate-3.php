@@ -153,7 +153,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <form id="user-info-form" method="post" action="activate-3.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
             <div class="form-item" id="language-select">
                 <label for="language_id">Please tell us which language you prefer...</label><br>
-               <select name="language_id">
+               <select name="language_id" id="language_id">
                     <?php foreach ($languages as $language): ?>
                         <option value="<?php echo htmlspecialchars($language['lang_id']); ?>"
                             <?php echo $language['language_active'] == 0 ? 'disabled' : ''; ?>>
@@ -192,6 +192,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once ("../footer-2024.php"); ?>
 
 <script>
+
 document.addEventListener('DOMContentLoaded', function() {
     // Show country selection after language is selected
     var languageSelect = document.getElementById('language_id');

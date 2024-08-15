@@ -158,86 +158,66 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <!--FOOTER STARTS HERE-->
 <?php require_once ("../footer-2024.php"); ?>
 
-
-
-    <script>
+<script>
 document.addEventListener('DOMContentLoaded', function() {
     var code = "AYYEW";
     var countdownTimer;
     var timeLeft = 60;
 
     // Fetch buwana_id from PHP
-    var buwana_id = "<?php echo htmlspecialchars($buwana_id, ENT_QUOTES, 'UTF-8'); ?>";
+    var buwana_id = "<?php echo htmlspecialchars($buwana_id); ?>";
 
     // Handle code entry
     var codeBoxes = document.querySelectorAll('.code-box');
-    if (codeBoxes.length > 0) {
-        codeBoxes.forEach(function(box) {
-            box.addEventListener('input', function() {
-                var enteredCode = '';
-                codeBoxes.forEach(function(input) {
-                    enteredCode += input.value.toUpperCase();
-                });
-
-                if (enteredCode.length === 5) {
-                    var codeFeedback = document.getElementById('code-feedback');
-                    if (codeFeedback) {
-                        if (enteredCode === code) {
-                            codeFeedback.textContent = 'Code confirmed!';
-                            codeFeedback.classList.add('success');
-                            codeFeedback.classList.remove('error');
-                            setTimeout(function() {
-                                // Redirect to activate-2.php with buwana_id as a parameter
-                                window.location.href = "activate-2.php?id=" + buwana_id;
-                            }, 2000);
-                        } else {
-                            codeFeedback.textContent = 'Code incorrect';
-                            codeFeedback.classList.add('error');
-                            codeFeedback.classList.remove('success');
-                        }
-                    }
-                }
+    codeBoxes.forEach(function(box) {
+        box.addEventListener('input', function() {
+            var enteredCode = '';
+            codeBoxes.forEach(function(input) {
+                enteredCode += input.value.toUpperCase();
             });
-        });
-    }
 
-    // Show/Hide Divs after email is sent (make sure divs exist before manipulating them)
+            if (enteredCode.length === 5) {
+                var codeFeedback = document.getElementById('code-feedback');
+                if (enteredCode === code) {
+                    codeFeedback.textContent = 'Code confirmed!';
+                    codeFeedback.classList.add('success');
+                    codeFeedback.classList.remove('error');
+                    setTimeout(function() {
+                        // Redirect to activate-2.php with buwana_id as a parameter
+                        window.location.href = "activate-2.php?id=" + buwana_id;
+                    }, 2000);
+                } else {
+                    codeFeedback.textContent = 'Code incorrect';
+                    codeFeedback.classList.add('error');
+                    codeFeedback.classList.remove('success');
+                }
+            }
+        });
+    });
+
+    // Show/Hide Divs after email is sent
     if (<?php echo json_encode($code_sent); ?>) {
-        var firstSendForm = document.getElementById('first-send-form');
-        var secondCodeConfirm = document.getElementById('second-code-confirm');
-        if (firstSendForm && secondCodeConfirm) {
-            firstSendForm.style.display = 'none';
-            secondCodeConfirm.style.display = 'block';
-        }
+        document.getElementById('first-send-form').style.display = 'none';
+        document.getElementById('second-code-confirm').style.display = 'block';
     }
 
     // Countdown timer for resend code
     countdownTimer = setInterval(function() {
         var timerElement = document.getElementById('timer');
-        if (timerElement) {
-            if (timeLeft <= 0) {
-                clearInterval(countdownTimer);
-                var resendCodeElement = document.getElementById('resend-code');
-                if (resendCodeElement) {
-                    resendCodeElement.innerHTML = '<a href="#" id="resend-link">Click here to resend the code</a>';
-                }
-            } else {
-                timeLeft--;
-                timerElement.textContent = '0:' + (timeLeft < 10 ? '0' + timeLeft : timeLeft);
-            }
+        if (timeLeft <= 0) {
+            clearInterval(countdownTimer);
+            document.getElementById('resend-code').innerHTML = '<a href="#" id="resend-link">Click here to resend the code</a>';
+        } else {
+            timeLeft--;
+            timerElement.textContent = '0:' + (timeLeft < 10 ? '0' + timeLeft : timeLeft);
         }
     }, 1000);
 
-    // Handle Resend Link Click: Show the first form and hide the second form
+    // Handle Resend Link Click
     document.addEventListener('click', function(e) {
         if (e.target && e.target.id === 'resend-link') {
             e.preventDefault();
-            var firstSendForm = document.getElementById('first-send-form');
-            var secondCodeConfirm = document.getElementById('second-code-confirm');
-            if (firstSendForm && secondCodeConfirm) {
-                secondCodeConfirm.style.display = 'none';
-                firstSendForm.style.display = 'block';
-            }
+            document.getElementById('resend-code-form').submit();
         }
     });
 });

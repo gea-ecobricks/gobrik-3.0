@@ -20,7 +20,7 @@ if (empty($_SESSION['csrf_token'])) {
 
 // Grab language directory from URL
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.59';
+$version = '0.6';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -84,7 +84,7 @@ echo '<!DOCTYPE html>
                 <label for="password" data-lang-id="004-login-password">Your password:</label>
                 <div class="password-wrapper">
                     <input type="password" id="password" name="password" required placeholder="Your password...">
-                    <span toggle="#password" class="toggle-password" style="cursor: pointer;">🔒</span>
+                    <span toggle="#password" class="toggle-password" style="cursor: pointer;">🤫</span>
                 </div>
                 <div id="password-error" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;" data-lang-id="000-password-wrong">👉 Password is wrong.</div>
                 <p class="form-caption" data-lang-id="000-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link">Reset it.</a></p>

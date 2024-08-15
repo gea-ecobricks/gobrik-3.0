@@ -14,23 +14,13 @@ if (isset($_SESSION['buwana_id'])) {
 
 // Grab language directory from URL
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.585';
+$version = '0.587';
 $page = 'reset';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
-// Database credentials
-$buwana_servername = "localhost";
-$buwana_username = "ecobricks_gobrik_app";
-$buwana_password = "1EarthenAuth!";
-$buwana_dbname = "ecobricks_earthenAuth_db";
 
-// Establish connection to the database
-$buwana_conn = new mysqli($buwana_servername, $buwana_username, $buwana_password, $buwana_dbname);
+include '../buwanaconn_env.php'; // This file provides the database server, user, dbname information to access the server
 
-// Check connection
-if ($buwana_conn->connect_error) {
-    die("Connection failed: " . $buwana_conn->connect_error);
-}
 
 $token = isset($_GET['token']) ? trim($_GET['token']) : '';
 
@@ -82,14 +72,22 @@ echo '
             <input type="hidden" name="token" value="' . htmlspecialchars($token, ENT_QUOTES, 'UTF-8') . '">
             <div class="form-item">
                 <p>New password:</p>
-                <input type="password" id="password" name="password" required placeholder="Your new password...">
+                <div class="password-wrapper">
+                    <input type="password" id="password" name="password" required placeholder="Your new password...">
+                    <span toggle="#password" class="toggle-password" style="cursor: pointer;">🔒</span>
+                </div>
                 <p class="form-caption" data-lang-id="011-six-characters">Password must be at least 6 characters long.</p>
                 <div id="password-error" class="form-field-error" style="display:none;margin-top:0px;">👉 New password is not long enough!</div>
             </div>
 
+
+
             <div class="form-item">
                 <p>Re-enter password to confirm:</p>
-                <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Re-enter password...">
+                <div class="password-wrapper">
+                    <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Re-enter password...">
+                    <span toggle="#confirmPassword" class="toggle-password" style="cursor: pointer;">🔒</span>
+                </div>
                 <div id="confirm-password-error" class="form-field-error" style="display:none;margin-top:5px;">👉 Passwords do not match.</div>
             </div>
 
@@ -131,28 +129,6 @@ document.getElementById("resetForm").addEventListener("submit", function(event) 
     }
 });
 
-window.onscroll = function() {
-    scrollLessThan30();
-    scrollMoreThan30();
-};
-
-function scrollLessThan30() {
-    if (window.pageYOffset <= 30) {
-        var topPageImage = document.querySelector(".top-page-image");
-        if (topPageImage) {
-            topPageImage.style.zIndex = "35";
-        }
-    }
-}
-
-function scrollMoreThan30() {
-    if (window.pageYOffset >= 30) {
-        var topPageImage = document.querySelector(".top-page-image");
-        if (topPageImage) {
-            topPageImage.style.zIndex = "25";
-        }
-    }
-}
 </script>
 
 </body>

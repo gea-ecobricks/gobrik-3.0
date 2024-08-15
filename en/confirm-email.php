@@ -86,7 +86,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_email'])) {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
-
 <!--
 GoBrik.com site version 3.0
 Developed and made open source by the Global Ecobrick Alliance
@@ -105,35 +104,32 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
 
         <!-- Email confirmation form -->
-        <div id="first-send-form" style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;" <?php if ($code_sent) echo 'class="hidden"'; ?>>
+
+
+        <div id="first-send-form">
             <h2><?php echo htmlspecialchars($first_name); ?>, first let's confirm your email.</h2>
             <p>Click the send button to send a confirmation email to <?php echo htmlspecialchars($email_addr); ?> to receive your account activation code.</p>
             <form method="post" action="">
-               <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
-                <div id="submit-section" style="text-align:center;margin-top:20px;padding-right:15px;padding-left:15px" title="Start Activation process">
-<input type="submit" name="send_email" id="send_email" value="📨 Send email" class="submit-button activate">                </div>
-            </div>
-
+                <input type="submit" name="send_email" value="📨 Send email" class="submit-button activate">
             </form>
-            <p style="font-size:1em;">Do you no longer use this email address? You'll need to <a href="signup.php">create a new account</a> or contact our team at support@gobrik.com.</p>
         </div>
 
         <!-- Code entry form -->
-        <div id="second-code-confirm" <?php if (!$code_sent) echo 'class="hidden"'; ?>>
+        <div id="second-code-confirm">
             <h2>Please enter your code:</h2>
             <p>Check your email <?php echo htmlspecialchars($email_addr); ?> for your account confirmation code. Enter it here:</p>
-
-            <form id="code-form">
+            <div class="code-boxes">
                 <input type="text" maxlength="1" class="code-box" required>
                 <input type="text" maxlength="1" class="code-box" required>
                 <input type="text" maxlength="1" class="code-box" required>
                 <input type="text" maxlength="1" class="code-box" required>
                 <input type="text" maxlength="1" class="code-box" required>
-            </form>
-
+            </div>
             <p id="code-feedback"></p>
-
             <p id="resend-code">Didn't get your code? You can request a resend of the code in <span id="timer">1:00</span></p>
+            <form id="resend-code-form" method="post" action="">
+                <input type="hidden" name="resend_email" value="true">
+            </form>
         </div>
 
     </div>
@@ -146,67 +142,36 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once ("../footer-2024.php"); ?>
 
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+        var countdownTimer;
+        var timeLeft = 60;
 
-    document.addEventListener('DOMContentLoaded', function() {
-    var code = "AYYEW";
-    var countdownTimer;
-    var timeLeft = 60;
+        // Show/Hide Divs after email is sent
+        if (<?php echo json_encode($code_sent); ?>) {
+            document.getElementById('first-send-form').style.display = 'none';
+            document.getElementById('second-code-confirm').style.display = 'block';
+        }
 
-    // Handle code entry
-    var codeBoxes = document.querySelectorAll('.code-box');
-    codeBoxes.forEach(function(box) {
-        box.addEventListener('input', function() {
-            var enteredCode = '';
-            codeBoxes.forEach(function(input) {
-                enteredCode += input.value.toUpperCase();
-            });
+        // Countdown timer for resend code
+        countdownTimer = setInterval(function() {
+            var timerElement = document.getElementById('timer');
+            if (timeLeft <= 0) {
+                clearInterval(countdownTimer);
+                document.getElementById('resend-code').innerHTML = '<a href="#" id="resend-link">Click here to resend the code</a>';
+            } else {
+                timeLeft--;
+                timerElement.textContent = '0:' + (timeLeft < 10 ? '0' + timeLeft : timeLeft);
+            }
+        }, 1000);
 
-            if (enteredCode.length === 5) {
-                var codeFeedback = document.getElementById('code-feedback');
-                if (enteredCode === code) {
-                    codeFeedback.textContent = 'Code confirmed!';
-                    codeFeedback.classList.add('success');
-                    codeFeedback.classList.remove('error');
-                    setTimeout(function() {
-                        window.location.href = "activate-2.php";
-                    }, 2000);
-                } else {
-                    codeFeedback.textContent = 'Code incorrect';
-                    codeFeedback.classList.add('error');
-                    codeFeedback.classList.remove('success');
-                }
+        // Handle Resend Link Click
+        document.addEventListener('click', function(e) {
+            if (e.target && e.target.id === 'resend-link') {
+                e.preventDefault();
+                document.getElementById('resend-code-form').submit();
             }
         });
     });
-
-    // Countdown timer for resend code
-    countdownTimer = setInterval(function() {
-        var timerElement = document.getElementById('timer');
-        if (timeLeft <= 0) {
-            clearInterval(countdownTimer);
-            var resendCodeElement = document.getElementById('resend-code');
-            resendCodeElement.innerHTML = '<a href="#">Click here to resend the code</a>';
-        } else {
-            timeLeft--;
-            timerElement.textContent = '0:' + (timeLeft < 10 ? '0' + timeLeft : timeLeft);
-        }
-    }, 1000);
-
-    // Resend code logic
-    document.getElementById('resend-code').addEventListener('click', function(e) {
-        if (e.target.tagName === 'A') {
-            e.preventDefault();
-            // Reset the timer
-            timeLeft = 60;
-            document.getElementById('timer').textContent = '1:00';
-            document.getElementById('resend-code').innerHTML = 'Didn\'t get your code? You can request a resend of the code in <span id="timer">1:00</span>';
-
-            // Resend email logic (submit the form)
-            document.querySelector('form').submit();
-        }
-    });
-});
-
 
 </script>
 </body>

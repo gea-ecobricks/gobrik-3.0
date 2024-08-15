@@ -71,29 +71,37 @@ echo '<!DOCTYPE html>
             <h4 data-lang-id="002-login-subheading" style="margin-top:5px, margin-bottom:5px;">Login with your account credentials.</h4>
         </div>
 
-         <!-- Login form -->
         <form id="login" method="post" action="login_process.php" onsubmit="return validateForm();">
-            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
 
-            <div class="form-item">
-                <label for="credential_key" data-lang-id="003-login-email">Your e-mail:</label>
-                <input type="text" id="credential_key" name="credential_key" required placeholder="Your e-mail..." value="<?php echo isset($_GET['credential_key']) ? htmlspecialchars($_GET['credential_key']) : ''; ?>">
+    <div class="form-item">
+        <label for="credential_key" data-lang-id="003-login-email">Your e-mail:</label>
+        <div class="input-wrapper" style="position: relative;">
+            <input type="text" id="credential_key" name="credential_key" required placeholder="Your e-mail..." value="<?php echo isset($_GET['credential_key']) ? htmlspecialchars($_GET['credential_key']) : ''; ?>">
+            <span class="toggle-select" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔑🔽</span>
+            <div id="dropdown-menu" style="display: none; position: absolute; right: 10px; top: 100%; z-index: 1000; background: white; border: 1px solid #ccc; width: 150px; text-align: left;">
+                <div class="dropdown-item">E-mail</div>
+                <div class="dropdown-item disabled" style="opacity: 0.5;">SMS</div>
+                <div class="dropdown-item disabled" style="opacity: 0.5;">Trainer</div>
             </div>
+        </div>
+    </div>
 
-            <div class="form-item">
-                <label for="password" data-lang-id="004-login-password">Your password:</label>
-                <div class="password-wrapper">
-                    <input type="password" id="password" name="password" required placeholder="Your password...">
-                    <span toggle="#password" class="toggle-password" style="cursor: pointer;">🔒</span>
-                </div>
-                <div id="password-error" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;" data-lang-id="000-password-wrong">👉 Password is wrong.</div>
-                <p class="form-caption" data-lang-id="000-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link">Reset it.</a></p>
-            </div>
+    <div class="form-item">
+        <label for="password" data-lang-id="004-login-password">Your password:</label>
+        <div class="password-wrapper" style="position: relative;">
+            <input type="password" id="password" name="password" required placeholder="Your password...">
+            <span toggle="#password" class="toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔒</span>
+        </div>
+        <div id="password-error" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;" data-lang-id="000-password-wrong">👉 Password is wrong.</div>
+        <p class="form-caption" data-lang-id="000-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link">Reset it.</a></p>
+    </div>
 
-            <div style="text-align:center;" data-lang-id="006-login-button-">
-                <input type="submit" style="text-align:center;margin-top:15px;width:30%; min-width: 175px;" id="submit-button" value="🔑 Login" class="submit-button enabled">
-            </div>
-        </form>
+    <div style="text-align:center;" data-lang-id="006-login-button-">
+        <input type="submit" style="text-align:center;margin-top:15px;width:30%; min-width: 175px;" id="submit-button" value="🔑 Login" class="submit-button enabled">
+    </div>
+</form>
+
     </div>
 <div style="text-align:center;width:100%;margin:auto;margin-top:30px;margin-bottom:50px;">
     <p style="font-size:medium;" data-lang-id="000-no-account-yet">Don't have an account yet? <a href="signup.php">Signup!</a></p>
@@ -109,61 +117,14 @@ echo '<!DOCTYPE html>
 
 <script>
 
-    /*
- function showModalInfo(type, email = '') {
-            const modal = document.getElementById('form-modal-message');
-            const photobox = document.getElementById('modal-photo-box');
-            const messageContainer = modal.querySelector('.modal-message');
-            let content = '';
-            photobox.style.display = 'none';
-            switch (type) {
-                case 'reset':
-                    content = `
-                        <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
-                            <h1>🔓</h1>
-                        </div>
-                        <div class="preview-title">Reset Password</div>
-                        <form id="resetPasswordForm" action="reset_password.php" method="POST" onsubmit="return validateForm()">
-                            <div class="preview-text" style="font-size:medium;">Enter your email to reset your password:</div>
-                            <input type="email" name="email" required value="${email}">
-                            <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
-                                <div id="no-buwana-email" class="form-warning" style="margin-top:5px;margin-bottom:5px;" data-lang-id="010-no-buwana-email">🤔 Hmmm... we can't find an account that uses this email!</div>
-                                <button type="submit" class="submit-button enabled">Reset Password</button>
 
-                            </div>
-                        </form>
-                    `;
-                    break;
-                default:
-                    content = '<p>Invalid term selected.</p>';
-            }
-            messageContainer.innerHTML = content;
-
-            modal.style.display = 'flex';
-            document.getElementById('page-content').classList.add('blurred');
-            document.getElementById('footer-full').classList.add('blurred');
-            document.body.classList.add('modal-open');
-        } */
 
         function validateForm() {
             document.getElementById('no-buwana-email').style.display = 'none';
             return true;
         }
 
-        // Check URL parameters on page load
-//         window.onload = function() {
-//             const urlParams = new URLSearchParams(window.location.search);
-//             if (urlParams.has('email_not_found')) {
-//                 const email = urlParams.get('email') || '';
-//                 showModalInfo('reset', email);
-//                 setTimeout(() => {
-//                     const noBuwanaEmail = document.getElementById('no-buwana-email');
-//                     if (noBuwanaEmail) {
-//                         noBuwanaEmail.style.display = 'block';
-//                     }
-//                 }, 100);
-//             }
-//         }
+
 
 
 
@@ -218,6 +179,42 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+
+
+/*credentials menu*/
+
+document.addEventListener("DOMContentLoaded", function () {
+    const toggleSelectIcon = document.querySelector('.toggle-select');
+    const dropdownMenu = document.getElementById('dropdown-menu');
+    const credentialKeyInput = document.getElementById('credential_key');
+    const dropdownItems = dropdownMenu.querySelectorAll('.dropdown-item');
+
+    // Toggle dropdown menu visibility on click
+    toggleSelectIcon.addEventListener('click', function () {
+        dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
+    });
+
+    // Close dropdown if clicked outside
+    document.addEventListener('click', function (e) {
+        if (!toggleSelectIcon.contains(e.target) && !dropdownMenu.contains(e.target)) {
+            dropdownMenu.style.display = 'none';
+        }
+    });
+
+    // Handle dropdown item selection
+    dropdownItems.forEach(function (item) {
+        item.addEventListener('click', function () {
+            if (!item.classList.contains('disabled')) {
+                credentialKeyInput.value = item.textContent.trim();
+                dropdownMenu.style.display = 'none';
+            }
+        });
+    });
+});
+
+
+
 </script>
 
 

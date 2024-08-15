@@ -334,4 +334,25 @@ function ecobrickPreview(imageUrl, brik_serial, weight, owner, location) {
 
 
 
+document.addEventListener("DOMContentLoaded", function() {
+    // Select all elements with the class 'toggle-password'
+    const togglePasswordIcons = document.querySelectorAll('.toggle-password');
+
+    togglePasswordIcons.forEach(function(icon) {
+        icon.addEventListener('click', function() {
+            // Find the associated input field using the 'toggle' attribute
+            const input = document.querySelector(icon.getAttribute('toggle'));
+            if (input) {
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.textContent = '🔓'; // Change to unlocked emoji
+                } else {
+                    input.type = 'password';
+                    icon.textContent = '🔒'; // Change to locked emoji
+                }
+            }
+        });
+    });
+});
+
 

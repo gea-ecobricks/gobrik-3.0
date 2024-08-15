@@ -14,7 +14,7 @@ if (isset($_SESSION['buwana_id'])) {
 
 // Grab language directory from URL
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.586';
+$version = '0.587';
 $page = 'signedup-login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -26,7 +26,7 @@ echo '<!DOCTYPE html>
 ';
 
 
-include '../buwana_env.php'; // This file provides the database server, user, dbname information to access the server
+include '../buwanaconn_env.php'; // This file provides the database server, user, dbname information to access the server
 
 $buwana_id = $_GET['id'] ?? null;
 
@@ -38,30 +38,30 @@ $first_name = '';
 if ($buwana_id) {
     // Prepare the SQL statement for credentials_tb
     $sql_lookup_credential = "SELECT credential_type, credential_key FROM credentials_tb WHERE buwana_id = ?";
-    if ($stmt_lookup_credential = $conn->prepare($sql_lookup_credential)) {
+    if ($stmt_lookup_credential = $buwana_conn->prepare($sql_lookup_credential)) {
         $stmt_lookup_credential->bind_param("i", $buwana_id);
         $stmt_lookup_credential->execute();
         $stmt_lookup_credential->bind_result($credential_type, $credential_key);
         $stmt_lookup_credential->fetch();
         $stmt_lookup_credential->close();
     } else {
-        echo "Error preparing statement for credentials_tb: " . $conn->error;
+        echo "Error preparing statement for credentials_tb: " . $buwana_conn->error;
     }
 
     // Prepare the SQL statement for users_tb
     $sql_lookup_user = "SELECT first_name FROM users_tb WHERE buwana_id = ?";
-    if ($stmt_lookup_user = $conn->prepare($sql_lookup_user)) {
+    if ($stmt_lookup_user = $buwana_conn->prepare($sql_lookup_user)) {
         $stmt_lookup_user->bind_param("i", $buwana_id);
         $stmt_lookup_user->execute();
         $stmt_lookup_user->bind_result($first_name);
         $stmt_lookup_user->fetch();
         $stmt_lookup_user->close();
     } else {
-        echo "Error preparing statement for users_tb: " . $conn->error;
+        echo "Error preparing statement for users_tb: " . $buwana_conn->error;
     }
 }
 
-$conn->close();
+$buwana_conn->close();
 ?>
 
 
@@ -75,10 +75,6 @@ function validatePassword(isValid) {
         passwordErrorDiv.style.display = 'none';
     }
 }
-
-
-
-
 
 
 function closeModal() {
@@ -104,11 +100,6 @@ document.addEventListener("DOMContentLoaded", function() {
         alert(errorType);
     }
 });
-
-
-
-
-
 
 
 // Form submission validation
@@ -161,7 +152,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             </div>
             <div class="form-item">
                 <label for="password" data-lang-id="000-your-password">Your password:</label><br>
-                <input type="password" id="password" name="password" required>
+                <div class="password-wrapper">
+                    <input type="password" id="password" name="password" required>
+                    <span toggle="#password" class="toggle-password" style="cursor: pointer;">🔒</span>
+                </div>
+
                 <p class="form-caption" data-lang-id="000-forgot-your-password">Forgot your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
                 <div id="password-error" class="form-field-error" style="display:none;" data-lang-id="000-password-wrong">👉 Password is wrong.</div>
             </div>

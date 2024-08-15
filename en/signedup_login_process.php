@@ -39,7 +39,7 @@ if ($stmt_lookup_password) {
                             languages_id = ?,
                             login_count = login_count + 1
                             WHERE buwana_id = ?";
-        $stmt_update_user = $conn->prepare($sql_update_user);
+        $stmt_update_user = $buwana_conn->prepare($sql_update_user);
         if ($stmt_update_user) {
             $stmt_update_user->bind_param("si", $lang, $buwana_id);
             $stmt_update_user->execute();
@@ -88,7 +88,7 @@ if ($stmt_lookup_password) {
                     // If the ecobricker doesn't exist in GoBrik then create a new one:  this happens off a fresh signup
                     $sql_insert_ecobricker = "INSERT INTO tb_ecobrickers (first_name, buwana_id, email_addr, date_registered, maker_id, buwana_activated, buwana_activation_dt, language_pref)
                                               VALUES (?, ?, ?, NOW(), ?, 1, NOW(), ?)";
-                    $stmt_insert_ecobricker = $conn2->prepare($sql_insert_ecobricker);
+                    $stmt_insert_ecobricker = $gobrik_conn->prepare($sql_insert_ecobricker);
                     if ($stmt_insert_ecobricker) {
 
                             $stmt_insert_ecobricker->bind_param("sisis", $first_name, $buwana_id, $credential_value, $buwana_id, $lang);
@@ -130,7 +130,7 @@ if ($stmt_lookup_password) {
         exit();
     }
 } else {
-    error_log("Error preparing statement for users_tb: " . $conn->error);
+    error_log("Error preparing statement for users_tb: " . $buwana_conn->error);
     header("Location: signedup-login.php?id=$buwana_id&error=db_error");
     exit();
 }

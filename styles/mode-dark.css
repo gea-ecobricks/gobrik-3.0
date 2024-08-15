@@ -613,8 +613,14 @@ background-size: contain;
       background-size: contain;
       }
 
-      .regen-top {
-
+.regen-top {
       background: url(../svgs/regen-top-simple.svg) no-repeat center;
+      background-size: contain;
+      }
+
+
+
+.earthen-service {
+      background: url(../svgs/earth-service-animation.svg) no-repeat center;
       background-size: contain;
       }

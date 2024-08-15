@@ -133,13 +133,13 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT -->
-   <div id="top-page-image" class="dolphin-pic top-page-image"></div>
+   <div id="top-page-image" class="earthen-service top-page-image"></div>
 
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="100-login-heading-signed-up">Your account is ready! 🎉</h2>
+            <h2 data-lang-id="100-login-heading-signed-up">Your Buwana Account is Created!🎉</h2>
             <p>Ok <?php echo htmlspecialchars($first_name); ?>, <span data-lang-id="101-login-subheading-signed-up">now please use your <?php echo htmlspecialchars($credential_type); ?> to login for the first time to start setting up your account:</span></p>
         </div>
 

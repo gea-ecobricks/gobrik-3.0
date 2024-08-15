@@ -10,6 +10,8 @@ require '../vendor/autoload.php';
 $response = ['success' => false];
 $buwana_id = $_GET['id'] ?? null;
 
+//This page processes signup-2.php's form.  It updates the tb_user bu
+
 include '../buwana_env.php'; // This file provides the database server, user, dbname information to access the Buwana server
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($buwana_id)) {

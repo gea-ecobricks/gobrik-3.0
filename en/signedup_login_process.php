@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
 
-include '../buwana_env.php'; // This file provides the first database server, user, dbname information
+include '../buwanaconn_env.php'; // This file provides the first database server, user, dbname information
 
 // Retrieve form data
 $buwana_id = filter_input(INPUT_POST, 'buwana_id', FILTER_SANITIZE_NUMBER_INT);

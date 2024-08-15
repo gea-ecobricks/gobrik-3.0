@@ -107,15 +107,19 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
                 <div class="form-item" id="set-password" style="display: none;">
                     <label for="password_hash" data-lang-id="007-set-your-pass">Set your password:</label><br>
-                    <input type="password" id="password_hash" name="password_hash" required minlength="6">
-                    <span toggle="#password_hash" class="toggle-password" style="cursor: pointer;">🔒</span>
+                    <div class="password-wrapper">
+                        <input type="password" id="password_hash" name="password_hash" required minlength="6">
+                        <span toggle="#password_hash" class="toggle-password" style="cursor: pointer;">🔒</span>
+                    </div>
                     <p class="form-caption" data-lang-id="008-password-advice">🔑 Your password must be at least 6 characters.</p>
                 </div>
 
                 <div class="form-item" id="confirm-password-section" style="display: none;">
                     <label for="confirm_password" data-lang-id="009-confirm-pass">Confirm Your Password:</label><br>
-                    <input type="password" id="confirm_password" name="confirm_password" required>
-                    <span toggle="#confirm_password" class="toggle-password" style="cursor: pointer;">🔒</span>
+                    <div class="password-wrapper">
+                        <input type="password" id="confirm_password" name="confirm_password" required>
+                        <span toggle="#confirm_password" class="toggle-password" style="cursor: pointer;">🔒</span>
+                    <div>
                     <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;" data-lang-id="010-pass-error-no-match">👉 Passwords do not match.</div>
                 </div>
 

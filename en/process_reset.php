@@ -10,18 +10,7 @@ session_start();
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 
 // Database credentials
-$buwana_servername = "localhost";
-$buwana_username = "ecobricks_gobrik_app";
-$buwana_password = "1EarthenAuth!";
-$buwana_dbname = "ecobricks_earthenAuth_db";
-
-// Establish connection to the database
-$buwana_conn = new mysqli($buwana_servername, $buwana_username, $buwana_password, $buwana_dbname);
-
-// Check connection
-if ($buwana_conn->connect_error) {
-    die("Connection failed: " . $buwana_conn->connect_error);
-}
+include '../buwanaconn_env.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $token = isset($_POST['token']) ? trim($_POST['token']) : '';

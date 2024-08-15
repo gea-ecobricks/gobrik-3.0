@@ -12,7 +12,7 @@ $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $first_name = '';
 $email_addr = '';
 $code_sent = false;
-$version = '0.472';
+$version = '0.473';
 $page = 'activate';
 
 // PART 1: Check if ecobricker_id is passed in the URL
@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_email'])) {
         // Content
         $mail->isHTML(true);
         $mail->Subject = 'GoBrik Verification Code';
-        $mail->Body = "Hello $first_name!<br><br>If you're reading this, we're glad! The code to activate your account is:<br><br><b>AYYEW</b><br><br>Return back to your browser and enter the code, or visit this page:<br>https://beta.gobrik.com/en/active.php?status=go&buwana_id=63 <br><br>The GoBrik team";
+        $mail->Body = "Hello $first_name!<br><br>If you're reading this, we're glad! The code to activate your account is:<br><br><b>AYYEW</b><br><br>Return back to your browser and enter the code, or visit this page:<br>https://beta.gobrik.com/en/confirm-email.php?status=go&buwana_id=63 <br><br>The GoBrik team";
 
         if ($mail->send()) {
             echo "Email sent successfully."; // Debugging output

@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 
 $response = ['success' => false];
 
-include '../buwana_env.php'; // This file provides the first database server, user, dbname information to access the server
+include '../buwanaconn_env.php'; // This file provides the first database server, user, dbname information to access the server
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Sanitize and validate email input
@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Check if the email already exists in the first database
     $sql_check_email = "SELECT COUNT(*) FROM users_tb WHERE email = ?";
-    $stmt_check_email = $conn->prepare($sql_check_email);
+    $stmt_check_email = $buwana_conn->prepare($sql_check_email);
     if ($stmt_check_email) {
         $stmt_check_email->bind_param("s", $credential_value);
         $stmt_check_email->execute();
@@ -37,23 +37,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // Check if the email already exists in the GoBrik database
-    $servername = "localhost";
-    $username = "ecobricks_brikchain_viewer";
-    $password = "desperate-like-the-Dawn";
-    $dbname = "ecobricks_gobrik_msql_db";
+include '../gobrikconn_env.php';
 
-    // Create connection
-    $conn_gobrik = new mysqli($servername, $username, $password, $dbname);
 
     // Check connection
-    if ($conn_gobrik->connect_error) {
-        $response['error'] = 'db_error';
-        echo json_encode($response);
-        exit();
-    }
+//     if ($conn_gobrik->connect_error) {
+//         $response['error'] = 'db_error';
+//         echo json_encode($response);
+//         exit();
+//     }
 
     $sql_check_gobrik_email = "SELECT COUNT(*) FROM ecobricker_live_tb WHERE email_addr = ?";
-    $stmt_check_gobrik_email = $conn_gobrik->prepare($sql_check_gobrik_email);
+    $stmt_check_gobrik_email = $gobrik_con->prepare($sql_check_gobrik_email);
     if ($stmt_check_gobrik_email) {
         $stmt_check_gobrik_email->bind_param("s", $credential_value);
         $stmt_check_gobrik_email->execute();
@@ -73,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // Close the GoBrik database connection
-    $conn_gobrik->close();
+    $gobrik_conn->close();
 
     $response['success'] = true;
 } else {

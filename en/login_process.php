@@ -155,7 +155,7 @@ if ($stmt_credential) {
             $stmt_user->close();
         } else {
             // If there's an error preparing the user statement, terminate the script with an error message
-            die('Error preparing statement for users_tb: ' . $conn->error);
+            die('Error preparing statement for users_tb: ' . $buwana_conn->error);
         }
     } else {
         // Redirect to login page with an error message if the credential is invalid
@@ -164,7 +164,7 @@ if ($stmt_credential) {
     }
 } else {
     // If there's an error preparing the credential statement, terminate the script with an error message
-    die('Error preparing statement for credentials_tb: ' . $conn->error);
+    die('Error preparing statement for credentials_tb: ' . $buwana_conn->error);
 }
 
 $buwana_conn->close();

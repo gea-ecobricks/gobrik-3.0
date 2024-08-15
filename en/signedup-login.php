@@ -228,6 +228,37 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+/*credentials menu*/
+
+document.addEventListener("DOMContentLoaded", function () {
+    const toggleSelectIcon = document.querySelector('.toggle-select');
+    const dropdownMenu = document.getElementById('dropdown-menu');
+    const credentialKeyInput = document.getElementById('credential_key');
+    const dropdownItems = dropdownMenu.querySelectorAll('.dropdown-item');
+
+    // Toggle dropdown menu visibility on click
+    toggleSelectIcon.addEventListener('click', function () {
+        dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
+    });
+
+    // Close dropdown if clicked outside
+    document.addEventListener('click', function (e) {
+        if (!toggleSelectIcon.contains(e.target) && !dropdownMenu.contains(e.target)) {
+            dropdownMenu.style.display = 'none';
+        }
+    });
+
+    // Handle dropdown item selection
+    dropdownItems.forEach(function (item) {
+        item.addEventListener('click', function () {
+            if (!item.classList.contains('disabled')) {
+                credentialKeyInput.value = item.textContent.trim();
+                dropdownMenu.style.display = 'none';
+            }
+        });
+    });
+});
+
 
 
 

@@ -168,9 +168,17 @@ document.getElementById('logout-button').addEventListener('click', function() {
     window.location.href = 'logout.php';
 });
 
+var buwanaId = '<?php echo $buwana_id; ?>';
+
+// Function to log out the user and redirect to login.php with buwana_id appended
 function logoutUser() {
-    // Redirect to the logout.php page
-    window.location.href = 'logout.php';
+    if (buwanaId) {
+        // Redirect to logout.php with buwana_id appended to the login.php URL
+        window.location.href = 'logout.php?redirect=login.php?buwana_id=' + encodeURIComponent(buwanaId);
+    } else {
+        // If buwana_id is not available, just redirect to the logout page
+        window.location.href = 'logout.php';
+    }
 }
 
 // JavaScript to determine the user's time of day and display an appropriate greeting

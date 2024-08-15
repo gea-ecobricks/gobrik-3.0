@@ -78,7 +78,7 @@ echo '<!DOCTYPE html>
         <label for="credential_key" data-lang-id="003-login-email">Your e-mail:</label>
         <div class="input-wrapper" style="position: relative;">
             <input type="text" id="credential_key" name="credential_key" required placeholder="Your e-mail..." value="<?php echo isset($_GET['credential_key']) ? htmlspecialchars($_GET['credential_key']) : ''; ?>">
-            <span class="toggle-select" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔑🔽</span>
+            <span class="toggle-select" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔑</span>
             <div id="dropdown-menu" style="display: none; position: absolute; right: 10px; top: 100%; z-index: 1000; background: white; border: 1px solid #ccc; width: 150px; text-align: left;">
                 <div class="dropdown-item">E-mail</div>
                 <div class="dropdown-item disabled" style="opacity: 0.5;">SMS</div>

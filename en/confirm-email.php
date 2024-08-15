@@ -6,8 +6,6 @@ ini_set('display_errors', 1);
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-
-
 // Initialize variables
 $ecobricker_id = $_GET['id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
@@ -49,6 +47,7 @@ $gobrik_conn->close();
 // PART 3: Handle form submission to send the confirmation code by email
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_email'])) {
     require '../vendor/autoload.php'; // Path to PHPMailer
+
     $mail = new PHPMailer(true);
     try {
         // Server settings
@@ -56,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_email'])) {
         $mail->Host = 'mail.ecobricks.org';
         $mail->SMTPAuth = true;
         $mail->Username = 'gobrik@ecobricks.org';
-        $mail->Password = 'GoBrik Verification Code';
+        $mail->Password = '1Welcome!';
         $mail->SMTPSecure = false;
         $mail->Port = 26;
 
@@ -72,19 +71,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_email'])) {
         $mail->send();
         $code_sent = true;
 
-                echo '<script>alert("An email with a link to reset your GoBrik Buwana password has been sent!"); window.location.href = "../' . $lang . '/login.php";</script>';
-            } catch (Exception $e) {
-                echo '<script>alert("Message could not be sent. Mailer Error: ' . $mail->ErrorInfo . '"); window.location.href = "../' . $lang . '/login.php";</script>';
-            }
-        } else {
-            header('Location: ../' . $lang . '/login.php?email_not_found&email=' . urlencode($email));
-            exit();
-        }
+        echo '<script>alert("An email with your code has been sent!");</script>';
     } catch (Exception $e) {
-        echo "<script>console.error('Error: " . $e->getMessage() . "');</script>";
+        echo '<script>alert("Message could not be sent. Mailer Error: ' . $mail->ErrorInfo . '"); window.location.href = "../' . $lang . '/login.php";</script>';
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="<?php echo $lang; ?>">

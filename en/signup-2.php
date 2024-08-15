@@ -127,14 +127,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <div class="form-item" id="human-check-section" style="display: none;">
                     <label for="human_check" data-lang-id="011-prove-human">Please prove you are human by typing the word "ecobrick" below:</label><br>
                     <input type="text" id="human_check" name="human_check" required>
-                    <p class="form-caption" data-lang-id="012-fun-fact"> 🤓 Fun fact: <a href="#" onclick="showModalInfo('ecobrick')" class="underline-link">'ecobrick'</a> is spelled without a space, capital or hyphen!</p>
+                    <p class="form-caption" data-lang-id="012-fun-fact"> 🤓 Fun fact:<a href="#" onclick="showModalInfo('ecobrick', '<?php echo $lang; ?>')" class="underline-link">Ecobrick</a> is spelled without a space, capital or hyphen!</p>
                     <div>
                         <input type="checkbox" id="terms" name="terms" required checked>
-                        <label for="terms" style="font-size:medium;" class="form-caption" data-lang-id="013-by-registering">By registering today, I agree to the <a href="#" onclick="showModalInfo('terms')" class="underline-link">GoBrik Terms of Service</a></label>
+                        <label for="terms" style="font-size:medium;" class="form-caption" data-lang-id="013-by-registering">By registering today, I agree to the <a href="#" onclick="showModalInfo('terms', '<?php echo $lang; ?>')" class="underline-link">GoBrik Terms of Service</a></label>
                     </div>
                     <div>
                         <input type="checkbox" id="newsletter" name="newsletter" checked>
-                        <label for="newsletter" style="font-size:medium;" class="form-caption" data-lang-id="014-i-agree-newsletter">I agree to receive the <a href="#" onclick="showModalInfo('earthen')" class="underline-link">Earthen newsletter</a> for app, ecobrick, and earthen updates</label>
+                        <label for="newsletter" style="font-size:medium;" class="form-caption" data-lang-id="014-i-agree-newsletter">I agree to receive the <a href="#" onclick="showModalInfo('earthen', '<?php echo $lang; ?>')" class="underline-link">Earthen newsletter</a> for app, ecobrick, and earthen updates</label>
                     </div>
                 </div>
 

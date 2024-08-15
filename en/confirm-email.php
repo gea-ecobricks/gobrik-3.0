@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
- require '../vendor/autoload.php'; // Path to PHPMailer
+require '../vendor/autoload.php'; // Path to PHPMailer
 
 // Initialize variables
 $ecobricker_id = $_GET['id'] ?? null;
@@ -28,10 +28,8 @@ if (is_null($ecobricker_id)) {
 
 // PART 2: Look up user information using ecobricker_id provided in URL
 
-//gobrik_conn creds
-require_once ("../gobrikconn_env.php");
+require_once("../gobrikconn_env.php");
 
-// Prepare and execute SQL statement to fetch user details
 $sql_user_info = "SELECT first_name, email_addr FROM tb_ecobrickers WHERE ecobricker_id = ?";
 $stmt_user_info = $gobrik_conn->prepare($sql_user_info);
 if ($stmt_user_info) {
@@ -49,8 +47,6 @@ $gobrik_conn->close();
 // PART 3: Handle form submission to send the confirmation code by email
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_email'])) {
     echo "Form submitted. Preparing to send email..."; // Debugging output
-
-
 
     $mail = new PHPMailer(true);
     try {
@@ -73,13 +69,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_email'])) {
         $mail->Body = "Hello $first_name!<br><br>If you're reading this, we're glad! The code to activate your account is:<br><br><b>AYYEW</b><br><br>Return back to your browser and enter the code, or visit this page:<br>https://beta.gobrik.com/en/confirm-email.php?status=go&buwana_id=63 <br><br>The GoBrik team";
 
         $mail->send();
-                echo '<script>alert("An email with your code has been sent!");';
-        } catch (Exception $e) {
-                echo '<script>alert("Message could not be sent. Mailer Error: ' . $mail->ErrorInfo . '");';
-            }
-
+        echo '<script>alert("An email with your code has been sent!");</script>';
+    } catch (Exception $e) {
+        echo '<script>alert("Message could not be sent. Mailer Error: ' . $mail->ErrorInfo . '");</script>';
+    }
 }
 ?>
+
 
 
 <!DOCTYPE html>

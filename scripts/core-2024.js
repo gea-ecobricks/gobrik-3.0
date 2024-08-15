@@ -356,3 +356,96 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
+
+/* PASSWORD RESET MODAL  */
+
+function showPasswordReset(type, lang = 'en', email = '') {
+    const modal = document.getElementById('form-modal-message');
+    const photobox = document.getElementById('modal-photo-box');
+    const messageContainer = modal.querySelector('.modal-message');
+    let content = '';
+    photobox.style.display = 'none';
+
+    switch (type) {
+        case 'reset':
+            let title, promptText, buttonText, errorText;
+
+            switch (lang) {
+                case 'fr':
+                    title = "Réinitialiser le mot de passe";
+                    promptText = "Entrez votre email pour réinitialiser votre mot de passe :";
+                    buttonText = "Réinitialiser le mot de passe";
+                    errorText = "🤔 Hmmm... nous ne trouvons aucun compte utilisant cet email !";
+                    break;
+                case 'es':
+                    title = "Restablecer la contraseña";
+                    promptText = "Ingrese su correo electrónico para restablecer su contraseña:";
+                    buttonText = "Restablecer la contraseña";
+                    errorText = "🤔 Hmmm... no podemos encontrar una cuenta que use este correo electrónico!";
+                    break;
+                case 'id':
+                    title = "Atur Ulang Kata Sandi";
+                    promptText = "Masukkan email Anda untuk mengatur ulang kata sandi Anda:";
+                    buttonText = "Atur Ulang Kata Sandi";
+                    errorText = "🤔 Hmmm... kami tidak dapat menemukan akun yang menggunakan email ini!";
+                    break;
+                default: // 'en'
+                    title = "Reset Password";
+                    promptText = "Enter your email to reset your password:";
+                    buttonText = "Reset Password";
+                    errorText = "🤔 Hmmm... we can't find an account that uses this email!";
+                    break;
+            }
+
+            content = `
+                <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
+                    <h1>🔓</h1>
+                </div>
+                <div class="preview-title">${title}</div>
+                <form id="resetPasswordForm" action="reset_password.php" method="POST" onsubmit="return validateForm()">
+                    <div class="preview-text" style="font-size:medium;">${promptText}</div>
+                    <input type="email" name="email" required value="${email}">
+                    <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
+                        <div id="no-buwana-email" class="form-warning" style="margin-top:5px;margin-bottom:5px;" data-lang-id="010-no-buwana-email">${errorText}</div>
+                        <button type="submit" class="submit-button enabled">${buttonText}</button>
+                    </div>
+                </form>
+            `;
+            break;
+
+        default:
+            content = '<p>Invalid term selected.</p>';
+    }
+
+    messageContainer.innerHTML = content;
+
+    modal.style.display = 'flex';
+    document.getElementById('page-content').classList.add('blurred');
+    document.getElementById('footer-full').classList.add('blurred');
+    document.body.classList.add('modal-open');
+}
+
+
+ window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // Check if the 'email_not_found' parameter exists in the URL
+    if (urlParams.has('email_not_found')) {
+        // Get the email from the URL parameters
+        const email = urlParams.get('email') || '';
+
+        // Get the language from the backend (PHP) or default to 'en'
+        const lang = '<?php echo $lang; ?>'; // Make sure this is echoed from your PHP
+
+        // Show the reset modal with the pre-filled email and appropriate language
+        showPasswordReset('reset', lang, email);
+
+        // Wait for the modal to load, then display the "email not found" error message
+        setTimeout(() => {
+            const noBuwanaEmail = document.getElementById('no-buwana-email');
+            if (noBuwanaEmail) {
+                noBuwanaEmail.style.display = 'block';
+            }
+        }, 100);
+    }
+};

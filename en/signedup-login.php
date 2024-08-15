@@ -197,7 +197,7 @@ function validateForm() {
     return true;
 }
 
-// Check URL parameters on page load
+// Check URL parameters on page load: what's this??
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('email_not_found')) {
@@ -213,6 +213,18 @@ window.onload = function() {
     }
 }
 
+// Form submission validation
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById('signed-up-login').addEventListener('submit', function(event) {
+        var credentialValue = document.getElementById('credential_key').value;
+        var password = document.getElementById('password').value;
+
+        if (credentialValue === '' || password === '') {
+            event.preventDefault();
+            document.getElementById('password-error').style.display = 'block';
+        }
+    });
+});
 
 
 

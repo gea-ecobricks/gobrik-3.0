@@ -39,6 +39,16 @@ function getLogoutMessage($lang) {
 }
 
 
+function getLoginMessage($lang) {
+    $messages = [
+        'en' => "Welcome back!",
+        'fr' => "Bon retour !",
+        'id' => "Selamat datang kembali!",
+        'es' => "¡Bienvenido de nuevo!"
+    ];
+    return $messages[$lang] ?? $messages['en']; // Default to English if $lang is not found
+}
+
 // Echo the HTML structure
 echo '<!DOCTYPE html>
 <html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">
@@ -67,14 +77,10 @@ echo '<!DOCTYPE html>
                 if ($status === 'loggedout') {
                     echo htmlspecialchars(getLogoutMessage($lang));
                 } else {
-                    echo "Welcome back!";
+                    echo htmlspecialchars(getLoginMessage($lang));
                 }
                 ?>
             </h3>
-
-            <?php if ($buwana_id): ?>
-                <p>Logged out from Buwana ID: <?php echo htmlspecialchars($buwana_id); ?></p>
-            <?php endif; ?>
 
             <h4 data-lang-id="002-login-subheading" style="margin-top:5px, margin-bottom:5px;">Login with your account credentials.</h4>
         </div>
@@ -125,15 +131,18 @@ echo '<!DOCTYPE html>
 
 <script>
 
+//function closeModal() {
+//     const modal = document.getElementById('form-modal-message');
+//     modal.style.display = 'none';
+//     document.getElementById('page-content').classList.remove('blurred');
+//     document.getElementById('footer-full').classList.remove('blurred');
+//     document.body.classList.remove('modal-open');
+// }
 
-
-        function validateForm() {
-            document.getElementById('no-buwana-email').style.display = 'none';
-            return true;
-        }
-
-
-
+    function validateForm() {
+        document.getElementById('no-buwana-email').style.display = 'none';
+        return true;
+    }
 
 
 
@@ -147,13 +156,6 @@ function validatePassword(isValid) {
     }
 }
 
-function closeModal() {
-    const modal = document.getElementById('form-modal-message');
-    modal.style.display = 'none';
-    document.getElementById('page-content').classList.remove('blurred');
-    document.getElementById('footer-full').classList.remove('blurred');
-    document.body.classList.remove('modal-open');
-}
 
 function validateForm() {
     const email = document.querySelector('input[name="credential_key"]').value;
@@ -174,6 +176,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 });
+
 
 // Form submission validation
 document.addEventListener("DOMContentLoaded", function() {

@@ -150,56 +150,69 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <!--FOOTER STARTS HERE-->
 <?php require_once ("../footer-2024.php"); ?>
 
-
 <script>
-$(document).ready(function () {
+
+    document.addEventListener('DOMContentLoaded', function() {
     var code = "AYYEW";
     var countdownTimer;
     var timeLeft = 60;
 
     // Handle code entry
-    $('.code-box').on('input', function () {
-        var inputs = $('.code-box');
-        var enteredCode = '';
-        inputs.each(function () {
-            enteredCode += $(this).val().toUpperCase();
-        });
+    var codeBoxes = document.querySelectorAll('.code-box');
+    codeBoxes.forEach(function(box) {
+        box.addEventListener('input', function() {
+            var enteredCode = '';
+            codeBoxes.forEach(function(input) {
+                enteredCode += input.value.toUpperCase();
+            });
 
-        if (enteredCode.length === 5) {
-            if (enteredCode === code) {
-                $('#code-feedback').text('Code confirmed!').addClass('success').removeClass('error');
-                setTimeout(function () {
-                    window.location.href = "activate-2.php";
-                }, 2000);
-            } else {
-                $('#code-feedback').text('Code incorrect').addClass('error').removeClass('success');
+            if (enteredCode.length === 5) {
+                var codeFeedback = document.getElementById('code-feedback');
+                if (enteredCode === code) {
+                    codeFeedback.textContent = 'Code confirmed!';
+                    codeFeedback.classList.add('success');
+                    codeFeedback.classList.remove('error');
+                    setTimeout(function() {
+                        window.location.href = "activate-2.php";
+                    }, 2000);
+                } else {
+                    codeFeedback.textContent = 'Code incorrect';
+                    codeFeedback.classList.add('error');
+                    codeFeedback.classList.remove('success');
+                }
             }
-        }
+        });
     });
 
     // Countdown timer for resend code
-    countdownTimer = setInterval(function () {
+    countdownTimer = setInterval(function() {
+        var timerElement = document.getElementById('timer');
         if (timeLeft <= 0) {
             clearInterval(countdownTimer);
-            $('#resend-code').html('<a href="#">Click here to resend the code</a>');
+            var resendCodeElement = document.getElementById('resend-code');
+            resendCodeElement.innerHTML = '<a href="#">Click here to resend the code</a>';
         } else {
             timeLeft--;
-            $('#timer').text('0:' + (timeLeft < 10 ? '0' + timeLeft : timeLeft));
+            timerElement.textContent = '0:' + (timeLeft < 10 ? '0' + timeLeft : timeLeft);
         }
     }, 1000);
 
     // Resend code logic
-    $('#resend-code').on('click', 'a', function (e) {
-        e.preventDefault();
-        // Reset the timer
-        timeLeft = 60;
-        $('#timer').text('1:00');
-        $('#resend-code').html('Didn\'t get your code? You can request a resend of the code in <span id="timer">1:00</span>');
+    document.getElementById('resend-code').addEventListener('click', function(e) {
+        if (e.target.tagName === 'A') {
+            e.preventDefault();
+            // Reset the timer
+            timeLeft = 60;
+            document.getElementById('timer').textContent = '1:00';
+            document.getElementById('resend-code').innerHTML = 'Didn\'t get your code? You can request a resend of the code in <span id="timer">1:00</span>';
 
-        // Resend email logic
-         $('form').submit();
+            // Resend email logic (submit the form)
+            document.querySelector('form').submit();
+        }
     });
 });
+
+
 </script>
 </body>
 </html>

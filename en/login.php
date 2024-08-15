@@ -20,7 +20,7 @@ if (empty($_SESSION['csrf_token'])) {
 
 // Grab language directory from URL
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.588';
+$version = '0.589';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -186,10 +186,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-    </script>
 
-
-<script>
 // Function to validate password and show/hide the error message
 function validatePassword(isValid) {
     const passwordErrorDiv = document.getElementById('password-error');

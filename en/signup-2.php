@@ -8,7 +8,7 @@ $response = ['success' => false];
 $buwana_id = $_GET['id'] ?? null;
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.45';
+$version = '0.451';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $credential_type = '';
@@ -16,7 +16,7 @@ $credential_key = '';
 $first_name = '';
 $account_status = '';
 
-include '../buwana_env.php'; // This file provides the database server, user, dbname information to access the server
+include '../buwanaconn_env.php'; // This file provides the database server, user, dbname information to access the server
 
 // PART 1: Check if the user is already logged in
 if (isset($_SESSION['buwana_id'])) {
@@ -27,7 +27,7 @@ if (isset($_SESSION['buwana_id'])) {
 // Look up user information if buwana_id is provided
 if ($buwana_id) {
     $sql_lookup_credential = "SELECT credential_type, credential_key FROM credentials_tb WHERE buwana_id = ?";
-    $stmt_lookup_credential = $conn->prepare($sql_lookup_credential);
+    $stmt_lookup_credential = $buwana_conn->prepare($sql_lookup_credential);
     if ($stmt_lookup_credential) {
         $stmt_lookup_credential->bind_param("i", $buwana_id);
         $stmt_lookup_credential->execute();
@@ -39,7 +39,7 @@ if ($buwana_id) {
     }
 
     $sql_lookup_user = "SELECT first_name, account_status FROM users_tb WHERE buwana_id = ?";
-    $stmt_lookup_user = $conn->prepare($sql_lookup_user);
+    $stmt_lookup_user = $buwana_conn->prepare($sql_lookup_user);
     if ($stmt_lookup_user) {
         $stmt_lookup_user->bind_param("i", $buwana_id);
         $stmt_lookup_user->execute();
@@ -108,14 +108,17 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <div class="form-item" id="set-password" style="display: none;">
                     <label for="password_hash" data-lang-id="007-set-your-pass">Set your password:</label><br>
                     <input type="password" id="password_hash" name="password_hash" required minlength="6">
+                    <span toggle="#password_hash" class="toggle-password" style="cursor: pointer;">🔒</span>
                     <p class="form-caption" data-lang-id="008-password-advice">🔑 Your password must be at least 6 characters.</p>
                 </div>
 
                 <div class="form-item" id="confirm-password-section" style="display: none;">
                     <label for="confirm_password" data-lang-id="009-confirm-pass">Confirm Your Password:</label><br>
                     <input type="password" id="confirm_password" name="confirm_password" required>
+                    <span toggle="#confirm_password" class="toggle-password" style="cursor: pointer;">🔒</span>
                     <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;" data-lang-id="010-pass-error-no-match">👉 Passwords do not match.</div>
                 </div>
+
 
                 <div class="form-item" id="human-check-section" style="display: none;">
                     <label for="human_check" data-lang-id="011-prove-human">Please prove you are human by typing the word "ecobrick" below:</label><br>
@@ -361,6 +364,27 @@ function showModalInfo(type) {
 }
 
 
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Select all elements with the class 'toggle-password'
+    const togglePasswordIcons = document.querySelectorAll('.toggle-password');
+
+    togglePasswordIcons.forEach(function(icon) {
+        icon.addEventListener('click', function() {
+            // Find the associated input field using the 'toggle' attribute
+            const input = document.querySelector(icon.getAttribute('toggle'));
+            if (input) {
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.textContent = '🔓'; // Change to unlocked emoji
+                } else {
+                    input.type = 'password';
+                    icon.textContent = '🔒'; // Change to locked emoji
+                }
+            }
+        });
+    });
+});
 
 
 

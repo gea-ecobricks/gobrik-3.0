@@ -82,7 +82,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>
 
         <!--SIGNUP FORM-->
-        <form id="activate-confirmation" method="post" action="activate-2.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
+        <form id="activate-confirmation" method="post" action="confirm-email.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
             <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
                 <div id="submit-section" style="text-align:center;margin-top:20px;padding-right:15px;padding-left:15px" title="Start Activation process">
                     <input type="submit" id="submit-button" value="🍃 Upgrade Account!" class="submit-button activate">

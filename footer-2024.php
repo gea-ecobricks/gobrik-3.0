@@ -344,4 +344,107 @@ function closeInfoModal() {
 
 
 
+function showModalInfo(type, lang) {
+    const modal = document.getElementById('form-modal-message');
+    const photobox = document.getElementById('modal-photo-box');
+    const messageContainer = modal.querySelector('.modal-message');
+    const modalBox = document.getElementById('modal-content-box');
+    let content = '';
+    photobox.style.display = 'none';
+
+    switch (type) {
+        case 'terms':
+            content = `
+                <div style="font-size: small;">
+                    <?php include "../files/terms-${lang}.php"; ?>
+                </div>
+            `;
+            modal.style.position = 'absolute';
+            modal.style.overflow = 'auto';
+            modalBox.style.textAlign = 'left';
+            modalBox.style.maxHeight = 'unset';
+            modalBox.style.marginTop = '30px';
+            modalBox.style.marginBottom = '30px';
+            modalBox.scrollTop = 0;
+            modal.style.alignItems = 'flex-start';
+            break;
+
+        case 'earthen':
+            switch(lang) {
+                case 'fr':
+                    content = `
+                        <img src="../svgs/earthen-newsletter-logo.svg" alt="Bulletin Earthen" height="250px" width="250px" class="preview-image">
+                        <div class="preview-title">Bulletin Earthen</div>
+                        <div class="preview-text">Lancé en 2016 au pays du peuple Igorot, Earthen est notre bulletin bimensuel du mouvement de régénération de la terre. Nous partageons les dernières nouvelles du monde des ecobricks et de la construction en terre, de la science et de la philosophie régénératives. Nous vous tenons également informé des annonces et nouvelles importantes de GoBrik. Gratuit. Désabonnement facile à tout moment.</div>
+                    `;
+                    break;
+                case 'es':
+                    content = `
+                        <img src="../svgs/earthen-newsletter-logo.svg" alt="Boletín de Earthen" height="250px" width="250px" class="preview-image">
+                        <div class="preview-title">Boletín de Earthen</div>
+                        <div class="preview-text">Iniciado en 2016 en la tierra del pueblo Igorot, Earthen es nuestro boletín bimensual del movimiento regenerativo de la tierra. Compartimos las últimas noticias del mundo de los ecobricks y la construcción con tierra, la ciencia y la filosofía regenerativas. También te mantenemos al día con los principales anuncios y noticias de GoBrik. Gratis. Fácil de darse de baja en cualquier momento.</div>
+                    `;
+                    break;
+                case 'id':
+                    content = `
+                        <img src="../svgs/earthen-newsletter-logo.svg" alt="Buletin Earthen" height="250px" width="250px" class="preview-image">
+                        <div class="preview-title">Buletin Earthen</div>
+                        <div class="preview-text">Dimulai pada tahun 2016 di tanah orang Igorot, Earthen adalah buletin dua bulanan kami tentang gerakan regeneratif bumi. Kami berbagi berita terbaru dari dunia ecobricks dan bangunan tanah, sains, dan filosofi regeneratif. Kami juga memberi Anda pembaruan tentang pengumuman dan berita utama dari GoBrik. Gratis. Mudah untuk berhenti berlangganan kapan saja.</div>
+                    `;
+                    break;
+                default: // 'en' or any other
+                    content = `
+                        <img src="../svgs/earthen-newsletter-logo.svg" alt="Earthen Newsletter" height="250px" width="250px" class="preview-image">
+                        <div class="preview-title">Earthen Newsletter</div>
+                        <div class="preview-text">Started in 2016 in the land of the Igorot people, Earthen is our bi-monthly newsletter of the earthen regenerative movement. We share the latest news from the world of ecobricks and earth building, regenerative science, and philosophy. We also keep you up to date with major GoBrik announcements and news. Free. Easy to unsubscribe at any time.</div>
+                    `;
+            }
+            break;
+
+        case 'ecobrick':
+            switch(lang) {
+                case 'fr':
+                    content = `
+                        <img src="../webps/faqs-400px.webp" alt="Termes et Types Ecobrick" height="200px" width="200px" class="preview-image">
+                        <div class="preview-title">Le Terme</div>
+                        <div class="preview-text">En 2016, les leaders de la transition plastique du monde entier ont convenu d'utiliser le terme "ecobrick" sans trait d'union ni majuscule comme terme de référence cohérent et standardisé dans le guide et leurs documents. Ainsi, les ecobrickers du monde entier pourraient se référer avec un seul mot au même concept et les recherches sur le web ainsi que les hashtags accéléreraient la diffusion mondiale. Consultez wikipedia.org/ecobricks pour l'histoire complète.</div>
+                    `;
+                    break;
+                case 'es':
+                    content = `
+                        <img src="../webps/faqs-400px.webp" alt="Términos y Tipos de Ecobrick" height="200px" width="200px" class="preview-image">
+                        <div class="preview-title">El Término</div>
+                        <div class="preview-text">En 2016, los líderes de la transición plástica de todo el mundo acordaron usar el término "ecobrick" sin guion y sin mayúscula como el término de referencia coherente y estandarizado en la guía y sus materiales. De esta manera, los ecobrickers de todo el mundo podrían referirse con una sola palabra al mismo concepto y las búsquedas en la web, así como los hashtags, acelerarían la difusión global. Consulte wikipedia.org/ecobricks para la historia completa.</div>
+                    `;
+                    break;
+                case 'id':
+                    content = `
+                        <img src="../webps/faqs-400px.webp" alt="Istilah dan Jenis Ecobrick" height="200px" width="200px" class="preview-image">
+                        <div class="preview-title">Istilah</div>
+                        <div class="preview-text">Pada tahun 2016, para pemimpin transisi plastik di seluruh dunia sepakat untuk menggunakan istilah 'ecobrick' tanpa tanda hubung dan huruf kapital sebagai istilah standar yang konsisten dalam panduan dan materi mereka. Dengan cara ini, ecobrickers di seluruh dunia dapat merujuk dengan satu kata ke konsep yang sama dan pencarian web serta tagar akan mempercepat penyebaran global. Lihat wikipedia.org/ecobricks untuk sejarah lengkapnya.</div>
+                    `;
+                    break;
+                default: // 'en' or any other
+                    content = `
+                        <img src="../webps/faqs-400px.webp" alt="Ecobrick Term and Types" height="200px" width="200px" class="preview-image">
+                        <div class="preview-title">The Term</div>
+                        <div class="preview-text">In 2016, plastic transition leaders around the world agreed to use the non-hyphenated, non-capitalized term ‘ecobrick’ as the consistent, standardized term of reference in the guidebook and their materials. In this way, ecobrickers around the world would be able to refer with one word to the same concept, and web searches and hashtags would accelerate global dissemination. See wikipedia.org/ecobricks for the full history.</div>
+                    `;
+            }
+            break;
+
+        default:
+            content = '<p>Invalid term selected.</p>';
+    }
+
+    messageContainer.innerHTML = content;
+
+    // Show the modal and update other page elements
+    modal.style.display = 'flex';
+    document.getElementById('page-content').classList.add('blurred');
+    document.getElementById('footer-full').classList.add('blurred');
+    document.body.classList.add('modal-open');
+}
+
+
 </script>

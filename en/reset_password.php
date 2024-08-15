@@ -11,8 +11,8 @@ ini_set('display_errors', 1);
 
 include '../buwanaconn_env.php'; // This file provides the first database server, user, dbname information
 
-
-$email = isset($_POST['email']) ? trim($_POST['email']) : '';
+// Validate the email input
+$email = isset($_POST['email']) ? filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL) : '';
 
 if ($email) {
     try {
@@ -77,6 +77,7 @@ if ($email) {
                 echo '<script>alert("Message could not be sent. Mailer Error: ' . $mail->ErrorInfo . '"); window.location.href = "../' . $lang . '/login.php";</script>';
             }
         } else {
+            // Redirect if the email is not found in the database
             header('Location: ../' . $lang . '/login.php?email_not_found&email=' . urlencode($email));
             exit();
         }
@@ -84,6 +85,7 @@ if ($email) {
         echo "<script>console.error('Error: " . $e->getMessage() . "');</script>";
     }
 } else {
+    // Invalid email input
     echo '<script>alert("Please enter a valid email address."); window.location.href = "../' . $lang . '/login.php";</script>';
 }
 

@@ -6,8 +6,6 @@ ini_set('display_errors', 1);
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-
-
 // Initialize variables
 $ecobricker_id = $_GET['id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
@@ -16,6 +14,7 @@ $email_addr = '';
 $code_sent = false;
 $version = '0.472';
 $page = 'activate';
+$verification_code = 'AYYEW';  // This should be dynamically generated in a real scenario
 
 // PART 1: Check if ecobricker_id is passed in the URL
 if (is_null($ecobricker_id)) {
@@ -67,25 +66,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_email'])) {
         // Content
         $mail->isHTML(true);
         $mail->Subject = 'GoBrik Verification Code';
-        $mail->Body = "Hello $first_name!<br><br>If you're reading this, we're glad! The code to activate your account is:<br><br><b>AYYEW</b><br><br>Return back to your browser and enter the code, or visit this page:<br>https://beta.gobrik.com/en/active.php?status=go&buwana_id=63 <br><br>The GoBrik team";
+        $mail->Body = "Hello $first_name!<br><br>If you're reading this, we're glad! The code to activate your account is:<br><br><b>$verification_code</b><br><br>Return back to your browser and enter the code, or visit this page:<br>https://beta.gobrik.com/en/active.php?status=go&buwana_id=63 <br><br>The GoBrik team";
 
         $mail->send();
         $code_sent = true;
-       $mail->send();
-                echo '<script>alert("An email with a link to reset your GoBrik Buwana password has been sent!"); window.location.href = "../' . $lang . '/login.php";</script>';
-            } catch (Exception $e) {
-                echo '<script>alert("Message could not be sent. Mailer Error: ' . $mail->ErrorInfo . '"); window.location.href = "../' . $lang . '/login.php";</script>';
-            }
-        } else {
-            header('Location: ../' . $lang . '/login.php?email_not_found&email=' . urlencode($email));
-            exit();
-        }
+
+        // Store the code in the session for validation later
+        $_SESSION['verification_code'] = $verification_code;
+
     } catch (Exception $e) {
-        echo "<script>console.error('Error: " . $e->getMessage() . "');</script>";
+        echo '<script>alert("Message could not be sent. Mailer Error: ' . $mail->ErrorInfo . '");</script>';
     }
-} else {
-    echo '<script>alert("Please enter a valid email address."); window.location.href = "../' . $lang . '/login.php";</script>';
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -95,15 +88,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_email'])) {
 <title>Confirm Your Email</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<style>
+    .hidden { display: none; }
+    .success { color: green; }
+    .error { color: red; }
+</style>
 
-
-<!--
-GoBrik.com site version 3.0
-Developed and made open source by the Global Ecobrick Alliance
-See our git hub repository for the full code and to help out:
-https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
-
-<?php require_once ("../includes/activate-inc.php");?>
+</head>
+<body>
 
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
@@ -121,10 +113,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <form method="post" action="">
                <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
                 <div id="submit-section" style="text-align:center;margin-top:20px;padding-right:15px;padding-left:15px" title="Start Activation process">
-                    <input type="submit" id="send_email" value="📨 Send email" class="submit-button activate">
+                    <input type="submit" name="send_email" id="send_email" value="📨 Send email" class="submit-button activate">
                 </div>
             </div>
-
             </form>
             <p>Do you no longer use this email address? You'll need to <a href="signup.php">create a new account</a> or contact our team at support@gobrik.com.</p>
         </div>
@@ -150,16 +141,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 </div>
 
-</div>
-
-
 <!--FOOTER STARTS HERE-->
 <?php require_once ("../footer-2024.php"); ?>
 
-
 <script>
 $(document).ready(function () {
-    var code = "AYYEW";
+    var correctCode = "<?php echo $_SESSION['verification_code'] ?? ''; ?>";
     var countdownTimer;
     var timeLeft = 60;
 
@@ -172,7 +159,7 @@ $(document).ready(function () {
         });
 
         if (enteredCode.length === 5) {
-            if (enteredCode === code) {
+            if (enteredCode === correctCode) {
                 $('#code-feedback').text('Code confirmed!').addClass('success').removeClass('error');
                 setTimeout(function () {
                     window.location.href = "activate-2.php";
@@ -202,10 +189,11 @@ $(document).ready(function () {
         $('#timer').text('1:00');
         $('#resend-code').html('Didn\'t get your code? You can request a resend of the code in <span id="timer">1:00</span>');
 
-        // Resend email logic
-        // You can resend the email here using AJAX or reloading the form
+        // Trigger the form submission to resend email (you can implement AJAX here if desired)
+        $('form').submit();
     });
 });
 </script>
+
 </body>
 </html>

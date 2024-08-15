@@ -172,6 +172,7 @@ var buwanaId = '<?php echo $buwana_id; ?>';
 
 // Function to log out the user and redirect to login.php with buwana_id appended
 function logoutUser() {
+alert(buwanaId);
     if (buwanaId) {
         // Redirect to logout.php with buwana_id appended to the login.php URL
         window.location.href = 'logout.php?redirect=login.php?buwana_id=' + encodeURIComponent(buwanaId);

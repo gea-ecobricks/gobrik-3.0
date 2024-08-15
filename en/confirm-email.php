@@ -6,6 +6,8 @@ ini_set('display_errors', 1);
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+
+
 // Initialize variables
 $ecobricker_id = $_GET['id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
@@ -117,9 +119,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <h2><?php echo htmlspecialchars($first_name); ?>, first let's confirm your email.</h2>
             <p>Click the send button to send a confirmation email to <?php echo htmlspecialchars($email_addr); ?> to receive your account activation code.</p>
             <form method="post" action="">
-                <button type="submit" name="send_email">Validate Email</button>
+               <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
+                <div id="submit-section" style="text-align:center;margin-top:20px;padding-right:15px;padding-left:15px" title="Start Activation process">
+                    <input type="submit" id="send_email" value="📨 Send email" class="submit-button activate">
+                </div>
+            </div>
+
             </form>
-            <p>Do you no longer use this email address? You'll need to create a new account then or contact our team at support@gobrik.com.</p>
+            <p>Do you no longer use this email address? You'll need to <a href="signup.php">create a new account</a> or contact our team at support@gobrik.com.</p>
         </div>
 
         <!-- Code entry form -->

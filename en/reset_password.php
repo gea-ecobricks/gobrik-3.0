@@ -9,19 +9,8 @@ require '../vendor/autoload.php'; // Include Composer's autoloader
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Database credentials
-$buwana_servername = "localhost";
-$buwana_username = "ecobricks_gobrik_app";
-$buwana_password = "1EarthenAuth!";
-$buwana_dbname = "ecobricks_earthenAuth_db";
+include '../buwanaconn_env.php'; // This file provides the first database server, user, dbname information
 
-// Establish connection to the database
-$buwana_conn = new mysqli($buwana_servername, $buwana_username, $buwana_password, $buwana_dbname);
-
-// Check connection
-if ($buwana_conn->connect_error) {
-    die("Connection failed: " . $buwana_conn->connect_error);
-}
 
 $email = isset($_POST['email']) ? trim($_POST['email']) : '';
 

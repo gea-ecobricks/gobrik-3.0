@@ -18,11 +18,14 @@ if (empty($_SESSION['csrf_token'])) {
 }
 
 
-// Grab language directory from URL
+// Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.61';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+$buwana_id = isset($_GET['buwana_id']) ? htmlspecialchars($_GET['buwana_id']) : '';
+$status = isset($_GET['status']) ? htmlspecialchars($_GET['status']) : '';
+
 
 
 function getLogoutMessage($lang) {
@@ -61,13 +64,18 @@ echo '<!DOCTYPE html>
         <div style="text-align:center;width:100%;margin:auto;">
             <h3 data-lang-id="001-login-heading">
                 <?php
-                if (isset($_GET['status']) && $_GET['status'] === 'loggedout') {
+                if ($status === 'loggedout') {
                     echo htmlspecialchars(getLogoutMessage($lang));
                 } else {
                     echo "Welcome back!";
                 }
                 ?>
             </h3>
+
+            <?php if ($buwana_id): ?>
+                <p>Logged out from Buwana ID: <?php echo htmlspecialchars($buwana_id); ?></p>
+            <?php endif; ?>
+
             <h4 data-lang-id="002-login-subheading" style="margin-top:5px, margin-bottom:5px;">Login with your account credentials.</h4>
         </div>
 

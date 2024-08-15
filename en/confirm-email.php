@@ -127,7 +127,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>
 
         <!-- Code entry form -->
-        <div id="second-code-confirm" <?php if (!$code_sent) echo 'class="hidden"'; ?>>
+        <div id="second-code-confirm" style="text-align:center;" <?php if (!$code_sent) echo 'class="hidden"'; ?>>
             <h2>Please enter your code:</h2>
             <p>Check your email <?php echo htmlspecialchars($email_addr); ?> for your account confirmation code. Enter it here:</p>
 
@@ -141,10 +141,15 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
             <p id="code-feedback"></p>
 
-            <p id="resend-code">Didn't get your code? You can request a resend of the code in <span id="timer">1:00</span></p>
+            <p id="resend-code" style="font-size:1em">Didn't get your code? You can request a resend of the code in <span id="timer">1:00</span></p>
         </div>
 
     </div>
+
+<div style="text-align:center;width:100%;margin:auto;margin-top:30px;margin-bottom:50px;">
+    <p style="font-size:medium;" data-lang-id="000-no-account-yet">Don't have an account yet? <a href="signup.php">Signup!</a></p>
+</div>
+
 </div>
 
 </div>
@@ -180,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     setTimeout(function() {
                         // Redirect to activate-2.php with buwana_id as a parameter
                         window.location.href = "activate-2.php?id=" + buwana_id;
-                    }, 2000);
+                    }, 1000);
                 } else {
                     codeFeedback.textContent = 'Code incorrect';
                     codeFeedback.classList.add('error');
@@ -208,14 +213,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 1000);
 
-    // Handle Resend Link Click
+    // Handle Resend Link Click: Show the first form and hide the second form
     document.addEventListener('click', function(e) {
         if (e.target && e.target.id === 'resend-link') {
             e.preventDefault();
-            document.getElementById('resend-code-form').submit();
+            // Hide the second-code-confirm div and show the first-send-form div
+            document.getElementById('second-code-confirm').style.display = 'none';
+            document.getElementById('first-send-form').style.display = 'block';
         }
     });
 });
+
 </script>
 
 

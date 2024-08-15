@@ -86,7 +86,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['send_email']) || iss
 ?>
 
 
-
 <!DOCTYPE html>
 <html lang="<?php echo $lang; ?>">
 <head>
@@ -154,9 +153,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <!--FOOTER STARTS HERE-->
 <?php require_once ("../footer-2024.php"); ?>
 
-<script>
 
-    document.addEventListener('DOMContentLoaded', function() {
+<script>
+document.addEventListener('DOMContentLoaded', function() {
     var code = "AYYEW";
     var countdownTimer;
     var timeLeft = 60;
@@ -188,35 +187,33 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         });
     });
 
+    // Show/Hide Divs after email is sent
+    if (<?php echo json_encode($code_sent); ?>) {
+        document.getElementById('first-send-form').style.display = 'none';
+        document.getElementById('second-code-confirm').style.display = 'block';
+    }
+
     // Countdown timer for resend code
     countdownTimer = setInterval(function() {
         var timerElement = document.getElementById('timer');
         if (timeLeft <= 0) {
             clearInterval(countdownTimer);
-            var resendCodeElement = document.getElementById('resend-code');
-            resendCodeElement.innerHTML = '<a href="#">Click here to resend the code</a>';
+            document.getElementById('resend-code').innerHTML = '<a href="#" id="resend-link">Click here to resend the code</a>';
         } else {
             timeLeft--;
             timerElement.textContent = '0:' + (timeLeft < 10 ? '0' + timeLeft : timeLeft);
         }
     }, 1000);
 
-    // Resend code logic
-    document.getElementById('resend-code').addEventListener('click', function(e) {
-        if (e.target.tagName === 'A') {
+    // Handle Resend Link Click
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.id === 'resend-link') {
             e.preventDefault();
-            // Reset the timer
-            timeLeft = 60;
-            document.getElementById('timer').textContent = '1:00';
-            document.getElementById('resend-code').innerHTML = 'Didn\'t get your code? You can request a resend of the code in <span id="timer">1:00</span>';
-
-            // Resend email logic (submit the form)
-            document.querySelector('form').submit();
+            document.getElementById('resend-code-form').submit();
         }
     });
 });
-
-
 </script>
+
 </body>
 </html>

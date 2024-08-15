@@ -60,7 +60,7 @@ if ($email) {
                 // Content
                 $mail->isHTML(true); // Set email format to HTML
                 $mail->Subject = 'Reset your GoBrik password';
-                $mail->Body    = "$first_name,<br><br>
+                $mail->Body    = "Hello $first_name,<br><br>
                 A password reset was requested at " . date('Y-m-d H:i:s') . " on GoBrik.com for your Buwana account. If you didn't request this, please disregard! To reset your password, please click the following link:<br><br>
                 <a href='https://beta.gobrik.com/{$lang}/password-reset.php?token={$password_reset_token}'>Reset Password</a><br><br>
                 Have a great and green day!<br><br>

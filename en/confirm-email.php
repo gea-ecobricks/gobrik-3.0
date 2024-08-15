@@ -6,6 +6,8 @@ ini_set('display_errors', 1);
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+ require '../vendor/autoload.php'; // Path to PHPMailer
+
 // Initialize variables
 $ecobricker_id = $_GET['id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
@@ -48,7 +50,7 @@ $gobrik_conn->close();
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_email'])) {
     echo "Form submitted. Preparing to send email..."; // Debugging output
 
-    require '../vendor/autoload.php'; // Path to PHPMailer
+
 
     $mail = new PHPMailer(true);
     try {
@@ -70,16 +72,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_email'])) {
         $mail->Subject = 'GoBrik Verification Code';
         $mail->Body = "Hello $first_name!<br><br>If you're reading this, we're glad! The code to activate your account is:<br><br><b>AYYEW</b><br><br>Return back to your browser and enter the code, or visit this page:<br>https://beta.gobrik.com/en/confirm-email.php?status=go&buwana_id=63 <br><br>The GoBrik team";
 
-        if ($mail->send()) {
-            echo "Email sent successfully."; // Debugging output
-            $code_sent = true;
-            echo '<script>alert("An email with your code has been sent!");</script>';
-        } else {
-            echo "Failed to send email."; // Debugging output
-        }
-    } catch (Exception $e) {
-        echo '<script>alert("Message could not be sent. Mailer Error: ' . $mail->ErrorInfo . '");</script>';
-    }
+        $mail->send();
+                echo '<script>alert("An email with your code has been sent!");';
+        } catch (Exception $e) {
+                echo '<script>alert("Message could not be sent. Mailer Error: ' . $mail->ErrorInfo . '");';
+            }
+
 }
 ?>
 

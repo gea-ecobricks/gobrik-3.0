@@ -227,7 +227,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 /* PASSWORD RESET MODAL  */
-
 function showPasswordReset(type, lang = 'en', email = '') {
     const modal = document.getElementById('form-modal-message');
     const photobox = document.getElementById('modal-photo-box');
@@ -271,11 +270,11 @@ function showPasswordReset(type, lang = 'en', email = '') {
                     <h1>🔓</h1>
                 </div>
                 <div class="preview-title">${title}</div>
-                <form id="resetPasswordForm" action="reset_password.php" method="POST" onsubmit="return validateForm()">
+                <form id="resetPasswordForm" action="reset_password.php" method="POST">
                     <div class="preview-text" style="font-size:medium;">${promptText}</div>
                     <input type="email" name="email" required value="${email}">
                     <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
-                        <div id="no-buwana-email" class="form-warning" style="margin-top:5px;margin-bottom:5px;" data-lang-id="010-no-buwana-email">${errorText}</div>
+                        <div id="no-buwana-email" class="form-warning" style="display:none;margin-top:5px;margin-bottom:5px;" data-lang-id="010-no-buwana-email">${errorText}</div>
                         <button type="submit" class="submit-button enabled">${buttonText}</button>
                     </div>
                 </form>
@@ -294,8 +293,7 @@ function showPasswordReset(type, lang = 'en', email = '') {
     document.body.classList.add('modal-open');
 }
 
-
- window.onload = function() {
+window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
 
     // Check if the 'email_not_found' parameter exists in the URL
@@ -313,11 +311,13 @@ function showPasswordReset(type, lang = 'en', email = '') {
         setTimeout(() => {
             const noBuwanaEmail = document.getElementById('no-buwana-email');
             if (noBuwanaEmail) {
+                console.log("Displaying the 'email not found' error.");
                 noBuwanaEmail.style.display = 'block';
             }
         }, 100);
     }
 };
+
 </script>
 
 

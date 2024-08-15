@@ -157,7 +157,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     <span toggle="#password" class="toggle-password" style="cursor: pointer;">🔒</span>
                 </div>
 
-                <p class="form-caption" data-lang-id="000-forgot-your-password">Forgot your password? <a href="#" onclick="showModalInfo('reset')" class="underline-link">Reset it.</a></p>
+                <p class="form-caption" data-lang-id="000-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link">Reset it.</a></p>
                 <div id="password-error" class="form-field-error" style="display:none;" data-lang-id="000-password-wrong">👉 Password is wrong.</div>
             </div>
 
@@ -175,93 +175,100 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 <script>
- function showModalInfo(type, email = '') {
-            const modal = document.getElementById('form-modal-message');
-            const photobox = document.getElementById('modal-photo-box');
-            const messageContainer = modal.querySelector('.modal-message');
-            let content = '';
-            photobox.style.display = 'none';
-            switch (type) {
-                case 'reset':
-                    content = `
-                        <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
-                            <h1>🔓</h1>
-                        </div>
-                        <div class="preview-title">Reset Password</div>
-                        <form id="resetPasswordForm" action="reset_password.php" method="POST" onsubmit="return validateForm()">
-                            <div class="preview-text" style="font-size:medium;">Enter your email to reset your password:</div>
-                            <input type="email" name="email" required value="${email}">
-                            <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
-                                <div id="no-buwana-email" class="form-warning" style="margin-top:5px;margin-bottom:5px;" data-lang-id="010-no-buwana-email">🤔 Hmmm... we can't find an account that uses this email!</div>
-                                <button type="submit" class="submit-button enabled">Reset Password</button>
 
-                            </div>
-                        </form>
-                    `;
+function showPasswordReset(type, lang = 'en', email = '') {
+    const modal = document.getElementById('form-modal-message');
+    const photobox = document.getElementById('modal-photo-box');
+    const messageContainer = modal.querySelector('.modal-message');
+    let content = '';
+    photobox.style.display = 'none';
+
+    switch (type) {
+        case 'reset':
+            let title, promptText, buttonText, errorText;
+
+            switch (lang) {
+                case 'fr':
+                    title = "Réinitialiser le mot de passe";
+                    promptText = "Entrez votre email pour réinitialiser votre mot de passe :";
+                    buttonText = "Réinitialiser le mot de passe";
+                    errorText = "🤔 Hmmm... nous ne trouvons aucun compte utilisant cet email !";
                     break;
-                default:
-                    content = '<p>Invalid term selected.</p>';
+                case 'es':
+                    title = "Restablecer la contraseña";
+                    promptText = "Ingrese su correo electrónico para restablecer su contraseña:";
+                    buttonText = "Restablecer la contraseña";
+                    errorText = "🤔 Hmmm... no podemos encontrar una cuenta que use este correo electrónico!";
+                    break;
+                case 'id':
+                    title = "Atur Ulang Kata Sandi";
+                    promptText = "Masukkan email Anda untuk mengatur ulang kata sandi Anda:";
+                    buttonText = "Atur Ulang Kata Sandi";
+                    errorText = "🤔 Hmmm... kami tidak dapat menemukan akun yang menggunakan email ini!";
+                    break;
+                default: // 'en'
+                    title = "Reset Password";
+                    promptText = "Enter your email to reset your password:";
+                    buttonText = "Reset Password";
+                    errorText = "🤔 Hmmm... we can't find an account that uses this email!";
+                    break;
             }
-            messageContainer.innerHTML = content;
 
-            modal.style.display = 'flex';
-            document.getElementById('page-content').classList.add('blurred');
-            document.getElementById('footer-full').classList.add('blurred');
-            document.body.classList.add('modal-open');
-        }
+            content = `
+                <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
+                    <h1>🔓</h1>
+                </div>
+                <div class="preview-title">${title}</div>
+                <form id="resetPasswordForm" action="reset_password.php" method="POST" onsubmit="return validateForm()">
+                    <div class="preview-text" style="font-size:medium;">${promptText}</div>
+                    <input type="email" name="email" required value="${email}">
+                    <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
+                        <div id="no-buwana-email" class="form-warning" style="margin-top:5px;margin-bottom:5px;" data-lang-id="010-no-buwana-email">${errorText}</div>
+                        <button type="submit" class="submit-button enabled">${buttonText}</button>
+                    </div>
+                </form>
+            `;
+            break;
 
-        function validateForm() {
-            document.getElementById('no-buwana-email').style.display = 'none';
-            return true;
-        }
-
-        // Check URL parameters on page load
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('email_not_found')) {
-                const email = urlParams.get('email') || '';
-                showModalInfo('reset', email);
-                setTimeout(() => {
-                    const noBuwanaEmail = document.getElementById('no-buwana-email');
-                    if (noBuwanaEmail) {
-                        noBuwanaEmail.style.display = 'block';
-                    }
-                }, 100);
-            }
-        }
-
-
-
-
-
-
-
-
-
-
-    window.onscroll = function() {
-        scrollLessThan30();
-        scrollMoreThan30();
-        // showHideHeader();
-    };
-
-    function scrollLessThan30() {
-        if (window.pageYOffset <= 30) {
-    var topPageImage = document.querySelector('.top-page-image');
-                if (topPageImage) {
-                topPageImage.style.zIndex = "35";
-            }
-        }
+        default:
+            content = '<p>Invalid term selected.</p>';
     }
 
-    function scrollMoreThan30() {
-        if (window.pageYOffset >= 30) {
-    var topPageImage = document.querySelector('.top-page-image');
-                if (topPageImage) {
-                topPageImage.style.zIndex = "25";
+    messageContainer.innerHTML = content;
+
+    modal.style.display = 'flex';
+    document.getElementById('page-content').classList.add('blurred');
+    document.getElementById('footer-full').classList.add('blurred');
+    document.body.classList.add('modal-open');
+}
+
+function validateForm() {
+    document.getElementById('no-buwana-email').style.display = 'none';
+    return true;
+}
+
+// Check URL parameters on page load
+window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('email_not_found')) {
+        const email = urlParams.get('email') || '';
+        const lang = '<?php echo $lang; ?>'; // Ensure $lang is passed from the backend
+        showPasswordReset('reset', lang, email);
+        setTimeout(() => {
+            const noBuwanaEmail = document.getElementById('no-buwana-email');
+            if (noBuwanaEmail) {
+                noBuwanaEmail.style.display = 'block';
             }
-        }
+        }, 100);
     }
+}
+
+
+
+
+
+
+
 
     </script>
 </body>

@@ -17,6 +17,16 @@
 <STYLE>
 
 
+    .hidden {
+        display: none;
+    }
+    .error {
+        color: red;
+    }
+    .success {
+        color: green;
+    }
+
 
     #main {
         height: fit-content;

@@ -46,7 +46,7 @@ if ($stmt_user_info) {
 
 $gobrik_conn->close();
 
-// PART 3: Handle form submission to send the confirmation code
+// PART 3: Handle form submission to send the confirmation code by email
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_email'])) {
     require '../vendor/autoload.php'; // Path to PHPMailer
     $mail = new PHPMailer(true);
@@ -71,11 +71,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_email'])) {
 
         $mail->send();
         $code_sent = true;
+       $mail->send();
+                echo '<script>alert("An email with a link to reset your GoBrik Buwana password has been sent!"); window.location.href = "../' . $lang . '/login.php";</script>';
+            } catch (Exception $e) {
+                echo '<script>alert("Message could not be sent. Mailer Error: ' . $mail->ErrorInfo . '"); window.location.href = "../' . $lang . '/login.php";</script>';
+            }
+        } else {
+            header('Location: ../' . $lang . '/login.php?email_not_found&email=' . urlencode($email));
+            exit();
+        }
     } catch (Exception $e) {
-        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        echo "<script>console.error('Error: " . $e->getMessage() . "');</script>";
     }
+} else {
+    echo '<script>alert("Please enter a valid email address."); window.location.href = "../' . $lang . '/login.php";</script>';
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -85,17 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_email'])) {
 <title>Confirm Your Email</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<style>
-    .hidden {
-        display: none;
-    }
-    .error {
-        color: red;
-    }
-    .success {
-        color: green;
-    }
-</style>
+
 
 <!--
 GoBrik.com site version 3.0
@@ -115,7 +115,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
 
         <!-- Email confirmation form -->
-        <div id="first-send-form" <?php if ($code_sent) echo 'class="hidden"'; ?>>
+        <div id="first-send-form" style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;" <?php if ($code_sent) echo 'class="hidden"'; ?>>
             <h2><?php echo htmlspecialchars($first_name); ?>, first let's confirm your email.</h2>
             <p>Click the send button to send a confirmation email to <?php echo htmlspecialchars($email_addr); ?> to receive your account activation code.</p>
             <form method="post" action="">
@@ -149,6 +149,13 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     </div>
 </div>
+
+</div>
+
+
+<!--FOOTER STARTS HERE-->
+<?php require_once ("../footer-2024.php"); ?>
+
 
 <script>
 $(document).ready(function () {
@@ -200,9 +207,5 @@ $(document).ready(function () {
     });
 });
 </script>
-
-<!--FOOTER STARTS HERE-->
-<?php require_once ("../footer-2024.php"); ?>
-
 </body>
 </html>

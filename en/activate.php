@@ -5,9 +5,9 @@ ini_set('display_errors', 1);
 
 // Initialize variables
 $response = ['success' => false];
-$ecobricker_id = $_GET['user_id'] ?? null;
+$ecobricker_id = $_GET['id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.471';
+$version = '0.472';
 $page = 'activate';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $first_name = '';

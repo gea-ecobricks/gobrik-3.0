@@ -29,7 +29,7 @@ if ($stmt_check_email) {
         $stmt_check_email->fetch();
 
         if ($buwana_activated == '0') {  // Ensure this is a comparison
-            header("Location: activate.php?user_id=$ecobricker_id");  // Redirect to activation page
+            header("Location: activate.php?id=$ecobricker_id");  // Redirect to activation page
             exit();
         }
 

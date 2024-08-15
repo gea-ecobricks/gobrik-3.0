@@ -7,7 +7,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 // Initialize variables
-$ecobricker_id = $_GET['user_id'] ?? null;
+$ecobricker_id = $_GET['id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $first_name = '';
 $email_addr = '';

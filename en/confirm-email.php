@@ -12,6 +12,8 @@ $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $first_name = '';
 $email_addr = '';
 $code_sent = false;
+$version = '0.472';
+$page = 'activate';
 
 // PART 1: Check if ecobricker_id is passed in the URL
 if (is_null($ecobricker_id)) {

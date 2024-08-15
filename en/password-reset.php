@@ -14,7 +14,7 @@ if (isset($_SESSION['buwana_id'])) {
 
 // Grab language directory from URL
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.587';
+$version = '0.59';
 $page = 'reset';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -128,6 +128,8 @@ document.getElementById("resetForm").addEventListener("submit", function(event) 
         event.preventDefault();
     }
 });
+
+
 
 </script>
 

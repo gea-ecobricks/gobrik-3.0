@@ -46,6 +46,8 @@ $gobrik_conn->close();
 
 // PART 3: Handle form submission to send the confirmation code by email
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_email'])) {
+    echo "Form submitted. Preparing to send email..."; // Debugging output
+
     require '../vendor/autoload.php'; // Path to PHPMailer
 
     $mail = new PHPMailer(true);
@@ -68,12 +70,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_email'])) {
         $mail->Subject = 'GoBrik Verification Code';
         $mail->Body = "Hello $first_name!<br><br>If you're reading this, we're glad! The code to activate your account is:<br><br><b>AYYEW</b><br><br>Return back to your browser and enter the code, or visit this page:<br>https://beta.gobrik.com/en/active.php?status=go&buwana_id=63 <br><br>The GoBrik team";
 
-        $mail->send();
-        $code_sent = true;
-
-        echo '<script>alert("An email with your code has been sent!");</script>';
+        if ($mail->send()) {
+            echo "Email sent successfully."; // Debugging output
+            $code_sent = true;
+            echo '<script>alert("An email with your code has been sent!");</script>';
+        } else {
+            echo "Failed to send email."; // Debugging output
+        }
     } catch (Exception $e) {
-        echo '<script>alert("Message could not be sent. Mailer Error: ' . $mail->ErrorInfo . '"); window.location.href = "../' . $lang . '/login.php";</script>';
+        echo '<script>alert("Message could not be sent. Mailer Error: ' . $mail->ErrorInfo . '");</script>';
     }
 }
 ?>
@@ -117,7 +122,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             </div>
 
             </form>
-            <p>Do you no longer use this email address? You'll need to <a href="signup.php">create a new account</a> or contact our team at support@gobrik.com.</p>
+            <p style="font-size:1em;">Do you no longer use this email address? You'll need to <a href="signup.php">create a new account</a> or contact our team at support@gobrik.com.</p>
         </div>
 
         <!-- Code entry form -->

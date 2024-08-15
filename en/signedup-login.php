@@ -146,13 +146,22 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <!-- LOGIN FORM -->
         <form id="signed-up-login" method="post" action="signedup_login_process.php">
-            <!--<input type="hidden" name="buwana_id" value="<?php echo htmlspecialchars($buwana_id); ?>">
-            <div class="form-item">
-                <label for="credential_value"><span data-lang-id="000-your">Your</span> <?php echo htmlspecialchars($credential_type); ?> :</label><br>
-                <input type="text" id="credential_value" name="credential_value" value="<?php echo htmlspecialchars($credential_key); ?>" required>
-            </div>-->
+            <input type="hidden" name="buwana_id" value="<?php echo htmlspecialchars($buwana_id); ?>">
 
             <div class="form-item">
+                <label for="credential_value"><span data-lang-id="000-your">Your</span> <?php echo htmlspecialchars($credential_type); ?> :</label><br>
+                <div class="input-wrapper" style="position: relative;">
+                    <input type="text" id="credential_value" name="credential_value" value="<?php echo htmlspecialchars($credential_key); ?>" required>
+                    <span class="toggle-select" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔑</span>
+                    <div id="dropdown-menu" style="display: none; position: absolute; right: 10px; top: 100%; z-index: 1000; background: white; border: 1px solid #ccc; width: 150px; text-align: left;">
+                        <div class="dropdown-item">E-mail</div>
+                        <div class="dropdown-item disabled" style="opacity: 0.5;">SMS</div>
+                        <div class="dropdown-item disabled" style="opacity: 0.5;">Trainer</div>
+                    </div>
+                </div>
+            </div>
+
+        <!--    <div class="form-item">
         <label for="credential_key" data-lang-id="003-login-email">Your e-mail:</label>
         <div class="input-wrapper" style="position: relative;">
             <input type="text" id="credential_key" name="credential_key" required placeholder="Your e-mail..." value="<?php echo isset($_GET['credential_key']) ? htmlspecialchars($_GET['credential_key']) : ''; ?>">
@@ -163,7 +172,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <div class="dropdown-item disabled" style="opacity: 0.5;">Trainer</div>
             </div>
         </div>
-    </div>
+    </div>-->
 
 
             <div class="form-item">

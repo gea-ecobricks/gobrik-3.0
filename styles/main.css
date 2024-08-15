@@ -1661,6 +1661,7 @@ color: red;
         color: var(--text-color);
         margin-top: 15px;
         margin-bottom: 15px;
+        text-align:center;
     }
 
 
@@ -1671,7 +1672,7 @@ color: red;
 
     @media screen and (min-width: 700px) {
         .preview-text {
-            font-size: 1em;
+            font-size: 1.2em;
         }
 
         .brik-type-image {

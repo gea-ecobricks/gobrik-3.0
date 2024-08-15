@@ -597,13 +597,10 @@ margin-top: 40px;
 
 }
 
-/*.preview-image {*/
-/*    position: absolute;*/
-/*    top: 10px;*/
-/*    right:50%;*/
-/*    left:50%;*/
-/*    z-index:9;*/
-/*}*/
+.preview-image {
+margin: auto;
+  display: block;
+}
 
 .module-top-line {
     position: absolute;

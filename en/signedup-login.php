@@ -133,13 +133,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT -->
-   <div id="top-page-image" class="earthen-service top-page-image"></div>
+   <div id="top-page-image" class="earthen-service top-page-image" style="height: 230px;
+    margin-top: 40px;"></div>
 
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="100-login-heading-signed-up">Your Buwana Account is Created!🎉</h2>
+            <h2 data-lang-id="100-login-heading-signed-up">Your Buwana Account<br>is Created! 🎉</h2>
             <p>Ok <?php echo htmlspecialchars($first_name); ?>, <span data-lang-id="101-login-subheading-signed-up">now please use your <?php echo htmlspecialchars($credential_type); ?> to login for the first time to start setting up your account:</span></p>
         </div>
 
@@ -176,9 +177,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <div id="password-error" class="form-field-error" style="display:none;" data-lang-id="000-password-wrong">👉 Password is wrong.</div>
             </div>
 
-            <div style="text-align:center;">
-                <input type="submit" style="text-align:center;margin-top:15px;width:30%" id="submit-button" value="Login" class="enabled">
-            </div>
+
+
+            <div style="text-align:center;" data-lang-id="006-login-button-">
+        <input type="submit" style="text-align:center;margin-top:15px;width:30%; min-width: 175px;" id="submit-button" value="🔑 Login" class="submit-button enabled">
+    </div>
         </form>
     </div>
 </div>

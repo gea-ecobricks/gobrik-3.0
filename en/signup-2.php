@@ -119,7 +119,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     <div class="password-wrapper">
                         <input type="password" id="confirm_password" name="confirm_password" required>
                         <span toggle="#confirm_password" class="toggle-password" style="cursor: pointer;">🔒</span>
-                    <div>
+                    </div>
                     <div id="maker-error-invalid" class="form-field-error" style="margin-top:10px;" data-lang-id="010-pass-error-no-match">👉 Passwords do not match.</div>
                 </div>
 

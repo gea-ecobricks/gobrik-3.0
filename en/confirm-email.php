@@ -153,12 +153,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <!--FOOTER STARTS HERE-->
 <?php require_once ("../footer-2024.php"); ?>
 
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var code = "AYYEW";
     var countdownTimer;
     var timeLeft = 60;
+
+    // Fetch buwana_id from PHP
+    var buwana_id = "<?php echo htmlspecialchars($buwana_id); ?>";
 
     // Handle code entry
     var codeBoxes = document.querySelectorAll('.code-box');
@@ -176,7 +178,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     codeFeedback.classList.add('success');
                     codeFeedback.classList.remove('error');
                     setTimeout(function() {
-                        window.location.href = "activate-2.php";
+                        // Redirect to activate-2.php with buwana_id as a parameter
+                        window.location.href = "activate-2.php?id=" + buwana_id;
                     }, 2000);
                 } else {
                     codeFeedback.textContent = 'Code incorrect';
@@ -214,6 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
 
 </body>
 </html>

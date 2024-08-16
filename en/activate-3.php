@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt_update_buwana->close();
 
         // Redirect to the next step
-        header("Location: signedup-login.php?id=" . urlencode($buwana_id));  // Correctly using buwana_id for redirection
+        header("Location: login.php?status=firsttime&id=" . urlencode($buwana_id));  // Correctly using buwana_id for redirection
         exit();
     } else {
         error_log('Error preparing statement for updating Buwana user: ' . $buwana_conn->error);

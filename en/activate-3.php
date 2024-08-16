@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 // Initialize variables
 $buwana_id = $_GET['id'] ?? null;  // Correctly initializing buwana_id
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.457';
+$version = '0.458';
 $page = 'activate';
 $first_name = '';
 $email_addr = '';
@@ -192,7 +192,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once ("../footer-2024.php"); ?>
 
 <script>
-
 document.addEventListener('DOMContentLoaded', function() {
     // Show country selection after language is selected
     var languageSelect = document.getElementById('language_id');
@@ -210,20 +209,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-// Enable submit button after country is selected
-countryDropdown.addEventListener('change', function() {
-    if (this.value !== '') {
-        submitButton.disabled = false;
-        submitButton.classList.remove('disabled');
-        submitButton.classList.add('enabled');
-    } else {
-        submitButton.disabled = true;
-        submitButton.classList.remove('enabled');
-        submitButton.classList.add('disabled');
-    }
+    // Enable submit button after country is selected
+    countryDropdown.addEventListener('change', function() {
+        if (this.value !== '') {
+            submitButton.disabled = false;
+            submitButton.classList.remove('disabled');
+            submitButton.classList.add('enabled');
+        } else {
+            submitButton.disabled = true;
+            submitButton.classList.remove('enabled');
+            submitButton.classList.add('disabled');
+        }
+    });
 });
-}
-
 </script>
 
 </body>

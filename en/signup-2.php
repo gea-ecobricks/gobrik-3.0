@@ -198,41 +198,57 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         }
     });
 
-    $('#credential_value').on('blur', function() {
-        var email = $(this).val();
-        if (email) {
-            loadingSpinner.removeClass('green red').show();
-            $.ajax({
-                url: 'check_email.php',
-                type: 'POST',
-                data: { credential_value: email },
-                success: function(response) {
-                    loadingSpinner.hide();
+
+
+$('#credential_value').on('blur', function() {
+    var email = $(this).val();
+    if (email) {
+        loadingSpinner.removeClass('green red').show();
+        $.ajax({
+            url: 'check_email.php',
+            type: 'POST',
+            data: { credential_value: email },
+            success: function(response) {
+                loadingSpinner.hide();
+
+                // Parse the JSON response safely
+                try {
                     var res = JSON.parse(response);
-                    if (res.error === 'duplicate_email') {
-                        duplicateEmailError.show();
-                        duplicateGobrikEmail.hide();
-                        loadingSpinner.removeClass('green').addClass('red').show();
-                        setPasswordSection.style.display = 'none';
-                    } else if (res.error === 'duplicate_gobrik_email') {
-                        duplicateGobrikEmail.show();
-                        duplicateEmailError.hide();
-                        loadingSpinner.removeClass('red').addClass('green').show();
-                        setPasswordSection.style.display = 'block';
-                    } else {
-                        duplicateEmailError.hide();
-                        duplicateGobrikEmail.hide();
-                        loadingSpinner.removeClass('red').addClass('green').show();
-                        setPasswordSection.style.display = 'block';
-                    }
-                },
-                error: function() {
-                    loadingSpinner.hide();
-                    alert('An error occurred while checking the email. Please try again.');
+                } catch (e) {
+                    console.error("Invalid JSON response", response);
+                    alert("An error occurred while checking the email.");
+                    return;
                 }
-            });
-        }
-    });
+
+                // Handle different responses
+                if (res.success) {
+                    duplicateEmailError.hide();
+                    duplicateGobrikEmail.hide();
+                    loadingSpinner.removeClass('red').addClass('green').show();
+                    setPasswordSection.style.display = 'block';
+                } else if (res.error === 'duplicate_email') {
+                    duplicateEmailError.show();
+                    duplicateGobrikEmail.hide();
+                    loadingSpinner.removeClass('green').addClass('red').show();
+                    setPasswordSection.style.display = 'none';
+                } else if (res.error === 'duplicate_gobrik_email') {
+                    duplicateGobrikEmail.show();
+                    duplicateEmailError.hide();
+                    loadingSpinner.removeClass('green').addClass('red').show();
+                    setPasswordSection.style.display = 'none';
+                } else {
+                    // Generic error handling
+                    alert("An error occurred: " + res.error);
+                }
+            },
+            error: function() {
+                loadingSpinner.hide();
+                alert('An error occurred while checking the email. Please try again.');
+            }
+        });
+    }
+});
+
 
     // Show confirm password field when password length is at least 6 characters
     passwordField.addEventListener('input', function() {

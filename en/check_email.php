@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 
 $response = ['success' => false];
 
-include '../buwanaconn_env.php';
+include '../buwanaconn_env.php'; // Buwana connection
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Sanitize and validate email input
@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit();
     }
 
-    // Check if the email already exists in the first database
+    // Check if the email already exists in the Buwana database
     $sql_check_email = "SELECT COUNT(*) FROM users_tb WHERE email = ?";
     $stmt_check_email = $buwana_conn->prepare($sql_check_email);
     if ($stmt_check_email) {
@@ -37,10 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // Check if the email already exists in the GoBrik database
-include '../gobrikconn_env.php';
-
-
-
+    include '../gobrikconn_env.php'; // GoBrik connection
 
     $sql_check_gobrik_email = "SELECT COUNT(*) FROM tb_ecobrickers WHERE email_addr = ?";
     $stmt_check_gobrik_email = $gobrik_con->prepare($sql_check_gobrik_email);
@@ -62,9 +59,11 @@ include '../gobrikconn_env.php';
         exit();
     }
 
-    // Close the GoBrik database connection
-    $gobrik_conn->close();
+    // Close database connections
+    $buwana_conn->close();
+    $gobrik_con->close();
 
+    // No duplicate found in either database
     $response['success'] = true;
 } else {
     $response['error'] = 'invalid_request';

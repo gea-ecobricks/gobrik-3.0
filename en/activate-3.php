@@ -222,6 +222,7 @@ countryDropdown.addEventListener('change', function() {
         submitButton.classList.add('disabled');
     }
 });
+}
 
 </script>
 

@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 // Initialize variables
 $buwana_id = $_GET['id'] ?? null;  // Correctly initializing buwana_id
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.454';
+$version = '0.455';
 $page = 'activate';
 $first_name = '';
 $email_addr = '';
@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="<?php echo $lang; ?>">
 <head>
 <meta charset="UTF-8">
-<title>Activate your Buwana Account | Step 2 | GoBrik</title>
+<title>Activate your Buwana Account | Step 3 | GoBrik</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!--
@@ -135,7 +135,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT -->
-<div id="top-page-image" class="city-image top-page-image"></div>
+<div id="top-page-image" class="welcome-casandra top-page-image"></div>
 
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">

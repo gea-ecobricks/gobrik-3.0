@@ -542,3 +542,8 @@ light.css
       background: url(../svgs/message-sent-day.svg) no-repeat center;
       background-size: contain;
       }
+
+.welcome-casandra-day {
+      background: url(../svgs/welcome-casandra-day.svg) no-repeat center;
+      background-size: contain;
+      }

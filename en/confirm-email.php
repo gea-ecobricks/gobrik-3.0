@@ -113,41 +113,43 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
 
-        <!-- Email confirmation form -->
-        <div id="first-send-form" style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;" <?php if ($code_sent) echo 'class="hidden"'; ?>>
-            <h2><?php echo htmlspecialchars($first_name); ?>, first: your email.</h2>
-            <p>To confirm you email, click the send button and we'll send an account activation code to:</p>
+       <!-- Email confirmation form -->
+<div id="first-send-form" style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;"
+    class="<?php echo $code_sent ? 'hidden' : ''; ?>"> <!-- Fix the inline PHP inside attributes -->
 
-            <h3><?php echo htmlspecialchars($email_addr); ?></h3>
-            <form method="post" action="">
-               <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
-                <div id="submit-section" style="text-align:center;margin-top:20px;padding-right:15px;padding-left:15px" title="Start Activation process">
-<input type="submit" name="send_email" id="send_email" value="📨 Send Code" class="submit-button activate">                </div>
+    <h2><?php echo htmlspecialchars($first_name); ?>, first: your email.</h2>
+    <p>To confirm your email, click the send button and we'll send an account activation code to:</p>
+
+    <h3><?php echo htmlspecialchars($email_addr); ?></h3>
+    <form method="post" action="">
+        <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
+            <div id="submit-section" style="text-align:center;margin-top:20px;padding-right:15px;padding-left:15px" title="Start Activation process">
+                <input type="submit" name="send_email" id="send_email" value="📨 Send Code" class="submit-button activate">
             </div>
-
-            </form>
-
         </div>
+    </form>
+</div>
 
-        <!-- Code entry form -->
-        <div id="second-code-confirm" style="text-align:center;" <?php if (!$code_sent) echo 'class="hidden"'; ?>>
-            <h2>Please enter your code:</h2>
-            <p>Check your email <?php echo htmlspecialchars($email_addr); ?> for your account confirmation code. Enter it here:</p>
+<!-- Code entry form -->
+<div id="second-code-confirm" style="text-align:center;"
+    class="<?php echo !$code_sent ? 'hidden' : ''; ?>"> <!-- Fix the inline PHP inside attributes -->
 
-            <form id="code-form">
-                <input type="text" maxlength="1" class="code-box" required>
-                <input type="text" maxlength="1" class="code-box" required>
-                <input type="text" maxlength="1" class="code-box" required>
-                <input type="text" maxlength="1" class="code-box" required>
-                <input type="text" maxlength="1" class="code-box" required>
-            </form>
+    <h2>Please enter your code:</h2>
+    <p>Check your email <?php echo htmlspecialchars($email_addr); ?> for your account confirmation code. Enter it here:</p>
 
-            <p id="code-feedback"></p>
+    <form id="code-form">
+        <input type="text" maxlength="1" class="code-box" required>
+        <input type="text" maxlength="1" class="code-box" required>
+        <input type="text" maxlength="1" class="code-box" required>
+        <input type="text" maxlength="1" class="code-box" required>
+        <input type="text" maxlength="1" class="code-box" required>
+    </form>
 
-            <p id="resend-code" style="font-size:1em">Didn't get your code? You can request a resend of the code in <span id="timer">1:00</span></p>
-        </div>
+    <p id="code-feedback"></p>
 
-    </div>
+    <p id="resend-code" style="font-size:1em">Didn't get your code? You can request a resend of the code in <span id="timer">1:00</span></p>
+</div>
+
 
 <div style="text-align:center;width:90%;margin:auto;margin-top:30px;margin-bottom:50px;">
     <p style="font-size:1em;">Do you no longer use this email address?<br>If not you'll need to <a href="signup.php">create a new account</a> or contact our team at support@gobrik.com.</p>

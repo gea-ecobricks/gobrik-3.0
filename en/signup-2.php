@@ -146,7 +146,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         </div>
 
-     <div style="text-align:center;width:100%;margin:auto;margin-top: 20px;">
+     <div style="text-align:center;width:100%;margin:auto;margin-top: 50px;">
                 <p style="font-size:medium;" data-land-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
             </div>
 

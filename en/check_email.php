@@ -42,7 +42,7 @@ include '../gobrikconn_env.php';
 
 
 
-    $sql_check_gobrik_email = "SELECT COUNT(*) FROM ecobrickers_tb WHERE email_addr = ?";
+    $sql_check_gobrik_email = "SELECT COUNT(*) FROM tb_ecobrickers WHERE email_addr = ?";
     $stmt_check_gobrik_email = $gobrik_con->prepare($sql_check_gobrik_email);
     if ($stmt_check_gobrik_email) {
         $stmt_check_gobrik_email->bind_param("s", $credential_value);

@@ -10,10 +10,6 @@
 
 <?php require_once ("../meta/$page-$lang.php");?>
 
-
-<style>
-
-
 <STYLE>
 
 
@@ -35,7 +31,7 @@
 }
 
 
-</style>
+</STYLE>
 
 
 

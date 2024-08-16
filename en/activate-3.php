@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 // Initialize variables
 $buwana_id = $_GET['id'] ?? null;  // Correctly initializing buwana_id
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.453';
+$version = '0.454';
 $page = 'activate';
 $first_name = '';
 $email_addr = '';
@@ -28,14 +28,16 @@ if (is_null($buwana_id)) {
     exit();
 }
 
+
 // PART 3: Look up user information using buwana_id provided in URL
 
-// GoBrik database credentials
-require_once ("../gobrikconn_env.php");
+// Buwana database credentials
+require_once ("../buwanaconn_env.php");
 
-// Fetch user information using buwana_id
-$sql_user_info = "SELECT first_name FROM tb_ecobrickers WHERE buwana_id = ?";
-$stmt_user_info = $gobrik_conn->prepare($sql_user_info);
+// Fetch user information using buwana_id from the Buwana database
+$sql_user_info = "SELECT first_name FROM users_tb WHERE buwana_id = ?";
+$stmt_user_info = $buwana_conn->prepare($sql_user_info);
+
 if ($stmt_user_info) {
     $stmt_user_info->bind_param('i', $buwana_id);
     $stmt_user_info->execute();
@@ -43,7 +45,7 @@ if ($stmt_user_info) {
     $stmt_user_info->fetch();
     $stmt_user_info->close();
 } else {
-    die('Error preparing statement for fetching user info: ' . $gobrik_conn->error);
+    die('Error preparing statement for fetching user info: ' . $buwana_conn->error);
 }
 
 // Ensure $first_name is set and not empty
@@ -87,24 +89,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $selected_language_id = $_POST['language_id'];
     $selected_country_id = $_POST['country_id'];
 
-    // Update the Buwana user's language and country
-    $buwana_conn = new mysqli($gobrik_servername, $gobrik_username, $gobrik_password, "ecobricks_earthenAuth_db");
-    if ($buwana_conn->connect_error) {
-        error_log("Connection failed: " . $buwana_conn->connect_error);
-        echo json_encode(['success' => false, 'error' => 'db_connection_failed']);
-        exit();
-    }
-    $buwana_conn->set_charset("utf8mb4");
+    // Update the Buwana user's language and country using buwana_id
+    require_once ("../buwanaconn_env.php");
 
-    $sql_update_buwana = "UPDATE users_tb SET languages_id = ?, country_id = ? WHERE email = ?";
+    $sql_update_buwana = "UPDATE users_tb SET languages_id = ?, country_id = ? WHERE buwana_id = ?";
     $stmt_update_buwana = $buwana_conn->prepare($sql_update_buwana);
     if ($stmt_update_buwana) {
-        $stmt_update_buwana->bind_param('iis', $selected_language_id, $selected_country_id, $email_addr);
+        $stmt_update_buwana->bind_param('iii', $selected_language_id, $selected_country_id, $buwana_id);
         $stmt_update_buwana->execute();
         $stmt_update_buwana->close();
 
         // Redirect to the next step
-        header("Location: login.php?id=" . urlencode($buwana_id));  // Correctly using buwana_id for redirection
+        header("Location: signedup-login.php?id=" . urlencode($buwana_id));  // Correctly using buwana_id for redirection
         exit();
     } else {
         error_log('Error preparing statement for updating Buwana user: ' . $buwana_conn->error);
@@ -114,6 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $buwana_conn->close();
 }
+
 ?>
 
 

@@ -118,7 +118,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     class="<?php echo $code_sent ? 'hidden' : ''; ?>"> <!-- Fix the inline PHP inside attributes -->
 
     <h2><?php echo htmlspecialchars($first_name); ?>, first: your email.</h2>
-    <p>To confirm your email, click the send button and we'll send an account activation code to:</p>
+    <p>To create you Buwana GoBrik account we need to confirm your email. Click the send button and we'll send an account activation code to:</p>
 
     <h3><?php echo htmlspecialchars($email_addr); ?></h3>
     <form method="post" action="">

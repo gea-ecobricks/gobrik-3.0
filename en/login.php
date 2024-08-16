@@ -23,11 +23,12 @@ $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.61';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
-$buwana_id = isset($_GET['buwana_id']) ? htmlspecialchars($_GET['buwana_id']) : '';
-$status = isset($_GET['status']) ? htmlspecialchars($_GET['status']) : '';
+$buwana_id = isset($_GET['buwana_id']) ? filter_var($_GET['buwana_id'], FILTER_SANITIZE_NUMBER_INT) : '';
+$status = isset($_GET['status']) ? filter_var($_GET['status'], FILTER_SANITIZE_STRING) : '';
 
 
 
+// PHP functions to get the correct messages based on the language
 function getLogoutMessage($lang) {
     $messages = [
         'en' => "You've been logged out.",
@@ -35,19 +36,18 @@ function getLogoutMessage($lang) {
         'id' => "Anda telah keluar.",
         'es' => "Has cerrado tu sesión."
     ];
-    return $messages[$lang] ?? "You've been logged out."; // Default to English if $lang is not found
+    return $messages[$lang] ?? $messages['en']; // Default to English if $lang is not found
 }
 
 function getFirstTimeMessage($lang) {
     $messages = [
         'en' => "Your Buwana Account is Created! 🎉",
-        'fr' => "Votre compte Buwana est créé ! 🎉",
+        'fr' => "Votre compte Buwana est créé ! 🎉",
         'id' => "Akun Buwana Anda sudah Dibuat! 🎉",
         'es' => "¡Tu cuenta de Buwana está creada! 🎉"
     ];
-    return $messages[$lang] ?? "You've been logged out."; // Default to English if $lang is not found
+    return $messages[$lang] ?? $messages['en']; // Default to English if $lang is not found
 }
-
 
 function getLoginMessage($lang) {
     $messages = [
@@ -82,8 +82,9 @@ echo '<!DOCTYPE html>
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
-           <h3 data-lang-id="001-login-heading">
+          <h3 data-lang-id="001-login-heading">
     <?php
+    // Display the correct message based on the status
     if ($status === 'loggedout') {
         echo htmlspecialchars(getLogoutMessage($lang));
     } elseif ($status === 'firsttime') {

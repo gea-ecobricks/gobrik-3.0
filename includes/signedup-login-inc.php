@@ -11,12 +11,8 @@
 <?php require_once ("../meta/login-$lang.php");?>
 
 
-<style>
-
 
 <STYLE>
-
-
 
 
 
@@ -78,7 +74,6 @@ form input:focus {
     background-color: #f0f0f0;
 }
 
-
 </style>
 
 
@@ -86,6 +81,7 @@ form input:focus {
 
 
 <?php require_once ("../header-2024.php");?>
+
 
 
 

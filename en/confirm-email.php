@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Show/Hide Divs after email is sent
-    var codeSent = <?php echo json_encode($code_sent); ?>;
+    var codeSent = false;
     if (codeSent) {
         document.getElementById('first-send-form').style.display = 'none';
         document.getElementById('second-code-confirm').style.display = 'block';

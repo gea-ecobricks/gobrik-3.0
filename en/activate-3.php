@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 // Initialize variables
 $buwana_id = $_GET['id'] ?? null;  // Correctly initializing buwana_id
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.455';
+$version = '0.456';
 $page = 'activate';
 $first_name = '';
 $email_addr = '';

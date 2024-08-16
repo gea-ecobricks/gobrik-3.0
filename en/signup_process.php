@@ -107,7 +107,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             if ($stmt_create_ecobricker) {
                 $stmt_create_ecobricker->bind_param("sisi", $first_name, $buwana_id, $credential_value, $buwana_id);
                 if ($stmt_create_ecobricker->execute()) {
-                    $ecobricker_id = $stmt_create_ecobricker->insert_id;
+                    // Fix the insert_id retrieval
+                    $ecobricker_id = $gobrik_conn->insert_id;
 
                     // Successfully updated Buwana user and created Ecobricker account, redirect to confirm-email.php
                     $response['success'] = true;
@@ -138,4 +139,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ob_end_clean(); // Clear any previous output
 
 // Return the JSON response
-echo json_encode($resp
+echo json_encode($response);
+exit();
+?>

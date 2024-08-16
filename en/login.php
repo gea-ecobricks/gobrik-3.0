@@ -38,6 +38,16 @@ function getLogoutMessage($lang) {
     return $messages[$lang] ?? "You've been logged out."; // Default to English if $lang is not found
 }
 
+function getFirstTimeMessage($lang) {
+    $messages = [
+        'en' => "Your Buwana Account is Created! 🎉",
+        'fr' => "Votre compte Buwana est créé ! 🎉",
+        'id' => "Akun Buwana Anda sudah Dibuat! 🎉",
+        'es' => "¡Tu cuenta de Buwana está creada! 🎉"
+    ];
+    return $messages[$lang] ?? "You've been logged out."; // Default to English if $lang is not found
+}
+
 
 function getLoginMessage($lang) {
     $messages = [
@@ -76,6 +86,8 @@ echo '<!DOCTYPE html>
                 <?php
                 if ($status === 'loggedout') {
                     echo htmlspecialchars(getLogoutMessage($lang));
+                if ($status === 'firsttime') {
+                    echo htmlspechars(getFirstTimeMessage($lang))}
                 } else {
                     echo htmlspecialchars(getLoginMessage($lang));
                 }
@@ -89,14 +101,15 @@ echo '<!DOCTYPE html>
     <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
 
     <div class="form-item">
-        <label for="credential_key" data-lang-id="003-login-email">Your e-mail:</label>
+<!--        <label for="credential_key" data-lang-id="003-login-email">Your e-mail:</label>
+-->
         <div class="input-wrapper" style="position: relative;">
             <input type="text" id="credential_key" name="credential_key" required placeholder="Your e-mail..." value="<?php echo isset($_GET['credential_key']) ? htmlspecialchars($_GET['credential_key']) : ''; ?>">
             <span class="toggle-select" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔑</span>
             <div id="dropdown-menu" style="display: none; position: absolute; right: 10px; top: 100%; z-index: 1000; background: white; border: 1px solid #ccc; width: 150px; text-align: left;">
-                <div class="dropdown-item">E-mail</div>
+                <div class="dropdown-item" value="Your email...">E-mail</div>
                 <div class="dropdown-item disabled" style="opacity: 0.5;">SMS</div>
-                <div class="dropdown-item disabled" style="opacity: 0.5;">Trainer</div>
+                <div class="dropdown-item disabled" style="opacity: 0.5;">Peer</div>
             </div>
                 <div id="no-buwana-mail" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;" data-lang-id="000-no-buwana-account">🤔 We can't find this credential in the database.</div>
 
@@ -104,7 +117,7 @@ echo '<!DOCTYPE html>
     </div>
 
     <div class="form-item">
-        <label for="password" data-lang-id="004-login-password">Your password:</label>
+        <!--<label for="password" data-lang-id="004-login-password">Your password:</label>-->
         <div class="password-wrapper" style="position: relative;">
             <input type="password" id="password" name="password" required placeholder="Your password...">
             <span toggle="#password" class="toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔒</span>
@@ -133,13 +146,7 @@ echo '<!DOCTYPE html>
 
 <script>
 
-//function closeModal() {
-//     const modal = document.getElementById('form-modal-message');
-//     modal.style.display = 'none';
-//     document.getElementById('page-content').classList.remove('blurred');
-//     document.getElementById('footer-full').classList.remove('blurred');
-//     document.body.classList.remove('modal-open');
-// }
+
 
     function validateForm() {
         document.getElementById('no-buwana-email').style.display = 'none';

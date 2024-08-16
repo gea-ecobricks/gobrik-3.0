@@ -147,7 +147,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
         <!--ACTIVATE 3 FORM-->
-        <form id="user-info-form" method="post" action="activate-3.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
+        <form id="user-info-form" method="post" action="activate-3.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
             <div class="form-item" id="language-select">
                 <label for="language_id">Please tell us which language you prefer...</label><br>
                <select name="language_id" id="language_id">

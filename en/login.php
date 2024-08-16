@@ -87,7 +87,7 @@ echo '<!DOCTYPE html>
                 if ($status === 'loggedout') {
                     echo htmlspecialchars(getLogoutMessage($lang));
                 if ($status === 'firsttime') {
-                    echo htmlspechars(getFirstTimeMessage($lang))}
+                    echo htmlspecialchars(getFirstTimeMessage($lang));
                 } else {
                     echo htmlspecialchars(getLoginMessage($lang));
                 }

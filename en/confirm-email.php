@@ -14,7 +14,7 @@ $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $first_name = '';
 $email_addr = '';
 $code_sent = false;
-$version = '0.473';
+$version = '0.474';
 $page = 'activate';
 $verification_code = 'AYYEW'; // The static code for now
 
@@ -108,7 +108,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT -->
-<div id="top-page-image" class="regen-top top-page-image"></div>
+<div id="top-page-image" class="message-birded top-page-image"></div>
 
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
@@ -202,24 +202,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Show/Hide Divs after email is sent
-    var codeSent = <?php echo json_encode($code_sent_flag ?? false); ?>;  // Only set once
-    if (codeSent) {
-        document.getElementById('first-send-form').style.display = 'none';
-        document.getElementById('second-code-confirm').style.display = 'block';
-    }
-
-    // Countdown timer for resend code
-    countdownTimer = setInterval(function() {
-        var timerElement = document.getElementById('timer');
-        if (timeLeft <= 0) {
-            clearInterval(countdownTimer);
-            document.getElementById('resend-code').innerHTML = '<a href="#" id="resend-link">Click here to resend the code</a>';
-        } else {
-            timeLeft--;
-            timerElement.textContent = '0:' + (timeLeft < 10 ? '0' + timeLeft : timeLeft);
-        }
-    }, 1000);
 
     // Handle Resend Link Click
     document.addEventListener('click', function(e) {

@@ -26,7 +26,36 @@ $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $buwana_id = isset($_GET['buwana_id']) ? filter_var($_GET['buwana_id'], FILTER_SANITIZE_NUMBER_INT) : '';
 $status = isset($_GET['status']) ? filter_var($_GET['status'], FILTER_SANITIZE_STRING) : '';
 
+//Get credential_key if possible
 
+// Initialize the credential_key variable
+$credential_key = '';
+
+// Check if buwana_id is available and valid
+if (!empty($buwana_id)) {
+    // Database connection (assuming $conn is the connection variable)
+    require_once 'buwanaconn_env.php';  // Update this path as per your environment
+
+    // Prepare the query to fetch the credential_key (email) from credentials_tb
+    $sql = "SELECT credential_key FROM credentials_tb WHERE buwana_id = ? AND credential_type = 'email'";
+    if ($stmt = $conn->prepare($sql)) {
+        // Bind the buwana_id parameter
+        $stmt->bind_param("i", $buwana_id);
+
+        // Execute the statement
+        $stmt->execute();
+
+        // Bind the result
+        $stmt->bind_result($fetched_credential_key);
+
+        // Fetch the result
+        if ($stmt->fetch()) {
+            $credential_key = $fetched_credential_key;  // Store the fetched credential_key (email)
+        }
+
+        // Close the statement
+        $stmt->close();
+    }
 
 // PHP functions to get the correct messages based on the language
 function getLogoutMessage($lang) {

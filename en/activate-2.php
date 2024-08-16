@@ -1,18 +1,9 @@
-
 <?php
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-require '../vendor/phpmailer/phpmailer/src/Exception.php';
-require '../vendor/phpmailer/phpmailer/src/PHPMailer.php';
-require '../vendor/phpmailer/phpmailer/src/SMTP.php';
-
 // PART 1: Setup
-// Initialize variables
 $ecobricker_id = $_GET['id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.455';
@@ -24,7 +15,6 @@ $email_addr = '';
 $brk_balance = 0;
 $user_roles = '';
 $birth_date = '';
-$password_hash = '';
 $terms_of_service = 1;  // Default to 1 as the checkbox is required
 $earthen_newsletter_join = 1;  // Default to 1, but will be updated based on form input
 
@@ -34,8 +24,33 @@ if (isset($_SESSION['buwana_id'])) {
     exit();
 }
 
+// PART 2: Check if the ecobricker already has a buwana_id
+require_once ("../gobrikconn_env.php");
 
-// PART 2: Fetch user details from the database (this should be done regardless of request method)
+$sql_check_buwana_id = "SELECT buwana_id FROM tb_ecobrickers WHERE ecobricker_id = ?";
+$stmt_check_buwana_id = $gobrik_conn->prepare($sql_check_buwana_id);
+if ($stmt_check_buwana_id) {
+    $stmt_check_buwana_id->bind_param('i', $ecobricker_id);
+    $stmt_check_buwana_id->execute();
+    $stmt_check_buwana_id->bind_result($buwana_id);
+    $stmt_check_buwana_id->fetch();
+    $stmt_check_buwana_id->close();
+
+    // If buwana_id is not null, redirect to activate-3.php
+    if (!is_null($buwana_id)) {
+        header("Location: activate-3.php?id=" . urlencode($buwana_id));
+        exit();
+    }
+} else {
+    error_log('Error preparing statement for checking buwana_id: ' . $gobrik_conn->error);
+    $_SESSION['error_message'] = "An error occurred while checking account details. Please try again.";
+    header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
+    exit();
+}
+
+$gobrik_conn->close();
+
+// PART 3: Fetch user details from the database (this should be done regardless of request method)
 require_once ("../gobrikconn_env.php");
 
 $sql_user_info = "SELECT first_name, last_name, full_name, email_addr, brk_balance, user_roles, birth_date FROM tb_ecobrickers WHERE ecobricker_id = ?";

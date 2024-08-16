@@ -131,7 +131,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
-    <h2>Ok, <?php echo htmlspecialchars($first_name); ?>, password & email are set!</h2>
+    <h2><?php echo htmlspecialchars($first_name); ?>, your password & email are set!</h2>
     <p>Now please tell us a little about yourself...</p>
 </div>
 

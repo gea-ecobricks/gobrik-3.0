@@ -115,14 +115,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <!-- Email confirmation form -->
         <div id="first-send-form" style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;" <?php if ($code_sent) echo 'class="hidden"'; ?>>
-            <h2><?php echo htmlspecialchars($first_name); ?>, first let's confirm your email.</h2>
-            <p>Click the send button and we'll send an account activation code to your email:</p>
+            <h2><?php echo htmlspecialchars($first_name); ?>, first: your email.</h2>
+            <p>To confirm you email, click the send button and we'll send an account activation code to:</p>
 
-            <h3>><?php echo htmlspecialchars($email_addr); ?></h4>
+            <h3><?php echo htmlspecialchars($email_addr); ?></h4>
             <form method="post" action="">
                <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
                 <div id="submit-section" style="text-align:center;margin-top:20px;padding-right:15px;padding-left:15px" title="Start Activation process">
-<input type="submit" name="send_email" id="send_email" value="📨 Send email" class="submit-button activate">                </div>
+<input type="submit" name="send_email" id="send_email" value="📨 Send Code" class="submit-button activate">                </div>
             </div>
 
             </form>
@@ -149,8 +149,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     </div>
 
-<div style="text-align:center;width:100%;margin:auto;margin-top:30px;margin-bottom:50px;">
-    <p style="font-size:1em;">Do you no longer use this email address? You'll need to <a href="signup.php">create a new account</a> or contact our team at support@gobrik.com.</p>
+<div style="text-align:center;width:90%;margin:auto;margin-top:30px;margin-bottom:50px;">
+    <p style="font-size:1em;">Do you no longer use this email address?<br>If not you'll need to <a href="signup.php">create a new account</a> or contact our team at support@gobrik.com.</p>
 </div>
 
 </div>
@@ -161,15 +161,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <!--FOOTER STARTS HERE-->
 <?php require_once ("../footer-2024.php"); ?>
 
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var code = "AYYEW";
     var countdownTimer;
     var timeLeft = 60;
 
-    // Fetch buwana_id from PHP (ensure this is correctly defined in PHP before use)
-    var buwana_id = "<?php echo htmlspecialchars($buwana_id); ?>";
+    // Fetch buwana_id from PHP safely using json_encode to prevent line break issues
+    var buwana_id = <?php echo json_encode($buwana_id); ?>;
 
     // Handle code entry
     var codeBoxes = document.querySelectorAll('.code-box');
@@ -204,8 +203,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-
-
     // Show/Hide Divs after email is sent
     var codeSent = <?php echo json_encode($code_sent_flag ?? false); ?>;  // Only set once
     if (codeSent) {
@@ -235,6 +232,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
 
 
 

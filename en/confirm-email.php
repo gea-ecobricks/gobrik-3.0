@@ -75,15 +75,15 @@ if ($stmt_user_info) {
 $gobrik_conn->close();
 
 // PART 3: Handle form submission to send the confirmation code by email
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['send_email']) || isset($_POST['resend_email']))) {
-    $code_sent = sendVerificationCode($first_name, $email_addr, $verification_code);
-    if ($code_sent) {
-        // Instead of echoing the script directly here, set a PHP flag and handle it in the main script.
-        $code_sent_flag = true;
-    } else {
-        echo '<script>alert("Message could not be sent. Please try again later.");</script>';
-    }
-}
+// if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['send_email']) || isset($_POST['resend_email']))) {
+//     $code_sent = sendVerificationCode($first_name, $email_addr, $verification_code);
+//     if ($code_sent) {
+//         // Instead of echoing the script directly here, set a PHP flag and handle it in the main script.
+//         $code_sent_flag = true;
+//     } else {
+//         echo '<script>alert("Message could not be sent. Please try again later.");</script>';
+//     }
+// }
 ?>
 
 
@@ -202,6 +202,26 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+
+
+    // Show/Hide Divs after email is sent
+    var codeSent = <?php echo json_encode($code_sent_flag ?? false); ?>;  // Only set once
+    if (codeSent) {
+        document.getElementById('first-send-form').style.display = 'none';
+        document.getElementById('second-code-confirm').style.display = 'block';
+    }
+
+    // Countdown timer for resend code
+    countdownTimer = setInterval(function() {
+        var timerElement = document.getElementById('timer');
+        if (timeLeft <= 0) {
+            clearInterval(countdownTimer);
+            document.getElementById('resend-code').innerHTML = '<a href="#" id="resend-link">Click here to resend the code</a>';
+        } else {
+            timeLeft--;
+            timerElement.textContent = '0:' + (timeLeft < 10 ? '0' + timeLeft : timeLeft);
+        }
+    }, 1000);
 
     // Handle Resend Link Click
     document.addEventListener('click', function(e) {

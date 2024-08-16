@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     codeFeedback.classList.remove('error');
                     setTimeout(function() {
                         // Redirect to activate-2.php with buwana_id as a parameter
-                        window.location.href = "activate-2.php?id=" + buwana_id;
+                        window.location.href = "activate-2.php?id=" + ecobricker_id;
                     }, 2000);
                 } else {
                     codeFeedback.textContent = 'Code incorrect';

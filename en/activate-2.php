@@ -127,12 +127,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($stmt_insert_buwana->execute()) {
                     $buwana_id = $stmt_insert_buwana->insert_id;
 
-                    // Update credentials_tb with the new credential key and type
-                    $sql_update_credential = "UPDATE credentials_tb SET credential_key = ?, credential_type = 'email' WHERE buwana_id = ?";
-                    $stmt_update_credential = $buwana_conn->prepare($sql_update_credential);
-                    if ($stmt_update_credential) {
-                        $stmt_update_credential->bind_param("si", $email_addr, $buwana_id);
-                        if ($stmt_update_credential->execute()) {
+                    // INSERT into credentials_tb with the new credential key and type
+                    $sql_insert_credential = "INSERT INTO credentials_tb (buwana_id, credential_key, credential_type) VALUES (?, ?, 'email')";
+                    $stmt_insert_credential = $buwana_conn->prepare($sql_insert_credential);
+                    if ($stmt_insert_credential) {
+                        $stmt_insert_credential->bind_param("is", $buwana_id, $email_addr);
+                        if ($stmt_insert_credential->execute()) {
 
                             // Update GoBrik database's ecobricker with Buwana ID and other details
                             $gobrik_conn = new mysqli($gobrik_servername, $gobrik_username, $gobrik_password, $gobrik_dbname);
@@ -158,11 +158,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             }
 
                         } else {
-                            redirect_with_message("activate-2.php?id=" . urlencode($ecobricker_id), "Error updating credentials. Please try again.");
+                            redirect_with_message("activate-2.php?id=" . urlencode($ecobricker_id), "Error inserting credentials. Please try again.");
                         }
-                        $stmt_update_credential->close();
+                        $stmt_insert_credential->close();
                     } else {
-                        redirect_with_message("activate-2.php?id=" . urlencode($ecobricker_id), "Error preparing credential update. Please try again.");
+                        redirect_with_message("activate-2.php?id=" . urlencode($ecobricker_id), "Error preparing credential insert. Please try again.");
                     }
                 } else {
                     redirect_with_message("activate-2.php?id=" . urlencode($ecobricker_id), "Error creating account. Please try again.");

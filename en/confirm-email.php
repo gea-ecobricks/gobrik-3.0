@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var timeLeft = 60;
 
     // Fetch buwana_id from PHP safely using json_encode to prevent line break issues
-    var buwana_id = 1234;
+    var ecobricker_id = <?php echo json_encode($ecobricker_id); ?>;
 
     // Handle code entry
     var codeBoxes = document.querySelectorAll('.code-box');

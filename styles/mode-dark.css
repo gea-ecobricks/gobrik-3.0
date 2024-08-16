@@ -630,3 +630,8 @@ background-size: contain;
       background: url(../svgs/message-sent-night.svg) no-repeat center;
       background-size: contain;
       }
+
+      .welcome-casandra-night {
+      background: url(../svgs/welcome-casandra-night.svg) no-repeat center;
+      background-size: contain;
+      }

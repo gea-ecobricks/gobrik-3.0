@@ -210,16 +210,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Enable submit button after country is selected
-    countryDropdown.addEventListener('change', function() {
-        if (this.value !== '') {
-            submitButton.disabled = false;
-            submitButton.classList.remove('disabled');
-        } else {
-            submitButton.disabled = true;
-            submitButton.classList.add('disabled');
-        }
-    });
+// Enable submit button after country is selected
+countryDropdown.addEventListener('change', function() {
+    if (this.value !== '') {
+        submitButton.disabled = false;
+        submitButton.classList.remove('disabled');
+        submitButton.classList.add('enabled');
+    } else {
+        submitButton.disabled = true;
+        submitButton.classList.remove('enabled');
+        submitButton.classList.add('disabled');
+    }
 });
 
 </script>

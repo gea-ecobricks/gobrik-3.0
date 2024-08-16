@@ -74,16 +74,16 @@ if ($stmt_user_info) {
 
 $gobrik_conn->close();
 
-// PART 3: Handle form submission to send the confirmation code by email
-// if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['send_email']) || isset($_POST['resend_email']))) {
-//     $code_sent = sendVerificationCode($first_name, $email_addr, $verification_code);
-//     if ($code_sent) {
-//         // Instead of echoing the script directly here, set a PHP flag and handle it in the main script.
-//         $code_sent_flag = true;
-//     } else {
-//         echo '<script>alert("Message could not be sent. Please try again later.");</script>';
-//     }
-// }
+//PART 3: Handle form submission to send the confirmation code by email
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['send_email']) || isset($_POST['resend_email']))) {
+    $code_sent = sendVerificationCode($first_name, $email_addr, $verification_code);
+    if ($code_sent) {
+        // Instead of echoing the script directly here, set a PHP flag and handle it in the main script.
+        $code_sent_flag = true;
+    } else {
+        echo '<script>alert("Message could not be sent. Please try again later.");</script>';
+    }
+}
 ?>
 
 
@@ -92,8 +92,8 @@ $gobrik_conn->close();
 <head>
 <meta charset="UTF-8">
 <title>Confirm Your Email</title>
-<!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
--->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 
 <!--
@@ -116,7 +116,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <!-- Email confirmation form -->
         <div id="first-send-form" style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;" <?php if ($code_sent) echo 'class="hidden"'; ?>>
             <h2><?php echo htmlspecialchars($first_name); ?>, first let's confirm your email.</h2>
-            <p>Click the send button to send a confirmation email to <?php echo htmlspecialchars($email_addr); ?> to receive your account activation code.</p>
+            <p>Click the send button and we'll send an account activation code to your email:</p>
+
+            <h3>><?php echo htmlspecialchars($email_addr); ?></h4>
             <form method="post" action="">
                <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
                 <div id="submit-section" style="text-align:center;margin-top:20px;padding-right:15px;padding-left:15px" title="Start Activation process">
@@ -124,7 +126,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             </div>
 
             </form>
-            <p style="font-size:1em;">Do you no longer use this email address? You'll need to <a href="signup.php">create a new account</a> or contact our team at support@gobrik.com.</p>
+
         </div>
 
         <!-- Code entry form -->
@@ -148,7 +150,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 
 <div style="text-align:center;width:100%;margin:auto;margin-top:30px;margin-bottom:50px;">
-    <p style="font-size:medium;" data-lang-id="000-no-account-yet">Don't have an account yet? <a href="signup.php">Signup!</a></p>
+    <p style="font-size:1em;">Do you no longer use this email address? You'll need to <a href="signup.php">create a new account</a> or contact our team at support@gobrik.com.</p>
 </div>
 
 </div>

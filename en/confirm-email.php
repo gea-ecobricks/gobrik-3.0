@@ -160,23 +160,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once ("../footer-2024.php"); ?>
 
 
-
 <script>
-
-
-    // PHP flag to toggle visibility of forms after email is sent
-    var codeSent = <?php echo json_encode(isset($code_sent_flag) && $code_sent_flag); ?>;
-
-    if (codeSent) {
-        var firstSendForm = document.getElementById('first-send-form');
-        var secondCodeConfirm = document.getElementById('second-code-confirm');
-
-        if (firstSendForm && secondCodeConfirm) {
-            firstSendForm.style.display = 'none';
-            secondCodeConfirm.style.display = 'block';
-        }
-    }
-
 document.addEventListener('DOMContentLoaded', function() {
     var code = "AYYEW";
     var countdownTimer;
@@ -219,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Show/Hide Divs after email is sent
-    var codeSent = <?php echo json_encode($code_sent); ?>;
+    var codeSent = <?php echo json_encode($code_sent_flag ?? false); ?>;  // Only set once
     if (codeSent) {
         document.getElementById('first-send-form').style.display = 'none';
         document.getElementById('second-code-confirm').style.display = 'block';

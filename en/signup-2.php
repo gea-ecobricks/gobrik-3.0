@@ -303,7 +303,7 @@ $('#credential_value').on('blur', function() {
                 loadingSpinner.hide();
                 var res = JSON.parse(response);
                 if (res.success) {
-                    window.location.href = 'signedup-login.php?id=<?php echo htmlspecialchars($buwana_id); ?>';
+                    window.location.href = 'confirm-email.php?id=<?php echo htmlspecialchars($buwana_id); ?>';
                 } else if (res.error === 'duplicate_email') {
                     duplicateEmailError.show();
                     duplicateGobrikEmail.hide();

@@ -112,9 +112,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     <div id="dropdown-menu" style="display: none; position: absolute; right: 10px; top: 100%; z-index: 1000; background: white; border: 1px solid #ccc; width: 150px; text-align: left;">
                         <div class="dropdown-item">E-mail</div>
                         <div class="dropdown-item disabled" style="opacity: 0.5;">SMS</div>
-                        <div class="dropdown-item disabled" style="opacity: 0.5;">Trainer</div>
+                        <div class="dropdown-item disabled" style="opacity: 0.5;">Peer</div>
                     </div>
                 </div>
+                <div id="no-buwana-mail" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;" data-lang-id="000-no-buwana-account">🤔 We can't find this credential in the database.</div>
             </div>
 
             <div class="form-item">
@@ -213,12 +214,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-    </script>
 
-
-
-
-<script>
 // Function to validate password
 function validatePassword(isValid) {
     const passwordErrorDiv = document.getElementById('password-error');
@@ -230,13 +226,13 @@ function validatePassword(isValid) {
 }
 
 
-function closeModal() {
-    const modal = document.getElementById('form-modal-message');
-    modal.style.display = 'none';
-    document.getElementById('page-content').classList.remove('blurred');
-    document.getElementById('footer-full').classList.remove('blurred');
-    document.body.classList.remove('modal-open');
-}
+// function closeModal() {
+//     const modal = document.getElementById('form-modal-message');
+//     modal.style.display = 'none';
+//     document.getElementById('page-content').classList.remove('blurred');
+//     document.getElementById('footer-full').classList.remove('blurred');
+//     document.body.classList.remove('modal-open');
+// }
 
 function validateForm() {
     const email = document.querySelector('input[name="email"]').value;

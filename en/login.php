@@ -98,6 +98,8 @@ echo '<!DOCTYPE html>
                 <div class="dropdown-item disabled" style="opacity: 0.5;">SMS</div>
                 <div class="dropdown-item disabled" style="opacity: 0.5;">Trainer</div>
             </div>
+                <div id="no-buwana-mail" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;" data-lang-id="000-no-buwana-account">🤔 We can't find this credential in the database.</div>
+
         </div>
     </div>
 

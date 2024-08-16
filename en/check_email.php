@@ -1,4 +1,4 @@
-<?php  FIXXXX
+<?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -40,12 +40,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 include '../gobrikconn_env.php';
 
 
-    // Check connection
-//     if ($conn_gobrik->connect_error) {
-//         $response['error'] = 'db_error';
-//         echo json_encode($response);
-//         exit();
-//     }
+    if ($conn_gobrik->connect_error) {
+        $response['error'] = 'db_error';
+        echo json_encode($response);
+        exit();
+    }
 
     $sql_check_gobrik_email = "SELECT COUNT(*) FROM ecobricker_live_tb WHERE email_addr = ?";
     $stmt_check_gobrik_email = $gobrik_con->prepare($sql_check_gobrik_email);

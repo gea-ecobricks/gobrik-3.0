@@ -35,7 +35,7 @@ if (!empty($buwana_id)) {
 
     // Prepare the query to fetch the credential_key (email) from credentials_tb
     $sql = "SELECT credential_key FROM credentials_tb WHERE buwana_id = ? AND credential_type = 'email'";
-    if ($stmt = $conn->prepare($sql)) {
+    if ($stmt = $buwana_conn->prepare($sql)) {
         // Bind the buwana_id parameter
         $stmt->bind_param("i", $buwana_id);
 

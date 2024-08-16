@@ -167,52 +167,55 @@ window.onload = function() {
         }, 100);
     }
 }
-
-// Form submission validation
+// Ensure the correct ID is referenced
 document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById('signed-up-login').addEventListener('submit', function(event) {
-        var credentialValue = document.getElementById('credential_key').value;
-        var password = document.getElementById('password').value;
+    const loginForm = document.getElementById('signed-up-login'); // Ensure you're using the correct form ID
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(event) {
+            var credentialValue = document.getElementById('credential_value').value; // Match the ID in HTML
+            var password = document.getElementById('password').value;
 
-        if (credentialValue === '' || password === '') {
-            event.preventDefault();
-            document.getElementById('password-error').style.display = 'block';
-        }
-    });
+            if (credentialValue === '' || password === '') {
+                event.preventDefault();
+                document.getElementById('password-error').style.display = 'block';
+            }
+        });
+    }
 });
 
-
-
-/*credentials menu*/
-
+// Credentials menu
 document.addEventListener("DOMContentLoaded", function () {
     const toggleSelectIcon = document.querySelector('.toggle-select');
     const dropdownMenu = document.getElementById('dropdown-menu');
-    const credentialKeyInput = document.getElementById('credential_key');
-    const dropdownItems = dropdownMenu.querySelectorAll('.dropdown-item');
+    const credentialKeyInput = document.getElementById('credential_value'); // Correct ID
 
-    // Toggle dropdown menu visibility on click
-    toggleSelectIcon.addEventListener('click', function () {
-        dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
-    });
+    if (toggleSelectIcon && dropdownMenu && credentialKeyInput) {
+        const dropdownItems = dropdownMenu.querySelectorAll('.dropdown-item');
 
-    // Close dropdown if clicked outside
-    document.addEventListener('click', function (e) {
-        if (!toggleSelectIcon.contains(e.target) && !dropdownMenu.contains(e.target)) {
-            dropdownMenu.style.display = 'none';
-        }
-    });
+        // Toggle dropdown menu visibility on click
+        toggleSelectIcon.addEventListener('click', function () {
+            dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
+        });
 
-    // Handle dropdown item selection
-    dropdownItems.forEach(function (item) {
-        item.addEventListener('click', function () {
-            if (!item.classList.contains('disabled')) {
-                credentialKeyInput.value = item.textContent.trim();
+        // Close dropdown if clicked outside
+        document.addEventListener('click', function (e) {
+            if (!toggleSelectIcon.contains(e.target) && !dropdownMenu.contains(e.target)) {
                 dropdownMenu.style.display = 'none';
             }
         });
-    });
+
+        // Handle dropdown item selection
+        dropdownItems.forEach(function (item) {
+            item.addEventListener('click', function () {
+                if (!item.classList.contains('disabled')) {
+                    credentialKeyInput.value = item.textContent.trim();
+                    dropdownMenu.style.display = 'none';
+                }
+            });
+        });
+    }
 });
+
 
 
 // Function to validate password

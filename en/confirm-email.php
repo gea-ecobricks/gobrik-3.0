@@ -165,6 +165,38 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once ("../footer-2024.php"); ?>
 
 
+<script>
+
+
+    // Show/Hide Divs after email is sent
+    var codeSent = <?php echo json_encode($code_sent_flag ?? false); ?>;  // Only set once
+    if (codeSent) {
+        document.getElementById('first-send-form').style.display = 'none';
+        document.getElementById('second-code-confirm').style.display = 'block';
+    }
+
+    // Countdown timer for resend code
+    countdownTimer = setInterval(function() {
+        var timerElement = document.getElementById('timer');
+        if (timeLeft <= 0) {
+            clearInterval(countdownTimer);
+            document.getElementById('resend-code').innerHTML = '<a href="#" id="resend-link">Click here to resend the code</a>';
+        } else {
+            timeLeft--;
+            timerElement.textContent = '0:' + (timeLeft < 10 ? '0' + timeLeft : timeLeft);
+        }
+    }, 1000);
+
+    // Handle Resend Link Click
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.id === 'resend-link') {
+            e.preventDefault();
+            // Reset timer and form submission
+            document.getElementById('resend-code-form').submit();
+        }
+    });
+});
+</script>
 
 
 

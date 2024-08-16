@@ -82,17 +82,18 @@ echo '<!DOCTYPE html>
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h3 data-lang-id="001-login-heading">
-                <?php
-                if ($status === 'loggedout') {
-                    echo htmlspecialchars(getLogoutMessage($lang));
-                if ($status === 'firsttime') {
-                    echo htmlspecialchars(getFirstTimeMessage($lang));
-                } else {
-                    echo htmlspecialchars(getLoginMessage($lang));
-                }
-                ?>
-            </h3>
+           <h3 data-lang-id="001-login-heading">
+    <?php
+    if ($status === 'loggedout') {
+        echo htmlspecialchars(getLogoutMessage($lang));
+    } elseif ($status === 'firsttime') {
+        echo htmlspecialchars(getFirstTimeMessage($lang));
+    } else {
+        echo htmlspecialchars(getLoginMessage($lang));
+    }
+    ?>
+</h3>
+
 
             <h4 data-lang-id="002-login-subheading" style="margin-top:5px, margin-bottom:5px;">Login with your account credentials.</h4>
         </div>

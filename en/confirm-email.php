@@ -166,6 +166,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+    var code = "AYYEW";
+    var countdownTimer;
+    var timeLeft = 60;
+
+    // Fetch buwana_id from PHP safely using json_encode to prevent line break issues
+    var buwana_id = <?php echo json_encode($buwana_id); ?>;
+
 
 </script>
 

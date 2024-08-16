@@ -91,8 +91,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['send_email']) || iss
 <head>
 <meta charset="UTF-8">
 <title>Confirm Your Email</title>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+-->
 
 
 <!--
@@ -164,17 +164,22 @@ document.addEventListener('DOMContentLoaded', function() {
     var countdownTimer;
     var timeLeft = 60;
 
-    // Fetch buwana_id from PHP
+    // Fetch buwana_id from PHP (ensure this is correctly defined in PHP before use)
     var buwana_id = "<?php echo htmlspecialchars($buwana_id); ?>";
 
     // Handle code entry
     var codeBoxes = document.querySelectorAll('.code-box');
-    codeBoxes.forEach(function(box) {
+    codeBoxes.forEach(function(box, index) {
         box.addEventListener('input', function() {
-            var enteredCode = '';
-            codeBoxes.forEach(function(input) {
-                enteredCode += input.value.toUpperCase();
-            });
+            // Automatically move focus to the next box after input
+            if (box.value.length === 1 && index < codeBoxes.length - 1) {
+                codeBoxes[index + 1].focus();
+            }
+
+            // Gather the entered code
+            var enteredCode = Array.from(codeBoxes).map(function(input) {
+                return input.value.toUpperCase();
+            }).join('');
 
             if (enteredCode.length === 5) {
                 var codeFeedback = document.getElementById('code-feedback');
@@ -196,7 +201,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Show/Hide Divs after email is sent
-    if (<?php echo json_encode($code_sent); ?>) {
+    var codeSent = <?php echo json_encode($code_sent); ?>;
+    if (codeSent) {
         document.getElementById('first-send-form').style.display = 'none';
         document.getElementById('second-code-confirm').style.display = 'block';
     }
@@ -217,11 +223,13 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', function(e) {
         if (e.target && e.target.id === 'resend-link') {
             e.preventDefault();
+            // Reset timer and form submission
             document.getElementById('resend-code-form').submit();
         }
     });
 });
 </script>
+
 
 
 

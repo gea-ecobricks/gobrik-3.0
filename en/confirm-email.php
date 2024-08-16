@@ -113,7 +113,42 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
 
+       <!-- Email confirmation form -->
+<div id="first-send-form" style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;"
+    class="<?php echo $code_sent ? 'hidden' : ''; ?>"> <!-- Fix the inline PHP inside attributes -->
 
+    <h2><?php echo htmlspecialchars($first_name); ?>, first: your email.</h2>
+    <p>To confirm your email, click the send button and we'll send an account activation code to:</p>
+
+    <h3><?php echo htmlspecialchars($email_addr); ?></h3>
+    <form method="post" action="">
+        <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
+            <div id="submit-section" style="text-align:center;margin-top:20px;padding-right:15px;padding-left:15px" title="Start Activation process">
+                <input type="submit" name="send_email" id="send_email" value="📨 Send Code" class="submit-button activate">
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Code entry form -->
+<div id="second-code-confirm" style="text-align:center;"
+    class="<?php echo !$code_sent ? 'hidden' : ''; ?>"> <!-- Fix the inline PHP inside attributes -->
+
+    <h2>Please enter your code:</h2>
+    <p>Check your email <?php echo htmlspecialchars($email_addr); ?> for your account confirmation code. Enter it here:</p>
+
+    <form id="code-form">
+        <input type="text" maxlength="1" class="code-box" required>
+        <input type="text" maxlength="1" class="code-box" required>
+        <input type="text" maxlength="1" class="code-box" required>
+        <input type="text" maxlength="1" class="code-box" required>
+        <input type="text" maxlength="1" class="code-box" required>
+    </form>
+
+    <p id="code-feedback"></p>
+
+    <p id="resend-code" style="font-size:1em">Didn't get your code? You can request a resend of the code in <span id="timer">1:00</span></p>
+</div>
 
 
 <div style="text-align:center;width:90%;margin:auto;margin-top:30px;margin-bottom:50px;">
@@ -130,77 +165,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once ("../footer-2024.php"); ?>
 
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var code = "AYYEW";
-    var countdownTimer;
-    var timeLeft = 60;
-
-    // Fetch buwana_id from PHP safely using json_encode to prevent line break issues
-    var buwana_id = <?php echo json_encode($buwana_id); ?>;
-
-    // Handle code entry
-    var codeBoxes = document.querySelectorAll('.code-box');
-    codeBoxes.forEach(function(box, index) {
-        box.addEventListener('input', function() {
-            // Automatically move focus to the next box after input
-            if (box.value.length === 1 && index < codeBoxes.length - 1) {
-                codeBoxes[index + 1].focus();
-            }
-
-            // Gather the entered code
-            var enteredCode = Array.from(codeBoxes).map(function(input) {
-                return input.value.toUpperCase();
-            }).join('');
-
-            if (enteredCode.length === 5) {
-                var codeFeedback = document.getElementById('code-feedback');
-                if (enteredCode === code) {
-                    codeFeedback.textContent = 'Code confirmed!';
-                    codeFeedback.classList.add('success');
-                    codeFeedback.classList.remove('error');
-                    setTimeout(function() {
-                        // Redirect to activate-2.php with buwana_id as a parameter
-                        window.location.href = "activate-2.php?id=" + buwana_id;
-                    }, 2000);
-                } else {
-                    codeFeedback.textContent = 'Code incorrect';
-                    codeFeedback.classList.add('error');
-                    codeFeedback.classList.remove('success');
-                }
-            }
-        });
-    });
-
-    // Show/Hide Divs after email is sent
-    var codeSent = <?php echo json_encode($code_sent_flag ?? false); ?>;  // Only set once
-    if (codeSent) {
-        document.getElementById('first-send-form').style.display = 'none';
-        document.getElementById('second-code-confirm').style.display = 'block';
-    }
-
-    // Countdown timer for resend code
-    countdownTimer = setInterval(function() {
-        var timerElement = document.getElementById('timer');
-        if (timeLeft <= 0) {
-            clearInterval(countdownTimer);
-            document.getElementById('resend-code').innerHTML = '<a href="#" id="resend-link">Click here to resend the code</a>';
-        } else {
-            timeLeft--;
-            timerElement.textContent = '0:' + (timeLeft < 10 ? '0' + timeLeft : timeLeft);
-        }
-    }, 1000);
-
-    // Handle Resend Link Click
-    document.addEventListener('click', function(e) {
-        if (e.target && e.target.id === 'resend-link') {
-            e.preventDefault();
-            // Reset timer and form submission
-            document.getElementById('resend-code-form').submit();
-        }
-    });
-});
-</script>
 
 
 

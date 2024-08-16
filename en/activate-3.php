@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 // Initialize variables
 $buwana_id = $_GET['id'] ?? null;  // Correctly initializing buwana_id
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.456';
+$version = '0.457';
 $page = 'activate';
 $first_name = '';
 $email_addr = '';
@@ -149,10 +149,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <!--ACTIVATE 3 FORM-->
         <form id="user-info-form" method="post" action="activate-3.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
                         <div class="form-item" id="language-select">
-                          <label for="language_id">Please tell us which language you prefer...</label><br>
+                          <!--<label for="language_id">Please tell us which language you prefer...</label><br>-->
             <select name="language_id" id="language_id" required>
                 <!-- Placeholder option -->
-                <option value="" disabled selected>Select your language...</option>
+                <option value="" disabled selected>Select your preferred language...</option>
 
                 <?php foreach ($languages as $language): ?>
                     <option value="<?php echo htmlspecialchars($language['lang_id']); ?>"
@@ -165,9 +165,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             </div>
 
             <div class="form-item" id="country-select" style="display:none;">
-                <label for="country_id">Please select your country of residence...</label><br>
+                <!--<label for="country_id">Please select your country of residence...</label><br>-->
               <select name="country_id" id="country_id" required>
-                    <option value="">Select your country</option>
+                    <option value="">Select your country of residence...</option>
                     <?php foreach ($countries as $country) { ?>
                         <option value="<?php echo $country['country_id']; ?>">
                             <?php echo htmlspecialchars($country['country_name']); ?>

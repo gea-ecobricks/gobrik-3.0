@@ -28,7 +28,6 @@ if (is_null($buwana_id)) {
     exit();
 }
 
-
 // PART 3: Look up user information using buwana_id provided in URL
 
 // Buwana database credentials
@@ -54,10 +53,6 @@ if (empty($first_name)) {
 }
 
 // Fetch languages from Buwana database
-
-// Buwana database credentials
-require_once ("../buwanaconn_env.php");
-
 $sql_languages = "SELECT lang_id, languages_eng_name, language_active FROM languages_tb ORDER BY languages_eng_name";
 $result_languages = $buwana_conn->query($sql_languages);
 
@@ -67,10 +62,7 @@ if ($result_languages->num_rows > 0) {
     }
 }
 
-
 // Fetch countries from Buwana database
-$countries = [];
-
 $sql_countries = "SELECT country_id, country_name FROM countries_tb ORDER BY country_name";
 $result_countries = $buwana_conn->query($sql_countries);
 
@@ -82,16 +74,12 @@ if ($result_countries->num_rows > 0) {
     echo "No countries found.";
 }
 
-$buwana_conn->close();
-
 // PART 4: Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $selected_language_id = $_POST['language_id'];
     $selected_country_id = $_POST['country_id'];
 
     // Update the Buwana user's language and country using buwana_id
-    require_once ("../buwanaconn_env.php");
-
     $sql_update_buwana = "UPDATE users_tb SET languages_id = ?, country_id = ? WHERE buwana_id = ?";
     $stmt_update_buwana = $buwana_conn->prepare($sql_update_buwana);
     if ($stmt_update_buwana) {
@@ -107,11 +95,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(['success' => false, 'error' => 'db_update_failed']);
         exit();
     }
-
-    $buwana_conn->close();
 }
 
+// Close the database connection after all operations are done
+$buwana_conn->close();
+
 ?>
+
 
 
 

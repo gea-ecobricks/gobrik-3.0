@@ -76,6 +76,7 @@ form input:focus {
 
 .dropdown-item:hover:not(.disabled) {
     background-color: #f0f0f0;
+}
 
 
 </style>

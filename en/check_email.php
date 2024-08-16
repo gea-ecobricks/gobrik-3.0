@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 
 $response = ['success' => false];
 
-include '../buwanaconn_env.php'; // This file provides the first database server, user, dbname information to access the server
+include '../buwanaconn_env.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Sanitize and validate email input
@@ -40,11 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 include '../gobrikconn_env.php';
 
 
-    if ($conn_gobrik->connect_error) {
-        $response['error'] = 'db_error';
-        echo json_encode($response);
-        exit();
-    }
+
 
     $sql_check_gobrik_email = "SELECT COUNT(*) FROM ecobricker_live_tb WHERE email_addr = ?";
     $stmt_check_gobrik_email = $gobrik_con->prepare($sql_check_gobrik_email);

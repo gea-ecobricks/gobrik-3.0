@@ -77,13 +77,13 @@ function validatePassword(isValid) {
 }
 
 
-function closeModal() {
-    const modal = document.getElementById('form-modal-message');
-    modal.style.display = 'none';
-    document.getElementById('page-content').classList.remove('blurred');
-    document.getElementById('footer-full').classList.remove('blurred');
-    document.body.classList.remove('modal-open');
-}
+// function closeModal() {
+//     const modal = document.getElementById('form-modal-message');
+//     modal.style.display = 'none';
+//     document.getElementById('page-content').classList.remove('blurred');
+//     document.getElementById('footer-full').classList.remove('blurred');
+//     document.body.classList.remove('modal-open');
+// }
 
 function validateForm() {
     const email = document.querySelector('input[name="email"]').value;
@@ -160,20 +160,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     </div>
                 </div>
             </div>
-
-        <!--    <div class="form-item">
-        <label for="credential_key" data-lang-id="003-login-email">Your e-mail:</label>
-        <div class="input-wrapper" style="position: relative;">
-            <input type="text" id="credential_key" name="credential_key" required placeholder="Your e-mail..." value="<?php echo isset($_GET['credential_key']) ? htmlspecialchars($_GET['credential_key']) : ''; ?>">
-            <span class="toggle-select" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔑</span>
-            <div id="dropdown-menu" style="display: none; position: absolute; right: 10px; top: 100%; z-index: 1000; background: white; border: 1px solid #ccc; width: 150px; text-align: left;">
-                <div class="dropdown-item">E-mail</div>
-                <div class="dropdown-item disabled" style="opacity: 0.5;">SMS</div>
-                <div class="dropdown-item disabled" style="opacity: 0.5;">Trainer</div>
-            </div>
-        </div>
-    </div>-->
-
 
             <div class="form-item">
                 <label for="password" data-lang-id="000-your-password">Your password:</label><br>
@@ -270,10 +256,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-
-
-
-
 
     </script>
 </body>

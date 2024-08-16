@@ -6,9 +6,9 @@ ini_set('display_errors', 1);
 // Start the session before any output
 session_start();
 
-// Check if user is logged in and session active
+// PART 1: Check if the user is already logged in
 if (isset($_SESSION['buwana_id'])) {
-    header('Location: dashboard.php');
+    header("Location: dashboard.php");
     exit();
 }
 
@@ -18,6 +18,48 @@ $version = '0.587';
 $page = 'signedup-login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
+// Initialize variables
+$buwana_id = $_GET['id'] ?? null;  // Ensure buwana_id is defined early
+$credential_type = '';
+$credential_key = '';
+$first_name = '';
+
+// PART 2: Check if buwana_id is passed in the URL
+if (is_null($buwana_id)) {
+    echo '<script>
+        alert("Hmm... something went wrong. No buwana ID was passed along. Please try logging in again. If this problem persists, you\'ll need to create a new account.");
+        window.location.href = "login.php";
+    </script>';
+    exit();
+}
+
+// PART 3: Look up user information using buwana_id provided in URL
+
+// Buwana database credentials
+require_once ("../buwanaconn_env.php");
+
+// Fetch user information using buwana_id from the Buwana database
+$sql_user_info = "SELECT first_name, credential_key, credential_type FROM users_tb WHERE buwana_id = ?";
+$stmt_user_info = $buwana_conn->prepare($sql_user_info);
+
+if ($stmt_user_info) {
+    $stmt_user_info->bind_param('i', $buwana_id);
+    $stmt_user_info->execute();
+    $stmt_user_info->bind_result($first_name, $credential_key, $credential_type);
+    $stmt_user_info->fetch();
+    $stmt_user_info->close();
+} else {
+    die('Error preparing statement for fetching user info: ' . $buwana_conn->error);
+}
+
+// Ensure $first_name is set and not empty
+if (empty($first_name)) {
+    $first_name = 'User'; // Fallback if first name is not set
+}
+
+// PART 4: Close the database connection
+$buwana_conn->close();
+
 // Echo the HTML structure
 echo '<!DOCTYPE html>
 <html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">
@@ -25,44 +67,10 @@ echo '<!DOCTYPE html>
 <meta charset="UTF-8">
 ';
 
+// Additional HTML and content can be added here
 
-include '../buwanaconn_env.php'; // This file provides the database server, user, dbname information to access the server
-
-$buwana_id = $_GET['id'] ?? null;
-
-// Initialize variables
-$credential_type = '';
-$credential_key = '';
-$first_name = '';
-
-if ($buwana_id) {
-    // Prepare the SQL statement for credentials_tb
-    $sql_lookup_credential = "SELECT credential_type, credential_key FROM credentials_tb WHERE buwana_id = ?";
-    if ($stmt_lookup_credential = $buwana_conn->prepare($sql_lookup_credential)) {
-        $stmt_lookup_credential->bind_param("i", $buwana_id);
-        $stmt_lookup_credential->execute();
-        $stmt_lookup_credential->bind_result($credential_type, $credential_key);
-        $stmt_lookup_credential->fetch();
-        $stmt_lookup_credential->close();
-    } else {
-        echo "Error preparing statement for credentials_tb: " . $buwana_conn->error;
-    }
-
-    // Prepare the SQL statement for users_tb
-    $sql_lookup_user = "SELECT first_name FROM users_tb WHERE buwana_id = ?";
-    if ($stmt_lookup_user = $buwana_conn->prepare($sql_lookup_user)) {
-        $stmt_lookup_user->bind_param("i", $buwana_id);
-        $stmt_lookup_user->execute();
-        $stmt_lookup_user->bind_result($first_name);
-        $stmt_lookup_user->fetch();
-        $stmt_lookup_user->close();
-    } else {
-        echo "Error preparing statement for users_tb: " . $buwana_conn->error;
-    }
-}
-
-$buwana_conn->close();
 ?>
+
 
 
 <script>
@@ -77,13 +85,13 @@ function validatePassword(isValid) {
 }
 
 
-// function closeModal() {
-//     const modal = document.getElementById('form-modal-message');
-//     modal.style.display = 'none';
-//     document.getElementById('page-content').classList.remove('blurred');
-//     document.getElementById('footer-full').classList.remove('blurred');
-//     document.body.classList.remove('modal-open');
-// }
+function closeModal() {
+    const modal = document.getElementById('form-modal-message');
+    modal.style.display = 'none';
+    document.getElementById('page-content').classList.remove('blurred');
+    document.getElementById('footer-full').classList.remove('blurred');
+    document.body.classList.remove('modal-open');
+}
 
 function validateForm() {
     const email = document.querySelector('input[name="email"]').value;

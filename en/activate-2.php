@@ -35,33 +35,59 @@ if (isset($_SESSION['buwana_id'])) {
 }
 
 
-// PART 2: Fetch Buwana account details and check if password is set
-require_once("../buwanaconn_env.php");
+// PART 1.5: Check if the Buwana user already has a password set
+require_once ("../buwanaconn_env.php");
+
+$buwana_id = $_GET['id'] ?? null;  // Ensure buwana_id is passed through the URL
+
+if (!$buwana_id) {
+    // Redirect to an error page if buwana_id is missing
+    header("Location: error_page.php");
+    exit();
+}
 
 $sql_check_password = "SELECT password_hash FROM users_tb WHERE buwana_id = ?";
 $stmt_check_password = $buwana_conn->prepare($sql_check_password);
 if ($stmt_check_password) {
-    $stmt_check_password->bind_param('i', $ecobricker_id); // Using ecobricker_id to get buwana_id
+    $stmt_check_password->bind_param('i', $buwana_id);
     $stmt_check_password->execute();
     $stmt_check_password->bind_result($password_hash);
     $stmt_check_password->fetch();
     $stmt_check_password->close();
 
-    // Check if password_hash is not null or empty
+    // If the password is already set, redirect to activate-3.php
     if (!empty($password_hash)) {
-        // Redirect to activate-3.php
-        header("Location: activate-3.php?id=" . urlencode($ecobricker_id));
+        header("Location: activate-3.php?id=" . urlencode($buwana_id));
         exit();
     }
 } else {
     error_log('Error preparing statement for checking password: ' . $buwana_conn->error);
-    $_SESSION['error_message'] = "An error occurred while checking the account details. Please try again.";
-    header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
+    header("Location: error_page.php");
     exit();
 }
 
 $buwana_conn->close();
 
+
+// PART 2: Fetch user details from the database (this should be done regardless of request method)
+require_once ("../gobrikconn_env.php");
+
+$sql_user_info = "SELECT first_name, last_name, full_name, email_addr, brk_balance, user_roles, birth_date FROM tb_ecobrickers WHERE ecobricker_id = ?";
+$stmt_user_info = $gobrik_conn->prepare($sql_user_info);
+if ($stmt_user_info) {
+    $stmt_user_info->bind_param('i', $ecobricker_id);
+    $stmt_user_info->execute();
+    $stmt_user_info->bind_result($first_name, $last_name, $full_name, $email_addr, $brk_balance, $user_roles, $birth_date);
+    $stmt_user_info->fetch();
+    $stmt_user_info->close();
+} else {
+    error_log('Error preparing statement for fetching user info: ' . $gobrik_conn->error);
+    $_SESSION['error_message'] = "An error occurred while fetching user details. Please try again.";
+    header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
+    exit();
+}
+
+$gobrik_conn->close();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validate passwords

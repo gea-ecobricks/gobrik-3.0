@@ -15,10 +15,9 @@ $email_addr = '';
 $brk_balance = 0;
 $user_roles = '';
 $birth_date = '';
-$terms_of_service = 1;  // Default to 1 as the checkbox is required
-$earthen_newsletter_join = 1;  // Default to 1, but will be updated based on form input
+$terms_of_service = 1;
+$earthen_newsletter_join = 1;
 
-// Check if the user is already logged in
 if (isset($_SESSION['buwana_id'])) {
     header("Location: dashboard.php");
     exit();
@@ -27,6 +26,7 @@ if (isset($_SESSION['buwana_id'])) {
 // PART 2: Check if the ecobricker already has a buwana_id
 require_once ("../gobrikconn_env.php");
 
+// Make sure to open the connection and keep it open until necessary queries are complete
 $sql_check_buwana_id = "SELECT buwana_id FROM tb_ecobrickers WHERE ecobricker_id = ?";
 $stmt_check_buwana_id = $gobrik_conn->prepare($sql_check_buwana_id);
 if ($stmt_check_buwana_id) {
@@ -48,7 +48,21 @@ if ($stmt_check_buwana_id) {
     exit();
 }
 
-$gobrik_conn->close();
+// Continue using the same connection here without closing it prematurely
+$sql_user_info = "SELECT first_name, last_name, full_name, email_addr, brk_balance, user_roles, birth_date FROM tb_ecobrickers WHERE ecobricker_id = ?";
+$stmt_user_info = $gobrik_conn->prepare($sql_user_info);
+if ($stmt_user_info) {
+    $stmt_user_info->bind_param('i', $ecobricker_id);
+    $stmt_user_info->execute();
+    $stmt_user_info->bind_result($first_name, $last_name, $full_name, $email_addr, $brk_balance, $user_roles, $birth_date);
+    $stmt_user_info->fetch();
+    $stmt_user_info->close();
+} else {
+    error_log('Error preparing statement for fetching user info: ' . $gobrik_conn->error);
+    $_SESSION['error_message'] = "An error occurred while fetching user details. Please try again.";
+    header("Location: activate-2.php?id=" . urlencode($ecobricker_id));
+    exit();
+}
 
 // PART 3: Fetch user details from the database
 require_once ("../gobrikconn_env.php");

@@ -234,8 +234,8 @@ $('#credential_value').on('blur', function() {
                 } else if (res.error === 'duplicate_gobrik_email') {
                     duplicateGobrikEmail.show();
                     duplicateEmailError.hide();
-                    loadingSpinner.removeClass('green').addClass('red').show();
-                    setPasswordSection.style.display = 'none';
+                    loadingSpinner.removeClass('red').addClass('green').show();
+                    setPasswordSection.style.display = 'block';
                 } else {
                     // Generic error handling
                     alert("An error occurred: " + res.error);

@@ -3,9 +3,9 @@
 
 <svg
    width="158.58525mm"
-   height="62.919769mm"
+   height="70.865997mm"
    version="1.1"
-   viewBox="0 0 158.58525 62.919773"
+   viewBox="0 0 158.58525 70.866001"
    id="svg145"
    sodipodi:docname="welcome-casandra-night.svg"
    inkscape:version="1.3.2 (1:1.3.2+202404261509+091e20ef0f)"
@@ -25,7 +25,7 @@
      inkscape:document-units="mm"
      inkscape:zoom="1.0148907"
      inkscape:cx="462.11874"
-     inkscape:cy="162.08642"
+     inkscape:cy="191.64626"
      inkscape:window-width="1803"
      inkscape:window-height="1125"
      inkscape:window-x="0"
@@ -163,7 +163,7 @@
     </filter>
   </defs>
   <g
-     transform="matrix(0.87941693,0,0,1,-11.674261,-42.158998)"
+     transform="matrix(0.87941693,0,0,1,-11.674261,-34.212769)"
      style="mix-blend-mode:difference"
      id="g33">
     <ellipse
@@ -292,7 +292,7 @@
     </g>
   </g>
   <g
-     transform="translate(-27.476634,-42.158998)"
+     transform="translate(-27.476634,-34.212769)"
      id="g58">
     <g
        transform="matrix(0.92895,-0.020679,0.012925,0.72824,55.479,5.1355)"
@@ -315,7 +315,7 @@
     </g>
   </g>
   <g
-     transform="translate(-7.4845695,-94.872625)"
+     transform="translate(-7.4845696,-86.926396)"
      id="g39">
     <g
        transform="matrix(-0.070125,0,0,0.070125,121.29,327.57)"

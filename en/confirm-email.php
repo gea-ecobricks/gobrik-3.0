@@ -75,15 +75,15 @@ if ($stmt_user_info) {
 $gobrik_conn->close();
 
 //PART 3: Handle form submission to send the confirmation code by email
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['send_email']) || isset($_POST['resend_email']))) {
-    $code_sent = sendVerificationCode($first_name, $email_addr, $verification_code);
-    if ($code_sent) {
-        // Instead of echoing the script directly here, set a PHP flag and handle it in the main script.
-        $code_sent_flag = true;
-    } else {
-        echo '<script>alert("Message could not be sent. Please try again later.");</script>';
-    }
-}
+// if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['send_email']) || isset($_POST['resend_email']))) {
+//     $code_sent = sendVerificationCode($first_name, $email_addr, $verification_code);
+//     if ($code_sent) {
+//         // Instead of echoing the script directly here, set a PHP flag and handle it in the main script.
+//         $code_sent_flag = true;
+//     } else {
+//         echo '<script>alert("Message could not be sent. Please try again later.");</script>';
+//     }
+// }
 ?>
 
 

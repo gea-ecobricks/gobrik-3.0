@@ -148,16 +148,19 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <!--ACTIVATE 3 FORM-->
         <form id="user-info-form" method="post" action="activate-3.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
-            <div class="form-item" id="language-select">
-                <label for="language_id">Please tell us which language you prefer...</label><br>
-               <select name="language_id" id="language_id">
-                    <?php foreach ($languages as $language): ?>
-                        <option value="<?php echo htmlspecialchars($language['lang_id']); ?>"
-                            <?php echo $language['language_active'] == 0 ? 'disabled' : ''; ?>>
-                            <?php echo htmlspecialchars($language['languages_eng_name']); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+                        <div class="form-item" id="language-select">
+                          <label for="language_id">Please tell us which language you prefer...</label><br>
+            <select name="language_id" id="language_id" required>
+                <!-- Placeholder option -->
+                <option value="" disabled selected>Select your language...</option>
+
+                <?php foreach ($languages as $language): ?>
+                    <option value="<?php echo htmlspecialchars($language['lang_id']); ?>"
+                        <?php echo $language['language_active'] == 0 ? 'disabled' : ''; ?>>
+                        <?php echo htmlspecialchars($language['languages_eng_name']); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
 
             </div>
 

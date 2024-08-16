@@ -216,57 +216,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-<script>
-// Function to validate password
-function validatePassword(isValid) {
-    const passwordErrorDiv = document.getElementById('password-error');
-    if (!isValid) {
-        passwordErrorDiv.style.display = 'flex';
-    } else {
-        passwordErrorDiv.style.display = 'none';
-    }
-}
-
-
-function closeModal() {
-    const modal = document.getElementById('form-modal-message');
-    modal.style.display = 'none';
-    document.getElementById('page-content').classList.remove('blurred');
-    document.getElementById('footer-full').classList.remove('blurred');
-    document.body.classList.remove('modal-open');
-}
-
-function validateForm() {
-    const email = document.querySelector('input[name="email"]').value;
-    if (!email) {
-        alert('Please enter a valid email address.');
-        return false;
-    }
-    return true;
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-    const errorType = "<?php echo isset($_GET['error']) ? htmlspecialchars($_GET['error']) : ''; ?>";
-    if (errorType) {
-        alert(errorType);
-    }
-});
-
-
-// Form submission validation
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById('login').addEventListener('submit', function(event) {
-        var credentialValue = document.getElementById('credential_key').value;
-        var password = document.getElementById('password').value;
-
-        if (credentialValue === '' || password === '') {
-            event.preventDefault();
-            document.getElementById('password-error').style.display = 'block';
-        }
-    });
-});
-</script>
-
 
 </body>
 </html>

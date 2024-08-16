@@ -158,72 +158,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <!--FOOTER STARTS HERE-->
 <?php require_once ("../footer-2024.php"); ?>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var code = "AYYEW";
-    var countdownTimer;
-    var timeLeft = 60;
 
-    // Fetch buwana_id from PHP (ensure this is correctly defined in PHP before use)
-    var buwana_id = "<?php echo htmlspecialchars($buwana_id); ?>";
-
-    // Handle code entry
-    var codeBoxes = document.querySelectorAll('.code-box');
-    codeBoxes.forEach(function(box, index) {
-        box.addEventListener('input', function() {
-            // Automatically move focus to the next box after input
-            if (box.value.length === 1 && index < codeBoxes.length - 1) {
-                codeBoxes[index + 1].focus();
-            }
-
-            // Gather the entered code
-            var enteredCode = Array.from(codeBoxes).map(function(input) {
-                return input.value.toUpperCase();
-            }).join('');
-
-            if (enteredCode.length === 5) {
-                var codeFeedback = document.getElementById('code-feedback');
-                if (enteredCode === code) {
-                    codeFeedback.textContent = 'Code confirmed!';
-                    codeFeedback.classList.add('success');
-                    codeFeedback.classList.remove('error');
-                    setTimeout(function() {
-                        // Redirect to activate-2.php with buwana_id as a parameter
-                        window.location.href = "activate-2.php?id=" + buwana_id;
-                    }, 2000);
-                } else {
-                    codeFeedback.textContent = 'Code incorrect';
-                    codeFeedback.classList.add('error');
-                    codeFeedback.classList.remove('success');
-                }
-            }
-        });
-    });
-
-
-
-    // Countdown timer for resend code
-    countdownTimer = setInterval(function() {
-        var timerElement = document.getElementById('timer');
-        if (timeLeft <= 0) {
-            clearInterval(countdownTimer);
-            document.getElementById('resend-code').innerHTML = '<a href="#" id="resend-link">Click here to resend the code</a>';
-        } else {
-            timeLeft--;
-            timerElement.textContent = '0:' + (timeLeft < 10 ? '0' + timeLeft : timeLeft);
-        }
-    }, 1000);
-
-    // Handle Resend Link Click
-    document.addEventListener('click', function(e) {
-        if (e.target && e.target.id === 'resend-link') {
-            e.preventDefault();
-            // Reset timer and form submission
-            document.getElementById('resend-code-form').submit();
-        }
-    });
-});
-</script>
 
 
 

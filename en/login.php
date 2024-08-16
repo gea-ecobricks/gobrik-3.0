@@ -31,7 +31,7 @@ $credential_key = '';
 // Check if buwana_id is available and valid
 if (!empty($buwana_id)) {
     // Database connection (assuming $conn is the connection variable)
-    require_once '../buwanaconn_env.php';  // Update this path as per your environment
+require_once '../buwanaconn_env.php';
 
     // Prepare the query to fetch the credential_key (email) from credentials_tb
     $sql = "SELECT credential_key FROM credentials_tb WHERE buwana_id = ? AND credential_type = 'email'";

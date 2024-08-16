@@ -166,46 +166,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    var code = "AYYEW";
-    var countdownTimer;
-    var timeLeft = 60;
-
-    // Fetch buwana_id from PHP safely using json_encode to prevent line break issues
-    var buwana_id = <?php echo json_encode($buwana_id); ?>;
-
-    // Handle code entry
-    var codeBoxes = document.querySelectorAll('.code-box');
-    codeBoxes.forEach(function(box, index) {
-        box.addEventListener('input', function() {
-            // Automatically move focus to the next box after input
-            if (box.value.length === 1 && index < codeBoxes.length - 1) {
-                codeBoxes[index + 1].focus();
-            }
-
-            // Gather the entered code
-            var enteredCode = Array.from(codeBoxes).map(function(input) {
-                return input.value.toUpperCase();
-            }).join('');
-
-            if (enteredCode.length === 5) {
-                var codeFeedback = document.getElementById('code-feedback');
-                if (enteredCode === code) {
-                    codeFeedback.textContent = 'Code confirmed!';
-                    codeFeedback.classList.add('success');
-                    codeFeedback.classList.remove('error');
-                    setTimeout(function() {
-                        // Redirect to activate-2.php with buwana_id as a parameter
-                        window.location.href = "activate-2.php?id=" + buwana_id;
-                    }, 2000);
-                } else {
-                    codeFeedback.textContent = 'Code incorrect';
-                    codeFeedback.classList.add('error');
-                    codeFeedback.classList.remove('success');
-                }
-            }
-        });
-    });
 
 </script>
 

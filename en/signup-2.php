@@ -8,7 +8,7 @@ $response = ['success' => false];
 $buwana_id = $_GET['id'] ?? null;
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.455';
+$version = '0.456';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $credential_type = '';
@@ -86,8 +86,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
             <div style="text-align:center;width:100%;margin:auto;">
-                <h2 data-lang-id="001-signup-heading2">Setup Your Access</h2>
-                <p><span data-lang-id="002-alright">Alright </span> <?php echo $first_name; ?>:<span data-lang-id="002-let-use-you"> Let's use your</span> <?php echo $credential_type; ?> <span data-lang-id="003-as-your-means">as your means of registration and the way we contact you.</span></p>
+                <h2 data-lang-id="001-page2-heading">Setup Your Access</h2>
+                <p><span data-lang-id="002-page2-heading">Alright </span> <?php echo $first_name; ?>:<span data-lang-id="002-let-use-you"> Let's use your</span> <?php echo $credential_type; ?> <span data-lang-id="003-as-your-means">as your means of registration and the way we contact you.</span></p>
             </div>
 
 

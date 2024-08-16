@@ -3,23 +3,17 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-require '../vendor/autoload.php';
-
 $response = ['success' => false];
 $buwana_id = $_GET['id'] ?? null;
 
-//This page processes signup-2.php's form.  It updates the tb_user bu
-
-include '../buwana_env.php'; // This file provides the database server, user, dbname information to access the Buwana server
+include '../buwanaconn_env.php'; // Database connection file
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($buwana_id)) {
     // Sanitize and validate inputs
     $credential_value = filter_var($_POST['credential_value'], FILTER_SANITIZE_EMAIL);
     $password = $_POST['password_hash'];
 
-    // Check if the password is valid
+    // Validate password length
     if (strlen($password) < 6) {
         $response['error'] = 'invalid_password';
         echo json_encode($response);
@@ -30,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($buwana_id)) {
 
     // Check if the email already exists in the Buwana database
     $sql_check_email = "SELECT COUNT(*) FROM users_tb WHERE email = ?";
-    $stmt_check_email = $conn->prepare($sql_check_email);
+    $stmt_check_email = $buwana_conn->prepare($sql_check_email);
     if ($stmt_check_email) {
         $stmt_check_email->bind_param("s", $credential_value);
         $stmt_check_email->execute();
@@ -43,43 +37,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($buwana_id)) {
         } else {
             // Update credentials_tb with the new credential key
             $sql_update_credential = "UPDATE credentials_tb SET credential_key = ? WHERE buwana_id = ?";
-            $stmt_update_credential = $conn->prepare($sql_update_credential);
+            $stmt_update_credential = $buwana_conn->prepare($sql_update_credential);
             if ($stmt_update_credential) {
                 $stmt_update_credential->bind_param("si", $credential_value, $buwana_id);
                 if ($stmt_update_credential->execute()) {
                     // Update users_tb with the new password, email, and account status
                     $sql_update_user = "UPDATE users_tb SET password_hash = ?, email = ?, account_status = 'registered no login' WHERE buwana_id = ?";
-                    $stmt_update_user = $conn->prepare($sql_update_user);
+                    $stmt_update_user = $buwana_conn->prepare($sql_update_user);
                     if ($stmt_update_user) {
                         $stmt_update_user->bind_param("ssi", $password_hash, $credential_value, $buwana_id);
                         if ($stmt_update_user->execute()) {
-                            // Email the user
-                            $mail = new PHPMailer(true);
-                            try {
-                                // Server settings
-                                $mail->isSMTP();
-                                $mail->Host = 'mail.ecobricks.org'; // Set the SMTP server to send through
-                                $mail->SMTPAuth = true;
-                                $mail->Username = 'gobrik@ecobricks.org'; // SMTP username
-                                $mail->Password = '1Welcome!'; // SMTP password
-                                $mail->SMTPSecure = false; // Disable SSL encryption
-                                $mail->Port = 26; // TCP port to connect to
-
-                                // Recipients
-                                $mail->setFrom('no-reply@ecobricks.org', 'GoBrik Welcome');
-                                $mail->addAddress($credential_value); // Add a recipient
-
-                                // Content
-                                $mail->isHTML(true); // Set email format to HTML
-                                $mail->Subject = 'Welcome to GoBrik!';
-                                $mail->Body    = 'Dear User,<br><br>Thank you for registering with GoBrik. We are excited to have you on board.<br><br>Best Regards,<br>GEA | Buwana Team';
-                                $mail->AltBody = 'Dear User,\n\nThank you for registering with GoBrik. We are excited to have you on board.\n\nBest Regards,\nGEA | Buwana Team';
-
-                                $mail->send();
-                                $response['success'] = true;
-                            } catch (Exception $e) {
-                                $response['error'] = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-                            }
+                            $response['success'] = true;
                         } else {
                             $response['error'] = 'db_error';
                         }
@@ -100,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($buwana_id)) {
     }
 
     // Close the database connection
-    $conn->close();
+    $buwana_conn->close();
 } else {
     $response['error'] = 'invalid_request';
 }

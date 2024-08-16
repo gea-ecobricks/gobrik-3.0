@@ -118,7 +118,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <h2><?php echo htmlspecialchars($first_name); ?>, first: your email.</h2>
             <p>To confirm you email, click the send button and we'll send an account activation code to:</p>
 
-            <h3><?php echo htmlspecialchars($email_addr); ?></h4>
+            <h3><?php echo htmlspecialchars($email_addr); ?></h3>
             <form method="post" action="">
                <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
                 <div id="submit-section" style="text-align:center;margin-top:20px;padding-right:15px;padding-left:15px" title="Start Activation process">

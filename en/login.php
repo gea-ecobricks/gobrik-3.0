@@ -55,7 +55,7 @@ if (!empty($buwana_id)) {
     }
 
     // Close the database connection
-    $conn->close();
+    $buwana_conn->close();
 } // <-- Add this closing brace here to close the if block
 
 // PHP functions to get the correct messages based on the language

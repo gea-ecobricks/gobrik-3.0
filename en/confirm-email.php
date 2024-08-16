@@ -200,12 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Show/Hide Divs after email is sent
-    var codeSent = false;
-    if (codeSent) {
-        document.getElementById('first-send-form').style.display = 'none';
-        document.getElementById('second-code-confirm').style.display = 'block';
-    }
+
 
     // Countdown timer for resend code
     countdownTimer = setInterval(function() {

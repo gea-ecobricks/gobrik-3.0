@@ -1,3 +1,5 @@
+Note that sometimes there won't be a buwana_id in the url.  If this the case then its not necessary to Check if buwana_id is available and valid or to fetch the credential key.    Please add a conditional check and print my full code:
+
 <?php
 // Turn on or off error reporting
 error_reporting(E_ALL);
@@ -56,6 +58,112 @@ if (!empty($buwana_id)) {
         // Close the statement
         $stmt->close();
     }
+
+// PHP functions to get the correct messages based on the language
+function getLogoutMessage($lang) {
+    $messages = [
+        'en' => "You've been logged out.",
+        'fr' => "Vous avez été déconnecté.",
+        'id' => "Anda telah keluar.",
+        'es' => "Has cerrado tu sesión."
+    ];
+    return $messages[$lang] ?? $messages['en']; // Default to English if $lang is not found
+}
+
+function getFirstTimeMessage($lang) {
+    $messages = [
+        'en' => "Your Buwana Account is Created! 🎉",
+        'fr' => "Votre compte Buwana est créé ! 🎉",
+        'id' => "Akun Buwana Anda sudah Dibuat! 🎉",
+        'es' => "¡Tu cuenta de Buwana está creada! 🎉"
+    ];
+    return $messages[$lang] ?? $messages['en']; // Default to English if $lang is not found
+}
+
+function getLoginMessage($lang) {
+    $messages = [
+        'en' => "Welcome back!",
+        'fr' => "Bon retour !",
+        'id' => "Selamat datang kembali!",
+        'es' => "¡Bienvenido de nuevo!"
+    ];
+    return $messages[$lang] ?? $messages['en']; // Default to English if $lang is not found
+}
+
+// Echo the HTML structure
+echo '<!DOCTYPE html>
+<html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">
+<head>
+<meta charset="UTF-8">
+';
+?>
+2/2
+ChatGPT said:
+ChatGPT
+
+Here is your full PHP code with the conditional check to handle the case when buwana_id is not present in the URL. If the buwana_id is available, it will attempt to fetch the credential_key. If not, it skips the database lookup.
+
+php
+
+<?php
+// Turn on or off error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Start the session before any output
+session_start();
+
+// Check if user is logged in and session active
+if (isset($_SESSION['buwana_id'])) {
+    header('Location: dashboard.php');
+    exit();
+}
+
+// Generate CSRF token if not already set
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
+// Set page variables
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$version = '0.61';
+$page = 'login';
+$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+$buwana_id = isset($_GET['buwana_id']) ? filter_var($_GET['buwana_id'], FILTER_SANITIZE_NUMBER_INT) : '';
+$status = isset($_GET['status']) ? filter_var($_GET['status'], FILTER_SANITIZE_STRING) : '';
+
+// Initialize the credential_key variable
+$credential_key = '';
+
+// Check if buwana_id is available and valid
+if (!empty($buwana_id)) {
+    // Database connection (assuming $conn is the connection variable)
+    require_once 'buwanaconn_env.php';  // Update this path as per your environment
+
+    // Prepare the query to fetch the credential_key (email) from credentials_tb
+    $sql = "SELECT credential_key FROM credentials_tb WHERE buwana_id = ? AND credential_type = 'email'";
+    if ($stmt = $conn->prepare($sql)) {
+        // Bind the buwana_id parameter
+        $stmt->bind_param("i", $buwana_id);
+
+        // Execute the statement
+        $stmt->execute();
+
+        // Bind the result
+        $stmt->bind_result($fetched_credential_key);
+
+        // Fetch the result
+        if ($stmt->fetch()) {
+            $credential_key = $fetched_credential_key;  // Store the fetched credential_key (email)
+        }
+
+        // Close the statement
+        $stmt->close();
+    }
+
+    // Close the database connection
+    $conn->close();
+}
 
 // PHP functions to get the correct messages based on the language
 function getLogoutMessage($lang) {

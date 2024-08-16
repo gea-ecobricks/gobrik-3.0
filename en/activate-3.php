@@ -140,7 +140,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <form id="user-info-form" method="post" action="activate-3.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
                         <div class="form-item" id="language-select">
                           <!--<label for="language_id">Please tell us which language you prefer...</label><br>-->
-            <select name="language_id" id="language_id" required>
+            <select name="language_id" id="language_id" required style="text-align: center;
+  display: block;
+  margin: auto;">
                 <!-- Placeholder option -->
                 <option value="" disabled selected>Select your preferred language...</option>
 
@@ -156,7 +158,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
             <div class="form-item" id="country-select" style="display:none;">
                 <!--<label for="country_id">Please select your country of residence...</label><br>-->
-              <select name="country_id" id="country_id" required>
+              <select name="country_id" id="country_id" required style="text-align: center;
+  display: block;
+  margin: auto;">
                     <option value="">Select your country of residence...</option>
                     <?php foreach ($countries as $country) { ?>
                         <option value="<?php echo $country['country_id']; ?>">

@@ -16,7 +16,7 @@ $credential_key = '';
 $first_name = '';
 $account_status = '';
 
-include '../buwanaconn_env.php'; // This file provides the database server, user, dbname information to access the server
+include '../buwanaconn_env.php'; // Database connection
 
 // PART 1: Check if the user is already logged in
 if (isset($_SESSION['buwana_id'])) {
@@ -289,41 +289,51 @@ $('#credential_value').on('blur', function() {
 
     humanCheckField.addEventListener('input', updateSubmitButtonState);
     termsCheckbox.addEventListener('change', updateSubmitButtonState);
+$('#password-confirm-form').on('submit', function(e) {
+    e.preventDefault(); // Prevent the form from submitting normally
+    loadingSpinner.removeClass('green red').show();
 
-    // Form submission
-    $('#password-confirm-form').on('submit', function(e) {
-        e.preventDefault(); // Prevent the form from submitting normally
-        loadingSpinner.removeClass('green red').show();
-
-        $.ajax({
-            url: 'signup_process.php?id=<?php echo htmlspecialchars($buwana_id); ?>',
-            type: 'POST',
-            data: $(this).serialize(), // Serialize the form data
-            success: function(response) {
-                loadingSpinner.hide();
+    $.ajax({
+        url: 'signup_process.php?id=<?php echo htmlspecialchars($buwana_id); ?>',
+        type: 'POST',
+        data: $(this).serialize(), // Serialize the form data
+        success: function(response) {
+            loadingSpinner.hide();
+            try {
                 var res = JSON.parse(response);
-                if (res.success) {
-                    window.location.href = 'confirm-email.php?id=<?php echo htmlspecialchars($buwana_id); ?>';
-                } else if (res.error === 'duplicate_email') {
-                    duplicateEmailError.show();
-                    duplicateGobrikEmail.hide();
-                    loadingSpinner.removeClass('green').addClass('red').show();
-                } else if (res.error === 'duplicate_gobrik_email') {
-                    duplicateGobrikEmail.show();
-                    duplicateEmailError.hide();
-                    loadingSpinner.removeClass('red').addClass('green').show();
-                    $('#password-confirm-form').off('submit').submit(); // Allow the form to submit
-                } else {
-                    alert('An unexpected error occurred. Please try again.');
-                }
-            },
-            error: function() {
-                loadingSpinner.hide();
-                alert('An error occurred while processing the form. Please try again.');
+            } catch (e) {
+                alert('Invalid JSON response from server.');
+                return;
             }
-        });
+
+            if (res.success) {
+                // Redirect to the confirmation email page
+                window.location.href = res.redirect || 'confirm-email.php?id=<?php echo htmlspecialchars($buwana_id); ?>';
+            } else if (res.error === 'duplicate_email') {
+                duplicateEmailError.show();
+                duplicateGobrikEmail.hide();
+                loadingSpinner.removeClass('green').addClass('red').show();
+            } else if (res.error === 'duplicate_gobrik_email') {
+                duplicateGobrikEmail.show();
+                duplicateEmailError.hide();
+                loadingSpinner.removeClass('red').addClass('green').show();
+                // Optionally redirect to activate.php if needed
+                if (res.redirect) {
+                    window.location.href = res.redirect;
+                } else {
+                    alert('Please activate your account.');
+                }
+            } else {
+                alert('An unexpected error occurred. Please try again.');
+            }
+        },
+        error: function() {
+            loadingSpinner.hide();
+            alert('An error occurred while processing the form. Please try again.');
+        }
     });
 });
+
 
 
 

@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     include '../gobrikconn_env.php'; // GoBrik connection
 
     $sql_check_gobrik_email = "SELECT COUNT(*) FROM tb_ecobrickers WHERE email_addr = ?";
-    $stmt_check_gobrik_email = $gobrik_con->prepare($sql_check_gobrik_email);
+    $stmt_check_gobrik_email = $gobrik_conn->prepare($sql_check_gobrik_email);
     if ($stmt_check_gobrik_email) {
         $stmt_check_gobrik_email->bind_param("s", $credential_value);
         $stmt_check_gobrik_email->execute();
@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Close database connections
     $buwana_conn->close();
-    $gobrik_con->close();
+    $gobrik_conn->close();
 
     // No duplicate found in either database
     $response['success'] = true;

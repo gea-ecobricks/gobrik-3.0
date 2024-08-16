@@ -50,7 +50,7 @@ if ($stmt_check_buwana_id) {
 
 $gobrik_conn->close();
 
-// PART 3: Fetch user details from the database (this should be done regardless of request method)
+// PART 3: Fetch user details from the database
 require_once ("../gobrikconn_env.php");
 
 $sql_user_info = "SELECT first_name, last_name, full_name, email_addr, brk_balance, user_roles, birth_date FROM tb_ecobrickers WHERE ecobricker_id = ?";
@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Hash the password
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-    // PART 3: Insert new user into Buwana database
+    // PART 4: Insert new user into Buwana database
     require_once ("../buwanaconn_env.php");
 
     // Check if the email already exists in the Buwana database
@@ -143,30 +143,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 $stmt_update_gobrik->bind_param('ii', $buwana_id, $ecobricker_id);
                                 if ($stmt_update_gobrik->execute()) {
                                     $stmt_update_gobrik->close();
-
-                                    // Send welcome email
-                                    $mail = new PHPMailer(true);
-                                    try {
-                                        $mail->isSMTP();
-                                        $mail->Host = 'mail.ecobricks.org';
-                                        $mail->SMTPAuth = true;
-                                        $mail->Username = 'gobrik@ecobricks.org';
-                                        $mail->Password = '1Welcome!';
-                                        $mail->SMTPSecure = false;
-                                        $mail->Port = 26;
-
-                                        $mail->setFrom('no-reply@ecobricks.org', 'GoBrik Welcome');
-                                        $mail->addAddress($email_addr);
-
-                                        $mail->isHTML(true);
-                                        $mail->Subject = 'Welcome to GoBrik!';
-                                        $mail->Body = 'Dear ' . $first_name . ',<br><br>Thank you for registering with GoBrik. We are excited to have you on board.<br><br>Best Regards,<br>GEA | Buwana Team';
-                                        $mail->AltBody = 'Dear ' . $first_name . ',\n\nThank you for registering with GoBrik. We are excited to have you on board.\n\nBest Regards,\nGEA | Buwana Team';
-
-                                        $mail->send();
-                                    } catch (Exception $e) {
-                                        error_log("Message could not be sent. Mailer Error: " . $mail->ErrorInfo);
-                                    }
 
                                     // Redirect to the next activation step
                                     header("Location: activate-3.php?id=" . urlencode($buwana_id));
@@ -220,6 +196,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
 
 
 

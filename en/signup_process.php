@@ -3,6 +3,8 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+ob_start(); // Start output buffering
+
 $response = ['success' => false];
 $buwana_id = $_GET['id'] ?? null;
 
@@ -17,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($buwana_id)) {
     if (strlen($password) < 6) {
         $response['error'] = 'invalid_password';
         echo json_encode($response);
+        ob_end_clean(); // Clear buffer
         exit();
     }
 
@@ -72,6 +75,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($buwana_id)) {
 } else {
     $response['error'] = 'invalid_request';
 }
+
+ob_end_clean(); // Clear any previous output
 
 // Return the JSON response
 echo json_encode($response);

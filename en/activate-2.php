@@ -35,40 +35,6 @@ if (isset($_SESSION['buwana_id'])) {
 }
 
 
-// PART 1.5: Check if the Buwana user already has a password set
-require_once ("../buwanaconn_env.php");
-
-$buwana_id = $_GET['id'] ?? null;  // Ensure buwana_id is passed through the URL
-
-if (!$buwana_id) {
-    // Redirect to an error page if buwana_id is missing
-    header("Location: error_page.php");
-    exit();
-}
-
-$sql_check_password = "SELECT password_hash FROM users_tb WHERE buwana_id = ?";
-$stmt_check_password = $buwana_conn->prepare($sql_check_password);
-if ($stmt_check_password) {
-    $stmt_check_password->bind_param('i', $buwana_id);
-    $stmt_check_password->execute();
-    $stmt_check_password->bind_result($password_hash);
-    $stmt_check_password->fetch();
-    $stmt_check_password->close();
-
-    // If the password is already set, redirect to activate-3.php
-    if (!empty($password_hash)) {
-        header("Location: activate-3.php?id=" . urlencode($buwana_id));
-        exit();
-    }
-} else {
-    error_log('Error preparing statement for checking password: ' . $buwana_conn->error);
-    header("Location: error_page.php");
-    exit();
-}
-
-$buwana_conn->close();
-
-
 // PART 2: Fetch user details from the database (this should be done regardless of request method)
 require_once ("../gobrikconn_env.php");
 

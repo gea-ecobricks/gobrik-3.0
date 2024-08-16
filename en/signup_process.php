@@ -16,7 +16,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Sanitize and validate inputs
     $credential_value = filter_var($_POST['credential_value'], FILTER_SANITIZE_EMAIL);
     $password = $_POST['password_hash'];
-    $first_name = htmlspecialchars($_POST['first_name'], ENT_QUOTES);
 
     // Validate password length
     if (strlen($password) < 6) {
@@ -27,6 +26,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+    // Retrieve the Buwana first_name from the database
+    $sql_get_first_name = "SELECT first_name FROM users_tb WHERE buwana_id = ?";
+    $stmt_get_first_name = $buwana_conn->prepare($sql_get_first_name);
+    if ($stmt_get_first_name) {
+        $stmt_get_first_name->bind_param("i", $buwana_id);
+        $stmt_get_first_name->execute();
+        $stmt_get_first_name->bind_result($first_name);
+        $stmt_get_first_name->fetch();
+        $stmt_get_first_name->close();
+    } else {
+        $response['error'] = 'db_error';
+        echo json_encode($response);
+        ob_end_clean();
+        exit();
+    }
 
     // Check if the email already exists in the Buwana database
     $sql_check_email_buwana = "SELECT COUNT(*), buwana_id FROM users_tb WHERE email = ?";
@@ -77,15 +92,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit();
     }
 
-    // If no duplicate emails were found, proceed to update the Buwana user
-    $sql_update_user = "UPDATE users_tb SET first_name = ?, email = ?, password_hash = ?, account_status = 'registered no login', last_login = NOW() WHERE buwana_id = ?";
+    // Update the Buwana user (only update email and password, not first_name)
+    $sql_update_user = "UPDATE users_tb SET email = ?, password_hash = ?, account_status = 'registered no login', last_login = NOW() WHERE buwana_id = ?";
     $stmt_update_user = $buwana_conn->prepare($sql_update_user);
 
     if ($stmt_update_user) {
-        $stmt_update_user->bind_param("sssi", $first_name, $credential_value, $password_hash, $buwana_id);
+        $stmt_update_user->bind_param("ssi", $credential_value, $password_hash, $buwana_id);
 
         if ($stmt_update_user->execute()) {
-            // Now create the Ecobricker account in GoBrik
+            // Now create the Ecobricker account in GoBrik using the first_name from Buwana
             $sql_create_ecobricker = "INSERT INTO tb_ecobrickers (first_name, buwana_id, email_addr, date_registered, maker_id, buwana_activated, buwana_activation_dt) VALUES (?, ?, ?, NOW(), ?, 1, NOW())";
             $stmt_create_ecobricker = $gobrik_conn->prepare($sql_create_ecobricker);
 
@@ -123,6 +138,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ob_end_clean(); // Clear any previous output
 
 // Return the JSON response
-echo json_encode($response);
-exit();
-?>
+echo json_encode($resp

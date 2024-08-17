@@ -129,7 +129,7 @@ echo '<!DOCTYPE html>
             <h4 data-lang-id="002-login-subheading" style="margin-top:5px, margin-bottom:5px;">Login with your account credentials.</h4>
         </div>
 
-        <form id="login" method="post" action="login_process.php" onsubmit="return validateForm();">
+<form id="login" method="post" action="login_process.php">
     <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
 
     <div class="form-item">

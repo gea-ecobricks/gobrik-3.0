@@ -178,58 +178,109 @@ echo '<!DOCTYPE html>
 <script>
 
 
+/*
+//
+//     function validateForm() {
+//         document.getElementById('no-buwana-email').style.display = 'none';
+//         return true;
+//     }
+//
+//
+//
+// // Function to validate password and show/hide the error message
+// function validatePassword(isValid) {
+//     const passwordErrorDiv = document.getElementById('password-error');
+//     if (!isValid) {
+//         passwordErrorDiv.style.display = 'flex';
+//     } else {
+//         passwordErrorDiv.style.display = 'none';
+//     }
+// }
+//
+//
+// function validateForm() {
+//     const email = document.querySelector('input[name="credential_key"]').value;
+//     if (!email) {
+//         alert('Please enter a valid email address.');
+//         return false;
+//     }
+//     return true;
+// }
+//
+// document.addEventListener("DOMContentLoaded", function() {
+//     const errorType = "<?php echo isset($_GET['error']) ? htmlspecialchars($_GET['error']) : ''; ?>";
+//     if (errorType) {
+//         if (errorType === 'invalid_password') {
+//             validatePassword(false);
+//         } else {
+//             alert(errorType);
+//         }
+//     }
+// });
+//
+//
+// // Form submission validation
+// document.addEventListener("DOMContentLoaded", function() {
+//     document.getElementById('login').addEventListener('submit', function(event) {
+//         var credentialValue = document.getElementById('credential_key').value;
+//         var password = document.getElementById('password').value;
+//
+//         if (credentialValue === '' || password === '') {
+//             event.preventDefault();
+//             document.getElementById('password-error').style.display = 'block';
+//         }
+//     });
+// });
+ */
 
-    function validateForm() {
-        document.getElementById('no-buwana-email').style.display = 'none';
-        return true;
-    }
 
-
-
-// Function to validate password and show/hide the error message
-function validatePassword(isValid) {
-    const passwordErrorDiv = document.getElementById('password-error');
-    if (!isValid) {
-        passwordErrorDiv.style.display = 'flex';
-    } else {
-        passwordErrorDiv.style.display = 'none';
-    }
-}
-
-
-function validateForm() {
-    const email = document.querySelector('input[name="credential_key"]').value;
-    if (!email) {
-        alert('Please enter a valid email address.');
-        return false;
-    }
-    return true;
-}
-
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
+    // Get the error type from the URL parameters (if present)
     const errorType = "<?php echo isset($_GET['error']) ? htmlspecialchars($_GET['error']) : ''; ?>";
+
+    // Check if there is any errorType passed and handle accordingly
     if (errorType) {
-        if (errorType === 'invalid_password') {
-            validatePassword(false);
-        } else {
-            alert(errorType);
-        }
+        handleErrorResponse(errorType);
     }
-});
 
-
-// Form submission validation
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById('login').addEventListener('submit', function(event) {
+    // Form submission validation
+    document.getElementById('login').addEventListener('submit', function (event) {
         var credentialValue = document.getElementById('credential_key').value;
         var password = document.getElementById('password').value;
 
+        // Simple form validation before submitting
         if (credentialValue === '' || password === '') {
             event.preventDefault();
-            document.getElementById('password-error').style.display = 'block';
+            displayError('password-error'); // Show password error if fields are empty
         }
     });
 });
+
+// Function to handle error responses based on the error type
+function handleErrorResponse(errorType) {
+    switch (errorType) {
+        case 'invalid_password':
+            displayError('password-error'); // Show password error
+            break;
+        case 'invalid_user':
+        case 'invalid_credential':
+            displayError('no-buwana-email'); // Show email error for invalid user/credential
+            break;
+        default:
+            alert("An error with processing the form has occurred: " + errorType); // For unexpected errors
+            break;
+    }
+}
+
+// Function to show the appropriate error div and hide others
+function displayError(errorDivId) {
+    // Hide both error divs initially
+    document.getElementById('password-error').style.display = 'none';
+    document.getElementById('no-buwana-email').style.display = 'none';
+
+    // Show the correct error div based on the errorDivId passed
+    document.getElementById(errorDivId).style.display = 'block';
+}
 
 
 

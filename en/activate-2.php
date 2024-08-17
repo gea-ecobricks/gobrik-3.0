@@ -35,7 +35,7 @@ function redirect_with_message($url, $message) {
     exit();
 }
 
-// Helper function to fetch user info from GoBrik
+// Fetch user info from GoBrik
 function get_user_info($ecobricker_id, $conn) {
     $sql = "SELECT first_name, last_name, full_name, email_addr, brk_balance, user_roles, birth_date FROM tb_ecobrickers WHERE ecobricker_id = ?";
     if ($stmt = $conn->prepare($sql)) {
@@ -51,7 +51,7 @@ function get_user_info($ecobricker_id, $conn) {
     }
 }
 
-// Helper function to check if the ecobricker has a buwana_id
+// PART 3: Check if ecobricker already has a buwana_id
 function check_existing_buwana($ecobricker_id, $conn) {
     $sql = "SELECT buwana_id FROM tb_ecobrickers WHERE ecobricker_id = ?";
     if ($stmt = $conn->prepare($sql)) {
@@ -67,7 +67,7 @@ function check_existing_buwana($ecobricker_id, $conn) {
     }
 }
 
-// PART 3: Check if ecobricker already has a buwana_id
+// Check if ecobricker already has a buwana_id
 $buwana_id = check_existing_buwana($ecobricker_id, $gobrik_conn);
 if ($buwana_id) {
     redirect_with_message("activate-3.php?id=" . urlencode($buwana_id), "Account already activated.");
@@ -82,9 +82,6 @@ if (!$user_info) {
 // Extract user details from the fetched array
 extract($user_info);
 
-// Close GoBrik connection as we no longer need it
-$gobrik_conn->close();
-
 // PART 5: Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validate passwords
@@ -93,7 +90,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $terms_accepted = isset($_POST['terms']);
     $newsletter_opt_in = isset($_POST['newsletter']) ? 1 : 0;
 
-    // Password validation
     if ($password !== $confirm_password) {
         redirect_with_message("activate-2.php?id=" . urlencode($ecobricker_id), "Your passwords don't match. Please try again.");
     }
@@ -102,7 +98,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         redirect_with_message("activate-2.php?id=" . urlencode($ecobricker_id), "Your new password is too short! Please try again.");
     }
 
-    // Hash the password
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
     // PART 6: Insert new user into Buwana database or check for existing email
@@ -135,18 +130,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         if ($stmt_insert_credential->execute()) {
 
                             // Update GoBrik database's ecobricker with Buwana ID and other details
-                            $gobrik_conn = new mysqli($gobrik_servername, $gobrik_username, $gobrik_password, $gobrik_dbname);
-                            if ($gobrik_conn->connect_error) {
-                                redirect_with_message("activate-2.php?id=" . urlencode($ecobricker_id), "Database connection failed. Please try again.");
-                            }
-
-                            $gobrik_conn->set_charset("utf8mb4");
                             $sql_update_gobrik = "UPDATE tb_ecobrickers SET buwana_id = ?, buwana_activated = 1, buwana_activated_dt = NOW(), account_notes = 'Second experimental migrations' WHERE ecobricker_id = ?";
                             $stmt_update_gobrik = $gobrik_conn->prepare($sql_update_gobrik);
                             if ($stmt_update_gobrik) {
                                 $stmt_update_gobrik->bind_param('ii', $buwana_id, $ecobricker_id);
                                 if ($stmt_update_gobrik->execute()) {
-                                    // Close statement and redirect to next step
                                     $stmt_update_gobrik->close();
                                     header("Location: activate-3.php?id=" . urlencode($buwana_id));
                                     exit();
@@ -156,7 +144,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             } else {
                                 redirect_with_message("activate-2.php?id=" . urlencode($ecobricker_id), "Error preparing update for GoBrik records. Please try again.");
                             }
-
                         } else {
                             redirect_with_message("activate-2.php?id=" . urlencode($ecobricker_id), "Error inserting credentials. Please try again.");
                         }
@@ -180,7 +167,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $buwana_conn->close();
 }
 ?>
-
 
 
 

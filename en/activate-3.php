@@ -88,14 +88,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt_update_buwana->execute();
         $stmt_update_buwana->close();
 
-        // PART 5: Open GoBrik connection and update tb_ecobrickers with buwana_id
+          // PART 5: Open GoBrik connection and update tb_ecobrickers to set buwana_activated to 1
         require_once("../gobrikconn_env.php");
 
-        $sql_update_gobrik = "UPDATE tb_ecobrickers SET buwana_id = ?, buwana_activated = 1 WHERE buwana_id = ?";
+        $sql_update_gobrik = "UPDATE tb_ecobrickers SET buwana_activated = 1 WHERE buwana_id = ?";
         $stmt_update_gobrik = $gobrik_conn->prepare($sql_update_gobrik);
 
         if ($stmt_update_gobrik) {
-            $stmt_update_gobrik->bind_param('ii', $buwana_id, $ecobricker_id); // Make sure to use ecobricker_id or another valid identifier
+            $stmt_update_gobrik->bind_param('i', $buwana_id); // Update based on the ecobricker's unique identifier
             if ($stmt_update_gobrik->execute()) {
                 // Successfully updated GoBrik
                 $stmt_update_gobrik->close();
@@ -110,7 +110,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Close the GoBrik connection
         $gobrik_conn->close();
-
 
         // Redirect to the next step
         header("Location: login.php?status=firsttime&id=" . urlencode($buwana_id));

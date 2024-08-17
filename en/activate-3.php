@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Initialize variables
-$buwana_id = $_GET['id'] ?? null;  // Correctly initializing buwana_id
+$buwana_id = isset($_GET['id']) ? intval($_GET['id']) : null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.459';
 $page = 'activate';
@@ -30,10 +30,9 @@ if (is_null($buwana_id)) {
 
 // PART 3: Look up user information using buwana_id provided in URL
 
-// Buwana database credentials
-require_once ("../buwanaconn_env.php");
+require_once("../buwanaconn_env.php");
 
-// Fetch user information using buwana_id from the Buwana database
+// Fetch user information using buwana_id
 $sql_user_info = "SELECT first_name FROM users_tb WHERE buwana_id = ?";
 $stmt_user_info = $buwana_conn->prepare($sql_user_info);
 
@@ -44,7 +43,9 @@ if ($stmt_user_info) {
     $stmt_user_info->fetch();
     $stmt_user_info->close();
 } else {
-    die('Error preparing statement for fetching user info: ' . $buwana_conn->error);
+    error_log('Error preparing statement for fetching user info: ' . $buwana_conn->error);
+    header("Location: error.php?error=db_error");
+    exit();
 }
 
 // Ensure $first_name is set and not empty
@@ -53,10 +54,10 @@ if (empty($first_name)) {
 }
 
 // Fetch languages from Buwana database
-$sql_languages = "SELECT lang_id, languages_eng_name, language_active FROM languages_tb ORDER BY languages_eng_name";
+$sql_languages = "SELECT lang_id, languages_eng_name FROM languages_tb WHERE language_active = 1 ORDER BY languages_eng_name";
 $result_languages = $buwana_conn->query($sql_languages);
 
-if ($result_languages->num_rows > 0) {
+if ($result_languages && $result_languages->num_rows > 0) {
     while ($row = $result_languages->fetch_assoc()) {
         $languages[] = $row;
     }
@@ -66,7 +67,7 @@ if ($result_languages->num_rows > 0) {
 $sql_countries = "SELECT country_id, country_name FROM countries_tb ORDER BY country_name";
 $result_countries = $buwana_conn->query($sql_countries);
 
-if ($result_countries->num_rows > 0) {
+if ($result_countries && $result_countries->num_rows > 0) {
     while ($row = $result_countries->fetch_assoc()) {
         $countries[] = $row;
     }
@@ -74,11 +75,17 @@ if ($result_countries->num_rows > 0) {
     echo "No countries found.";
 }
 
-
 // PART 4: Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $selected_language_id = $_POST['language_id'];
-    $selected_country_id = $_POST['country_id'];
+    $selected_language_id = intval($_POST['language_id']);
+    $selected_country_id = intval($_POST['country_id']);
+
+    // Validate the selected language and country
+    if (!in_array($selected_language_id, array_column($languages, 'lang_id')) || !in_array($selected_country_id, array_column($countries, 'country_id'))) {
+        error_log('Invalid language or country ID selected.');
+        header("Location: activate-3.php?id=" . urlencode($buwana_id) . "&error=invalid_selection");
+        exit();
+    }
 
     // Update the Buwana user's language and country using buwana_id
     $sql_update_buwana = "UPDATE users_tb SET languages_id = ?, country_id = ? WHERE buwana_id = ?";
@@ -88,14 +95,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt_update_buwana->execute();
         $stmt_update_buwana->close();
 
-        // PART 5: Open GoBrik connection and update tb_ecobrickers with buwana_id
+        // PART 5: Open GoBrik connection and update tb_ecobrickers to set buwana_activated to 1
         require_once("../gobrikconn_env.php");
 
-        $sql_update_gobrik = "UPDATE tb_ecobrickers SET buwana_id = ?, buwana_activated = 1 WHERE buwana_id = ?";
+        $sql_update_gobrik = "UPDATE tb_ecobrickers SET buwana_activated = 1 WHERE buwana_id = ?";
         $stmt_update_gobrik = $gobrik_conn->prepare($sql_update_gobrik);
 
         if ($stmt_update_gobrik) {
-            $stmt_update_gobrik->bind_param('ii', $buwana_id, $buwana_id);
+            $stmt_update_gobrik->bind_param('i', $buwana_id); // Update based on the ecobricker's unique identifier
             if ($stmt_update_gobrik->execute()) {
                 // Successfully updated GoBrik
                 $stmt_update_gobrik->close();
@@ -112,11 +119,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $gobrik_conn->close();
 
         // Redirect to the next step
-        header("Location: login.php?status=firsttime&id=" . urlencode($buwana_id));  // Correctly using buwana_id for redirection
+        header("Location: login.php?status=firsttime&id=" . urlencode($buwana_id));
         exit();
     } else {
         error_log('Error preparing statement for updating Buwana user: ' . $buwana_conn->error);
-        echo json_encode(['success' => false, 'error' => 'db_update_failed']);
+        header("Location: activate-3.php?id=" . urlencode($buwana_id) . "&error=db_update_failed");
         exit();
     }
 }

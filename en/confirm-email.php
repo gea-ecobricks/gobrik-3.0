@@ -23,6 +23,7 @@ function sendVerificationCode($first_name, $email_addr, $verification_code) {
     $mail = new PHPMailer(true);
     try {
         // Server settings
+        //ADD: , or visit this page:<br>https://beta.gobrik.com/en/confirm-email.php?id=$ecobricker_id
         $mail->isSMTP();
         $mail->Host = 'mail.ecobricks.org';
         $mail->SMTPAuth = true;
@@ -38,7 +39,7 @@ function sendVerificationCode($first_name, $email_addr, $verification_code) {
         // Content
         $mail->isHTML(true);
         $mail->Subject = 'GoBrik Verification Code';
-        $mail->Body = "Hello $first_name!<br><br>If you're reading this, we're glad! The code to activate your account is:<br><br><b>$verification_code</b><br><br>Return back to your browser and enter the code, or visit this page:<br>https://beta.gobrik.com/en/confirm-email.php?status=go&buwana_id=63 <br><br>The GoBrik team";
+        $mail->Body = "Hello $first_name!<br><br>If you're reading this, we're glad! The code to activate your account is:<br><br><b>$verification_code</b><br><br>Return back to your browser and enter the code.<br><br>The GoBrik team";
 
         $mail->send();
         return true;

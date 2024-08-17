@@ -74,6 +74,7 @@ if ($result_countries->num_rows > 0) {
     echo "No countries found.";
 }
 
+
 // PART 4: Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $selected_language_id = $_POST['language_id'];
@@ -87,6 +88,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt_update_buwana->execute();
         $stmt_update_buwana->close();
 
+        // PART 5: Open GoBrik connection and update tb_ecobrickers with buwana_id
+        require_once("../gobrikconn_env.php");
+
+        $sql_update_gobrik = "UPDATE tb_ecobrickers SET buwana_id = ?, buwana_activated = 1 WHERE buwana_id = ?";
+        $stmt_update_gobrik = $gobrik_conn->prepare($sql_update_gobrik);
+
+        if ($stmt_update_gobrik) {
+            $stmt_update_gobrik->bind_param('ii', $buwana_id, $buwana_id);
+            if ($stmt_update_gobrik->execute()) {
+                // Successfully updated GoBrik
+                $stmt_update_gobrik->close();
+            } else {
+                error_log('Error executing update on tb_ecobrickers: ' . $stmt_update_gobrik->error);
+                echo "Failed to update GoBrik record.";
+            }
+        } else {
+            error_log('Error preparing GoBrik statement: ' . $gobrik_conn->error);
+            echo "Failed to prepare GoBrik update statement.";
+        }
+
+        // Close the GoBrik connection
+        $gobrik_conn->close();
+
         // Redirect to the next step
         header("Location: login.php?status=firsttime&id=" . urlencode($buwana_id));  // Correctly using buwana_id for redirection
         exit();
@@ -97,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Close the database connection after all operations are done
+// Close the Buwana database connection after all operations are done
 $buwana_conn->close();
 
 ?>

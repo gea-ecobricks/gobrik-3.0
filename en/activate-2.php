@@ -162,7 +162,7 @@ if ($gobrik_conn->ping()) {
     error_log("GoBrik connection lost.");
 }
 
-$sql_update_gobrik = "UPDATE tb_ecobrickers SET buwana_id = ?, buwana_activated = 1, buwana_activated_dt = NOW(), account_notes = 'Activated step 2, Second experimental migrations' WHERE ecobricker_id = ?";
+$sql_update_gobrik = "UPDATE tb_ecobrickers SET buwana_id = ?, buwana_activated = 1, buwana_activation_dt = NOW(), account_notes = 'Activated step 2, Second experimental migrations' WHERE ecobricker_id = ?";
 $stmt_update_gobrik = $gobrik_conn->prepare($sql_update_gobrik);
 
 if ($stmt_update_gobrik) {

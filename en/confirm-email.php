@@ -152,8 +152,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 </div>
 
 
-<div style="text-align:center;width:90%;margin:auto;margin-top:30px;margin-bottom:50px;">
+<div id="email-not-used" style="text-align:center;width:90%;margin:auto;margin-top:30px;margin-bottom:50px;">
     <p style="font-size:1em;">Do you no longer use this email address?<br>If not you'll need to <a href="signup.php">create a new account</a> or contact our team at support@gobrik.com.</p>
+</div>
+
+<div id="another-email-please" style="text-align:center;width:90%;margin:auto;margin-top:30px;margin-bottom:50px;">
+    <p style="font-size:1em;">Want to change your email?  <a href="signup-2.php?id=$buwana_id">Go back to enter a different email address.</p>
 </div>
 
 </div>

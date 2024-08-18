@@ -154,18 +154,28 @@ if ($stmt_insert_credential) {
 }
 
 // PART 8: Update GoBrik database's ecobricker with Buwana ID and other details
+error_log("buwana_id: $buwana_id, ecobricker_id: $ecobricker_id"); // Log IDs to ensure they exist
+
+if ($gobrik_conn->ping()) {
+    error_log("GoBrik connection is alive.");
+} else {
+    error_log("GoBrik connection lost.");
+}
+
 $sql_update_gobrik = "UPDATE tb_ecobrickers SET buwana_id = ?, buwana_activated = 1, buwana_activated_dt = NOW(), account_notes = 'Activated step 2, Second experimental migrations' WHERE ecobricker_id = ?";
 $stmt_update_gobrik = $gobrik_conn->prepare($sql_update_gobrik);
 
 if ($stmt_update_gobrik) {
     $stmt_update_gobrik->bind_param('ii', $buwana_id, $ecobricker_id);
-    if (!$stmt_update_gobrik->execute()) {
+    if ($stmt_update_gobrik->execute()) {
+        error_log("GoBrik records updated successfully for ecobricker_id: $ecobricker_id");
+        $stmt_update_gobrik->close();
+    } else {
+        error_log("Error executing GoBrik update: " . $stmt_update_gobrik->error);
         redirect_with_message("activate-2.php?id=" . urlencode($ecobricker_id), "Error updating GoBrik records. Please try again.");
     }
-
-    $stmt_update_gobrik->close();
 } else {
-    // Instead of redirecting, display an alert with JavaScript
+    error_log("Error preparing GoBrik statement: " . $gobrik_conn->error);
     echo "<script>
         alert('Error preparing update for GoBrik records. Please try again.');
         window.location.href = 'activate-2.php?id=" . urlencode($ecobricker_id) . "';

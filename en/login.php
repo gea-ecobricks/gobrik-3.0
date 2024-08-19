@@ -229,19 +229,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-
-document.addEventListener("DOMContentLoaded", function() {
-    // Get the appropriate messages
-    const statusMessage = getStatusMessage(status, lang, firstName);
-
-    // Update the HTML content inside the existing <h3> and <h4> elements
-    document.getElementById('status-message').textContent = statusMessage.split('.')[0] + '.';
-    document.getElementById('sub-status-message').textContent = statusMessage.split('.')[1].trim();
-});
-
-
-
-
     // Function to extract the query parameters from the URL
     function getQueryParam(param) {
         const urlParams = new URLSearchParams(window.location.search);

@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-// PART 1 Grab user credentials from the login form submission
+// PART 1: Grab user credentials from the login form submission
 $credential_key = $_POST['credential_key'] ?? '';
 $password = $_POST['password'] ?? '';
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 
 if (empty($credential_key) || empty($password)) {
-    header("Location: ../$lang/login.php?error=empty_fields&credential_key=" . urlencode($credential_key));
+    header("Location: ../$lang/login.php?status=empty_fields&key=" . urlencode($credential_key));
     exit();
 }
 
@@ -29,7 +29,7 @@ if ($stmt_check_email) {
         $stmt_check_email->fetch();
 
         if ($buwana_activated == '0') {  // Ensure this is a comparison
-            header("Location: activate.php?id=$ecobricker_id");  // Redirect to activation page
+            header("Location: ../$lang/activate.php?id=$ecobricker_id");  // Redirect to activation page
             exit();
         }
 
@@ -143,12 +143,12 @@ if ($stmt_credential) {
 
                 } else {
                     // Redirect to login page with an error message if the password is incorrect
-                    header("Location: login.php?error=invalid_password&credential_key=" . urlencode($credential_key));
+                    header("Location: ../$lang/login.php?status=invalid_password&key=" . urlencode($credential_key));
                     exit();
                 }
             } else {
                 // Redirect to login page with an error message if the user is not found
-                header("Location: login.php?error=invalid_user&credential_key=" . urlencode($credential_key));
+                header("Location: ../$lang/login.php?status=invalid_user&key=" . urlencode($credential_key));
                 exit();
             }
             // Close the statement
@@ -159,7 +159,7 @@ if ($stmt_credential) {
         }
     } else {
         // Redirect to login page with an error message if the credential is invalid
-        header("Location: login.php?error=invalid_credential&credential_key=" . urlencode($credential_key));
+        header("Location: ../$lang/login.php?status=invalid_credential&key=" . urlencode($credential_key));
         exit();
     }
 } else {

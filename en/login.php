@@ -22,16 +22,15 @@ $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.61';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
-$buwana_id = isset($_GET['buwana_id']) ? filter_var($_GET['buwana_id'], FILTER_SANITIZE_NUMBER_INT) : '';
+
+// Get the status, id (buwana_id), and key (credential_key) from URL
 $status = isset($_GET['status']) ? filter_var($_GET['status'], FILTER_SANITIZE_STRING) : '';
+$buwana_id = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT) : '';
+$credential_key = isset($_GET['key']) ? filter_var($_GET['key'], FILTER_SANITIZE_EMAIL) : '';
 
-// Initialize the credential_key variable
-$credential_key = '';
-
-// Check if buwana_id is available and valid
+// Check if buwana_id is available and valid to fetch corresponding credential_key from the database
 if (!empty($buwana_id)) {
-    // Database connection (assuming $conn is the connection variable)
-require_once '../buwanaconn_env.php';
+    require_once '../buwanaconn_env.php';
 
     // Prepare the query to fetch the credential_key (email) from credentials_tb
     $sql = "SELECT credential_key FROM credentials_tb WHERE buwana_id = ? AND credential_type = 'email'";
@@ -45,7 +44,7 @@ require_once '../buwanaconn_env.php';
         // Bind the result
         $stmt->bind_result($fetched_credential_key);
 
-        // Fetch the result
+        // Fetch the result and overwrite the credential_key if found
         if ($stmt->fetch()) {
             $credential_key = $fetched_credential_key;  // Store the fetched credential_key (email)
         }
@@ -56,7 +55,7 @@ require_once '../buwanaconn_env.php';
 
     // Close the database connection
     $buwana_conn->close();
-} // <-- Add this closing brace here to close the if block
+}
 
 // PHP functions to get the correct messages based on the language
 function getLogoutMessage($lang) {
@@ -97,84 +96,123 @@ echo '<!DOCTYPE html>
 ';
 ?>
 
-
-
-
+<!-- Include necessary scripts and styles -->
 <?php require_once ("../includes/login-inc.php");?>
 
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT -->
-   <div id="top-page-image" class="earth-community top-page-image"></div>
+<div id="top-page-image" class="earth-community top-page-image"></div>
 
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
-          <h3 data-lang-id="001-login-heading">
-    <?php
-    // Display the correct message based on the status
-    if ($status === 'loggedout') {
-        echo htmlspecialchars(getLogoutMessage($lang));
-    } elseif ($status === 'firsttime') {
-        echo htmlspecialchars(getFirstTimeMessage($lang));
-    } else {
-        echo htmlspecialchars(getLoginMessage($lang));
-    }
-    ?>
-</h3>
-
+            <h3 data-lang-id="001-login-heading">
+                <?php
+                // Display the correct message based on the status
+                if ($status === 'loggedout') {
+                    echo htmlspecialchars(getLogoutMessage($lang));
+                } elseif ($status === 'firsttime') {
+                    echo htmlspecialchars(getFirstTimeMessage($lang));
+                } else {
+                    echo htmlspecialchars(getLoginMessage($lang));
+                }
+                ?>
+            </h3>
 
             <h4 data-lang-id="002-login-subheading" style="margin-top:5px, margin-bottom:5px;">Login with your account credentials.</h4>
         </div>
 
-<form id="login" method="post" action="login_process.php">
-    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+        <!-- Form starts here -->
+        <form id="login" method="post" action="login_process.php">
+            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
 
-    <div class="form-item">
-<!--        <label for="credential_key" data-lang-id="003-login-email">Your e-mail:</label>
--->
-        <div class="input-wrapper" style="position: relative;">
-    <input type="text" id="credential_key" name="credential_key" required placeholder="Your e-mail..." value="<?php echo htmlspecialchars($credential_key); ?>">            <span class="toggle-select" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔑</span>
-            <div id="dropdown-menu" style="display: none; position: absolute; right: 10px; top: 100%; z-index: 1000; background: white; border: 1px solid #ccc; width: 150px; text-align: left;">
-                <div class="dropdown-item" value="Your email...">E-mail</div>
-                <div class="dropdown-item disabled" style="opacity: 0.5;">SMS</div>
-                <div class="dropdown-item disabled" style="opacity: 0.5;">Peer</div>
+            <div class="form-item">
+                <div class="input-wrapper" style="position: relative;">
+                    <input type="text" id="credential_key" name="credential_key" required placeholder="Your e-mail..." value="<?php echo htmlspecialchars($credential_key); ?>">
+                    <span class="toggle-select" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔑</span>
+                    <div id="dropdown-menu" style="display: none; position: absolute; right: 10px; top: 100%; z-index: 1000; background: white; border: 1px solid #ccc; width: 150px; text-align: left;">
+                        <div class="dropdown-item" value="Your email...">E-mail</div>
+                        <div class="dropdown-item disabled" style="opacity: 0.5;">SMS</div>
+                        <div class="dropdown-item disabled" style="opacity: 0.5;">Peer</div>
+                    </div>
+                </div>
+                <div id="no-buwana-email" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;" data-lang-id="000-no-buwana-account">🤔 We can't find this credential in the database.</div>
             </div>
-        </div>
-    <div id="no-buwana-email" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;" data-lang-id="000-no-buwana-account">🤔 We can't find this credential in the database.</div>
-    </div>
 
-    <div class="form-item">
-        <!--<label for="password" data-lang-id="004-login-password">Your password:</label>-->
-        <div class="password-wrapper" style="position: relative;">
-            <input type="password" id="password" name="password" required placeholder="Your password...">
-            <span toggle="#password" class="toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔒</span>
-        </div>
-        <div id="password-error" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;" data-lang-id="000-password-wrong">👉 Password is wrong.</div>
-        <p class="form-caption" data-lang-id="000-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link">Reset it.</a></p>
-    </div>
+            <div class="form-item">
+                <div class="password-wrapper" style="position: relative;">
+                    <input type="password" id="password" name="password" required placeholder="Your password...">
+                    <span toggle="#password" class="toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔒</span>
+                </div>
+                <div id="password-error" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;" data-lang-id="000-password-wrong">👉 Password is wrong.</div>
+                <p class="form-caption" data-lang-id="000-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link">Reset it.</a></p>
+            </div>
 
-    <div style="text-align:center;" data-lang-id="006-login-button-">
-        <input type="submit" style="text-align:center;margin-top:15px;width:30%; min-width: 175px;" id="submit-button" value="🔑 Login" class="submit-button enabled">
-    </div>
-</form>
+            <div style="text-align:center;" data-lang-id="006-login-button-">
+                <input type="submit" style="text-align:center;margin-top:15px;width:30%; min-width: 175px;" id="submit-button" value="🔑 Login" class="submit-button enabled">
+            </div>
+        </form>
 
     </div>
-<div style="text-align:center;width:100%;margin:auto;margin-top:30px;margin-bottom:50px;">
-    <p style="font-size:medium;" data-lang-id="000-no-account-yet">Don't have an account yet? <a href="signup.php">Signup!</a></p>
+    <div style="text-align:center;width:100%;margin:auto;margin-top:30px;margin-bottom:50px;">
+        <p style="font-size:medium;" data-lang-id="000-no-account-yet">Don't have an account yet? <a href="signup.php">Signup!</a></p>
+    </div>
 </div>
-</div>
-
-</div>
-
-</div> <!--main-->
 
 <!-- FOOTER STARTS HERE -->
 <?php require_once ("../footer-2024.php");?>
 
 <script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Get the error type from the URL parameters (if present)
+    const errorType = "<?php echo isset($_GET['status']) ? htmlspecialchars($_GET['status']) : ''; ?>";
+
+    // Check if there is any errorType passed and handle accordingly
+    if (errorType) {
+        handleErrorResponse(errorType);
+    }
+
+    // Form submission validation
+    document.getElementById('login').addEventListener('submit', function (event) {
+        var credentialValue = document.getElementById('credential_key').value;
+        var password = document.getElementById('password').value;
+
+        // Simple form validation before submitting
+        if (credentialValue === '' || password === '') {
+            event.preventDefault();
+            displayError('password-error'); // Show password error if fields are empty
+        }
+    });
+});
+
+// Function to handle error responses based on the error type
+function handleErrorResponse(errorType) {
+    switch (errorType) {
+        case 'invalid_password':
+            displayError('password-error'); // Show password error
+            break;
+        case 'invalid_user':
+        case 'invalid_credential':
+            displayError('no-buwana-email'); // Show email error for invalid user/credential
+            break;
+        default:
+            alert("An error with processing the form has occurred: " + errorType); // For unexpected errors
+            break;
+    }
+}
+
+// Function to show the appropriate error div and hide others
+function displayError(errorDivId) {
+    // Hide both error divs initially
+    document.getElementById('password-error').style.display = 'none';
+    document.getElementById('no-buwana-email').style.display = 'none';
+
+    // Show the correct error div based on the errorDivId passed
+    document.getElementById(errorDivId).style.display = 'block';
+}
 
 
 /*
@@ -232,54 +270,6 @@ echo '<!DOCTYPE html>
 // });
  */
 
-
-document.addEventListener("DOMContentLoaded", function () {
-    // Get the error type from the URL parameters (if present)
-    const errorType = "<?php echo isset($_GET['error']) ? htmlspecialchars($_GET['error']) : ''; ?>";
-
-    // Check if there is any errorType passed and handle accordingly
-    if (errorType) {
-        handleErrorResponse(errorType);
-    }
-
-    // Form submission validation
-    document.getElementById('login').addEventListener('submit', function (event) {
-        var credentialValue = document.getElementById('credential_key').value;
-        var password = document.getElementById('password').value;
-
-        // Simple form validation before submitting
-        if (credentialValue === '' || password === '') {
-            event.preventDefault();
-            displayError('password-error'); // Show password error if fields are empty
-        }
-    });
-});
-
-// Function to handle error responses based on the error type
-function handleErrorResponse(errorType) {
-    switch (errorType) {
-        case 'invalid_password':
-            displayError('password-error'); // Show password error
-            break;
-        case 'invalid_user':
-        case 'invalid_credential':
-            displayError('no-buwana-email'); // Show email error for invalid user/credential
-            break;
-        default:
-            alert("An error with processing the form has occurred: " + errorType); // For unexpected errors
-            break;
-    }
-}
-
-// Function to show the appropriate error div and hide others
-function displayError(errorDivId) {
-    // Hide both error divs initially
-    document.getElementById('password-error').style.display = 'none';
-    document.getElementById('no-buwana-email').style.display = 'none';
-
-    // Show the correct error div based on the errorDivId passed
-    document.getElementById(errorDivId).style.display = 'block';
-}
 
 
 

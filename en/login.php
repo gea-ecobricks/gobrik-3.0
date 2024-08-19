@@ -165,6 +165,20 @@ document.addEventListener("DOMContentLoaded", function () {
         return urlParams.get(param);
     }
 
+    // Get the status and language
+    const status = getQueryParam('status') || status || ''; // Handle URL or PHP-based status
+    const lang = getQueryParam('lang') || lang || 'en';     // Handle URL or PHP-based lang
+    const firstName = getQueryParam('firstName') || firstName || ''; // Get firstName from URL or PHP
+
+    // Status messages
+    const { main, sub } = getStatusMessages(status, lang, firstName);
+
+    // Insert into HTML elements
+    document.getElementById('status-message').textContent = main;
+    document.getElementById('sub-status-message').textContent = sub;
+});
+
+
     // Function to get status messages
     function getStatusMessages(status, lang, firstName = '') {
         const messages = {

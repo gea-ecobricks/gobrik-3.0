@@ -26,18 +26,15 @@ $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 // Get the status, id (buwana_id), and key (credential_key) from URL
 $status = isset($_GET['status']) ? filter_var($_GET['status'], FILTER_SANITIZE_STRING) : '';
 $buwana_id = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT) : '';
-$credential_key = isset($_GET['key']) ? filter_var($_GET['key'], FILTER_SANITIZE_EMAIL) : '';
+$credential_key = ''; // Initialize $credential_key as empty
 $first_name = '';  // Initialize the first_name variable
 
-// Check if buwana_id is available and valid to fetch corresponding credential_key and first_name from the database
+// Check if buwana_id is available and valid to fetch corresponding email and first_name from users_tb
 if (!empty($buwana_id)) {
     require_once '../buwanaconn_env.php';
 
-    // Prepare the query to fetch the credential_key (email) and first_name from credentials_tb and users_tb
-    $sql = "SELECT c.credential_key, u.first_name
-            FROM credentials_tb c
-            JOIN users_tb u ON c.buwana_id = u.buwana_id
-            WHERE c.buwana_id = ? AND c.credential_type = 'email'";
+    // Prepare the query to fetch the email and first_name from users_tb
+    $sql = "SELECT email, first_name FROM users_tb WHERE buwana_id = ?";
 
     if ($stmt = $buwana_conn->prepare($sql)) {
         // Bind the buwana_id parameter
@@ -47,11 +44,11 @@ if (!empty($buwana_id)) {
         $stmt->execute();
 
         // Bind the result
-        $stmt->bind_result($fetched_credential_key, $fetched_first_name);
+        $stmt->bind_result($fetched_email, $fetched_first_name);
 
-        // Fetch the result and overwrite the credential_key and first_name if found
+        // Fetch the result and overwrite the email and first_name if found
         if ($stmt->fetch()) {
-            $credential_key = $fetched_credential_key;  // Store the fetched credential_key (email)
+            $credential_key = $fetched_email;  // Store the fetched email
             $first_name = $fetched_first_name;  // Store the fetched first_name
         }
 
@@ -71,6 +68,7 @@ echo '<!DOCTYPE html>
 <title>Login</title>
 ';
 ?>
+
 
 <!-- Include necessary scripts and styles -->
 <?php require_once ("../includes/login-inc.php");?>
@@ -113,12 +111,6 @@ echo '<!DOCTYPE html>
     </div>
 </div>
 
-
-
-
-
-
-
     <div class="form-item">
         <div class="password-wrapper" style="position: relative;">
             <input type="password" id="password" name="password" required placeholder="Your password...">
@@ -137,6 +129,8 @@ echo '<!DOCTYPE html>
     <div style="text-align:center;width:100%;margin:auto;margin-top:30px;margin-bottom:50px;">
         <p style="font-size:medium;" data-lang-id="000-no-account-yet">Don't have an account yet? <a href="signup.php">Signup!</a></p>
     </div>
+</div>
+
 </div>
 
 <!-- FOOTER STARTS HERE -->

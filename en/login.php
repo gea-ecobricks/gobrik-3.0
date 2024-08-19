@@ -19,7 +19,7 @@ if (empty($_SESSION['csrf_token'])) {
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.62';
+$version = '0.63';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -90,7 +90,7 @@ echo '<!DOCTYPE html>
 
     <div style="text-align:center;width:100%;margin:auto;" id="status-message">
         <h3>Login to your account</h3>
-        <h4>Now<?php echo !empty($first_name) ? ' ' . htmlspecialchars($first_name) : ''; ?>, please login with your account credentials.</h4>
+        <h4>Please signin with your account credentials.</h4>
     </div>
 
     <!-- Form starts here -->

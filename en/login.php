@@ -19,7 +19,7 @@ if (empty($_SESSION['csrf_token'])) {
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.64';
+$version = '0.65';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -136,6 +136,8 @@ echo '</script>';
         </form>
 
     </div>
+
+</div>
     <div style="text-align:center;width:100%;margin:auto;margin-top:30px;margin-bottom:50px;">
         <p style="font-size:medium;" data-lang-id="000-no-account-yet">Don't have an account yet? <a href="signup.php">Signup!</a></p>
     </div>
@@ -148,7 +150,45 @@ echo '</script>';
 
 <script>
 
-<script>
+
+
+
+function getStatusMessage(status, lang, firstName = '') {
+    const messages = {
+        loggedout: {
+            en: "You've been logged out. When you're ready" + (firstName ? ' ' + firstName : '') + ", login again with your account credentials.",
+            fr: "Vous avez été déconnecté. Quand vous êtes prêt" + (firstName ? ' ' + firstName : '') + ", reconnectez-vous avec vos identifiants.",
+            id: "Anda telah keluar. Saat Anda siap" + (firstName ? ' ' + firstName : '') + ", login lagi dengan kredensial akun Anda.",
+            es: "Has cerrado tu sesión. Cuando estés listo" + (firstName ? ' ' + firstName : '') + ", vuelve a iniciar sesión con tus credenciales."
+        },
+        firsttime: {
+            en: "Your Buwana Account is Created! 🎉 Now" + (firstName ? ' ' + firstName : '') + ", please login again with your new account credentials.",
+            fr: "Votre compte Buwana est créé ! 🎉 Maintenant" + (firstName ? ' ' + firstName : '') + ", connectez-vous avec vos nouvelles identifiants.",
+            id: "Akun Buwana Anda sudah Dibuat! 🎉 Sekarang" + (firstName ? ' ' + firstName : '') + ", silakan masuk dengan kredensial baru Anda.",
+            es: "¡Tu cuenta de Buwana está creada! 🎉 Ahora" + (firstName ? ' ' + firstName : '') + ", por favor inicia sesión con tus nuevas credenciales."
+        },
+        default: {
+            en: "Welcome back!" + (firstName ? firstName + ', ' : '') + "please login again with your account credentials.",
+            fr: "Bon retour !" + (firstName ? firstName + ', ' : '') + "veuillez vous reconnecter avec vos identifiants.",
+            id: "Selamat datang kembali!" + (firstName ? firstName + ', ' : '') + "silakan masuk lagi dengan kredensial akun Anda.",
+            es: "¡Bienvenido de nuevo!" + (firstName ? firstName + ', ' : '') + "por favor inicia sesión de nuevo con tus credenciales."
+        }
+    };
+
+    // Return the message based on the status and language; defaults to English
+    return (messages[status] && messages[status][lang])
+        ? messages[status][lang]
+        : messages.default.en;
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Get the appropriate messages
+    const statusMessage = getStatusMessage(status, lang, firstName);
+
+    // Update the HTML content inside the existing <h3> and <h4> elements
+    document.getElementById('status-message').textContent = statusMessage.split('.')[0] + '.';
+    document.getElementById('sub-status-message').textContent = statusMessage.split('.')[1].trim();
+});
 
 
 

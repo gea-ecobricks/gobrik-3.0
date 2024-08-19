@@ -79,21 +79,9 @@ echo '<!DOCTYPE html>
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h3 data-lang-id="001-login-heading">
-                <?php
-                // Display the correct message based on the status
-                if ($status === 'loggedout') {
-                    echo htmlspecialchars(getLogoutMessage($lang));
-                } elseif ($status === 'firsttime') {
-                    echo htmlspecialchars(getFirstTimeMessage($lang));
-                } else {
-                    echo htmlspecialchars(getLoginMessage($lang));
-                }
-                ?>
-            </h3>
-
-            <h4 data-lang-id="002-login-subheading" style="margin-top:5px, margin-bottom:5px;">Login with your account credentials.</h4>
-        </div>
+    <h3 id="status-message">Login to your account</h3> <!-- Status message will be displayed here -->
+    <h4>Login with your account credentials.</h4>
+</div>
 
         <!-- Form starts here -->
         <form id="login" method="post" action="login_process.php">

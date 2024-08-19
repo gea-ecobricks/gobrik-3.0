@@ -233,8 +233,9 @@ document.addEventListener("DOMContentLoaded", function() {
         // You could also trigger other logic using `buwanaId` if necessary
         console.log("Buwana ID: " + buwanaId);
     });
-</script>
-<script>
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
     // Get the error type from the URL parameters (if present)
     const errorType = "<?php echo isset($_GET['status']) ? htmlspecialchars($_GET['status']) : ''; ?>";
@@ -256,6 +257,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+
+
+
 // Consolidated function to handle error responses and show the appropriate error div
 function handleErrorResponse(errorType) {
     // Hide both error divs initially

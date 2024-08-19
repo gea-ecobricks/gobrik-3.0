@@ -11,15 +11,11 @@
 <?php require_once ("../meta/$page-$lang.php");?>
 
 
-
-
 <STYLE>
 
-
-
-    #main {
-        height: fit-content;
-    }
+#main {
+    height: fit-content;
+}
 
 
 .module-btn {
@@ -76,9 +72,6 @@ form input:focus {
 }
 
 </style>
-
-
-
 
 
 <?php require_once ("../header-2024.php");?>

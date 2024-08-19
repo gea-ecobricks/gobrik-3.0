@@ -85,7 +85,8 @@ echo '<!DOCTYPE html>
 
 <div style="text-align:center;width:100%;margin:auto;">
     <h3 id="status-message">Login to your account</h3> <!-- Status message will be displayed here -->
-    <h4>Now <?php echo htmlspecialchars($first_name); ?>, please login with your account credentials.</h4> <!-- Display the first name -->
+    <<h4>Now<?php echo ' ' . htmlspecialchars($first_name); ?>, please login with your account credentials.</h4>
+ <!-- Display the first name -->
 </div>
 
         <!-- Form starts here -->
@@ -109,6 +110,7 @@ echo '<!DOCTYPE html>
                 <div class="dropdown-item disabled" style="opacity: 0.5;">Peer</div>
             </div>
     </div>
+        <div id="no-buwana-email" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">🤔 We can't find this credential in the database.</div>
 </div>
 
     <div class="form-item">

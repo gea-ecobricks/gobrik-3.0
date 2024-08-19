@@ -100,26 +100,21 @@ echo '<!DOCTYPE html>
             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
 
             <div class="form-item">
-                <div class="input-wrapper" style="position: relative;">
-                    <input type="text" id="credential_key" name="credential_key" required placeholder="Your e-mail..." value="<?php echo htmlspecialchars($credential_key); ?>">
-                    <span class="toggle-select" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔑</span>
-                    <div id="dropdown-menu" style="display: none; position: absolute; right: 10px; top: 100%; z-index: 1000; background: white; border: 1px solid #ccc; width: 150px; text-align: left;">
-                        <div class="dropdown-item" value="Your email...">E-mail</div>
-                        <div class="dropdown-item disabled" style="opacity: 0.5;">SMS</div>
-                        <div class="dropdown-item disabled" style="opacity: 0.5;">Peer</div>
-                    </div>
-                </div>
-                <div id="no-buwana-email" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;" data-lang-id="000-no-buwana-account">🤔 We can't find this credential in the database.</div>
-            </div>
+        <div class="input-wrapper" style="position: relative;">
+            <input type="text" id="credential_key" name="credential_key" required placeholder="Your e-mail..." value="<?php echo htmlspecialchars($credential_key); ?>">
+            <span class="toggle-select" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔑</span>
+        </div>
+        <div id="no-buwana-email" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">🤔 We can't find this credential in the database.</div>
+    </div>
 
-            <div class="form-item">
-                <div class="password-wrapper" style="position: relative;">
-                    <input type="password" id="password" name="password" required placeholder="Your password...">
-                    <span toggle="#password" class="toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔒</span>
-                </div>
-                <div id="password-error" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;" data-lang-id="000-password-wrong">👉 Password is wrong.</div>
-                <p class="form-caption" data-lang-id="000-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link">Reset it.</a></p>
-            </div>
+    <div class="form-item">
+        <div class="password-wrapper" style="position: relative;">
+            <input type="password" id="password" name="password" required placeholder="Your password...">
+            <span toggle="#password" class="toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔒</span>
+        </div>
+        <div id="password-error" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">👉 Password is wrong.</div>
+        <p>Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link">Reset it.</a></p>
+    </div>
 
             <div style="text-align:center;" data-lang-id="006-login-button-">
                 <input type="submit" style="text-align:center;margin-top:15px;width:30%; min-width: 175px;" id="submit-button" value="🔑 Login" class="submit-button enabled">

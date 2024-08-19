@@ -85,7 +85,7 @@ echo '<!DOCTYPE html>
 
 <div style="text-align:center;width:100%;margin:auto;">
     <h3 id="status-message">Login to your account</h3> <!-- Status message will be displayed here -->
-    <<h4>Now<?php echo ' ' . htmlspecialchars($first_name); ?>, please login with your account credentials.</h4>
+    <h4>Now<?php echo !empty($first_name) ? ' ' . htmlspecialchars($first_name) : ''; ?>, please login with your account credentials.</h4>
  <!-- Display the first name -->
 </div>
 

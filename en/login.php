@@ -220,15 +220,13 @@ function getStatusMessages(status, lang, firstName = '') {
 }
 
 
+// Get the status messages
+const statusMessages = getStatusMessages(status, lang, firstName);
 
-document.addEventListener("DOMContentLoaded", function() {
-    // Get the appropriate messages
-    const statusMessage = getStatusMessage(status, lang, firstName);
+// Insert the messages into the HTML elements
+document.getElementById('status-message').textContent = statusMessages.main;
+document.getElementById('sub-status-message').textContent = statusMessages.sub;
 
-    // Update the HTML content inside the existing <h3> and <h4> elements
-    document.getElementById('status-message').textContent = statusMessage.split('.')[0] + '.';
-    document.getElementById('sub-status-message').textContent = statusMessage.split('.')[1].trim();
-});
 
 
 

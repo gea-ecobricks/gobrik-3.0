@@ -80,78 +80,6 @@ echo '</script>';
 ?>
 
 
- <script>
-        // Define the getStatusMessages function first
-        function getStatusMessages(status, lang, firstName = '') {
-            const messages = {
-                loggedout: {
-                    en: {
-                        main: "You've been logged out.",
-                        sub: `When you're ready${firstName ? ' ' + firstName : ''}, login again with your account credentials.`
-                    },
-                    fr: {
-                        main: "Vous avez été déconnecté.",
-                        sub: `Quand vous êtes prêt${firstName ? ' ' + firstName : ''}, reconnectez-vous avec vos identifiants.`
-                    },
-                    id: {
-                        main: "Anda telah keluar.",
-                        sub: `Saat Anda siap${firstName ? ' ' + firstName : ''}, login lagi dengan kredensial akun Anda.`
-                    },
-                    es: {
-                        main: "Has cerrado tu sesión.",
-                        sub: `Cuando estés listo${firstName ? ' ' + firstName : ''}, vuelve a iniciar sesión con tus credenciales.`
-                    }
-                },
-                firsttime: {
-                    en: {
-                        main: "Your Buwana Account is Created! 🎉",
-                        sub: `Now${firstName ? ' ' + firstName : ''}, please login again with your new account credentials.`
-                    },
-                    fr: {
-                        main: "Votre compte Buwana est créé ! 🎉",
-                        sub: `Maintenant${firstName ? ' ' + firstName : ''}, connectez-vous avec vos nouvelles identifiants.`
-                    },
-                    id: {
-                        main: "Akun Buwana Anda sudah Dibuat! 🎉",
-                        sub: `Sekarang${firstName ? ' ' + firstName : ''}, silakan masuk dengan kredensial baru Anda.`
-                    },
-                    es: {
-                        main: "¡Tu cuenta de Buwana está creada! 🎉",
-                        sub: `Ahora${firstName ? ' ' + firstName : ''}, por favor inicia sesión con tus nuevas credenciales.`
-                    }
-                },
-                default: {
-                    en: {
-                        main: "Welcome back!",
-                        sub: `${firstName ? firstName + ', ' : ''}please login again with your account credentials.`
-                    },
-                    fr: {
-                        main: "Bon retour !",
-                        sub: `${firstName ? firstName + ', ' : ''}veuillez vous reconnecter avec vos identifiants.`
-                    },
-                    id: {
-                        main: "Selamat datang kembali!",
-                        sub: `${firstName ? firstName + ', ' : ''}silakan masuk lagi dengan kredensial akun Anda.`
-                    },
-                    es: {
-                        main: "¡Bienvenido de nuevo!",
-                        sub: `${firstName ? firstName + ', ' : ''}por favor inicia sesión de nuevo con tus credenciales.`
-                    }
-                }
-            };
-
-            const selectedMessages = messages[status] && messages[status][lang]
-                ? messages[status][lang]
-                : messages.default[lang] || messages.default.en;
-
-            return {
-                main: selectedMessages.main,
-                sub: selectedMessages.sub
-            };
-        }
-
-
-    </script>
 
 <!-- Include necessary scripts and styles -->
 <?php require_once ("../includes/login-inc.php");?>
@@ -223,59 +151,113 @@ echo '</script>';
 
 
 <script>
-
-        // Now call the function after defining it
-        document.addEventListener("DOMContentLoaded", function() {
-
-            // Get the appropriate messages
-            const { main, sub } = getStatusMessages(status, lang, firstName);
-
-            // Update the HTML content inside the existing <h3> and <h4> elements
-            document.getElementById('status-message').textContent = main;
-            document.getElementById('sub-status-message').textContent = sub;
-        });
-
-
-
+document.addEventListener("DOMContentLoaded", function () {
     // Function to extract the query parameters from the URL
     function getQueryParam(param) {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(param);
     }
 
-    // Document ready event
-    document.addEventListener('DOMContentLoaded', function() {
-        // Get the values from the URL query parameters
-        const status = getQueryParam('status') || ''; // status like 'loggedout', 'firsttime', etc.
-        const lang = document.documentElement.lang || 'en'; // Get language from the <html> tag or default to 'en'
-        const buwanaId = getQueryParam('id'); // buwana_id
-        const credentialKey = getQueryParam('key'); // credential_key
+    // Function to get status messages
+    function getStatusMessages(status, lang, firstName = '') {
+        const messages = {
+            loggedout: {
+                en: {
+                    main: "You've been logged out.",
+                    sub: `When you're ready${firstName ? ' ' + firstName : ''}, login again with your account credentials.`
+                },
+                fr: {
+                    main: "Vous avez été déconnecté.",
+                    sub: `Quand vous êtes prêt${firstName ? ' ' + firstName : ''}, reconnectez-vous avec vos identifiants.`
+                },
+                id: {
+                    main: "Anda telah keluar.",
+                    sub: `Saat Anda siap${firstName ? ' ' + firstName : ''}, login lagi dengan kredensial akun Anda.`
+                },
+                es: {
+                    main: "Has cerrado tu sesión.",
+                    sub: `Cuando estés listo${firstName ? ' ' + firstName : ''}, vuelve a iniciar sesión con tus credenciales.`
+                }
+            },
+            firsttime: {
+                en: {
+                    main: "Your Buwana Account is Created! 🎉",
+                    sub: `Now${firstName ? ' ' + firstName : ''}, please login again with your new account credentials.`
+                },
+                fr: {
+                    main: "Votre compte Buwana est créé ! 🎉",
+                    sub: `Maintenant${firstName ? ' ' + firstName : ''}, connectez-vous avec vos nouvelles identifiants.`
+                },
+                id: {
+                    main: "Akun Buwana Anda sudah Dibuat! 🎉",
+                    sub: `Sekarang${firstName ? ' ' + firstName : ''}, silakan masuk dengan kredensial baru Anda.`
+                },
+                es: {
+                    main: "¡Tu cuenta de Buwana está creada! 🎉",
+                    sub: `Ahora${firstName ? ' ' + firstName : ''}, por favor inicia sesión con tus nuevas credenciales.`
+                }
+            },
+            default: {
+                en: {
+                    main: "Welcome back!",
+                    sub: `${firstName ? firstName + ', ' : ''}please login again with your account credentials.`
+                },
+                fr: {
+                    main: "Bon retour !",
+                    sub: `${firstName ? firstName + ', ' : ''}veuillez vous reconnecter avec vos identifiants.`
+                },
+                id: {
+                    main: "Selamat datang kembali!",
+                    sub: `${firstName ? firstName + ', ' : ''}silakan masuk lagi dengan kredensial akun Anda.`
+                },
+                es: {
+                    main: "¡Bienvenido de nuevo!",
+                    sub: `${firstName ? firstName + ', ' : ''}por favor inicia sesión de nuevo con tus credenciales.`
+                }
+            }
+        };
 
-        // Fetch and display the status message based on the status and language
-        const message = getStatusMessages(status, lang);
-        document.getElementById('status-message').textContent = message;
+        const selectedMessages = messages[status] && messages[status][lang]
+            ? messages[status][lang]
+            : messages.default[lang] || messages.default.en;
 
-        // Fill the credential_key input field if present in the URL
-        if (credentialKey) {
-            document.getElementById('credential_key').value = credentialKey;
-        }
-
-        // You could also trigger other logic using `buwanaId` if necessary
-        console.log("Buwana ID: " + buwanaId);
-    });
-
-
-
-document.addEventListener("DOMContentLoaded", function () {
-    // Get the error type from the URL parameters (if present)
-    const errorType = "<?php echo isset($_GET['status']) ? htmlspecialchars($_GET['status']) : ''; ?>";
-
-    // Check if there is any errorType passed and handle accordingly
-    if (errorType) {
-        handleErrorResponse(errorType);
+        return {
+            main: selectedMessages.main,
+            sub: selectedMessages.sub
+        };
     }
 
-    // Form submission validation
+    // Consolidated function to handle error responses and show the appropriate error div
+    function handleErrorResponse(errorType) {
+        // Hide both error divs initially
+        document.getElementById('password-error').style.display = 'none';
+        document.getElementById('no-buwana-email').style.display = 'none';
+
+        // Show the appropriate error div based on the errorType
+        if (errorType === 'invalid_password') {
+            document.getElementById('password-error').style.display = 'block'; // Show password error
+        } else if (errorType === 'invalid_user' || errorType === 'invalid_credential') {
+            document.getElementById('no-buwana-email').style.display = 'block'; // Show email error for invalid user/credential
+        }
+    }
+
+    // Get the values from the URL query parameters
+    const status = getQueryParam('status') || ''; // status like 'loggedout', 'firsttime', etc.
+    const lang = document.documentElement.lang || 'en'; // Get language from the <html> tag or default to 'en'
+    const firstName = getQueryParam('firstName') || ''; // Optional first name for the message
+    const credentialKey = getQueryParam('key'); // credential_key
+
+    // Fetch and display the status message based on the status and language
+    const { main, sub } = getStatusMessages(status, lang, firstName);
+    document.getElementById('status-message').textContent = main;
+    document.getElementById('sub-status-message').textContent = sub;
+
+    // Fill the credential_key input field if present in the URL
+    if (credentialKey) {
+        document.getElementById('credential_key').value = credentialKey;
+    }
+
+    // Handle form submission validation
     document.getElementById('login').addEventListener('submit', function (event) {
         var credentialValue = document.getElementById('credential_key').value;
         var password = document.getElementById('password').value;
@@ -283,27 +265,16 @@ document.addEventListener("DOMContentLoaded", function () {
         // Simple form validation before submitting
         if (credentialValue === '' || password === '') {
             event.preventDefault();
-            displayError('password-error'); // Show password error if fields are empty
+            handleErrorResponse('invalid_password'); // Show password error if fields are empty
         }
     });
-});
 
-
-
-
-// Consolidated function to handle error responses and show the appropriate error div
-function handleErrorResponse(errorType) {
-    // Hide both error divs initially
-    document.getElementById('password-error').style.display = 'none';
-    document.getElementById('no-buwana-email').style.display = 'none';
-
-    // Show the appropriate error div based on the errorType
-    if (errorType === 'invalid_password') {
-        document.getElementById('password-error').style.display = 'block'; // Show password error
-    } else if (errorType === 'invalid_user' || errorType === 'invalid_credential') {
-        document.getElementById('no-buwana-email').style.display = 'block'; // Show email error for invalid user/credential
+    // Handle errors based on status parameter in URL
+    const errorType = status; // Status used as errorType (e.g., invalid_password, invalid_user)
+    if (errorType) {
+        handleErrorResponse(errorType);
     }
-}
+});
 
 
 /*Trigger the credentials menu from the key symbol in the credentials field.*/

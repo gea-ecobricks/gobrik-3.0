@@ -27,13 +27,18 @@ $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $status = isset($_GET['status']) ? filter_var($_GET['status'], FILTER_SANITIZE_STRING) : '';
 $buwana_id = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT) : '';
 $credential_key = isset($_GET['key']) ? filter_var($_GET['key'], FILTER_SANITIZE_EMAIL) : '';
+$first_name = '';  // Initialize the first_name variable
 
-// Check if buwana_id is available and valid to fetch corresponding credential_key from the database
+// Check if buwana_id is available and valid to fetch corresponding credential_key and first_name from the database
 if (!empty($buwana_id)) {
     require_once '../buwanaconn_env.php';
 
-    // Prepare the query to fetch the credential_key (email) from credentials_tb
-    $sql = "SELECT credential_key FROM credentials_tb WHERE buwana_id = ? AND credential_type = 'email'";
+    // Prepare the query to fetch the credential_key (email) and first_name from credentials_tb and users_tb
+    $sql = "SELECT c.credential_key, u.first_name
+            FROM credentials_tb c
+            JOIN users_tb u ON c.buwana_id = u.buwana_id
+            WHERE c.buwana_id = ? AND c.credential_type = 'email'";
+
     if ($stmt = $buwana_conn->prepare($sql)) {
         // Bind the buwana_id parameter
         $stmt->bind_param("i", $buwana_id);
@@ -42,11 +47,12 @@ if (!empty($buwana_id)) {
         $stmt->execute();
 
         // Bind the result
-        $stmt->bind_result($fetched_credential_key);
+        $stmt->bind_result($fetched_credential_key, $fetched_first_name);
 
-        // Fetch the result and overwrite the credential_key if found
+        // Fetch the result and overwrite the credential_key and first_name if found
         if ($stmt->fetch()) {
             $credential_key = $fetched_credential_key;  // Store the fetched credential_key (email)
+            $first_name = $fetched_first_name;  // Store the fetched first_name
         }
 
         // Close the statement
@@ -78,9 +84,10 @@ echo '<!DOCTYPE html>
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
 
-        <div style="text-align:center;width:100%;margin:auto;">
+
+<div style="text-align:center;width:100%;margin:auto;">
     <h3 id="status-message">Login to your account</h3> <!-- Status message will be displayed here -->
-    <h4>Login with your account credentials.</h4>
+    <h4>Now <?php echo htmlspecialchars($first_name); ?>, please login with your account credentials.</h4> <!-- Display the first name -->
 </div>
 
         <!-- Form starts here -->
@@ -95,7 +102,7 @@ echo '<!DOCTYPE html>
         <div id="no-buwana-email" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">🤔 We can't find this credential in the database.</div>
     </div>-->
 
-
+<div class="form-item">
 <div class="input-wrapper" style="position: relative;">
     <input type="text" id="credential_key" name="credential_key" required placeholder="Your e-mail..." value="<?php echo htmlspecialchars($credential_key); ?>">            <span class="toggle-select" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔑</span>
             <div id="dropdown-menu" style="display: none; position: absolute; right: 10px; top: 100%; z-index: 1000; background: white; border: 1px solid #ccc; width: 150px; text-align: left;">

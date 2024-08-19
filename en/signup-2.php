@@ -96,7 +96,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <div class="form-item" id="credential-section">
                     <label for="credential_value"><span data-lang-id="004-your">Your</span> <?php echo $credential_type; ?> please:</label><br>
                     <div id="duplicate-email-error" class="form-field-error" style="margin-top:10px;margin-bottom:-13px;" data-lang-id="010-duplicate-email">🚧 Whoops! Looks like that e-mail address is already being used by a Buwana Account. Please choose another.</div>
-                    <div id="duplicate-gobrik-email" class="form-warning" style="margin-top:10px;margin-bottom:-13px;" data-lang-id="010-gobrik-duplicate">🌏 It looks like this email is already being used with a legacy GoBrik account. Please <a href="activate.phpactivate your old account with our new account system!</div>
+                    <div id="duplicate-gobrik-email" class="form-warning" style="margin-top:10px;margin-bottom:-13px;" ><span data-lang-id="010-gobrik-duplicate">🌏 It looks like this email is already being used with a legacy GoBrik account. Please <a href="login.php">login with this email to upgrade your account.</a></div>
 
                     <div class="input-container">
                         <input type="text" id="credential_value" name="credential_value" required style="padding-left:45px;" aria-label="your email">
@@ -224,7 +224,7 @@ $(document).ready(function() {
                         duplicateGobrikEmail.show();
                         duplicateEmailError.hide();
                         loadingSpinner.removeClass('red').addClass('green').show();
-                        setPasswordSection.style.display = 'block'; // Allow user to proceed with password setup
+                        setPasswordSection.style.display = 'none'; // don't allow user to proceed with password setup
                     } else {
                         alert("An error occurred: " + res.error);
                     }

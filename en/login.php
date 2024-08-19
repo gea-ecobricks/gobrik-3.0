@@ -117,8 +117,8 @@ echo '<!DOCTYPE html>
             <span toggle="#password" class="toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔒</span>
         </div>
         <div id="password-error" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">👉 Password is wrong.</div>
-        <p>Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link">Reset it.</a></p>
-    </div>
+
+<p class="form-caption" data-lang-id="000-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link">Reset it.</a></p>
 
             <div style="text-align:center;" data-lang-id="006-login-button-">
                 <input type="submit" style="text-align:center;margin-top:15px;width:30%; min-width: 175px;" id="submit-button" value="🔑 Login" class="submit-button enabled">

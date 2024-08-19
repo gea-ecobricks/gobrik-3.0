@@ -19,7 +19,7 @@ if (empty($_SESSION['csrf_token'])) {
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.63';
+$version = '0.64';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -131,7 +131,7 @@ echo '</script>';
         <p class="form-caption" data-lang-id="003-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link" datala-lang-id="000-reset-it">Reset it.</a></p>
 
             <div style="text-align:center;" data-lang-id="004-login-button">
-                <input type="submit" style="text-align:center;margin-top:15px;width:30%; min-width: 175px;" id="submit-button" value="🌍 Login" class="submit-button enabled">
+                <input type="submit" style="text-align:center;margin-top:15px;width:30%; min-width: 175px;" id="submit-button" value="🌍 Login" class="submit-button ebuwana-login">
             </div>
         </form>
 
@@ -159,17 +159,7 @@ function getStatusMessage(status, lang, firstName = '') {
             id: "Anda telah keluar. Saat Anda siap" + (firstName ? ' ' + firstName : '') + ", login lagi dengan kredensial akun Anda.",
             es: "Has cerrado tu sesión. Cuando estés listo" + (firstName ? ' ' + firstName : '') + ", vuelve a iniciar sesión con tus credenciales."
         },
-        firsttime: {
-            en: "Your Buwana Account is Created! 🎉 Now" + (firstName ? ' ' + firstName : '') + ", please login again with your new account credentials.",
-            fr: "Votre compte Buwana est créé ! 🎉 Maintenant" + (firstName ? ' ' + firstName : '') + ", connectez-vous avec vos nouvelles identifiants.",
-            id: "Akun Buwana Anda sudah Dibuat! 🎉 Sekarang" + (firstName ? ' ' + firstName : '') + ", silakan masuk dengan kredensial baru Anda.",
-            es: "¡Tu cuenta de Buwana está creada! 🎉 Ahora" + (firstName ? ' ' + firstName : '') + ", por favor inicia sesión con tus nuevas credenciales."
-        },
-        default: {
-            en: "Welcome back!" + (firstName ? firstName + ', ' : '') + "please login again with your account credentials.",
-            fr: "Bon retour !" + (firstName ? firstName + ', ' : '') + "veuillez vous reconnecter avec vos identifiants.",
-            id: "Selamat datang kembali!" + (firstName ? firstName + ', ' : '') + "silakan masuk lagi dengan kredensial akun Anda.",
-            es: "¡Bienvenido de nuevo!" + (firstName ? firstName + ', ' : '') + "por favor inicia sesión de nuevo con tus credenciales."
+
         }
     };
 

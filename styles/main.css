@@ -2123,6 +2123,18 @@ select {
     background-color: var(--button-2-1-over);
 }
 
+.buwana-login {
+    background-color: green;
+    cursor: pointer;
+    padding-right:20px;
+    padding-left:20px;
+    margin-bottom:20px;
+}
+
+.enabled:hover {
+    background-color: darkgreen;
+}
+
 .underline-link {
 color: var(--text-color);
 }

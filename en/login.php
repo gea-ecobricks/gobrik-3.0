@@ -148,51 +148,62 @@ echo '</script>';
 <!-- FOOTER STARTS HERE -->
 <?php require_once ("../footer-2024.php");?>
 
-
-
 <script>
 
- document.addEventListener("DOMContentLoaded", function() {
-    // Define the function
-    function getStatusMessages(status, lang, firstName = '') {
-      const messages = {
+
+
+
+function getStatusMessage(status, lang, firstName = '') {
+    const messages = {
         loggedout: {
-          en: {
-            main: "You've been logged out.",
-            sub: `When you're ready${firstName ? ' ' + firstName : ''}, login again with your account credentials.`
-          },
-          fr: {
-            main: "Vous avez été déconnecté.",
-            sub: `Quand vous êtes prêt${firstName ? ' ' + firstName : ''}, reconnectez-vous avec vos identifiants.`
-          },
-          id: {
-            main: "Anda telah keluar.",
-            sub: `Saat Anda siap${firstName ? ' ' + firstName : ''}, login lagi dengan kredensial akun Anda.`
-          },
-          es: {
-            main: "Has cerrado tu sesión.",
-            sub: `Cuando estés listo${firstName ? ' ' + firstName : ''}, vuelve a iniciar sesión con tus credenciales.`
-          }
+            en: "You've been logged out. When you're ready" + (firstName ? ' ' + firstName : '') + ", login again with your account credentials.",
+            fr: "Vous avez été déconnecté. Quand vous êtes prêt" + (firstName ? ' ' + firstName : '') + ", reconnectez-vous avec vos identifiants.",
+            id: "Anda telah keluar. Saat Anda siap" + (firstName ? ' ' + firstName : '') + ", login lagi dengan kredensial akun Anda.",
+            es: "Has cerrado tu sesión. Cuando estés listo" + (firstName ? ' ' + firstName : '') + ", vuelve a iniciar sesión con tus credenciales."
         },
-        // other status messages...
-      };
+        firsttime: {
+            en: "Your Buwana Account is Created! 🎉 Now" + (firstName ? ' ' + firstName : '') + ", please login again with your new account credentials.",
+            fr: "Votre compte Buwana est créé ! 🎉 Maintenant" + (firstName ? ' ' + firstName : '') + ", connectez-vous avec vos nouvelles identifiants.",
+            id: "Akun Buwana Anda sudah Dibuat! 🎉 Sekarang" + (firstName ? ' ' + firstName : '') + ", silakan masuk dengan kredensial baru Anda.",
+            es: "¡Tu cuenta de Buwana está creada! 🎉 Ahora" + (firstName ? ' ' + firstName : '') + ", por favor inicia sesión con tus nuevas credenciales."
+        },
+        default: {
+            en: "Welcome back!" + (firstName ? firstName + ', ' : '') + "please login again with your account credentials.",
+            fr: "Bon retour !" + (firstName ? firstName + ', ' : '') + "veuillez vous reconnecter avec vos identifiants.",
+            id: "Selamat datang kembali!" + (firstName ? firstName + ', ' : '') + "silakan masuk lagi dengan kredensial akun Anda.",
+            es: "¡Bienvenido de nuevo!" + (firstName ? firstName + ', ' : '') + "por favor inicia sesión de nuevo con tus credenciales."
+        }
+    };
 
-      // Return the message based on the status and language
-      return (messages[status] && messages[status][lang])
+    // Return the message based on the status and language; defaults to English
+    return (messages[status] && messages[status][lang])
         ? messages[status][lang]
-        : messages.default[lang] || messages.default.en;
-    }
+        : messages.default.en;
+}
 
-    // Assuming these are available as global variables from PHP:
-    const status = 'loggedout'; // Example status
-    const lang = 'en'; // Example lang
-    const firstName = 'John'; // Example first name
+document.addEventListener("DOMContentLoaded", function() {
+    // Get the appropriate messages
+    const statusMessage = getStatusMessage(status, lang, firstName);
 
-    // Call the function and update the page
-    const statusMessages = getStatusMessages(status, lang, firstName);
-    document.getElementById('status-message').textContent = statusMessages.main;
-    document.getElementById('sub-status-message').textContent = statusMessages.sub;
-  });
+    // Update the HTML content inside the existing <h3> and <h4> elements
+    document.getElementById('status-message').textContent = statusMessage.split('.')[0] + '.';
+    document.getElementById('sub-status-message').textContent = statusMessage.split('.')[1].trim();
+});
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Get the appropriate messages
+    const statusMessage = getStatusMessage(status, lang, firstName);
+
+    // Update the HTML content inside the existing <h3> and <h4> elements
+    document.getElementById('status-message').textContent = statusMessage.split('.')[0] + '.';
+    document.getElementById('sub-status-message').textContent = statusMessage.split('.')[1].trim();
+});
+
 
 
 

@@ -88,9 +88,9 @@ echo '<!DOCTYPE html>
 
      Update to include translations and variations of the H4 tag-->
 
-    <div style="text-align:center;width:100%;margin:auto;" id="status-message">
-        <h3>Login to your account</h3>
-        <h4>Please signin with your account credentials.</h4>
+    <div style="text-align:center;width:100%;margin:auto;" >
+        <h3 id="status-message">Login to your account</h3>
+        <h4 id="sub-status-message">Please signin with your account credentials.</h4>
     </div>
 
     <!-- Form starts here -->
@@ -141,33 +141,74 @@ echo '<!DOCTYPE html>
 <script>
 
 <script>
-    function getStatusMessage(status, lang, firstName = '') {
-        const messages = {
-            loggedout: {
-                en: `<h3>You've been logged out.</h3><h4>When you're ready${firstName ? ' ' + firstName : ''}, login again with your account credentials.</h4>`,
-                fr: `<h3>Vous avez été déconnecté.</h3><h4>Quand vous êtes prêt${firstName ? ' ' + firstName : ''}, reconnectez-vous avec vos identifiants.</h4>`,
-                id: `<h3>Anda telah keluar.</h3><h4>Saat Anda siap${firstName ? ' ' + firstName : ''}, login lagi dengan kredensial akun Anda.</h4>`,
-                es: `<h3>Has cerrado tu sesión.</h3><h4>Cuando estés listo${firstName ? ' ' + firstName : ''}, vuelve a iniciar sesión con tus credenciales.</h4>`
+ function getStatusMessages(status, lang, firstName = '') {
+    const messages = {
+        loggedout: {
+            en: {
+                main: "You've been logged out.",
+                sub: `When you're ready${firstName ? ' ' + firstName : ''}, login again with your account credentials.`
             },
-            firsttime: {
-                en: `<h3>Your Buwana Account is Created!</h3><h4>Now${firstName ? ' ' + firstName : ''}, please login again with your new account credentials.</h4>`,
-                fr: `<h3>Votre compte Buwana est créé !</h3><h4>Maintenant${firstName ? ' ' + firstName : ''}, connectez-vous avec vos nouvelles identifiants.</h4>`,
-                id: `<h3>Akun Buwana Anda sudah Dibuat!</h3><h4>Sekarang${firstName ? ' ' + firstName : ''}, silakan masuk dengan kredensial baru Anda.</h4>`,
-                es: `<h3>¡Tu cuenta de Buwana está creada!</h3><h4>Ahora${firstName ? ' ' + firstName : ''}, por favor inicia sesión con tus nuevas credenciales.</h4>`
+            fr: {
+                main: "Vous avez été déconnecté.",
+                sub: `Quand vous êtes prêt${firstName ? ' ' + firstName : ''}, reconnectez-vous avec vos identifiants.`
             },
-            default: {
-                en: `<h3>Welcome back!</h3><h4>${firstName ? firstName + ', ' : ''}please login again with your account credentials.</h4>`,
-                fr: `<h3>Bon retour !</h3><h4>${firstName ? firstName + ', ' : ''}veuillez vous reconnecter avec vos identifiants.</h4>`,
-                id: `<h3>Selamat datang kembali!</h3><h4>${firstName ? firstName + ', ' : ''}silakan masuk lagi dengan kredensial akun Anda.</h4>`,
-                es: `<h3>¡Bienvenido de nuevo!</h3><h4>${firstName ? firstName + ', ' : ''}por favor inicia sesión de nuevo con tus credenciales.</h4>`
+            id: {
+                main: "Anda telah keluar.",
+                sub: `Saat Anda siap${firstName ? ' ' + firstName : ''}, login lagi dengan kredensial akun Anda.`
+            },
+            es: {
+                main: "Has cerrado tu sesión.",
+                sub: `Cuando estés listo${firstName ? ' ' + firstName : ''}, vuelve a iniciar sesión con tus credenciales.`
             }
-        };
+        },
+        firsttime: {
+            en: {
+                main: "Your Buwana Account is Created! 🎉",
+                sub: `Now${firstName ? ' ' + firstName : ''}, please login again with your new account credentials.`
+            },
+            fr: {
+                main: "Votre compte Buwana est créé ! 🎉",
+                sub: `Maintenant${firstName ? ' ' + firstName : ''}, connectez-vous avec vos nouvelles identifiants.`
+            },
+            id: {
+                main: "Akun Buwana Anda sudah Dibuat! 🎉",
+                sub: `Sekarang${firstName ? ' ' + firstName : ''}, silakan masuk dengan kredensial baru Anda.`
+            },
+            es: {
+                main: "¡Tu cuenta de Buwana está creada! 🎉",
+                sub: `Ahora${firstName ? ' ' + firstName : ''}, por favor inicia sesión con tus nuevas credenciales.`
+            }
+        },
+        default: {
+            en: {
+                main: "Welcome back!",
+                sub: `${firstName ? firstName + ', ' : ''}please login again with your account credentials.`
+            },
+            fr: {
+                main: "Bon retour !",
+                sub: `${firstName ? firstName + ', ' : ''}veuillez vous reconnecter avec vos identifiants.`
+            },
+            id: {
+                main: "Selamat datang kembali!",
+                sub: `${firstName ? firstName + ', ' : ''}silakan masuk lagi dengan kredensial akun Anda.`
+            },
+            es: {
+                main: "¡Bienvenido de nuevo!",
+                sub: `${firstName ? firstName + ', ' : ''}por favor inicia sesión de nuevo con tus credenciales.`
+            }
+        }
+    };
 
-        // Return the message based on the status and language; defaults to English
-        return (messages[status] && messages[status][lang])
-            ? messages[status][lang]
-            : messages.default.en;
-    }
+
+    const selectedMessages = messages[status] && messages[status][lang]
+        ? messages[status][lang]
+        : messages.default[lang] || messages.default.en;
+
+    return {
+        main: selectedMessages.main,
+        sub: selectedMessages.sub
+    };
+}
 
 
 

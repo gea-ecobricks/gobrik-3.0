@@ -150,6 +150,7 @@ echo '</script>';
 
 <script>
 
+
 function getStatusMessage(status, lang, firstName = '') {
     const messages = {
         loggedout: {
@@ -165,10 +166,10 @@ function getStatusMessage(status, lang, firstName = '') {
             es: "¡Tu cuenta de Buwana está creada! 🎉 Ahora" + (firstName ? ' ' + firstName : '') + ", por favor inicia sesión con tus nuevas credenciales."
         },
         default: {
-            en: "Welcome back!" + (firstName ? ' ' + firstName + ', ' : '') + "please login again with your account credentials.",
-            fr: "Bon retour !" + (firstName ? ' ' + firstName + ', ' : '') + "veuillez vous reconnecter avec vos identifiants.",
-            id: "Selamat datang kembali!" + (firstName ? ' ' + firstName + ', ' : '') + "silakan masuk lagi dengan kredensial akun Anda.",
-            es: "¡Bienvenido de nuevo!" + (firstName ? ' ' + firstName + ', ' : '') + "por favor inicia sesión de nuevo con tus credenciales."
+            en: "Welcome back!" + (firstName ? firstName + ', ' : '') + "please login again with your account credentials.",
+            fr: "Bon retour !" + (firstName ? firstName + ', ' : '') + "veuillez vous reconnecter avec vos identifiants.",
+            id: "Selamat datang kembali!" + (firstName ? firstName + ', ' : '') + "silakan masuk lagi dengan kredensial akun Anda.",
+            es: "¡Bienvenido de nuevo!" + (firstName ? firstName + ', ' : '') + "por favor inicia sesión de nuevo con tus credenciales."
         }
     };
 
@@ -178,12 +179,15 @@ function getStatusMessage(status, lang, firstName = '') {
         : messages.default.en;
 }
 
-// Now we call the function to update the HTML content based on the status and language
 document.addEventListener("DOMContentLoaded", function() {
+    // Get the appropriate messages
     const statusMessage = getStatusMessage(status, lang, firstName);
-    document.getElementById('status-message').textContent = statusMessage;
-    document.getElementById('sub-status-message').textContent = statusMessage;
+
+    // Update the HTML content inside the existing <h3> and <h4> elements
+    document.getElementById('status-message').textContent = statusMessage.split('.')[0] + '.';
+    document.getElementById('sub-status-message').textContent = statusMessage.split('.')[1].trim();
 });
+
 
 
 

@@ -187,31 +187,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
-
-// Function to handle error responses based on the error type
+// Consolidated function to handle error responses and show the appropriate error div
 function handleErrorResponse(errorType) {
-    switch (errorType) {
-        case 'invalid_password':
-            displayError('password-error'); // Show password error
-            break;
-        case 'invalid_user':
-        case 'invalid_credential':
-            displayError('no-buwana-email'); // Show email error for invalid user/credential
-            break;
-        default:
-            alert("An error with processing the form has occurred: " + errorType); // For unexpected errors
-            break;
-    }
-}
-
-// Function to show the appropriate error div and hide others
-function displayError(errorDivId) {
     // Hide both error divs initially
     document.getElementById('password-error').style.display = 'none';
     document.getElementById('no-buwana-email').style.display = 'none';
 
-    // Show the correct error div based on the errorDivId passed
-    document.getElementById(errorDivId).style.display = 'block';
+    // Show the appropriate error div based on the errorType
+    if (errorType === 'invalid_password') {
+        document.getElementById('password-error').style.display = 'block'; // Show password error
+    } else if (errorType === 'invalid_user' || errorType === 'invalid_credential') {
+        document.getElementById('no-buwana-email').style.display = 'block'; // Show email error for invalid user/credential
+    }
 }
 
 

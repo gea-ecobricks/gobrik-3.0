@@ -185,9 +185,12 @@ document.addEventListener("DOMContentLoaded", function() {
     // Get the appropriate messages
     const statusMessage = getStatusMessage(status, lang, firstName);
 
-    // Update the HTML content inside the existing <h3> and <h4> elements
-    document.getElementById('status-message').textContent = statusMessage.split('.')[0] + '.';
-    document.getElementById('sub-status-message').textContent = statusMessage.split('.')[1].trim();
+    // Split the message into two parts based on the first period (.)
+    const messageParts = statusMessage.split('.');
+
+    // Set the content of the status-message and sub-status-message
+    document.getElementById('status-message').textContent = messageParts[0] + '.';
+    document.getElementById('sub-status-message').textContent = messageParts[1] ? messageParts[1].trim() : ''; // Handle the case where there's no second sentence
 });
 
 

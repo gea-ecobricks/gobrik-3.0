@@ -57,42 +57,12 @@ if (!empty($buwana_id)) {
     $buwana_conn->close();
 }
 
-// PHP functions to get the correct messages based on the language
-function getLogoutMessage($lang) {
-    $messages = [
-        'en' => "You've been logged out.",
-        'fr' => "Vous avez été déconnecté.",
-        'id' => "Anda telah keluar.",
-        'es' => "Has cerrado tu sesión."
-    ];
-    return $messages[$lang] ?? $messages['en']; // Default to English if $lang is not found
-}
-
-function getFirstTimeMessage($lang) {
-    $messages = [
-        'en' => "Your Buwana Account is Created! 🎉",
-        'fr' => "Votre compte Buwana est créé ! 🎉",
-        'id' => "Akun Buwana Anda sudah Dibuat! 🎉",
-        'es' => "¡Tu cuenta de Buwana está creada! 🎉"
-    ];
-    return $messages[$lang] ?? $messages['en']; // Default to English if $lang is not found
-}
-
-function getLoginMessage($lang) {
-    $messages = [
-        'en' => "Welcome back!",
-        'fr' => "Bon retour !",
-        'id' => "Selamat datang kembali!",
-        'es' => "¡Bienvenido de nuevo!"
-    ];
-    return $messages[$lang] ?? $messages['en']; // Default to English if $lang is not found
-}
-
 // Echo the HTML structure
 echo '<!DOCTYPE html>
 <html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">
 <head>
 <meta charset="UTF-8">
+<title>Login</title>
 ';
 ?>
 
@@ -165,6 +135,63 @@ echo '<!DOCTYPE html>
 <!-- FOOTER STARTS HERE -->
 <?php require_once ("../footer-2024.php");?>
 
+<script>
+  // JavaScript function to get the correct message based on the status and language
+    function getStatusMessage(status, lang) {
+        const messages = {
+            loggedout: {
+                en: "You've been logged out.",
+                fr: "Vous avez été déconnecté.",
+                id: "Anda telah keluar.",
+                es: "Has cerrado tu sesión."
+            },
+            firsttime: {
+                en: "Your Buwana Account is Created! 🎉",
+                fr: "Votre compte Buwana est créé ! 🎉",
+                id: "Akun Buwana Anda sudah Dibuat! 🎉",
+                es: "¡Tu cuenta de Buwana está creada! 🎉"
+            },
+            default: {
+                en: "Welcome back!",
+                fr: "Bon retour !",
+                id: "Selamat datang kembali!",
+                es: "¡Bienvenido de nuevo!"
+            }
+        };
+
+        // Return the message based on the status and language; defaults to English
+        return (messages[status] && messages[status][lang])
+            ? messages[status][lang]
+            : messages.default.en;
+    }
+
+    // Function to extract the query parameters from the URL
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    // Document ready event
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the values from the URL query parameters
+        const status = getQueryParam('status') || ''; // status like 'loggedout', 'firsttime', etc.
+        const lang = document.documentElement.lang || 'en'; // Get language from the <html> tag or default to 'en'
+        const buwanaId = getQueryParam('id'); // buwana_id
+        const credentialKey = getQueryParam('key'); // credential_key
+
+        // Fetch and display the status message based on the status and language
+        const message = getStatusMessage(status, lang);
+        document.getElementById('status-message').textContent = message;
+
+        // Fill the credential_key input field if present in the URL
+        if (credentialKey) {
+            document.getElementById('credential_key').value = credentialKey;
+        }
+
+        // You could also trigger other logic using `buwanaId` if necessary
+        console.log("Buwana ID: " + buwanaId);
+    });
+</script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     // Get the error type from the URL parameters (if present)

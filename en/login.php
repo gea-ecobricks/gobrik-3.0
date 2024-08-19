@@ -252,7 +252,7 @@ echo '</script>';
         const credentialKey = getQueryParam('key'); // credential_key
 
         // Fetch and display the status message based on the status and language
-        const message = getStatusMessage(status, lang);
+        const message = getStatusMessages(status, lang);
         document.getElementById('status-message').textContent = message;
 
         // Fill the credential_key input field if present in the URL

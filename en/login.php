@@ -103,14 +103,15 @@ echo '<!DOCTYPE html>
     </div>-->
 
 <div class="form-item">
-<div class="input-wrapper" style="position: relative;">
-    <input type="text" id="credential_key" name="credential_key" required placeholder="Your e-mail..." value="<?php echo htmlspecialchars($credential_key); ?>">            <span class="toggle-select" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔑</span>
+    <div class="input-wrapper" style="position: relative;">
+        <input type="text" id="credential_key" name="credential_key" required placeholder="Your e-mail..." value="<?php echo htmlspecialchars($credential_key); ?>">            <span class="toggle-select" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔑</span>
             <div id="dropdown-menu" style="display: none; position: absolute; right: 10px; top: 100%; z-index: 1000; background: white; border: 1px solid #ccc; width: 150px; text-align: left;">
                 <div class="dropdown-item" value="Your email...">E-mail</div>
                 <div class="dropdown-item disabled" style="opacity: 0.5;">SMS</div>
                 <div class="dropdown-item disabled" style="opacity: 0.5;">Peer</div>
             </div>
-        </div>
+    </div>
+</div>
 
 
 

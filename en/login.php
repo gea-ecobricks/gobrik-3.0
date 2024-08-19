@@ -221,8 +221,6 @@ function getStatusMessages(status, lang, firstName = '') {
 
 
 
-
-
 document.addEventListener("DOMContentLoaded", function() {
     // Get the appropriate messages
     const statusMessage = getStatusMessage(status, lang, firstName);

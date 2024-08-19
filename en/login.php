@@ -151,8 +151,15 @@ echo '</script>';
 
 
 <script>
+
+
 document.addEventListener("DOMContentLoaded", function () {
-    // Function to extract the query parameters from the URL
+    // Debugging outputs
+    console.log('status:', status);
+    console.log('lang:', lang);
+    console.log('firstName:', firstName);
+
+    // Function to extract query parameters from URL
     function getQueryParam(param) {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(param);

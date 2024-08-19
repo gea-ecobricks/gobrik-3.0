@@ -122,15 +122,6 @@ function switchLanguage(langCode) {
 
 
 
-function logoutUser() {
-    // Confirm logout action
-    if (confirm('Are you sure you want to log out?')) {
-        // Redirect to logout.php
-        window.location.href = 'logout.php';
-    }
-}
-</script>
-
 <script src="../scripts/core-2024.js?v=<?php echo ($version); ;?>"></script>
 
 

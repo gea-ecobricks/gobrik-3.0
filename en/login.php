@@ -131,7 +131,7 @@ echo '</script>';
         <p class="form-caption" data-lang-id="003-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link" datala-lang-id="000-reset-it">Reset it.</a></p>
 
             <div style="text-align:center;" data-lang-id="004-login-button">
-                <input type="submit" style="text-align:center;margin-top:15px;width:30%; min-width: 175px;" id="submit-button" value="🌍 Login" class="submit-button ebuwana-login">
+                <input type="submit" style="text-align:center;margin-top:15px;width:30%; min-width: 175px;" id="submit-button" value="🌍 Login" class="submit-button buwana-login">
             </div>
         </form>
 
@@ -151,23 +151,9 @@ echo '</script>';
 <script>
 
 
-function getStatusMessage(status, lang, firstName = '') {
-    const messages = {
-        loggedout: {
-            en: "You've been logged out. When you're ready" + (firstName ? ' ' + firstName : '') + ", login again with your account credentials.",
-            fr: "Vous avez été déconnecté. Quand vous êtes prêt" + (firstName ? ' ' + firstName : '') + ", reconnectez-vous avec vos identifiants.",
-            id: "Anda telah keluar. Saat Anda siap" + (firstName ? ' ' + firstName : '') + ", login lagi dengan kredensial akun Anda.",
-            es: "Has cerrado tu sesión. Cuando estés listo" + (firstName ? ' ' + firstName : '') + ", vuelve a iniciar sesión con tus credenciales."
-        },
 
-        }
-    };
 
-    // Return the message based on the status and language; defaults to English
-    return (messages[status] && messages[status][lang])
-        ? messages[status][lang]
-        : messages.default.en;
-}
+
 
 document.addEventListener("DOMContentLoaded", function() {
     // Get the appropriate messages

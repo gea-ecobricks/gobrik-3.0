@@ -148,86 +148,51 @@ echo '</script>';
 <!-- FOOTER STARTS HERE -->
 <?php require_once ("../footer-2024.php");?>
 
+
+
 <script>
 
-
-function getStatusMessages(status, lang, firstName = '') {
-    const messages = {
+ document.addEventListener("DOMContentLoaded", function() {
+    // Define the function
+    function getStatusMessages(status, lang, firstName = '') {
+      const messages = {
         loggedout: {
-            en: {
-                main: "You've been logged out.",
-                sub: `When you're ready${firstName ? ' ' + firstName : ''}, login again with your account credentials.`
-            },
-            fr: {
-                main: "Vous avez été déconnecté.",
-                sub: `Quand vous êtes prêt${firstName ? ' ' + firstName : ''}, reconnectez-vous avec vos identifiants.`
-            },
-            id: {
-                main: "Anda telah keluar.",
-                sub: `Saat Anda siap${firstName ? ' ' + firstName : ''}, login lagi dengan kredensial akun Anda.`
-            },
-            es: {
-                main: "Has cerrado tu sesión.",
-                sub: `Cuando estés listo${firstName ? ' ' + firstName : ''}, vuelve a iniciar sesión con tus credenciales.`
-            }
+          en: {
+            main: "You've been logged out.",
+            sub: `When you're ready${firstName ? ' ' + firstName : ''}, login again with your account credentials.`
+          },
+          fr: {
+            main: "Vous avez été déconnecté.",
+            sub: `Quand vous êtes prêt${firstName ? ' ' + firstName : ''}, reconnectez-vous avec vos identifiants.`
+          },
+          id: {
+            main: "Anda telah keluar.",
+            sub: `Saat Anda siap${firstName ? ' ' + firstName : ''}, login lagi dengan kredensial akun Anda.`
+          },
+          es: {
+            main: "Has cerrado tu sesión.",
+            sub: `Cuando estés listo${firstName ? ' ' + firstName : ''}, vuelve a iniciar sesión con tus credenciales.`
+          }
         },
-        firsttime: {
-            en: {
-                main: "Your Buwana Account is Created! 🎉",
-                sub: `Now${firstName ? ' ' + firstName : ''}, please login again with your new account credentials.`
-            },
-            fr: {
-                main: "Votre compte Buwana est créé ! 🎉",
-                sub: `Maintenant${firstName ? ' ' + firstName : ''}, connectez-vous avec vos nouvelles identifiants.`
-            },
-            id: {
-                main: "Akun Buwana Anda sudah Dibuat! 🎉",
-                sub: `Sekarang${firstName ? ' ' + firstName : ''}, silakan masuk dengan kredensial baru Anda.`
-            },
-            es: {
-                main: "¡Tu cuenta de Buwana está creada! 🎉",
-                sub: `Ahora${firstName ? ' ' + firstName : ''}, por favor inicia sesión con tus nuevas credenciales.`
-            }
-        },
-        default: {
-            en: {
-                main: "Welcome back!",
-                sub: `${firstName ? firstName + ', ' : ''}please login again with your account credentials.`
-            },
-            fr: {
-                main: "Bon retour !",
-                sub: `${firstName ? firstName + ', ' : ''}veuillez vous reconnecter avec vos identifiants.`
-            },
-            id: {
-                main: "Selamat datang kembali!",
-                sub: `${firstName ? firstName + ', ' : ''}silakan masuk lagi dengan kredensial akun Anda.`
-            },
-            es: {
-                main: "¡Bienvenido de nuevo!",
-                sub: `${firstName ? firstName + ', ' : ''}por favor inicia sesión de nuevo con tus credenciales.`
-            }
-        }
-    };
+        // other status messages...
+      };
 
-    const selectedMessages = messages[status] && messages[status][lang]
+      // Return the message based on the status and language
+      return (messages[status] && messages[status][lang])
         ? messages[status][lang]
         : messages.default[lang] || messages.default.en;
+    }
 
-    return {
-        main: selectedMessages.main,
-        sub: selectedMessages.sub
-    };
-}
+    // Assuming these are available as global variables from PHP:
+    const status = 'loggedout'; // Example status
+    const lang = 'en'; // Example lang
+    const firstName = 'John'; // Example first name
 
-
-// Get the status messages
-const statusMessages = getStatusMessages(status, lang, firstName);
-
-// Insert the messages into the HTML elements
-document.getElementById('status-message').textContent = statusMessages.main;
-document.getElementById('sub-status-message').textContent = statusMessages.sub;
-
-
+    // Call the function and update the page
+    const statusMessages = getStatusMessages(status, lang, firstName);
+    document.getElementById('status-message').textContent = statusMessages.main;
+    document.getElementById('sub-status-message').textContent = statusMessages.sub;
+  });
 
 
 

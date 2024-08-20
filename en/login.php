@@ -152,32 +152,12 @@ echo '</script>';
 
 <script>
 
-
 document.addEventListener("DOMContentLoaded", function () {
-    // Debugging outputs
-    console.log('status:', status);
-    console.log('lang:', lang);
-    console.log('firstName:', firstName);
-
-    // Function to extract query parameters from URL
+    // Function to extract the query parameters from the URL
     function getQueryParam(param) {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(param);
     }
-
-    // Get the status and language
-    const status = getQueryParam('status') || status || ''; // Handle URL or PHP-based status
-    const lang = getQueryParam('lang') || lang || 'en';     // Handle URL or PHP-based lang
-    const firstName = getQueryParam('firstName') || firstName || ''; // Get firstName from URL or PHP
-
-    // Status messages
-    const { main, sub } = getStatusMessages(status, lang, firstName);
-
-    // Insert into HTML elements
-    document.getElementById('status-message').textContent = main;
-    document.getElementById('sub-status-message').textContent = sub;
-});
-
 
     // Function to get status messages
     function getStatusMessages(status, lang, firstName = '') {

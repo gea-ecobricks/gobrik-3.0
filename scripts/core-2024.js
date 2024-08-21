@@ -1,4 +1,7 @@
 
+//var buwanaId = '<?php echo $buwana_id; ?>';
+
+
 function redirectToWelcome() {
     window.location.href = "index.php";
 }
@@ -351,7 +354,6 @@ document.getElementById('logout-button').addEventListener('click', function() {
     window.location.href = 'logout.php';
 });
 
-var buwanaId = '<?php echo $buwana_id; ?>';
 
 // Function to log out the user and redirect to login.php with buwana_id appended
 function logoutUser() {

@@ -9,6 +9,6 @@ session_unset();
 session_destroy();
 
 // Redirect to the login page with the status and buwana_id
-header('Location: login.php?status=loggedout&buwana_id=' . urlencode($buwana_id));
+header('Location: login.php?status=logout&id=' . urlencode($buwana_id));
 exit();
 ?>

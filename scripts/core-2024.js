@@ -65,15 +65,6 @@ function scrollMoreThan40() {
 }
 
 
-//
-//
-//function pageMeasureBar() {
-//        let scrollPercentage = (window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-//        document.getElementById("progress-bar").style.width = scrollPercentage + "%";
-//    }
-
-
-    
 /* RIGHT SETTINGS OVERLAY */
 
 function openSideMenu() {
@@ -336,3 +327,39 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+/*-------------------------------------------
+
+
+ SCRIPTS FOR ONCE LOGGED IN
+
+
+-------------------------------------------*/
+
+
+document.getElementById('log-ecobrick-button').addEventListener('click', function() {
+    // Redirect to the log.php page
+    window.location.href = 'log.php';
+});
+
+document.getElementById('newest-ecobricks-button').addEventListener('click', function() {
+    // Redirect to the newest-briks.php page
+    window.location.href = 'newest-briks.php';
+});
+
+document.getElementById('logout-button').addEventListener('click', function() {
+    // Log out and redirect to the login.php page
+    window.location.href = 'logout.php';
+});
+
+var buwanaId = '<?php echo $buwana_id; ?>';
+
+// Function to log out the user and redirect to login.php with buwana_id appended
+function logoutUser() {
+    if (buwanaId) {
+        // Redirect to logout.php with buwana_id appended to the login.php URL
+        window.location.href = 'logout.php?redirect=login.php?status=logout+id=' + encodeURIComponent(buwanaId);
+    } else {
+        // If buwana_id is not available, just redirect to the logout page
+        window.location.href = 'logout.php?status=logout';
+    }
+}

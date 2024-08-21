@@ -153,33 +153,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once("../footer-2024.php"); ?>
 
 <script type="text/javascript">
-document.getElementById('log-ecobrick-button').addEventListener('click', function() {
-    // Redirect to the log.php page
-    window.location.href = 'log.php';
-});
 
-document.getElementById('newest-ecobricks-button').addEventListener('click', function() {
-    // Redirect to the newest-briks.php page
-    window.location.href = 'newest-briks.php';
-});
-
-document.getElementById('logout-button').addEventListener('click', function() {
-    // Log out and redirect to the login.php page
-    window.location.href = 'logout.php';
-});
-
-var buwanaId = '<?php echo $buwana_id; ?>';
-
-// Function to log out the user and redirect to login.php with buwana_id appended
-function logoutUser() {
-    if (buwanaId) {
-        // Redirect to logout.php with buwana_id appended to the login.php URL
-        window.location.href = 'logout.php?redirect=login.php?id=' + encodeURIComponent(buwanaId);
-    } else {
-        // If buwana_id is not available, just redirect to the logout page
-        window.location.href = 'logout.php';
-    }
-}
 
 // JavaScript to determine the user's time of day and display an appropriate greeting
 window.onload = function() {

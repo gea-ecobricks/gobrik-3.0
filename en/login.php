@@ -162,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function to get status messages
     function getStatusMessages(status, lang, firstName = '') {
         const messages = {
-            loggedout: {
+            logout: {
                 en: {
                     main: "You've been logged out.",
                     sub: `When you're ready${firstName ? ' ' + firstName : ''}, login again with your account credentials.`

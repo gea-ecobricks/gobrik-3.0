@@ -339,21 +339,6 @@ document.addEventListener("DOMContentLoaded", function() {
 -------------------------------------------*/
 
 
-document.getElementById('log-ecobrick-button').addEventListener('click', function() {
-    // Redirect to the log.php page
-    window.location.href = 'log.php';
-});
-
-document.getElementById('newest-ecobricks-button').addEventListener('click', function() {
-    // Redirect to the newest-briks.php page
-    window.location.href = 'newest-briks.php';
-});
-
-document.getElementById('logout-button').addEventListener('click', function() {
-    // Log out and redirect to the login.php page
-    window.location.href = 'logout.php';
-});
-
 
 // Function to log out the user and redirect to login.php with buwana_id appended
 function logoutUser() {

@@ -171,6 +171,23 @@ window.onload = function() {
 
     document.getElementById("greeting").innerHTML = greeting + " <?php echo htmlspecialchars($first_name); ?>!";
 }
+
+
+document.getElementById('log-ecobrick-button').addEventListener('click', function() {
+    // Redirect to the log.php page
+    window.location.href = 'log.php';
+});
+
+document.getElementById('newest-ecobricks-button').addEventListener('click', function() {
+    // Redirect to the newest-briks.php page
+    window.location.href = 'newest-briks.php';
+});
+
+document.getElementById('logout-button').addEventListener('click', function() {
+    // Log out and redirect to the login.php page
+    window.location.href = 'logout.php';
+});
+
 </script>
 
 </body>

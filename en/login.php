@@ -19,7 +19,7 @@ if (empty($_SESSION['csrf_token'])) {
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.65';
+$version = '0.66';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -123,7 +123,7 @@ echo '</script>';
     <div class="form-item">
         <div class="password-wrapper" style="position: relative;">
             <div data-lang-id="005-password-field-placeholder">
-                <input type="password" id="password" name="password" required placeholder="Your password...">
+                <input type="password" id="password" name="password" required placeholder="Your earthWords...">
             </div>
             <span toggle="#password" class="toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔒</span>
         </div>
@@ -201,19 +201,19 @@ document.addEventListener("DOMContentLoaded", function () {
             default: {
                 en: {
                     main: "Welcome back!",
-                    sub: `${firstName ? firstName + ', ' : ''}please login again with your account credentials.`
+                    sub: `Please login again with your account credentials.`
                 },
                 fr: {
                     main: "Bon retour !",
-                    sub: `${firstName ? firstName + ', ' : ''}veuillez vous reconnecter avec vos identifiants.`
+                    sub: `Veuillez vous reconnecter avec vos identifiants.`
                 },
                 id: {
                     main: "Selamat datang kembali!",
-                    sub: `${firstName ? firstName + ', ' : ''}silakan masuk lagi dengan kredensial akun Anda.`
+                    sub: `Silakan masuk lagi dengan kredensial akun Anda.`
                 },
                 es: {
                     main: "¡Bienvenido de nuevo!",
-                    sub: `${firstName ? firstName + ', ' : ''}por favor inicia sesión de nuevo con tus credenciales.`
+                    sub: `Por favor inicia sesión de nuevo con tus credenciales.`
                 }
             }
         };

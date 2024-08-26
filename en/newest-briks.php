@@ -68,7 +68,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <!-- PAGE CONTENT -->
    <div id="top-page-image" class="my-ecobricks top-page-image"></div>
 
-<div id="form-submission-box" style="height:fit-content;">
+<div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
             <h2>The Latest Ecobricks</h2>

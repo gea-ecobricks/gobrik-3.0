@@ -35,7 +35,7 @@ if ($stmt_lookup_user) {
 }
 
 
-// SQL query to fetch the gobrik global stats for the day
+// SQL query to fetch the count of ecobricks and the sum of weight_g divided by 1000 to get kg
 $sql = "SELECT COUNT(*) as ecobrick_count, SUM(weight_g) / 1000 as total_weight FROM tb_ecobricks";
 $result = $gobrik_conn->query($sql);
 
@@ -47,7 +47,6 @@ if ($result->num_rows > 0) {
     $ecobrick_count = 0;
     $total_weight = 0;
 }
-
 
 
 // SQL query to fetch the 20 most recent ecobricks made by the user and calculate totals

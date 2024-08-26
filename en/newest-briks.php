@@ -4,23 +4,16 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.368';
+$version = '0.369';
 $page = 'newest-briks';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 // Include GoBrik database credentials
-include '../gobrik_env.php';
-
-// Create connection to GoBrik database
-$conn2 = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn2->connect_error) {
-    die("Connection failed: " . $conn2->connect_error);
-}
+ require_once '../gobrikconn_env.php'; //sets up buwana_conn database connection
 
 // SQL query to fetch the count of ecobricks and the sum of weight_g divided by 1000 to get kg
 $sql = "SELECT COUNT(*) as ecobrick_count, SUM(weight_g) / 1000 as total_weight FROM tb_ecobricks";
-$result = $conn2->query($sql);
+$result = $gobrik_conn->query($sql);
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
@@ -33,7 +26,7 @@ if ($result->num_rows > 0) {
 
 // SQL query to fetch the 12 most recent ecobricks
 $sql_recent = "SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, location_full, ecobricker_maker, serial_no, status FROM tb_ecobricks ORDER BY date_logged_ts DESC LIMIT 12";
-$result_recent = $conn2->query($sql_recent);
+$result_recent = $gobrik_conn->query($sql_recent);
 
 $recent_ecobricks = [];
 if ($result_recent->num_rows > 0) {
@@ -42,7 +35,7 @@ if ($result_recent->num_rows > 0) {
     }
 }
 
-$conn2->close();
+$gobrik_conn->close();
 
 echo '<!DOCTYPE html>
 <html lang="' . $lang . '">

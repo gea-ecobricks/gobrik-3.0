@@ -34,6 +34,22 @@ if ($stmt_lookup_user) {
     die("Error preparing statement for tb_ecobrickers: " . $gobrik_conn->error);
 }
 
+
+// SQL query to fetch the gobrik global stats for the day
+$sql = "SELECT COUNT(*) as ecobrick_count, SUM(weight_g) / 1000 as total_weight FROM tb_ecobricks";
+$result = $gobrik_conn->query($sql);
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $ecobrick_count = $row['ecobrick_count'];
+    $total_weight = $row['total_weight'];
+} else {
+    $ecobrick_count = 0;
+    $total_weight = 0;
+}
+
+
+
 // SQL query to fetch the 20 most recent ecobricks made by the user and calculate totals
 $sql_recent = "SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, volume_ml, location_full, ecobricker_maker, serial_no, status FROM tb_ecobricks WHERE maker_id = ? ORDER BY date_logged_ts DESC LIMIT 20";
 $stmt_recent = $gobrik_conn->prepare($sql_recent);

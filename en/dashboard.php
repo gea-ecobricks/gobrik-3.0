@@ -105,11 +105,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
             <h2 id="greeting">Hello <?php echo htmlspecialchars($first_name); ?>!</h2>
-            <p>Welcome to the new GoBrik 3.0! So far you've logged <?php echo htmlspecialchars($ecobricks_made); ?> ecobricks in <?php echo htmlspecialchars($location_full_txt); ?>! In total you've logged <?php echo $total_weight; ?> grams with a net density of <?php echo number_format($net_density, 2); ?> g/ml. Your knack maker id is <?php echo htmlspecialchars($maker_id); ?>.</p>
+            <p>Welcome to the new GoBrik 3.0! So far you've logged <?php echo htmlspecialchars($ecobricks_made); ?> ecobricks in <?php echo htmlspecialchars($location_full_txt); ?>! In total you've logged <?php echo $total_weight; ?> grams with a net density of <?php echo number_format($net_density, 2); ?> g/ml.</p>
         </div>
         <div style="display:flex;flex-flow:row;width:100%;justify-content:center;">
             <button class="go-button" id="log-ecobrick-button">➕ Log an Ecobrick</button>
-
         </div>
 
         <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
@@ -153,9 +152,13 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>
 
         <div style="display:flex;flex-flow:row;width:100%;justify-content:center; margin-top:50px;">
-            <button id="newest-ecobricks-button" onclick="newestEcobricks()" style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);">📅 Newest Ecobricks</button>
+            <button id="newest-ecobricks-button" onclick="newestEcobricks()" style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);pointer:cursor;border:none;">📅 Newest Ecobricks</button>
             <!-- Logout Button -->
-            <button id="logout-button" onclick="logoutUser()">📤 Log Out</button>
+            <button id="logout-button" onclick="logoutUser()" style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);pointer:cursor;border:none;">📤 Log Out</button>
+        </div>
+
+        <div style="text-align:center;width:100%;margin:auto;">
+            <p style="font-size:smaller;">As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik, representing over <?php echo round($total_weight); ?> kg of sequestered plastic!</p>
         </div>
     </div>
 </div>

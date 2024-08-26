@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.367';
+$version = '0.368';
 $page = 'newest-briks';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -66,7 +66,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT -->
-   <div id="top-page-image" class="my-ecobricks top-page-image" style="margin-top:20px; margin-bottom:30px;"></div>
+   <div id="top-page-image" class="my-ecobricks top-page-image"></div>
 
 <div id="form-submission-box" style="height:fit-content;">
     <div class="form-container">
@@ -109,6 +109,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     </tr>
                 <?php endforeach; ?>
             </table>
+        </div>
+
+        <div style="display:flex;flex-flow:row;width:100%;justify-content:center;margin-top:30px;">
+            <button class="go-button" id="log-ecobrick-button">➕ Log an Ecobrick</button>
         </div>
     </div>
 </div>

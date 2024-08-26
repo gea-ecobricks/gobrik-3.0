@@ -104,7 +104,7 @@ See our git hub repository for the full code and to help out:
 https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <?php require_once ("../includes/activate-inc.php");?>
-
+<div id="main"
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
 
@@ -164,6 +164,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 </div>
 </div>
+
+</div> <!--Closes main-->
 
 
 <!--FOOTER STARTS HERE-->

@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const messages = {
             logout: {
                 en: {
-                    main: "You've been logged out.",
+                    main: "You're logged out.",
                     sub: `When you're ready${firstName ? ' ' + firstName : ''}, login again with your account credentials.`
                 },
                 fr: {

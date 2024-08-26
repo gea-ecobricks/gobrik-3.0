@@ -460,6 +460,9 @@
     transition: 0.3s; /* Smooth transition for height */
     /* margin-top: 40px; */
     margin-bottom: -1px;
+    overflow: auto; /* Ensures #main expands to contain floated children */
+    /* OR use this clearfix if overflow:auto doesn't solve it */
+    zoom: 1; /* Triggers hasLayout in IE */
 
 }
 
@@ -1795,14 +1798,11 @@ color: red;
 
 }
 
-/*#main {
-  background-color: #0003 !important;
-}*/
 
-/*
+
 #form-submission-box {
-  font-family: "Mulish", sans-serif;
-} */
+  display: block;
+}
 
 /* h2 {
   font-family: "Arvo", serif;

@@ -83,6 +83,7 @@ echo '<!DOCTYPE html>
 <meta charset="UTF-8">
 <title>Dashboard</title>
 ';
+
 ?>
 
 <title>Dashboard | GoBrik 3.0</title>
@@ -121,25 +122,33 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     <th data-lang-id="1106-status">Status</th>
                     <th data-lang-id="1107-serial">Serial</th>
                 </tr>
-                <?php foreach ($recent_ecobricks as $ecobrick) : ?>
+                <?php if (empty($recent_ecobricks)) : ?>
                     <tr>
-                        <td>
-                            <img src="https://ecobricks.org/<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>"
-                                 alt="Ecobrick Thumbnail"
-                                 class="table-thumbnail"
-                                 onclick="ecobrickPreview('<?php echo htmlspecialchars($ecobrick['ecobrick_full_photo_url']); ?>', '<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['weight_g']); ?>g', '<?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?>', '<?php echo htmlspecialchars($ecobrick['location_full']); ?>')">
-                        </td>
-                        <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?>g</td>
-                        <td><?php echo htmlspecialchars($ecobrick['location_full']); ?></td>
-                        <td><?php echo htmlspecialchars($ecobrick['status']); ?></td>
-                        <td>
-                            <button class="serial-button">
-                                <?php $serial_no = htmlspecialchars($ecobrick['serial_no']); $wrapped_serial_no = substr($serial_no, 0, 3) . '<br>' . substr($serial_no, 3, 3); ?>
-                                <a href="brik.php?serial_no=<?php echo $serial_no; ?>"><?php echo $wrapped_serial_no; ?></a>
-                            </button>
+                        <td colspan="5" style="text-align:center;">
+                            It looks like you haven't logged any ecobricks yet! When you do, they will appear here for you to manage.
                         </td>
                     </tr>
-                <?php endforeach; ?>
+                <?php else : ?>
+                    <?php foreach ($recent_ecobricks as $ecobrick) : ?>
+                        <tr>
+                            <td>
+                                <img src="https://ecobricks.org/<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>"
+                                     alt="Ecobrick Thumbnail"
+                                     class="table-thumbnail"
+                                     onclick="ecobrickPreview('<?php echo htmlspecialchars($ecobrick['ecobrick_full_photo_url']); ?>', '<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['weight_g']); ?>g', '<?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?>', '<?php echo htmlspecialchars($ecobrick['location_full']); ?>')">
+                            </td>
+                            <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?>g</td>
+                            <td><?php echo htmlspecialchars($ecobrick['location_full']); ?></td>
+                            <td><?php echo htmlspecialchars($ecobrick['status']); ?></td>
+                            <td>
+                                <button class="serial-button">
+                                    <?php $serial_no = htmlspecialchars($ecobrick['serial_no']); $wrapped_serial_no = substr($serial_no, 0, 3) . '<br>' . substr($serial_no, 3, 3); ?>
+                                    <a href="brik.php?serial_no=<?php echo $serial_no; ?>"><?php echo $wrapped_serial_no; ?></a>
+                                </button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </table>
         </div>
 

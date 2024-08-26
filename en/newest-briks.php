@@ -55,61 +55,55 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <?php require_once("../includes/newest-briks-inc.php"); ?>
 
-<div class="splash-title-block"></div>
-<div id="splash-bar"></div>
+    <div class="splash-title-block"></div>
+    <div id="splash-bar"></div>
 
-<!-- PAGE CONTENT -->
-<div id="top-page-image" class="earth-community top-page-image"></div>
+    <!-- PAGE CONTENT -->
+    <div id="top-page-image" class="my-ecobricks top-page-image"></div>
 
-<div id="form-submission-box" class="landing-page-form">
-    <div class="form-container">
+    <div id="form-submission-box" class="landing-page-form">
+        <div class="form-container">
 
-        <div style="text-align:center;width:100%;margin:auto;">
-            <h2>The Latest Ecobricks</h2>
-            <p>As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik, representing over <?php echo round($total_weight); ?> kg of sequestered plastic!</p>
-        </div>
-        <!--<div style="display:flex;flex-flow:row;width:100%;justify-content:center;">
-            <button class="go-button" id="log-ecobrick-button">➕ Log an Ecobrick</button>
-
-            <button class="go-button" id="login-button" onclick="loginUser()">📤 Log In</button>
-        </div>-->
-
-        <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
-            <table id="latest-ecobricks">
-                <tr>
-                    <th data-lang-id="1103-brik">Brik</th>
-                    <th data-lang-id="1104-weight">Weight</th>
-                    <th data-lang-id="1105-location">Location</th>
-                    <th data-lang-id="1106-status">Status</th>
-                    <th data-lang-id="1107-serial">Serial</th>
-                </tr>
-                <?php foreach ($recent_ecobricks as $ecobrick) : ?>
+            <div style="text-align:center;width:100%;margin:auto;">
+                <h2>The Latest Ecobricks</h2>
+                <p>As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik, representing over <?php echo round($total_weight); ?> kg of sequestered plastic!</p>
+            </div>
+            <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
+                <table id="latest-ecobricks">
                     <tr>
-                        <td>
-                            <img src="https://ecobricks.org/<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>"
-                                 alt="Ecobrick Thumbnail"
-                                 class="table-thumbnail"
-                                 onclick="ecobrickPreview('<?php echo htmlspecialchars($ecobrick['ecobrick_full_photo_url']); ?>', '<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['weight_g']); ?>g', '<?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?>', '<?php echo htmlspecialchars($ecobrick['location_full']); ?>')">
-                        </td>
-                        <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?>g</td>
-                        <td><?php echo htmlspecialchars($ecobrick['location_full']); ?></td>
-                        <td><?php echo htmlspecialchars($ecobrick['status']); ?></td>
-                        <td>
-                            <button class="serial-button">
-                                <?php $serial_no = htmlspecialchars($ecobrick['serial_no']); $wrapped_serial_no = substr($serial_no, 0, 3) . '<br>' . substr($serial_no, 3, 3); ?>
-                                <a href="brik.php?serial_no=<?php echo $serial_no; ?>"><?php echo $wrapped_serial_no; ?></a>
-                            </button>
-                        </td>
+                        <th data-lang-id="1103-brik">Brik</th>
+                        <th data-lang-id="1104-weight">Weight</th>
+                        <th data-lang-id="1105-location">Location</th>
+                        <th data-lang-id="1106-status">Status</th>
+                        <th data-lang-id="1107-serial">Serial</th>
                     </tr>
-                <?php endforeach; ?>
-            </table>
-        </div>
+                    <?php foreach ($recent_ecobricks as $ecobrick) : ?>
+                        <tr>
+                            <td>
+                                <img src="https://ecobricks.org/<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>"
+                                     alt="Ecobrick Thumbnail"
+                                     class="table-thumbnail"
+                                     onclick="ecobrickPreview('<?php echo htmlspecialchars($ecobrick['ecobrick_full_photo_url']); ?>', '<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['weight_g']); ?>g', '<?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?>', '<?php echo htmlspecialchars($ecobrick['location_full']); ?>')">
+                            </td>
+                            <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?>g</td>
+                            <td><?php echo htmlspecialchars($ecobrick['location_full']); ?></td>
+                            <td><?php echo htmlspecialchars($ecobrick['status']); ?></td>
+                            <td>
+                                <button class="serial-button">
+                                    <?php $serial_no = htmlspecialchars($ecobrick['serial_no']); $wrapped_serial_no = substr($serial_no, 0, 3) . '<br>' . substr($serial_no, 3, 3); ?>
+                                    <a href="brik.php?serial_no=<?php echo $serial_no; ?>"><?php echo $wrapped_serial_no; ?></a>
+                                </button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            </div>
 
-        <div style="display:flex;flex-flow:row;width:100%;justify-content:center;margin-top:30px;">
-            <button class="go-button" id="log-ecobrick-button">➕ Log an Ecobrick</button>
+            <div style="display:flex;flex-flow:row;width:100%;justify-content:center;margin-top:30px;">
+                <button class="go-button" id="log-ecobrick-button">➕ Log an Ecobrick</button>
+            </div>
         </div>
     </div>
-</div>
 
 </div><!--closes main and starry background-->
 

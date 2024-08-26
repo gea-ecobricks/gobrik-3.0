@@ -18,18 +18,11 @@ if (!isset($_SESSION['buwana_id'])) {
 $buwana_id = $_SESSION['buwana_id'];
 
 // Include database connection
-include '../gobrik_env.php'; // this file provides the database server, user, dbname information to access the GoBrik server
-
-// Create connection to GoBrik database
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+ require_once '../gobrikconn_env.php';
 
 // Look up fields from tb_ecobrickers using the buwana_id
 $sql_lookup_user = "SELECT first_name, ecobricks_made, location_full_txt, maker_id FROM tb_ecobrickers WHERE buwana_id = ?";
-$stmt_lookup_user = $conn->prepare($sql_lookup_user);
+$stmt_lookup_user = $gobrik_conn->prepare($sql_lookup_user);
 
 if ($stmt_lookup_user) {
     $stmt_lookup_user->bind_param("i", $buwana_id);
@@ -38,12 +31,12 @@ if ($stmt_lookup_user) {
     $stmt_lookup_user->fetch();
     $stmt_lookup_user->close();
 } else {
-    die("Error preparing statement for tb_ecobrickers: " . $conn->error);
+    die("Error preparing statement for tb_ecobrickers: " . $gobrik_conn->error);
 }
 
 // SQL query to fetch the 20 most recent ecobricks made by the user and calculate totals
 $sql_recent = "SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, volume_ml, location_full, ecobricker_maker, serial_no, status FROM tb_ecobricks WHERE maker_id = ? ORDER BY date_logged_ts DESC LIMIT 20";
-$stmt_recent = $conn->prepare($sql_recent);
+$stmt_recent = $gobrik_conn->prepare($sql_recent);
 
 $total_weight = 0;
 $total_volume = 0;
@@ -69,7 +62,7 @@ if ($stmt_recent) {
     $stmt_recent->close();
 }
 
-$conn->close();
+$gobrik_conn->close();
 
 if ($total_volume > 0) {
     $net_density = $total_weight / $total_volume;

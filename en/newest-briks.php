@@ -115,43 +115,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <!-- FOOTER STARTS HERE -->
 <?php require_once("../footer-2024.php"); ?>
 
-<script type="text/javascript">
-function showModalInfo(type) {
-    const modal = document.getElementById('form-modal-message');
-    const photobox = document.getElementById('modal-photo-box');
-    const messageContainer = modal.querySelector('.modal-message');
-    let content = '';
-    photobox.style.display = 'none';
-    switch (type) {
-        case 'reset':
-            content = `
-                <img src="../pngs/exchange-bird.png" alt="Reset Password" height="250px" width="250px" class="preview-image">
-                <div class="preview-title">Reset Password</div>
-                <div class="preview-text">Oops! This function is not yet operational. Create another account for the moment as all accounts will be deleted once we migrate from beta to live.</div>
-            `;
-            break;
-        default:
-            content = '<p>Invalid term selected.</p>';
-    }
-
-    messageContainer.innerHTML = content;
-
-    // Show the modal and update other page elements
-    modal.style.display = 'flex';
-    document.getElementById('page-content').classList.add('blurred');
-    document.getElementById('footer-full').classList.add('blurred');
-    document.body.classList.add('modal-open');
-}
-
+<script>
 document.getElementById('log-ecobrick-button').addEventListener('click', function() {
     // Redirect to the log.php page
     window.location.href = 'log.php';
 });
 
-function loginUser() {
-    // Redirect to the login.php page
-    window.location.href = 'login.php';
-}
 </script>
 
 </body>

@@ -152,8 +152,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             </table>
         </div>
 
-        <div style="display:flex;flex-flow:row;width:100%;justify-content:center;">
-            <button id="newest-ecobricks-button" onclick="newestEcobricks()">📅 Newest Ecobricks</button>
+        <div style="display:flex;flex-flow:row;width:100%;justify-content:center; margin-top:50px;">
+            <button id="newest-ecobricks-button" onclick="newestEcobricks()" style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);">📅 Newest Ecobricks</button>
             <!-- Logout Button -->
             <button id="logout-button" onclick="logoutUser()">📤 Log Out</button>
         </div>

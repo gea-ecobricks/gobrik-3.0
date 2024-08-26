@@ -59,10 +59,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT -->
-   <div id="top-page-image" class="my-ecobricks top-page-image"></div>
+<div id="top-page-image" class="earth-community top-page-image"></div>
 
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
+
         <div style="text-align:center;width:100%;margin:auto;">
             <h2>The Latest Ecobricks</h2>
             <p>As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik, representing over <?php echo round($total_weight); ?> kg of sequestered plastic!</p>

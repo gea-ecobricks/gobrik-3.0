@@ -3,7 +3,13 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-require 'confirm_code.php'; // Include the sendVerificationCode function
+// PART 1 Initialize
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../vendor/autoload.php'; // Path to PHPMailer
+// require 'confirm_code.php'; // Include the sendVerificationCode function
 
 // Initialize variables
 $ecobricker_id = $_GET['id'] ?? null;
@@ -16,14 +22,46 @@ $page = 'activate';
 $static_code = 'AYYEW'; // The static code for now
 $generated_code = ''; // New generated code
 
+
+
+// PART 2 FUNCTIONS
+
 // Function to generate a random 5-character alphanumeric code
 function generateCode() {
     return strtoupper(substr(bin2hex(random_bytes(3)), 0, 5));
 }
 
+//Function to send the verification code email
+function sendVerificationCode($first_name, $email_addr, $verification_code) {
+    $mail = new PHPMailer(true);
+    try {
+        // Server settings
+        //ADD: , or visit this page:<br>https://beta.gobrik.com/en/confirm-email.php?id=$ecobricker_id
+        $mail->isSMTP();
+        $mail->Host = 'mail.ecobricks.org';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'gobrik@ecobricks.org';
+        $mail->Password = '1Welcome!';
+        $mail->SMTPSecure = false;
+        $mail->Port = 26;
 
+        // Recipients
+        $mail->setFrom('gobrik@ecobricks.org', 'GoBrik Team');
+        $mail->addAddress($email_addr);
 
-// PART 1: Check if ecobricker_id is passed in the URL
+        // Content
+        $mail->isHTML(true);
+        $mail->Subject = 'GoBrik Verification Code';
+        $mail->Body = "Hello $first_name!<br><br>If you're reading this, an activation code for your GoBrik and Buwana account has been requested! The code to activate your account is:<br><br><b>$verification_code</b><br><br>Return back to your browser and enter the code.<br><br>The GoBrik team";
+
+        $mail->send();
+        return true;
+    } catch (Exception $e) {
+        return false;
+    }
+}
+
+// PART 3: Check if ecobricker_id is passed in the URL
 if (is_null($ecobricker_id)) {
     echo '<script>
         alert("Hmm... something went wrong. No ecobricker ID was passed along. Please try logging in again. If this problem persists, you\'ll need to create a new account.");
@@ -33,7 +71,7 @@ if (is_null($ecobricker_id)) {
 }
 
 
-// PART 2: Look up user information using ecobricker_id provided in URL
+// PART 4: Look up user information using ecobricker_id provided in URL
 require_once("../gobrikconn_env.php");
 
 $sql_user_info = "SELECT first_name, email_addr, gobrik_migrated, buwana_id FROM tb_ecobrickers WHERE ecobricker_id = ?";
@@ -55,7 +93,7 @@ if (empty($buwana_id)) {
 }
 
 
-// PART 2.5: Generate the code and update the activation_code field in the database
+// PART 5: Generate the code and update the activation_code field in the database
 $generated_code = generateCode();
 
 $sql_update_code = "UPDATE tb_ecobrickers SET activation_code = ? WHERE ecobricker_id = ?";
@@ -68,9 +106,8 @@ if ($stmt_update_code) {
     die('Error preparing statement for updating activation code: ' . $gobrik_conn->error);
 }
 
-$gobrik_conn->close();
 
-//PART 3: Handle form submission to send the confirmation code by email
+//PART 6: Handle form submission to send the confirmation code by email
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['send_email']) || isset($_POST['resend_email']))) {
     $code_sent = sendVerificationCode($first_name, $email_addr, $generated_code);
     if ($code_sent) {
@@ -79,6 +116,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['send_email']) || iss
         echo '<script>alert("Message could not be sent. Please try again later.");</script>';
     }
 }
+
+$gobrik_conn->close();
+
 ?>
 
 <!DOCTYPE html>

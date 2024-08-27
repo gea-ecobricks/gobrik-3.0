@@ -3,6 +3,9 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 require '../vendor/autoload.php'; // Path to PHPMailer
 require 'confirm_code.php'; // Include the sendVerificationCode function
 
@@ -14,7 +17,14 @@ $email_addr = '';
 $code_sent = false;
 $version = '0.474';
 $page = 'activate';
-$verification_code = 'AYYEW'; // The static code for now
+$static_code = 'AYYEW'; // The static code for now
+$generated_code = ''; // New generated code
+
+// Function to generate a random 5-character alphanumeric code
+function generateCode() {
+    return strtoupper(substr(bin2hex(random_bytes(3)), 0, 5));
+}
+
 
 // PART 1: Check if ecobricker_id is passed in the URL
 if (is_null($ecobricker_id)) {
@@ -28,25 +38,37 @@ if (is_null($ecobricker_id)) {
 // PART 2: Look up user information using ecobricker_id provided in URL
 require_once("../gobrikconn_env.php");
 
-$sql_user_info = "SELECT first_name, email_addr FROM tb_ecobrickers WHERE ecobricker_id = ?";
+$sql_user_info = "SELECT first_name, email_addr, gobrik_migrated FROM tb_ecobrickers WHERE ecobricker_id = ?";
 $stmt_user_info = $gobrik_conn->prepare($sql_user_info);
 if ($stmt_user_info) {
     $stmt_user_info->bind_param('i', $ecobricker_id);
     $stmt_user_info->execute();
-    $stmt_user_info->bind_result($first_name, $email_addr);
+    $stmt_user_info->bind_result($first_name, $email_addr, $gobrik_migrated);
     $stmt_user_info->fetch();
     $stmt_user_info->close();
 } else {
     die('Error preparing statement for fetching user info: ' . $gobrik_conn->error);
 }
 
+// PART 2.5: Generate the code and update the activation_code field in the database
+$generated_code = generateCode();
+
+$sql_update_code = "UPDATE tb_ecobrickers SET activation_code = ? WHERE ecobricker_id = ?";
+$stmt_update_code = $gobrik_conn->prepare($sql_update_code);
+if ($stmt_update_code) {
+    $stmt_update_code->bind_param('si', $generated_code, $ecobricker_id);
+    $stmt_update_code->execute();
+    $stmt_update_code->close();
+} else {
+    die('Error preparing statement for updating activation code: ' . $gobrik_conn->error);
+}
+
 $gobrik_conn->close();
 
-// PART 3: Handle form submission to send the confirmation code by email
+//PART 3: Handle form submission to send the confirmation code by email
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['send_email']) || isset($_POST['resend_email']))) {
-    $code_sent = sendVerificationCode($first_name, $email_addr, $verification_code);
+    $code_sent = sendVerificationCode($first_name, $email_addr, $generated_code);
     if ($code_sent) {
-        // Instead of echoing the script directly here, set a PHP flag and handle it in the main script.
         $code_sent_flag = true;
     } else {
         echo '<script>alert("Message could not be sent. Please try again later.");</script>';
@@ -54,16 +76,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['send_email']) || iss
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="<?php echo $lang; ?>">
 <head>
 <meta charset="UTF-8">
 <title>Confirm Your Email</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
 
 <!--
 GoBrik.com site version 3.0
@@ -87,7 +105,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     class="<?php echo $code_sent ? 'hidden' : ''; ?>"> <!-- Fix the inline PHP inside attributes -->
 
     <h2>Alright <?php echo htmlspecialchars($first_name); ?>, let's confirm your email.</h2>
-    <p>To create you Buwana GoBrik account we need to confirm your chosen credential. This is how we'll keep in touch and keep your account secure.  Click the send button and we'll send an account activation code to:</p>
+    <p>To create your Buwana GoBrik account we need to confirm your chosen credential. This is how we'll keep in touch and keep your account secure.  Click the send button and we'll send an account activation code to:</p>
 
     <h3><?php echo htmlspecialchars($email_addr); ?></h3>
     <form method="post" action="">
@@ -120,11 +138,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 </div>
 
 
-<div id="email-not-used" style="text-align:center;width:90%;margin:auto;margin-top:30px;margin-bottom:50px;">
+<div id="legacy-account-email-not-used" style="text-align:center;width:90%;margin:auto;margin-top:30px;margin-bottom:50px;">
     <p style="font-size:1em;">Do you no longer use this email address?<br>If not you'll need to <a href="signup.php">create a new account</a> or contact our team at support@gobrik.com.</p>
 </div>
 
-<div id="another-email-please" style="text-align:center;width:90%;margin:auto;margin-top:30px;margin-bottom:50px;">
+<div id="new-account-another-email-please" style="text-align:center;width:90%;margin:auto;margin-top:30px;margin-bottom:50px;">
     <p style="font-size:1em;">Want to change your email?  <a href="signup-2.php?id=$buwana_id">Go back to enter a different email address.</p>
 </div>
 
@@ -139,10 +157,32 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <!--FOOTER STARTS HERE-->
 <?php require_once ("../footer-2024.php"); ?>
 
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    var code = "AYYEW";
+    // Existing code to handle the countdown timer and code entry...
+
+    // JavaScript function to show/hide divs based on gobrik_migrated
+    function showDependingOnLegacy(gobrikMigrated) {
+        if (gobrikMigrated === 1) {
+            document.getElementById('legacy-account-email-not-used').style.display = 'block';
+            document.getElementById('new-account-another-email-please').style.display = 'none';
+        } else {
+            document.getElementById('legacy-account-email-not-used').style.display = 'none';
+            document.getElementById('new-account-another-email-please').style.display = 'block';
+        }
+    }
+
+    // Fetch the gobrik_migrated value from PHP safely using json_encode
+    var gobrikMigrated = <?php echo json_encode($gobrik_migrated); ?>;
+
+    // Call the function with the retrieved value
+    showDependingOnLegacy(gobrikMigrated);
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    var staticCode = "AYYEW";
+    var generatedCode = <?php echo json_encode($generated_code); ?>;
     var countdownTimer;
     var timeLeft = 60;
 
@@ -151,69 +191,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Handle code entry
     var codeBoxes = document.querySelectorAll('.code-box');
-    codeBoxes.forEach(function(box, index) {
-        box.addEventListener('input', function() {
-            // Automatically move focus to the next box after input
-            if (box.value.length === 1 && index < codeBoxes.length - 1) {
+    codeBoxes.forEach((box, index) => {
+        box.addEventListener('keyup', function(e) {
+            if (box.value.length == 1 && index < codeBoxes.length - 1) {
                 codeBoxes[index + 1].focus();
             }
-
-            // Gather the entered code
-            var enteredCode = Array.from(codeBoxes).map(function(input) {
-                return input.value.toUpperCase();
-            }).join('');
+            var enteredCode = '';
+            codeBoxes.forEach(box => enteredCode += box.value.toUpperCase());
 
             if (enteredCode.length === 5) {
-                var codeFeedback = document.getElementById('code-feedback');
-                if (enteredCode === code) {
-                    codeFeedback.textContent = 'Code confirmed!';
-                    codeFeedback.classList.add('success');
-                    codeFeedback.classList.remove('error');
-                    setTimeout(function() {
-                        // Redirect to activate-2.php with buwana_id as a parameter
-                        window.location.href = "activate-2.php?id=" + ecobricker_id;
-                    }, 2000);
+                // Check if the code matches either AYYEW or the generated code
+                if (enteredCode === staticCode || enteredCode === generatedCode) {
+                    window.location.href = "nextpage.php?id=" + ecobricker_id;
                 } else {
-                    codeFeedback.textContent = 'Code incorrect';
-                    codeFeedback.classList.add('error');
-                    codeFeedback.classList.remove('success');
+                    document.getElementById('code-feedback').innerText = 'Incorrect code. Please try again.';
+                    codeBoxes.forEach(box => box.value = '');
+                    codeBoxes[0].focus();
                 }
             }
         });
     });
 
-    // Show/Hide Divs after email is sent
-    var codeSent = <?php echo json_encode($code_sent_flag ?? false); ?>;  // Only set once
-    if (codeSent) {
-        document.getElementById('first-send-form').style.display = 'none';
-        document.getElementById('second-code-confirm').style.display = 'block';
-    }
-
-    // Countdown timer for resend code
+    // Handle the resend code timer
     countdownTimer = setInterval(function() {
-        var timerElement = document.getElementById('timer');
+        timeLeft--;
         if (timeLeft <= 0) {
             clearInterval(countdownTimer);
-            document.getElementById('resend-code').innerHTML = '<a href="#" id="resend-link">Click here to resend the code</a>';
+            document.getElementById('resend-code').innerHTML = '<a href="resend-code.php?id=' + ecobricker_id + '">Resend the code now.</a>';
         } else {
-            timeLeft--;
-            timerElement.textContent = '0:' + (timeLeft < 10 ? '0' + timeLeft : timeLeft);
+            document.getElementById('timer').textContent = '0:' + (timeLeft < 10 ? '0' : '') + timeLeft;
         }
     }, 1000);
 
-    // Handle Resend Link Click
-    document.addEventListener('click', function(e) {
-        if (e.target && e.target.id === 'resend-link') {
-            e.preventDefault();
-            // Reset timer and form submission
-            document.getElementById('resend-code-form').submit();
-        }
-    });
 });
 </script>
-
-
-
 
 </body>
 </html>

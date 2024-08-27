@@ -182,7 +182,10 @@ document.addEventListener('DOMContentLoaded', function() {
             if (enteredCode.length === 5) {
                 // Check if the code matches either AYYEW or the generated code
                 if (enteredCode === staticCode || enteredCode === generatedCode) {
-                    window.location.href = "nextpage.php?id=" + ecobricker_id;
+                    setTimeout(function() {
+                        // Redirect to activate-2.php with buwana_id as a parameter
+                        window.location.href = "activate-2.php?id=" + ecobricker_id;
+                    }, 2000);
                 } else {
                     document.getElementById('code-feedback').innerText = 'Incorrect code. Please try again.';
                     codeBoxes.forEach(box => box.value = '');

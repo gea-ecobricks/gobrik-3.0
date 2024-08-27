@@ -203,45 +203,47 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once ("../footer-2024.php"); ?>
 
 <script>
-
-
 document.addEventListener('DOMContentLoaded', function() {
-    var staticCode = "AYYEW";
-    var generatedCode = <?php echo json_encode($generated_code); ?>;
-    var countdownTimer;
-    var timeLeft = 60;
+    const staticCode = "AYYEW";
+    const generatedCode = <?php echo json_encode($generated_code); ?>;
+    const ecobricker_id = <?php echo json_encode($ecobricker_id); ?>;
+    let timeLeft = 60;
 
-    // Fetch buwana_id from PHP safely using json_encode to prevent line break issues
-    var ecobricker_id = <?php echo json_encode($ecobricker_id); ?>;
+    // Ensure codeFeedback is declared to handle feedback messages
+    const codeFeedback = document.querySelector('#codeFeedback');
 
     // Handle code entry
-    var codeBoxes = document.querySelectorAll('.code-box');
+    const codeBoxes = document.querySelectorAll('.code-box');
     codeBoxes.forEach((box, index) => {
         box.addEventListener('keyup', function(e) {
-            if (box.value.length == 1 && index < codeBoxes.length - 1) {
+            if (box.value.length === 1 && index < codeBoxes.length - 1) {
                 codeBoxes[index + 1].focus();
             }
-            var enteredCode = '';
+
+            let enteredCode = '';
             codeBoxes.forEach(box => enteredCode += box.value.toUpperCase());
 
             if (enteredCode.length === 5) {
-                // Check if the code matches either AYYEW or the generated code
+                // Check if the code matches either staticCode or the generated code
                 if (enteredCode === staticCode || enteredCode === generatedCode) {
+                    codeFeedback.textContent = 'Code confirmed!';
+                    codeFeedback.classList.add('success');
+                    codeFeedback.classList.remove('error');
                     setTimeout(function() {
-                        // Redirect to activate-2.php with buwana_id as a parameter
+                        // Redirect to activate-2.php with ecobricker_id as a parameter
                         window.location.href = "activate-2.php?id=" + ecobricker_id;
                     }, 2000);
                 } else {
-                    document.getElementById('code-feedback').innerText = 'Incorrect code. Please try again.';
-                    codeBoxes.forEach(box => box.value = '');
-                    codeBoxes[0].focus();
+                    codeFeedback.textContent = 'Code incorrect';
+                    codeFeedback.classList.add('error');
+                    codeFeedback.classList.remove('success');
                 }
             }
         });
     });
 
     // Handle the resend code timer
-    countdownTimer = setInterval(function() {
+    let countdownTimer = setInterval(function() {
         timeLeft--;
         if (timeLeft <= 0) {
             clearInterval(countdownTimer);
@@ -251,8 +253,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 1000);
 
-
-  // JavaScript function to show/hide divs based on gobrik_migrated
+    // JavaScript function to show/hide divs based on gobrik_migrated
     function showDependingOnLegacy(gobrikMigrated) {
         if (gobrikMigrated === 1) {
             document.getElementById('legacy-account-email-not-used').style.display = 'block';
@@ -268,9 +269,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Call the function with the retrieved value
     showDependingOnLegacy(gobrikMigrated);
-});
 
+    // Show/Hide Divs after email is sent
+    var codeSent = <?php echo json_encode($code_sent_flag ?? false); ?>;  // Only set once
+    if (codeSent) {
+        document.getElementById('first-send-form').style.display = 'none';
+        document.getElementById('second-code-confirm').style.display = 'block';
+    }
+
+    // Handle Resend Link Click
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.id === 'resend-link') {
+            e.preventDefault();
+            // Reset timer and form submission
+            document.getElementById('resend-code-form').submit();
+        }
+    });
+});
 </script>
+
 
 </body>
 </html>

@@ -7,7 +7,6 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require '../vendor/autoload.php'; // Path to PHPMailer
-require 'confirm_code.php'; // Include the sendVerificationCode function
 
 // Initialize variables
 $ecobricker_id = $_GET['id'] ?? null;
@@ -25,6 +24,34 @@ function generateCode() {
     return strtoupper(substr(bin2hex(random_bytes(3)), 0, 5));
 }
 
+
+function sendVerificationCode($first_name, $email_addr, $verification_code) {
+    $mail = new PHPMailer(true);
+    try {
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host = 'mail.ecobricks.org';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'gobrik@ecobricks.org';
+        $mail->Password = '1Welcome!';
+        $mail->SMTPSecure = false;
+        $mail->Port = 26;
+
+        // Recipients
+        $mail->setFrom('gobrik@ecobricks.org', 'GoBrik Team');
+        $mail->addAddress($email_addr);
+
+        // Content
+        $mail->isHTML(true);
+        $mail->Subject = 'GoBrik Verification Code';
+        $mail->Body = "Hello $first_name!<br><br>If you're reading this, we're glad! The code to activate your account is:<br><br><b>$verification_code</b><br><br>Return back to your browser and enter the code.<br><br>The GoBrik team";
+
+        $mail->send();
+        return true;
+    } catch (Exception $e) {
+        return false;
+    }
+}
 
 // PART 1: Check if ecobricker_id is passed in the URL
 if (is_null($ecobricker_id)) {

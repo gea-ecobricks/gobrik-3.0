@@ -17,7 +17,7 @@ $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $first_name = '';
 $email_addr = '';
 $code_sent = false;
-$version = '0.474';
+$version = '0.48';
 $page = 'activate';
 $static_code = 'AYYEW'; // The static code for now
 $generated_code = ''; // New generated code
@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let timeLeft = 60;
 
     // Ensure codeFeedback is declared to handle feedback messages
-    const codeFeedback = document.querySelector('#codeFeedback');
+    const codeFeedback = document.querySelector('#code-feedback');
 
     // Handle code entry
     const codeBoxes = document.querySelectorAll('.code-box');

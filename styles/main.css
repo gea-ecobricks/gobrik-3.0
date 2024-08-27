@@ -471,6 +471,9 @@
     display: table;
 }
 
+.hidden {
+display:none;
+}
 
 
 #logo-gobrik, #logo-ecobricks-org, #logo-global-ecobrick-alliance {

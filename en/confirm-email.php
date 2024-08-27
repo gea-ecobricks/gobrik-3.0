@@ -139,11 +139,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 <div id="legacy-account-email-not-used" style="text-align:center;width:90%;margin:auto;margin-top:30px;margin-bottom:50px;">
-    <p style="font-size:1em;">Do you no longer use this email address?<br>If not you'll need to <a href="signup.php">create a new account</a> or contact our team at support@gobrik.com.</p>
+    <p style="font-size:1em;">Do you no longer use this email address?<br>If not, you'll need to <a href="signup.php">create a new account</a> or contact our team at support@gobrik.com.</p>
 </div>
 
 <div id="new-account-another-email-please" style="text-align:center;width:90%;margin:auto;margin-top:30px;margin-bottom:50px;">
-    <p style="font-size:1em;">Want to change your email?  <a href="signup-2.php?id=$buwana_id">Go back to enter a different email address.</p>
+    <p style="font-size:1em;">Want to change your email? <a href="signup-2.php?id=$buwana_id">Go back to enter a different email address.</a></p>
 </div>
 
 </div>
@@ -206,7 +206,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 1000);
 
-});
 
   // JavaScript function to show/hide divs based on gobrik_migrated
     function showDependingOnLegacy(gobrikMigrated) {

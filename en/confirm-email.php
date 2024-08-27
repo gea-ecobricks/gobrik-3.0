@@ -31,12 +31,11 @@ function generateCode() {
     return strtoupper(substr(bin2hex(random_bytes(3)), 0, 5));
 }
 
-//Function to send the verification code email
-function sendVerificationCode($first_name, $email_addr, $verification_code) {
+// Function to send the verification code email
+function sendVerificationCode($first_name, $email_addr, $verification_code, $lang) {
     $mail = new PHPMailer(true);
     try {
         // Server settings
-        //ADD: , or visit this page:<br>https://beta.gobrik.com/en/confirm-email.php?id=$ecobricker_id
         $mail->isSMTP();
         $mail->Host = 'mail.ecobricks.org';
         $mail->SMTPAuth = true;
@@ -49,10 +48,31 @@ function sendVerificationCode($first_name, $email_addr, $verification_code) {
         $mail->setFrom('gobrik@ecobricks.org', 'GoBrik Team');
         $mail->addAddress($email_addr);
 
+        // Determine the email content based on the language
+        switch ($lang) {
+            case 'fr':
+                $subject = 'Code de vérification GoBrik';
+                $body = "Bonjour $first_name!<br><br>Si vous lisez ceci, un code d'activation pour votre compte GoBrik et Buwana a été demandé ! Le code pour activer votre compte est :<br><br><b>$verification_code</b><br><br>Retournez à votre navigateur et entrez le code.<br><br>L'équipe GoBrik";
+                break;
+            case 'es':
+                $subject = 'Código de verificación de GoBrik';
+                $body = "Hola $first_name!<br><br>¡Si estás leyendo esto, se ha solicitado un código de activación para tu cuenta de GoBrik y Buwana! El código para activar tu cuenta es:<br><br><b>$verification_code</b><br><br>Vuelve a tu navegador e ingresa el código.<br><br>El equipo de GoBrik";
+                break;
+            case 'in':
+                $subject = 'Kode Verifikasi GoBrik';
+                $body = "Halo $first_name!<br><br>Jika Anda membaca ini, kode aktivasi untuk akun GoBrik dan Buwana Anda telah diminta! Kode untuk mengaktifkan akun Anda adalah:<br><br><b>$verification_code</b><br><br>Kembali ke browser Anda dan masukkan kodenya.<br><br>Tim GoBrik";
+                break;
+            case 'en':
+            default:
+                $subject = 'GoBrik Verification Code';
+                $body = "Hello $first_name!<br><br>If you're reading this, an activation code for your GoBrik and Buwana account has been requested! The code to activate your account is:<br><br><b>$verification_code</b><br><br>Return back to your browser and enter the code.<br><br>The GoBrik team";
+                break;
+        }
+
         // Content
         $mail->isHTML(true);
-        $mail->Subject = 'GoBrik Verification Code';
-        $mail->Body = "Hello $first_name!<br><br>If you're reading this, an activation code for your GoBrik and Buwana account has been requested! The code to activate your account is:<br><br><b>$verification_code</b><br><br>Return back to your browser and enter the code.<br><br>The GoBrik team";
+        $mail->Subject = $subject;
+        $mail->Body = $body;
 
         $mail->send();
         return true;
@@ -60,6 +80,7 @@ function sendVerificationCode($first_name, $email_addr, $verification_code) {
         return false;
     }
 }
+
 
 // PART 3: Check if ecobricker_id is passed in the URL
 if (is_null($ecobricker_id)) {
@@ -232,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     setTimeout(function() {
                         // Redirect to activate-2.php with ecobricker_id as a parameter
                         window.location.href = "activate-2.php?id=" + ecobricker_id;
-                    }, 2000);
+                    }, 1000);
                 } else {
                     codeFeedback.textContent = 'Code incorrect';
                     codeFeedback.classList.add('error');

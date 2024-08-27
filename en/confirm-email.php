@@ -3,10 +3,7 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-require '../vendor/autoload.php'; // Path to PHPMailer
+require 'confirm_code.php'; // Include the sendVerificationCode function
 
 // Initialize variables
 $ecobricker_id = $_GET['id'] ?? null;
@@ -25,33 +22,6 @@ function generateCode() {
 }
 
 
-function sendVerificationCode($first_name, $email_addr, $verification_code) {
-    $mail = new PHPMailer(true);
-    try {
-        // Server settings
-        $mail->isSMTP();
-        $mail->Host = 'mail.ecobricks.org';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'gobrik@ecobricks.org';
-        $mail->Password = '1Welcome!';
-        $mail->SMTPSecure = false;
-        $mail->Port = 26;
-
-        // Recipients
-        $mail->setFrom('gobrik@ecobricks.org', 'GoBrik Team');
-        $mail->addAddress($email_addr);
-
-        // Content
-        $mail->isHTML(true);
-        $mail->Subject = 'GoBrik Verification Code';
-        $mail->Body = "Hello $first_name!<br><br>If you're reading this, we're glad! The code to activate your account is:<br><br><b>$verification_code</b><br><br>Return back to your browser and enter the code.<br><br>The GoBrik team";
-
-        $mail->send();
-        return true;
-    } catch (Exception $e) {
-        return false;
-    }
-}
 
 // PART 1: Check if ecobricker_id is passed in the URL
 if (is_null($ecobricker_id)) {
@@ -62,20 +32,28 @@ if (is_null($ecobricker_id)) {
     exit();
 }
 
+
 // PART 2: Look up user information using ecobricker_id provided in URL
 require_once("../gobrikconn_env.php");
 
-$sql_user_info = "SELECT first_name, email_addr, gobrik_migrated FROM tb_ecobrickers WHERE ecobricker_id = ?";
+$sql_user_info = "SELECT first_name, email_addr, gobrik_migrated, buwana_id FROM tb_ecobrickers WHERE ecobricker_id = ?";
 $stmt_user_info = $gobrik_conn->prepare($sql_user_info);
 if ($stmt_user_info) {
     $stmt_user_info->bind_param('i', $ecobricker_id);
     $stmt_user_info->execute();
-    $stmt_user_info->bind_result($first_name, $email_addr, $gobrik_migrated);
+    $stmt_user_info->bind_result($first_name, $email_addr, $gobrik_migrated, $buwana_id);
     $stmt_user_info->fetch();
     $stmt_user_info->close();
 } else {
     die('Error preparing statement for fetching user info: ' . $gobrik_conn->error);
 }
+
+// Check if buwana_id is empty and handle accordingly (if needed)
+if (empty($buwana_id)) {
+    // Handle the case where buwana_id is null or empty
+    $buwana_id = null; // You can choose to set it to null or any default value if needed
+}
+
 
 // PART 2.5: Generate the code and update the activation_code field in the database
 $generated_code = generateCode();

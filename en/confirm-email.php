@@ -3,10 +3,8 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
 require '../vendor/autoload.php'; // Path to PHPMailer
+require 'confirm_code.php'; // Include the sendVerificationCode function
 
 // Initialize variables
 $ecobricker_id = $_GET['id'] ?? null;
@@ -18,36 +16,6 @@ $version = '0.474';
 $page = 'activate';
 $verification_code = 'AYYEW'; // The static code for now
 
-// Function to send the verification code email
-function sendVerificationCode($first_name, $email_addr, $verification_code) {
-    $mail = new PHPMailer(true);
-    try {
-        // Server settings
-        //ADD: , or visit this page:<br>https://beta.gobrik.com/en/confirm-email.php?id=$ecobricker_id
-        $mail->isSMTP();
-        $mail->Host = 'mail.ecobricks.org';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'gobrik@ecobricks.org';
-        $mail->Password = '1Welcome!';
-        $mail->SMTPSecure = false;
-        $mail->Port = 26;
-
-        // Recipients
-        $mail->setFrom('gobrik@ecobricks.org', 'GoBrik Team');
-        $mail->addAddress($email_addr);
-
-        // Content
-        $mail->isHTML(true);
-        $mail->Subject = 'GoBrik Verification Code';
-        $mail->Body = "Hello $first_name!<br><br>If you're reading this, we're glad! The code to activate your account is:<br><br><b>$verification_code</b><br><br>Return back to your browser and enter the code.<br><br>The GoBrik team";
-
-        $mail->send();
-        return true;
-    } catch (Exception $e) {
-        return false;
-    }
-}
-
 // PART 1: Check if ecobricker_id is passed in the URL
 if (is_null($ecobricker_id)) {
     echo '<script>
@@ -58,7 +26,6 @@ if (is_null($ecobricker_id)) {
 }
 
 // PART 2: Look up user information using ecobricker_id provided in URL
-
 require_once("../gobrikconn_env.php");
 
 $sql_user_info = "SELECT first_name, email_addr FROM tb_ecobrickers WHERE ecobricker_id = ?";
@@ -75,7 +42,7 @@ if ($stmt_user_info) {
 
 $gobrik_conn->close();
 
-//PART 3: Handle form submission to send the confirmation code by email
+// PART 3: Handle form submission to send the confirmation code by email
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['send_email']) || isset($_POST['resend_email']))) {
     $code_sent = sendVerificationCode($first_name, $email_addr, $verification_code);
     if ($code_sent) {
@@ -86,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['send_email']) || iss
     }
 }
 ?>
+
 
 
 <!DOCTYPE html>
@@ -104,7 +72,7 @@ See our git hub repository for the full code and to help out:
 https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <?php require_once ("../includes/activate-inc.php");?>
-<div id="main"
+
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
 

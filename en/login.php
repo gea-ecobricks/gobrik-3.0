@@ -237,7 +237,6 @@ document.addEventListener('DOMContentLoaded', function () {
     updateButtonVisibility();
 });
 
-});
 
 //     // Initial setup: show the password form and password submit button, hide the code form and code submit button
 //     passwordForm.style.display = 'block';

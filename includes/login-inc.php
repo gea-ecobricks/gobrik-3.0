@@ -212,6 +212,19 @@ form input:focus {
   box-shadow: 0px 0px 8px 4px #78F4F4;
 
   }
+
+
+  #password-form, #code-form {
+    transition: opacity 1s ease, visibility 1s ease;
+}
+
+#submit-password-button, #send-code-button {
+    transition: opacity 1s ease, visibility 1s ease;
+    opacity: 0; /* Start with opacity 0 for hidden elements */
+    visibility: hidden; /* Start with hidden elements */
+}
+
+
 </style>
 
 

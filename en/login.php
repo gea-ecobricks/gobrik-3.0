@@ -219,7 +219,7 @@ echo '</script>';
     }
 
     // Event listener for the credential input field
-    const credentialInput = document.getElementById('credential-key');
+    const credentialInput = document.getElementById('credential_key');
     credentialInput.addEventListener('input', () => {
         const passwordForm = document.getElementById('password-form');
         const submitButtons = document.getElementById('submit-buttons');

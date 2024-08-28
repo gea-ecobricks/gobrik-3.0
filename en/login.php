@@ -102,62 +102,59 @@ echo '</script>';
         <h4 id="sub-status-message">Please signin with your account credentials.</h4>
     </div>
 
-    <!-- Form starts here-->
-    <form id="login" method="post" action="login_process.php">
-        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+   <!-- Form starts here-->
+<form id="login" method="post" action="login_process.php">
+    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
 
-        <div class="form-item">
-            <div class="input-wrapper" style="position: relative;">
-                <input type="text" id="credential_key" name="credential_key" required placeholder="Your e-mail..." value="<?php echo htmlspecialchars($credential_key); ?>">
-                <span class="toggle-select" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔑</span>
-                <div id="dropdown-menu" style="display: none; position: absolute; right: 10px; top: 100%; z-index: 1000; background: white; border: 1px solid #ccc; width: 150px; text-align: left;">
-                    <div class="dropdown-item" value="Your email...">E-mail</div>
-                    <div class="dropdown-item disabled" style="opacity: 0.5;">SMS</div>
-                    <div class="dropdown-item disabled" style="opacity: 0.5;">Phone</div>
-                    <div class="dropdown-item disabled" style="opacity: 0.5;">GEA Peer</div>
-                </div>
-            </div>
-            <div id="no-buwana-email" data-lang-id="001-cant-find" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">🤔 We can't find this credential in the database.</div>
-        </div>
-
-        <div class="form-item" id="password-form" class="hidden">
-            <div class="password-wrapper" style="position: relative;">
-                <div data-lang-id="005-password-field-placeholder">
-                    <input type="password" id="password" name="password" required placeholder="Your password...">
-                </div>
-                <span toggle="#password" class="toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔒</span>
-            </div>
-            <div id="password-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">👉 Password is wrong.</div>
-
-            <p class="form-caption" data-lang-id="003-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link" datala-lang-id="000-reset-it">Reset it.</a></p>
-        </div>
-
-        <div class="form-item hidden" id="code-form" style="text-align:center; opacity:0.8">
-
-            <p>The feature is not yet active.</p>
-
-                <input type="text" maxlength="1" class="code-box" required>
-                <input type="text" maxlength="1" class="code-box" required>
-                <input type="text" maxlength="1" class="code-box" required>
-                <input type="text" maxlength="1" class="code-box" required>
-                <input type="text" maxlength="1" class="code-box" required>
-
-        </div>
-
-
-        <div style="text-align:center;width:100%;margin:auto;" id="login-buttons" class="hidden">
-            <div class="toggle-container">
-                <input type="radio" id="password" name="toggle" checked>
-                <input type="radio" id="code" name="toggle">
-                <div class="toggle-button password">🔑 Pass</div>
-                <div class="toggle-button code">🕵️‍♂️ Code</div>
-                <div class="slider"></div>
-                <input type="submit" id="submit-password-button" value="Login with Password" class="login-button-75">
-                <input type="submit" id="send-code-button" value="Send Login Code" class="code-button-75 hidden">
+    <div class="form-item">
+        <div class="input-wrapper" style="position: relative;">
+            <input type="text" id="credential_key" name="credential_key" required placeholder="Your e-mail..." value="<?php echo htmlspecialchars($credential_key); ?>">
+            <span class="toggle-select" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔑</span>
+            <div id="dropdown-menu" style="display: none; position: absolute; right: 10px; top: 100%; z-index: 1000; background: white; border: 1px solid #ccc; width: 150px; text-align: left;">
+                <div class="dropdown-item" value="Your email...">E-mail</div>
+                <div class="dropdown-item disabled" style="opacity: 0.5;">SMS</div>
+                <div class="dropdown-item disabled" style="opacity: 0.5;">Phone</div>
+                <div class="dropdown-item disabled" style="opacity: 0.5;">GEA Peer</div>
             </div>
         </div>
+        <div id="no-buwana-email" data-lang-id="001-cant-find" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">🤔 We can't find this credential in the database.</div>
+    </div>
 
-    </form>
+    <div class="form-item" id="password-form">
+        <div class="password-wrapper" style="position: relative;">
+            <div data-lang-id="005-password-field-placeholder">
+                <input type="password" id="password" name="password" required placeholder="Your password...">
+            </div>
+            <span toggle="#password" class="toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔒</span>
+        </div>
+        <div id="password-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">👉 Password is wrong.</div>
+
+        <p class="form-caption" data-lang-id="003-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link" datala-lang-id="000-reset-it">Reset it.</a></p>
+    </div>
+
+    <div class="form-item" id="code-form" style="text-align:center; opacity:0.8; display: none;">
+        <p>The feature is not yet active.</p>
+
+        <input type="text" maxlength="1" class="code-box" required>
+        <input type="text" maxlength="1" class="code-box" required>
+        <input type="text" maxlength="1" class="code-box" required>
+        <input type="text" maxlength="1" class="code-box" required>
+        <input type="text" maxlength="1" class="code-box" required>
+    </div>
+
+    <div style="text-align:center;width:100%;margin:auto;" id="login-buttons">
+        <div class="toggle-container">
+            <input type="radio" id="password" name="toggle" checked>
+            <input type="radio" id="code" name="toggle">
+            <div class="toggle-button password">🔑 Pass</div>
+            <div class="toggle-button code">🕵️‍♂️ Code</div>
+            <div class="slider"></div>
+            <input type="submit" id="submit-password-button" value="Login with Password" class="login-button-75">
+            <input type="submit" id="send-code-button" value="Send Login Code" class="code-button-75 hidden">
+        </div>
+    </div>
+</form>
+
 
 
 
@@ -176,7 +173,9 @@ echo '</script>';
 
 
 <script>
- document.addEventListener('DOMContentLoaded', function () {
+
+
+    document.addEventListener('DOMContentLoaded', function () {
     const credentialKey = document.getElementById('credential_key');
     const passwordForm = document.getElementById('password-form');
     const codeForm = document.getElementById('code-form');
@@ -185,18 +184,6 @@ echo '</script>';
     const codeToggle = document.getElementById('code');
     const submitPasswordButton = document.getElementById('submit-password-button');
     const sendCodeButton = document.getElementById('send-code-button');
-
-    // Function to show/hide fields based on credential key length
-    function checkCredentialKey() {
-        if (credentialKey.value.length > 5) {
-            loginButtons.style.display = 'block';
-            updateFormVisibility();
-        } else {
-            passwordForm.style.display = 'none';
-            codeForm.style.display = 'none';
-            loginButtons.style.display = 'none';
-        }
-    }
 
     // Function to update the form visibility based on toggle state
     function updateFormVisibility() {
@@ -213,32 +200,26 @@ echo '</script>';
         }
     }
 
-    // Event listener for credential key input
-    credentialKey.addEventListener('input', checkCredentialKey);
-
     // Event listeners for toggling between password and code forms
     document.querySelectorAll('.toggle-button').forEach(button => {
         button.addEventListener('click', () => {
-            // Check which button was clicked and update the corresponding radio button
             if (button.classList.contains('password')) {
                 passwordToggle.checked = true;
             } else {
                 codeToggle.checked = true;
             }
-            // Update form and button visibility based on the selected radio button
             updateFormVisibility();
         });
     });
 
-    // Initial setup to hide all forms and buttons
+    // Initial setup: show the password form and buttons, hide the code form
     passwordForm.style.display = 'block';
     codeForm.style.display = 'none';
-    loginButtons.style.display = 'none';
+    loginButtons.style.display = 'block';
 
     // Initial setup of button visibility based on the default radio button state
     updateFormVisibility();
 });
-
 
 
 

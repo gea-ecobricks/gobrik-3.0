@@ -222,7 +222,7 @@ echo '</script>';
     const credentialInput = document.getElementById('credential_key');
     credentialInput.addEventListener('input', () => {
         const passwordForm = document.getElementById('password-form');
-        const submitButtons = document.getElementById('submit-buttons');
+        const submitButtons = document.getElementById('login-buttons');
 
         // Check if the input value has at least 5 characters
         if (credentialInput.value.length >= 5) {

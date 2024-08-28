@@ -141,7 +141,7 @@ echo '</script>';
             <input type="text" maxlength="1" class="code-box" placeholder="?">
         </div>
         <div id="code-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">👉 Code is wrong.</div>
-        <p class="form-caption" data-lang-id="003-forgot-your-password">Click to send access code to your email.</p>
+        <p class="form-caption" data-lang-id="003-forgot-your-password">Access code will be sent to email above.</p>
     </div>
 
     <div style="text-align:center;width:100%;margin:auto;margin-top:30px;" id="login-buttons">
@@ -175,6 +175,8 @@ echo '</script>';
 
 
 <script>
+
+
 document.addEventListener('DOMContentLoaded', function () {
     const credentialKey = document.getElementById('credential_key');
     const passwordForm = document.getElementById('password-form');
@@ -233,11 +235,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Initial setup: show the password form and password submit button, hide the code form and code submit button
-    passwordForm.style.display = 'block';
-    codeForm.style.display = 'none';
-    loginButtons.style.display = 'block';
-
+//     // Initial setup: show the password form and password submit button, hide the code form and code submit button
+//     passwordForm.style.display = 'block';
+//     codeForm.style.display = 'none';
+//     loginButtons.style.display = 'block';
+//
 
 });
 

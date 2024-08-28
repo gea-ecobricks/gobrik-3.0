@@ -222,8 +222,10 @@ document.addEventListener('DOMContentLoaded', function () {
             // Check which button was clicked and update the corresponding radio button
             if (button.classList.contains('password')) {
                 passwordToggle.checked = true;
+                codeToggle.checked = false;
             } else {
                 codeToggle.checked = true;
+                passwordToggle.checked = false;
             }
             // Update form visibility and button visibility based on the selected radio button
             updateFormVisibility();

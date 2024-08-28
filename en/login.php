@@ -134,11 +134,11 @@ echo '</script>';
 
     <div class="form-item" id="code-form" style="text-align:center; display: none;height:80px;">
         <div class="code-wrapper" style="position: relative;">
-            <input type="text" maxlength="1" class="code-box" placeholder="C">
-            <input type="text" maxlength="1" class="code-box" placeholder="O">
-            <input type="text" maxlength="1" class="code-box" placeholder="D">
-            <input type="text" maxlength="1" class="code-box" placeholder="E">
-            <input type="text" maxlength="1" class="code-box" placeholder="?">
+            <input type="text" maxlength="1" class="code-box" placeholder="-">
+            <input type="text" maxlength="1" class="code-box" placeholder="-">
+            <input type="text" maxlength="1" class="code-box" placeholder="-">
+            <input type="text" maxlength="1" class="code-box" placeholder="-">
+            <input type="text" maxlength="1" class="code-box" placeholder="-">
         </div>
         <div id="code-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">👉 Code is wrong.</div>
         <p class="form-caption" data-lang-id="003-forgot-your-password">Access code will be sent to email above.</p>
@@ -206,14 +206,14 @@ document.addEventListener('DOMContentLoaded', function () {
             setTimeout(() => {
                 submitPasswordButton.classList.remove('hidden');
                 submitPasswordButton.style.opacity = '1';
-            }, 800); // 1 second delay
+            }, 1000); // 1 second delay
         } else {
             submitPasswordButton.style.opacity = '0';
             submitPasswordButton.classList.add('hidden');
             setTimeout(() => {
                 sendCodeButton.classList.remove('hidden');
                 sendCodeButton.style.opacity = '1';
-            }, 800); // 1 second delay
+            }, 1000); // 1 second delay
         }
     }
 

@@ -75,35 +75,6 @@ form input:focus {
 
 /*new dualtoggle*/
 
-/* General form styling */
-.form-item {
-    margin-bottom: 15px;
-}
-
-.input-wrapper,
-.password-wrapper {
-    position: relative;
-}
-
-.toggle-select,
-.toggle-password {
-    cursor: pointer;
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.form-field-error {
-    display: none;
-    margin-top: 5px;
-    color: red;
-}
-
-.form-caption {
-    margin-top: 10px;
-}
-
 /* Dual-button-toggle styling */
 .dual-button-toggle {
     display: flex;

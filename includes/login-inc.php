@@ -73,13 +73,6 @@ form input:focus {
 
 
 
-
-
-
-/*new dual toggle login */
-
-
-
         .toggle-container {
             position: relative;
             width: 400px;
@@ -185,6 +178,8 @@ form input:focus {
             opacity: 0;
             font-size:18px;
         }
+
+
         .hidden {
             display: none;
         }

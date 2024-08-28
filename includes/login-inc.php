@@ -74,67 +74,47 @@ form input:focus {
 
 
 /*new dualtoggle*/
-
-/* Dual-button-toggle styling */
-.dual-button-toggle {
+#toggle-container {
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
-    background-color: #f0f0f0;
+    background-color: grey;
     border-radius: 25px;
-    padding: 5px;
-    transition: all 0.3s ease;
-}
-
-.hidden {
-    display: none;
-}
-
-.submit-button,
-.slide-button,
-.code-button {
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 20px;
-    transition: background-color 0.3s ease;
+    overflow: hidden;
+    width: 80%;
+    margin: 0 auto;
+    transition: all 0.3s ease-in-out;
 }
 
 .submit-button {
-    background-color: #28a745;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: 20%;
+    border: none;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.password-login.active {
+    background-color: green;
     color: white;
-    flex: 0 0 80%;
+    flex-basis: 80%;
 }
 
-.submit-button:hover {
-    background-color: #218838;
-}
-
-.slide-button {
-    background-color: #d0d0d0;
+.code-login {
+    background-color: white;
     color: black;
-    flex: 0 0 20%;
+    flex-basis: 20%;
 }
 
-.slide-button:hover {
-    background-color: #c0c0c0;
+.password-login.active:hover,
+.code-login:hover {
+    opacity: 0.8;
 }
 
-.code-button {
-    background-color: #28a745;
-    color: white;
-    flex: 0 0 80%;
-}
-
-.code-button:hover {
-    background-color: #218838;
-}
-
-/* Message styling */
-#two-factor-message {
-    margin-top: 10px;
-    color: red;
-}
 
 </style>
 

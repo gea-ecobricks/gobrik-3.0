@@ -102,7 +102,7 @@ echo '</script>';
         <h4 id="sub-status-message">Please signin with your account credentials.</h4>
     </div>
 
-    <!-- Form starts here
+    <!-- Form starts here-->
     <form id="login" method="post" action="login_process.php">
         <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
 
@@ -131,47 +131,13 @@ echo '</script>';
 
         <p class="form-caption" data-lang-id="003-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link" datala-lang-id="000-reset-it">Reset it.</a></p>
 
-            <div style="text-align:center;" data-lang-id="004-login-button">
-                <input type="submit" style="text-align:center;margin-top:15px;width:30%; min-width: 175px;" id="submit-button" value="🌍 Login" class="submit-button buwana-login">
-            </div>
-        </form> -->
-
-        <!-- Form starts here -->
-<form id="login" method="post" action="login_process.php">
-    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
-
-    <div class="form-item">
-        <div class="input-wrapper">
-            <input type="text" id="credential_key" name="credential_key" required placeholder="Your e-mail..." value="<?php echo htmlspecialchars($credential_key); ?>">
-            <span class="toggle-select">🔑</span>
-            <div id="dropdown-menu">
-                <div class="dropdown-item" value="Your email...">E-mail</div>
-                <div class="dropdown-item disabled">SMS</div>
-                <div class="dropdown-item disabled">Phone</div>
-                <div class="dropdown-item disabled">GEA Peer</div>
-            </div>
-        </div>
-        <div id="no-buwana-email" data-lang-id="001-cant-find" class="form-field-error">🤔 We can't find this credential in the database.</div>
+<div id="dual-submit-toggle" style="text-align:center;" data-lang-id="004-dual-login-button">
+    <div id="toggle-container" class="toggle-container">
+        <input type="submit" id="submit-password-button" value="🌍 Password Login" class="submit-button password-login active">
+        <input type="submit" id="submit-code-button" value="🌍 Send Login Code" class="submit-button code-login">
     </div>
-
-    <div class="form-item">
-        <div class="password-wrapper">
-            <input type="password" id="password" name="password" required placeholder="Your password...">
-            <span toggle="#password" class="toggle-password">🔒</span>
-        </div>
-        <div id="password-error" data-lang-id="002-password-is-wrong" class="form-field-error">👉 Password is wrong.</div>
-        <p class="form-caption" data-lang-id="003-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link" datala-lang-id="000-reset-it">Reset it.</a></p>
-    </div>
-
-    <div id="dual-button-toggle" class="dual-button-toggle hidden">
-        <input type="submit" id="submit-button" value="Password Login" class="submit-button">
-        <button type="button" id="slide-to-2fa-button" class="slide-button">2FA</button>
-        <button type="button" id="slide-to-submit-button" class="slide-button hidden">Pass</button>
-        <button type="button" id="code-button" class="code-button hidden">Send Code</button>
-    </div>
-
-    <p id="two-factor-message" class="hidden">Two factor authentication not yet working.</p>
-</form>
+</div>
+        </form>
 
 
 
@@ -191,48 +157,27 @@ echo '</script>';
 
 <script>
 /*dual toggle*/
+document.getElementById('submit-password-button').addEventListener('click', function() {
+    let toggleContainer = document.getElementById('toggle-container');
+    let passwordButton = document.getElementById('submit-password-button');
+    let codeButton = document.getElementById('submit-code-button');
 
-document.addEventListener("DOMContentLoaded", function() {
-    const credentialKey = document.getElementById("credential_key");
-    const passwordField = document.getElementById("password");
-    const submitButton = document.getElementById("submit-button");
-    const slideTo2faButton = document.getElementById("slide-to-2fa-button");
-    const slideToSubmitButton = document.getElementById("slide-to-submit-button");
-    const codeButton = document.getElementById("code-button");
-    const dualButtonToggle = document.getElementById("dual-button-toggle");
-    const twoFactorMessage = document.getElementById("two-factor-message");
-
-    credentialKey.addEventListener("input", function() {
-        if (credentialKey.value.trim() !== "") {
-            dualButtonToggle.classList.remove("hidden");
-        } else {
-            dualButtonToggle.classList.add("hidden");
-        }
-    });
-
-    slideTo2faButton.addEventListener("click", function() {
-        slideTo2faButton.classList.add("hidden");
-        slideToSubmitButton.classList.remove("hidden");
-        codeButton.classList.remove("hidden");
-        submitButton.classList.add("hidden");
-        passwordField.classList.add("hidden");
-        twoFactorMessage.classList.remove("hidden");
-    });
-
-    slideToSubmitButton.addEventListener("click", function() {
-        slideToSubmitButton.classList.add("hidden");
-        codeButton.classList.add("hidden");
-        slideTo2faButton.classList.remove("hidden");
-        submitButton.classList.remove("hidden");
-        passwordField.classList.remove("hidden");
-        twoFactorMessage.classList.add("hidden");
-    });
-
-    codeButton.addEventListener("click", function() {
-        alert("Code can't be sent yet.");
-    });
+    // Expand Password Login Button
+    passwordButton.classList.add('active');
+    codeButton.classList.remove('active');
+    toggleContainer.style.flexDirection = 'row';
 });
 
+document.getElementById('submit-code-button').addEventListener('click', function() {
+    let toggleContainer = document.getElementById('toggle-container');
+    let passwordButton = document.getElementById('submit-password-button');
+    let codeButton = document.getElementById('submit-code-button');
+
+    // Expand Code Login Button
+    codeButton.classList.add('active');
+    passwordButton.classList.remove('active');
+    toggleContainer.style.flexDirection = 'row-reverse';
+});
 
 
 document.addEventListener("DOMContentLoaded", function () {

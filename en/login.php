@@ -174,27 +174,28 @@ echo '</script>';
 
 <script>
 
-
-    document.addEventListener('DOMContentLoaded', function () {
-    const credentialKey = document.getElementById('credential_key');
+document.addEventListener('DOMContentLoaded', function () {
     const passwordForm = document.getElementById('password-form');
     const codeForm = document.getElementById('code-form');
-    const loginButtons = document.getElementById('login-buttons');
+    const passwordInput = document.getElementById('password');
+    const credentialKeyInput = document.getElementById('credential_key');
     const passwordToggle = document.getElementById('password');
     const codeToggle = document.getElementById('code');
     const submitPasswordButton = document.getElementById('submit-password-button');
     const sendCodeButton = document.getElementById('send-code-button');
 
-    // Function to update the form visibility based on toggle state
+    // Function to update the form visibility and required attributes
     function updateFormVisibility() {
         if (passwordToggle.checked) {
             passwordForm.style.display = 'block';
             codeForm.style.display = 'none';
+            passwordInput.required = true;
             submitPasswordButton.classList.remove('hidden');
             sendCodeButton.classList.add('hidden');
         } else if (codeToggle.checked) {
             passwordForm.style.display = 'none';
             codeForm.style.display = 'block';
+            passwordInput.required = false;  // Remove the required attribute when the password form is hidden
             submitPasswordButton.classList.add('hidden');
             sendCodeButton.classList.remove('hidden');
         }
@@ -215,12 +216,8 @@ echo '</script>';
     // Initial setup: show the password form and buttons, hide the code form
     passwordForm.style.display = 'block';
     codeForm.style.display = 'none';
-    loginButtons.style.display = 'block';
-
-    // Initial setup of button visibility based on the default radio button state
     updateFormVisibility();
 });
-
 
 
 

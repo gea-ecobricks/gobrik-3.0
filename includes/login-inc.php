@@ -80,9 +80,9 @@ form input:focus {
  .toggle-container {
             position: relative;
             width: 400px;
-            height: 50px;
+            height: 45px;
             background-color: grey;
-            border-radius: 35px;
+            border-radius: 20px;
             overflow: hidden;
             box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
             margin: auto;
@@ -96,12 +96,12 @@ form input:focus {
             position: absolute;
             top: 0;
             height: 100%;
-            line-height: 60px; /* Center text vertically */
+            line-height: 45px; /* Center text vertically */
             color: white;
             opacity: 0.25;
             transition: width 0.5s ease-in-out, opacity 0.3s ease-in-out;
             z-index: 1;
-            font-size: 16px;
+            font-size: 15px;
             cursor: pointer; /* Change cursor to pointer */
             font-family: 'Mulish',sans-serif;
         }
@@ -119,7 +119,7 @@ form input:focus {
         .toggle-container .slider {
             position: absolute;
             background-color: green;
-            border-radius: 50px;
+            border-radius: 25px;
             width: 75%;
             height: 100%;
             transition: all 0.5s ease-in-out;
@@ -157,10 +157,10 @@ form input:focus {
             top: 0;
             height: 100%;
             border: none;
-            border-radius: 50px;
+            border-radius: 25px;
             color: white;
-            font-size: 16px;
-            line-height: 50px;
+            font-size: 15px;
+            line-height: 45px;
             text-align: center;
             background-color: green;
             box-shadow: 0 5px 6px rgba(0, 0, 0, 0.4), inset 0 -2px 1px rgba(0, 0, 0, 0.4);
@@ -172,18 +172,18 @@ form input:focus {
         .login-button-75 {
             width: 75%;
             left: 0;
-            font-size:18px;
+            font-size:17px;
         }
 
         .login-button-75:hover {
         border: 5px #14ff00 outset;
-        line-height: 50px;
+        line-height: 45px;
         }
         .code-button-75 {
             width: 75%;
             right: 0;
             opacity: 0;
-            font-size:18px;
+            font-size:17px;
         }
         .hidden {
             display: none;

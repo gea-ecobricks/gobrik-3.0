@@ -173,31 +173,31 @@ echo '</script>';
 
 
 <script>
-
 document.addEventListener('DOMContentLoaded', function () {
+    const credentialKey = document.getElementById('credential_key');
     const passwordForm = document.getElementById('password-form');
     const codeForm = document.getElementById('code-form');
-    const passwordInput = document.getElementById('password');
-    const credentialKeyInput = document.getElementById('credential_key');
+    const loginButtons = document.getElementById('login-buttons');
     const passwordToggle = document.getElementById('password');
     const codeToggle = document.getElementById('code');
     const submitPasswordButton = document.getElementById('submit-password-button');
     const sendCodeButton = document.getElementById('send-code-button');
+    const codeFields = document.querySelectorAll('.code-box');
 
-    // Function to update the form visibility and required attributes
+    // Function to update the form visibility and toggle required attribute based on toggle state
     function updateFormVisibility() {
         if (passwordToggle.checked) {
             passwordForm.style.display = 'block';
             codeForm.style.display = 'none';
-            passwordInput.required = true;
             submitPasswordButton.classList.remove('hidden');
             sendCodeButton.classList.add('hidden');
+            codeFields.forEach(field => field.removeAttribute('required')); // Remove required from code fields
         } else if (codeToggle.checked) {
             passwordForm.style.display = 'none';
             codeForm.style.display = 'block';
-            passwordInput.required = false;  // Remove the required attribute when the password form is hidden
             submitPasswordButton.classList.add('hidden');
             sendCodeButton.classList.remove('hidden');
+            codeFields.forEach(field => field.setAttribute('required', 'required')); // Add required to code fields
         }
     }
 
@@ -216,8 +216,13 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initial setup: show the password form and buttons, hide the code form
     passwordForm.style.display = 'block';
     codeForm.style.display = 'none';
+    loginButtons.style.display = 'block';
+
+    // Initial setup of button visibility and required attributes based on the default radio button state
     updateFormVisibility();
 });
+
+
 
 
 

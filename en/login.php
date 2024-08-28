@@ -103,37 +103,33 @@ echo '</script>';
     </div>
 
     <!-- Form starts here-->
-    <form id="login" method="post" action="login_process.php">
+     <form id="login" method="post" action="login_process.php">
         <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
 
         <div class="form-item">
             <div class="input-wrapper" style="position: relative;">
                 <input type="text" id="credential_key" name="credential_key" required placeholder="Your e-mail..." value="<?php echo htmlspecialchars($credential_key); ?>">
-                <span class="toggle-select" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔑</span>
-                <div id="dropdown-menu" style="display: none; position: absolute; right: 10px; top: 100%; z-index: 1000; background: white; border: 1px solid #ccc; width: 150px; text-align: left;">
-                    <div class="dropdown-item" value="Your email...">E-mail</div>
-                    <div class="dropdown-item disabled" style="opacity: 0.5;">SMS</div>
-                    <div class="dropdown-item disabled" style="opacity: 0.5;">Phone</div>
-                    <div class="dropdown-item disabled" style="opacity: 0.5;">GEA Peer</div>
-                </div>
             </div>
-            <div id="no-buwana-email" data-lang-id="001-cant-find" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">🤔 We can't find this credential in the database.</div>
         </div>
 
-        <div class="form-item">
+        <div class="form-item hidden" id="password-form">
             <div class="password-wrapper" style="position: relative;">
-                <div data-lang-id="005-password-field-placeholder">
-                    <input type="password" id="password" name="password" required placeholder="Your password...">
-                </div>
-                <span toggle="#password" class="toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔒</span>
+                <input type="password" id="password" name="password" required placeholder="Your password...">
             </div>
-            <div id="password-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">👉 Password is wrong.</div>
+        </div>
 
-            <p class="form-caption" data-lang-id="003-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link" datala-lang-id="000-reset-it">Reset it.</a></p>
+        <div class="form-item hidden" id="code-form">
+            <input type="text" maxlength="1" class="code-box" required>
+            <input type="text" maxlength="1" class="code-box" required>
+            <input type="text" maxlength="1" class="code-box" required>
+            <input type="text" maxlength="1" class="code-box" required>
+            <input type="text" maxlength="1" class="code-box" required>
         </div>
 
 
-        <div style="text-align:center;width:100%;margin:auto;margin-top:30px;margin-bottom:50px;">
+
+
+        <div style="text-align:center;width:100%;margin:auto;margin-top:30px;margin-bottom:50px;" id="login-buttons">
             <div class="toggle-container">
                 <input type="radio" id="password" name="toggle" checked>
                 <input type="radio" id="code" name="toggle">
@@ -145,11 +141,6 @@ echo '</script>';
             </div>
         </div>
 
-
-    <!--<div id="toggle-container" class="toggle-container">
-        <input type="submit" id="submit-password-button" value="🌍 Password Login" class="submit-button password-login active">
-        <input type="submit" id="submit-code-button" value="🌍 Send Login Code" class="submit-button code-login">
-    </div> -->
     </form>
 
 
@@ -169,6 +160,58 @@ echo '</script>';
 
 
 <script>
+ document.addEventListener("DOMContentLoaded", function() {
+            // Hide fields on page load
+            hidePassFields();
+
+            const credentialKeyField = document.getElementById("credential_key");
+            const passwordForm = document.getElementById("password-form");
+            const codeForm = document.getElementById("code-form");
+            const loginButtons = document.getElementById("login-buttons");
+            const passwordToggle = document.getElementById("password-toggle");
+            const codeToggle = document.getElementById("code-toggle");
+            const submitPasswordButton = document.getElementById("submit-password-button");
+            const sendCodeButton = document.getElementById("send-code-button");
+
+            // Show fields based on credential key input
+            credentialKeyField.addEventListener("input", function() {
+                if (credentialKeyField.value.length > 5) {
+                    passwordForm.classList.remove("hidden");
+                    loginButtons.classList.remove("hidden");
+                } else {
+                    passwordForm.classList.add("hidden");
+                    loginButtons.classList.add("hidden");
+                    codeForm.classList.add("hidden");
+                }
+            });
+
+            // Toggle between password and code forms
+            passwordToggle.addEventListener("click", function() {
+                codeForm.classList.add("hidden");
+                passwordForm.classList.remove("hidden");
+                passwordToggle.classList.add("active");
+                codeToggle.classList.remove("active");
+                submitPasswordButton.classList.remove("hidden");
+                sendCodeButton.classList.add("hidden");
+                document.querySelector(".slider").style.transform = "translateX(0%)";
+            });
+
+            codeToggle.addEventListener("click", function() {
+                passwordForm.classList.add("hidden");
+                codeForm.classList.remove("hidden");
+                passwordToggle.classList.remove("active");
+                codeToggle.classList.add("active");
+                submitPasswordButton.classList.add("hidden");
+                sendCodeButton.classList.remove("hidden");
+                document.querySelector(".slider").style.transform = "translateX(100%)";
+            });
+
+            function hidePassFields() {
+                passwordForm.classList.add("hidden");
+                codeForm.classList.add("hidden");
+                loginButtons.classList.add("hidden");
+            }
+        });
 
     /* TOGGLE LOGIN BUTTON*/
 

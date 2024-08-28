@@ -189,6 +189,21 @@ form input:focus {
             display: none;
         }
 
+
+
+  .code-boxes {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+    .code-box {
+        text-align: center;
+        font-family: 'Arvo', serif;
+        font-size: 2em;
+        max-width: 3em;
+    }
+
+
 </style>
 
 

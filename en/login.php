@@ -231,7 +231,7 @@ echo '</script>';
     });
 
     // Initial setup to hide all forms and buttons
-    passwordForm.style.display = 'none';
+    passwordForm.style.display = 'block';
     codeForm.style.display = 'none';
     loginButtons.style.display = 'none';
 

@@ -177,13 +177,19 @@ form input:focus {
 
         .login-button-75:hover {
         border: 5px #14ff00 outset;
-        line-height: 45px;
+        line-height: 35px;
         }
+
         .code-button-75 {
             width: 75%;
             right: 0;
             opacity: 0;
             font-size:17px;
+        }
+
+        .code-button-75:hover {
+        border: 5px #14ff00 outset;
+        line-height: 35px;
         }
 
         .hidden {

@@ -257,9 +257,9 @@ document.addEventListener('DOMContentLoaded', function () {
 //     submitPasswordButton.style.opacity = '1';
 //     sendCodeButton.classList.add('hidden');
 //     sendCodeButton.style.opacity = '0';
-
-    // Set the password toggle as checked by default
-    passwordToggle.checked = true;
+//
+//     // Set the password toggle as checked by default
+//     passwordToggle.checked = true;
 });
 
 

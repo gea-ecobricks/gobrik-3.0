@@ -73,9 +73,11 @@ form input:focus {
 
 
 
-/*new dualtoggle*/
 
-       .toggle-container {
+
+
+        }
+        .toggle-container {
             position: relative;
             width: 400px;
             height: 60px;

@@ -206,14 +206,14 @@ document.addEventListener('DOMContentLoaded', function () {
             setTimeout(() => {
                 submitPasswordButton.style.display = 'block';
                 submitPasswordButton.style.opacity = '1';
-            }, 3000); // 1 second delay
+            }, 800); // 1 second delay
         } else {
             submitPasswordButton.style.opacity = '0';
             submitPasswordButton.style.display = 'none';
             setTimeout(() => {
                 sendCodeButton.style.display = 'block';
                 sendCodeButton.style.opacity = '1';
-            }, 3000); // 1 second delay
+            }, 800); // 1 second delay
         }
     }
 

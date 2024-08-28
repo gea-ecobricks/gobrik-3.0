@@ -204,6 +204,7 @@
         font-family: 'Arvo', serif;
         font-size: 2em;
         max-width: 3em;
+        padding-right: 10px;
     }
 
 

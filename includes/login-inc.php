@@ -158,33 +158,33 @@
             font-size: 15px;
             line-height: 45px;
             text-align: center;
-            background-color: green;
+
             box-shadow: 0 5px 6px rgba(0, 0, 0, 0.4), inset 0 -2px 1px rgba(0, 0, 0, 0.4);
             transition: opacity 0.5s ease-in-out;
             z-index: 1;
             cursor: pointer;
+            font-size:17px;
+            width: 75%;
         }
 
         .login-button-75 {
-            width: 75%;
             left: 0;
-            font-size:17px;
+            background-color: #007907;
+
         }
 
         .login-button-75:hover {
-        border: 3px #14ff00 solid;
+        border: 3px #768c33 solid;
         line-height: 35px;
         }
 
         .code-button-75 {
-            width: 75%;
             right: 0;
-            opacity: 0;
-            font-size:17px;
+            background-color: #768c33;
         }
 
         .code-button-75:hover {
-        border: 3px #14ff00 solid;
+        border: 3px #007907 solid;
         line-height: 35px;
         }
 

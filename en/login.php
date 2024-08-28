@@ -149,8 +149,8 @@ echo '</script>';
             <div class="toggle-button password">🔑 Pass</div>
             <div class="toggle-button code">🕵️‍♂️ Code</div>
             <div class="slider"></div>
-            <input type="submit" id="submit-password-button" value="Login with Password" class="login-button-75">
-            <input type="submit" id="send-code-button" value="Send Login Code" class="code-button-75 hidden">
+            <input type="submit" id="submit-password-button" value="🔑 Password Login" class="login-button-75">
+            <input type="submit" id="send-code-button" value="📨 Send Code" class="code-button-75 hidden">
         </div>
     </div>
 </form>
@@ -191,11 +191,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (passwordToggle.checked) {
             passwordForm.style.display = 'block';
             codeForm.style.display = 'none';
-            codeFields.forEach(field => field.removeAttribute('required'));
+//             codeFields.forEach(field => field.removeAttribute('required'));
         } else if (codeToggle.checked) {
             passwordForm.style.display = 'none';
             codeForm.style.display = 'block';
-            codeFields.forEach(field => field.setAttribute('required', 'required'));
+//             codeFields.forEach(field => field.setAttribute('required', 'required'));
         }
     }
 

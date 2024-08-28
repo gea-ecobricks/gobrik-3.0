@@ -232,11 +232,7 @@ document.addEventListener('DOMContentLoaded', function () {
             updateButtonVisibility();
         });
     });
-
-
 });
-
-
 
 
 

@@ -175,39 +175,52 @@ echo '</script>';
 
 
 <script>
+
 document.addEventListener('DOMContentLoaded', function () {
+    const credentialKey = document.getElementById('credential_key');
     const passwordForm = document.getElementById('password-form');
     const codeForm = document.getElementById('code-form');
+    const loginButtons = document.getElementById('login-buttons');
     const passwordToggle = document.getElementById('password');
     const codeToggle = document.getElementById('code');
     const submitPasswordButton = document.getElementById('submit-password-button');
     const sendCodeButton = document.getElementById('send-code-button');
+    const codeFields = document.querySelectorAll('.code-box');
 
-    // Function to update the form visibility
+    // Function to update the form visibility and toggle required attribute based on toggle state
     function updateFormVisibility() {
         if (passwordToggle.checked) {
-            passwordForm.classList.remove('hidden');
-            codeForm.classList.add('hidden');
+            passwordForm.style.display = 'block';
+            codeForm.style.display = 'none';
         } else if (codeToggle.checked) {
-            passwordForm.classList.add('hidden');
-            codeForm.classList.remove('hidden');
+            passwordForm.style.display = 'none';
+            codeForm.style.display = 'block';
         }
     }
 
     // Function to update the visibility of the submit buttons
     function updateButtonVisibility() {
         if (passwordToggle.checked) {
-            sendCodeButton.classList.add('hidden');
-            submitPasswordButton.classList.remove('hidden');
+            sendCodeButton.style.display = 'none';
+            sendCodeButton.style.opacity = '0';
+            setTimeout(() => {
+                submitPasswordButton.style.display = 'block';
+                submitPasswordButton.style.opacity = '1';
+            }, 3000); // 1 second delay
         } else {
-            submitPasswordButton.classList.add('hidden');
-            sendCodeButton.classList.remove('hidden');
+            submitPasswordButton.style.opacity = '0';
+            submitPasswordButton.style.display = 'none';
+            setTimeout(() => {
+                sendCodeButton.style.display = 'block';
+                sendCodeButton.style.opacity = '1';
+            }, 3000); // 1 second delay
         }
     }
 
     // Event listeners for toggling between password and code forms
     document.querySelectorAll('.toggle-button').forEach(button => {
         button.addEventListener('click', () => {
+            // Check which button was clicked and update the corresponding radio button
             if (button.classList.contains('password')) {
                 passwordToggle.checked = true;
                 codeToggle.checked = false;
@@ -215,15 +228,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 codeToggle.checked = true;
                 passwordToggle.checked = false;
             }
+            // Update form visibility and button visibility based on the selected radio button
             updateFormVisibility();
             updateButtonVisibility();
         });
     });
 
-    // Initial setup: show the password form and password submit button, hide the code form and code submit button
-    updateFormVisibility();
-    updateButtonVisibility();
+
+
 });
+
 
 
 

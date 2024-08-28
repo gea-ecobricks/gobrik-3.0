@@ -253,6 +253,10 @@ document.addEventListener('DOMContentLoaded', function () {
     loginButtons.style.display = 'block';
 
 
+});
+
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
     // Function to extract the query parameters from the URL

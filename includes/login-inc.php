@@ -38,6 +38,8 @@ form input:focus {
   border: 2px solid #160E21;
   box-shadow: 0px 0px 8px 4px #78F4F4;
 
+  }
+
 .input-wrapper {
     position: relative;
     display: flex;
@@ -72,8 +74,7 @@ form input:focus {
 }
 
 
-
-        .toggle-container {
+ .toggle-container {
             position: relative;
             width: 400px;
             height: 60px;
@@ -178,12 +179,9 @@ form input:focus {
             opacity: 0;
             font-size:18px;
         }
-
-
         .hidden {
             display: none;
         }
-
 
 </style>
 

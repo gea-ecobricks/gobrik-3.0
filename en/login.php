@@ -133,14 +133,16 @@ echo '</script>';
         </div>
 
 
-        <div class="toggle-container">
-            <input type="radio" id="password" name="toggle" checked>
-            <input type="radio" id="code" name="toggle">
-            <div class="toggle-button password">🔑 Pass</div>
-            <div class="toggle-button code">🕵️‍♂️ Code</div>
-            <div class="slider"></div>
-            <input type="submit" id="submit-password-button" value="Login with Password" class="login-button-75">
-            <input type="submit" id="send-code-button" value="Send Login Code" class="code-button-75 hidden">
+        <div style="text-align:center;width:100%;margin:auto;margin-top:30px;margin-bottom:50px;">
+            <div class="toggle-container">
+                <input type="radio" id="password" name="toggle" checked>
+                <input type="radio" id="code" name="toggle">
+                <div class="toggle-button password">🔑 Pass</div>
+                <div class="toggle-button code">🕵️‍♂️ Code</div>
+                <div class="slider"></div>
+                <input type="submit" id="submit-password-button" value="Login with Password" class="login-button-75">
+                <input type="submit" id="send-code-button" value="Send Login Code" class="code-button-75 hidden">
+            </div>
         </div>
 
 

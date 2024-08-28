@@ -135,11 +135,11 @@ echo '</script>';
     <div class="form-item" id="code-form" style="text-align:center; opacity:0.8; display: none;">
         <p>The feature is not yet active.</p>
 
-        <input type="text" maxlength="1" class="code-box" required>
-        <input type="text" maxlength="1" class="code-box" required>
-        <input type="text" maxlength="1" class="code-box" required>
-        <input type="text" maxlength="1" class="code-box" required>
-        <input type="text" maxlength="1" class="code-box" required>
+        <input type="text" maxlength="1" class="code-box">
+        <input type="text" maxlength="1" class="code-box">
+        <input type="text" maxlength="1" class="code-box">
+        <input type="text" maxlength="1" class="code-box">
+        <input type="text" maxlength="1" class="code-box">
     </div>
 
     <div style="text-align:center;width:100%;margin:auto;" id="login-buttons">

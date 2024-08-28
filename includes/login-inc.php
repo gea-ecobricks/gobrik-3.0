@@ -34,11 +34,7 @@
   margin-bottom: -200px !important;
 }
 
-form input:focus {
-  border: 2px solid #160E21;
-  box-shadow: 0px 0px 8px 4px #78F4F4;
 
-  }
 
 .input-wrapper {
     position: relative;
@@ -211,6 +207,11 @@ form input:focus {
     }
 
 
+form input:focus {
+  border: 2px solid #160E21;
+  box-shadow: 0px 0px 8px 4px #78F4F4;
+
+  }
 </style>
 
 

@@ -175,6 +175,7 @@ echo '</script>';
 
 
 <script>
+
 document.addEventListener('DOMContentLoaded', function () {
     const credentialKey = document.getElementById('credential_key');
     const passwordForm = document.getElementById('password-form');
@@ -191,11 +192,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (passwordToggle.checked) {
             passwordForm.style.display = 'block';
             codeForm.style.display = 'none';
-//             codeFields.forEach(field => field.removeAttribute('required'));
         } else if (codeToggle.checked) {
             passwordForm.style.display = 'none';
             codeForm.style.display = 'block';
-//             codeFields.forEach(field => field.setAttribute('required', 'required'));
         }
     }
 
@@ -207,14 +206,14 @@ document.addEventListener('DOMContentLoaded', function () {
             setTimeout(() => {
                 submitPasswordButton.style.display = 'block';
                 submitPasswordButton.style.opacity = '1';
-            }, 1000); // 1 second delay
+            }, 3000); // 1 second delay
         } else {
             submitPasswordButton.style.opacity = '0';
             submitPasswordButton.style.display = 'none';
             setTimeout(() => {
                 sendCodeButton.style.display = 'block';
                 sendCodeButton.style.opacity = '1';
-            }, 1000); // 1 second delay
+            }, 3000); // 1 second delay
         }
     }
 
@@ -224,15 +223,17 @@ document.addEventListener('DOMContentLoaded', function () {
             // Check which button was clicked and update the corresponding radio button
             if (button.classList.contains('password')) {
                 passwordToggle.checked = true;
+                codeToggle.checked = false;
             } else {
                 codeToggle.checked = true;
+                passwordToggle.checked = false;
             }
             // Update form visibility and button visibility based on the selected radio button
             updateFormVisibility();
             updateButtonVisibility();
         });
     });
-});
+
 
 
 

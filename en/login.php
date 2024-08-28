@@ -236,14 +236,7 @@ document.addEventListener('DOMContentLoaded', function () {
     codeForm.style.display = 'none';
     loginButtons.style.display = 'block';
 
-    // Ensure submit-password-button is visible and send-code-button is hidden on page load
-    submitPasswordButton.style.display = 'block';
-    submitPasswordButton.style.opacity = '1';
-    sendCodeButton.style.display = 'none';
-    sendCodeButton.style.opacity = '0';
 
-    // Set the password toggle as checked by default
-    passwordToggle.checked = true;
 });
 
 

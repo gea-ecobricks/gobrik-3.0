@@ -172,7 +172,7 @@
         }
 
         .login-button-75:hover {
-        border: 5px #14ff00 outset;
+        border: 3px #14ff00 solid;
         line-height: 35px;
         }
 

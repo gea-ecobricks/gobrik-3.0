@@ -207,10 +207,7 @@
 
     }
 
-.password-wrapper input {
-  width: 100%;
-  padding-right: 10px;
-  }
+
 
 form input:focus {
   border: 2px solid #160E21;

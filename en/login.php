@@ -19,7 +19,7 @@ if (empty($_SESSION['csrf_token'])) {
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.68';
+$version = '0.69';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -133,7 +133,7 @@ echo '</script>';
     </div>
 
     <div class="form-item" id="code-form" style="text-align:center; display: none;height:80px;">
-        <div class="password-wrapper" style="position: relative;">
+        <div class="code-wrapper" style="position: relative;">
             <input type="text" maxlength="1" class="code-box" placeholder="C">
             <input type="text" maxlength="1" class="code-box" placeholder="O">
             <input type="text" maxlength="1" class="code-box" placeholder="D">
@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to update the visibility of the submit buttons
     function updateButtonVisibility() {
         if (passwordToggle.checked) {
-            sendCodeButtonButton.classList.add('hidden');
+            sendCodeButton.classList.add('hidden');
             sendCodeButton.style.opacity = '0';
             setTimeout(() => {
                 submitPasswordButton.classList.remove('hidden');

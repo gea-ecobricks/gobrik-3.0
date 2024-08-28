@@ -174,6 +174,19 @@ echo '</script>';
 
 <script>
 
+ document.querySelectorAll('.toggle-button').forEach(button => {
+        button.addEventListener('click', () => {
+            // Check which button was clicked and update the corresponding radio button
+            if (button.classList.contains('password')) {
+                document.getElementById('password').checked = true; // Set the 'password' radio button as checked
+            } else {
+                document.getElementById('code').checked = true; // Set the 'code' radio button as checked
+            }
+            // Update button visibility based on the selected radio button
+            updateButtonVisibility();
+        });
+    });
+
 
 document.addEventListener('DOMContentLoaded', function () {
     const credentialKey = document.getElementById('credential_key');
@@ -232,6 +245,7 @@ document.addEventListener('DOMContentLoaded', function () {
             updateButtonVisibility();
         });
     });
+
 
     // Initial setup: show the password form and password submit button, hide the code form and code submit button
     passwordForm.style.display = 'block';

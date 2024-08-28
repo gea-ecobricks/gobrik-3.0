@@ -120,7 +120,7 @@ echo '</script>';
         <div id="no-buwana-email" data-lang-id="001-cant-find" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">🤔 We can't find this credential in the database.</div>
     </div>
 
-    <div class="form-item" id="password-form">
+    <div class="form-item" id="password-form" style="height:70px;">
         <div class="password-wrapper" style="position: relative;">
             <div data-lang-id="005-password-field-placeholder">
                 <input type="password" id="password" name="password" required placeholder="Your password...">
@@ -132,9 +132,7 @@ echo '</script>';
         <p class="form-caption" data-lang-id="003-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link" datala-lang-id="000-reset-it">Reset it.</a></p>
     </div>
 
-    <div class="form-item" id="code-form" style="text-align:center; opacity:0.8; display: none;">
-        <p>The feature is not yet active.</p>
-
+    <div class="form-item" id="code-form" style="text-align:center; display: none;height:70px;">
         <input type="text" maxlength="1" class="code-box">
         <input type="text" maxlength="1" class="code-box">
         <input type="text" maxlength="1" class="code-box">

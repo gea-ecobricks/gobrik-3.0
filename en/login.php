@@ -120,39 +120,35 @@ echo '</script>';
             <div id="no-buwana-email" data-lang-id="001-cant-find" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">🤔 We can't find this credential in the database.</div>
         </div>
 
-    <div class="form-item">
-        <div class="password-wrapper" style="position: relative;">
-            <div data-lang-id="005-password-field-placeholder">
-                <input type="password" id="password" name="password" required placeholder="Your password...">
+        <div class="form-item">
+            <div class="password-wrapper" style="position: relative;">
+                <div data-lang-id="005-password-field-placeholder">
+                    <input type="password" id="password" name="password" required placeholder="Your password...">
+                </div>
+                <span toggle="#password" class="toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔒</span>
             </div>
-            <span toggle="#password" class="toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔒</span>
+            <div id="password-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">👉 Password is wrong.</div>
+
+            <p class="form-caption" data-lang-id="003-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link" datala-lang-id="000-reset-it">Reset it.</a></p>
         </div>
-        <div id="password-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">👉 Password is wrong.</div>
-
-        <p class="form-caption" data-lang-id="003-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link" datala-lang-id="000-reset-it">Reset it.</a></p>
 
 
-
-        <div id="dual-submit-toggle" style="text-align:center;" data-lang-id="004-dual-login-button">
-
-            <div class="toggle-container">
-                <input type="radio" id="password" name="toggle" checked>
-                <input type="radio" id="code" name="toggle">
-                <div class="toggle-button password">🔑 Pass</div>
-                <div class="toggle-button code">🕵️‍♂️ Code</div>
-                <div class="slider"></div>
-                <input type="submit" id="submit-password-button" value="Login with Password" class="login-button-75">
-                <input type="submit" id="send-code-button" value="Send Login Code" class="code-button-75 hidden">
-            </div>
-
+        <div class="toggle-container">
+            <input type="radio" id="password" name="toggle" checked>
+            <input type="radio" id="code" name="toggle">
+            <div class="toggle-button password">🔑 Pass</div>
+            <div class="toggle-button code">🕵️‍♂️ Code</div>
+            <div class="slider"></div>
+            <input type="submit" id="submit-password-button" value="Login with Password" class="login-button-75">
+            <input type="submit" id="send-code-button" value="Send Login Code" class="code-button-75 hidden">
         </div>
+
 
     <!--<div id="toggle-container" class="toggle-container">
         <input type="submit" id="submit-password-button" value="🌍 Password Login" class="submit-button password-login active">
         <input type="submit" id="submit-code-button" value="🌍 Send Login Code" class="submit-button code-login">
     </div> -->
-</div>
-        </form>
+    </form>
 
 
 

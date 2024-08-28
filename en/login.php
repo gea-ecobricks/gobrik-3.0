@@ -191,11 +191,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (passwordToggle.checked) {
             passwordForm.style.display = 'block';
             codeForm.style.display = 'none';
-//             codeFields.forEach(field => field.removeAttribute('required'));
         } else if (codeToggle.checked) {
             passwordForm.style.display = 'none';
             codeForm.style.display = 'block';
-//             codeFields.forEach(field => field.setAttribute('required', 'required'));
         }
     }
 
@@ -207,14 +205,14 @@ document.addEventListener('DOMContentLoaded', function () {
             setTimeout(() => {
                 submitPasswordButton.style.display = 'block';
                 submitPasswordButton.style.opacity = '1';
-            }, 1000); // 1 second delay
+            }, 3000); // 1 second delay
         } else {
             submitPasswordButton.style.opacity = '0';
             submitPasswordButton.style.display = 'none';
             setTimeout(() => {
                 sendCodeButton.style.display = 'block';
                 sendCodeButton.style.opacity = '1';
-            }, 1000); // 1 second delay
+            }, 3000); // 1 second delay
         }
     }
 

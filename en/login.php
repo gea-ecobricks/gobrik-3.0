@@ -131,11 +131,26 @@ echo '</script>';
 
         <p class="form-caption" data-lang-id="003-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link" datala-lang-id="000-reset-it">Reset it.</a></p>
 
-<div id="dual-submit-toggle" style="text-align:center;" data-lang-id="004-dual-login-button">
-    <div id="toggle-container" class="toggle-container">
-        <input type="submit2" id="submit-password-button" value="🌍 Password Login" class="submit-button password-login active">
-        <input type="submit2" id="submit-code-button" value="🌍 Send Login Code" class="submit-button code-login">
+
+
+
+    <div class="toggle-container">
+        <input type="radio" id="password" name="toggle" checked>
+        <input type="radio" id="code" name="toggle">
+        <div class="toggle-button password">🔑 Pass</div>
+        <div class="toggle-button code">🕵️‍♂️ Code</div>
+        <div class="slider"></div>
+        <input type="submit" id="submit-password-button" value="Login with Password" class="login-button-75">
+        <input type="submit" id="send-code-button" value="Send Login Code" class="code-button-75 hidden">
     </div>
+
+
+
+<!--<div id="dual-submit-toggle" style="text-align:center;" data-lang-id="004-dual-login-button">
+    <div id="toggle-container" class="toggle-container">
+        <input type="submit" id="submit-password-button" value="🌍 Password Login" class="submit-button password-login active">
+        <input type="submit" id="submit-code-button" value="🌍 Send Login Code" class="submit-button code-login">
+    </div> -->
 </div>
         </form>
 
@@ -433,6 +448,57 @@ window.onload = function() {
     }
 };
 
+</script>
+
+
+  <script>
+    // Add event listeners to all elements with the class 'toggle-button'
+
+    document.querySelectorAll('.toggle-button').forEach(button => {
+        button.addEventListener('click', () => {
+            // Check which button was clicked and update the corresponding radio button
+            if (button.classList.contains('password')) {
+                document.getElementById('password').checked = true; // Set the 'password' radio button as checked
+            } else {
+                document.getElementById('code').checked = true; // Set the 'code' radio button as checked
+            }
+            // Update button visibility based on the selected radio button
+            updateButtonVisibility();
+        });
+    });
+
+   // Function to update the visibility of the submit buttons
+    function updateButtonVisibility() {
+        // Get references to the submit buttons
+        const submitButton = document.getElementById('submit-password-button');
+        const codeButton = document.getElementById('send-code-button');
+
+        // Check if the 'password' radio button is selected
+        if (document.getElementById('password').checked) {
+           codeButton.classList.add('hidden');
+           codeButton.style.opacity = '0';
+           setTimeout(() => {
+             submitButton.classList.remove('hidden');
+             submitButton.style.opacity = '1';
+                        }, 1000); // 1 second delay
+
+
+        } else {
+
+                   submitButton.style.opacity = '0';
+            submitButton.classList.add('hidden');
+
+        setTimeout(() => {
+
+            codeButton.classList.remove('hidden');
+            codeButton.style.opacity = '1';
+                                    }, 1000); // 1 second delay
+
+        }
+    }
+
+    // Initial setup of button visibility based on the default radio button state
+    updateButtonVisibility();
 </script>
 
 

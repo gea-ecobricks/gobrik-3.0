@@ -133,21 +133,21 @@ echo '</script>';
 
 
 
+        <div id="dual-submit-toggle" style="text-align:center;" data-lang-id="004-dual-login-button">
 
-    <div class="toggle-container">
-        <input type="radio" id="password" name="toggle" checked>
-        <input type="radio" id="code" name="toggle">
-        <div class="toggle-button password">🔑 Pass</div>
-        <div class="toggle-button code">🕵️‍♂️ Code</div>
-        <div class="slider"></div>
-        <input type="submit" id="submit-password-button" value="Login with Password" class="login-button-75">
-        <input type="submit" id="send-code-button" value="Send Login Code" class="code-button-75 hidden">
-    </div>
+            <div class="toggle-container">
+                <input type="radio" id="password" name="toggle" checked>
+                <input type="radio" id="code" name="toggle">
+                <div class="toggle-button password">🔑 Pass</div>
+                <div class="toggle-button code">🕵️‍♂️ Code</div>
+                <div class="slider"></div>
+                <input type="submit" id="submit-password-button" value="Login with Password" class="login-button-75">
+                <input type="submit" id="send-code-button" value="Send Login Code" class="code-button-75 hidden">
+            </div>
 
+        </div>
 
-
-<!--<div id="dual-submit-toggle" style="text-align:center;" data-lang-id="004-dual-login-button">
-    <div id="toggle-container" class="toggle-container">
+    <!--<div id="toggle-container" class="toggle-container">
         <input type="submit" id="submit-password-button" value="🌍 Password Login" class="submit-button password-login active">
         <input type="submit" id="submit-code-button" value="🌍 Send Login Code" class="submit-button code-login">
     </div> -->
@@ -171,28 +171,7 @@ echo '</script>';
 
 
 <script>
-/*dual toggle*/
-document.getElementById('submit-password-button').addEventListener('click', function() {
-    let toggleContainer = document.getElementById('toggle-container');
-    let passwordButton = document.getElementById('submit-password-button');
-    let codeButton = document.getElementById('submit-code-button');
 
-    // Expand Password Login Button
-    passwordButton.classList.add('active');
-    codeButton.classList.remove('active');
-    toggleContainer.style.flexDirection = 'row';
-});
-
-document.getElementById('submit-code-button').addEventListener('click', function() {
-    let toggleContainer = document.getElementById('toggle-container');
-    let passwordButton = document.getElementById('submit-password-button');
-    let codeButton = document.getElementById('submit-code-button');
-
-    // Expand Code Login Button
-    codeButton.classList.add('active');
-    passwordButton.classList.remove('active');
-    toggleContainer.style.flexDirection = 'row-reverse';
-});
 
 
 document.addEventListener("DOMContentLoaded", function () {

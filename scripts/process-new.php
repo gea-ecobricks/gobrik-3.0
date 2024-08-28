@@ -51,7 +51,8 @@
         include '../ecobricks_env.php';
         $conn->set_charset("utf8mb4");
 
-        $query = "SELECT first_name, buwana_id, location_full_txt, date_registered, email_addr FROM tb_ecobrickers
+        $query = "SELECT first_name, buwana_id, location_full_txt,
+        date_registered, email_addr FROM tb_ecobrickers
                   ORDER BY gobrik_migrated_dt DESC
                   LIMIT 18";
 

@@ -130,7 +130,7 @@ if ($stmt_update_code) {
 
 //PART 6: Handle form submission to send the confirmation code by email
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['send_email']) || isset($_POST['resend_email']))) {
-    $code_sent = sendVerificationCode($first_name, $email_addr, $generated_code);
+    $code_sent = sendVerificationCode($first_name, $email_addr, $generated_code, $lang);
     if ($code_sent) {
         $code_sent_flag = true;
     } else {

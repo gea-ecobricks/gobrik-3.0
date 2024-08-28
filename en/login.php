@@ -133,8 +133,8 @@ echo '</script>';
 
 <div id="dual-submit-toggle" style="text-align:center;" data-lang-id="004-dual-login-button">
     <div id="toggle-container" class="toggle-container">
-        <input type="submit" id="submit-password-button" value="🌍 Password Login" class="submit-button password-login active">
-        <input type="submit" id="submit-code-button" value="🌍 Send Login Code" class="submit-button code-login">
+        <input type="submit2" id="submit-password-button" value="🌍 Password Login" class="submit-button password-login active">
+        <input type="submit2" id="submit-code-button" value="🌍 Send Login Code" class="submit-button code-login">
     </div>
 </div>
         </form>

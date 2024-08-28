@@ -177,119 +177,69 @@ echo '</script>';
 
 <script>
 
+document.addEventListener('DOMContentLoaded', function () {
+    const credentialKey = document.getElementById('credential_key');
+    const passwordForm = document.getElementById('password-form');
+    const codeForm = document.getElementById('code-form');
+    const loginButtons = document.getElementById('login-buttons');
+    const passwordToggle = document.getElementById('password');
+    const codeToggle = document.getElementById('code');
+    const submitPasswordButton = document.getElementById('submit-password-button');
+    const sendCodeButton = document.getElementById('send-code-button');
 
- document.addEventListener('DOMContentLoaded', function () {
-    function hidePassFields() {
-        const credentialKey = document.getElementById('credential_key');
-        const passwordForm = document.getElementById('password-form');
-        const codeForm = document.getElementById('code-form');
-        const loginButtons = document.getElementById('login-buttons');
-        const passwordToggle = document.getElementById('password');
-        const codeToggle = document.getElementById('code');
-        const submitPasswordButton = document.getElementById('submit-password-button');
-        const sendCodeButton = document.getElementById('send-code-button');
-
-        // Initially hide the forms and buttons
-        passwordForm.style.display = 'none';
-        codeForm.style.display = 'none';
-        loginButtons.style.display = 'none';
-
-        // Show forms and buttons when credential_key has more than 5 characters
-        credentialKey.addEventListener('input', function () {
-            if (credentialKey.value.length > 5) {
-                passwordForm.style.display = 'block';
-                loginButtons.style.display = 'block';
-                // Show the password form by default
-                if (passwordToggle.checked) {
-                    passwordForm.style.display = 'block';
-                    codeForm.style.display = 'none';
-                } else if (codeToggle.checked) {
-                    passwordForm.style.display = 'none';
-                    codeForm.style.display = 'block';
-                }
-            } else {
-                passwordForm.style.display = 'none';
-                codeForm.style.display = 'none';
-                loginButtons.style.display = 'none';
-            }
-        });
-
-        // Toggle between password and code forms
-        passwordToggle.addEventListener('change', function () {
-            if (passwordToggle.checked) {
-                passwordForm.style.display = 'block';
-                codeForm.style.display = 'none';
-                submitPasswordButton.style.display = 'block';
-                sendCodeButton.style.display = 'none';
-            }
-        });
-
-        codeToggle.addEventListener('change', function () {
-            if (codeToggle.checked) {
-                passwordForm.style.display = 'none';
-                codeForm.style.display = 'block';
-                submitPasswordButton.style.display = 'none';
-                sendCodeButton.style.display = 'block';
-            }
-        });
+    // Function to show/hide fields based on credential key length
+    function checkCredentialKey() {
+        if (credentialKey.value.length > 5) {
+            loginButtons.style.display = 'block';
+            updateFormVisibility();
+        } else {
+            passwordForm.style.display = 'none';
+            codeForm.style.display = 'none';
+            loginButtons.style.display = 'none';
+        }
     }
 
-    hidePassFields();
-});
+    // Function to update the form visibility based on toggle state
+    function updateFormVisibility() {
+        if (passwordToggle.checked) {
+            passwordForm.style.display = 'block';
+            codeForm.style.display = 'none';
+            submitPasswordButton.classList.remove('hidden');
+            sendCodeButton.classList.add('hidden');
+        } else if (codeToggle.checked) {
+            passwordForm.style.display = 'none';
+            codeForm.style.display = 'block';
+            submitPasswordButton.classList.add('hidden');
+            sendCodeButton.classList.remove('hidden');
+        }
+    }
 
+    // Event listener for credential key input
+    credentialKey.addEventListener('input', checkCredentialKey);
 
-    /* TOGGLE LOGIN BUTTON*/
-
-     // Add event listeners to all elements with the class 'toggle-button'
-
+    // Event listeners for toggling between password and code forms
     document.querySelectorAll('.toggle-button').forEach(button => {
         button.addEventListener('click', () => {
             // Check which button was clicked and update the corresponding radio button
             if (button.classList.contains('password')) {
-                document.getElementById('password').checked = true; // Set the 'password' radio button as checked
+                passwordToggle.checked = true;
             } else {
-                document.getElementById('code').checked = true; // Set the 'code' radio button as checked
+                codeToggle.checked = true;
             }
-            // Update button visibility based on the selected radio button
-            updateButtonVisibility();
+            // Update form and button visibility based on the selected radio button
+            updateFormVisibility();
         });
     });
 
-   // Function to update the visibility of the submit buttons
-    function updateButtonVisibility() {
-        // Get references to the submit buttons
-        const submitButton = document.getElementById('submit-password-button');
-        const codeButton = document.getElementById('send-code-button');
-
-        // Check if the 'password' radio button is selected
-        if (document.getElementById('password').checked) {
-           codeButton.classList.add('hidden');
-           codeButton.style.opacity = '0';
-           setTimeout(() => {
-             submitButton.classList.remove('hidden');
-             submitButton.style.opacity = '1';
-                        }, 1000); // 1 second delay
-
-
-        } else {
-
-                   submitButton.style.opacity = '0';
-            submitButton.classList.add('hidden');
-
-        setTimeout(() => {
-
-            codeButton.classList.remove('hidden');
-            codeButton.style.opacity = '1';
-                                    }, 1000); // 1 second delay
-
-        }
-    }
+    // Initial setup to hide all forms and buttons
+    passwordForm.style.display = 'none';
+    codeForm.style.display = 'none';
+    loginButtons.style.display = 'none';
 
     // Initial setup of button visibility based on the default radio button state
-    updateButtonVisibility();
+    updateFormVisibility();
+});
 
-
-    /*end toggle*/
 
 
 

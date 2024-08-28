@@ -150,7 +150,7 @@ echo '</script>';
             <div class="toggle-button code">🕵️‍♂️ Code</div>
             <div class="slider"></div>
             <input type="submit" id="submit-password-button" value="🔑 Password Login" class="login-button-75">
-            <input type="submit" id="send-code-button" value="📨 Send Code" class="code-button-75 hidden">
+            <input type="submit" id="send-code-button" value="📨 Send Code" class="code-button-75" style="display:none;">
         </div>
     </div>
 </form>
@@ -202,17 +202,17 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to update the visibility of the submit buttons
     function updateButtonVisibility() {
         if (passwordToggle.checked) {
-            sendCodeButton.classList.add('hidden');
+            sendCodeButton.style.display = 'none';;
             sendCodeButton.style.opacity = '0';
             setTimeout(() => {
-                submitPasswordButton.classList.remove('hidden');
+                submitPasswordButton.style.display = 'block';
                 submitPasswordButton.style.opacity = '1';
             }, 1000); // 1 second delay
         } else {
             submitPasswordButton.style.opacity = '0';
-            submitPasswordButton.classList.add('hidden');
+            submitPasswordButton.style.display = 'none';;
             setTimeout(() => {
-                sendCodeButton.classList.remove('hidden');
+                sendCodeButton.style.display = 'block';;
                 sendCodeButton.style.opacity = '1';
             }, 1000); // 1 second delay
         }

@@ -204,9 +204,13 @@
         font-family: 'Arvo', serif;
         font-size: 2em;
         max-width: 3em;
-        padding-right: 10px;
+
     }
 
+.password-wrapper input {
+  width: 100%;
+  padding-right: 10px;
+  }
 
 form input:focus {
   border: 2px solid #160E21;

@@ -201,17 +201,17 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to update the visibility of the submit buttons
     function updateButtonVisibility() {
         if (passwordToggle.checked) {
-            sendCodeButton.style.display = 'none';
+            sendCodeButtonButton.classList.add('hidden');
             sendCodeButton.style.opacity = '0';
             setTimeout(() => {
-                submitPasswordButton.style.display = 'block';
+                submitPasswordButton.classList.remove('hidden');
                 submitPasswordButton.style.opacity = '1';
             }, 800); // 1 second delay
         } else {
             submitPasswordButton.style.opacity = '0';
-            submitPasswordButton.style.display = 'none';
+            submitPasswordButton.classList.add('hidden');
             setTimeout(() => {
-                sendCodeButton.style.display = 'block';
+                sendCodeButton.classList.remove('hidden');
                 sendCodeButton.style.opacity = '1';
             }, 800); // 1 second delay
         }

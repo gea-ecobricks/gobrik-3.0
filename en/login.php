@@ -189,27 +189,45 @@ document.addEventListener('DOMContentLoaded', function () {
         if (passwordToggle.checked) {
             passwordForm.style.display = 'block';
             codeForm.style.display = 'none';
-            submitPasswordButton.classList.remove('hidden');
-            sendCodeButton.classList.add('hidden');
-            codeFields.forEach(field => field.removeAttribute('required')); // Remove required from code fields
+            codeFields.forEach(field => field.removeAttribute('required'));
         } else if (codeToggle.checked) {
             passwordForm.style.display = 'none';
             codeForm.style.display = 'block';
+            codeFields.forEach(field => field.setAttribute('required', 'required'));
+        }
+    }
+
+    // Function to update the visibility of the submit buttons
+    function updateButtonVisibility() {
+        if (passwordToggle.checked) {
+            sendCodeButton.classList.add('hidden');
+            sendCodeButton.style.opacity = '0';
+            setTimeout(() => {
+                submitPasswordButton.classList.remove('hidden');
+                submitPasswordButton.style.opacity = '1';
+            }, 1000); // 1 second delay
+        } else {
+            submitPasswordButton.style.opacity = '0';
             submitPasswordButton.classList.add('hidden');
-            sendCodeButton.classList.remove('hidden');
-            codeFields.forEach(field => field.setAttribute('required', 'required')); // Add required to code fields
+            setTimeout(() => {
+                sendCodeButton.classList.remove('hidden');
+                sendCodeButton.style.opacity = '1';
+            }, 1000); // 1 second delay
         }
     }
 
     // Event listeners for toggling between password and code forms
     document.querySelectorAll('.toggle-button').forEach(button => {
         button.addEventListener('click', () => {
+            // Check which button was clicked and update the corresponding radio button
             if (button.classList.contains('password')) {
                 passwordToggle.checked = true;
             } else {
                 codeToggle.checked = true;
             }
+            // Update form visibility and button visibility based on the selected radio button
             updateFormVisibility();
+            updateButtonVisibility();
         });
     });
 
@@ -220,11 +238,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Initial setup of button visibility and required attributes based on the default radio button state
     updateFormVisibility();
+    updateButtonVisibility();
 });
-
-
-
-
 
 
 

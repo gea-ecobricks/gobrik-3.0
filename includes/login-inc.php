@@ -74,18 +74,24 @@ form input:focus {
 }
 
 
+
+/* TOGGLE LOGIN SWITCH */
+
  .toggle-container {
             position: relative;
             width: 400px;
-            height: 60px;
+            height: 50px;
             background-color: grey;
             border-radius: 35px;
             overflow: hidden;
             box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+            margin: auto;
         }
+
         .toggle-container input[type="radio"] {
             display: none;
         }
+
         .toggle-button {
             position: absolute;
             top: 0;

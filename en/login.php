@@ -132,10 +132,9 @@ echo '</script>';
             <p class="form-caption" data-lang-id="003-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link" datala-lang-id="000-reset-it">Reset it.</a></p>
         </div>
 
-        <div class="form-item" id="code-form" class="hidden" style="text-align:center">
+        <div class="form-item hidden" id="code-form" style="text-align:center; opacity:0.8">
 
- <h2>Please enter your code:</h2>
-    <p>Check your email <?php echo htmlspecialchars($email_addr); ?> for your account confirmation code. Enter it here:</p>
+            <p>The feature is not yet active.</p>
 
                 <input type="text" maxlength="1" class="code-box" required>
                 <input type="text" maxlength="1" class="code-box" required>
@@ -146,7 +145,7 @@ echo '</script>';
         </div>
 
 
-        <div style="text-align:center;width:100%;margin:auto;margin-top:30px;margin-bottom:50px;" id="login-buttons" class="hidden">
+        <div style="text-align:center;width:100%;margin:auto;" id="login-buttons" class="hidden">
             <div class="toggle-container">
                 <input type="radio" id="password" name="toggle" checked>
                 <input type="radio" id="code" name="toggle">

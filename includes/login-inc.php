@@ -185,6 +185,7 @@ form input:focus {
             opacity: 0;
             font-size:17px;
         }
+
         .hidden {
             display: none;
         }

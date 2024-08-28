@@ -71,6 +71,100 @@ form input:focus {
     background-color: #f0f0f0;
 }
 
+
+
+/*new dualtoggle*/
+
+/* General form styling */
+.form-item {
+    margin-bottom: 15px;
+}
+
+.input-wrapper,
+.password-wrapper {
+    position: relative;
+}
+
+.toggle-select,
+.toggle-password {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.form-field-error {
+    display: none;
+    margin-top: 5px;
+    color: red;
+}
+
+.form-caption {
+    margin-top: 10px;
+}
+
+/* Dual-button-toggle styling */
+.dual-button-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f0f0f0;
+    border-radius: 25px;
+    padding: 5px;
+    transition: all 0.3s ease;
+}
+
+.hidden {
+    display: none;
+}
+
+.submit-button,
+.slide-button,
+.code-button {
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button {
+    background-color: #28a745;
+    color: white;
+    flex: 0 0 80%;
+}
+
+.submit-button:hover {
+    background-color: #218838;
+}
+
+.slide-button {
+    background-color: #d0d0d0;
+    color: black;
+    flex: 0 0 20%;
+}
+
+.slide-button:hover {
+    background-color: #c0c0c0;
+}
+
+.code-button {
+    background-color: #28a745;
+    color: white;
+    flex: 0 0 80%;
+}
+
+.code-button:hover {
+    background-color: #218838;
+}
+
+/* Message styling */
+#two-factor-message {
+    margin-top: 10px;
+    color: red;
+}
+
 </style>
 
 

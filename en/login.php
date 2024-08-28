@@ -173,21 +173,6 @@ echo '</script>';
 
 
 <script>
-
- document.querySelectorAll('.toggle-button').forEach(button => {
-        button.addEventListener('click', () => {
-            // Check which button was clicked and update the corresponding radio button
-            if (button.classList.contains('password')) {
-                document.getElementById('password').checked = true; // Set the 'password' radio button as checked
-            } else {
-                document.getElementById('code').checked = true; // Set the 'code' radio button as checked
-            }
-            // Update button visibility based on the selected radio button
-            updateButtonVisibility();
-        });
-    });
-
-
 document.addEventListener('DOMContentLoaded', function () {
     const credentialKey = document.getElementById('credential_key');
     const passwordForm = document.getElementById('password-form');
@@ -215,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to update the visibility of the submit buttons
     function updateButtonVisibility() {
         if (passwordToggle.checked) {
-            sendCodeButton.style.display = 'none';;
+            sendCodeButton.style.display = 'none';
             sendCodeButton.style.opacity = '0';
             setTimeout(() => {
                 submitPasswordButton.style.display = 'block';
@@ -223,9 +208,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 1000); // 1 second delay
         } else {
             submitPasswordButton.style.opacity = '0';
-            submitPasswordButton.style.display = 'none';;
+            submitPasswordButton.style.display = 'none';
             setTimeout(() => {
-                sendCodeButton.style.display = 'block';;
+                sendCodeButton.style.display = 'block';
                 sendCodeButton.style.opacity = '1';
             }, 1000); // 1 second delay
         }
@@ -246,13 +231,19 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-
     // Initial setup: show the password form and password submit button, hide the code form and code submit button
     passwordForm.style.display = 'block';
     codeForm.style.display = 'none';
     loginButtons.style.display = 'block';
 
+    // Ensure submit-password-button is visible and send-code-button is hidden on page load
+    submitPasswordButton.style.display = 'block';
+    submitPasswordButton.style.opacity = '1';
+    sendCodeButton.style.display = 'none';
+    sendCodeButton.style.opacity = '0';
 
+    // Set the password toggle as checked by default
+    passwordToggle.checked = true;
 });
 
 

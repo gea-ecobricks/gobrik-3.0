@@ -236,6 +236,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+});
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
     // Function to extract the query parameters from the URL

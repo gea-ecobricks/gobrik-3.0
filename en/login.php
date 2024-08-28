@@ -120,7 +120,7 @@ echo '</script>';
         <div id="no-buwana-email" data-lang-id="001-cant-find" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">🤔 We can't find this credential in the database.</div>
     </div>
 
-    <div class="form-item" id="password-form" style="height:70px;">
+    <div class="form-item" id="password-form" style="height:80px;">
         <div class="password-wrapper" style="position: relative;">
             <div data-lang-id="005-password-field-placeholder">
                 <input type="password" id="password" name="password" required placeholder="Your password...">
@@ -132,15 +132,19 @@ echo '</script>';
         <p class="form-caption" data-lang-id="003-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link" datala-lang-id="000-reset-it">Reset it.</a></p>
     </div>
 
-    <div class="form-item" id="code-form" style="text-align:center; display: none;height:70px;">
-        <input type="text" maxlength="1" class="code-box">
-        <input type="text" maxlength="1" class="code-box">
-        <input type="text" maxlength="1" class="code-box">
-        <input type="text" maxlength="1" class="code-box">
-        <input type="text" maxlength="1" class="code-box">
+    <div class="form-item" id="code-form" style="text-align:center; display: none;height:80px;">
+        <div class="password-wrapper" style="position: relative;">
+            <input type="text" maxlength="1" class="code-box" placeholder="C">
+            <input type="text" maxlength="1" class="code-box" placeholder="O">
+            <input type="text" maxlength="1" class="code-box" placeholder="D">
+            <input type="text" maxlength="1" class="code-box" placeholder="E">
+            <input type="text" maxlength="1" class="code-box" placeholder="?">
+        </div>
+        <div id="code-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">👉 Code is wrong.</div>
+        <p class="form-caption" data-lang-id="003-forgot-your-password">Click to send access code to your email.</p>
     </div>
 
-    <div style="text-align:center;width:100%;margin:auto;" id="login-buttons">
+    <div style="text-align:center;width:100%;margin:auto;margin-top:30px;" id="login-buttons">
         <div class="toggle-container">
             <input type="radio" id="password" name="toggle" checked>
             <input type="radio" id="code" name="toggle">

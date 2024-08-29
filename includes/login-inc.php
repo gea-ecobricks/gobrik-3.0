@@ -143,6 +143,7 @@
                         inset 0 -2px 5px rgba(0, 0, 0, 0.3);
         }
 
+
         #password:checked ~ .slider {
             left: 0;
         }
@@ -230,13 +231,7 @@
                 inset 0 -2px 5px rgba(0, 0, 0, 0.3);
 }
 
-#password:checked ~ .slider {
-    left: 0;
-}
 
-#code:checked ~ .slider {
-    left: 20%;
-}
 
 
 

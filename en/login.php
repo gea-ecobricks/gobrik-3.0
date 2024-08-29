@@ -176,24 +176,24 @@ echo '</script>';
 
 
 <script>
-
 function updateFormAction(event) {
     const form = document.getElementById('login');
-    const passwordToggle = document.querySelector('input[name="toggle"][value="password"]');
-    const codeToggle = document.querySelector('input[name="toggle"][value="code"]');
     const passwordField = document.getElementById('password');
+    const submitPasswordButton = document.getElementById('submit-password-button');
+    const sendCodeButton = document.getElementById('send-code-button');
 
-    if (codeToggle.checked) {
-        // If the code option is selected
+    // Check which button was clicked
+    if (event.submitter === submitPasswordButton) {
+        // If the password submit button is clicked
         passwordField.setAttribute('required', 'required');
         form.action = 'login_process.php';
-
-    } else if (passwordToggle.checked) {
-        // If the password option is selected
+    } else if (event.submitter === sendCodeButton) {
+        // If the send code button is clicked
         passwordField.removeAttribute('required');
         form.action = 'code_process.php';
     }
 }
+
 
 
 

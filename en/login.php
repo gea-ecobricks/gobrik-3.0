@@ -177,42 +177,44 @@ echo '</script>';
 
 <script>
 
+function submitCodeForm(event) {
+    event.preventDefault(); // Prevent default form submission behavior
 
-function submitCodeForm() {
-    const form = document.getElementById('login');
-    const formData = new FormData(form);
+    const credentialKey = document.getElementById('credential_key').value;
 
     fetch('code_process.php', {
         method: 'POST',
-        body: formData
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+            'credential_key': credentialKey
+        })
     })
     .then(response => response.json())
     .then(data => {
-        if (data.status === 'credfound') {
-            // Update the text in the div with id "code-status" and turn it green
-            const codeStatus = document.getElementById('code-status');
-            codeStatus.innerText = 'Code has been sent! Check your email';
-            codeStatus.style.color = 'green';
-
-            // Update the CSS of the code-box
-            const codeBox = document.getElementById('code-box');
-            codeBox.style.pointerEvents = 'auto';  // or 'all'
-            codeBox.style.cursor = 'pointer';
-            codeBox.style.opacity = '1';
-
+        if (data.status === 'empty_fields') {
+            alert('Please enter your credential key.');
+        } else if (data.status === 'activation_required') {
+            window.location.href = data.redirect;
+        } else if (data.status === 'not_found') {
+            alert('Email not found. Please check your entry.');
+        } else if (data.status === 'credfound') {
+            // Proceed with the next steps using data.buwana_id
+            alert('Credential found. Proceeding...');
         } else if (data.status === 'crednotfound') {
-            // Add text to the div with id "code-error"
-            document.getElementById('code-error').innerText = "Sorry, we couldn't find this email address.";
-        } else {
-            // Handle any other statuses or errors
-            console.error('Error:', data.message);
-            alert(data.message);
+            alert('Credential not found. Please try again.');
+        } else if (data.status === 'error') {
+            console.error(data.message);
+            alert('An error occurred. Please try again later.');
         }
     })
     .catch(error => {
-        console.error('Error submitting form:', error);
+        console.error('Error:', error);
+        alert('An unexpected error occurred.');
     });
 }
+
 
 
 

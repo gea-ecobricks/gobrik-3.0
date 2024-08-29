@@ -251,7 +251,7 @@
     }
 }
 
-@media screen and (min-width: 769px) {
+@media screen and (max-width: 769px) {
     .code-box {
         text-align: center;
         font-family: 'Arvo', serif;

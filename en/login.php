@@ -103,7 +103,7 @@ echo '</script>';
     </div>
 
    <!-- Form starts here-->
-<form id="login" method="post" action="login_process.php" onsubmit="toggleFormProcessor(event)">
+<form id="login" method="post" action="login_process.php" onsubmit="updateFormAction(event)">
     <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
 
     <div class="form-item">

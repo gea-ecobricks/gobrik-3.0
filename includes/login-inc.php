@@ -214,8 +214,6 @@
             display: none;
         }
 
-}
-
 
 
 

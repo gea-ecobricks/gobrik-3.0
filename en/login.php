@@ -19,7 +19,7 @@ if (empty($_SESSION['csrf_token'])) {
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.691';
+$version = '0.692';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -206,14 +206,14 @@ function updateButtonVisibility() {
         submitPasswordButton.style.visibility = 'visible';
         setTimeout(() => {
             submitPasswordButton.style.opacity = '1';
-        }, 0); // No delay needed if visibility change happens instantly
+        }, 1000); // No delay needed if visibility change happens instantly
     } else {
         submitPasswordButton.style.visibility = 'hidden';
         submitPasswordButton.style.opacity = '0';
         sendCodeButton.style.visibility = 'visible';
         setTimeout(() => {
             sendCodeButton.style.opacity = '1';
-        }, 0); // No delay needed if visibility change happens instantly
+        }, 1000); // No delay needed if visibility change happens instantly
     }
 }
 

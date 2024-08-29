@@ -123,7 +123,7 @@ echo '</script>';
     <div class="form-item" id="password-form" style="height:80px;">
         <div class="password-wrapper" style="position: relative;">
             <div data-lang-id="005-password-field-placeholder">
-                <input type="password" id="password" name="password" placeholder="Your password..." required>
+                <input type="password" id="password" name="password" placeholder="Your password...">
             </div>
             <span toggle="#password" class="toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔒</span>
         </div>
@@ -152,7 +152,7 @@ echo '</script>';
             <div class="toggle-button code">📱</div>
             <div class="login-slider"></div>
             <input type="submit" id="submit-password-button" value="Login" class="login-button-75">
-            <input type="submit" id="send-code-button" value="📨 Send Code" class="code-button-75" style="display:none;">
+            <input type="submit" id="send-code-button" value="Send Code" class="code-button-75" style="display:none;">
         </div>
     </div>
 </form>

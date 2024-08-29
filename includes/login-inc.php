@@ -232,28 +232,28 @@
 
 
 
+.code-box {
+    text-align: center;
+    font-family: 'Arvo', serif;
+    font-size: 2em;
+    max-width: 3em;
+    pointer-events: none; /* Prevent typing initially */
+    background-color: #f0f0f0; /* Give a visual cue that boxes are disabled */
+}
 
+.code-box.enabled {
+    pointer-events: auto; /* Enable typing */
+    background-color: #ffffff; /* Reset background when enabled */
+}
 
-  .code-boxes {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-    }
-    .code-box {
-        text-align: center;
-        font-family: 'Arvo', serif;
-        font-size: 2em;
-        max-width: 3em;
-    }
-
-  @media screen and (min-width: 769px) {
+@media screen and (min-width: 769px) {
     .code-box {
         font-size: 2.1em;
         max-width: 3.2em;
     }
 }
 
-  @media screen and (min-width: 769px) {
+@media screen and (min-width: 769px) {
     .code-box {
         text-align: center;
         font-family: 'Arvo', serif;
@@ -263,10 +263,10 @@
 }
 
 form input:focus {
-  border: 2px solid #160E21;
-  box-shadow: 0px 0px 8px 4px #78F4F4;
+    border: 2px solid #160E21;
+    box-shadow: 0px 0px 8px 4px #78F4F4;
+}
 
-  }
 
 
 #password-form, #code-form {

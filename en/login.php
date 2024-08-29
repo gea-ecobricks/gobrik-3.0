@@ -123,7 +123,7 @@ echo '</script>';
     <div class="form-item" id="password-form" style="height:80px;">
         <div class="password-wrapper" style="position: relative;">
             <div data-lang-id="005-password-field-placeholder">
-                <input type="password" id="password" name="password" placeholder="Your password..." required>
+                <input type="password" id="password" name="password" placeholder="Your password...">
             </div>
             <span toggle="#password" class="toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔒</span>
         </div>
@@ -132,17 +132,18 @@ echo '</script>';
         <p class="form-caption" data-lang-id="003-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link" datala-lang-id="000-reset-it">Reset it.</a></p>
     </div>
 
-    <div class="form-item" id="code-form" style="text-align:center;height:80px;">
-        <div class="code-wrapper" style="position: relative;">
-            <input type="text" maxlength="1" class="code-box" placeholder="-">
-            <input type="text" maxlength="1" class="code-box" placeholder="-">
-            <input type="text" maxlength="1" class="code-box" placeholder="-">
-            <input type="text" maxlength="1" class="code-box" placeholder="-">
-            <input type="text" maxlength="1" class="code-box" placeholder="-">
-        </div>
-        <div id="code-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">👉 Code is wrong.</div>
-        <p class="form-caption" data-lang-id="003-forgot-your-password">Access code will be sent to email above.</p>
+   <div class="form-item" id="code-form" style="text-align:center;height:80px;">
+    <div class="code-wrapper" style="position: relative;">
+        <input type="text" maxlength="1" class="code-box" placeholder="-">
+        <input type="text" maxlength="1" class="code-box" placeholder="-">
+        <input type="text" maxlength="1" class="code-box" placeholder="-">
+        <input type="text" maxlength="1" class="code-box" placeholder="-">
+        <input type="text" maxlength="1" class="code-box" placeholder="-">
     </div>
+    <div id="code-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">👉 Code is wrong.</div>
+    <p class="form-caption" data-lang-id="003-forgot-your-password">Access code will be sent to email above.</p>
+</div>
+
 
     <div style="text-align:center;width:100%;margin:auto;margin-top:30px;" id="login-buttons">
         <div class="toggle-container">
@@ -538,6 +539,26 @@ window.onload = function() {
         }, 100);
     }
 };
+
+
+
+// Function to enable typing in the code boxes
+function enableCodeEntry() {
+    const codeBoxes = document.querySelectorAll('.code-box');
+
+    codeBoxes.forEach((box, index) => {
+        box.classList.add('enabled');  // Enable typing by adding the 'enabled' class
+
+        box.addEventListener('input', function() {
+            if (box.value.length === 1 && index < codeBoxes.length - 1) {
+                codeBoxes[index + 1].focus();  // Jump to the next box
+            }
+        });
+    });
+
+    // Set focus on the first box
+    codeBoxes[0].focus();
+}
 
 
 

@@ -94,7 +94,7 @@
             height: 100%;
             line-height: 45px; /* Center text vertically */
             color: white;
-            opacity: 0.25;
+            opacity: 0.8;
             transition: width 0.5s ease-in-out, opacity 0.3s ease-in-out;
             z-index: 1;
             font-size: 15px;
@@ -135,7 +135,7 @@
             width: 80%; /* Reduced width when selected */
         }
         #password:checked ~ .toggle-button.code {
-            opacity: 0.25;
+            opacity: 0.8;
             width: 20%; /* Expanded width when the other option is selected */
         }
         #code:checked ~ .toggle-button.code {
@@ -143,7 +143,7 @@
             width: 80%; /* Reduced width when selected */
         }
         #code:checked ~ .toggle-button.password {
-            opacity: 0.25;
+            opacity: 0.8;
             width: 20%; /* Expanded width when the other option is selected */
         }
 
@@ -180,11 +180,11 @@
 
         .code-button-75 {
             right: 0;
-            background-color: #768c33;
+            background-color: #007907;
         }
 
         .code-button-75:hover {
-        border: 3px #007907 solid;
+        border: 3px #768c33 solid;
         line-height: 35px;
         }
 

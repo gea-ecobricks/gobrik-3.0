@@ -203,15 +203,17 @@ document.addEventListener('DOMContentLoaded', function () {
         if (passwordToggle.checked) {
             sendCodeButton.classList.add('hidden');
             sendCodeButton.style.opacity = '0';
+            submitPasswordButton.classList.remove('hidden');
             setTimeout(() => {
-                submitPasswordButton.classList.remove('hidden');
+
                 submitPasswordButton.style.opacity = '1';
             }, 1000); // 1 second delay
         } else {
             submitPasswordButton.style.opacity = '0';
             submitPasswordButton.classList.add('hidden');
+            sendCodeButton.classList.remove('hidden');
             setTimeout(() => {
-                sendCodeButton.classList.remove('hidden');
+
                 sendCodeButton.style.opacity = '1';
             }, 1000); // 1 second delay
         }
@@ -223,10 +225,10 @@ document.addEventListener('DOMContentLoaded', function () {
             // Check which button was clicked and update the corresponding radio button
             if (button.classList.contains('password')) {
                 passwordToggle.checked = true;
-//                 codeToggle.checked = false;
+                codeToggle.checked = false;
             } else {
                 codeToggle.checked = true;
-//                 passwordToggle.checked = false;
+                passwordToggle.checked = false;
             }
             // Update form visibility and button visibility based on the selected radio button
             updateFormVisibility();

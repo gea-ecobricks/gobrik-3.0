@@ -186,13 +186,16 @@ function updateFormAction(event) {
     if (event.submitter === submitPasswordButton) {
         // If the password submit button is clicked
         passwordField.setAttribute('required', 'required');
+        passwordField.removeAttribute('disabled');  // Ensure it can be focused
         form.action = 'login_process.php';
     } else if (event.submitter === sendCodeButton) {
         // If the send code button is clicked
         passwordField.removeAttribute('required');
+        passwordField.setAttribute('disabled', 'disabled');  // Prevent it from being focused
         form.action = 'code_process.php';
     }
 }
+
 
 
 

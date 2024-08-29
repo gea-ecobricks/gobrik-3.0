@@ -265,7 +265,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (codeToggle.checked) {
             // If the code option is selected
             passwordField.removeAttribute('required');
-            form.action = 'code_process.php';
+            form.action = 'code_processack.php';
             console.log("Code is checked.");
         } else if (passwordToggle.checked) {
             // If the password option is selected

@@ -151,8 +151,8 @@ echo '</script>';
             <div class="toggle-button password">🔑</div>
             <div class="toggle-button code">📱</div>
             <div class="login-slider"></div>
-            <input type="submit" id="submit-password-button" value="Login" class="login-button-75" style="display:none;">
-            <input type="submit" id="send-code-button" value="📨 Send Code" class="code-button-75" style="visibility:hidden;display:none;">
+            <input type="submit" id="submit-password-button" value="Login" class="login-button-75>
+            <input type="submit" id="send-code-button" value="📨 Send Code" class="code-button-75" style="visibility:hidden;">
         </div>
     </div>
 </form>

@@ -152,7 +152,7 @@ echo '</script>';
             <div class="toggle-button code">📱</div>
             <div class="login-slider"></div>
             <input type="submit" id="submit-password-button" value="Login" class="login-button-75">
-<input type="button" id="send-code-button" value="📨 Send Code" class="code-button-75" style="display:none;" onclick="submitCodeForm()">
+<input type="button" id="send-code-button" value="📨 Send Code" class="code-button-75" style="display:none;">
         </div>
     </div>
 </form>
@@ -177,37 +177,41 @@ echo '</script>';
 
 <script>
 
+function submitCodeForm(event) {
+    event.preventDefault();
 
-document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('login');
-    const sendCodeButton = document.getElementById('send-code-button');
+    const formData = new FormData(form);
 
-    // Event listener for the 'Send Code' button click
-    sendCodeButton.addEventListener('click', submitCodeForm);
+    fetch('code_process.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'credfound') {
+            // Update the text in the div with id "code-status"
+            document.getElementById('code-status').innerText = 'Code has been sent! Check your email';
 
-    function submitCodeForm() {
-        // Prevent the default form submission
-        event.preventDefault();
+            // Update the CSS of the code-box
+            const codeBox = document.getElementById('code-box');
+            codeBox.style.pointerEvents = 'auto';  // or 'all'
+            codeBox.style.cursor = 'pointer';
+            codeBox.style.opacity = '1';
 
-        // Create a FormData object from the form
-        const formData = new FormData(form);
-
-        // Send the form data via fetch to 'code_process.php'
-        fetch('code_process.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.text()) // or .json() if the server returns JSON
-        .then(data => {
-            console.log('Form submitted successfully:', data);
-            // You can redirect, show a message, or update the UI here
-        })
-        .catch(error => {
-            console.error('Error submitting form:', error);
-            // Handle the error (e.g., show an error message)
-        });
-    }
-});
+        } else if (data.status === 'crednotfound') {
+            // Add text to the div with id "code-error"
+            document.getElementById('code-error').innerText = "Sorry, we couldn't find this email address.";
+        } else {
+            // Handle any other statuses or errors
+            console.error('Error:', data.message);
+            alert(data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error submitting form:', error);
+    });
+}
 
 
 

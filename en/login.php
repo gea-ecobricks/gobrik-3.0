@@ -132,18 +132,17 @@ echo '</script>';
         <p class="form-caption" data-lang-id="003-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link" datala-lang-id="000-reset-it">Reset it.</a></p>
     </div>
 
-   <div class="form-item" id="code-form" style="text-align:center;height:80px;">
-    <div class="code-wrapper" style="position: relative;">
-        <input type="text" maxlength="1" class="code-box" placeholder="-">
-        <input type="text" maxlength="1" class="code-box" placeholder="-">
-        <input type="text" maxlength="1" class="code-box" placeholder="-">
-        <input type="text" maxlength="1" class="code-box" placeholder="-">
-        <input type="text" maxlength="1" class="code-box" placeholder="-">
+    <div class="form-item" id="code-form" style="text-align:center;height:80px;">
+        <div class="code-wrapper" style="position: relative;">
+            <input type="text" maxlength="1" class="code-box" placeholder="-">
+            <input type="text" maxlength="1" class="code-box" placeholder="-">
+            <input type="text" maxlength="1" class="code-box" placeholder="-">
+            <input type="text" maxlength="1" class="code-box" placeholder="-">
+            <input type="text" maxlength="1" class="code-box" placeholder="-">
+        </div>
+        <div id="code-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">👉 Code is wrong.</div>
+        <p class="form-caption" data-lang-id="003-forgot-your-password">Access code will be sent to email above.</p>
     </div>
-    <div id="code-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">👉 Code is wrong.</div>
-    <p class="form-caption" data-lang-id="003-forgot-your-password">Access code will be sent to email above.</p>
-</div>
-
 
     <div style="text-align:center;width:100%;margin:auto;margin-top:30px;" id="login-buttons">
         <div class="toggle-container">

@@ -198,46 +198,33 @@ document.addEventListener('DOMContentLoaded', function () {
     const submitPasswordButton = document.getElementById('submit-password-button');
     const sendCodeButton = document.getElementById('send-code-button');
 
-
-   // Function to update the form visibility and toggle required attribute based on toggle state
-function updateFormVisibility() {
-    if (passwordToggle.checked) {
-        // Remove 'required' from code fields and add it to the password field
-        codeFields.forEach(field => field.removeAttribute('required'));
-        credentialKey.removeAttribute('required');
-        passwordForm.querySelector('input[name="password"]').setAttribute('required', 'required');
-
-        // Fade out the code form and then hide it
-        codeForm.style.opacity = '0';
-        setTimeout(() => {
-            codeForm.style.display = 'none';
-            passwordForm.style.display = 'block';
-            // Fade in the password form
+    // Function to update the form visibility and toggle required attribute based on toggle state
+    function updateFormVisibility() {
+        if (passwordToggle.checked) {
+            // Fade out the code form and then hide it
+            codeForm.style.opacity = '0';
             setTimeout(() => {
-                passwordForm.style.opacity = '1';
-            }, 10);
-        }, 300); // Time for the fade-out transition
+                codeForm.style.display = 'none';
+                passwordForm.style.display = 'block';
+                // Fade in the password form
+                setTimeout(() => {
+                    passwordForm.style.opacity = '1';
+                }, 10);
+            }, 300); // Time for the fade-out transition
 
-    } else if (codeToggle.checked) {
-        // Remove 'required' from the password field and add it to code fields
-        passwordForm.querySelector('input[name="password"]').removeAttribute('required');
-        codeFields.forEach(field => field.setAttribute('required', 'required'));
-        credentialKey.setAttribute('required', 'required');
-
-        // Fade out the password form and then hide it
-        passwordForm.style.opacity = '0';
-        setTimeout(() => {
-            passwordForm.style.display = 'none';
-            codeForm.style.display = 'block';
-            // Fade in the code form
+        } else if (codeToggle.checked) {
+            // Fade out the password form and then hide it
+            passwordForm.style.opacity = '0';
             setTimeout(() => {
-                codeForm.style.opacity = '1';
-            }, 10);
-        }, 300); // Time for the fade-out transition
+                passwordForm.style.display = 'none';
+                codeForm.style.display = 'block';
+                // Fade in the code form
+                setTimeout(() => {
+                    codeForm.style.opacity = '1';
+                }, 10);
+            }, 300); // Time for the fade-out transition
+        }
     }
-}
-
-
 
     // Function to update the visibility of the submit buttons
     function updateButtonVisibility() {

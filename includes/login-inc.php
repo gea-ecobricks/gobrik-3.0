@@ -230,6 +230,8 @@
 
 
 
+
+
 .code-box {
     text-align: center;
     font-family: 'Arvo', serif;
@@ -267,6 +269,13 @@ form input:focus {
 
 
 
+
+
+form input:focus {
+  border: 2px solid #160E21;
+  box-shadow: 0px 0px 8px 4px #78F4F4;
+
+  }
 
 
 #password-form, #code-form {

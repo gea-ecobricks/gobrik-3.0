@@ -151,8 +151,8 @@ echo '</script>';
             <div class="toggle-button password">🔑</div>
             <div class="toggle-button code">📱</div>
             <div class="login-slider"></div>
-            <input type="submit" id="submit-password-button" value="Login" class="login-button-75" disabled style="display:none;">
-            <input type="submit" id="send-code-button" value="📨 Send Code" class="code-button-75">
+            <input type="submit" id="submit-password-button" value="Login" class="login-button-75">
+            <input type="submit" id="send-code-button" value="📨 Send Code" class="code-button-75" style="display:none;">
         </div>
     </div>
 </form>
@@ -180,6 +180,13 @@ echo '</script>';
 
 
 
+document.getElementById('send-code-button').addEventListener('click', function() {
+    console.log('Send Code Button Clicked');
+});
+
+document.getElementById('login').addEventListener('submit', function(event) {
+    console.log('Form is being submitted');
+});
 
 
 document.addEventListener('DOMContentLoaded', function () {

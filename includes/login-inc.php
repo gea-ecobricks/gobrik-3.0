@@ -84,7 +84,7 @@
             margin: auto;
         }
 
-  @media screen and (max-width: 769px) {
+  @media screen and (min-width: 769px) {
 
    .toggle-container {
                width: 350px;
@@ -95,7 +95,7 @@
     @media screen and (max-width: 769px) {
 
    .toggle-container {
-               width: 100%px;
+               width: 100%;
             height: 40px;
             }
 

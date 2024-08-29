@@ -185,12 +185,13 @@ function updateFormAction(event) {
 
     if (codeToggle.checked) {
         // If the code option is selected
-        passwordField.removeAttribute('required');
-        form.action = 'code_process.php';
-    } else if (passwordToggle.checked) {
-        // If the password option is selected
         passwordField.setAttribute('required', 'required');
         form.action = 'login_process.php';
+
+    } else if (passwordToggle.checked) {
+        // If the password option is selected
+        passwordField.removeAttribute('required');
+        form.action = 'code_process.php';
     }
 }
 

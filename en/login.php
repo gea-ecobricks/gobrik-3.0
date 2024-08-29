@@ -197,12 +197,6 @@ function updateFormAction(event) {
         passwordField.removeAttribute('required');
     }
 
-    if (sendCodeButton.style.display !== 'none') {
-        // If the send-code-button is visible, ensure the form action is set to send_code_process.php
-        form.action = "send_code_process.php";
-        // Remove the required attribute from the password field
-        passwordField.removeAttribute('required');
-    }
 }
 
 

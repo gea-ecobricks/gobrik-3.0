@@ -232,7 +232,13 @@
 
 
 
+#code-form {
+transition: 0.3s;
+}
 
+#password-form {
+transition: 0.3s;
+}
 
   .code-boxes {
         display: flex;

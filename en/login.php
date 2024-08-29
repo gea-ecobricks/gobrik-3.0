@@ -191,11 +191,11 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to update the form visibility and toggle required attribute based on toggle state
     function updateFormVisibility() {
         if (passwordToggle.checked) {
-            passwordForm.style.display = 'block';
-            codeForm.style.display = 'none';
+            passwordForm.style.visibility = 'visible';
+            codeForm.style.visibility = 'hidden';
         } else if (codeToggle.checked) {
-            passwordForm.style.display = 'none';
-            codeForm.style.display = 'block';
+            passwordForm.style.visibility = 'hidden';
+            codeForm.style.visibility = 'visible';
         }
     }
 

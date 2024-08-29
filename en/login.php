@@ -265,10 +265,6 @@ function updateFormVisibility() {
         });
     });
 
-    // Initial setup based on default toggle selection
-    updateFormAction();
-    updateFormVisibility();
-    updateButtonVisibility();
 });
 
 

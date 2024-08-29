@@ -232,13 +232,7 @@
 
 
 
-#code-form {
-transition: 0.3s;
-}
 
-#password-form {
-transition: 0.3s;
-}
 
   .code-boxes {
         display: flex;
@@ -275,6 +269,16 @@ form input:focus {
   }
 
 
+#password-form, #code-form {
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    display: none; /* Initially hidden */
+}
+
+#password-form {
+    display: block; /* Assuming password form is shown initially */
+    opacity: 1;
+}
 
 
 

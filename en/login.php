@@ -132,7 +132,7 @@ echo '</script>';
         <p class="form-caption" data-lang-id="003-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link" datala-lang-id="000-reset-it">Reset it.</a></p>
     </div>
 
-    <div class="form-item" id="code-form" style="text-align:center; visibility:hidden;height:80px;">
+    <div class="form-item" id="code-form" style="text-align:center;height:80px;">
         <div class="code-wrapper" style="position: relative;">
             <input type="text" maxlength="1" class="code-box" placeholder="-">
             <input type="text" maxlength="1" class="code-box" placeholder="-">
@@ -200,16 +200,34 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Function to update the form visibility and toggle required attribute based on toggle state
-    function updateFormVisibility() {
-        if (passwordToggle.checked) {
-            passwordForm.style.visibility = 'visible';
-            codeForm.style.visibility = 'hidden';
-        } else if (codeToggle.checked) {
-            passwordForm.style.visibility = 'hidden';
-            codeForm.style.visibility = 'visible';
-        }
+// Function to update the form visibility and toggle required attribute based on toggle state
+function updateFormVisibility() {
+    if (passwordToggle.checked) {
+        // Fade out the code form and then hide it
+        codeForm.style.opacity = '0';
+        setTimeout(() => {
+            codeForm.style.display = 'none';
+            passwordForm.style.display = 'block';
+            // Fade in the password form
+            setTimeout(() => {
+                passwordForm.style.opacity = '1';
+            }, 10);
+        }, 300); // Time for the fade-out transition
+
+    } else if (codeToggle.checked) {
+        // Fade out the password form and then hide it
+        passwordForm.style.opacity = '0';
+        setTimeout(() => {
+            passwordForm.style.display = 'none';
+            codeForm.style.display = 'block';
+            // Fade in the code form
+            setTimeout(() => {
+                codeForm.style.opacity = '1';
+            }, 10);
+        }, 300); // Time for the fade-out transition
     }
+}
+
 
     // Function to update the visibility of the submit buttons
     function updateButtonVisibility() {

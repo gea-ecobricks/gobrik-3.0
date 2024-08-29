@@ -275,6 +275,24 @@ form input:focus {
   }
 
 
+#password-form,
+#code-form,
+#submit-password-button,
+#send-code-button {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#password-form.active,
+#code-form.active,
+#submit-password-button.active,
+#send-code-button.active {
+    display: block;
+    opacity: 1;
+}
+
+
 
 </style>
 

@@ -82,12 +82,13 @@
             overflow: hidden;
             box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
             margin: auto;
+            margin-bottom:20px;
         }
 
   @media screen and (min-width: 769px) {
 
    .toggle-container {
-               width: 350px;
+            width: 350px;
             height: 45px;
             }
       }
@@ -95,15 +96,13 @@
     @media screen and (max-width: 769px) {
 
    .toggle-container {
-               width: 100%;
+            width: 100%;
             height: 40px;
             }
 
       }
 
-
-
-        .toggle-container input[type="radio"] {
+  .toggle-container input[type="radio"] {
             display: none;
         }
 
@@ -131,7 +130,8 @@
             width: 20%; /* Initial width */
             text-align: center;
         }
-        .toggle-container .slider {
+
+        .toggle-container .login-slider {
             position: absolute;
             background-color: green;
             border-radius: 25px;
@@ -144,12 +144,13 @@
         }
 
 
-        #password:checked ~ .slider {
+        #password:checked ~ .login-slider {
             left: 0;
         }
-        #code:checked ~ .slider {
+        #code:checked ~ .login-slider {
             left: 20%;
         }
+
         #password:checked ~ .toggle-button.password {
             opacity: 1;
             width: 80%; /* Reduced width when selected */
@@ -212,14 +213,7 @@
             display: none;
         }
 
-
-
-
-
-
-
-
-.toggle-container .slider {
+.toggle-container .login-slider {
     position: absolute;
     background-color: green;
     border-radius: 25px;
@@ -259,10 +253,23 @@
         font-family: 'Arvo', serif;
         font-size: 2em;
         max-width: 3em;
-
     }
 
+  @media screen and (min-width: 769px) {
+    .code-box {
+        font-size: 2.1em;
+        max-width: 3.2em;
+    }
+}
 
+  @media screen and (min-width: 769px) {
+    .code-box {
+        text-align: center;
+        font-family: 'Arvo', serif;
+        font-size: 1.7em;
+        max-width: 2.5em;
+    }
+}
 
 form input:focus {
   border: 2px solid #160E21;

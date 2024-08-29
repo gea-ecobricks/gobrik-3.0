@@ -164,7 +164,7 @@
             z-index: 1;
             cursor: pointer;
             font-size:17px;
-            width: 75%;
+            width: 80%;
         }
 
         .login-button-75 {

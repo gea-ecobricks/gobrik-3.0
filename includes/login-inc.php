@@ -121,12 +121,12 @@
         }
 
         .toggle-button.password {
-            left: 0;
+            left: 0%;
             width: 80%; /* Initial width */
             text-align: center;
         }
         .toggle-button.code {
-            right: 0;
+            right: 0%;
             width: 20%; /* Initial width */
             text-align: center;
         }
@@ -145,7 +145,7 @@
 
 
         #password:checked ~ .login-slider {
-            left: 0;
+            left: 0%;
         }
         #code:checked ~ .login-slider {
             left: 20%;

@@ -182,7 +182,6 @@ echo '</script>';
 
 
 
-
 document.addEventListener('DOMContentLoaded', function () {
     const passwordForm = document.getElementById('password-form');
     const codeForm = document.getElementById('code-form');
@@ -223,62 +222,51 @@ document.addEventListener('DOMContentLoaded', function () {
     function updateButtonVisibility() {
         if (passwordToggle.checked) {
             sendCodeButton.style.display = 'none';
-
             setTimeout(() => {
                 submitPasswordButton.style.display = 'block';
             }, 600); // Delay for transition effect
         } else {
             submitPasswordButton.style.display = 'none';
-
             setTimeout(() => {
                 sendCodeButton.style.display = 'block';
             }, 600); // Delay for transition effect
         }
     }
 
+    // Event listener for toggle button clicks
+    document.querySelectorAll('.toggle-button').forEach(button => {
+        button.addEventListener('click', () => {
+            if (button.classList.contains('password')) {
+                passwordToggle.checked = true;
+                codeToggle.checked = false;
+            } else {
+                codeToggle.checked = true;
+                passwordToggle.checked = false;
+            }
 
-
-// Event listener for toggle button clicks
-document.querySelectorAll('.toggle-button').forEach(button => {
-    button.addEventListener('click', () => {
-        const passwordToggle = document.querySelector('input[name="toggle"][value="password"]');
-        const codeToggle = document.querySelector('input[name="toggle"][value="code"]');
-
-        if (button.classList.contains('password')) {
-            passwordToggle.checked = true;
-            codeToggle.checked = false;
-        } else {
-            codeToggle.checked = true;
-            passwordToggle.checked = false;
-        }
-
-        // Update form action, visibility, and buttons based on the selected toggle
-        updateFormAction();
-        updateFormVisibility();
-        updateButtonVisibility();
+            // Update form action, visibility, and buttons based on the selected toggle
+            updateFormAction();
+            updateFormVisibility();
+            updateButtonVisibility();
+        });
     });
-});
 
-function updateFormAction() {
-    const form = document.getElementById('login');
-    const passwordToggle = document.querySelector('input[name="toggle"][value="password"]');
-    const codeToggle = document.querySelector('input[name="toggle"][value="code"]');
-    const passwordField = document.getElementById('password');
+    function updateFormAction() {
+        const form = document.getElementById('login');
+        const passwordField = document.getElementById('password');
 
-    if (codeToggle.checked) {
-        console.log("Code is checked.");
-        // If the code option is selected
-        passwordField.removeAttribute('required');
-        form.action = 'code_process.php';
-    } else if (passwordToggle.checked) {
-        console.log("Password is checked.");
-        // If the password option is selected
-        passwordField.setAttribute('required', 'required');
-        form.action = 'login_process.php';
+        if (codeToggle.checked) {
+            // If the code option is selected
+            passwordField.removeAttribute('required');
+            form.action = 'code_process.php';
+            console.log("Code is checked.");
+        } else if (passwordToggle.checked) {
+            // If the password option is selected
+            passwordField.setAttribute('required', 'required');
+            form.action = 'login_process.php';
+            console.log("Password is checked.");
+        }
     }
-}
-
-
 });
 
 

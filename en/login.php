@@ -203,34 +203,13 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to update the form visibility and toggle required attribute based on toggle state
     function updateFormVisibility() {
         if (passwordToggle.checked) {
-            fadeIn(passwordForm);
-            fadeOut(codeForm);
+            passwordForm.style.visibility = 'visible';
+            codeForm.style.visibility = 'hidden';
         } else if (codeToggle.checked) {
-            fadeIn(codeForm);
-            fadeOut(passwordForm);
+            passwordForm.style.visibility = 'hidden';
+            codeForm.style.visibility = 'visible';
         }
     }
-
-
-    // Function to fade in an element
-    function fadeIn(element) {
-        element.style.display = 'block';  // Ensure the element is displayed
-        element.style.opacity = 0;  // Start with opacity 0
-        setTimeout(() => {
-            element.style.transition = 'opacity 0.3s';
-            element.style.opacity = 1;  // Transition to opacity 1
-        }, 10);  // Small delay to ensure display takes effect before transition
-    }
-
-    // Function to fade out an element
-    function fadeOut(element) {
-        element.style.opacity = 0;  // Transition to opacity 0
-        element.style.transition = 'opacity 0.3s';
-        setTimeout(() => {
-            element.style.display = 'none';  // After transition, hide the element
-        }, 300);  // Match this timeout with the transition duration
-    }
-
 
     // Function to update the visibility of the submit buttons
     function updateButtonVisibility() {
@@ -269,7 +248,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Initial setup based on default toggle selection
-
+    updateFormAction();
+    updateFormVisibility();
+    updateButtonVisibility();
 });
 
 

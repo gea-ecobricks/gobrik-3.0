@@ -141,6 +141,7 @@
             z-index: 0;
             box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2),
                         inset 0 -2px 5px rgba(0, 0, 0, 0.3);
+                        left: 0%;
         }
 
 
@@ -213,16 +214,6 @@
             display: none;
         }
 
-.toggle-container .login-slider {
-    position: absolute;
-    background-color: green;
-    border-radius: 25px;
-    width: 80%;
-    height: 100%;
-    transition: left 0.5s ease-in-out; /* Explicitly transition the 'left' property */
-    z-index: 0;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2),
-                inset 0 -2px 5px rgba(0, 0, 0, 0.3);
 }
 
 

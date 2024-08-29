@@ -71,18 +71,37 @@
 
 
 
+
+
 /* TOGGLE LOGIN SWITCH */
 
  .toggle-container {
             position: relative;
-            width: 350px;
-            height: 45px;
             background-color: grey;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
             margin: auto;
         }
+
+  @media screen and (max-width: 769px) {
+
+   .toggle-container {
+               width: 350px;
+            height: 45px;
+            }
+      }
+
+    @media screen and (max-width: 769px) {
+
+   .toggle-container {
+               width: 100%px;
+            height: 40px;
+            }
+
+      }
+
+
 
         .toggle-container input[type="radio"] {
             display: none;

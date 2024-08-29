@@ -103,7 +103,7 @@ echo '</script>';
     </div>
 
    <!-- Form starts here-->
-<form id="login" method="post" action="login_process.php">
+<form id="login" method="post" action="login_process.php" onsubmit="toggleFormProcessor(event)">
     <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
 
     <div class="form-item">
@@ -132,7 +132,7 @@ echo '</script>';
         <p class="form-caption" data-lang-id="003-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link" datala-lang-id="000-reset-it">Reset it.</a></p>
     </div>
 
-    <div class="form-item" id="code-form" style="text-align:center; display: none;height:80px;">
+    <div class="form-item" id="code-form" style="text-align:center; visibility:hidden;height:80px;">
         <div class="code-wrapper" style="position: relative;">
             <input type="text" maxlength="1" class="code-box" placeholder="-">
             <input type="text" maxlength="1" class="code-box" placeholder="-">
@@ -494,6 +494,36 @@ window.onload = function() {
         }, 100);
     }
 };
+
+
+ // Function to update the form action based on the toggle selection
+    function toggleFormProcessor(event) {
+        const passwordToggle = document.getElementById('password');
+        const form = document.getElementById('login');
+
+        if (passwordToggle.checked) {
+            form.action = 'login_process.php';
+        } else {
+            form.action = 'code_process.php';
+        }
+    }
+
+    // Event listeners for toggling between password and code forms
+    document.querySelectorAll('.toggle-button').forEach(button => {
+        button.addEventListener('click', () => {
+            // Check which button was clicked and update the corresponding radio button
+            if (button.classList.contains('password')) {
+                document.getElementById('password').checked = true;
+                document.getElementById('code').checked = false;
+            } else {
+                document.getElementById('code').checked = true;
+                document.getElementById('password').checked = false;
+            }
+            // Update form visibility and button visibility based on the selected radio button
+            updateFormVisibility();
+            updateButtonVisibility();
+        });
+    });
 
 </script>
 

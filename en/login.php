@@ -178,13 +178,17 @@ echo '</script>';
 <script>
 
 
-    document.addEventListener('DOMContentLoaded', function () {
+
+document.addEventListener('DOMContentLoaded', function () {
+    const credentialKey = document.getElementById('credential_key');
     const passwordForm = document.getElementById('password-form');
     const codeForm = document.getElementById('code-form');
+    const loginButtons = document.getElementById('login-buttons');
     const passwordToggle = document.getElementById('password');
     const codeToggle = document.getElementById('code');
     const submitPasswordButton = document.getElementById('submit-password-button');
     const sendCodeButton = document.getElementById('send-code-button');
+    const codeFields = document.querySelectorAll('.code-box');
     const form = document.getElementById('login');
 
     // Function to update the form action based on the toggle selection
@@ -207,16 +211,6 @@ echo '</script>';
         }
     }
 
-    // Function to update the visibility of the submit buttons
-    function updateButtonVisibility() {
-        if (passwordToggle.checked) {
-            fadeOut(sendCodeButton);
-            fadeIn(submitPasswordButton);
-        } else {
-            fadeOut(submitPasswordButton);
-            fadeIn(sendCodeButton);
-        }
-    }
 
     // Function to fade in an element
     function fadeIn(element) {
@@ -237,6 +231,26 @@ echo '</script>';
         }, 300);  // Match this timeout with the transition duration
     }
 
+
+    // Function to update the visibility of the submit buttons
+    function updateButtonVisibility() {
+        if (passwordToggle.checked) {
+            sendCodeButton.style.visibility = 'hidden';
+            sendCodeButton.style.opacity = '0';
+            submitPasswordButton.style.visibility = 'visible';
+            setTimeout(() => {
+                submitPasswordButton.style.opacity = '1';
+            }, 1000); // Delay for transition effect
+        } else {
+            submitPasswordButton.style.visibility = 'hidden';
+            submitPasswordButton.style.opacity = '0';
+            sendCodeButton.style.visibility = 'visible';
+            setTimeout(() => {
+                sendCodeButton.style.opacity = '1';
+            }, 1000); // Delay for transition effect
+        }
+    }
+
     // Event listener for toggle button clicks
     document.querySelectorAll('.toggle-button').forEach(button => {
         button.addEventListener('click', () => {
@@ -255,10 +269,9 @@ echo '</script>';
     });
 
     // Initial setup based on default toggle selection
-    updateFormAction();
-    updateFormVisibility();
-    updateButtonVisibility();
+
 });
+
 
 
 

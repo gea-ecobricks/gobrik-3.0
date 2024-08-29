@@ -152,7 +152,7 @@ echo '</script>';
             <div class="toggle-button code">📱</div>
             <div class="login-slider"></div>
             <input type="submit" id="submit-password-button" value="Login" class="login-button-75">
-<input type="button" id="send-code-button" value="📨 Send Code" class="code-button-75" style="display:none;">
+<input type="button" id="send-code-button" value="📨 Send Code" class="code-button-75" style="display:none;" onclick="submitCodeForm()">
         </div>
     </div>
 </form>
@@ -177,15 +177,7 @@ echo '</script>';
 
 <script>
 
-
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('login');
-    const sendCodeButton = document.getElementById('send-code-button');
-
-    // Event listener for the 'Send Code' button click
-    sendCodeButton.addEventListener('click', submitCodeForm);
-
-   function submitCodeForm(event) {
+function submitCodeForm(event) {
     event.preventDefault();
 
     const form = document.getElementById('login');

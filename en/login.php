@@ -178,56 +178,53 @@ echo '</script>';
 <script>
 
 
+// Function to update the form action based on the toggle selection
+function updateFormAction() {
+    const form = document.getElementById('login');
+    const passwordToggle = document.getElementById('password');
+
+    if (passwordToggle.checked) {
+        form.action = 'login_process.php';
+    } else {
+        form.action = 'code_process.php';
+    }
+}
 
 document.addEventListener('DOMContentLoaded', function () {
-    const credentialKey = document.getElementById('credential_key');
     const passwordForm = document.getElementById('password-form');
     const codeForm = document.getElementById('code-form');
-    const loginButtons = document.getElementById('login-buttons');
     const passwordToggle = document.getElementById('password');
     const codeToggle = document.getElementById('code');
     const submitPasswordButton = document.getElementById('submit-password-button');
     const sendCodeButton = document.getElementById('send-code-button');
-    const codeFields = document.querySelectorAll('.code-box');
-    const form = document.getElementById('login');
 
-    // Function to update the form action based on the toggle selection
-    function updateFormAction() {
+    // Function to update the form visibility and toggle required attribute based on toggle state
+    function updateFormVisibility() {
         if (passwordToggle.checked) {
-            form.action = 'login_process.php';
-        } else {
-            form.action = 'code_process.php';
+            // Fade out the code form and then hide it
+            codeForm.style.opacity = '0';
+            setTimeout(() => {
+                codeForm.style.display = 'none';
+                passwordForm.style.display = 'block';
+                // Fade in the password form
+                setTimeout(() => {
+                    passwordForm.style.opacity = '1';
+                }, 10);
+            }, 300); // Time for the fade-out transition
+
+        } else if (codeToggle.checked) {
+            // Fade out the password form and then hide it
+            passwordForm.style.opacity = '0';
+            setTimeout(() => {
+                passwordForm.style.display = 'none';
+                codeForm.style.display = 'block';
+                // Fade in the code form
+                setTimeout(() => {
+                    codeForm.style.opacity = '1';
+                }, 10);
+            }, 300); // Time for the fade-out transition
         }
     }
-
-// Function to update the form visibility and toggle required attribute based on toggle state
-function updateFormVisibility() {
-    if (passwordToggle.checked) {
-        // Fade out the code form and then hide it
-        codeForm.style.opacity = '0';
-        setTimeout(() => {
-            codeForm.style.display = 'none';
-            passwordForm.style.display = 'block';
-            // Fade in the password form
-            setTimeout(() => {
-                passwordForm.style.opacity = '1';
-            }, 10);
-        }, 300); // Time for the fade-out transition
-
-    } else if (codeToggle.checked) {
-        // Fade out the password form and then hide it
-        passwordForm.style.opacity = '0';
-        setTimeout(() => {
-            passwordForm.style.display = 'none';
-            codeForm.style.display = 'block';
-            // Fade in the code form
-            setTimeout(() => {
-                codeForm.style.opacity = '1';
-            }, 10);
-        }, 300); // Time for the fade-out transition
-    }
-}
-
 
     // Function to update the visibility of the submit buttons
     function updateButtonVisibility() {

@@ -152,7 +152,7 @@ echo '</script>';
             <div class="toggle-button code">📱</div>
             <div class="login-slider"></div>
             <input type="submit" id="submit-password-button" value="Login" class="login-button-75">
-            <input type="submit" id="send-code-button" value="📨 Send Code" class="code-button-75" style="display:none;">
+<input type="button" id="send-code-button" value="📨 Send Code" class="code-button-75" style="display:none;" onclick="submitCodeForm()">
         </div>
     </div>
 </form>
@@ -178,15 +178,38 @@ echo '</script>';
 <script>
 
 
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('login');
+    const sendCodeButton = document.getElementById('send-code-button');
 
+    // Event listener for the 'Send Code' button click
+    sendCodeButton.addEventListener('click', submitCodeForm);
 
-document.getElementById('send-code-button').addEventListener('click', function() {
-    console.log('Send Code Button Clicked');
+    function submitCodeForm() {
+        // Prevent the default form submission
+        event.preventDefault();
+
+        // Create a FormData object from the form
+        const formData = new FormData(form);
+
+        // Send the form data via fetch to 'code_process.php'
+        fetch('code_process.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text()) // or .json() if the server returns JSON
+        .then(data => {
+            console.log('Form submitted successfully:', data);
+            // You can redirect, show a message, or update the UI here
+        })
+        .catch(error => {
+            console.error('Error submitting form:', error);
+            // Handle the error (e.g., show an error message)
+        });
+    }
 });
 
-document.getElementById('login').addEventListener('submit', function(event) {
-    console.log('Form is being submitted');
-});
+
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -265,7 +288,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (codeToggle.checked) {
             // If the code option is selected
             passwordField.removeAttribute('required');
-            form.action = 'code_processack.php';
+            form.action = 'code_process.php';
             console.log("Code is checked.");
         } else if (passwordToggle.checked) {
             // If the password option is selected

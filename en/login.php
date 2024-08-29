@@ -177,27 +177,23 @@ echo '</script>';
 
 <script>
 
-
-// Function to update the form action based on the toggle selection
 function updateFormAction(event) {
     const form = document.getElementById('login');
-    const passwordToggle = document.getElementById('password');
+    const passwordToggle = document.querySelector('input[name="toggle"][value="password"]');
+    const codeToggle = document.querySelector('input[name="toggle"][value="code"]');
     const passwordField = document.getElementById('password');
-    const sendCodeButton = document.getElementById('send-code-button');
 
-    if (passwordToggle.checked) {
-        // If the password option is selected, set the action to login_process.php
-        form.action = 'login_process.php';
-        // Ensure the password field is required
-        passwordField.setAttribute('required', 'required');
-    } else {
-        // If the code option is selected, set the action to code_process.php
-        form.action = 'code_process.php';
-        // Remove the required attribute from the password field
+    if (codeToggle.checked) {
+        // If the code option is selected
         passwordField.removeAttribute('required');
+        form.action = 'code_process.php';
+    } else if (passwordToggle.checked) {
+        // If the password option is selected
+        passwordField.setAttribute('required', 'required');
+        form.action = 'login_process.php';
     }
-
 }
+
 
 
 document.addEventListener('DOMContentLoaded', function () {

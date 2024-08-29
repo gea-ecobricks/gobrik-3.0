@@ -176,7 +176,6 @@ echo '</script>';
 
 
 <script>
-
 function updateFormAction(event) {
     const form = document.getElementById('login');
     const passwordToggle = document.querySelector('input[name="toggle"][value="password"]');
@@ -184,15 +183,18 @@ function updateFormAction(event) {
     const passwordField = document.getElementById('password');
 
     if (codeToggle.checked) {
+        console.log("Code is checked.");
         // If the code option is selected
         passwordField.removeAttribute('required');
         form.action = 'code_process.php';
     } else if (passwordToggle.checked) {
+        console.log("Password is checked.");
         // If the password option is selected
         passwordField.setAttribute('required', 'required');
         form.action = 'login_process.php';
     }
 }
+
 
 
 
@@ -249,26 +251,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-/*
 
-    // Function to update the visibility of the submit buttons
-    function updateButtonVisibility() {
-        if (passwordToggle.checked) {
-            sendCodeButton.style.visibility = 'hidden';
-            sendCodeButton.style.opacity = '0';
-            submitPasswordButton.style.visibility = 'visible';
-            setTimeout(() => {
-                submitPasswordButton.style.opacity = '1';
-            }, 1000); // Delay for transition effect
-        } else {
-            submitPasswordButton.style.visibility = 'hidden';
-            submitPasswordButton.style.opacity = '0';
-            sendCodeButton.style.visibility = 'visible';
-            setTimeout(() => {
-                sendCodeButton.style.opacity = '1';
-            }, 1000); // Delay for transition effect
-        }
-    }*/
+
 
     // Event listener for toggle button clicks
     document.querySelectorAll('.toggle-button').forEach(button => {

@@ -123,7 +123,7 @@ echo '</script>';
     <div class="form-item" id="password-form" style="height:80px;">
         <div class="password-wrapper" style="position: relative;">
             <div data-lang-id="005-password-field-placeholder">
-                <input type="password" id="password" name="password" placeholder="Your password...">
+                <input type="password" id="password" name="password" placeholder="Your password..." required>
             </div>
             <span toggle="#password" class="toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔒</span>
         </div>
@@ -233,13 +233,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
             setTimeout(() => {
                 submitPasswordButton.style.display = 'block';
-            }, 800); // Delay for transition effect
+            }, 600); // Delay for transition effect
         } else {
             submitPasswordButton.style.display = 'none';
 
             setTimeout(() => {
                 sendCodeButton.style.display = 'block';
-            }, 800); // Delay for transition effect
+            }, 600); // Delay for transition effect
         }
     }
 

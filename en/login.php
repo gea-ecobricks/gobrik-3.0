@@ -177,7 +177,15 @@ echo '</script>';
 
 <script>
 
-function submitCodeForm(event) {
+
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('login');
+    const sendCodeButton = document.getElementById('send-code-button');
+
+    // Event listener for the 'Send Code' button click
+    sendCodeButton.addEventListener('click', submitCodeForm);
+
+   function submitCodeForm(event) {
     event.preventDefault();
 
     const form = document.getElementById('login');
@@ -212,6 +220,7 @@ function submitCodeForm(event) {
         console.error('Error submitting form:', error);
     });
 }
+
 
 
 

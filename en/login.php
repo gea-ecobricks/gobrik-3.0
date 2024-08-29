@@ -146,8 +146,8 @@ echo '</script>';
 
     <div style="text-align:center;width:100%;margin:auto;margin-top:30px;" id="login-buttons">
         <div class="toggle-container">
-            <input type="radio" id="password" name="toggle" checked>
-            <input type="radio" id="code" name="toggle">
+            <input type="radio" id="password" name="toggle" value="password" checked>
+            <input type="radio" id="code" name="toggle" value="code">
             <div class="toggle-button password">🔑</div>
             <div class="toggle-button code">📱</div>
             <div class="login-slider"></div>

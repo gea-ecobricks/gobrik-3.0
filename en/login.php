@@ -198,26 +198,25 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Function to update the visibility of the submit buttons
-    function updateButtonVisibility() {
-        if (passwordToggle.checked) {
-            sendCodeButton.classList.add('hidden');
-            sendCodeButton.style.opacity = '0';
-            submitPasswordButton.classList.remove('hidden');
-            setTimeout(() => {
-
-                submitPasswordButton.style.opacity = '1';
-            }, 1000); // 1 second delay
-        } else {
-            submitPasswordButton.style.opacity = '0';
-            submitPasswordButton.classList.add('hidden');
-            sendCodeButton.classList.remove('hidden');
-            setTimeout(() => {
-
-                sendCodeButton.style.opacity = '1';
-            }, 1000); // 1 second delay
-        }
+   // Function to update the visibility of the submit buttons
+function updateButtonVisibility() {
+    if (passwordToggle.checked) {
+        sendCodeButton.style.visibility = 'hidden';
+        sendCodeButton.style.opacity = '0';
+        submitPasswordButton.style.visibility = 'visible';
+        setTimeout(() => {
+            submitPasswordButton.style.opacity = '1';
+        }, 0); // No delay needed if visibility change happens instantly
+    } else {
+        submitPasswordButton.style.visibility = 'hidden';
+        submitPasswordButton.style.opacity = '0';
+        sendCodeButton.style.visibility = 'visible';
+        setTimeout(() => {
+            sendCodeButton.style.opacity = '1';
+        }, 0); // No delay needed if visibility change happens instantly
     }
+}
+
 
     // Event listeners for toggling between password and code forms
     document.querySelectorAll('.toggle-button').forEach(button => {

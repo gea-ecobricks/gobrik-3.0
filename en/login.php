@@ -141,7 +141,7 @@ echo '</script>';
             <input type="text" maxlength="1" class="code-box" placeholder="-">
         </div>
         <div id="code-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">👉 Code is wrong.</div>
-        <p class="form-caption" data-lang-id="003-forgot-your-password">Access code will be sent to email above.</p>
+        <p id="code-status" class="form-caption" data-lang-id="003-forgot-your-password" style="margin-top:5px;">Access code will be sent to email above.</p>
     </div>
 
     <div style="text-align:center;width:100%;margin:auto;margin-top:30px;" id="login-buttons">
@@ -233,13 +233,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
             setTimeout(() => {
                 submitPasswordButton.style.display = 'block';
-            }, 1000); // Delay for transition effect
+            }, 800); // Delay for transition effect
         } else {
             submitPasswordButton.style.display = 'none';
 
             setTimeout(() => {
                 sendCodeButton.style.display = 'block';
-            }, 1000); // Delay for transition effect
+            }, 800); // Delay for transition effect
         }
     }
 

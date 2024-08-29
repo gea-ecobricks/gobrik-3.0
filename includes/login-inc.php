@@ -236,11 +236,12 @@
     font-size: 2em;
     max-width: 3em;
     pointer-events: none; /* Prevent typing initially */
-    background-color: #f0f0f0; /* Give a visual cue that boxes are disabled */
-}
+    cursor: not-allowed;
+    opacity: 0.3;
+    }
 
 .code-box.enabled {
-    pointer-events: auto; /* Enable typing */
+    pointer: auto; /* Enable typing */
     background-color: #ffffff; /* Reset background when enabled */
 }
 

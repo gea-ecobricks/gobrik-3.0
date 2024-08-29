@@ -97,7 +97,7 @@
 
    .toggle-container {
             width: 100%;
-            height: 40px;
+            height: 45px;
             }
 
       }
@@ -233,8 +233,7 @@
 .code-box {
     text-align: center;
     font-family: 'Arvo', serif;
-    font-size: 2em;
-    max-width: 3em;
+
     pointer-events: none; /* Prevent typing initially */
     cursor: not-allowed;
     opacity: 0.3;

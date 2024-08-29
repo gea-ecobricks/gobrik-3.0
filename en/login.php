@@ -177,9 +177,8 @@ echo '</script>';
 
 <script>
 
-function submitCodeForm(event) {
-    event.preventDefault();
 
+function submitCodeForm() {
     const form = document.getElementById('login');
     const formData = new FormData(form);
 
@@ -190,8 +189,10 @@ function submitCodeForm(event) {
     .then(response => response.json())
     .then(data => {
         if (data.status === 'credfound') {
-            // Update the text in the div with id "code-status"
-            document.getElementById('code-status').innerText = 'Code has been sent! Check your email';
+            // Update the text in the div with id "code-status" and turn it green
+            const codeStatus = document.getElementById('code-status');
+            codeStatus.innerText = 'Code has been sent! Check your email';
+            codeStatus.style.color = 'green';
 
             // Update the CSS of the code-box
             const codeBox = document.getElementById('code-box');

@@ -176,7 +176,6 @@ echo '</script>';
 
 
 <script>
-
 document.addEventListener('DOMContentLoaded', function () {
     const credentialKey = document.getElementById('credential_key');
     const passwordForm = document.getElementById('password-form');
@@ -187,6 +186,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const submitPasswordButton = document.getElementById('submit-password-button');
     const sendCodeButton = document.getElementById('send-code-button');
     const codeFields = document.querySelectorAll('.code-box');
+    const form = document.getElementById('login');
+
+    // Function to update the form action based on the toggle selection
+    function updateFormAction() {
+        if (passwordToggle.checked) {
+            form.action = 'login_process.php';
+        } else {
+            form.action = 'code_process.php';
+        }
+    }
 
     // Function to update the form visibility and toggle required attribute based on toggle state
     function updateFormVisibility() {
@@ -199,30 +208,28 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-   // Function to update the visibility of the submit buttons
-function updateButtonVisibility() {
-    if (passwordToggle.checked) {
-        sendCodeButton.style.visibility = 'hidden';
-        sendCodeButton.style.opacity = '0';
-        submitPasswordButton.style.visibility = 'visible';
-        setTimeout(() => {
-            submitPasswordButton.style.opacity = '1';
-        }, 1000); // No delay needed if visibility change happens instantly
-    } else {
-        submitPasswordButton.style.visibility = 'hidden';
-        submitPasswordButton.style.opacity = '0';
-        sendCodeButton.style.visibility = 'visible';
-        setTimeout(() => {
-            sendCodeButton.style.opacity = '1';
-        }, 1000); // No delay needed if visibility change happens instantly
+    // Function to update the visibility of the submit buttons
+    function updateButtonVisibility() {
+        if (passwordToggle.checked) {
+            sendCodeButton.style.visibility = 'hidden';
+            sendCodeButton.style.opacity = '0';
+            submitPasswordButton.style.visibility = 'visible';
+            setTimeout(() => {
+                submitPasswordButton.style.opacity = '1';
+            }, 1000); // Delay for transition effect
+        } else {
+            submitPasswordButton.style.visibility = 'hidden';
+            submitPasswordButton.style.opacity = '0';
+            sendCodeButton.style.visibility = 'visible';
+            setTimeout(() => {
+                sendCodeButton.style.opacity = '1';
+            }, 1000); // Delay for transition effect
+        }
     }
-}
 
-
-    // Event listeners for toggling between password and code forms
+    // Event listener for toggle button clicks
     document.querySelectorAll('.toggle-button').forEach(button => {
         button.addEventListener('click', () => {
-            // Check which button was clicked and update the corresponding radio button
             if (button.classList.contains('password')) {
                 passwordToggle.checked = true;
                 codeToggle.checked = false;
@@ -230,15 +237,19 @@ function updateButtonVisibility() {
                 codeToggle.checked = true;
                 passwordToggle.checked = false;
             }
-            // Update form visibility and button visibility based on the selected radio button
+            // Update form action, visibility, and buttons based on the selected toggle
+            updateFormAction();
             updateFormVisibility();
             updateButtonVisibility();
         });
     });
 
-
-
+    // Initial setup based on default toggle selection
+    updateFormAction();
+    updateFormVisibility();
+    updateButtonVisibility();
 });
+
 
 
 
@@ -496,34 +507,8 @@ window.onload = function() {
 };
 
 
- // Function to update the form action based on the toggle selection
-    function toggleFormProcessor(event) {
-        const passwordToggle = document.getElementById('password');
-        const form = document.getElementById('login');
 
-        if (passwordToggle.checked) {
-            form.action = 'login_process.php';
-        } else {
-            form.action = 'code_process.php';
-        }
-    }
 
-    // Event listeners for toggling between password and code forms
-    document.querySelectorAll('.toggle-button').forEach(button => {
-        button.addEventListener('click', () => {
-            // Check which button was clicked and update the corresponding radio button
-            if (button.classList.contains('password')) {
-                document.getElementById('password').checked = true;
-                document.getElementById('code').checked = false;
-            } else {
-                document.getElementById('code').checked = true;
-                document.getElementById('password').checked = false;
-            }
-            // Update form visibility and button visibility based on the selected radio button
-            updateFormVisibility();
-            updateButtonVisibility();
-        });
-    });
 
 </script>
 

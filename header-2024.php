@@ -52,9 +52,9 @@
 
 <link rel="stylesheet" type="text/css" href="../styles/mode-slider.css?v=3">
 <link rel="stylesheet" type="text/css" href="../styles/content-2024.css?v=<?php echo ($version); ;?>3">
-<!--
+
 <link rel="stylesheet" type="text/css" href="../styles/main.css?v=<?php echo ($version); ;?>">
--->
+
 <!--Default Light Styles to load first-->
 <link rel="preload" href="../styles/mode-light.css?v=<?php echo ($version); ;?>" as="style" onload="this.rel='stylesheet'">
  <!--Stylesheets for light and dark mode.  They need to be called here-->

@@ -75,7 +75,7 @@
 
  .toggle-container {
             position: relative;
-            width: 400px;
+            width: 350px;
             height: 45px;
             background-color: grey;
             border-radius: 20px;
@@ -104,19 +104,19 @@
 
         .toggle-button.password {
             left: 0;
-            width: 75%; /* Initial width */
+            width: 80%; /* Initial width */
             text-align: center;
         }
         .toggle-button.code {
             right: 0;
-            width: 25%; /* Initial width */
+            width: 20%; /* Initial width */
             text-align: center;
         }
         .toggle-container .slider {
             position: absolute;
             background-color: green;
             border-radius: 25px;
-            width: 75%;
+            width: 80%;
             height: 100%;
             transition: all 0.5s ease-in-out;
             z-index: 0;
@@ -128,23 +128,23 @@
             left: 0;
         }
         #code:checked ~ .slider {
-            left: 25%;
+            left: 20%;
         }
         #password:checked ~ .toggle-button.password {
             opacity: 1;
-            width: 75%; /* Reduced width when selected */
+            width: 80%; /* Reduced width when selected */
         }
         #password:checked ~ .toggle-button.code {
             opacity: 0.25;
-            width: 25%; /* Expanded width when the other option is selected */
+            width: 20%; /* Expanded width when the other option is selected */
         }
         #code:checked ~ .toggle-button.code {
             opacity: 1;
-            width: 75%; /* Reduced width when selected */
+            width: 80%; /* Reduced width when selected */
         }
         #code:checked ~ .toggle-button.password {
             opacity: 0.25;
-            width: 25%; /* Expanded width when the other option is selected */
+            width: 20%; /* Expanded width when the other option is selected */
         }
 
         /* New Button Styles */

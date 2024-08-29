@@ -148,10 +148,10 @@ echo '</script>';
         <div class="toggle-container">
             <input type="radio" id="password" name="toggle" checked>
             <input type="radio" id="code" name="toggle">
-            <div class="toggle-button password">🔑 Pass</div>
-            <div class="toggle-button code">🕵️‍♂️ Code</div>
+            <div class="toggle-button password">🔑</div>
+            <div class="toggle-button code">🕵📲</div>
             <div class="slider"></div>
-            <input type="submit" id="submit-password-button" value="🔑 Password Login" class="login-button-75">
+            <input type="submit" id="submit-password-button" value="Login" class="login-button-75">
             <input type="submit" id="send-code-button" value="📨 Send Code" class="code-button-75" style="display:none;">
         </div>
     </div>

@@ -103,7 +103,7 @@ echo '</script>';
     </div>
 
    <!-- Form starts here-->
-<form id="login" method="post" action="login_process.php" onsubmit="updateFormAction(event)">
+<form id="login" method="post" action="login_process.php">
     <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
 
     <div class="form-item">
@@ -123,7 +123,7 @@ echo '</script>';
     <div class="form-item" id="password-form" style="height:80px;">
         <div class="password-wrapper" style="position: relative;">
             <div data-lang-id="005-password-field-placeholder">
-                <input type="password" id="password" name="password" placeholder="Your password...">
+                <input type="password" id="password" name="password" placeholder="Your password..." required>
             </div>
             <span toggle="#password" class="toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔒</span>
         </div>
@@ -176,27 +176,23 @@ echo '</script>';
 
 
 <script>
+
 function updateFormAction(event) {
     const form = document.getElementById('login');
+    const passwordToggle = document.querySelector('input[name="toggle"][value="password"]');
+    const codeToggle = document.querySelector('input[name="toggle"][value="code"]');
     const passwordField = document.getElementById('password');
-    const submitPasswordButton = document.getElementById('submit-password-button');
-    const sendCodeButton = document.getElementById('send-code-button');
 
-    // Check which button was clicked
-    if (event.submitter === submitPasswordButton) {
-        // If the password submit button is clicked
-        passwordField.setAttribute('required', 'required');
-        passwordField.removeAttribute('disabled');  // Ensure it can be focused
-        form.action = 'login_process.php';
-    } else if (event.submitter === sendCodeButton) {
-        // If the send code button is clicked
+    if (codeToggle.checked) {
+        // If the code option is selected
         passwordField.removeAttribute('required');
-        passwordField.setAttribute('disabled', 'disabled');  // Prevent it from being focused
         form.action = 'code_process.php';
+    } else if (passwordToggle.checked) {
+        // If the password option is selected
+        passwordField.setAttribute('required', 'required');
+        form.action = 'login_process.php';
     }
 }
-
-
 
 
 
@@ -285,6 +281,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 passwordToggle.checked = false;
             }
             // Update form action, visibility, and buttons based on the selected toggle
+            updateFormAction();
             updateFormVisibility();
             updateButtonVisibility();
         });

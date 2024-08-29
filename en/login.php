@@ -123,7 +123,7 @@ echo '</script>';
     <div class="form-item" id="password-form" style="height:80px;">
         <div class="password-wrapper" style="position: relative;">
             <div data-lang-id="005-password-field-placeholder">
-                <input type="password" id="password" name="password" placeholder="Your password...">
+                <input type="password" id="password" name="password" placeholder="Your password..." required>
             </div>
             <span toggle="#password" class="toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">🔒</span>
         </div>
@@ -187,8 +187,6 @@ function updateFormAction() {
         form.action = 'login_process.php';
     } else {
         form.action = 'code_process.php';
-            alert("hello!")
-
     }
 }
 
@@ -277,6 +275,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 passwordToggle.checked = false;
             }
             // Update form action, visibility, and buttons based on the selected toggle
+            updateFormAction();
             updateFormVisibility();
             updateButtonVisibility();
         });

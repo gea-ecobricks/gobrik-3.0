@@ -186,6 +186,7 @@ function updateFormAction() {
     if (passwordToggle.checked) {
         form.action = 'login_process.php';
     } else {
+    alert("hello!");
         form.action = 'code_process.php';
     }
 }

@@ -238,6 +238,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 1000); // Delay for transition effect
         } else {
             submitPasswordButton.style.visibility = 'hidden';
+            submitPasswordButton.style.display = 'none';
             submitPasswordButton.style.opacity = '0';
             sendCodeButton.style.visibility = 'visible';
             setTimeout(() => {

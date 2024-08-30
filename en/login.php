@@ -154,10 +154,10 @@ echo '</script>';
             <div class="toggle-button code">📱</div>
             <div class="login-slider"></div>
             <input type="submit" id="submit-password-button" value="Login" class="login-button-75">
-<input type="button" id="send-code-button" value="📨 Send Code" class="code-button-75" style="display:none;" onclick="submitCodeForm(event)">
-        <div id="code-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 5px;margin-bottom:-15px;">👉 Code is wrong.</div>
+            <input type="button" id="send-code-button" value="📨 Send Code" class="code-button-75" style="display:none;" onclick="submitCodeForm(event)">
 
         </div>
+            <div id="code-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 5px;margin-bottom:-15px;">👉 Code is wrong.</div>
     </div>
 </form>
 

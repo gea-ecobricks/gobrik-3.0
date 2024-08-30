@@ -259,7 +259,7 @@ function submitCodeForm(event) {
 function resendCountDown(seconds, displayElement, sendCodeButton) {
     let remaining = seconds;
     const interval = setInterval(() => {
-        displayElement.textContent = Resend code in ${remaining--} seconds.;
+        displayElement.textContent = `Resend code in ${remaining--} seconds.`;
         if (remaining < 0) {
             clearInterval(interval);
             displayElement.textContent = 'You can now resend the code.';

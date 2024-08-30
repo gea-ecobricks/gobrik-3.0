@@ -20,7 +20,7 @@ if (empty($_SESSION['csrf_token'])) {
 // VERSION Set page variables
 
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.695';
+$version = '0.696';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -100,7 +100,7 @@ echo '</script>';
 
     <div style="text-align:center;width:100%;margin:auto;" >
         <h3 id="status-message">Login to your account</h3>
-        <h4 id="sub-status-message">Please signin with your account credentials.</h4>
+        <div id="sub-status-message">Please signin with your account credentials.</div>
     </div>
 
    <!-- Form starts here-->

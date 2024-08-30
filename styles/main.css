@@ -2152,12 +2152,15 @@ color: var(--text-color);
     z-index:35;
     position: absolute;
     text-align: center;
+    width: 100%;
 
   }
 
 .sub-status-message {
   margin-top: 0px;
   margin-button:0px;
+  font-family: 'Arvo', serif;
+  color: var(--text-color);
   }
 
 .splash-title-block {
@@ -2176,7 +2179,7 @@ z-index:5;
       .top-page-image {
        height: 125px;
        margin-top:85px;
-       width:85%;
+
       }
 
   .landing-page-form {
@@ -2197,7 +2200,7 @@ padding-top:55px;
   .top-page-image {
    height: 170px;
    margin-top:70px;
-    width: 100%;
+
   }
 
   .landing-page-form {

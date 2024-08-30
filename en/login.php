@@ -201,10 +201,13 @@ function submitCodeForm(event) {
 
             const codeErrorDiv = document.getElementById('code-error');
             const codeStatusDiv = document.getElementById('code-status');
+            const codeBox = document.querySelector('.code-box');  // Select the element with the class 'code-box'
 
             // Clear any previous messages
             codeErrorDiv.textContent = '';
             codeStatusDiv.textContent = '';
+            codeErrorDiv.style.display = 'none';
+            codeStatusDiv.style.display = 'none';
             codeStatusDiv.style.color = '';  // Reset text color
 
             if (data.status === 'empty_fields') {
@@ -214,25 +217,29 @@ function submitCodeForm(event) {
                 window.location.href = data.redirect;
             } else if (data.status === 'not_found') {
                 codeErrorDiv.textContent = 'Sorry, no matching email was found.';
-                codeStatusDiv.textContent = '';  // Clear any status message
+                codeErrorDiv.style.display = 'block';  // Ensure the error div is visible
             } else if (data.status === 'credfound') {
                 codeStatusDiv.textContent = 'Code sent by email!';
                 codeStatusDiv.style.color = 'green';  // Set text color to green
+                codeStatusDiv.style.display = 'block';  // Ensure the status div is visible
+
+                // Set the CSS parameters for the code-box class
+                if (codeBox) {
+                    codeBox.style.pointerEvents = 'auto';
+                    codeBox.style.cursor = 'text';
+                    codeBox.style.opacity = '1';
+                }
             } else if (data.status === 'crednotfound') {
                 codeErrorDiv.textContent = 'Sorry, no matching email was found.';
-                codeStatusDiv.textContent = '';  // Clear any status message
+                codeErrorDiv.style.display = 'block';  // Ensure the error div is visible
             } else if (data.status === 'error') {
-                console.error(data.message);
                 alert('An error occurred. Please try again later.');
             }
         } catch (error) {
-            console.error('Error parsing JSON:', error);
-            console.error('Raw response:', text);  // Log the raw response for debugging
             alert('An unexpected error occurred.');
         }
     })
     .catch(error => {
-        console.error('Fetch error:', error);
         alert('An unexpected error occurred.');
     });
 }

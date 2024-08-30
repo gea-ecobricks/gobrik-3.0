@@ -182,7 +182,6 @@ echo '</script>';
 /* SEND TO CODE_PROCESS.php
 If the user opts to uses 2FA then the code-submit-button sends their email to code_process.  This checks to see if the user's email exists in gobrik and if its been buwana activated.  If not, the user is redirected to avticate their account.  If the account exists, the access code is generated and saved to creadentials_tb in the buwana database.key
 */
-
 function submitCodeForm(event) {
     event.preventDefault();  // Prevent the default form submission
 
@@ -215,11 +214,15 @@ function submitCodeForm(event) {
 
             if (data.status === 'empty_fields') {
                 alert('Please enter your credential key.');
+                sendCodeButton.value = "📨 Send Code";
+                sendCodeButton.disabled = false;
             } else if (data.status === 'activation_required') {
                 window.location.href = data.redirect || `activate.php?id=${data.id}`;  // Fallback to constructing URL here
-            } else if (data.status === 'not_found') {
+            } else if (data.status === 'not_found' || data.status === 'crednotfound') {
                 codeErrorDiv.textContent = 'Sorry, no matching email was found.';
                 codeErrorDiv.style.display = 'block';
+                sendCodeButton.value = "📨 Send Code Again";
+                sendCodeButton.disabled = false;
             } else if (data.status === 'credfound') {
                 sendCodeButton.value = "✅ Code sent!";
                 codeStatusDiv.textContent = 'Resend code in 60 seconds.';
@@ -232,20 +235,25 @@ function submitCodeForm(event) {
                     codeBox.style.cursor = 'text';
                     codeBox.style.opacity = '1';
                 });
-            } else if (data.status === 'crednotfound') {
-                codeErrorDiv.textContent = 'Sorry, no matching email was found.';
-                codeErrorDiv.style.display = 'block';
             } else {
                 alert('An error occurred. Please try again later.');
+                sendCodeButton.value = "📨 Send Code Again";
+                sendCodeButton.disabled = false;
             }
         } catch (error) {
             alert('An unexpected error occurred.');
+            sendCodeButton.value = "📨 Send Code Again";
+            sendCodeButton.disabled = false;
         }
     })
     .catch(error => {
         alert('An unexpected error occurred.');
+        sendCodeButton.value = "📨 Send Code Again";
+        sendCodeButton.disabled = false;
     });
 }
+
+
 
 
 function resendCountDown(seconds, displayElement, sendCodeButton) {

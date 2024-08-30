@@ -122,7 +122,7 @@
 
         .toggle-button.password {
             left: 0%;
-            width: 9%; /* Initial width */
+            width: 85%; /* Initial width */
             text-align: center;
         }
         .toggle-button.code {
@@ -154,11 +154,11 @@
 
         #password:checked ~ .toggle-button.password {
             opacity: 1;
-            width: 15%; /* Reduced width when selected */
+            width: 85%; /* Reduced width when selected */
         }
         #password:checked ~ .toggle-button.code {
             opacity: 0.8;
-            width: 85%; /* Expanded width when the other option is selected */
+            width: 15%; /* Expanded width when the other option is selected */
         }
         #code:checked ~ .toggle-button.code {
             opacity: 1;

@@ -9,7 +9,6 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require '../vendor/autoload.php'; // Path to PHPMailer
-// require 'confirm_code.php'; // Include the sendVerificationCode function
 
 // Initialize variables
 $ecobricker_id = $_GET['id'] ?? null;

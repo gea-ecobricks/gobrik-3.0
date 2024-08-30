@@ -88,11 +88,10 @@ if ($stmt_check_email) {
 }
 
 
-
 // PART 4: Consult Buwana Credential Table
 require_once("../buwanaconn_env.php");
 
-$sql_credential = "SELECT buwana_id, 2fa_issued_count, credential_key AS email_addr FROM credentials_tb WHERE credential_key = ?";
+$sql_credential = "SELECT buwana_id, 2fa_issued_count, credential_key FROM credentials_tb WHERE credential_key = ?";
 $stmt_credential = $buwana_conn->prepare($sql_credential);
 if ($stmt_credential) {
     $stmt_credential->bind_param('s', $credential_key);
@@ -100,7 +99,7 @@ if ($stmt_credential) {
     $stmt_credential->store_result();
 
     if ($stmt_credential->num_rows === 1) {
-        $stmt_credential->bind_result($buwana_id, $issued_count, $credential_key);
+        $stmt_credential->bind_result($buwana_id, $issued_count, $email_addr);
         $stmt_credential->fetch();
         $stmt_credential->close();
 
@@ -117,17 +116,18 @@ if ($stmt_credential) {
             if ($stmt_update->execute()) {
                 $stmt_update->close();
 
-                // Send the verification code email
-                if (sendVerificationCode($email_addr, $temp_code, $buwana_id)) {
-                    $response['status'] = 'credfound';
-                    echo json_encode($response);
-                    exit();
-                } else {
-                    $response['status'] = 'email_error';
-                    $response['message'] = 'Failed to send the email verification code.';
-                    echo json_encode($response);
-                    exit();
-                }
+             // Send the verification code email using credential_key instead of email_addr
+            if (sendVerificationCode($credential_key, $temp_code, $buwana_id)) {
+                $response['status'] = 'credfound';
+                echo json_encode($response);
+                exit();
+            } else {
+                $response['status'] = 'email_error';
+                $response['message'] = 'Failed to send the email verification code.';
+                echo json_encode($response);
+                exit();
+            }
+
             } else {
                 file_put_contents('debug.log', "SQL Update Execution Error: " . $stmt_update->error . "\n", FILE_APPEND);
                 $response['status'] = 'error';
@@ -148,6 +148,7 @@ if ($stmt_credential) {
         echo json_encode($response);
         exit();
     }
+
 } else {
     file_put_contents('debug.log', "SQL Credential Prep Error: " . $buwana_conn->error . "\n", FILE_APPEND);
     $response['status'] = 'error';

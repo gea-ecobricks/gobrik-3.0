@@ -142,7 +142,7 @@ echo '</script>';
             <input type="text" maxlength="1" class="code-box" placeholder="-">
         </div>
     <p id="code-status" class="form-caption" data-lang-id="003-forgot-your-password" style="margin-top:5px;">A code will be sent to your email.</p>
-        <div id="code-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">👉 Code is wrong.</div>
+        <div id="code-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 5px;margin-bottom:-15px;">👉 Code is wrong.</div>
 
     </div>
 

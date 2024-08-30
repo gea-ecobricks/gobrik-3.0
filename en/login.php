@@ -177,7 +177,6 @@ echo '</script>';
 
 
 <script>
-
 function submitCodeForm(event) {
     event.preventDefault();
 
@@ -192,10 +191,15 @@ function submitCodeForm(event) {
             'credential_key': credentialKey
         })
     })
-    .then(response => response.text())  // Get the raw response as text
+    .then(response => {
+        console.log(response);  // Debugging: log the entire response object
+        return response.text();
+    })
     .then(text => {
+        console.log('Raw response text:', text);  // Log the raw text for debugging
         try {
-            const data = JSON.parse(text);  // Attempt to parse the text as JSON
+            const data = JSON.parse(text);
+            console.log('Parsed JSON:', data);  // Log parsed JSON for debugging
             if (data.status === 'empty_fields') {
                 alert('Please enter your credential key.');
             } else if (data.status === 'activation_required') {
@@ -212,7 +216,6 @@ function submitCodeForm(event) {
             }
         } catch (error) {
             console.error('Error parsing JSON:', error);
-            console.error('Raw response:', text);  // Log the raw response for debugging
             alert('An unexpected error occurred.');
         }
     })

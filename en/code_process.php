@@ -2,18 +2,21 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$response = array(); // Array to store the response
+// Debugging: log the incoming POST data
+file_put_contents('debug.log', "code_process.php called with data: " . json_encode($_POST) . "\n", FILE_APPEND);
 
-// PART 1: Grab user credentials from the login form submission
+$response = array();
 $credential_key = $_POST['credential_key'] ?? '';
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 
 if (empty($credential_key)) {
     $response['status'] = 'empty_fields';
-    $response['message'] = 'Credential key is missing';
     echo json_encode($response);
     exit();
 }
+
+// Debugging: log the current stage
+file_put_contents('debug.log', "After credential key check: $credential_key\n", FILE_APPEND);
+
 
 // PART 2: GoBrik Account validation
 

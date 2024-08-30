@@ -89,6 +89,8 @@ if ($stmt_check_email) {
 
 // PART 4: Consult Buwana Credential Table
 
+require_once ("../buwanaconn_env.php");
+
 $sql_credential = "SELECT buwana_id, 2fa_issued_count FROM credentials_tb WHERE credential_key = ?";
 $stmt_credential = $buwana_conn->prepare($sql_credential);
 if ($stmt_credential) {
@@ -101,48 +103,49 @@ if ($stmt_credential) {
         $stmt_credential->fetch();
         $stmt_credential->close();
 
-        $temp_code = substr(str_shuffle("0123456789"), 0, 5); // Generate a 5-digit code
+        // Generate a new 2FA temporary code
+        $temp_code = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 6);
         $issued_datetime = date('Y-m-d H:i:s');
         $new_issued_count = $issued_count + 1;
 
-        $sql_update = "UPDATE credentials_tb SET 2fa_temp_code = ?, 2fa_code_issued = ?, 2fa_issued_count = ? WHERE buwana_id = ?";
+        // Update the credentials_tb with new 2FA details
+        $sql_update = "UPDATE credentials_tb SET
+                       2fa_temp_code = ?,
+                       2fa_code_issued = ?,
+                       2fa_issued_count = ?
+                       WHERE buwana_id = ?";
         $stmt_update = $buwana_conn->prepare($sql_update);
         if ($stmt_update) {
             $stmt_update->bind_param('ssii', $temp_code, $issued_datetime, $new_issued_count, $buwana_id);
             $stmt_update->execute();
             $stmt_update->close();
 
-            // Attempt to send the verification code via email
-            if (sendVerificationCode($credential_key, $temp_code)) {
-                $response['status'] = 'credfound';
-                $response['buwana_id'] = $buwana_id;
-                $response['2fa_code'] = $temp_code;
-                echo json_encode($response);
-            } else {
-                $response['status'] = 'email_error';
-                $response['message'] = 'Failed to send email';
-                echo json_encode($response);
-            }
+            $response['status'] = 'credfound';
+            $response['buwana_id'] = $buwana_id;
+            $response['2fa_code'] = $temp_code; // Optionally return the code in the response
+            echo json_encode($response);
             exit();
         } else {
             $response['status'] = 'error';
-            $response['message'] = 'Failed to update 2FA details';
+            $response['message'] = 'Failed to update 2FA details: ' . $buwana_conn->error;
             echo json_encode($response);
             exit();
         }
     } else {
         $response['status'] = 'crednotfound';
+        $response['message'] = 'Credential not found';
         echo json_encode($response);
         exit();
     }
 } else {
     $response['status'] = 'error';
+    $response['message'] = 'Error preparing statement for credentials_tb: ' . $buwana_conn->error;
     echo json_encode($response);
     exit();
 }
 
+// Close the database connections
 $buwana_conn->close();
 $gobrik_conn->close();
 
-?>
 ?>

@@ -1,4 +1,7 @@
 session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 $response = array(); // Array to store the response
 
 // PART 1: Grab user credentials from the login form submission

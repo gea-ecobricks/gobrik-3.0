@@ -261,19 +261,10 @@
 }
 
 form input:focus {
-    border: 2px solid #160E21;
+/*     border: 2px solid #160E21; */
     box-shadow: 0px 0px 8px 4px #78F4F4;
 }
 
-
-
-
-
-form input:focus {
-  border: 2px solid #160E21;
-  box-shadow: 0px 0px 8px 4px #78F4F4;
-
-  }
 
 
 #password-form, #code-form {

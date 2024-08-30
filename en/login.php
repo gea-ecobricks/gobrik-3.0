@@ -133,7 +133,7 @@ echo '</script>';
     </div>
 
     <div class="form-item" id="code-form" style="text-align:center;height:80px;">
-        <p id="code-status" class="form-caption" data-lang-id="003-forgot-your-password" style="margin-top:5px;">A code will be sent to your email.</p>
+
         <div class="code-wrapper" style="position: relative;">
             <input type="text" maxlength="1" class="code-box" placeholder="-">
             <input type="text" maxlength="1" class="code-box" placeholder="-">
@@ -141,6 +141,7 @@ echo '</script>';
             <input type="text" maxlength="1" class="code-box" placeholder="-">
             <input type="text" maxlength="1" class="code-box" placeholder="-">
         </div>
+    <p id="code-status" class="form-caption" data-lang-id="003-forgot-your-password" style="margin-top:5px;">A code will be sent to your email.</p>
         <div id="code-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">👉 Code is wrong.</div>
 
     </div>
@@ -179,9 +180,8 @@ echo '</script>';
 
 <script>
 
-
 function submitCodeForm(event) {
-    event.preventDefault();
+    event.preventDefault();  // Prevent the default form submission
 
     const credentialKey = document.getElementById('credential_key').value;
 
@@ -198,16 +198,29 @@ function submitCodeForm(event) {
     .then(text => {
         try {
             const data = JSON.parse(text);  // Attempt to parse the text as JSON
+
+            const codeErrorDiv = document.getElementById('code-error');
+            const codeStatusDiv = document.getElementById('code-status');
+
+            // Clear any previous messages
+            codeErrorDiv.textContent = '';
+            codeStatusDiv.textContent = '';
+            codeStatusDiv.style.color = '';  // Reset text color
+
             if (data.status === 'empty_fields') {
                 alert('Please enter your credential key.');
             } else if (data.status === 'activation_required') {
+                // Redirect the user to the activation page
                 window.location.href = data.redirect;
             } else if (data.status === 'not_found') {
-                alert('Email not found. Please check your entry.');
+                codeErrorDiv.textContent = 'Sorry, no matching email was found.';
+                codeStatusDiv.textContent = '';  // Clear any status message
             } else if (data.status === 'credfound') {
-                alert('Credential found. Proceeding...');
+                codeStatusDiv.textContent = 'Code sent by email!';
+                codeStatusDiv.style.color = 'green';  // Set text color to green
             } else if (data.status === 'crednotfound') {
-                alert('Credential not found. Please try again.');
+                codeErrorDiv.textContent = 'Sorry, no matching email was found.';
+                codeStatusDiv.textContent = '';  // Clear any status message
             } else if (data.status === 'error') {
                 console.error(data.message);
                 alert('An error occurred. Please try again later.');

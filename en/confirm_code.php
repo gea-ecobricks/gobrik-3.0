@@ -88,63 +88,38 @@ if ($stmt_check_email) {
 }
 
 // PART 4: Check Buwana Database for the credential
+// PART 4: Check Buwana Database for the credential
 require_once("../buwanaconn_env.php");
 
-// Prepare and execute SQL to fetch buwana_id and 2fa_issued_count where credential_key matches
-$sql_credential = "SELECT buwana_id, 2fa_issued_count FROM credentials_tb WHERE credential_key = ?";
+// Prepare the SQL statement to check for the existence of the credential_key
+$sql_credential = "SELECT buwana_id FROM credentials_tb WHERE credential_key = ?";
 $stmt_credential = $buwana_conn->prepare($sql_credential);
 if ($stmt_credential) {
     $stmt_credential->bind_param('s', $credential_key);
     $stmt_credential->execute();
     $stmt_credential->store_result();
 
+    // Check if the credential_key exists in the database
     if ($stmt_credential->num_rows === 1) {
-        $stmt_credential->bind_result($buwana_id, $issued_count);
+        $stmt_credential->bind_result($buwana_id);
         $stmt_credential->fetch();
         $stmt_credential->close();
 
-        // Generate a new 2FA temporary code and update the credentials table
-        $temp_code = generateCode(); // 5-character code
-        $issued_datetime = date('Y-m-d H:i:s');
-        $new_issued_count = $issued_count + 1;
-
-        $sql_update = "UPDATE credentials_tb SET 2fa_temp_code = ?, 2fa_code_issued = ?, 2fa_issued_count = ? WHERE buwana_id = ?";
-        $stmt_update = $buwana_conn->prepare($sql_update);
-        if ($stmt_update) {
-            $stmt_update->bind_param('ssii', $temp_code, $issued_datetime, $new_issued_count, $buwana_id);
-            if ($stmt_update->execute()) {
-                $stmt_update->close();
-
-                // Send the verification code email
-                if (sendVerificationCode($credential_key, $temp_code, $buwana_id)) {
-                    $response['status'] = 'credfound';
-                    echo json_encode($response);
-                    exit();
-                } else {
-                    $response['status'] = 'email_error';
-                    $response['message'] = 'Failed to send the email verification code.';
-                    echo json_encode($response);
-                    exit();
-                }
-            } else {
-                $response['status'] = 'error';
-                $response['message'] = 'Failed to update 2FA details: ' . $stmt_update->error;
-                echo json_encode($response);
-                exit();
-            }
-        } else {
-            $response['status'] = 'error';
-            $response['message'] = 'Failed to prepare SQL update: ' . $buwana_conn->error;
-            echo json_encode($response);
-            exit();
-        }
+        // Credential found, respond with credfound status
+        $response['status'] = 'credfound';
+        $response['buwana_id'] = $buwana_id; // Optionally return the buwana_id
+        echo json_encode($response);
+        exit();
     } else {
+        // No credential found with the given key
         $stmt_credential->close();
         $response['status'] = 'crednotfound';
         echo json_encode($response);
         exit();
     }
 } else {
+    // SQL preparation failed, log the error and respond
+    file_put_contents('debug.log', "SQL Prep Error: " . $buwana_conn->error . "\n", FILE_APPEND);
     $response['status'] = 'error';
     $response['message'] = 'Error preparing statement for credentials_tb: ' . $buwana_conn->error;
     echo json_encode($response);

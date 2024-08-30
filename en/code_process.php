@@ -47,15 +47,16 @@ function sendVerificationCode($email_addr, $login_code, $buwana_id) {
 
         $mail->isHTML(true);
         $mail->Subject = 'GoBrik Login Code';
-        $mail->Body    = "Hello $first_name,<br><br>Your code to login to your account is: <b>$login_code</b><br><br>Return to your browser and enter the code or click this link to login directly:<br><a href='https://beta.gobrik.com/login.php?code=$buwana_id+$login_code'>Login Now</a><br><br>The GoBrik team";
+        $mail->Body = "Hello,<br><br>Your code to login to your account is: <b>$login_code</b><br><br>Return to your browser and enter the code or click this link to login directly:<br><br>https://beta.gobrik.com/login.php?code=$buwana_id+$login_code<br><br>The GoBrik team";
 
         $mail->send();
         return true;
     } catch (Exception $e) {
-        file_put_contents('mail_error.log', $e->getMessage());
+        file_put_contents('mail_error.log', "Mailer Error: " . $e->getMessage() . "\n", FILE_APPEND); // Log detailed error
         return false;
     }
 }
+
 
 // PART 3 Check GoBrik to see if user account is activated.
 $sql_check_email = "SELECT ecobricker_id, buwana_activated, email_addr, first_name FROM tb_ecobrickers WHERE email_addr = ?";

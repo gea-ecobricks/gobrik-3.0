@@ -143,7 +143,6 @@ echo '</script>';
             <input type="text" maxlength="1" class="code-box" placeholder="-">
         </div>
     <p id="code-status" class="form-caption" data-lang-id="003-forgot-your-password" style="margin-top:5px;">A code will be sent to your email.</p>
-        <div id="code-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 5px;margin-bottom:-15px;">👉 Code is wrong.</div>
 
     </div>
 
@@ -156,6 +155,7 @@ echo '</script>';
             <div class="login-slider"></div>
             <input type="submit" id="submit-password-button" value="Login" class="login-button-75">
 <input type="button" id="send-code-button" value="📨 Send Code" class="code-button-75" style="display:none;" onclick="submitCodeForm(event)">
+        <div id="code-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 5px;margin-bottom:-15px;">👉 Code is wrong.</div>
 
         </div>
     </div>
@@ -182,13 +182,15 @@ echo '</script>';
 /* SEND TO CODE_PROCESS.php
 If the user opts to uses 2FA then the code-submit-button sends their email to code_process.  This checks to see if the user's email exists in gobrik and if its been buwana activated.  If not, the user is redirected to avticate their account.  If the account exists, the access code is generated and saved to creadentials_tb in the buwana database.key
 */
+
+
 function submitCodeForm(event) {
     event.preventDefault();  // Prevent the default form submission
 
     const credentialKey = document.getElementById('credential_key').value;
     const sendCodeButton = document.getElementById('send-code-button');
 
-    sendCodeButton.value = "Processing...";  // Indicate processing
+    sendCodeButton.value = "Sending...";  // Indicate processing
     sendCodeButton.disabled = true;  // Disable the button to prevent multiple submissions
 
     fetch('code_process.php', {
@@ -253,7 +255,7 @@ function resendCountDown(seconds, displayElement, sendCodeButton) {
         displayElement.textContent = `Resend code in ${remaining--} seconds.`;
         if (remaining < 0) {
             clearInterval(interval);
-            displayElement.textContent = 'Resend code.';
+            displayElement.textContent = 'You can now resend the code.';
             sendCodeButton.value = "📨 Send Code";
             sendCodeButton.disabled = false;  // Re-enable the button
             sendCodeButton.onclick = function(event) { submitCodeForm(event); };  // Reset the original functionality

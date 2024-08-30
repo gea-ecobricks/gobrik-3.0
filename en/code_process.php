@@ -31,10 +31,12 @@ if ($stmt_check_email) {
         $stmt_check_email->bind_result($ecobricker_id, $buwana_activated);
         $stmt_check_email->fetch();
 
-        if ($buwana_activated == '0') {  // Ensure this is a comparison
-            header("Location: ../$lang/activate.php?id=$ecobricker_id");  // Redirect to activation page
-            exit();
-        }
+     if ($buwana_activated == '0') {  // This indicates the tb_ecobricker account hasn't been activated
+    $response['status'] = 'activation_required';
+    $response['redirect'] = "$ecobricker_id";
+    echo json_encode($response);
+    exit();
+}
 
         $stmt_check_email->close();
     } else {

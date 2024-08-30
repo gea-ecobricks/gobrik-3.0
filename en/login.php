@@ -183,7 +183,6 @@ echo '</script>';
 If the user opts to uses 2FA then the code-submit-button sends their email to code_process.  This checks to see if the user's email exists in gobrik and if its been buwana activated.  If not, the user is redirected to avticate their account.  If the account exists, the access code is generated and saved to creadentials_tb in the buwana database.key
 */
 
-
 function submitCodeForm(event) {
     event.preventDefault();  // Prevent the default form submission
 
@@ -209,16 +208,15 @@ function submitCodeForm(event) {
 
             const codeErrorDiv = document.getElementById('code-error');
             const codeStatusDiv = document.getElementById('code-status');
-            const codeBoxes = document.querySelectorAll('.code-box'); // Select all elements with the class 'code-box'
+            const codeBoxes = document.querySelectorAll('.code-box');
 
-            // Clear any previous messages
             codeErrorDiv.textContent = '';
             codeErrorDiv.style.display = 'none';
 
             if (data.status === 'empty_fields') {
                 alert('Please enter your credential key.');
             } else if (data.status === 'activation_required') {
-                window.location.href = data.redirect;
+                window.location.href = data.redirect || `activate.php?id=${data.id}`;  // Fallback to constructing URL here
             } else if (data.status === 'not_found') {
                 codeErrorDiv.textContent = 'Sorry, no matching email was found.';
                 codeErrorDiv.style.display = 'block';
@@ -237,7 +235,7 @@ function submitCodeForm(event) {
             } else if (data.status === 'crednotfound') {
                 codeErrorDiv.textContent = 'Sorry, no matching email was found.';
                 codeErrorDiv.style.display = 'block';
-            } else if (data.status === 'error') {
+            } else {
                 alert('An error occurred. Please try again later.');
             }
         } catch (error) {
@@ -247,20 +245,6 @@ function submitCodeForm(event) {
     .catch(error => {
         alert('An unexpected error occurred.');
     });
-}
-
-function resendCountDown(seconds, displayElement, sendCodeButton) {
-    let remaining = seconds;
-    const interval = setInterval(() => {
-        displayElement.textContent = `Resend code in ${remaining--} seconds.`;
-        if (remaining < 0) {
-            clearInterval(interval);
-            displayElement.textContent = 'You can now resend the code.';
-            sendCodeButton.value = "📨 Send Code";
-            sendCodeButton.disabled = false;  // Re-enable the button
-            sendCodeButton.onclick = function(event) { submitCodeForm(event); };  // Reset the original functionality
-        }
-    }, 1000);
 }
 
 

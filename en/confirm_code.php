@@ -100,7 +100,7 @@ if ($stmt_credential) {
     $stmt_credential->store_result();
 
     if ($stmt_credential->num_rows === 1) {
-        $stmt_credential->bind_result($buwana_id, $issued_count, $email_addr);
+        $stmt_credential->bind_result($buwana_id, $issued_count, $credential_key);
         $stmt_credential->fetch();
         $stmt_credential->close();
 

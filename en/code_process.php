@@ -31,9 +31,9 @@ if ($stmt_check_email) {
         $stmt_check_email->bind_result($ecobricker_id, $buwana_activated);
         $stmt_check_email->fetch();
 
-     if ($buwana_activated == '0') {  // This indicates the tb_ecobricker account hasn't been activated
+ if ($buwana_activated == '0') {
     $response['status'] = 'activation_required';
-    $response['redirect'] = "$ecobricker_id";
+    $response['redirect'] = "activate.php?id=$ecobricker_id"; // Construct the redirect URL in PHP
     echo json_encode($response);
     exit();
 }

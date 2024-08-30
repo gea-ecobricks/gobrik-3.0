@@ -182,12 +182,14 @@ echo '</script>';
 /* SEND TO CODE_PROCESS.php
 If the user opts to uses 2FA then the code-submit-button sends their email to code_process.  This checks to see if the user's email exists in gobrik and if its been buwana activated.  If not, the user is redirected to avticate their account.  If the account exists, the access code is generated and saved to creadentials_tb in the buwana database.key
 */
-
 function submitCodeForm(event) {
     event.preventDefault();  // Prevent the default form submission
 
     const credentialKey = document.getElementById('credential_key').value;
     const sendCodeButton = document.getElementById('send-code-button');
+
+    sendCodeButton.value = "Processing...";  // Indicate processing
+    sendCodeButton.disabled = true;  // Disable the button to prevent multiple submissions
 
     fetch('code_process.php', {
         method: 'POST',
@@ -219,11 +221,11 @@ function submitCodeForm(event) {
                 codeErrorDiv.textContent = 'Sorry, no matching email was found.';
                 codeErrorDiv.style.display = 'block';
             } else if (data.status === 'credfound') {
-                sendCodeButton.textContent = '✅ Code sent!';
+                sendCodeButton.value = "✅ Code sent!";
                 codeStatusDiv.textContent = 'Resend code in 60 seconds.';
                 codeStatusDiv.style.display = 'block';
 
-                resendCountDown(60, codeStatusDiv, submitCodeForm);
+                resendCountDown(60, codeStatusDiv, sendCodeButton);
 
                 codeBoxes.forEach(codeBox => {
                     codeBox.style.pointerEvents = 'auto';
@@ -245,15 +247,16 @@ function submitCodeForm(event) {
     });
 }
 
-function resendCountDown(seconds, displayElement, callback) {
+function resendCountDown(seconds, displayElement, sendCodeButton) {
     let remaining = seconds;
     const interval = setInterval(() => {
         displayElement.textContent = `Resend code in ${remaining--} seconds.`;
         if (remaining < 0) {
             clearInterval(interval);
             displayElement.textContent = 'Resend code.';
-            displayElement.style.cursor = 'pointer';
-            displayElement.onclick = () => callback(event);
+            sendCodeButton.value = "📨 Send Code";
+            sendCodeButton.disabled = false;  // Re-enable the button
+            sendCodeButton.onclick = function(event) { submitCodeForm(event); };  // Reset the original functionality
         }
     }, 1000);
 }

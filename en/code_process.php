@@ -97,7 +97,7 @@ if ($stmt_check_email) {
 require_once ("../buwanaconn_env.php");
 
 $sql_credential = "SELECT buwana_id, 2fa_issued_count, email_addr FROM credentials_tb WHERE credential_key = ?";
-$stmt_credential = $gobrik_conn->prepare($sql_credential);
+$stmt_credential = $buwana_conn->prepare($sql_credential);
 if ($stmt_credential) {
     $stmt_credential->bind_param('s', $credential_key);
     $stmt_credential->execute();
@@ -158,7 +158,7 @@ if ($stmt_credential) {
 } else {
     file_put_contents('debug.log', "SQL Prep Error: " . $gobrik_conn->error . "\n", FILE_APPEND);
     $response['status'] = 'error';
-    $response['message'] = 'Error preparing statement for credentials_tb: ' . $gobrik_conn->error;
+    $response['message'] = 'Error preparing statement for credentials_tb: ' . $buwana_conn->error;
     echo json_encode($response);
     exit();
 }

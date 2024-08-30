@@ -20,7 +20,7 @@ if (empty($_SESSION['csrf_token'])) {
 // VERSION Set page variables
 
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.698';
+$version = '0.699';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -99,7 +99,7 @@ echo '</script>';
      Update to include translations and variations of the H4 tag-->
 
     <div style="text-align:center;width:100%;margin:auto;" >
-        <div id="status-message">Login to your account</div>
+        <div id="status-message">Login to GoBrik</div>
         <div id="sub-status-message">Please signin with your account credentials.</div>
     </div>
 

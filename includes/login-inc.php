@@ -80,9 +80,9 @@
             background-color: grey;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
             margin: auto;
-            margin-bottom:20px;
+            margin-bottom: 10px;
         }
 
   @media screen and (min-width: 769px) {
@@ -191,22 +191,22 @@
 
         .login-button-75 {
             left: 0;
-            background-color: #007907;
+            background-color: var(--login-green);
 
         }
 
         .login-button-75:hover {
-        border: 3px #768c33 solid;
+        border: 3px var(--login-green-highlight) solid;
         line-height: 35px;
         }
 
         .code-button-75 {
             right: 0;
-            background-color: #007907;
+            background-color: var(--login-green);
         }
 
         .code-button-75:hover {
-        border: 3px #768c33 solid;
+        border: 3px var(--login-green-highlight) solid;
         line-height: 35px;
         }
 

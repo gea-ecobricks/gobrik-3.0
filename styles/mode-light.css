@@ -47,6 +47,9 @@
 
     --form-background: rgb(223, 231, 233);
 
+      --login-green: #2DB337;
+  --login-green-highlight: #43CC32;
+
 
   --gallery:  rgb(222, 223, 236);
   --yellow-alert: #fbe9c8;

@@ -93,28 +93,30 @@ if ($stmt_check_email) {
 }
 
 
-
 //PART 4 Consult Buwana Credential Table
 require_once ("../buwanaconn_env.php");
 
-$sql_credential = "SELECT buwana_id, 2fa_issued_count FROM credentials_tb WHERE credential_key = ?";
+$sql_credential = "SELECT buwana_id, 2fa_issued_count, email_addr FROM credentials_tb WHERE credential_key = ?";
 $stmt_credential = $gobrik_conn->prepare($sql_credential);
 if ($stmt_credential) {
     $stmt_credential->bind_param('s', $credential_key);
     $stmt_credential->execute();
     $stmt_credential->store_result();
 
+    file_put_contents('debug.log', "Checked credentials for key: $credential_key\n", FILE_APPEND);
+
     if ($stmt_credential->num_rows === 1) {
-        $stmt_credential->bind_result($buwana_id, $issued_count);
+        $stmt_credential->bind_result($buwana_id, $issued_count, $email_addr);
         $stmt_credential->fetch();
         $stmt_credential->close();
+
+        file_put_contents('debug.log', "Fetched credentials for Buwana ID: $buwana_id, Count: $issued_count, Email: $email_addr\n", FILE_APPEND);
 
         // Generate a new 2FA temporary code
         $temp_code = generateCode();  // Use the generateCode function for consistency
         $issued_datetime = date('Y-m-d H:i:s');
         $new_issued_count = $issued_count + 1;
 
-        // Update the credentials_tb with new 2FA details
         $sql_update = "UPDATE credentials_tb SET
                        2fa_temp_code = ?,
                        2fa_code_issued = ?,
@@ -126,31 +128,37 @@ if ($stmt_credential) {
             $stmt_update->execute();
             $stmt_update->close();
 
+            file_put_contents('debug.log', "Updated 2FA details for Buwana ID: $buwana_id with Code: $temp_code\n", FILE_APPEND);
+
             // Send the verification code email
             if (sendVerificationCode($email_addr, $temp_code, $buwana_id)) {
                 $response['status'] = 'credfound';
                 echo json_encode($response);
                 exit();
             } else {
+                file_put_contents('debug.log', "Failed to send email to: $email_addr\n", FILE_APPEND);
                 $response['status'] = 'email_error';
                 $response['message'] = 'Failed to send the email verification code.';
                 echo json_encode($response);
                 exit();
             }
         } else {
+            file_put_contents('debug.log', "SQL Update Error: " . $buwana_conn->error . "\n", FILE_APPEND);
             $response['status'] = 'error';
             $response['message'] = 'Failed to update 2FA details: ' . $buwana_conn->error;
             echo json_encode($response);
             exit();
         }
     } else {
+        file_put_contents('debug.log', "Credential key not found: $credential_key\n", FILE_APPEND);
         $response['status'] = 'crednotfound';
         echo json_encode($response);
         exit();
     }
 } else {
+    file_put_contents('debug.log', "SQL Prep Error: " . $gobrik_conn->error . "\n", FILE_APPEND);
     $response['status'] = 'error';
-    $response['message'] = 'Error preparing statement for credentials_tb: ' . $buwana_conn->error;
+    $response['message'] = 'Error preparing statement for credentials_tb: ' . $gobrik_conn->error;
     echo json_encode($response);
     exit();
 }
@@ -158,4 +166,3 @@ if ($stmt_credential) {
 $buwana_conn->close();
 $gobrik_conn->close();
 
-?>

@@ -131,7 +131,7 @@ echo '</script>';
 
         <p class="form-caption" data-lang-id="003-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link" datala-lang-id="000-reset-it">Reset it.</a></p>
     </div>
-
+<p id="code-status" class="form-caption" data-lang-id="003-forgot-your-password" style="margin-top:5px;">A code will be sent to your email.</p>
     <div class="form-item" id="code-form" style="text-align:center;height:80px;">
         <div class="code-wrapper" style="position: relative;">
             <input type="text" maxlength="1" class="code-box" placeholder="-">
@@ -141,14 +141,14 @@ echo '</script>';
             <input type="text" maxlength="1" class="code-box" placeholder="-">
         </div>
         <div id="code-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">👉 Code is wrong.</div>
-        <p id="code-status" class="form-caption" data-lang-id="003-forgot-your-password" style="margin-top:5px;">Access code will be sent to email above.</p>
+
     </div>
 
     <div style="text-align:center;width:100%;margin:auto;margin-top:30px;" id="login-buttons">
         <div class="toggle-container">
             <input type="radio" id="password" name="toggle" value="password" checked>
             <input type="radio" id="code" name="toggle" value="code">
-            <div class="toggle-button password">🔑</div>
+            <div class="toggle-button password">🔒</div>
             <div class="toggle-button code">📱</div>
             <div class="login-slider"></div>
             <input type="submit" id="submit-password-button" value="Login" class="login-button-75">
@@ -177,8 +177,9 @@ echo '</script>';
 
 
 <script>
+
 function submitCodeForm(event) {
-    event.preventDefault();
+    event.preventDefault(); // Prevent default form submission behavior
 
     const credentialKey = document.getElementById('credential_key').value;
 
@@ -191,39 +192,30 @@ function submitCodeForm(event) {
             'credential_key': credentialKey
         })
     })
-    .then(response => {
-        console.log(response);  // Debugging: log the entire response object
-        return response.text();
-    })
-    .then(text => {
-        console.log('Raw response text:', text);  // Log the raw text for debugging
-        try {
-            const data = JSON.parse(text);
-            console.log('Parsed JSON:', data);  // Log parsed JSON for debugging
-            if (data.status === 'empty_fields') {
-                alert('Please enter your credential key.');
-            } else if (data.status === 'activation_required') {
-                window.location.href = data.redirect;
-            } else if (data.status === 'not_found') {
-                alert('Email not found. Please check your entry.');
-            } else if (data.status === 'credfound') {
-                alert('Credential found. Proceeding...');
-            } else if (data.status === 'crednotfound') {
-                alert('Credential not found. Please try again.');
-            } else if (data.status === 'error') {
-                console.error(data.message);
-                alert('An error occurred. Please try again later.');
-            }
-        } catch (error) {
-            console.error('Error parsing JSON:', error);
-            alert('An unexpected error occurred.');
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'empty_fields') {
+            alert('Please enter your credential key.');
+        } else if (data.status === 'activation_required') {
+            window.location.href = data.redirect;
+        } else if (data.status === 'not_found') {
+            alert('Email not found. Please check your entry.');
+        } else if (data.status === 'credfound') {
+            // Proceed with the next steps using data.buwana_id
+            alert('Credential found. Proceeding...');
+        } else if (data.status === 'crednotfound') {
+            alert('Credential not found. Please try again.');
+        } else if (data.status === 'error') {
+            console.error(data.message);
+            alert('An error occurred. Please try again later.');
         }
     })
     .catch(error => {
-        console.error('Fetch error:', error);
+        console.error('Error:', error);
         alert('An unexpected error occurred.');
     });
 }
+
 
 
 

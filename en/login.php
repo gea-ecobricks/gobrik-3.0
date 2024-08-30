@@ -179,8 +179,9 @@ echo '</script>';
 
 <script>
 
+
 function submitCodeForm(event) {
-    event.preventDefault(); // Prevent default form submission behavior
+    event.preventDefault();
 
     const credentialKey = document.getElementById('credential_key').value;
 
@@ -193,30 +194,35 @@ function submitCodeForm(event) {
             'credential_key': credentialKey
         })
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 'empty_fields') {
-            alert('Please enter your credential key.');
-        } else if (data.status === 'activation_required') {
-            window.location.href = data.redirect;
-        } else if (data.status === 'not_found') {
-            alert('Email not found. Please check your entry.');
-        } else if (data.status === 'credfound') {
-            // Proceed with the next steps using data.buwana_id
-            alert('Credential found. Proceeding...');
-        } else if (data.status === 'crednotfound') {
-            alert('Credential not found. Please try again.');
-        } else if (data.status === 'error') {
-            console.error(data.message);
-            alert('An error occurred. Please try again later.');
+    .then(response => response.text())  // Get the raw response as text
+    .then(text => {
+        try {
+            const data = JSON.parse(text);  // Attempt to parse the text as JSON
+            if (data.status === 'empty_fields') {
+                alert('Please enter your credential key.');
+            } else if (data.status === 'activation_required') {
+                window.location.href = data.redirect;
+            } else if (data.status === 'not_found') {
+                alert('Email not found. Please check your entry.');
+            } else if (data.status === 'credfound') {
+                alert('Credential found. Proceeding...');
+            } else if (data.status === 'crednotfound') {
+                alert('Credential not found. Please try again.');
+            } else if (data.status === 'error') {
+                console.error(data.message);
+                alert('An error occurred. Please try again later.');
+            }
+        } catch (error) {
+            console.error('Error parsing JSON:', error);
+            console.error('Raw response:', text);  // Log the raw response for debugging
+            alert('An unexpected error occurred.');
         }
     })
     .catch(error => {
-        console.error('Error:', error);
+        console.error('Fetch error:', error);
         alert('An unexpected error occurred.');
     });
 }
-
 
 
 

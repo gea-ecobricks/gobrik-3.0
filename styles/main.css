@@ -2148,12 +2148,10 @@ color: var(--text-color);
 
 
 .top-page-image {
-
-margin-bottom: 70px;
-z-index:35;
-position: absolute;
-  text-align: center;
-  width: 100%;
+    margin-bottom: 70px;
+    z-index:35;
+    position: absolute;
+    text-align: center;
 
   }
 
@@ -2170,10 +2168,11 @@ z-index:5;
         height: 22vh !important;
 	}
 
-  .top-page-image {
-   height: 125px;
-   margin-top:75px;
-  }
+      .top-page-image {
+       height: 125px;
+       margin-top:85px;
+       max-width:85%;
+      }
 
   .landing-page-form {
 height:100vh;
@@ -2193,6 +2192,7 @@ padding-top:55px;
   .top-page-image {
    height: 170px;
    margin-top:70px;
+    width: 100%;
   }
 
   .landing-page-form {

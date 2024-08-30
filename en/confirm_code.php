@@ -90,9 +90,11 @@ if ($stmt_check_email) {
 // PART 4: Consult Buwana Credential Table
 require_once("../buwanaconn_env.php");
 
+// Prepare SQL to fetch 2FA issued count and buwana_id based on credential_key
 $sql_credential = "SELECT buwana_id, 2fa_issued_count FROM credentials_tb WHERE credential_key = ?";
 $stmt_credential = $buwana_conn->prepare($sql_credential);
 if ($stmt_credential) {
+    file_put_contents('debug.log', "Statement Prepared: SELECT buwana_id, 2fa_issued_count FROM credentials_tb\n", FILE_APPEND);
     $stmt_credential->bind_param('s', $credential_key);
     $stmt_credential->execute();
     $stmt_credential->store_result();
@@ -102,19 +104,21 @@ if ($stmt_credential) {
         $stmt_credential->fetch();
         $stmt_credential->close();
 
+        // Generate a new 2FA temporary code using a helper function
         $temp_code = generateCode();
-        $issued_datetime = date('Y-m-d H:i:s');
-        $new_issued_count = $issued_count + 1;
+        $issued_datetime = date('Y-m-d H:i:s'); // Capture the current timestamp
+        $new_issued_count = $issued_count + 1; // Increment the issued count
 
-        // Update the credentials_tb with new 2FA details
+        // Prepare SQL to update the credentials table with new 2FA code details
         $sql_update = "UPDATE credentials_tb SET 2fa_temp_code = ?, 2fa_code_issued = ?, 2fa_issued_count = ? WHERE buwana_id = ?";
         $stmt_update = $buwana_conn->prepare($sql_update);
         if ($stmt_update) {
+            file_put_contents('debug.log', "Statement Prepared: UPDATE credentials_tb\n", FILE_APPEND);
             $stmt_update->bind_param('ssii', $temp_code, $issued_datetime, $new_issued_count, $buwana_id);
             if ($stmt_update->execute()) {
                 $stmt_update->close();
 
-                // Send the verification code email using credential_key
+                // Attempt to send the verification code via email
                 if (sendVerificationCode($credential_key, $temp_code, $buwana_id)) {
                     $response['status'] = 'credfound';
                     echo json_encode($response);
@@ -155,4 +159,5 @@ if ($stmt_credential) {
 
 $buwana_conn->close();
 $gobrik_conn->close();
+
 ?>

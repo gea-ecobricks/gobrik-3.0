@@ -154,11 +154,11 @@
 
         #password:checked ~ .toggle-button.password {
             opacity: 1;
-            width: 85%; /* Reduced width when selected */
+            width: 15%; /* Reduced width when selected */
         }
         #password:checked ~ .toggle-button.code {
             opacity: 0.8;
-            width: 15%; /* Expanded width when the other option is selected */
+            width: 85%; /* Expanded width when the other option is selected */
         }
         #code:checked ~ .toggle-button.code {
             opacity: 1;
@@ -190,7 +190,7 @@
         }
 
         .login-button-75 {
-            left: 0;
+            left: 0%;
             background-color: var(--login-green);
 
         }
@@ -201,7 +201,7 @@
         }
 
         .code-button-75 {
-            right: 0;
+            right: 0%;
             background-color: var(--login-green);
         }
 

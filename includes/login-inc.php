@@ -89,7 +89,7 @@
 
    .toggle-container {
             width: 350px;
-            height: 40px;
+            height: 45px;
             }
       }
 
@@ -97,7 +97,7 @@
 
    .toggle-container {
             width: 100%;
-            height: 40px;
+            height: 45px;
             }
 
       }
@@ -110,7 +110,7 @@
             position: absolute;
             top: 0;
             height: 100%;
-            line-height: 40px; /* Center text vertically */
+            line-height: 45px; /* Center text vertically */
             color: white;
             opacity: 0.8;
             transition: width 0.5s ease-in-out, opacity 0.3s ease-in-out;
@@ -127,7 +127,7 @@
         }
         .toggle-button.code {
             right: 0%;
-            width: 10%; /* Initial width */
+            width: 15%; /* Initial width */
             text-align: center;
         }
 
@@ -135,7 +135,7 @@
             position: absolute;
             background-color: green;
             border-radius: 25px;
-            width: 90%;
+            width: 85%;
             height: 100%;
             transition: all 0.5s ease-in-out;
             z-index: 0;
@@ -149,24 +149,24 @@
             left: 0%;
         }
         #code:checked ~ .login-slider {
-            left: 10%;
+            left: 15%;
         }
 
         #password:checked ~ .toggle-button.password {
             opacity: 1;
-            width: 90%; /* Reduced width when selected */
+            width: 85%; /* Reduced width when selected */
         }
         #password:checked ~ .toggle-button.code {
             opacity: 0.8;
-            width: 10%; /* Expanded width when the other option is selected */
+            width: 15%; /* Expanded width when the other option is selected */
         }
         #code:checked ~ .toggle-button.code {
             opacity: 1;
-            width: 90%; /* Reduced width when selected */
+            width: 85%; /* Reduced width when selected */
         }
         #code:checked ~ .toggle-button.password {
             opacity: 0.8;
-            width: 10%; /* Expanded width when the other option is selected */
+            width: 15%; /* Expanded width when the other option is selected */
         }
 
         /* New Button Styles */
@@ -178,7 +178,7 @@
             border-radius: 25px;
             color: white;
             font-size: 15px;
-            line-height: 40px;
+            line-height: 45px;
             text-align: center;
 
             box-shadow: 0 5px 6px rgba(0, 0, 0, 0.4), inset 0 -2px 1px rgba(0, 0, 0, 0.4);
@@ -186,7 +186,7 @@
             z-index: 1;
             cursor: pointer;
             font-size:17px;
-            width: 90%;
+            width: 85%;
         }
 
         .login-button-75 {

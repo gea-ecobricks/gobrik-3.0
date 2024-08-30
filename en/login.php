@@ -131,8 +131,9 @@ echo '</script>';
 
         <p class="form-caption" data-lang-id="003-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link" datala-lang-id="000-reset-it">Reset it.</a></p>
     </div>
-<p id="code-status" class="form-caption" data-lang-id="003-forgot-your-password" style="margin-top:5px;">A code will be sent to your email.</p>
+
     <div class="form-item" id="code-form" style="text-align:center;height:80px;">
+        <p id="code-status" class="form-caption" data-lang-id="003-forgot-your-password" style="margin-top:5px;">A code will be sent to your email.</p>
         <div class="code-wrapper" style="position: relative;">
             <input type="text" maxlength="1" class="code-box" placeholder="-">
             <input type="text" maxlength="1" class="code-box" placeholder="-">

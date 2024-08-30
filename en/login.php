@@ -179,6 +179,11 @@ echo '</script>';
 
 <script>
 
+/* SEND TO CODE_PROCESS.php
+If the user opts to uses 2FA then the code-submit-button sends their email to code_process.  This checks to see if the user's email exists in gobrik and if its been buwana activated.  If not, the user is redirected to avticate their account.  If the account exists, the access code is generated and saved to creadentials_tb in the buwana database.key
+*/
+
+
 function submitCodeForm(event) {
     event.preventDefault();  // Prevent the default form submission
 

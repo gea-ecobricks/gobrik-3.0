@@ -129,8 +129,6 @@ if ($stmt_credential) {
             // Send the verification code email
             if (sendVerificationCode($email_addr, $temp_code, $buwana_id)) {
                 $response['status'] = 'credfound';
-                $response['buwana_id'] = $buwana_id;
-                $response['2fa_code'] = $temp_code;  // Optionally return the code in the response
                 echo json_encode($response);
                 exit();
             } else {

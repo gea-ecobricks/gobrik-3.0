@@ -2155,6 +2155,11 @@ color: var(--text-color);
 
   }
 
+.sub-status-message {
+  margin-top: 0px;
+  margin-button:0px;
+  }
+
 .splash-title-block {
 position: relative;
 z-index:5;
@@ -2171,7 +2176,7 @@ z-index:5;
       .top-page-image {
        height: 125px;
        margin-top:85px;
-       max-width:85%;
+       width:85%;
       }
 
   .landing-page-form {

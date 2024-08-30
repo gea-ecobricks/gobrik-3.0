@@ -183,11 +183,11 @@ echo '</script>';
 If the user opts to uses 2FA then the code-submit-button sends their email to code_process.  This checks to see if the user's email exists in gobrik and if its been buwana activated.  If not, the user is redirected to avticate their account.  If the account exists, the access code is generated and saved to creadentials_tb in the buwana database.key
 */
 
-
 function submitCodeForm(event) {
     event.preventDefault();  // Prevent the default form submission
 
     const credentialKey = document.getElementById('credential_key').value;
+    const sendCodeButton = document.getElementById('send-code-button');
 
     fetch('code_process.php', {
         method: 'POST',
@@ -198,44 +198,41 @@ function submitCodeForm(event) {
             'credential_key': credentialKey
         })
     })
-    .then(response => response.text())  // Get the raw response as text
+    .then(response => response.text())
     .then(text => {
         try {
-            const data = JSON.parse(text);  // Attempt to parse the text as JSON
+            const data = JSON.parse(text);
 
             const codeErrorDiv = document.getElementById('code-error');
             const codeStatusDiv = document.getElementById('code-status');
-            const codeBox = document.querySelector('.code-box');  // Select the element with the class 'code-box'
+            const codeBoxes = document.querySelectorAll('.code-box'); // Select all elements with the class 'code-box'
 
             // Clear any previous messages
             codeErrorDiv.textContent = '';
-            codeStatusDiv.textContent = '';
             codeErrorDiv.style.display = 'none';
-            codeStatusDiv.style.display = 'none';
-            codeStatusDiv.style.color = '';  // Reset text color
 
             if (data.status === 'empty_fields') {
                 alert('Please enter your credential key.');
             } else if (data.status === 'activation_required') {
-                // Redirect the user to the activation page
                 window.location.href = data.redirect;
             } else if (data.status === 'not_found') {
                 codeErrorDiv.textContent = 'Sorry, no matching email was found.';
-                codeErrorDiv.style.display = 'block';  // Ensure the error div is visible
+                codeErrorDiv.style.display = 'block';
             } else if (data.status === 'credfound') {
-                codeStatusDiv.textContent = 'Code sent by email!';
-                codeStatusDiv.style.color = 'green';  // Set text color to green
-                codeStatusDiv.style.display = 'block';  // Ensure the status div is visible
+                sendCodeButton.textContent = '✅ Code sent!';
+                codeStatusDiv.textContent = 'Resend code in 60 seconds.';
+                codeStatusDiv.style.display = 'block';
 
-                // Set the CSS parameters for the code-box class
-                if (codeBox) {
+                resendCountDown(60, codeStatusDiv, submitCodeForm);
+
+                codeBoxes.forEach(codeBox => {
                     codeBox.style.pointerEvents = 'auto';
                     codeBox.style.cursor = 'text';
                     codeBox.style.opacity = '1';
-                }
+                });
             } else if (data.status === 'crednotfound') {
                 codeErrorDiv.textContent = 'Sorry, no matching email was found.';
-                codeErrorDiv.style.display = 'block';  // Ensure the error div is visible
+                codeErrorDiv.style.display = 'block';
             } else if (data.status === 'error') {
                 alert('An error occurred. Please try again later.');
             }
@@ -246,6 +243,19 @@ function submitCodeForm(event) {
     .catch(error => {
         alert('An unexpected error occurred.');
     });
+}
+
+function resendCountDown(seconds, displayElement, callback) {
+    let remaining = seconds;
+    const interval = setInterval(() => {
+        displayElement.textContent = `Resend code in ${remaining--} seconds.`;
+        if (remaining < 0) {
+            clearInterval(interval);
+            displayElement.textContent = 'Resend code.';
+            displayElement.style.cursor = 'pointer';
+            displayElement.onclick = () => callback(event);
+        }
+    }, 1000);
 }
 
 

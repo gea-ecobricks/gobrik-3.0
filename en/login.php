@@ -142,7 +142,7 @@ echo '</script>';
             <input type="text" maxlength="1" class="code-box" placeholder="-">
             <input type="text" maxlength="1" class="code-box" placeholder="-">
         </div>
-    <p id="code-status" class="form-caption" data-lang-id="003-forgot-your-password" style="margin-top:5px;">A code will be sent to your email.</p>
+    <p id="code-status" class="form-caption" data-lang-id="003-code-status" style="margin-top:5px;">A code will be sent to your email.</p>
 
     </div>
 
@@ -178,6 +178,71 @@ echo '</script>';
 
 
 <script>
+/* CODE VALIDATION */
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const codeBoxes = document.querySelectorAll('.code-box');
+    const codeErrorDiv = document.getElementById('code-error');
+    const codeForm = document.getElementById('code-form');
+
+    codeBoxes.forEach(box => {
+        box.addEventListener('input', function () {
+            // Check if all code boxes are filled
+            const allFilled = Array.from(codeBoxes).every(input => input.value.trim() !== '');
+            if (allFilled) {
+                let code = '';
+                codeBoxes.forEach(input => {
+                    code += input.value.trim();
+                });
+                validateCode(code);
+            }
+        });
+    });
+
+    function validateCode(code) {
+        fetch('code_login_process.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                'code': code,
+                'credential_key': document.getElementById('credential_key').value
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                window.location.href = data.redirect; // Redirect on successful login
+            } else {
+                displayCodeError();
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    function displayCodeError() {
+        codeErrorDiv.textContent = "👉 Code is wrong.";
+        codeErrorDiv.style.display = 'block';
+        shakeElement(codeForm);
+        setTimeout(() => {
+            codeBoxes.forEach(input => {
+                input.value = ''; // Clear all input fields
+                input.classList.remove('valid');
+            });
+        }, 300);
+    }
+
+    function shakeElement(element) {
+        element.classList.add('shake');
+        setTimeout(() => element.classList.remove('shake'), 400);
+    }
+});
+
+
 
 /* SEND TO CODE_PROCESS.php
 If the user opts to uses 2FA then the code-submit-button sends their email to code_process.  This checks to see if the user's email exists in gobrik and if its been buwana activated.  If not, the user is redirected to avticate their account.  If the account exists, the access code is generated and saved to creadentials_tb in the buwana database.key

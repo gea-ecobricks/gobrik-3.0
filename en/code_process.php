@@ -52,7 +52,7 @@ function sendVerificationCode($email_addr, $login_code, $buwana_id) {
         $mail->send();
         return true;
     } catch (Exception $e) {
-        file_put_contents('mail_error.log', "Mailer Error: " . $e->getMessage() . "\n", FILE_APPEND); // Log detailed error
+        file_put_contents('error_log', "Mailer Error: " . $e->getMessage() . "\n", FILE_APPEND); // Log detailed error
         return false;
     }
 }

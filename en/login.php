@@ -152,7 +152,8 @@ echo '</script>';
             <div class="toggle-button code">📱</div>
             <div class="login-slider"></div>
             <input type="submit" id="submit-password-button" value="Login" class="login-button-75">
-<input type="button" id="send-code-button" value="📨 Send Code" class="code-button-75" style="display:none;" onclick="submitCodeForm()">
+<input type="button" id="send-code-button" value="📨 Send Code" class="code-button-75" style="display:none;" onclick="submitCodeForm(event)">
+
         </div>
     </div>
 </form>

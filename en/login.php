@@ -601,6 +601,7 @@ document.addEventListener("DOMContentLoaded", function () {
         handleErrorResponse(errorType);
     }
 
+
 // Check if code and buwana_id are present in the URL for automatic code processing
 if (code && buwanaId) {
     // Update status messages
@@ -633,6 +634,11 @@ if (code && buwanaId) {
                 if (index < codeInputs.length) {
                     setTimeout(() => {
                         codeInputs[index].value = digit;
+
+                        // Simulate 'input' event to trigger listeners
+                        const event = new Event('input', { bubbles: true });
+                        codeInputs[index].dispatchEvent(event);
+
                         if (index === codeInputs.length - 1) {
                             // Run the function to process the login after all fields are filled
                             updateFormAction();
@@ -643,6 +649,7 @@ if (code && buwanaId) {
         }, 300); // Pause for 0.3 seconds
     }, 300); // Initial pause for 0.3 seconds
 }
+
 
 
 

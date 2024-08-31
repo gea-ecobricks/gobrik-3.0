@@ -18,21 +18,19 @@ if (empty($_SESSION['csrf_token'])) {
 }
 
 // VERSION Set page variables
-
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.699';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
-// Get the status, id (buwana_id), and key (credential_key) from URL
+// Get the status, id (buwana_id), code, and key (credential_key) from URL
 $status = isset($_GET['status']) ? filter_var($_GET['status'], FILTER_SANITIZE_STRING) : '';
 $buwana_id = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT) : '';
+$code = isset($_GET['code']) ? filter_var($_GET['code'], FILTER_SANITIZE_STRING) : ''; // Extract code from the URL
 $credential_key = ''; // Initialize $credential_key as empty
 $first_name = '';  // Initialize the first_name variable
 
 // Check if buwana_id is available and valid to fetch corresponding email and first_name from users_tb
-//Note: to be updated when more credential options are available.
-//Needs to also grab credential_type
 if (!empty($buwana_id)) {
     require_once '../buwanaconn_env.php'; //sets up buwana_conn database connection
 
@@ -71,14 +69,43 @@ echo '<!DOCTYPE html>
 <title>Login</title>
 ';
 
-// After fetching $first_name, $status, and $lang from the server
+// JavaScript variables for dynamic use
 echo '<script>';
 echo 'const status = "' . addslashes($status) . '";';
 echo 'const lang = "' . addslashes($lang) . '";';
 echo 'const firstName = "' . addslashes($first_name) . '";';
+echo 'const buwanaId = "' . addslashes($buwana_id) . '";';
+echo 'const code = "' . addslashes($code) . '";';
 echo '</script>';
-
 ?>
+
+<script>
+// Check if code and buwana_id are present
+if (code && buwanaId) {
+    // Automatically send an AJAX request to verify the code and log in the user
+    fetch('code_login_process.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `code=${encodeURIComponent(code)}&credential_key=${encodeURIComponent(buwanaId)}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            window.location.href = data.redirect;
+        } else {
+            document.getElementById('code-error').textContent = "👉 Code is wrong.";
+            document.getElementById('code-status').textContent = 'Incorrect Code';
+            document.getElementById('code-status').style.color = 'red';
+        }
+    })
+    .catch(error => {
+        console.error('Error during login:', error);
+    });
+}
+</script>
+
 
 
 

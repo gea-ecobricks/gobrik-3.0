@@ -601,37 +601,31 @@ document.addEventListener("DOMContentLoaded", function () {
         handleErrorResponse(errorType);
     }
 
-    // Check if code and buwana_id are present in the URL for automatic code processing
-    if (code && buwanaId) {
-        // Update status messages
-        document.getElementById('status-message').textContent = "Checking your code...";
-        document.getElementById('sub-status-message').textContent = "One moment please.";
+   // Check if code and buwana_id are present in the URL for automatic code processing
+if (code && buwanaId) {
+    // Update status messages
+    document.getElementById('status-message').textContent = "Checking your code...";
+    document.getElementById('sub-status-message').textContent = "One moment please.";
 
-        // Set the toggle to code
-        document.getElementById('code').checked = true;
+    // Set the toggle to code
+    document.getElementById('code').checked = true;
 
-        // Automatically send an AJAX request to verify the code and log in the user
-        fetch('code_login_process.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: `code=${encodeURIComponent(code)}&credential_key=${encodeURIComponent(buwanaId)}`
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                window.location.href = data.redirect;
-            } else {
-                document.getElementById('code-error').textContent = "👉 Code is wrong.";
-                document.getElementById('code-status').textContent = 'Incorrect Code';
-                document.getElementById('code-status').style.color = 'red';
-            }
-        })
-        .catch(error => {
-            console.error('Error during login:', error);
-        });
-    }
+    // Run functions to update form and button visibility
+    updateFormVisibility();
+    updateButtonVisibility();
+
+    // Populate the five code-fields with the five digits of the code
+    const codeInputs = document.querySelectorAll('.code-box');
+    code.split('').forEach((digit, index) => {
+        if (index < codeInputs.length) {
+            codeInputs[index].value = digit;
+        }
+    });
+
+    // Run the function to process the login
+    updateFormAction();
+}
+
 });
 
 

@@ -16,7 +16,8 @@ if (!empty($_POST['code']) && !empty($_POST['credential_key'])) {
         $_SESSION['user_id'] = 'master'; // Assign a dummy user ID for master login
         $_SESSION['buwana_id'] = 'master'; // Set a session variable for consistent usage
         file_put_contents('debug.log', "Master code used for login. Session started.\n", FILE_APPEND);
-        header("Location: dashboard.php");
+        $response = array('status' => 'success', 'redirect' => 'dashboard.php');
+        echo json_encode($response);
         exit();
     }
 
@@ -41,26 +42,11 @@ if (!empty($_POST['code']) && !empty($_POST['credential_key'])) {
             $_SESSION['user_id'] = $buwana_id;
             $_SESSION['buwana_id'] = $buwana_id; // Consistent session variable usage
             file_put_contents('debug.log', "Login successful. Session started for user ID: $buwana_id\n", FILE_APPEND);
-            header("Location: dashboard.php");
-            exit();
+            $response = array('status' => 'success', 'redirect' => 'dashboard.php');
         } else {
             // Invalid code
             file_put_contents('debug.log', "Invalid code for credential: $credential_key\n", FILE_APPEND);
-            echo "<script>
-                    document.getElementById('code-error').textContent = '👉 Code is wrong.';
-                    setTimeout(function() {
-                        document.getElementById('code-form').classList.add('shake');
-                    }, 300);
-                    setTimeout(function() {
-                        document.getElementById('code-form').classList.remove('shake');
-                        var codeInputs = document.querySelectorAll('.code-box');
-                        codeInputs.forEach(function(input) {
-                            input.value = '';
-                        });
-                        codeInputs[0].focus();
-                    }, 700);
-                </script>";
-            exit();
+            $response = array('status' => 'invalid', 'message' => 'Invalid code');
         }
 
         $stmt->close();
@@ -68,13 +54,13 @@ if (!empty($_POST['code']) && !empty($_POST['credential_key'])) {
         // SQL preparation error
         file_put_contents('debug.log', 'SQL preparation error: ' . $buwana_conn->error . "\n", FILE_APPEND);
         $response['message'] = 'SQL preparation error: ' . $buwana_conn->error;
-        echo json_encode($response);
-        exit();
     }
     $buwana_conn->close();
 } else {
     $response['message'] = 'Required fields are missing';
-    echo json_encode($response);
-    exit();
 }
+
+// Ensure no output before this point
+echo json_encode($response);
+exit();
 ?>

@@ -179,77 +179,17 @@ echo '</script>';
 
 <script>
 
-document.addEventListener('DOMContentLoaded', function () {
-    const codeBoxes = document.querySelectorAll('.code-box');
-    const codeErrorDiv = document.getElementById('code-error');
-    const codeForm = document.getElementById('code-form');
-
-    codeBoxes.forEach(box => {
-        box.addEventListener('input', function () {
-            // Check if all code boxes are filled
-            const allFilled = Array.from(codeBoxes).every(input => input.value.trim() !== '');
-            if (allFilled) {
-                let code = '';
-                codeBoxes.forEach(input => {
-                    code += input.value.trim();
-                });
-                validateCode(code);
-            }
-        });
-    });
-
-    function validateCode(code) {
-        fetch('code_login_process.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: new URLSearchParams({
-                'code': code,
-                'credential_key': document.getElementById('credential_key').value
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                window.location.href = data.redirect; // Redirect on successful login
-            } else {
-                displayCodeError();
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
-
-    function displayCodeError() {
-        codeErrorDiv.textContent = "👉 Code is wrong.";
-        codeErrorDiv.style.display = 'block';
-        shakeElement(codeForm);
-        setTimeout(() => {
-            codeBoxes.forEach(input => {
-                input.value = ''; // Clear all input fields
-                input.classList.remove('valid');
-            });
-        }, 300);
-    }
-
-    function shakeElement(element) {
-        element.classList.add('shake');
-        setTimeout(() => element.classList.remove('shake'), 400);
-    }
-});
-
-/* CODE VALIDATION */
+/* SEND TO CODE_PROCESS.php
+If the user opts to uses 2FA then the code-submit-button sends their email to code_process.  This checks to see if the user's email exists in gobrik and if its been buwana activated.  If not, the user is redirected to avticate their account.  If the account exists, the access code is generated and saved to creadentials_tb in the buwana database.key
+*/
 function submitCodeForm(event) {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault();  // Prevent the default form submission
 
     const credentialKey = document.getElementById('credential_key').value;
     const sendCodeButton = document.getElementById('send-code-button');
 
-    sendCodeButton.value = "Sending..."; // Indicate processing
-    sendCodeButton.disabled = true; // Disable the button to prevent multiple submissions
-    sendCodeButton.style.pointerEvents = 'none'; // Remove pointer events
+    sendCodeButton.value = "Sending...";  // Indicate processing
+    sendCodeButton.disabled = true;  // Disable the button to prevent multiple submissions
 
     fetch('code_process.php', {
         method: 'POST',
@@ -276,20 +216,17 @@ function submitCodeForm(event) {
                 alert('Please enter your credential key.');
                 sendCodeButton.value = "📨 Send Code";
                 sendCodeButton.disabled = false;
-                sendCodeButton.style.pointerEvents = 'auto';
             } else if (data.status === 'activation_required') {
-                window.location.href = data.redirect || `activate.php?id=${data.id}`;
+                window.location.href = data.redirect || `activate.php?id=${data.id}`;  // Fallback to constructing URL here
             } else if (data.status === 'not_found' || data.status === 'crednotfound') {
                 codeErrorDiv.textContent = 'Sorry, no matching email was found.';
                 codeErrorDiv.style.display = 'block';
                 sendCodeButton.value = "📨 Send Code Again";
                 sendCodeButton.disabled = false;
-                sendCodeButton.style.pointerEvents = 'auto';
             } else if (data.status === 'credfound') {
                 sendCodeButton.value = "✅ Code sent!";
-                codeStatusDiv.textContent = 'Code is sent! Check your email.';
+                codeStatusDiv.textContent = 'Resend code in 60 seconds.';
                 codeStatusDiv.style.display = 'block';
-                codeStatusDiv.style.color = ''; // Reset any previous color
 
                 resendCountDown(60, codeStatusDiv, sendCodeButton);
 
@@ -302,22 +239,22 @@ function submitCodeForm(event) {
                 alert('An error occurred. Please try again later.');
                 sendCodeButton.value = "📨 Send Code Again";
                 sendCodeButton.disabled = false;
-                sendCodeButton.style.pointerEvents = 'auto';
             }
         } catch (error) {
             alert('An unexpected error occurred.');
             sendCodeButton.value = "📨 Send Code Again";
             sendCodeButton.disabled = false;
-            sendCodeButton.style.pointerEvents = 'auto';
         }
     })
     .catch(error => {
         alert('An unexpected error occurred.');
         sendCodeButton.value = "📨 Send Code Again";
         sendCodeButton.disabled = false;
-        sendCodeButton.style.pointerEvents = 'auto';
     });
 }
+
+
+
 
 function resendCountDown(seconds, displayElement, sendCodeButton) {
     let remaining = seconds;
@@ -327,47 +264,12 @@ function resendCountDown(seconds, displayElement, sendCodeButton) {
             clearInterval(interval);
             displayElement.textContent = 'You can now resend the code.';
             sendCodeButton.value = "📨 Send Code";
-            sendCodeButton.disabled = false; // Re-enable the button
-            sendCodeButton.style.pointerEvents = 'auto'; // Re-enable pointer events
-            sendCodeButton.onclick = function(event) { submitCodeForm(event); }; // Reset the original functionality
+            sendCodeButton.disabled = false;  // Re-enable the button
+            sendCodeButton.onclick = function(event) { submitCodeForm(event); };  // Reset the original functionality
         }
     }, 1000);
 }
 
-function ajaxValidateCode(code) {
-    fetch('code_login_process.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `code=${code}&credential_key=${document.getElementById('credential_key').value}`
-    })
-    .then(response => response.json())
-    .then(data => {
-        const codeErrorDiv = document.getElementById('code-error');
-        const codeStatusDiv = document.getElementById('code-status');
-
-        if (data.status === 'invalid') {
-            document.getElementById('code-error').textContent = "👉 Code is wrong.";
-            codeStatusDiv.textContent = 'Incorrect Code';
-            codeStatusDiv.style.color = 'red'; // Red text for incorrect code
-            shakeElement(document.getElementById('code-form'));
-            codeInputs.forEach(input => input.value = ''); // Clear all inputs after shake
-            codeInputs[0].focus(); // Focus the first input after clearing
-        } else if (data.status === 'success') {
-            codeStatusDiv.textContent = 'Code correct! Logging in...';
-            codeStatusDiv.style.color = 'green'; // Green text for correct code
-            window.location.href = data.redirect;
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
-
-
-
-//Toggle switch adjustment
 
 
 document.addEventListener('DOMContentLoaded', function () {

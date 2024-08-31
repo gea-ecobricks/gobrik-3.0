@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 session_start();
 include '../buwanaconn_env.php'; // Buwana connection
 
@@ -9,13 +11,13 @@ if (!empty($_POST['code']) && !empty($_POST['credential_key'])) {
     $code = $_POST['code'];
 
 
-    if ($conn->connect_error) {
-        $response['message'] = "Connection failed: " . $conn->connect_error;
+    if ($buwana_conn->connect_error) {
+        $response['message'] = "Connection failed: " . $buwana_conn->connect_error;
         echo json_encode($response);
         exit;
     }
 
-    $stmt = $conn->prepare("SELECT buwana_id FROM credentials_tb WHERE credential_key = ? AND 2fa_temp_code = ?");
+    $stmt = $buwana_conn->prepare("SELECT buwana_id FROM credentials_tb WHERE credential_key = ? AND 2fa_temp_code = ?");
     $stmt->bind_param("ss", $credential_key, $code);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -33,7 +35,7 @@ if (!empty($_POST['code']) && !empty($_POST['credential_key'])) {
     }
 
     $stmt->close();
-    $conn->close();
+    $buwana_conn->close();
 }
 
 echo json_encode($response);

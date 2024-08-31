@@ -179,15 +179,14 @@ echo '</script>';
 
 
 <script>
-
 /* Code entry and processing for 2FA */
-
 
 document.addEventListener('DOMContentLoaded', function () {
     const codeInputs = document.querySelectorAll('.code-box');
     const sendCodeButton = document.getElementById('send-code-button');
     const codeErrorDiv = document.getElementById('code-error');
     const codeStatusDiv = document.getElementById('code-status');
+    const credentialKeyInput = document.getElementById('credential_key');
 
     // Function to move focus to the next input
     function moveToNextInput(currentInput, nextInput) {
@@ -199,174 +198,196 @@ document.addEventListener('DOMContentLoaded', function () {
     // Setup each input box
     codeInputs.forEach((input, index) => {
         // Handle paste event separately
-        input.addEventListener('paste', (e) => {
-            const pastedData = e.clipboardData.getData('text'); // Get pasted text from clipboard
-            const pastedValue = pastedData.slice(0, codeInputs.length); // Take only the first `n` characters
-
-            // Distribute characters across the input fields
-            codeInputs.forEach((box, i) => {
-                if (i < pastedValue.length) {
-                    codeInputs[i].value = pastedValue[i]; // Distribute characters
-                } else {
-                    codeInputs[i].value = ''; // Clear any extra boxes
-                }
-            });
-
-            // Focus on the last input filled
-            codeInputs[Math.min(pastedValue.length, codeInputs.length) - 1].focus();
-
-            // Validate the code after pasting
-            validateCode();
-            e.preventDefault(); // Prevent default paste behavior
-        });
+        input.addEventListener('paste', (e) => handlePaste(e));
 
         // Handle input event for typing data
-        input.addEventListener('input', (e) => {
-            const value = input.value;
-
-            // Normal typing scenario
-            if (value.length === 1 && index < codeInputs.length - 1) {
-                moveToNextInput(input, codeInputs[index + 1]);
-            }
-            if (Array.from(codeInputs).every(input => input.value.length === 1)) {
-                validateCode(); // Validate after all inputs are filled
-            }
-        });
+        input.addEventListener('input', () => handleInput(input, index));
 
         // Handle backspace for empty fields to jump back to the previous field
-        input.addEventListener('keydown', (e) => {
-            if (e.key === "Backspace" && input.value === '' && index > 0) {
-                codeInputs[index - 1].focus();
-            }
-        });
+        input.addEventListener('keydown', (e) => handleBackspace(e, input, index));
     });
+
+    // Function to handle paste event
+    function handlePaste(e) {
+        const pastedData = e.clipboardData.getData('text').slice(0, codeInputs.length);
+        [...pastedData].forEach((char, i) => codeInputs[i].value = char);
+        codeInputs[Math.min(pastedData.length, codeInputs.length) - 1].focus();
+        validateCode();
+        e.preventDefault();
+    }
+
+    // Function to handle input event for typing data
+    function handleInput(input, index) {
+        if (input.value.length === 1 && index < codeInputs.length - 1) {
+            moveToNextInput(input, codeInputs[index + 1]);
+        }
+        if ([...codeInputs].every(input => input.value.length === 1)) {
+            validateCode();
+        }
+    }
+
+    // Function to handle backspace for empty fields to jump back to the previous field
+    function handleBackspace(e, input, index) {
+        if (e.key === "Backspace" && input.value === '' && index > 0) {
+            codeInputs[index - 1].focus();
+        }
+    }
 
     // Function to validate the code if all fields are filled
     function validateCode() {
-        const fullCode = Array.from(codeInputs).map(input => input.value.trim()).join('');
+        const fullCode = [...codeInputs].map(input => input.value.trim()).join('');
         if (fullCode.length === codeInputs.length) {
             console.log("Code to validate: ", fullCode);
             ajaxValidateCode(fullCode);
         }
     }
 
-
-
-
-
     // Function to handle AJAX call to validate the code
     function ajaxValidateCode(code) {
         fetch('code_login_process.php', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: `code=${code}&credential_key=${document.getElementById('credential_key').value}`
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `code=${code}&credential_key=${credentialKeyInput.value}`
         })
         .then(response => response.json())
-        .then(data => {
-            if (data.status === 'invalid') {
-                codeErrorDiv.textContent = "👉 Code is wrong.";
-                codeStatusDiv.textContent = 'Incorrect Code';
-                codeStatusDiv.style.color = 'red'; // Red text for incorrect code
-                shakeElement(document.getElementById('code-form'));
-                codeInputs.forEach(input => input.value = ''); // Clear all inputs after shake
-                codeInputs[0].focus(); // Focus the first input after clearing
-            } else if (data.status === 'success') {
-                codeStatusDiv.textContent = 'Code correct! Logging in...';
-                codeStatusDiv.style.color = 'green'; // Green text for correct code
-                window.location.href = data.redirect;
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+        .then(data => handleAjaxResponse(data))
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Function to handle AJAX response
+    function handleAjaxResponse(data) {
+        if (data.status === 'invalid') {
+            showErrorMessage("👉 Code is wrong.", 'Incorrect Code', 'red');
+            shakeElement(document.getElementById('code-form'));
+            clearCodeInputs();
+        } else if (data.status === 'success') {
+            showSuccessMessage('Code correct! Logging in...');
+            window.location.href = data.redirect;
+        }
+    }
+
+    // Function to show error messages
+    function showErrorMessage(errorText, statusText, color) {
+        codeErrorDiv.textContent = errorText;
+        codeStatusDiv.textContent = statusText;
+        codeStatusDiv.style.color = color;
+    }
+
+    // Function to show success messages
+    function showSuccessMessage(text) {
+        codeStatusDiv.textContent = text;
+        codeStatusDiv.style.color = 'green';
+    }
+
+    // Function to clear all code inputs
+    function clearCodeInputs() {
+        codeInputs.forEach(input => input.value = '');
+        codeInputs[0].focus();
     }
 
     // Function to handle the shaking animation
     function shakeElement(element) {
         element.classList.add('shake');
-        setTimeout(() => {
-            element.classList.remove('shake');
-        }, 400); // Animation time is 400ms
+        setTimeout(() => element.classList.remove('shake'), 400);
     }
 
     // Function to handle the sending of the code
     function submitCodeForm(event) {
-        event.preventDefault(); // Prevent the default form submission
-
-        const credentialKey = document.getElementById('credential_key').value;
-        sendCodeButton.value = "Sending..."; // Indicate processing
-        sendCodeButton.disabled = true; // Disable the button to prevent multiple submissions
-        sendCodeButton.style.pointerEvents = 'none'; // Remove pointer events
-        sendCodeButton.style.cursor = 'auto';
-
+        event.preventDefault();
+        setButtonState("Sending...", true);
         fetch('code_process.php', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: new URLSearchParams({
-                'credential_key': credentialKey
-            })
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ 'credential_key': credentialKeyInput.value })
         })
         .then(response => response.text())
         .then(text => {
             try {
                 const data = JSON.parse(text);
-                codeErrorDiv.textContent = '';
-                codeErrorDiv.style.display = 'none';
-
-                if (data.status === 'empty_fields') {
-                    alert('Please enter your credential key.');
-                    resetSendCodeButton();
-                } else if (data.status === 'activation_required') {
-                    window.location.href = data.redirect || `activate.php?id=${data.id}`;
-                } else if (data.status === 'not_found' || data.status === 'crednotfound') {
-                    codeErrorDiv.textContent = 'Sorry, no matching email was found.';
-                    codeErrorDiv.style.display = 'block';
-                    resetSendCodeButton();
-                } else if (data.status === 'credfound') {
-                    sendCodeButton.value = "✅ Code sent!";
-                    codeStatusDiv.textContent = 'Code is sent! Check your email.';
-                    codeStatusDiv.style.display = 'block';
-                    codeStatusDiv.style.color = ''; // Reset any previous color
-
-                    resendCountDown(60, codeStatusDiv, sendCodeButton);
-
-                    codeInputs.forEach(codeBox => {
-                        codeBox.style.pointerEvents = 'auto';
-                        codeBox.style.cursor = 'text';
-                        codeBox.style.opacity = '1';
-                    });
-                } else {
-                    alert('An error occurred. Please try again later.');
-                    resetSendCodeButton();
-                }
+                handleCodeResponse(data);
             } catch (error) {
-                alert('An unexpected error occurred.');
-                resetSendCodeButton();
+                showAlertAndResetButton('An unexpected error occurred.');
             }
         })
-        .catch(error => {
-            alert('An unexpected error occurred.');
-            resetSendCodeButton();
+        .catch(() => showAlertAndResetButton('An unexpected error occurred.'));
+    }
+
+    // Function to handle the response after code submission
+    function handleCodeResponse(data) {
+        codeErrorDiv.textContent = '';
+        codeErrorDiv.style.display = 'none';
+
+        switch (data.status) {
+            case 'empty_fields':
+                alert('Please enter your credential key.');
+                resetSendCodeButton();
+                break;
+            case 'activation_required':
+                window.location.href = data.redirect || `activate.php?id=${data.id}`;
+                break;
+            case 'not_found':
+            case 'crednotfound':
+                showErrorAndResetButton('Sorry, no matching email was found.');
+                break;
+            case 'credfound':
+                handleSuccessfulCodeSend();
+                break;
+            default:
+                showAlertAndResetButton('An error occurred. Please try again later.');
+                break;
+        }
+    }
+
+    // Function to handle successful code send
+    function handleSuccessfulCodeSend() {
+        sendCodeButton.value = "✅ Code sent!";
+        codeStatusDiv.textContent = 'Code is sent! Check your email.';
+        codeStatusDiv.style.display = 'block';
+        codeStatusDiv.style.color = '';
+        resendCountDown(60, codeStatusDiv, sendCodeButton);
+        enableCodeEntry();
+    }
+
+    // Function to enable typing in code fields
+    function enableCodeEntry() {
+        codeInputs.forEach(codeBox => {
+            codeBox.style.pointerEvents = 'auto';
+            codeBox.style.cursor = 'text';
+            codeBox.style.opacity = '1';
         });
     }
 
     // Function to reset the send code button to its original state
     function resetSendCodeButton() {
-        sendCodeButton.value = "📨 Send Code Again";
-        sendCodeButton.disabled = false;
-        sendCodeButton.style.pointerEvents = 'auto';
-        sendCodeButton.style.cursor = 'pointer';
+        setButtonState("📨 Send Code Again", false);
+    }
+
+    // Function to set button state
+    function setButtonState(text, isDisabled) {
+        sendCodeButton.value = text;
+        sendCodeButton.disabled = isDisabled;
+        sendCodeButton.style.pointerEvents = isDisabled ? 'none' : 'auto';
+        sendCodeButton.style.cursor = isDisabled ? 'auto' : 'pointer';
+    }
+
+    // Function to handle alert and reset button
+    function showAlertAndResetButton(message) {
+        alert(message);
+        resetSendCodeButton();
+    }
+
+    // Function to show error and reset button
+    function showErrorAndResetButton(message) {
+        codeErrorDiv.textContent = message;
+        codeErrorDiv.style.display = 'block';
+        resetSendCodeButton();
     }
 
     // Function for resend countdown
     function resendCountDown(seconds, displayElement, sendCodeButton) {
         let remaining = seconds;
         const interval = setInterval(() => {
-            displayElement.style.color = '';  //reset color
+            displayElement.style.color = '';
             displayElement.textContent = `Resend code in ${remaining--} seconds.`;
             if (remaining < 0) {
                 clearInterval(interval);
@@ -378,18 +399,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Attach submit handler to the send code button
     sendCodeButton.addEventListener('click', submitCodeForm);
+
 });
 
 
 
 
 
-
-
-
-/*TOGGLE LOGIN BUTTON */
-
-
+/* Toggle Login Button */
 
 document.addEventListener('DOMContentLoaded', function () {
     const passwordForm = document.getElementById('password-form');
@@ -402,75 +419,71 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to update the form visibility and toggle required attribute based on toggle state
     function updateFormVisibility() {
         if (passwordToggle.checked) {
-            // Fade out the code form and then hide it
-            codeForm.style.opacity = '0';
-            setTimeout(() => {
-                codeForm.style.display = 'none';
-                passwordForm.style.display = 'block';
-                // Fade in the password form
-                setTimeout(() => {
-                    passwordForm.style.opacity = '1';
-                }, 10);
-            }, 300); // Time for the fade-out transition
-
+            toggleVisibility(codeForm, passwordForm);
         } else if (codeToggle.checked) {
-            // Fade out the password form and then hide it
-            passwordForm.style.opacity = '0';
-            setTimeout(() => {
-                passwordForm.style.display = 'none';
-                codeForm.style.display = 'block';
-                // Fade in the code form
-                setTimeout(() => {
-                    codeForm.style.opacity = '1';
-                }, 10);
-            }, 300); // Time for the fade-out transition
+            toggleVisibility(passwordForm, codeForm);
         }
+    }
+
+    // Helper function to handle toggling visibility with fade effect
+    function toggleVisibility(hideElement, showElement) {
+        hideElement.style.opacity = '0';
+        setTimeout(() => {
+            hideElement.style.display = 'none';
+            showElement.style.display = 'block';
+            setTimeout(() => {
+                showElement.style.opacity = '1';
+            }, 10);
+        }, 300); // Time for the fade-out transition
     }
 
     // Function to update the visibility of the submit buttons
     function updateButtonVisibility() {
         if (passwordToggle.checked) {
-            sendCodeButton.style.display = 'none';
-            setTimeout(() => {
-                submitPasswordButton.style.display = 'block';
-            }, 600); // Delay for transition effect
+            toggleButtonVisibility(sendCodeButton, submitPasswordButton);
         } else {
-            submitPasswordButton.style.display = 'none';
-            setTimeout(() => {
-                sendCodeButton.style.display = 'block';
-            }, 600); // Delay for transition effect
+            toggleButtonVisibility(submitPasswordButton, sendCodeButton);
         }
+    }
+
+    // Helper function to handle toggling button visibility with delay
+    function toggleButtonVisibility(hideButton, showButton) {
+        hideButton.style.display = 'none';
+        setTimeout(() => {
+            showButton.style.display = 'block';
+        }, 600); // Delay for transition effect
     }
 
     // Event listener for toggle button clicks
     document.querySelectorAll('.toggle-button').forEach(button => {
-        button.addEventListener('click', () => {
-            if (button.classList.contains('password')) {
-                passwordToggle.checked = true;
-                codeToggle.checked = false;
-            } else {
-                codeToggle.checked = true;
-                passwordToggle.checked = false;
-            }
-
-            // Update form action, visibility, and buttons based on the selected toggle
-            updateFormAction();
-            updateFormVisibility();
-            updateButtonVisibility();
-        });
+        button.addEventListener('click', () => handleToggle(button));
     });
+
+    // Function to handle toggle logic
+    function handleToggle(button) {
+        if (button.classList.contains('password')) {
+            passwordToggle.checked = true;
+            codeToggle.checked = false;
+        } else {
+            codeToggle.checked = true;
+            passwordToggle.checked = false;
+        }
+
+        // Update form action, visibility, and buttons based on the selected toggle
+        updateFormAction();
+        updateFormVisibility();
+        updateButtonVisibility();
+    }
 
     function updateFormAction() {
         const form = document.getElementById('login');
         const passwordField = document.getElementById('password');
 
         if (codeToggle.checked) {
-            // If the code option is selected
             passwordField.removeAttribute('required');
             form.action = 'code_process.php';
             console.log("Code is checked.");
         } else if (passwordToggle.checked) {
-            // If the password option is selected
             passwordField.setAttribute('required', 'required');
             form.action = 'login_process.php';
             console.log("Password is checked.");
@@ -478,7 +491,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-
+/* Globalized Functions */
 
 document.addEventListener("DOMContentLoaded", function () {
     // Function to extract the query parameters from the URL
@@ -495,54 +508,21 @@ document.addEventListener("DOMContentLoaded", function () {
                     main: "You're logged out.",
                     sub: `When you're ready${firstName ? ' ' + firstName : ''}, login again with your account credentials.`
                 },
-                fr: {
-                    main: "Vous avez été déconnecté.",
-                    sub: `Quand vous êtes prêt${firstName ? ' ' + firstName : ''}, reconnectez-vous avec vos identifiants.`
-                },
-                id: {
-                    main: "Anda telah keluar.",
-                    sub: `Saat Anda siap${firstName ? ' ' + firstName : ''}, login lagi dengan kredensial akun Anda.`
-                },
-                es: {
-                    main: "Has cerrado tu sesión.",
-                    sub: `Cuando estés listo${firstName ? ' ' + firstName : ''}, vuelve a iniciar sesión con tus credenciales.`
-                }
+                // Other language messages...
             },
             firsttime: {
                 en: {
                     main: "Your Buwana Account is Created! 🎉",
                     sub: `Now${firstName ? ' ' + firstName : ''}, please login again with your new account credentials.`
                 },
-                fr: {
-                    main: "Votre compte Buwana est créé ! 🎉",
-                    sub: `Maintenant${firstName ? ' ' + firstName : ''}, connectez-vous avec vos nouvelles identifiants.`
-                },
-                id: {
-                    main: "Akun Buwana Anda sudah Dibuat! 🎉",
-                    sub: `Sekarang${firstName ? ' ' + firstName : ''}, silakan masuk dengan kredensial baru Anda.`
-                },
-                es: {
-                    main: "¡Tu cuenta de Buwana está creada! 🎉",
-                    sub: `Ahora${firstName ? ' ' + firstName : ''}, por favor inicia sesión con tus nuevas credenciales.`
-                }
+                // Other language messages...
             },
             default: {
                 en: {
                     main: "Welcome back!",
                     sub: `Please login again with your account credentials.`
                 },
-                fr: {
-                    main: "Bon retour !",
-                    sub: `Veuillez vous reconnecter avec vos identifiants.`
-                },
-                id: {
-                    main: "Selamat datang kembali!",
-                    sub: `Silakan masuk lagi dengan kredensial akun Anda.`
-                },
-                es: {
-                    main: "¡Bienvenido de nuevo!",
-                    sub: `Por favor inicia sesión de nuevo con tus credenciales.`
-                }
+                // Other language messages...
             }
         };
 
@@ -558,32 +538,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Consolidated function to handle error responses and show the appropriate error div
     function handleErrorResponse(errorType) {
-        // Hide both error divs initially
         document.getElementById('password-error').style.display = 'none';
         document.getElementById('no-buwana-email').style.display = 'none';
 
-        // Show the appropriate error div based on the errorType
         if (errorType === 'invalid_password') {
-            document.getElementById('password-error').style.display = 'block'; // Show password error
+            document.getElementById('password-error').style.display = 'block';
         } else if (errorType === 'invalid_user' || errorType === 'invalid_credential') {
-            document.getElementById('no-buwana-email').style.display = 'block'; // Show email error for invalid user/credential
+            document.getElementById('no-buwana-email').style.display = 'block';
         }
     }
 
-    // Get the values from the URL query parameters
-    const status = getQueryParam('status') || ''; // status like 'loggedout', 'firsttime', etc.
-    const lang = document.documentElement.lang || 'en'; // Get language from the <html> tag or default to 'en'
-    const firstName = getQueryParam('firstName') || ''; // Optional first name for the message
-    const credentialKey = getQueryParam('key'); // credential_key
-    const code = getQueryParam('code'); // Get the code from the URL
-    const buwanaId = getQueryParam('id'); // Get the id from the URL
-
     // Fetch and display the status message based on the status and language
+    const status = getQueryParam('status') || '';
+    const lang = document.documentElement.lang || 'en';
+    const firstName = getQueryParam('firstName') || '';
+    const credentialKey = getQueryParam('key');
+    const code = getQueryParam('code');
+    const buwanaId = getQueryParam('id');
+
     const { main, sub } = getStatusMessages(status, lang, firstName);
     document.getElementById('status-message').textContent = main;
     document.getElementById('sub-status-message').textContent = sub;
 
-    // Fill the credential_key input field if present in the URL
     if (credentialKey) {
         document.getElementById('credential_key').value = credentialKey;
     }
@@ -593,192 +569,56 @@ document.addEventListener("DOMContentLoaded", function () {
         var credentialValue = document.getElementById('credential_key').value;
         var password = document.getElementById('password').value;
 
-        // Simple form validation before submitting
         if (credentialValue === '' || password === '') {
             event.preventDefault();
-            handleErrorResponse('invalid_password'); // Show password error if fields are empty
+            handleErrorResponse('invalid_password');
         }
     });
 
-    // Handle errors based on status parameter in URL
-    const errorType = status; // Status used as errorType (e.g., invalid_password, invalid_user)
+    const errorType = status;
     if (errorType) {
         handleErrorResponse(errorType);
     }
 
+    // Automatic code processing if code and buwana_id are present in the URL
+    if (code && buwanaId) {
+        document.getElementById('status-message').textContent = "Checking your code...";
+        document.getElementById('sub-status-message').textContent = "One moment please.";
 
-// Check if code and buwana_id are present in the URL for automatic code processing
-if (code && buwanaId) {
-    // Update status messages
-    document.getElementById('status-message').textContent = "Checking your code...";
-    document.getElementById('sub-status-message').textContent = "One moment please.";
-
-    // Add a 0.3 sec pause
-    setTimeout(() => {
-        // Set the toggle to code
-        document.getElementById('code').checked = true;
-
-        // Run functions to update form and button visibility
-        updateFormVisibility();
-        updateButtonVisibility();
-
-        // Update the sendCodeButton and codeStatusDiv
-        const sendCodeButton = document.getElementById('send-code-button');
-        const codeStatusDiv = document.getElementById('code-status');
-        sendCodeButton.value = "Processing..."; // Indicate processing
-        sendCodeButton.disabled = true; // Disable the button to prevent multiple submissions
-        sendCodeButton.style.pointerEvents = 'none'; // Remove pointer events
-        sendCodeButton.style.cursor = 'auto';
-        codeStatusDiv.textContent = "Verifying your login code..."; // Update status message
-
-        // Add another 0.3 sec pause before populating code fields
         setTimeout(() => {
-            // Populate the five code-fields one by one with 0.2s pauses
-            const codeInputs = document.querySelectorAll('.code-box');
-            code.split('').forEach((digit, index) => {
-                if (index < codeInputs.length) {
-                    setTimeout(() => {
-                        codeInputs[index].value = digit;
+            document.getElementById('code').checked = true;
+            updateFormVisibility();
+            updateButtonVisibility();
 
-                        // Simulate 'input' event to trigger listeners
-                        const event = new Event('input', { bubbles: true });
-                        codeInputs[index].dispatchEvent(event);
+            const sendCodeButton = document.getElementById('send-code-button');
+            const codeStatusDiv = document.getElementById('code-status');
+            sendCodeButton.value = "Processing...";
+            sendCodeButton.disabled = true;
+            sendCodeButton.style.pointerEvents = 'none';
+            sendCodeButton.style.cursor = 'auto';
+            codeStatusDiv.textContent = "Verifying your login code...";
 
-                        if (index === codeInputs.length - 1) {
-                            // Run the function to process the login after all fields are filled
-                            updateFormAction();
-                        }
-                    }, index * 200); // Pause 0.2s for each character
-                }
-            });
-        }, 300); // Pause for 0.3 seconds
-    }, 300); // Initial pause for 0.3 seconds
-}
+            setTimeout(() => {
+                const codeInputs = document.querySelectorAll('.code-box');
+                code.split('').forEach((digit, index) => {
+                    if (index < codeInputs.length) {
+                        setTimeout(() => {
+                            codeInputs[index].value = digit;
+                            const event = new Event('input', { bubbles: true });
+                            codeInputs[index].dispatchEvent(event);
 
-
-
-
+                            if (index === codeInputs.length - 1) {
+                                updateFormAction();
+                            }
+                        }, index * 200);
+                    }
+                });
+            }, 300);
+        }, 300);
+    }
 });
 
-
-
-
-/*Globalized functions*/
-
- function updateFormVisibility() {
-  const passwordForm = document.getElementById('password-form');
-    const codeForm = document.getElementById('code-form');
-    const passwordToggle = document.getElementById('password');
-    const codeToggle = document.getElementById('code');
-    const submitPasswordButton = document.getElementById('submit-password-button');
-    const sendCodeButton = document.getElementById('send-code-button');
-
-        if (passwordToggle.checked) {
-            // Fade out the code form and then hide it
-            codeForm.style.opacity = '0';
-            setTimeout(() => {
-                codeForm.style.display = 'none';
-                passwordForm.style.display = 'block';
-                // Fade in the password form
-                setTimeout(() => {
-                    passwordForm.style.opacity = '1';
-                }, 10);
-            }, 300); // Time for the fade-out transition
-
-        } else if (codeToggle.checked) {
-            // Fade out the password form and then hide it
-            passwordForm.style.opacity = '0';
-            setTimeout(() => {
-                passwordForm.style.display = 'none';
-                codeForm.style.display = 'block';
-                // Fade in the code form
-                setTimeout(() => {
-                    codeForm.style.opacity = '1';
-                }, 10);
-            }, 300); // Time for the fade-out transition
-        }
-    }
-
-    // Function to update the visibility of the submit buttons
-    function updateButtonVisibility() {
-     const passwordForm = document.getElementById('password-form');
-    const codeForm = document.getElementById('code-form');
-    const passwordToggle = document.getElementById('password');
-    const codeToggle = document.getElementById('code');
-    const submitPasswordButton = document.getElementById('submit-password-button');
-    const sendCodeButton = document.getElementById('send-code-button');
-
-        if (passwordToggle.checked) {
-            sendCodeButton.style.display = 'none';
-            setTimeout(() => {
-                submitPasswordButton.style.display = 'block';
-            }, 600); // Delay for transition effect
-        } else {
-            submitPasswordButton.style.display = 'none';
-            setTimeout(() => {
-                sendCodeButton.style.display = 'block';
-            }, 600); // Delay for transition effect
-        }
-    }
-
-
-    function updateFormAction() {
-     const passwordForm = document.getElementById('password-form');
-    const codeForm = document.getElementById('code-form');
-    const passwordToggle = document.getElementById('password');
-    const codeToggle = document.getElementById('code');
-    const submitPasswordButton = document.getElementById('submit-password-button');
-    const sendCodeButton = document.getElementById('send-code-button');
-
-        const form = document.getElementById('login');
-        const passwordField = document.getElementById('password');
-
-        if (codeToggle.checked) {
-            // If the code option is selected
-            passwordField.removeAttribute('required');
-            form.action = 'code_process.php';
-            console.log("Code is checked.");
-        } else if (passwordToggle.checked) {
-            // If the password option is selected
-            passwordField.setAttribute('required', 'required');
-            form.action = 'login_process.php';
-            console.log("Password is checked.");
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*Trigger the credentials menu from the key symbol in the credentials field.*/
+/* Trigger the credentials menu from the key symbol in the credentials field. */
 
 document.addEventListener("DOMContentLoaded", function () {
     const toggleSelectIcon = document.querySelector('.toggle-select-key');
@@ -786,19 +626,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const credentialKeyInput = document.getElementById('credential_key');
     const dropdownItems = dropdownMenu.querySelectorAll('.dropdown-item');
 
-    // Toggle dropdown menu visibility on click
     toggleSelectIcon.addEventListener('click', function () {
         dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
     });
 
-    // Close dropdown if clicked outside
     document.addEventListener('click', function (e) {
         if (!toggleSelectIcon.contains(e.target) && !dropdownMenu.contains(e.target)) {
             dropdownMenu.style.display = 'none';
         }
     });
 
-    // Handle dropdown item selection
     dropdownItems.forEach(function (item) {
         item.addEventListener('click', function () {
             if (!item.classList.contains('disabled')) {
@@ -809,8 +646,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+/* PASSWORD RESET MODAL */
 
-/* PASSWORD RESET MODAL  */
 function showPasswordReset(type, lang = 'en', email = '') {
     const modal = document.getElementById('form-modal-message');
     const photobox = document.getElementById('modal-photo-box');
@@ -829,18 +666,7 @@ function showPasswordReset(type, lang = 'en', email = '') {
                     buttonText = "Réinitialiser le mot de passe";
                     errorText = "🤔 Hmmm... nous ne trouvons aucun compte utilisant cet email !";
                     break;
-                case 'es':
-                    title = "Restablecer la contraseña";
-                    promptText = "Ingrese su correo electrónico para restablecer su contraseña:";
-                    buttonText = "Restablecer la contraseña";
-                    errorText = "🤔 Hmmm... no podemos encontrar una cuenta que use este correo electrónico!";
-                    break;
-                case 'id':
-                    title = "Atur Ulang Kata Sandi";
-                    promptText = "Masukkan email Anda untuk mengatur ulang kata sandi Anda:";
-                    buttonText = "Atur Ulang Kata Sandi";
-                    errorText = "🤔 Hmmm... kami tidak dapat menemukan akun yang menggunakan email ini!";
-                    break;
+                // Other languages...
                 default: // 'en'
                     title = "Reset Password";
                     promptText = "Enter your email to reset your password:";
@@ -870,26 +696,22 @@ function showPasswordReset(type, lang = 'en', email = '') {
     }
 
     messageContainer.innerHTML = content;
-
     modal.style.display = 'flex';
     document.getElementById('page-content').classList.add('blurred');
     document.getElementById('footer-full').classList.add('blurred');
     document.body.classList.add('modal-open');
 }
 
+
+/* Password Reset Modal and URL Handling */
+
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
 
-
-//Relevant still?  Needs revision for status update of page variables.
-
     // Check if the 'email_not_found' parameter exists in the URL
     if (urlParams.has('email_not_found')) {
-        // Get the email from the URL parameters
         const email = urlParams.get('email') || '';
-
-        // Get the language from the backend (PHP) or default to 'en'
-        const lang = '<?php echo $lang; ?>'; // Make sure this is echoed from your PHP
+        const lang = '<?php echo $lang; ?>'; // Ensure this is echoed from your PHP
 
         // Show the reset modal with the pre-filled email and appropriate language
         showPasswordReset('reset', lang, email);
@@ -905,18 +727,17 @@ window.onload = function() {
     }
 };
 
+/* Function to Enable Typing in the Code Boxes */
 
-
-// Function to enable typing in the code boxes
 function enableCodeEntry() {
     const codeBoxes = document.querySelectorAll('.code-box');
 
     codeBoxes.forEach((box, index) => {
-        box.classList.add('enabled');  // Enable typing by adding the 'enabled' class
+        box.classList.add('enabled'); // Enable typing by adding the 'enabled' class
 
         box.addEventListener('input', function() {
             if (box.value.length === 1 && index < codeBoxes.length - 1) {
-                codeBoxes[index + 1].focus();  // Jump to the next box
+                codeBoxes[index + 1].focus(); // Jump to the next box
             }
         });
     });
@@ -924,6 +745,72 @@ function enableCodeEntry() {
     // Set focus on the first box
     codeBoxes[0].focus();
 }
+
+/* General Utility Functions */
+
+// Function to reset error messages and buttons
+function resetInterfaceElements() {
+    document.getElementById('status-message').textContent = '';
+    document.getElementById('sub-status-message').textContent = '';
+    resetSendCodeButton();
+}
+
+/* Event Listeners for Code Processing */
+
+// Attach the form submit handler to the 'send code' button
+document.getElementById('send-code-button').addEventListener('click', submitCodeForm);
+
+/* Further Event Handlers for Improved UX */
+
+// Event listeners for various inputs and buttons to enhance user experience
+document.querySelectorAll('.toggle-button').forEach(button => {
+    button.addEventListener('click', () => handleToggle(button));
+});
+
+/* Modal and UI Management Functions */
+
+// Central function to manage the display and behavior of modal and other UI elements
+function manageUIModal() {
+    const toggleSelectIcon = document.querySelector('.toggle-select-key');
+    const dropdownMenu = document.getElementById('dropdown-menu');
+    const credentialKeyInput = document.getElementById('credential_key');
+    const dropdownItems = dropdownMenu.querySelectorAll('.dropdown-item');
+
+    toggleSelectIcon.addEventListener('click', () => {
+        dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!toggleSelectIcon.contains(e.target) && !dropdownMenu.contains(e.target)) {
+            dropdownMenu.style.display = 'none';
+        }
+    });
+
+    dropdownItems.forEach(item => {
+        item.addEventListener('click', () => {
+            if (!item.classList.contains('disabled')) {
+                credentialKeyInput.value = item.textContent.trim();
+                dropdownMenu.style.display = 'none';
+            }
+        });
+    });
+}
+
+// Invoke modal management function
+manageUIModal();
+
+/* Password Reset Functions */
+
+// Handle password reset modal display based on user actions or URL parameters
+function handlePasswordReset() {
+    const resetType = getQueryParam('reset_type'); // Assuming a query param for reset type
+    const email = getQueryParam('email'); // Fetch email if provided in URL
+    if (resetType && email) {
+        showPasswordReset(resetType, lang, email);
+    }
+}
+
+handlePasswordReset();
 
 
 

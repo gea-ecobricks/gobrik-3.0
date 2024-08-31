@@ -2,24 +2,13 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
-require_once '../buwanaconn_env.php'; // Returns $buwana_conn as a mysqli object
+require_once '../buwanaconn_env.php'; // Assume this file returns $buwana_conn as a mysqli object
 
 $response = array('status' => 'error', 'message' => 'Something went wrong');
 
 if (!empty($_POST['code']) && !empty($_POST['credential_key'])) {
     $credential_key = $_POST['credential_key'];
-    $code = strtoupper($_POST['code']); // Convert code to uppercase to make comparison case-insensitive
-
-    // Check for master code
-    $master_code = 'AYYEW'; // Master code set as a constant
-    if ($code === $master_code) {
-        // Bypass database and log user in
-        $_SESSION['user_logged_in'] = true;
-        $_SESSION['user_id'] = 'master'; // Example user_id assignment for master code
-        $response = array('status' => 'success', 'redirect' => 'dashboard.php');
-        echo json_encode($response);
-        exit;
-    }
+    $code = $_POST['code'];
 
     // Prepare the SQL statement
     if ($stmt = $buwana_conn->prepare("SELECT buwana_id FROM credentials_tb WHERE credential_key = ? AND 2fa_temp_code = ?")) {

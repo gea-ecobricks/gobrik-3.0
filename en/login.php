@@ -20,7 +20,7 @@ if (empty($_SESSION['csrf_token'])) {
 // VERSION Set page variables
 
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.7';
+$version = '0.699';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -179,9 +179,7 @@ echo '</script>';
 
 <script>
 
-
-    //2FA Code Validation process:  This guides the user to enter their code smoothly then sends it to code_process_login.php for authentication.key
-
+/* CODE VALIDATION */
 function submitCodeForm(event) {
     event.preventDefault(); // Prevent the default form submission
 
@@ -275,10 +273,6 @@ function resendCountDown(seconds, displayElement, sendCodeButton) {
     }, 1000);
 }
 
-
-/* SEND TO CODE_PROCESS.php
-If the user opts to uses 2FA then the code-submit-button sends their email to code_process.  This checks to see if the user's email exists in gobrik and if its been buwana activated.  If not, the user is redirected to avticate their account.  If the account exists, the access code is generated and saved to creadentials_tb in the buwana database.key
-*/
 function ajaxValidateCode(code) {
     fetch('code_login_process.php', {
         method: 'POST',
@@ -312,7 +306,7 @@ function ajaxValidateCode(code) {
 
 
 
-/* Controlling the Login Toggle button between code and password options */
+//Toggle switch adjustment
 
 
 document.addEventListener('DOMContentLoaded', function () {

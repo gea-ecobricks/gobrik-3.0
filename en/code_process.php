@@ -46,7 +46,7 @@ function sendVerificationCode($email_addr, $login_code, $buwana_id, $first_name)
         $mail->addAddress($email_addr);
 
         // Generate the login URL with the buwana_id and login_code as parameters
-        $loginUrl = "https://beta.gobrik.com/login.php?id=" . urlencode($buwana_id) . "&code=" . urlencode($login_code);
+        $loginUrl = "https://beta.gobrik.com/en/login.php?id=" . urlencode($buwana_id) . "&code=" . urlencode($login_code);
 
         $mail->isHTML(true);
         $mail->Subject = 'GoBrik Login Code';

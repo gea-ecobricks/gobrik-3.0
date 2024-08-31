@@ -79,32 +79,6 @@ echo 'const code = "' . addslashes($code) . '";';
 echo '</script>';
 ?>
 
-<script>
-// Check if code and buwana_id are present
-if (code && buwanaId) {
-    // Automatically send an AJAX request to verify the code and log in the user
-    fetch('code_login_process.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `code=${encodeURIComponent(code)}&credential_key=${encodeURIComponent(buwanaId)}`
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 'success') {
-            window.location.href = data.redirect;
-        } else {
-            document.getElementById('code-error').textContent = "👉 Code is wrong.";
-            document.getElementById('code-status').textContent = 'Incorrect Code';
-            document.getElementById('code-status').style.color = 'red';
-        }
-    })
-    .catch(error => {
-        console.error('Error during login:', error);
-    });
-}
-</script>
 
 
 
@@ -205,6 +179,37 @@ if (code && buwanaId) {
 
 
 <script>
+
+    // Check if code and buwana_id are present in the URL for automatic code processing
+
+if (code && buwanaId) {
+    // Automatically send an AJAX request to verify the code and log in the user
+    fetch('code_login_process.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `code=${encodeURIComponent(code)}&credential_key=${encodeURIComponent(buwanaId)}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            window.location.href = data.redirect;
+        } else {
+            document.getElementById('code-error').textContent = "👉 Code is wrong.";
+            document.getElementById('code-status').textContent = 'Incorrect Code';
+            document.getElementById('code-status').style.color = 'red';
+        }
+    })
+    .catch(error => {
+        console.error('Error during login:', error);
+    });
+}
+
+
+/* Code entry and processing for 2FA */
+
+
 document.addEventListener('DOMContentLoaded', function () {
     const codeInputs = document.querySelectorAll('.code-box');
     const sendCodeButton = document.getElementById('send-code-button');

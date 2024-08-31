@@ -338,15 +338,3 @@ document.addEventListener("DOMContentLoaded", function() {
 
 -------------------------------------------*/
 
-
-
-// Function to log out the user and redirect to login.php with buwana_id appended
-function logoutUser() {
-    if (buwanaId) {
-        // Redirect to logout.php with buwana_id appended to the login.php URL
-        window.location.href = 'logout.php?redirect=login.php?status=logout+id=' + encodeURIComponent(buwanaId);
-    } else {
-        // If buwana_id is not available, just redirect to the logout page
-        window.location.href = 'logout.php?status=logout';
-    }
-}

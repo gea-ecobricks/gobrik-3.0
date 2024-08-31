@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.368';
+$version = '0.369';
 $page = 'dashboard';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -207,6 +207,10 @@ document.getElementById('newest-ecobricks-button').addEventListener('click', fun
     window.location.href = 'newest-briks.php';
 });
 
+document.getElementById('logout-button').addEventListener('click', function() {
+    // Log out and redirect to the login.php page
+    window.location.href = 'logout.php';
+});
 
 
 </script>

@@ -178,111 +178,19 @@ echo '</script>';
 
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const codeInputs = document.querySelectorAll('.code-box');
-
-    // Function to move focus to the next input
-    function moveToNextInput(currentInput, nextInput) {
-        if (nextInput) {
-            nextInput.focus();
-        }
-    }
-
-    // Setup each input box
-    codeInputs.forEach((input, index) => {
-        // Handle input event for typing
-        input.addEventListener('input', (e) => {
-            const value = input.value;
-            // Normal typing scenario
-            if (value.length === 1 && index < codeInputs.length - 1) {
-                moveToNextInput(input, codeInputs[index + 1]);
-            }
-            // Check if all inputs are filled to validate
-            if (Array.from(codeInputs).every(input => input.value.length === 1)) {
-                validateCode(); // Validate after all inputs are filled
-            }
-        });
-
-        // Handle paste event for multiple characters
-        input.addEventListener('paste', (e) => {
-            const pasteData = e.clipboardData.getData('text');
-            if (pasteData.length > 1) {
-                e.preventDefault(); // Prevent default paste action
-                // Distribute characters to input boxes
-                codeInputs.forEach((box, i) => {
-                    if (i < pasteData.length && i < codeInputs.length) {
-                        box.value = pasteData[i];
-                    }
-                });
-                // Focus on the next input after pasting
-                codeInputs[Math.min(pasteData.length, codeInputs.length) - 1].focus();
-                validateCode(); // Validate after pasting
-            }
-        });
-
-        // Handle backspace for empty fields to jump back to the previous field
-        input.addEventListener('keydown', (e) => {
-            if (e.key === "Backspace" && input.value === '' && index > 0) {
-                codeInputs[index - 1].focus();
-            }
-        });
-    });
-
-    // Function to validate the code if all fields are filled
-    function validateCode() {
-        const fullCode = Array.from(codeInputs).map(input => input.value.trim()).join('');
-        if (fullCode.length === codeInputs.length) {
-            console.log("Code to validate: ", fullCode);
-            ajaxValidateCode(fullCode);
-        }
-    }
-
-    // Function to perform AJAX validation
-    function ajaxValidateCode(code) {
-        fetch('code_login_process.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: `code=${code}&credential_key=${document.getElementById('credential_key').value}`
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'invalid') {
-                document.getElementById('code-error').textContent = "👉 Code is wrong.";
-                shakeElement(document.getElementById('code-form'));
-                codeInputs.forEach(input => input.value = ''); // Clear all inputs after shake
-                codeInputs[0].focus(); // Focus the first input after clearing
-            } else if (data.status === 'success') {
-                window.location.href = data.redirect;
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
-
-    // Function to handle the shaking animation
-    function shakeElement(element) {
-        element.classList.add('shake');
-        setTimeout(() => {
-            element.classList.remove('shake');
-        }, 400); // Animation time is 400ms
-    }
-});
 
 
-/* SEND TO CODE_PROCESS.php
-If the user opts to uses 2FA then the code-submit-button sends their email to code_process.  This checks to see if the user's email exists in gobrik and if its been buwana activated.  If not, the user is redirected to avticate their account.  If the account exists, the access code is generated and saved to creadentials_tb in the buwana database.key
-*/
+    //2FA Code Validation process:  This guides the user to enter their code smoothly then sends it to code_process_login.php for authentication.key
+
 function submitCodeForm(event) {
-    event.preventDefault();  // Prevent the default form submission
+    event.preventDefault(); // Prevent the default form submission
 
     const credentialKey = document.getElementById('credential_key').value;
     const sendCodeButton = document.getElementById('send-code-button');
 
-    sendCodeButton.value = "Sending...";  // Indicate processing
-    sendCodeButton.disabled = true;  // Disable the button to prevent multiple submissions
+    sendCodeButton.value = "Sending..."; // Indicate processing
+    sendCodeButton.disabled = true; // Disable the button to prevent multiple submissions
+    sendCodeButton.style.pointerEvents = 'none'; // Remove pointer events
 
     fetch('code_process.php', {
         method: 'POST',
@@ -309,17 +217,20 @@ function submitCodeForm(event) {
                 alert('Please enter your credential key.');
                 sendCodeButton.value = "📨 Send Code";
                 sendCodeButton.disabled = false;
+                sendCodeButton.style.pointerEvents = 'auto';
             } else if (data.status === 'activation_required') {
-                window.location.href = data.redirect || `activate.php?id=${data.id}`;  // Fallback to constructing URL here
+                window.location.href = data.redirect || `activate.php?id=${data.id}`;
             } else if (data.status === 'not_found' || data.status === 'crednotfound') {
                 codeErrorDiv.textContent = 'Sorry, no matching email was found.';
                 codeErrorDiv.style.display = 'block';
                 sendCodeButton.value = "📨 Send Code Again";
                 sendCodeButton.disabled = false;
+                sendCodeButton.style.pointerEvents = 'auto';
             } else if (data.status === 'credfound') {
                 sendCodeButton.value = "✅ Code sent!";
-                codeStatusDiv.textContent = 'Resend code in 60 seconds.';
+                codeStatusDiv.textContent = 'Code is sent! Check your email.';
                 codeStatusDiv.style.display = 'block';
+                codeStatusDiv.style.color = ''; // Reset any previous color
 
                 resendCountDown(60, codeStatusDiv, sendCodeButton);
 
@@ -332,22 +243,22 @@ function submitCodeForm(event) {
                 alert('An error occurred. Please try again later.');
                 sendCodeButton.value = "📨 Send Code Again";
                 sendCodeButton.disabled = false;
+                sendCodeButton.style.pointerEvents = 'auto';
             }
         } catch (error) {
             alert('An unexpected error occurred.');
             sendCodeButton.value = "📨 Send Code Again";
             sendCodeButton.disabled = false;
+            sendCodeButton.style.pointerEvents = 'auto';
         }
     })
     .catch(error => {
         alert('An unexpected error occurred.');
         sendCodeButton.value = "📨 Send Code Again";
         sendCodeButton.disabled = false;
+        sendCodeButton.style.pointerEvents = 'auto';
     });
 }
-
-
-
 
 function resendCountDown(seconds, displayElement, sendCodeButton) {
     let remaining = seconds;
@@ -357,12 +268,51 @@ function resendCountDown(seconds, displayElement, sendCodeButton) {
             clearInterval(interval);
             displayElement.textContent = 'You can now resend the code.';
             sendCodeButton.value = "📨 Send Code";
-            sendCodeButton.disabled = false;  // Re-enable the button
-            sendCodeButton.onclick = function(event) { submitCodeForm(event); };  // Reset the original functionality
+            sendCodeButton.disabled = false; // Re-enable the button
+            sendCodeButton.style.pointerEvents = 'auto'; // Re-enable pointer events
+            sendCodeButton.onclick = function(event) { submitCodeForm(event); }; // Reset the original functionality
         }
     }, 1000);
 }
 
+
+/* SEND TO CODE_PROCESS.php
+If the user opts to uses 2FA then the code-submit-button sends their email to code_process.  This checks to see if the user's email exists in gobrik and if its been buwana activated.  If not, the user is redirected to avticate their account.  If the account exists, the access code is generated and saved to creadentials_tb in the buwana database.key
+*/
+function ajaxValidateCode(code) {
+    fetch('code_login_process.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `code=${code}&credential_key=${document.getElementById('credential_key').value}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        const codeErrorDiv = document.getElementById('code-error');
+        const codeStatusDiv = document.getElementById('code-status');
+
+        if (data.status === 'invalid') {
+            document.getElementById('code-error').textContent = "👉 Code is wrong.";
+            codeStatusDiv.textContent = 'Incorrect Code';
+            codeStatusDiv.style.color = 'red'; // Red text for incorrect code
+            shakeElement(document.getElementById('code-form'));
+            codeInputs.forEach(input => input.value = ''); // Clear all inputs after shake
+            codeInputs[0].focus(); // Focus the first input after clearing
+        } else if (data.status === 'success') {
+            codeStatusDiv.textContent = 'Code correct! Logging in...';
+            codeStatusDiv.style.color = 'green'; // Green text for correct code
+            window.location.href = data.redirect;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+
+
+/* Controlling the Login Toggle button between code and password options */
 
 
 document.addEventListener('DOMContentLoaded', function () {

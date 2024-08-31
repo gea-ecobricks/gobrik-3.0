@@ -616,22 +616,34 @@ if (code && buwanaId) {
         updateFormVisibility();
         updateButtonVisibility();
 
+        // Update the sendCodeButton and codeStatusDiv
+        const sendCodeButton = document.getElementById('send-code-button');
+        const codeStatusDiv = document.getElementById('code-status');
+        sendCodeButton.value = "Processing..."; // Indicate processing
+        sendCodeButton.disabled = true; // Disable the button to prevent multiple submissions
+        sendCodeButton.style.pointerEvents = 'none'; // Remove pointer events
+        sendCodeButton.style.cursor = 'auto';
+        codeStatusDiv.textContent = "Verifying your login code..."; // Update status message
+
         // Add another 0.3 sec pause before populating code fields
         setTimeout(() => {
-            // Populate the five code-fields with the five digits of the code
+            // Populate the five code-fields one by one with 0.2s pauses
             const codeInputs = document.querySelectorAll('.code-box');
             code.split('').forEach((digit, index) => {
                 if (index < codeInputs.length) {
-                    codeInputs[index].value = digit;
+                    setTimeout(() => {
+                        codeInputs[index].value = digit;
+                        if (index === codeInputs.length - 1) {
+                            // Run the function to process the login after all fields are filled
+                            updateFormAction();
+                        }
+                    }, index * 200); // Pause 0.2s for each character
                 }
             });
-
-            // Run the function to process the login
-            updateFormAction();
-
         }, 300); // Pause for 0.3 seconds
     }, 300); // Initial pause for 0.3 seconds
 }
+
 
 
 });

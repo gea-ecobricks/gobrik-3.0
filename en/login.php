@@ -178,7 +178,6 @@ echo '</script>';
 
 
 <script>
-/* CODE VALIDATION */
 document.addEventListener('DOMContentLoaded', function() {
     const codeInputs = document.querySelectorAll('.code-box');
 
@@ -191,26 +190,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Setup each input box
     codeInputs.forEach((input, index) => {
-        // Handle input event for typing or pasting data
+        // Handle input event for typing
         input.addEventListener('input', (e) => {
             const value = input.value;
-            // If multiple characters pasted into the first input
-            if (value.length > 1 && index === 0) {
+            // Normal typing scenario
+            if (value.length === 1 && index < codeInputs.length - 1) {
+                moveToNextInput(input, codeInputs[index + 1]);
+            }
+            // Check if all inputs are filled to validate
+            if (Array.from(codeInputs).every(input => input.value.length === 1)) {
+                validateCode(); // Validate after all inputs are filled
+            }
+        });
+
+        // Handle paste event for multiple characters
+        input.addEventListener('paste', (e) => {
+            const pasteData = e.clipboardData.getData('text');
+            if (pasteData.length > 1) {
+                e.preventDefault(); // Prevent default paste action
+                // Distribute characters to input boxes
                 codeInputs.forEach((box, i) => {
-                    if (i < value.length && i < codeInputs.length) {
-                        codeInputs[i].value = value[i]; // Distribute characters
+                    if (i < pasteData.length && i < codeInputs.length) {
+                        box.value = pasteData[i];
                     }
                 });
-                codeInputs[Math.min(value.length, codeInputs.length) - 1].focus();
+                // Focus on the next input after pasting
+                codeInputs[Math.min(pasteData.length, codeInputs.length) - 1].focus();
                 validateCode(); // Validate after pasting
-            } else {
-                // Normal typing scenario
-                if (value.length === 1 && index < codeInputs.length - 1) {
-                    moveToNextInput(input, codeInputs[index + 1]);
-                }
-                if (Array.from(codeInputs).every(input => input.value.length === 1)) {
-                    validateCode(); // Validate after all inputs are filled
-                }
             }
         });
 
@@ -231,14 +237,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Example AJAX call function
+    // Function to perform AJAX validation
     function ajaxValidateCode(code) {
         fetch('code_login_process.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: `code=${encodeURIComponent(code)}&credential_key=${encodeURIComponent(document.getElementById('credential_key').value)}`
+            body: `code=${code}&credential_key=${document.getElementById('credential_key').value}`
         })
         .then(response => response.json())
         .then(data => {
@@ -264,7 +270,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 400); // Animation time is 400ms
     }
 });
-
 
 
 /* SEND TO CODE_PROCESS.php

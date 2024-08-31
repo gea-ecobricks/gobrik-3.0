@@ -198,37 +198,59 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Setup each input box
     codeInputs.forEach((input, index) => {
-        // Handle input event for typing or pasting data
+        // Handle paste event separately
+        input.addEventListener('paste', (e) => {
+            const pastedData = e.clipboardData.getData('text'); // Get pasted text from clipboard
+            const pastedValue = pastedData.slice(0, codeInputs.length); // Take only the first `n` characters
+
+            // Distribute characters across the input fields
+            codeInputs.forEach((box, i) => {
+                if (i < pastedValue.length) {
+                    codeInputs[i].value = pastedValue[i]; // Distribute characters
+                } else {
+                    codeInputs[i].value = ''; // Clear any extra boxes
+                }
+            });
+
+            // Focus on the last input filled
+            codeInputs[Math.min(pastedValue.length, codeInputs.length) - 1].focus();
+
+            // Validate the code after pasting
+            validateCode();
+            e.preventDefault(); // Prevent default paste behavior
+        });
+
+        // Handle input event for typing data
         input.addEventListener('input', (e) => {
             const value = input.value;
 
-            // Check if multiple characters are pasted
-            if (e.inputType === 'insertFromPaste' && value.length > 1) {
-                const pastedValue = value.slice(0, codeInputs.length); // Take only the first `n` characters
-
-                codeInputs.forEach((box, i) => {
-                    if (i < pastedValue.length) {
-                        codeInputs[i].value = pastedValue[i]; // Distribute characters
-                    } else {
-                        codeInputs[i].value = ''; // Clear any extra boxes
-                    }
-                });
-
-                // Focus on the last input filled
-                codeInputs[Math.min(pastedValue.length, codeInputs.length) - 1].focus();
-
-                // Validate the code after pasting
-                validateCode();
-            } else {
-                // Normal typing scenario
-                if (value.length === 1 && index < codeInputs.length - 1) {
-                    moveToNextInput(input, codeInputs[index + 1]);
-                }
-                if (Array.from(codeInputs).every(input => input.value.length === 1)) {
-                    validateCode(); // Validate after all inputs are filled
-                }
+            // Normal typing scenario
+            if (value.length === 1 && index < codeInputs.length - 1) {
+                moveToNextInput(input, codeInputs[index + 1]);
+            }
+            if (Array.from(codeInputs).every(input => input.value.length === 1)) {
+                validateCode(); // Validate after all inputs are filled
             }
         });
+
+        // Handle backspace for empty fields to jump back to the previous field
+        input.addEventListener('keydown', (e) => {
+            if (e.key === "Backspace" && input.value === '' && index > 0) {
+                codeInputs[index - 1].focus();
+            }
+        });
+    });
+
+    // Function to validate the code if all fields are filled
+    function validateCode() {
+        const fullCode = Array.from(codeInputs).map(input => input.value.trim()).join('');
+        if (fullCode.length === codeInputs.length) {
+            console.log("Code to validate: ", fullCode);
+            ajaxValidateCode(fullCode);
+        }
+    }
+});
+
 
         // Handle backspace for empty fields to jump back to the previous field
         input.addEventListener('keydown', (e) => {

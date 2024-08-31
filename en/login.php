@@ -278,6 +278,7 @@ document.addEventListener('DOMContentLoaded', function () {
         sendCodeButton.value = "Sending..."; // Indicate processing
         sendCodeButton.disabled = true; // Disable the button to prevent multiple submissions
         sendCodeButton.style.pointerEvents = 'none'; // Remove pointer events
+        sendCodeButton.style.cursor = 'auto';
 
         fetch('code_process.php', {
             method: 'POST',
@@ -337,12 +338,14 @@ document.addEventListener('DOMContentLoaded', function () {
         sendCodeButton.value = "📨 Send Code Again";
         sendCodeButton.disabled = false;
         sendCodeButton.style.pointerEvents = 'auto';
+        sendCodeButton.style.cursor = 'pointer';
     }
 
     // Function for resend countdown
     function resendCountDown(seconds, displayElement, sendCodeButton) {
         let remaining = seconds;
         const interval = setInterval(() => {
+            displayElement.style.color = '';  //reset color
             displayElement.textContent = `Resend code in ${remaining--} seconds.`;
             if (remaining < 0) {
                 clearInterval(interval);

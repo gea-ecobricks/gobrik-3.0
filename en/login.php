@@ -196,15 +196,24 @@ document.addEventListener('DOMContentLoaded', function () {
         // Handle input event for typing or pasting data
         input.addEventListener('input', (e) => {
             const value = input.value;
-            // If multiple characters pasted into the first input
-            if (value.length > 1 && index === 0) {
+
+            // Check if multiple characters are pasted
+            if (e.inputType === 'insertFromPaste' && value.length > 1) {
+                const pastedValue = value.slice(0, codeInputs.length); // Take only the first `n` characters
+
                 codeInputs.forEach((box, i) => {
-                    if (i < value.length && i < codeInputs.length) {
-                        codeInputs[i].value = value[i]; // Distribute characters
+                    if (i < pastedValue.length) {
+                        codeInputs[i].value = pastedValue[i]; // Distribute characters
+                    } else {
+                        codeInputs[i].value = ''; // Clear any extra boxes
                     }
                 });
-                codeInputs[Math.min(value.length, codeInputs.length) - 1].focus();
-                validateCode(); // Validate after pasting
+
+                // Focus on the last input filled
+                codeInputs[Math.min(pastedValue.length, codeInputs.length) - 1].focus();
+
+                // Validate the code after pasting
+                validateCode();
             } else {
                 // Normal typing scenario
                 if (value.length === 1 && index < codeInputs.length - 1) {
@@ -232,6 +241,8 @@ document.addEventListener('DOMContentLoaded', function () {
             ajaxValidateCode(fullCode);
         }
     }
+
+
 
     // Function to handle AJAX call to validate the code
     function ajaxValidateCode(code) {

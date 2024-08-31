@@ -252,24 +252,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-        // Handle backspace for empty fields to jump back to the previous field
-        input.addEventListener('keydown', (e) => {
-            if (e.key === "Backspace" && input.value === '' && index > 0) {
-                codeInputs[index - 1].focus();
-            }
-        });
-    });
-
-    // Function to validate the code if all fields are filled
-    function validateCode() {
-        const fullCode = Array.from(codeInputs).map(input => input.value.trim()).join('');
-        if (fullCode.length === codeInputs.length) {
-            console.log("Code to validate: ", fullCode);
-            ajaxValidateCode(fullCode);
-        }
-    }
-
-
 
     // Function to handle AJAX call to validate the code
     function ajaxValidateCode(code) {

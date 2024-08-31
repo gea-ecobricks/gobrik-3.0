@@ -630,6 +630,101 @@ if (code && buwanaId) {
 
 
 
+
+/*Globalized functions*/
+
+ function updateFormVisibility() {
+        if (passwordToggle.checked) {
+            // Fade out the code form and then hide it
+            codeForm.style.opacity = '0';
+            setTimeout(() => {
+                codeForm.style.display = 'none';
+                passwordForm.style.display = 'block';
+                // Fade in the password form
+                setTimeout(() => {
+                    passwordForm.style.opacity = '1';
+                }, 10);
+            }, 300); // Time for the fade-out transition
+
+        } else if (codeToggle.checked) {
+            // Fade out the password form and then hide it
+            passwordForm.style.opacity = '0';
+            setTimeout(() => {
+                passwordForm.style.display = 'none';
+                codeForm.style.display = 'block';
+                // Fade in the code form
+                setTimeout(() => {
+                    codeForm.style.opacity = '1';
+                }, 10);
+            }, 300); // Time for the fade-out transition
+        }
+    }
+
+    // Function to update the visibility of the submit buttons
+    function updateButtonVisibility() {
+        if (passwordToggle.checked) {
+            sendCodeButton.style.display = 'none';
+            setTimeout(() => {
+                submitPasswordButton.style.display = 'block';
+            }, 600); // Delay for transition effect
+        } else {
+            submitPasswordButton.style.display = 'none';
+            setTimeout(() => {
+                sendCodeButton.style.display = 'block';
+            }, 600); // Delay for transition effect
+        }
+    }
+
+
+    function updateFormAction() {
+        const form = document.getElementById('login');
+        const passwordField = document.getElementById('password');
+
+        if (codeToggle.checked) {
+            // If the code option is selected
+            passwordField.removeAttribute('required');
+            form.action = 'code_process.php';
+            console.log("Code is checked.");
+        } else if (passwordToggle.checked) {
+            // If the password option is selected
+            passwordField.setAttribute('required', 'required');
+            form.action = 'login_process.php';
+            console.log("Password is checked.");
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*Trigger the credentials menu from the key symbol in the credentials field.*/
 
 document.addEventListener("DOMContentLoaded", function () {

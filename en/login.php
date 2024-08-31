@@ -601,31 +601,38 @@ document.addEventListener("DOMContentLoaded", function () {
         handleErrorResponse(errorType);
     }
 
-   // Check if code and buwana_id are present in the URL for automatic code processing
+// Check if code and buwana_id are present in the URL for automatic code processing
 if (code && buwanaId) {
-
     // Update status messages
     document.getElementById('status-message').textContent = "Checking your code...";
     document.getElementById('sub-status-message').textContent = "One moment please.";
 
-    // Set the toggle to code
-    document.getElementById('code').checked = true;
+    // Add a 0.3 sec pause
+    setTimeout(() => {
+        // Set the toggle to code
+        document.getElementById('code').checked = true;
 
-    // Run functions to update form and button visibility
-    updateFormVisibility();
-    updateButtonVisibility();
+        // Run functions to update form and button visibility
+        updateFormVisibility();
+        updateButtonVisibility();
 
-    // Populate the five code-fields with the five digits of the code
-    const codeInputs = document.querySelectorAll('.code-box');
-    code.split('').forEach((digit, index) => {
-        if (index < codeInputs.length) {
-            codeInputs[index].value = digit;
-        }
-    });
+        // Add another 0.3 sec pause before populating code fields
+        setTimeout(() => {
+            // Populate the five code-fields with the five digits of the code
+            const codeInputs = document.querySelectorAll('.code-box');
+            code.split('').forEach((digit, index) => {
+                if (index < codeInputs.length) {
+                    codeInputs[index].value = digit;
+                }
+            });
 
-    // Run the function to process the login
-    updateFormAction();
+            // Run the function to process the login
+            updateFormAction();
+
+        }, 300); // Pause for 0.3 seconds
+    }, 300); // Initial pause for 0.3 seconds
 }
+
 
 });
 

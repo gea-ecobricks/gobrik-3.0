@@ -31,7 +31,7 @@ function generateCode() {
     return strtoupper(substr(bin2hex(random_bytes(3)), 0, 5));
 }
 
-function sendVerificationCode($email_addr, $login_code, $buwana_id) {
+function sendVerificationCode($email_addr, $login_code, $buwana_id, $first_name) {
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
@@ -50,7 +50,7 @@ function sendVerificationCode($email_addr, $login_code, $buwana_id) {
 
         $mail->isHTML(true);
         $mail->Subject = 'GoBrik Login Code';
-        $mail->Body = "Hello,<br><br>Your code to login to your account is: <b>$login_code</b><br><br>" .
+        $mail->Body = "Hello " . htmlspecialchars($first_name) . ",<br><br>Your code to login to your account is: <b>$login_code</b><br><br>" .
                       "Return to your browser and enter the code or click this link to login directly:<br><br>" .
                       "<a href=\"$loginUrl\">$loginUrl</a><br><br>The GoBrik team";
 
@@ -61,6 +61,7 @@ function sendVerificationCode($email_addr, $login_code, $buwana_id) {
         return false;
     }
 }
+
 
 
 
@@ -130,8 +131,8 @@ if ($stmt_credential) {
             if ($stmt_update->execute()) {
                 $stmt_update->close();
 
-                // Send the verification code email
-                if (sendVerificationCode($credential_key, $temp_code, $buwana_id)) {
+                // Send the verification code email with the first name
+                if (sendVerificationCode($credential_key, $temp_code, $buwana_id, $first_name)) {
                     $response['status'] = 'credfound';
                     $response['buwana_id'] = $buwana_id;
                     $response['2fa_code'] = $temp_code; // Optionally return the code in the response
@@ -144,6 +145,7 @@ if ($stmt_credential) {
                     echo json_encode($response);
                     exit();
                 }
+
             } else {
                 file_put_contents('debug.log', "SQL Update Execution Error: " . $stmt_update->error . "\n", FILE_APPEND);
                 $response['status'] = 'error';

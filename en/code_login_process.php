@@ -14,6 +14,7 @@ if (!empty($_POST['code']) && !empty($_POST['credential_key'])) {
     if ($code === 'AYYEW') {
         $_SESSION['user_logged_in'] = true;
         $_SESSION['user_id'] = 'master'; // Assign a dummy user ID for master login
+        file_put_contents('debug.log', "Master code used for login. Session started.\n", FILE_APPEND);
         $response = array('status' => 'success', 'redirect' => 'dashboard.php');
         echo json_encode($response);
         exit;
@@ -38,9 +39,11 @@ if (!empty($_POST['code']) && !empty($_POST['credential_key'])) {
             // Login success
             $_SESSION['user_logged_in'] = true;
             $_SESSION['user_id'] = $buwana_id;
+            file_put_contents('debug.log', "Login successful. Session started for user ID: $buwana_id\n", FILE_APPEND);
             $response = array('status' => 'success', 'redirect' => 'dashboard.php');
         } else {
             // Invalid code
+            file_put_contents('debug.log', "Invalid code for credential: $credential_key\n", FILE_APPEND);
             $response = array('status' => 'invalid', 'message' => 'Invalid code');
         }
 

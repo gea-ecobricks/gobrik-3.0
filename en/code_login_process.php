@@ -24,28 +24,19 @@ if (!empty($_POST['code']) && !empty($_POST['credential_key'])) {
     $credential_key = strtolower(trim($_POST['credential_key'])); // Make it case-insensitive
     $code = strtoupper(trim($_POST['code'])); // Make it case-insensitive
 
-    // PART 3: Master Code Bypass
-    if ($code === 'AYYEW') {
-        $_SESSION['user_logged_in'] = true;
-        $_SESSION['user_id'] = 'master'; // Assign a dummy user ID for master login
-        $_SESSION['buwana_id'] = 'master'; // Set a session variable for consistent usage
-        log_debug("Master code used for login. Session started.");
-        $response = array('status' => 'success', 'redirect' => 'dashboard.php');
-        send_response($response);
-    }
-
-    // PART 4: Database Connection Check
+    // PART 3: Database Connection Check
     if ($buwana_conn->connect_error) {
         log_debug("Connection failed: " . $buwana_conn->connect_error);
         $response['message'] = "Connection failed: " . $buwana_conn->connect_error;
         send_response($response);
     }
 
-    // PART 5: Validate Code
+    // PART 4: Validate Code
     $stmt = $buwana_conn->prepare("SELECT buwana_id FROM credentials_tb WHERE credential_key = ? AND UPPER(2fa_temp_code) = ?");
     if ($stmt) {
         $stmt->bind_param("ss", $credential_key, $code);
         if ($stmt->execute()) {
+            $stmt->store_result(); // Store result to prevent "Commands out of sync" error
             $stmt->bind_result($buwana_id);
             if ($stmt->fetch()) {
                 // Login success
@@ -54,13 +45,15 @@ if (!empty($_POST['code']) && !empty($_POST['credential_key'])) {
                 $_SESSION['buwana_id'] = $buwana_id;
                 log_debug("Login successful. Session started for user ID: $buwana_id");
 
-                // PART 6: Update Buwana Account
+                // PART 5: Update Buwana Account
                 // Update `last_login` and `login_count` in `users_tb`
                 $sql_update_user = "UPDATE users_tb SET last_login = NOW(), login_count = login_count + 1 WHERE buwana_id = ?";
                 $stmt_update_user = $buwana_conn->prepare($sql_update_user);
                 if ($stmt_update_user) {
                     $stmt_update_user->bind_param('i', $buwana_id);
-                    $stmt_update_user->execute();
+                    if (!$stmt_update_user->execute()) {
+                        log_debug('Error executing statement for updating users_tb: ' . $stmt_update_user->error);
+                    }
                     $stmt_update_user->close();
                 } else {
                     log_debug('Error preparing statement for updating users_tb: ' . $buwana_conn->error);
@@ -71,19 +64,23 @@ if (!empty($_POST['code']) && !empty($_POST['credential_key'])) {
                 $stmt_update_credential = $buwana_conn->prepare($sql_update_credential);
                 if ($stmt_update_credential) {
                     $stmt_update_credential->bind_param('i', $buwana_id);
-                    $stmt_update_credential->execute();
+                    if (!$stmt_update_credential->execute()) {
+                        log_debug('Error executing statement for updating credentials_tb: ' . $stmt_update_credential->error);
+                    }
                     $stmt_update_credential->close();
                 } else {
                     log_debug('Error preparing statement for updating credentials_tb: ' . $buwana_conn->error);
                 }
 
-                // PART 7: Update GoBrik Account
+                // PART 6: Update GoBrik Account
                 // Update `last_login` and `login_count` in `tb_ecobrickers`
                 $sql_update_ecobricker = "UPDATE tb_ecobrickers SET last_login = NOW(), login_count = login_count + 1 WHERE email_addr = ?";
                 $stmt_update_ecobricker = $gobrik_conn->prepare($sql_update_ecobricker);
                 if ($stmt_update_ecobricker) {
                     $stmt_update_ecobricker->bind_param('s', $credential_key);
-                    $stmt_update_ecobricker->execute();
+                    if (!$stmt_update_ecobricker->execute()) {
+                        log_debug('Error executing statement for updating tb_ecobrickers: ' . $stmt_update_ecobricker->error);
+                    }
                     $stmt_update_ecobricker->close();
                 } else {
                     log_debug('Error preparing statement for updating tb_ecobrickers: ' . $gobrik_conn->error);
@@ -112,6 +109,6 @@ if (!empty($_POST['code']) && !empty($_POST['credential_key'])) {
     $response['message'] = 'Required fields are missing';
 }
 
-// PART 8: Send Response
+// PART 7: Send Response
 send_response($response);
 ?>

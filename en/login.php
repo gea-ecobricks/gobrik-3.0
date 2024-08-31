@@ -603,12 +603,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
    // Check if code and buwana_id are present in the URL for automatic code processing
 if (code && buwanaId) {
-  const passwordForm = document.getElementById('password-form');
-    const codeForm = document.getElementById('code-form');
-    const passwordToggle = document.getElementById('password');
-    const codeToggle = document.getElementById('code');
-    const submitPasswordButton = document.getElementById('submit-password-button');
-    const sendCodeButton = document.getElementById('send-code-button');
+
     // Update status messages
     document.getElementById('status-message').textContent = "Checking your code...";
     document.getElementById('sub-status-message').textContent = "One moment please.";
@@ -640,6 +635,13 @@ if (code && buwanaId) {
 /*Globalized functions*/
 
  function updateFormVisibility() {
+  const passwordForm = document.getElementById('password-form');
+    const codeForm = document.getElementById('code-form');
+    const passwordToggle = document.getElementById('password');
+    const codeToggle = document.getElementById('code');
+    const submitPasswordButton = document.getElementById('submit-password-button');
+    const sendCodeButton = document.getElementById('send-code-button');
+
         if (passwordToggle.checked) {
             // Fade out the code form and then hide it
             codeForm.style.opacity = '0';
@@ -668,6 +670,13 @@ if (code && buwanaId) {
 
     // Function to update the visibility of the submit buttons
     function updateButtonVisibility() {
+     const passwordForm = document.getElementById('password-form');
+    const codeForm = document.getElementById('code-form');
+    const passwordToggle = document.getElementById('password');
+    const codeToggle = document.getElementById('code');
+    const submitPasswordButton = document.getElementById('submit-password-button');
+    const sendCodeButton = document.getElementById('send-code-button');
+
         if (passwordToggle.checked) {
             sendCodeButton.style.display = 'none';
             setTimeout(() => {
@@ -683,6 +692,13 @@ if (code && buwanaId) {
 
 
     function updateFormAction() {
+     const passwordForm = document.getElementById('password-form');
+    const codeForm = document.getElementById('code-form');
+    const passwordToggle = document.getElementById('password');
+    const codeToggle = document.getElementById('code');
+    const submitPasswordButton = document.getElementById('submit-password-button');
+    const sendCodeButton = document.getElementById('send-code-button');
+
         const form = document.getElementById('login');
         const passwordField = document.getElementById('password');
 

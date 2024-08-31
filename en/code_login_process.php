@@ -31,18 +31,19 @@ if (!empty($_POST['code']) && !empty($_POST['credential_key'])) {
     if ($stmt) {
         $stmt->bind_param("ss", $credential_key, $code);
         $stmt->execute();
-        $result = $stmt->get_result();
 
-        if ($result->num_rows > 0) {
+        // Use bind_result() to fetch the result
+        $stmt->bind_result($buwana_id);
+        if ($stmt->fetch()) {
             // Login success
-            $row = $result->fetch_assoc();
             $_SESSION['user_logged_in'] = true;
-            $_SESSION['user_id'] = $row['buwana_id'];
+            $_SESSION['user_id'] = $buwana_id;
             $response = array('status' => 'success', 'redirect' => 'dashboard.php');
         } else {
             // Invalid code
             $response = array('status' => 'invalid', 'message' => 'Invalid code');
         }
+
         $stmt->close();
     } else {
         // SQL preparation error

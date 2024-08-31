@@ -15,6 +15,7 @@ function log_debug($message) {
 
 // Helper function to send JSON response and exit
 function send_response($response) {
+    header('Content-Type: application/json'); // Ensure correct content type for JSON response
     echo json_encode($response);
     exit();
 }
@@ -27,7 +28,7 @@ if (!empty($_POST['code']) && !empty($_POST['credential_key'])) {
     // PART 3: Database Connection Check
     if ($buwana_conn->connect_error) {
         log_debug("Connection failed: " . $buwana_conn->connect_error);
-        $response['message'] = "Connection failed: " . $buwana_conn->connect_error;
+        $response['message'] = "Database connection failed: " . $buwana_conn->connect_error;
         send_response($response);
     }
 

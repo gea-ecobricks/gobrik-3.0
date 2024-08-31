@@ -249,7 +249,8 @@ document.addEventListener('DOMContentLoaded', function () {
             ajaxValidateCode(fullCode);
         }
     }
-});
+
+
 
 
 

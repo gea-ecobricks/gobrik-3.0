@@ -179,7 +179,6 @@ echo '</script>';
 
 <script>
 /* CODE VALIDATION */
-
 document.addEventListener('DOMContentLoaded', function() {
     const codeInputs = document.querySelectorAll('.code-box');
 
@@ -202,11 +201,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         codeInputs[i].value = value[i]; // Distribute characters
                     }
                 });
-                codeInputs[value.length <= codeInputs.length ? value.length - 1 : codeInputs.length - 1].focus();
+                codeInputs[Math.min(value.length, codeInputs.length) - 1].focus();
+                validateCode(); // Validate after pasting
             } else {
                 // Normal typing scenario
                 if (value.length === 1 && index < codeInputs.length - 1) {
                     moveToNextInput(input, codeInputs[index + 1]);
+                }
+                if (Array.from(codeInputs).every(input => input.value.length === 1)) {
+                    validateCode(); // Validate after all inputs are filled
                 }
             }
         });
@@ -223,9 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateCode() {
         const fullCode = Array.from(codeInputs).map(input => input.value.trim()).join('');
         if (fullCode.length === codeInputs.length) {
-            // Here you would call your server-side script to validate the code
             console.log("Code to validate: ", fullCode);
-            // Assuming a function ajaxValidateCode exists to handle the AJAX request
             ajaxValidateCode(fullCode);
         }
     }
@@ -237,7 +238,7 @@ document.addEventListener('DOMContentLoaded', function() {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: `code=${code}&credential_key=${document.getElementById('credential_key').value}`
+            body: `code=${encodeURIComponent(code)}&credential_key=${encodeURIComponent(document.getElementById('credential_key').value)}`
         })
         .then(response => response.json())
         .then(data => {

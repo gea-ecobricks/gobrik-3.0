@@ -42,12 +42,17 @@ function sendVerificationCode($email_addr, $login_code, $buwana_id) {
         $mail->SMTPSecure = false;
         $mail->Port = 26;
 
-        $mail->setFrom('gobrik@ecobricks.org', 'GoBrik Team');
+        $mail->setFrom('gobrik@ecobricks.org', 'GoBrik System');
         $mail->addAddress($email_addr);
+
+        // Generate the login URL with the buwana_id and login_code as parameters
+        $loginUrl = "https://beta.gobrik.com/login.php?id=" . urlencode($buwana_id) . "&code=" . urlencode($login_code);
 
         $mail->isHTML(true);
         $mail->Subject = 'GoBrik Login Code';
-        $mail->Body = "Hello,<br><br>Your code to login to your account is: <b>$login_code</b><br><br>Return to your browser and enter the code or click this link to login directly:<br><br>https://beta.gobrik.com/login.php?code=$buwana_id+$login_code<br><br>The GoBrik team";
+        $mail->Body = "Hello,<br><br>Your code to login to your account is: <b>$login_code</b><br><br>" .
+                      "Return to your browser and enter the code or click this link to login directly:<br><br>" .
+                      "<a href=\"$loginUrl\">$loginUrl</a><br><br>The GoBrik team";
 
         $mail->send();
         return true;
@@ -56,6 +61,7 @@ function sendVerificationCode($email_addr, $login_code, $buwana_id) {
         return false;
     }
 }
+
 
 
 // PART 3 Check GoBrik to see if user account is activated.

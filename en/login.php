@@ -179,6 +179,67 @@ echo '</script>';
 
 <script>
 
+document.addEventListener('DOMContentLoaded', function () {
+    const codeBoxes = document.querySelectorAll('.code-box');
+    const codeErrorDiv = document.getElementById('code-error');
+    const codeForm = document.getElementById('code-form');
+
+    codeBoxes.forEach(box => {
+        box.addEventListener('input', function () {
+            // Check if all code boxes are filled
+            const allFilled = Array.from(codeBoxes).every(input => input.value.trim() !== '');
+            if (allFilled) {
+                let code = '';
+                codeBoxes.forEach(input => {
+                    code += input.value.trim();
+                });
+                validateCode(code);
+            }
+        });
+    });
+
+    function validateCode(code) {
+        fetch('code_login_process.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                'code': code,
+                'credential_key': document.getElementById('credential_key').value
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                window.location.href = data.redirect; // Redirect on successful login
+            } else {
+                displayCodeError();
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    function displayCodeError() {
+        codeErrorDiv.textContent = "👉 Code is wrong.";
+        codeErrorDiv.style.display = 'block';
+        shakeElement(codeForm);
+        setTimeout(() => {
+            codeBoxes.forEach(input => {
+                input.value = ''; // Clear all input fields
+                input.classList.remove('valid');
+            });
+        }, 300);
+    }
+
+    function shakeElement(element) {
+        element.classList.add('shake');
+        setTimeout(() => element.classList.remove('shake'), 400);
+    }
+});
+
 /* CODE VALIDATION */
 function submitCodeForm(event) {
     event.preventDefault(); // Prevent the default form submission

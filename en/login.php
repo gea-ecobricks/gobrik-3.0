@@ -180,33 +180,6 @@ echo '</script>';
 
 <script>
 
-    // Check if code and buwana_id are present in the URL for automatic code processing
-
-if (code && buwanaId) {
-    // Automatically send an AJAX request to verify the code and log in the user
-    fetch('code_login_process.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `code=${encodeURIComponent(code)}&credential_key=${encodeURIComponent(buwanaId)}`
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 'success') {
-            window.location.href = data.redirect;
-        } else {
-            document.getElementById('code-error').textContent = "👉 Code is wrong.";
-            document.getElementById('code-status').textContent = 'Incorrect Code';
-            document.getElementById('code-status').style.color = 'red';
-        }
-    })
-    .catch(error => {
-        console.error('Error during login:', error);
-    });
-}
-
-
 /* Code entry and processing for 2FA */
 
 
@@ -502,7 +475,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
 document.addEventListener("DOMContentLoaded", function () {
     // Function to extract the query parameters from the URL
     function getQueryParam(param) {
@@ -598,6 +570,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const lang = document.documentElement.lang || 'en'; // Get language from the <html> tag or default to 'en'
     const firstName = getQueryParam('firstName') || ''; // Optional first name for the message
     const credentialKey = getQueryParam('key'); // credential_key
+    const code = getQueryParam('code'); // Get the code from the URL
+    const buwanaId = getQueryParam('id'); // Get the id from the URL
 
     // Fetch and display the status message based on the status and language
     const { main, sub } = getStatusMessages(status, lang, firstName);
@@ -626,7 +600,40 @@ document.addEventListener("DOMContentLoaded", function () {
     if (errorType) {
         handleErrorResponse(errorType);
     }
+
+    // Check if code and buwana_id are present in the URL for automatic code processing
+    if (code && buwanaId) {
+        // Update status messages
+        document.getElementById('status-message').textContent = "Checking your code...";
+        document.getElementById('sub-status-message').textContent = "One moment please.";
+
+        // Set the toggle to code
+        document.getElementById('code').checked = true;
+
+        // Automatically send an AJAX request to verify the code and log in the user
+        fetch('code_login_process.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `code=${encodeURIComponent(code)}&credential_key=${encodeURIComponent(buwanaId)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                window.location.href = data.redirect;
+            } else {
+                document.getElementById('code-error').textContent = "👉 Code is wrong.";
+                document.getElementById('code-status').textContent = 'Incorrect Code';
+                document.getElementById('code-status').style.color = 'red';
+            }
+        })
+        .catch(error => {
+            console.error('Error during login:', error);
+        });
+    }
 });
+
 
 
 /*Trigger the credentials menu from the key symbol in the credentials field.*/

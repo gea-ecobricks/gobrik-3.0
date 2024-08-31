@@ -20,7 +20,7 @@ if (empty($_SESSION['csrf_token'])) {
 // VERSION Set page variables
 
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.699';
+$version = '0.7';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -180,43 +180,74 @@ echo '</script>';
 <script>
 /* CODE VALIDATION */
 
+document.addEventListener('DOMContentLoaded', function() {
+    const codeInputs = document.querySelectorAll('.code-box');
 
-document.addEventListener('DOMContentLoaded', function () {
-    const codeBoxes = document.querySelectorAll('.code-box');
-    const codeErrorDiv = document.getElementById('code-error');
-    const codeForm = document.getElementById('code-form');
+    // Function to move focus to the next input
+    function moveToNextInput(currentInput, nextInput) {
+        if (nextInput) {
+            nextInput.focus();
+        }
+    }
 
-    codeBoxes.forEach(box => {
-        box.addEventListener('input', function () {
-            // Check if all code boxes are filled
-            const allFilled = Array.from(codeBoxes).every(input => input.value.trim() !== '');
-            if (allFilled) {
-                let code = '';
-                codeBoxes.forEach(input => {
-                    code += input.value.trim();
+    // Setup each input box
+    codeInputs.forEach((input, index) => {
+        // Handle input event for typing or pasting data
+        input.addEventListener('input', (e) => {
+            const value = input.value;
+            // If multiple characters pasted into the first input
+            if (value.length > 1 && index === 0) {
+                codeInputs.forEach((box, i) => {
+                    if (i < value.length && i < codeInputs.length) {
+                        codeInputs[i].value = value[i]; // Distribute characters
+                    }
                 });
-                validateCode(code);
+                codeInputs[value.length <= codeInputs.length ? value.length - 1 : codeInputs.length - 1].focus();
+            } else {
+                // Normal typing scenario
+                if (value.length === 1 && index < codeInputs.length - 1) {
+                    moveToNextInput(input, codeInputs[index + 1]);
+                }
+            }
+        });
+
+        // Handle backspace for empty fields to jump back to the previous field
+        input.addEventListener('keydown', (e) => {
+            if (e.key === "Backspace" && input.value === '' && index > 0) {
+                codeInputs[index - 1].focus();
             }
         });
     });
 
-    function validateCode(code) {
+    // Function to validate the code if all fields are filled
+    function validateCode() {
+        const fullCode = Array.from(codeInputs).map(input => input.value.trim()).join('');
+        if (fullCode.length === codeInputs.length) {
+            // Here you would call your server-side script to validate the code
+            console.log("Code to validate: ", fullCode);
+            // Assuming a function ajaxValidateCode exists to handle the AJAX request
+            ajaxValidateCode(fullCode);
+        }
+    }
+
+    // Example AJAX call function
+    function ajaxValidateCode(code) {
         fetch('code_login_process.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: new URLSearchParams({
-                'code': code,
-                'credential_key': document.getElementById('credential_key').value
-            })
+            body: `code=${code}&credential_key=${document.getElementById('credential_key').value}`
         })
         .then(response => response.json())
         .then(data => {
-            if (data.status === 'success') {
-                window.location.href = data.redirect; // Redirect on successful login
-            } else {
-                displayCodeError();
+            if (data.status === 'invalid') {
+                document.getElementById('code-error').textContent = "👉 Code is wrong.";
+                shakeElement(document.getElementById('code-form'));
+                codeInputs.forEach(input => input.value = ''); // Clear all inputs after shake
+                codeInputs[0].focus(); // Focus the first input after clearing
+            } else if (data.status === 'success') {
+                window.location.href = data.redirect;
             }
         })
         .catch(error => {
@@ -224,21 +255,12 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function displayCodeError() {
-        codeErrorDiv.textContent = "👉 Code is wrong.";
-        codeErrorDiv.style.display = 'block';
-        shakeElement(codeForm);
-        setTimeout(() => {
-            codeBoxes.forEach(input => {
-                input.value = ''; // Clear all input fields
-                input.classList.remove('valid');
-            });
-        }, 300);
-    }
-
+    // Function to handle the shaking animation
     function shakeElement(element) {
         element.classList.add('shake');
-        setTimeout(() => element.classList.remove('shake'), 400);
+        setTimeout(() => {
+            element.classList.remove('shake');
+        }, 400); // Animation time is 400ms
     }
 });
 

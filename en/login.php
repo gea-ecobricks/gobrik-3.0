@@ -603,6 +603,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
    // Check if code and buwana_id are present in the URL for automatic code processing
 if (code && buwanaId) {
+  const passwordForm = document.getElementById('password-form');
+    const codeForm = document.getElementById('code-form');
+    const passwordToggle = document.getElementById('password');
+    const codeToggle = document.getElementById('code');
+    const submitPasswordButton = document.getElementById('submit-password-button');
+    const sendCodeButton = document.getElementById('send-code-button');
     // Update status messages
     document.getElementById('status-message').textContent = "Checking your code...";
     document.getElementById('sub-status-message').textContent = "One moment please.";

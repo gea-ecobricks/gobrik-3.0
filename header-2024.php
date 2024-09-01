@@ -350,6 +350,7 @@ display: none;
 
 <?php $is_logged_in = isset($buwana_id) && !empty($first_name); ?>
 
+
 <!-- MAIN MENU -->
 <div id="main-menu-overlay" class="overlay-settings" style="display:none;">
   <button type="button" onclick="closeSettings()" aria-label="Click to close settings page" class="x-button"></button>
@@ -358,8 +359,12 @@ display: none;
       <?php if ($is_logged_in): ?>
         <!-- If the user is logged in, show the user's status -->
         <div class="menu-page-item">
-          <span style="margin-right: auto; font-size: 1.4em; color: var(--text-color);">Logged in as <?php echo htmlspecialchars($first_name); ?></span>
           <span class="status-circle" style="background-color: green;" title="User is logged in!"></span>
+          <span style="font-size: 1.4em; color: var(--text-color); margin-left: 10px;">Logged in as <?php echo htmlspecialchars($first_name); ?></span>
+          <div style="font-size: 0.9em; color: var(--subdued-text); margin-left: 26px; margin-top: 5px;">
+            <a href="profile.php" style="text-decoration: none; color: var(--subdued-text);">Profile settings</a> |
+            <a href="logout.php" style="text-decoration: none; color: var(--subdued-text);">Log out</a>
+          </div>
         </div>
       <?php else: ?>
         <!-- If the user is not logged in, show the login/signup options -->
@@ -402,6 +407,7 @@ display: none;
     </div>
   </div> <!-- close overlay-content-settings -->
 </div> <!-- close main menu -->
+
 
 
 

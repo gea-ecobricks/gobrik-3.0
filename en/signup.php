@@ -130,8 +130,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <div id="status-message" data-lang-id="001-page1-heading"  style="margin-top:0px;">Create Your Account</div>
-            <div id="sub-status-message" data-lang-id="002-page1-heading" style="margin-bottom:10px;">Join us on GoBrik with a Buwana accounts— an open source, for-Earth alternative to corporate logins.</div>
+            <div id="status-message" data-lang-id="001-page1-heading">Create Your Account</div>
+            <div id="sub-status-message" data-lang-id="002-page1-heading" style="margin-bottom:15px;">Join us on GoBrik with a Buwana accounts— an open source, for-Earth alternative to corporate logins.</div>
         </div>
 
        <!--SIGNUP FORM-->

@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo '<script>alert("Your password has been reset! You can now log in using your new password."); window.location.href = "login.php";</script>';
                 exit();
             } else {
-                echo '<script>alert("Invalid token. Please try again."); window.location.href = "login.php";</script>';
+                echo '<script>alert("Invalid token. Please try reseting your password again."); window.location.href = "login.php";</script>';
                 exit();
             }
         } else {
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 } else {
-    echo '<script>alert("Invalid request. Please try again."); window.location.href = "login.php";</script>';
+    echo '<script>alert("Invalid request. Please try again reseting your password again."); window.location.href = "login.php";</script>';
     exit();
 }
 

@@ -14,7 +14,7 @@ if (isset($_SESSION['buwana_id'])) {
 
 // Grab language directory from URL
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.584';
+$version = '0.59';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -151,12 +151,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 
     <div class="form-item">
-        <label for="credential" data-lang-id="006-credential">With which credentials would you like to register?</label><br>
+        <label for="credential" data-lang-id="006-credential">How do you prefer to login?</label><br>
         <select id="credential" name="credential" aria-label="Preferred Credential" required placeholder="Select...">
             <option value="" disabled selected data-lang-id="000-select">Select...</option>
-
             <option value="email">E-mail</option>
-            <option value="mail" disabled>Mail</option>
+            <option value="mail" disabled>Phone</option>
             <option value="sms" disabled>SMS</option>
             <option value="peer" disabled>Peer</option>
         </select>

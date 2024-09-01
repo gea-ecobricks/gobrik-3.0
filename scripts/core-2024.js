@@ -238,21 +238,22 @@ SCROLL CONTROL
 -------------------------------------------*/
 
 
-
 let lastScrollTop = 0;
 
 window.onscroll = function() {
-    scrollLessThan40();
-    scrollMoreThan40();
+    scrollLessThan30();
+    scrollMoreThan30();
+    scrollMoreThan100();
+    scrollLessThan1000();
 };
 
-function scrollLessThan40() {
-    if (window.pageYOffset <= 40) {
-        document.getElementById("header").style.height = "80px";
+function scrollLessThan30() {
+    if (window.pageYOffset <= 30) {
+        document.getElementById("header").style.height = "85px";
         document.getElementById("header").style.borderBottom = "none";
         document.getElementById("header").style.boxShadow = "none";
-        document.getElementById("gea-logo").style.width = "185px";
-        document.getElementById("gea-logo").style.height = "36px";
+        document.getElementById("gea-logo").style.width = "190px";
+        document.getElementById("gea-logo").style.height = "40px";
         document.getElementById("logo-gobrik").style.opacity = "1";
         document.getElementById("header").style.top = "0";
         document.getElementById("settings-buttons").style.padding = "16px 43px 16px 12px";
@@ -267,13 +268,13 @@ function scrollLessThan40() {
     }
 }
 
-function scrollMoreThan40() {
-    if (window.pageYOffset >= 40) {
-        document.getElementById("header").style.height = "55px";
+function scrollMoreThan30() {
+    if (window.pageYOffset > 30 && window.pageYOffset < 100) {
+        document.getElementById("header").style.height = "60px";
         document.getElementById("header").style.borderBottom = "var(--header-accent) 0.5px solid";
         document.getElementById("header").style.boxShadow = "0px 0px 15px rgba(0, 0, 10, 0.805)";
-        document.getElementById("gea-logo").style.width = "165px";
-        document.getElementById("gea-logo").style.height = "33px";
+        document.getElementById("gea-logo").style.width = "170px";
+        document.getElementById("gea-logo").style.height = "35px";
         document.getElementById("logo-gobrik").style.opacity = "0.9";
         document.getElementById("settings-buttons").style.padding = "14px 43px 16px 12px";
         document.getElementById("language-menu-slider").style.top = "-35px";
@@ -287,6 +288,19 @@ function scrollMoreThan40() {
     }
 }
 
+function scrollMoreThan100() {
+    if (window.pageYOffset >= 100) {
+        // Hide the header completely
+        document.getElementById("header").style.top = "-100px";
+    }
+}
+
+function scrollLessThan1000() {
+    if (window.pageYOffset < 1000 && window.pageYOffset >= 100) {
+        // Show the header again but tucked partially
+        document.getElementById("header").style.top = "-35px";
+    }
+}
 
 /* ---------- ------------------------------
 TOGGLE PASSWORD VISIBILITY

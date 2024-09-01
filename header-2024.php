@@ -347,48 +347,44 @@ display: none;
     </div>
 
 
-
 <!-- MAIN MENU -->
 <div id="main-menu-overlay" class="overlay-settings" style="display:none;">
   <button type="button" onclick="closeSettings()" aria-label="Click to close settings page" class="x-button"></button>
   <div class="overlay-content-settings">
     <div>
-      <div class="menu-page-item">
-        <a href="dashboard.php" aria-label="Dashboard" data-lang-id="1000-dashboard">Dashboard</a>
-        <span class="status-circle"></span> <!-- Green circle beside each menu item -->
-      </div>
-      <div class="menu-page-item">
-        <a data-lang-id="1001-gobrik-tour" onclick="closeSettings(); setTimeout(guidedTour, 500);">GoBrik Tour</a>
-        <span class="status-circle"></span>
-      </div>
+      <!-- Login and Signup at the top -->
       <div class="menu-page-item">
         <a href="login.php" aria-label="Register" data-lang-id="1000-login" style="margin-right:10px">Login</a> |
         <a href="signup.php" aria-label="Signup" data-lang-id="1000-signup" style="margin-left:10px">Signup</a>
-        <span class="status-circle"></span>
+        <span style="height: 10px; width: 10px; background-color: green; border-radius: 50%; display: inline-block; margin-left: 10px;" title="Under development, but active!"></span>
+      </div>
+      <div class="menu-page-item">
+        <a data-lang-id="1001-gobrik-tour" onclick="closeSettings(); setTimeout(guidedTour, 500);">GoBrik Tour</a>
+        <span style="height: 10px; width: 10px; background-color: green; border-radius: 50%; display: inline-block; margin-left: 10px;" title="Under development, but active!"></span>
       </div>
       <div class="menu-page-item">
         <a href="log.php" aria-label="Log" data-lang-id="1000-log-ecobrick">Log Ecobrick</a>
-        <span class="status-circle"></span>
+        <span style="height: 10px; width: 10px; background-color: yellow; border-radius: 50%; display: inline-block; margin-left: 10px;" title="Under development, but active!"></span>
       </div>
       <div class="menu-page-item">
         <a href="brikchain.php" data-lang-id="1000-brikchain">The Brikchain</a>
-        <span class="status-circle"></span>
+        <span style="height: 10px; width: 10px; background-color: green; border-radius: 50%; display: inline-block; margin-left: 10px;" title="Under development, but active!"></span>
       </div>
       <div class="menu-page-item">
         <a href="newest-briks.php" data-lang-id="1000-latest-ecobricks">Latest Ecobricks</a>
-        <span class="status-circle"></span>
+        <span style="height: 10px; width: 10px; background-color: green; border-radius: 50%; display: inline-block; margin-left: 10px;" title="Under development, but active!"></span>
       </div>
       <div class="menu-page-item">
         <a href="newest-projects.php" data-lang-id="1000-featured-projects">Featured Projects</a>
-        <span class="status-circle"></span>
+        <span style="height: 10px; width: 10px; background-color: green; border-radius: 50%; display: inline-block; margin-left: 10px;" title="Under development, but active!"></span>
       </div>
       <div class="menu-page-item">
         <a href="newest-trainings.php" data-lang-id="1000-latest-trainings">Latest Trainings</a>
-        <span class="status-circle"></span>
+        <span style="height: 10px; width: 10px; background-color: green; border-radius: 50%; display: inline-block; margin-left: 10px;" title="Under development, but active!"></span>
       </div>
       <div class="menu-page-item">
         <a href="index.php" data-lang-id="1000-landing-page">Landing Page</a>
-        <span class="status-circle"></span>
+        <span style="height: 10px; width: 10px; background-color: green; border-radius: 50%; display: inline-block; margin-left: 10px;" title="Under development, but active!"></span>
       </div>
     </div>
   </div> <!-- close overlay-content-settings -->

@@ -487,6 +487,9 @@ display:none;
 /* 6. Main Menu Overlay Curtain - Comes in from the right after clicking +- button. */
 /* -------------------------------------------------------------------------- */
 /* Main Menu Overlay Curtain */
+
+
+/* Main Menu Overlay Curtain */
 #main-menu-overlay {
   background-color: var(--side-overlays);
   color: var(--text-color);
@@ -563,15 +566,6 @@ display:none;
   color: var(--header-accent);
 }
 
-/* Status Circle */
-.status-circle {
-  height: 10px;
-  width: 10px;
-  background-color: green; /* Green color for active status */
-  border-radius: 50%;
-  display: inline-block;
-  margin-left: 10px; /* Adds space between the text and the circle */
-}
 
 
 /*

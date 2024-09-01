@@ -130,8 +130,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h3 data-lang-id="001-page1-heading">Create Your Account</h3>
-            <h4 data-lang-id="002-page1-heading">GoBrik uses Buwana accounts— an open source, for-Earth alternative to corporate logins.</h4>
+            <div id="status-message" data-lang-id="001-page1-heading">Create Your Account</div>
+            <div id="sub-status-message" data-lang-id="002-page1-heading">GoBrik uses Buwana accounts— an open source, for-Earth alternative to corporate logins.</div>
         </div>
 
        <!--SIGNUP FORM-->
@@ -151,7 +151,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 
     <div class="form-item">
-        <label for="credential" data-lang-id="006-credential">How do you prefer to login?</label><br>
+        <label for="credential" data-lang-id="006-credential">Your preferred login:</label><br>
         <select id="credential" name="credential" aria-label="Preferred Credential" required placeholder="Select...">
             <option value="" disabled selected data-lang-id="000-select">Select...</option>
             <option value="email">E-mail</option>
@@ -170,7 +170,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <div style="margin:auto;text-align: center;">
         <button  type="submit" id="submit-button" aria-label="Submit Form" class="submit-button enabled">
-        🔑 <span data-lang-id="016-submit-to-password" id="submit-button-text">Next: Set Password</span>
+        <span data-lang-id="016-submit-to-password" id="submit-button-text">Next ➡️</span>
         </button>
     </div>
 </form>

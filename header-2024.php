@@ -346,14 +346,8 @@ display: none;
     </div>
     </div>
 
-
-<div id="page-content"> <!--modal blur added here-->
-
- <!-- RIGHT PAGE MENU -->
-
-    <div id="main-menu-overlay" class="overlay-settings" style="display:none;">
-        <button type="button" onclick="closeSettings()" aria-label="Click to close settings page" class="x-button">
-        </button>
+<div id="main-menu-overlay" class="overlay-settings" style="display:none;">
+        <button type="button" onclick="closeSettings()" aria-label="Close" class="x-button"></button>
         <div class="overlay-content-settings" style="margin:auto;min-width: 300px;display: flex;
   justify-content: center;">
             <div style="margin-bottom: 20px;">
@@ -373,6 +367,58 @@ display: none;
              <p style="font-size:smaller;margin-bottom: 20px;" data-lang-id="1000-about-gobrik"><a href="https://ecobricks.org/gobrik" target="_blank">The GoBrik project</a> is developed by the <a href="https://ecobricks.org/about" target="_blank">Global Ecobrick Alliance</a> a not-for-profit Earth enterprise dedicated to accelerating plastic and petro-capital transition.</p>
         </div> <!--close overlay-content-settings-->
     </div> <!-- close right page menu-->
+
+
+<!-- MAIN MENU -->
+<div id="main-menu-overlay" class="overlay-settings" style="display:none;">
+  <button type="button" onclick="closeSettings()" aria-label="Click to close settings page" class="x-button"></button>
+  <div class="overlay-content-settings">
+    <div>
+      <div class="menu-page-item">
+        <a href="dashboard.php" aria-label="Dashboard" data-lang-id="1000-dashboard">Dashboard</a>
+        <span class="status-circle"></span> <!-- Green circle beside each menu item -->
+      </div>
+      <div class="menu-page-item">
+        <a data-lang-id="1001-gobrik-tour" onclick="closeSettings(); setTimeout(guidedTour, 500);">GoBrik Tour</a>
+        <span class="status-circle"></span>
+      </div>
+      <div class="menu-page-item">
+        <a href="login.php" aria-label="Register" data-lang-id="1000-login" style="margin-right:10px">Login</a> |
+        <a href="signup.php" aria-label="Signup" data-lang-id="1000-signup" style="margin-left:10px">Signup</a>
+        <span class="status-circle"></span>
+      </div>
+      <div class="menu-page-item">
+        <a href="log.php" aria-label="Log" data-lang-id="1000-log-ecobrick">Log Ecobrick</a>
+        <span class="status-circle"></span>
+      </div>
+      <div class="menu-page-item">
+        <a href="brikchain.php" data-lang-id="1000-brikchain">The Brikchain</a>
+        <span class="status-circle"></span>
+      </div>
+      <div class="menu-page-item">
+        <a href="newest-briks.php" data-lang-id="1000-latest-ecobricks">Latest Ecobricks</a>
+        <span class="status-circle"></span>
+      </div>
+      <div class="menu-page-item">
+        <a href="newest-projects.php" data-lang-id="1000-featured-projects">Featured Projects</a>
+        <span class="status-circle"></span>
+      </div>
+      <div class="menu-page-item">
+        <a href="newest-trainings.php" data-lang-id="1000-latest-trainings">Latest Trainings</a>
+        <span class="status-circle"></span>
+      </div>
+      <div class="menu-page-item">
+        <a href="index.php" data-lang-id="1000-landing-page">Landing Page</a>
+        <span class="status-circle"></span>
+      </div>
+    </div>
+  </div> <!-- close overlay-content-settings -->
+</div> <!-- close main menu -->
+
+
+
+<div id="page-content"> <!--modal blur added here-->
+
 
 
 

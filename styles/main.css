@@ -483,75 +483,105 @@ display:none;
 
 
 
-
 /* -------------------------------------------------------------------------- */
-
-/*	6. Main Menu Overlay Curtain
-
-    Comes in from the right after clicking +- button.
-
+/* 6. Main Menu Overlay Curtain - Comes in from the right after clicking +- button. */
 /* -------------------------------------------------------------------------- */
-
+/* Main Menu Overlay Curtain */
 #main-menu-overlay {
-  background-color: var(--side-overlays) /*var(--overlays-and-headers:)*/;
-  color:  var(--text-color); /*var(--text-color)*/ ;
+  background-color: var(--side-overlays);
+  color: var(--text-color);
   z-index: 56;
 }
-
 
 /* Table of Contents Menu (background) */
 .overlay-settings {
   height: 100%;
-  width: 0%;
-  position: fixed; /* Stay in place */
-  z-index: 21; /* Sit on top */
+  width: 0;
+  position: fixed;
+  z-index: 21;
   left: 0;
   top: 0;
-  overflow-x: hidden; /* Disable horizontal scroll */
-  transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+  overflow-x: hidden;
+  transition: 0.5s;
 }
-
 
 /* Position the content inside the overlay */
 .overlay-content-settings {
-  position: initial;
   text-align: center;
-   /*margin-top: 30px; 30px top margin to avoid conflict with the close button on smaller screens */
   font-family: "Mulish";
-  /*font-size: smaller;*/
   display: flex;
-  /* justify-content: center; */
-  flex-flow: column;
-  height:100%;
+  flex-direction: column;
+  height: 100%;
   margin: auto;
+  min-width: 300px;
+  justify-content: center;
 }
-
 
 @media screen and (max-width: 700px) {
   .overlay-content-settings {
     width: 87%;
-    /*margin-top: 6%;*/
-}
+  }
 }
 
 @media screen and (min-width: 700px) and (max-width: 1324px) {
   .overlay-content-settings {
     width: 85%;
-    /*margin-top: 2%;*/
-}
+  }
 }
 
 @media screen and (min-width: 1325px) {
-    .overlay-content-settings {
-      width: 80%;
-    }
+  .overlay-content-settings {
+    width: 80%;
+  }
 }
 
+.menu-page-item {
+  padding: 10px;
+  font-family: 'Mulish';
+  font-size: 1.4em;
+  color: var(--text-color);
+  border-bottom: 1px solid var(--divider-line);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between; /* Aligns the text and circle to the sides */
+  max-height: 45px;
+  align-items: center; /* Aligns items vertically in the center */
+}
+
+.menu-page-item a {
+  text-decoration: none;
+  color: var(--subdued-text);
+  margin-right: auto; /* Aligns the <a> text to the left */
+}
+
+.menu-page-item a:hover {
+  color: var(--h1);
+}
+
+.menu-page-item:hover {
+  border-bottom: 1px solid rgba(128, 128, 128, 0.75);
+  color: var(--header-accent);
+}
+
+/* Status Circle */
+.status-circle {
+  height: 10px;
+  width: 10px;
+  background-color: green; /* Green color for active status */
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 10px; /* Adds space between the text and the circle */
+}
+
+
+/*
 .settings-label {
   font-family: 'Mulish';
   font-size: 1.2em;
   margin: 18px 0px 8px 0px;
-}
+}*/
+
+/*
 
 .language-box {
   display: flex;
@@ -569,11 +599,15 @@ display:none;
   background: var(--side-overlays);
   border-radius: 10px;
   margin: 10px;
- /* filter: invert(100);*/
+ */
+/* filter: invert(100);*//*
+
   font-size: 1.1em;
   cursor: pointer;
   color: var(--text-color);
-  /*border-color:var(--header-accent);*/
+  */
+/*border-color:var(--header-accent);*//*
+
   border-width:0.5px;
 
 }
@@ -587,6 +621,7 @@ display:none;
 .language-selector a {
   color: var(--side-overlays);
 }
+*/
 
 
 
@@ -679,18 +714,6 @@ border-color: #00a112 !important;
 
 
 
-.menu-page-item {
-  padding:10px;
-  font-family:'Mulish';
-  font-size:1.4em;
-  color:var(--text-color);
-  border-bottom:1px solid var(--divider-line);
-  cursor: pointer;
-  flex-grow: 1;
-  max-height: 45px;
-  display: flex;
-
-}
 
 
 
@@ -704,22 +727,6 @@ border-color: #00a112 !important;
 }
 
 
-
-.menu-page-item a {  text-decoration: none;
-color: var(--subdued-text);
-margin: auto;
-}
-
-.menu-page-item a:hover {  text-decoration: none;
-  color: var(--h1);
-  }
-
-  .menu-page-item:hover {
-
- border-bottom:1px solid rgba(128, 128, 128, 0.753);
- color: var(--header-accent);
-
-}
 
 
   /*working?!*/

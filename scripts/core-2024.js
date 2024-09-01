@@ -64,6 +64,14 @@ function modalCloseCurtains ( e ) {
   }
 }
 
+
+    //Blur out background
+    document.getElementById('page-content')?.classList.add('blurred');
+    document.getElementById('footer-full')?.classList.add('blurred');
+    document.body.classList.add('modal-open');
+
+
+
 document.addEventListener('keydown', modalCloseCurtains);
 
 

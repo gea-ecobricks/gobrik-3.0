@@ -237,13 +237,12 @@ SCROLL CONTROL
 
 -------------------------------------------*/
 
-
 let lastScrollTop = 0;
 
 window.onscroll = function() {
     scrollLessThan30();
     scrollMoreThan30();
-    scrollMoreThan100();
+    scrollMoreThan1000();
     scrollLessThan1000();
 };
 
@@ -288,19 +287,20 @@ function scrollMoreThan30() {
     }
 }
 
-function scrollMoreThan100() {
-    if (window.pageYOffset >= 100) {
+function scrollMoreThan1000() {
+    if (window.pageYOffset >= 1000) {
         // Hide the header completely
-        document.getElementById("header").style.top = "-100px";
+        document.getElementById("header").style.top = "-140px";
     }
 }
 
 function scrollLessThan1000() {
-    if (window.pageYOffset < 1000 && window.pageYOffset >= 100) {
+    if (window.pageYOffset < 1000 && window.pageYOffset >= 1000) {
         // Show the header again but tucked partially
         document.getElementById("header").style.top = "-35px";
     }
 }
+
 
 /* ---------- ------------------------------
 TOGGLE PASSWORD VISIBILITY

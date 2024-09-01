@@ -4,6 +4,8 @@
 	$name = $parts [count($parts)-1];
 	if (strcmp($name, "welcome.php") == 0)
   $name = "";
+  $is_logged_in = isset($buwana_id) && !empty($first_name);
+
 	;?>
 
 	<link rel="canonical" href="https://gobrik.com/<?php echo ($lang); ;?>/<?php echo ($name); ;?>">
@@ -346,7 +348,7 @@ display: none;
     </div>
     </div>
 
-
+<?php $is_logged_in = isset($buwana_id) && !empty($first_name); ?>
 
 <!-- MAIN MENU -->
 <div id="main-menu-overlay" class="overlay-settings" style="display:none;">

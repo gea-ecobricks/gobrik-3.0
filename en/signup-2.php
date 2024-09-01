@@ -8,7 +8,7 @@ $response = ['success' => false];
 $buwana_id = $_GET['id'] ?? null;
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.457';
+$version = '0.459';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $credential_type = '';
@@ -322,44 +322,6 @@ $(document).ready(function() {
 
 /* Control the header position as the page scrolls*/
 
-
-let lastScrollTop = 0;
-
-window.onscroll = function() {
-    scrollLessThan40();
-    scrollMoreThan40();
-};
-
-function scrollLessThan40() {
-    if (window.pageYOffset <= 40) {
-
-        document.getElementById("header").style.height = "80px";
-        document.getElementById("header").style.borderBottom = "none";
-        document.getElementById("header").style.boxShadow = "none";
-        document.getElementById("gea-logo").style.width = "185px";
-        document.getElementById("gea-logo").style.height = "36px";
-        document.getElementById("logo-gobrik").style.opacity = "1";
-        document.getElementById("header").style.top = "0";
-        document.getElementById("settings-buttons").style.padding = "16px 43px 16px 12px";
-        document.getElementById("language-menu-slider").style.top = "-15px";
-        document.getElementById("login-menu-slider").style.top = "-15px";
-    }
-}
-
-function scrollMoreThan40() {
-    if (window.pageYOffset >= 40) {
-       alert("hello!!")
-        document.getElementById("header").style.height = "55px";
-        document.getElementById("header").style.borderBottom = "var(--header-accent) 0.5px solid";
-        document.getElementById("header").style.boxShadow = "0px 0px 15px rgba(0, 0, 10, 0.805)";
-        document.getElementById("gea-logo").style.width = "165px";
-        document.getElementById("gea-logo").style.height = "33px";
-        document.getElementById("logo-gobrik").style.opacity = "0.9";
-        document.getElementById("settings-buttons").style.padding = "14px 43px 16px 12px";
-        document.getElementById("language-menu-slider").style.top = "-35px";
-        document.getElementById("login-menu-slider").style.top = "-35px";
-    }
-}
 
 </script>
 

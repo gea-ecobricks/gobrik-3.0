@@ -27,6 +27,7 @@ window.onscroll = function() {
 
 function scrollLessThan40() {
     if (window.pageYOffset <= 40) {
+
         document.getElementById("header").style.height = "80px";
         document.getElementById("header").style.borderBottom = "none";
         document.getElementById("header").style.boxShadow = "none";
@@ -42,6 +43,7 @@ function scrollLessThan40() {
 
 function scrollMoreThan40() {
     if (window.pageYOffset >= 40) {
+       alert("hello!!")
         document.getElementById("header").style.height = "55px";
         document.getElementById("header").style.borderBottom = "var(--header-accent) 0.5px solid";
         document.getElementById("header").style.boxShadow = "0px 0px 15px rgba(0, 0, 10, 0.805)";

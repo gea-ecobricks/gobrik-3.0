@@ -236,14 +236,13 @@ function ecobrickPreview(imageUrl, brik_serial, weight, owner, location) {
 SCROLL CONTROL
 
 -------------------------------------------*/
-
 let lastScrollTop = 0;
 
 window.onscroll = function() {
     scrollLessThan30();
     scrollMoreThan30();
-    scrollMoreThan1000();
-    scrollLessThan1000();
+    scrollMoreThan800();
+    scrollLessThan800();
 };
 
 function scrollLessThan30() {
@@ -268,7 +267,7 @@ function scrollLessThan30() {
 }
 
 function scrollMoreThan30() {
-    if (window.pageYOffset > 30 && window.pageYOffset < 100) {
+    if (window.pageYOffset > 30 && window.pageYOffset < 800) {
         document.getElementById("header").style.height = "60px";
         document.getElementById("header").style.borderBottom = "var(--header-accent) 0.5px solid";
         document.getElementById("header").style.boxShadow = "0px 0px 15px rgba(0, 0, 10, 0.805)";
@@ -287,17 +286,17 @@ function scrollMoreThan30() {
     }
 }
 
-function scrollMoreThan1000() {
-    if (window.pageYOffset >= 1000) {
+function scrollMoreThan800() {
+    if (window.pageYOffset >= 800) {
         // Hide the header completely
         document.getElementById("header").style.top = "-140px";
     }
 }
 
-function scrollLessThan1000() {
-    if (window.pageYOffset < 1000 && window.pageYOffset >= 1000) {
-        // Show the header again but tucked partially
-        document.getElementById("header").style.top = "-35px";
+function scrollLessThan800() {
+    if (window.pageYOffset < 800) {
+        // Show the header again
+        document.getElementById("header").style.top = "0";
     }
 }
 

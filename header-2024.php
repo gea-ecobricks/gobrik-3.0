@@ -360,8 +360,8 @@ display: none;
         <!-- If the user is logged in, show the user's status -->
         <div class="menu-page-item">
           <span class="status-circle" style="background-color: green;" title="User is logged in!"></span>
-          <span style="font-size: 1.4em; color: var(--text-color); margin-left: 10px;">Logged in as <?php echo htmlspecialchars($first_name); ?></span>
-          <div style="font-size: 0.9em; color: var(--subdued-text); margin-left: 26px; margin-top: 5px;">
+          <span style="color: var(--text-color); margin-left: 10px;margin-right:auto;">Logged in as <?php echo htmlspecialchars($first_name); ?></span><br>
+          <div style="font-size: 0.8em; color: var(--subdued-text); margin-left: 5px; margin-top: 5px;">
             <a href="profile.php" style="text-decoration: none; color: var(--subdued-text);">Profile settings</a> |
             <a href="logout.php" style="text-decoration: none; color: var(--subdued-text);">Log out</a>
           </div>

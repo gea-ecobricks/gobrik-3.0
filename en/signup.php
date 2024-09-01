@@ -130,18 +130,18 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <div id="status-message" data-lang-id="001-page1-heading">Create Your Account</div>
-            <div id="sub-status-message" data-lang-id="002-page1-heading">GoBrik uses Buwana accounts— an open source, for-Earth alternative to corporate logins.</div>
+            <div id="status-message" data-lang-id="001-page1-heading"  style="margin-top:0px;">Create Your Account</div>
+            <div id="sub-status-message" data-lang-id="002-page1-heading">Join us on GoBrik with a Buwana accounts— an open source, for-Earth alternative to corporate logins.</div>
         </div>
 
        <!--SIGNUP FORM-->
 <form id="user-signup-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
-    <div class="form-item" style="margin-top:0px;">
+    <div class="form-item">
         <label for="first_name" data-lang-id="003-first-name">What is your first name?</label><br>
         <span data-lang-id="000-name-placeholder">
             <input type="text" id="first_name" name="first_name" aria-label="Your first name" title="Required. Max 255 characters." required placeholder="Your name...">
-        </spn>
+        </span>
 
 
         <!--ERRORS-->
@@ -159,13 +159,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <option value="sms" disabled>SMS</option>
             <option value="peer" disabled>Peer</option>
         </select>
-        <p class="form-caption" data-lang-id="006-way-to-contact">How we'll contact you to confirm your account.</p>
+        <p class="form-caption" data-lang-id="006-way-to-contact">You'll use this to login and receive GoBrik messages.</p>
         <!--ERRORS-->
         <div id="credential-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
     </div>
-    <!-- <div style="margin:auto;text-align: center;">
-        <input type="submit" id="submit-button" value="🔑 Next: Set Password" aria-label="Submit Form" class="enabled">
-    </div> -->
 
 
 <div style="margin:auto;text-align: center;">
@@ -180,11 +177,13 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div><!--closes Landing content-->
 
 
-    <div style="text-align:center;width:100%;margin:auto;margin-top:34px;"><p style="font-size:medium;" data-land-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
-        </div>
+
 
 
 </div>
+
+<div style="text-align:center;width:100%;margin:auto;margin-top:34px;"><p style="font-size:medium;" data-land-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
+ </div>
 
 </div><!--closes main and starry background-->
 

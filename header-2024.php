@@ -346,17 +346,29 @@ display: none;
     </div>
     </div>
 
+
+
 <!-- MAIN MENU -->
 <div id="main-menu-overlay" class="overlay-settings" style="display:none;">
   <button type="button" onclick="closeSettings()" aria-label="Click to close settings page" class="x-button"></button>
   <div class="overlay-content-settings">
     <div>
-      <!-- Login and Signup at the top -->
-      <div class="menu-page-item">
-        <a href="login.php" aria-label="Register" data-lang-id="1000-login" style="margin-right:10px">Login</a> |
-        <a href="signup.php" aria-label="Signup" data-lang-id="1000-signup" style="margin-left:10px">Signup</a>
-        <span class="status-circle" style="background-color: green;" title="Under development, but active!"></span>
-      </div>
+      <?php if ($is_logged_in): ?>
+        <!-- If the user is logged in, show the user's status -->
+        <div class="menu-page-item">
+          <span style="margin-right: auto; font-size: 1.4em; color: var(--text-color);">Logged in as <?php echo htmlspecialchars($first_name); ?></span>
+          <span class="status-circle" style="background-color: green;" title="User is logged in!"></span>
+        </div>
+      <?php else: ?>
+        <!-- If the user is not logged in, show the login/signup options -->
+        <div class="menu-page-item">
+          <a href="login.php" aria-label="Register" data-lang-id="1000-login" style="margin-right:10px">Login</a> |
+          <a href="signup.php" aria-label="Signup" data-lang-id="1000-signup" style="margin-left:10px">Signup</a>
+          <span class="status-circle" style="background-color: green;" title="Under development, but active!"></span>
+        </div>
+      <?php endif; ?>
+
+      <!-- Other menu items -->
       <div class="menu-page-item">
         <a data-lang-id="1001-gobrik-tour" onclick="closeSettings(); setTimeout(guidedTour, 500);">GoBrik Tour</a>
         <span class="status-circle" style="background-color: yellow;" title="Under development, but active!"></span>
@@ -388,7 +400,6 @@ display: none;
     </div>
   </div> <!-- close overlay-content-settings -->
 </div> <!-- close main menu -->
-
 
 
 

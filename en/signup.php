@@ -131,7 +131,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <div style="text-align:center;width:100%;margin:auto;">
             <div id="status-message" data-lang-id="001-page1-heading">Create Your Account</div>
-            <div id="sub-status-message" data-lang-id="002-page1-heading" style="margin-bottom:15px;">Join us on GoBrik with a Buwana accounts— an open source, for-Earth alternative to corporate logins.</div>
+            <div id="sub-status-message" data-lang-id="002-page1-heading" style="margin-bottom:15px;">Join us on GoBrik with a Buwana account— an open source, for-Earth alternative to corporate logins.</div>
         </div>
 
        <!--SIGNUP FORM-->
@@ -159,7 +159,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <option value="sms" disabled>SMS</option>
             <option value="peer" disabled>Peer</option>
         </select>
-        <p class="form-caption" data-lang-id="006-way-to-contact">You'll use this to login and receive GoBrik messages.</p>
+        <p class="form-caption" data-lang-id="006-way-to-contact">You'll use this credential to login and receive GoBrik messages.</p>
         <!--ERRORS-->
         <div id="credential-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
     </div>

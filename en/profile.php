@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.37';
+$version = '0.38';
 $page = 'profile';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -60,34 +60,8 @@ if ($result_countries->num_rows > 0) {
 <html lang="<?php echo htmlspecialchars($lang, ENT_QUOTES, 'UTF-8'); ?>">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | GoBrik 3.0</title>
-    <style>
-        .form-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        .left-column, .right-column {
-            flex: 1;
-            min-width: 250px;
-        }
-        @media screen and (min-width: 900px) {
-            .left-column {
-                max-width: 40%;
-            }
-            .right-column {
-                max-width: 60%;
-            }
-        }
-        .form-item {
-            margin-bottom: 15px;
-        }
-        .submit-button-container {
-            text-align: center;
-            width: 100%;
-        }
-    </style>
+    <!-- Include additional scripts and styles -->
     <?php require_once("../includes/profile-inc.php"); ?>
 </head>
 <body>
@@ -97,6 +71,12 @@ if ($result_countries->num_rows > 0) {
 
 <div id="form-submission-box" style="height:fit-content;margin-top: 90px;">
     <div class="form-container">
+        <div style="text-align:center;width:100%;margin:auto;">
+            <div id="status-message"><?php echo htmlspecialchars($first_name); ?>! Profile Settings</div>
+            <div id="sub-status-message">Manage your GoBrik user settings here.</div>
+        </div>
+
+        <div class="form-container">
         <div class="left-column">
             <!-- Non-editable Fields -->
             <div class="form-item">
@@ -180,11 +160,12 @@ if ($result_countries->num_rows > 0) {
         </div>
     </div>
 
-    <!-- Other Dashboard Buttons -->
-    <div style="display:flex;flex-flow:row;width:100%;justify-content:center; margin-top:50px;">
-        <a href="newest-briks.php"><button id="newest-ecobricks-button" style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;">📅 Newest Ecobricks</button></a>
-        <!-- Logout Button -->
-        <button id="logout-button" style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;">📤 Log Out</button>
+        <!-- Other Dashboard Buttons -->
+        <div style="display:flex;flex-flow:row;width:100%;justify-content:center; margin-top:50px;">
+            <a href="newest-briks.php"><button id="newest-ecobricks-button" style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;">📅 Newest Ecobricks</button></a>
+            <!-- Logout Button -->
+            <button id="logout-button" style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;">📤 Log Out</button>
+        </div>
     </div>
 </div>
 

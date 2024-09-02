@@ -126,6 +126,37 @@ color: var(--text-color);
 }
 
 
+
+
+
+
+.form-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .left-column, .right-column {
+            flex: 1;
+            min-width: 250px;
+        }
+        @media screen and (min-width: 900px) {
+            .left-column {
+                max-width: 40%;
+            }
+            .right-column {
+                max-width: 60%;
+            }
+        }
+        .form-item {
+            margin-bottom: 15px;
+        }
+        .submit-button-container {
+            text-align: center;
+            width: 100%;
+        }
+
+
+
 </style>
 
 

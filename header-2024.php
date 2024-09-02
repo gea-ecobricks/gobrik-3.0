@@ -360,7 +360,7 @@ display: none;
         <!-- If the user is logged in, show the user's status -->
         <div class="menu-page-item">
           <span class="status-circle" style="background-color: green;" title="User is logged in!"></span>
-          <span style="color: var(--text-color); margin-left: 10px;margin-right:auto;">Logged in as <?php echo htmlspecialchars($first_name); ?></span><br>
+          <span style="color: var(--text-color); margin-left: 10px;margin-right:auto;">Logged in as <?php echo htmlspecialchars($first_name); ?></span><br><br>
           <div style="font-size: 0.8em; color: var(--subdued-text); margin-left: 5px; margin-top: 5px;">
             <a href="profile.php" style="text-decoration: none; color: var(--subdued-text);">Profile settings</a> |
             <a href="logout.php" style="text-decoration: none; color: var(--subdued-text);">Log out</a>
@@ -371,18 +371,18 @@ display: none;
         <div class="menu-page-item">
           <a href="login.php" aria-label="Register" data-lang-id="1000-login" style="margin-right:10px">Login</a> |
           <a href="signup.php" aria-label="Signup" data-lang-id="1000-signup" style="margin-left:10px">Signup</a>
-          <span class="status-circle" style="background-color: green;" title="Under development, but active!"></span>
+          <span class="status-circle" style="background-color: green;" title="Deployed. Under beta testing."></span>
         </div>
       <?php endif; ?>
 
       <!-- Other menu items -->
       <div class="menu-page-item">
         <a data-lang-id="1001-gobrik-tour" onclick="closeSettings(); setTimeout(guidedTour, 500);">GoBrik Tour</a>
-        <span class="status-circle" style="background-color: yellow;" title="Under development, but active!"></span>
+        <span class="status-circle" style="background-color: orange;" title="Under development"></span>
       </div>
       <div class="menu-page-item">
         <a href="log.php" aria-label="Log" data-lang-id="1000-log-ecobrick">Log Ecobrick</a>
-        <span class="status-circle" style="background-color: yellow;" title="Under development, but active!"></span>
+        <span class="status-circle" style="background-color: orange;" title="Under development"></span>
       </div>
       <div class="menu-page-item">
         <a href="brikchain.php" data-lang-id="1000-brikchain">The Brikchain</a>
@@ -394,15 +394,15 @@ display: none;
       </div>
       <div class="menu-page-item">
         <a href="newest-projects.php" data-lang-id="1000-featured-projects">Featured Projects</a>
-        <span class="status-circle" style="background-color: yellow;" title="Under development, but active!"></span>
+        <span class="status-circle" style="background-color: red;" title="Not yet deployed"></span>
       </div>
       <div class="menu-page-item">
         <a href="newest-trainings.php" data-lang-id="1000-latest-trainings">Latest Trainings</a>
-        <span class="status-circle" style="background-color: yellow;" title="Under development, but active!"></span>
+        <span class="status-circle" style="background-color: red;" title="Not yet deployed"></span>
       </div>
       <div class="menu-page-item">
         <a href="index.php" data-lang-id="1000-landing-page">Landing Page</a>
-        <span class="status-circle" style="background-color: yellow;" title="Under development, but active!"></span>
+        <span class="status-circle" style="background-color: green;" title="Deployed. Under development."></span>
       </div>
     </div>
   </div> <!-- close overlay-content-settings -->

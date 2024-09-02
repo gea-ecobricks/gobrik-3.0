@@ -80,7 +80,7 @@ if ($result_countries->num_rows > 0) {
         <form method="post" action="update_profile.php">
             <!-- Display Full Name -->
             <div class="form-item">
-                <strong>Full Name:</strong> <?php echo htmlspecialchars($full_name); ?>
+                <p><strong>Full Name:</strong> <?php echo htmlspecialchars($full_name); ?></p>
             </div>
 
             <!-- Editable Fields -->

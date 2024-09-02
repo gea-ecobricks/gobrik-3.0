@@ -77,7 +77,7 @@ if ($result_countries->num_rows > 0) {
         </div>
 
         <div class="form-container">
-            <h2>Buwana Account
+            <h2>Buwana Account</h2>
         <div class="left-column" style="font-size:1em">
             <!-- Non-editable Fields -->
             <div class="form-item">

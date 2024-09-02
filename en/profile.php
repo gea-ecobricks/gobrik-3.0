@@ -68,7 +68,7 @@ if ($result_countries->num_rows > 0) {
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
 <div id="top-page-image" class="dolphin-pic top-page-image"></div>
-
+<div id="update-status"></div>
 <div id="form-submission-box" style="height:fit-content;margin-top: 90px;">
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">

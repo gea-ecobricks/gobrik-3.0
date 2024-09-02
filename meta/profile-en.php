@@ -1,4 +1,4 @@
-<title>User Profile | GoBrik 3.0</div>
+<title>User Profile | GoBrik 3.0</title>
 
 <meta name="keywords" content="user profile, user settings, account, update profile, gobrik">
 <meta name="description" content="Manage your GoBrik and Buwana Account settings">

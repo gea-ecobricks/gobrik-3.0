@@ -72,12 +72,13 @@ if ($result_countries->num_rows > 0) {
 <div id="form-submission-box" style="height:fit-content;margin-top: 90px;">
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
-            <div id="status-message"><?php echo htmlspecialchars($first_name); ?>! Profile Settings</div>
+            <div id="status-message"><?php echo htmlspecialchars($first_name); ?>'s' Profile Settings</div>
             <div id="sub-status-message">Manage your GoBrik user settings here.</div>
         </div>
 
         <div class="form-container">
-        <div class="left-column">
+            <h2>Buwana Account
+        <div class="left-column" style="font-size:1em">
             <!-- Non-editable Fields -->
             <div class="form-item">
                 <p><strong>Full Name:</strong> <?php echo htmlspecialchars($full_name); ?></p>
@@ -168,6 +169,8 @@ if ($result_countries->num_rows > 0) {
         </div>
     </div>
 </div>
+
+</div> <!--closes main-->
 
 <!-- FOOTER STARTS HERE -->
 <?php require_once("../footer-2024.php"); ?>

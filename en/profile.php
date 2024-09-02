@@ -54,17 +54,14 @@ if ($result_countries->num_rows > 0) {
         $countries[] = $row;
     }
 }
-?>
-
-<!DOCTYPE html>
-<html lang="<?php echo htmlspecialchars($lang, ENT_QUOTES, 'UTF-8'); ?>">
+echo '<!DOCTYPE html>
+<html lang="' . $lang . '">
 <head>
-    <meta charset="UTF-8">
-    <title>Dashboard | GoBrik 3.0</title>
-    <!-- Include additional scripts and styles -->
+<meta charset="UTF-8">
+';
+?>
     <?php require_once("../includes/profile-inc.php"); ?>
-</head>
-<body>
+
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
 <div id="top-page-image" class="dolphin-pic top-page-image"></div>

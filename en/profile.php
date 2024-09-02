@@ -76,9 +76,9 @@ if ($result_countries->num_rows > 0) {
             <div id="sub-status-message">Manage your GoBrik user settings here.</div>
         </div>
 
-        <div class="form-container">
+        <div class="form-container" style="padding-top:20px">
 
-        <div class="left-column" style="font-size:1em">
+        <div class="left-column" style="font-size:0.9em">
             <!-- Non-editable Fields -->
             <div class="form-item">
                 <p><strong>Full Name:</strong> <?php echo htmlspecialchars($full_name); ?></p>

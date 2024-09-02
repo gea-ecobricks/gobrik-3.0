@@ -54,27 +54,16 @@ if ($result_countries->num_rows > 0) {
         $countries[] = $row;
     }
 }
-
-echo '<!DOCTYPE html>
-<html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">
-<head>
-<meta charset="UTF-8">
-
-';
-
-
 ?>
 
-
-
-<!--
-GoBrik.com site version 3.0
-Developed and made open source by the Global Ecobrick Alliance
-See our git hub repository for the full code and to help out:
-https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
-
-<?php require_once("../includes/profile-inc.php"); ?>
-
+<!DOCTYPE html>
+<html lang="<?php echo htmlspecialchars($lang, ENT_QUOTES, 'UTF-8'); ?>">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard | GoBrik 3.0</title>
+    <!-- Include additional scripts and styles -->
+    <?php require_once("../includes/profile-inc.php"); ?>
+</head>
 <body>
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
@@ -83,7 +72,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="form-submission-box" style="height:fit-content;margin-top: 90px;">
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
-            <div id="status-message">' . htmlspecialchars($first_name) . '! Profile Settings</div>
+            <div id="status-message"><?php echo htmlspecialchars($first_name); ?>! Profile Settings</div>
             <div id="sub-status-message">Manage your GoBrik user settings here.</div>
         </div>
 
@@ -91,72 +80,76 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <form method="post" action="update_profile.php">
             <div class="form-group">
                 <label for="first_name">First Name:</label>
-                <input type="text" name="first_name" id="first_name" value="' . htmlspecialchars($first_name) . '" required>
+                <input type="text" name="first_name" id="first_name" value="<?php echo htmlspecialchars($first_name); ?>" required>
             </div>
 
             <div class="form-group">
                 <label for="last_name">Last Name:</label>
-                <input type="text" name="last_name" id="last_name" value="' . htmlspecialchars($last_name) . '" required>
+                <input type="text" name="last_name" id="last_name" value="<?php echo htmlspecialchars($last_name); ?>" required>
             </div>
 
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" name="email" id="email" value="' . htmlspecialchars($email) . '" required>
+                <input type="email" name="email" id="email" value="<?php echo htmlspecialchars($email); ?>" required>
             </div>
 
             <div class="form-group">
                 <label for="country_id">Country:</label>
                 <select name="country_id" id="country_id">
-                    <option value="">Select Country</option>';
-                    foreach ($countries as $country) {
-                        echo '<option value="' . $country['country_id'] . '"' . ($country['country_id'] == $country_id ? ' selected' : '') . '>' . htmlspecialchars($country['country_name']) . '</option>';
-                    }
-                echo '</select>
+                    <option value="">Select Country</option>
+                    <?php foreach ($countries as $country): ?>
+                        <option value="<?php echo $country['country_id']; ?>" <?php if ($country['country_id'] == $country_id) echo 'selected'; ?>>
+                            <?php echo htmlspecialchars($country['country_name']); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
             </div>
 
             <div class="form-group">
                 <label for="language_id">Preferred Language:</label>
                 <select name="language_id" id="language_id">
-                    <option value="">Select Language</option>';
-                    foreach ($languages as $language) {
-                        echo '<option value="' . $language['lang_id'] . '"' . ($language['lang_id'] == $language_id ? ' selected' : '') . '>' . htmlspecialchars($language['languages_eng_name']) . '</option>';
-                    }
-                echo '</select>
+                    <option value="">Select Language</option>
+                    <?php foreach ($languages as $language): ?>
+                        <option value="<?php echo $language['lang_id']; ?>" <?php if ($language['lang_id'] == $languages_id) echo 'selected'; ?>>
+                            <?php echo htmlspecialchars($language['languages_eng_name']); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
             </div>
 
             <div class="form-group">
                 <label for="birth_date">Birth Date:</label>
-                <input type="date" name="birth_date" id="birth_date" value="' . htmlspecialchars($birth_date) . '">
+                <input type="date" name="birth_date" id="birth_date" value="<?php echo htmlspecialchars($birth_date); ?>">
             </div>
 
             <!-- Non-editable Fields -->
             <div class="form-group">
                 <label>Account Created At:</label>
-                <input type="text" value="' . htmlspecialchars($created_at) . '" readonly>
+                <input type="text" value="<?php echo htmlspecialchars($created_at); ?>" readonly>
             </div>
             <div class="form-group">
                 <label>Last Login:</label>
-                <input type="text" value="' . htmlspecialchars($last_login) . '" readonly>
+                <input type="text" value="<?php echo htmlspecialchars($last_login); ?>" readonly>
             </div>
             <div class="form-group">
                 <label>Brikcoin Balance:</label>
-                <input type="text" value="' . htmlspecialchars($brikcoin_balance) . '" readonly>
+                <input type="text" value="<?php echo htmlspecialchars($brikcoin_balance); ?>" readonly>
             </div>
             <div class="form-group">
                 <label>Role:</label>
-                <input type="text" value="' . htmlspecialchars($role) . '" readonly>
+                <input type="text" value="<?php echo htmlspecialchars($role); ?>" readonly>
             </div>
             <div class="form-group">
                 <label>Account Status:</label>
-                <input type="text" value="' . htmlspecialchars($account_status) . '" readonly>
+                <input type="text" value="<?php echo htmlspecialchars($account_status); ?>" readonly>
             </div>
             <div class="form-group">
                 <label>Account Notes:</label>
-                <textarea readonly>' . htmlspecialchars($notes) . '</textarea>
+                <textarea readonly><?php echo htmlspecialchars($notes); ?></textarea>
             </div>
             <div class="form-group">
                 <label>Agreed to Terms of Service:</label>
-                <input type="text" value="' . ($terms_of_service ? 'Yes' : 'No') . '" readonly>
+                <input type="text" value="<?php echo $terms_of_service ? 'Yes' : 'No'; ?>" readonly>
             </div>
 
             <!-- Save and Update Button -->
@@ -180,4 +173,3 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 </body>
 </html>
-

@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.37';
-$page = 'dashboard';
+$page = 'profile';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 // Check if the user is logged in
@@ -59,13 +59,13 @@ echo '<!DOCTYPE html>
 <html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">
 <head>
 <meta charset="UTF-8">
-<title>Dashboard | GoBrik 3.0</title>
+
 ';
 
 
 ?>
 
-<title>Dashboard | GoBrik 3.0</title>
+
 
 <!--
 GoBrik.com site version 3.0
@@ -73,7 +73,7 @@ Developed and made open source by the Global Ecobrick Alliance
 See our git hub repository for the full code and to help out:
 https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
-<?php require_once("../includes/dashboard-inc.php"); ?>
+<?php require_once("../includes/profile-inc.php"); ?>
 
 <body>
 <div class="splash-title-block"></div>

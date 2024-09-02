@@ -22,13 +22,13 @@ require_once '../gobrikconn_env.php';
 require_once '../buwanaconn_env.php'; // Buwana database credentials
 
 // Fetch user information using buwana_id from the Buwana database
-$sql_user_info = "SELECT first_name, last_name, email, country_id, languages_id, birth_date, created_at, last_login, brikcoin_balance, role, account_status, notes, terms_of_service FROM users_tb WHERE buwana_id = ?";
+$sql_user_info = "SELECT full_name, first_name, last_name, email, country_id, languages_id, birth_date, created_at, last_login, brikcoin_balance, role, account_status, notes, terms_of_service FROM users_tb WHERE buwana_id = ?";
 $stmt_user_info = $buwana_conn->prepare($sql_user_info);
 
 if ($stmt_user_info) {
     $stmt_user_info->bind_param('i', $buwana_id);
     $stmt_user_info->execute();
-    $stmt_user_info->bind_result($first_name, $last_name, $email, $country_id, $languages_id, $birth_date, $created_at, $last_login, $brikcoin_balance, $role, $account_status, $notes, $terms_of_service);
+    $stmt_user_info->bind_result($full_name, $first_name, $last_name, $email, $country_id, $languages_id, $birth_date, $created_at, $last_login, $brikcoin_balance, $role, $account_status, $notes, $terms_of_service);
     $stmt_user_info->fetch();
     $stmt_user_info->close();
 } else {
@@ -78,22 +78,28 @@ if ($result_countries->num_rows > 0) {
 
         <!-- User Profile Form -->
         <form method="post" action="update_profile.php">
-            <div class="form-group">
+            <!-- Display Full Name -->
+            <div class="form-item">
+                <strong>Full Name:</strong> <?php echo htmlspecialchars($full_name); ?>
+            </div>
+
+            <!-- Editable Fields -->
+            <div class="form-item">
                 <label for="first_name">First Name:</label>
                 <input type="text" name="first_name" id="first_name" value="<?php echo htmlspecialchars($first_name); ?>" required>
             </div>
 
-            <div class="form-group">
+            <div class="form-item">
                 <label for="last_name">Last Name:</label>
                 <input type="text" name="last_name" id="last_name" value="<?php echo htmlspecialchars($last_name); ?>" required>
             </div>
 
-            <div class="form-group">
+            <div class="form-item">
                 <label for="email">Email:</label>
                 <input type="email" name="email" id="email" value="<?php echo htmlspecialchars($email); ?>" required>
             </div>
 
-            <div class="form-group">
+            <div class="form-item">
                 <label for="country_id">Country:</label>
                 <select name="country_id" id="country_id">
                     <option value="">Select Country</option>
@@ -105,7 +111,7 @@ if ($result_countries->num_rows > 0) {
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-item">
                 <label for="language_id">Preferred Language:</label>
                 <select name="language_id" id="language_id">
                     <option value="">Select Language</option>
@@ -117,43 +123,36 @@ if ($result_countries->num_rows > 0) {
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-item">
                 <label for="birth_date">Birth Date:</label>
                 <input type="date" name="birth_date" id="birth_date" value="<?php echo htmlspecialchars($birth_date); ?>">
             </div>
 
-            <!-- Non-editable Fields -->
-            <div class="form-group">
-                <label>Account Created At:</label>
-                <input type="text" value="<?php echo htmlspecialchars($created_at); ?>" readonly>
+            <!-- Non-editable Fields Displayed as Text -->
+            <div class="form-item">
+                <strong>Account Created At:</strong> <?php echo htmlspecialchars($created_at); ?>
             </div>
-            <div class="form-group">
-                <label>Last Login:</label>
-                <input type="text" value="<?php echo htmlspecialchars($last_login); ?>" readonly>
+            <div class="form-item">
+                <strong>Last Login:</strong> <?php echo htmlspecialchars($last_login); ?>
             </div>
-            <div class="form-group">
-                <label>Brikcoin Balance:</label>
-                <input type="text" value="<?php echo htmlspecialchars($brikcoin_balance); ?>" readonly>
+            <div class="form-item">
+                <strong>Brikcoin Balance:</strong> <?php echo htmlspecialchars($brikcoin_balance); ?>
             </div>
-            <div class="form-group">
-                <label>Role:</label>
-                <input type="text" value="<?php echo htmlspecialchars($role); ?>" readonly>
+            <div class="form-item">
+                <strong>Role:</strong> <?php echo htmlspecialchars($role); ?>
             </div>
-            <div class="form-group">
-                <label>Account Status:</label>
-                <input type="text" value="<?php echo htmlspecialchars($account_status); ?>" readonly>
+            <div class="form-item">
+                <strong>Account Status:</strong> <?php echo htmlspecialchars($account_status); ?>
             </div>
-            <div class="form-group">
-                <label>Account Notes:</label>
-                <textarea readonly><?php echo htmlspecialchars($notes); ?></textarea>
+            <div class="form-item">
+                <strong>Account Notes:</strong> <?php echo htmlspecialchars($notes); ?>
             </div>
-            <div class="form-group">
-                <label>Agreed to Terms of Service:</label>
-                <input type="text" value="<?php echo $terms_of_service ? 'Yes' : 'No'; ?>" readonly>
+            <div class="form-item">
+                <strong>Agreed to Terms of Service:</strong> <?php echo $terms_of_service ? 'Yes' : 'No'; ?>
             </div>
 
             <!-- Save and Update Button -->
-            <div class="form-group">
+            <div class="form-item">
                 <button type="submit" class="submit-button">Save and Update</button>
             </div>
         </form>
@@ -164,7 +163,6 @@ if ($result_countries->num_rows > 0) {
             <!-- Logout Button -->
             <button id="logout-button" style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;">📤 Log Out</button>
         </div>
-
     </div>
 </div>
 

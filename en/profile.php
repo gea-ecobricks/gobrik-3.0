@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.38';
+$version = '0.37';
 $page = 'profile';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -54,115 +54,122 @@ if ($result_countries->num_rows > 0) {
         $countries[] = $row;
     }
 }
+
+echo '<!DOCTYPE html>
+<html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">
+<head>
+<meta charset="UTF-8">
+
+';
+
+
 ?>
 
-<!DOCTYPE html>
-<html lang="<?php echo htmlspecialchars($lang, ENT_QUOTES, 'UTF-8'); ?>">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard | GoBrik 3.0</title>
-    <!-- Include additional scripts and styles -->
+
+
+<!--
+GoBrik.com site version 3.0
+Developed and made open source by the Global Ecobrick Alliance
+See our git hub repository for the full code and to help out:
+https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
+
+
     <?php require_once("../includes/profile-inc.php"); ?>
-</head>
-<body>
+
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
 <div id="top-page-image" class="dolphin-pic top-page-image"></div>
 
 <div id="form-submission-box" style="height:fit-content;margin-top: 90px;">
     <div class="form-container">
-        <div style="text-align:center;width:100%;margin:auto;">
-            <div id="status-message"><?php echo htmlspecialchars($first_name); ?>! Profile Settings</div>
-            <div id="sub-status-message">Manage your GoBrik user settings here.</div>
-        </div>
-
-        <!-- User Profile Form -->
-        <form method="post" action="update_profile.php">
-            <!-- Display Full Name -->
+        <div class="left-column">
+            <!-- Non-editable Fields -->
             <div class="form-item">
                 <p><strong>Full Name:</strong> <?php echo htmlspecialchars($full_name); ?></p>
             </div>
-
-            <!-- Editable Fields -->
             <div class="form-item">
-                <label for="first_name">First Name:</label>
-                <input type="text" name="first_name" id="first_name" value="<?php echo htmlspecialchars($first_name); ?>" required>
-            </div>
-
-            <div class="form-item">
-                <label for="last_name">Last Name:</label>
-                <input type="text" name="last_name" id="last_name" value="<?php echo htmlspecialchars($last_name); ?>" required>
-            </div>
-
-            <div class="form-item">
-                <label for="email">Email:</label>
-                <input type="email" name="email" id="email" value="<?php echo htmlspecialchars($email); ?>" required>
-            </div>
-
-            <div class="form-item">
-                <label for="country_id">Country:</label>
-                <select name="country_id" id="country_id">
-                    <option value="">Select Country</option>
-                    <?php foreach ($countries as $country): ?>
-                        <option value="<?php echo $country['country_id']; ?>" <?php if ($country['country_id'] == $country_id) echo 'selected'; ?>>
-                            <?php echo htmlspecialchars($country['country_name']); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-
-            <div class="form-item">
-                <label for="language_id">Preferred Language:</label>
-                <select name="language_id" id="language_id">
-                    <option value="">Select Language</option>
-                    <?php foreach ($languages as $language): ?>
-                        <option value="<?php echo $language['lang_id']; ?>" <?php if ($language['lang_id'] == $languages_id) echo 'selected'; ?>>
-                            <?php echo htmlspecialchars($language['languages_eng_name']); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-
-            <div class="form-item">
-                <label for="birth_date">Birth Date:</label>
-                <input type="date" name="birth_date" id="birth_date" value="<?php echo htmlspecialchars($birth_date); ?>">
-            </div>
-
-            <!-- Non-editable Fields Displayed as Text -->
-            <div class="form-item">
-                <strong>Account Created At:</strong> <?php echo htmlspecialchars($created_at); ?>
+                <p><strong>Account Created At:</strong> <?php echo htmlspecialchars($created_at); ?></p>
             </div>
             <div class="form-item">
-                <strong>Last Login:</strong> <?php echo htmlspecialchars($last_login); ?>
+                <p><strong>Last Login:</strong> <?php echo htmlspecialchars($last_login); ?></p>
             </div>
             <div class="form-item">
-                <strong>Brikcoin Balance:</strong> <?php echo htmlspecialchars($brikcoin_balance); ?>
+                <p><strong>Brikcoin Balance:</strong> <?php echo htmlspecialchars($brikcoin_balance); ?></p>
             </div>
             <div class="form-item">
-                <strong>Role:</strong> <?php echo htmlspecialchars($role); ?>
+                <p><strong>Role:</strong> <?php echo htmlspecialchars($role); ?></p>
             </div>
             <div class="form-item">
-                <strong>Account Status:</strong> <?php echo htmlspecialchars($account_status); ?>
+                <p><strong>Account Status:</strong> <?php echo htmlspecialchars($account_status); ?></p>
             </div>
             <div class="form-item">
-                <strong>Account Notes:</strong> <?php echo htmlspecialchars($notes); ?>
+                <p><strong>Account Notes:</strong> <?php echo htmlspecialchars($notes); ?></p>
             </div>
             <div class="form-item">
-                <strong>Agreed to Terms of Service:</strong> <?php echo $terms_of_service ? 'Yes' : 'No'; ?>
+                <p><strong>Agreed to Terms of Service:</strong> <?php echo $terms_of_service ? 'Yes' : 'No'; ?></p>
             </div>
-
-            <!-- Save and Update Button -->
-            <div class="form-item">
-                <button type="submit" class="submit-button">Save and Update</button>
-            </div>
-        </form>
-
-        <!-- Other Dashboard Buttons -->
-        <div style="display:flex;flex-flow:row;width:100%;justify-content:center; margin-top:50px;">
-            <a href="newest-briks.php"><button id="newest-ecobricks-button" style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;">📅 Newest Ecobricks</button></a>
-            <!-- Logout Button -->
-            <button id="logout-button" style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;">📤 Log Out</button>
         </div>
+
+        <div class="right-column">
+            <!-- Editable Fields -->
+            <form method="post" action="update_profile.php">
+                <div class="form-item">
+                    <label for="first_name">First Name:</label>
+                    <input type="text" name="first_name" id="first_name" value="<?php echo htmlspecialchars($first_name); ?>" required>
+                </div>
+
+                <div class="form-item">
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" name="last_name" id="last_name" value="<?php echo htmlspecialchars($last_name); ?>" required>
+                </div>
+
+                <div class="form-item">
+                    <label for="email">Email:</label>
+                    <input type="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
+                </div>
+
+                <div class="form-item">
+                    <label for="country_id">Country:</label>
+                    <select name="country_id" id="country_id">
+                        <option value="">Select Country</option>
+                        <?php foreach ($countries as $country): ?>
+                            <option value="<?php echo $country['country_id']; ?>" <?php if ($country['country_id'] == $country_id) echo 'selected'; ?>>
+                                <?php echo htmlspecialchars($country['country_name']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="form-item">
+                    <label for="language_id">Preferred Language:</label>
+                    <select name="language_id" id="language_id">
+                        <option value="">Select Language</option>
+                        <?php foreach ($languages as $language): ?>
+                            <option value="<?php echo $language['lang_id']; ?>" <?php if ($language['lang_id'] == $languages_id) echo 'selected'; ?>>
+                                <?php echo htmlspecialchars($language['languages_eng_name']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="form-item">
+                    <label for="birth_date">Birth Date:</label>
+                    <input type="date" name="birth_date" id="birth_date" value="<?php echo htmlspecialchars($birth_date); ?>">
+                </div>
+
+                <!-- Save and Update Button -->
+                <div class="submit-button-container">
+                    <button type="submit" class="submit-button">Save and Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Other Dashboard Buttons -->
+    <div style="display:flex;flex-flow:row;width:100%;justify-content:center; margin-top:50px;">
+        <a href="newest-briks.php"><button id="newest-ecobricks-button" style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;">📅 Newest Ecobricks</button></a>
+        <!-- Logout Button -->
+        <button id="logout-button" style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;">📤 Log Out</button>
     </div>
 </div>
 

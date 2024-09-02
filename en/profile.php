@@ -76,89 +76,89 @@ if ($result_countries->num_rows > 0) {
             <div id="sub-status-message">Manage your GoBrik user settings here.</div>
         </div>
 
-        <div class="form-container">
-            <h2>Buwana Account</h2>
-        <div class="left-column" style="font-size:1em">
-            <!-- Non-editable Fields -->
-            <div class="form-item">
-                <p><strong>Full Name:</strong> <?php echo htmlspecialchars($full_name); ?></p>
-            </div>
-            <div class="form-item">
-                <p><strong>Account Created At:</strong> <?php echo htmlspecialchars($created_at); ?></p>
-            </div>
-            <div class="form-item">
-                <p><strong>Last Login:</strong> <?php echo htmlspecialchars($last_login); ?></p>
-            </div>
-            <div class="form-item">
-                <p><strong>Brikcoin Balance:</strong> <?php echo htmlspecialchars($brikcoin_balance); ?></p>
-            </div>
-            <div class="form-item">
-                <p><strong>Role:</strong> <?php echo htmlspecialchars($role); ?></p>
-            </div>
-            <div class="form-item">
-                <p><strong>Account Status:</strong> <?php echo htmlspecialchars($account_status); ?></p>
-            </div>
-            <div class="form-item">
-                <p><strong>Account Notes:</strong> <?php echo htmlspecialchars($notes); ?></p>
-            </div>
-            <div class="form-item">
-                <p><strong>Agreed to Terms of Service:</strong> <?php echo $terms_of_service ? 'Yes' : 'No'; ?></p>
-            </div>
-        </div>
-
-        <div class="right-column">
-            <!-- Editable Fields -->
-            <form method="post" action="update_profile.php">
+        <div id="buwana-profile" class="form-container">
+            <div><h2>Buwana Account</h2></div>
+            <div class="left-column" style="font-size:1em">
+                <!-- Non-editable Fields -->
                 <div class="form-item">
-                    <label for="first_name">First Name:</label>
-                    <input type="text" name="first_name" id="first_name" value="<?php echo htmlspecialchars($first_name); ?>" required>
+                    <p><strong>Full Name:</strong> <?php echo htmlspecialchars($full_name); ?></p>
                 </div>
-
                 <div class="form-item">
-                    <label for="last_name">Last Name:</label>
-                    <input type="text" name="last_name" id="last_name" value="<?php echo htmlspecialchars($last_name); ?>" required>
+                    <p><strong>Account Created At:</strong> <?php echo htmlspecialchars($created_at); ?></p>
                 </div>
-
                 <div class="form-item">
-                    <label for="email">Email:</label>
-                    <input type="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
+                    <p><strong>Last Login:</strong> <?php echo htmlspecialchars($last_login); ?></p>
                 </div>
-
                 <div class="form-item">
-                    <label for="country_id">Country:</label>
-                    <select name="country_id" id="country_id">
-                        <option value="">Select Country</option>
-                        <?php foreach ($countries as $country): ?>
-                            <option value="<?php echo $country['country_id']; ?>" <?php if ($country['country_id'] == $country_id) echo 'selected'; ?>>
-                                <?php echo htmlspecialchars($country['country_name']); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
+                    <p><strong>Brikcoin Balance:</strong> <?php echo htmlspecialchars($brikcoin_balance); ?></p>
                 </div>
-
                 <div class="form-item">
-                    <label for="language_id">Preferred Language:</label>
-                    <select name="language_id" id="language_id">
-                        <option value="">Select Language</option>
-                        <?php foreach ($languages as $language): ?>
-                            <option value="<?php echo $language['lang_id']; ?>" <?php if ($language['lang_id'] == $languages_id) echo 'selected'; ?>>
-                                <?php echo htmlspecialchars($language['languages_eng_name']); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
+                    <p><strong>Role:</strong> <?php echo htmlspecialchars($role); ?></p>
                 </div>
-
                 <div class="form-item">
-                    <label for="birth_date">Birth Date:</label>
-                    <input type="date" name="birth_date" id="birth_date" value="<?php echo htmlspecialchars($birth_date); ?>">
+                    <p><strong>Account Status:</strong> <?php echo htmlspecialchars($account_status); ?></p>
                 </div>
+                <div class="form-item">
+                    <p><strong>Account Notes:</strong> <?php echo htmlspecialchars($notes); ?></p>
+                </div>
+                <div class="form-item">
+                    <p><strong>Agreed to Terms of Service:</strong> <?php echo $terms_of_service ? 'Yes' : 'No'; ?></p>
+                </div>
+            </div>
 
-                <!-- Save and Update Button -->
-                <div class="submit-button-container">
-                    <button type="submit" class="submit-button">Save and Update</button>
-                </div>
-            </form>
-        </div>
+            <div class="right-column">
+                <!-- Editable Fields -->
+                <form method="post" action="update_profile.php">
+                    <div class="form-item">
+                        <label for="first_name">First Name:</label>
+                        <input type="text" name="first_name" id="first_name" value="<?php echo htmlspecialchars($first_name); ?>" required>
+                    </div>
+
+                    <div class="form-item">
+                        <label for="last_name">Last Name:</label>
+                        <input type="text" name="last_name" id="last_name" value="<?php echo htmlspecialchars($last_name); ?>" required>
+                    </div>
+
+                    <div class="form-item">
+                        <label for="email">Email:</label>
+                        <input type="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
+                    </div>
+
+                    <div class="form-item">
+                        <label for="country_id">Country:</label>
+                        <select name="country_id" id="country_id">
+                            <option value="">Select Country</option>
+                            <?php foreach ($countries as $country): ?>
+                                <option value="<?php echo $country['country_id']; ?>" <?php if ($country['country_id'] == $country_id) echo 'selected'; ?>>
+                                    <?php echo htmlspecialchars($country['country_name']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <div class="form-item">
+                        <label for="language_id">Preferred Language:</label>
+                        <select name="language_id" id="language_id">
+                            <option value="">Select Language</option>
+                            <?php foreach ($languages as $language): ?>
+                                <option value="<?php echo $language['lang_id']; ?>" <?php if ($language['lang_id'] == $languages_id) echo 'selected'; ?>>
+                                    <?php echo htmlspecialchars($language['languages_eng_name']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <div class="form-item">
+                        <label for="birth_date">Birth Date:</label>
+                        <input type="date" name="birth_date" id="birth_date" value="<?php echo htmlspecialchars($birth_date); ?>">
+                    </div>
+
+                    <!-- Save and Update Button -->
+                    <div class="submit-button-container">
+                        <button type="submit" class="submit-button">Save and Update</button>
+                    </div>
+                </form>
+            </div>
     </div>
 
         <!-- Other Dashboard Buttons -->

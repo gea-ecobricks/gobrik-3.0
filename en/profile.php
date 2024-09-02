@@ -54,28 +54,43 @@ if ($result_countries->num_rows > 0) {
         $countries[] = $row;
     }
 }
-
-echo '<!DOCTYPE html>
-<html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">
-<head>
-<meta charset="UTF-8">
-
-';
-
-
 ?>
 
-
-
-<!--
-GoBrik.com site version 3.0
-Developed and made open source by the Global Ecobrick Alliance
-See our git hub repository for the full code and to help out:
-https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
-
-
+<!DOCTYPE html>
+<html lang="<?php echo htmlspecialchars($lang, ENT_QUOTES, 'UTF-8'); ?>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | GoBrik 3.0</title>
+    <style>
+        .form-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .left-column, .right-column {
+            flex: 1;
+            min-width: 250px;
+        }
+        @media screen and (min-width: 900px) {
+            .left-column {
+                max-width: 40%;
+            }
+            .right-column {
+                max-width: 60%;
+            }
+        }
+        .form-item {
+            margin-bottom: 15px;
+        }
+        .submit-button-container {
+            text-align: center;
+            width: 100%;
+        }
+    </style>
     <?php require_once("../includes/profile-inc.php"); ?>
-
+</head>
+<body>
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
 <div id="top-page-image" class="dolphin-pic top-page-image"></div>

@@ -22,13 +22,13 @@ require_once '../gobrikconn_env.php';
 require_once '../buwanaconn_env.php'; // Buwana database credentials
 
 // Fetch user information using buwana_id from the Buwana database
-$sql_user_info = "SELECT first_name, last_name, email, country_id, language_id, birth_date, created_at, last_login, brikcoin_balance, role, account_status, notes, terms_of_service FROM users_tb WHERE buwana_id = ?";
+$sql_user_info = "SELECT first_name, last_name, email, country_id, languages_id, birth_date, created_at, last_login, brikcoin_balance, role, account_status, notes, terms_of_service FROM users_tb WHERE buwana_id = ?";
 $stmt_user_info = $buwana_conn->prepare($sql_user_info);
 
 if ($stmt_user_info) {
     $stmt_user_info->bind_param('i', $buwana_id);
     $stmt_user_info->execute();
-    $stmt_user_info->bind_result($first_name, $last_name, $email, $country_id, $language_id, $birth_date, $created_at, $last_login, $brikcoin_balance, $role, $account_status, $notes, $terms_of_service);
+    $stmt_user_info->bind_result($first_name, $last_name, $email, $country_id, $languages_id, $birth_date, $created_at, $last_login, $brikcoin_balance, $role, $account_status, $notes, $terms_of_service);
     $stmt_user_info->fetch();
     $stmt_user_info->close();
 } else {

@@ -359,11 +359,11 @@ display: none;
       <?php if ($is_logged_in): ?>
         <!-- If the user is logged in, show the user's status -->
         <div class="menu-page-item">
-          <span class="status-circle" style="background-color: green;margin-left:-10px;" title="User is logged in!"></span>
+          <span class="status-circle" style="background-color: green;margin-left:-20px;" title="User is logged in!"></span>
           <span style="color: var(--text-color); margin-left: 10px;margin-right:auto;">Logged in as <?php echo htmlspecialchars($first_name); ?></span><br><br>
           <div style="font-size: 0.8em; color: var(--subdued-text); margin-left: 5px; margin-top: 5px;">
-            <a href="profile.php" style="text-decoration: none; color: var(--subdued-text);">Profile settings</a> |
-            <a href="logout.php" style="color: var(--subdued-text);">Log out</a>
+            <a href="profile.php" style="text-decoration: none; color: var(--subdued-text);" class="underline-link">Profile settings</a> |
+            <a href="logout.php" style="color: var(--subdued-text);" class="underline-link">Log out</a>
           </div>
         </div>
       <?php else: ?>

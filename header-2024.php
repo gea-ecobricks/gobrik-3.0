@@ -361,11 +361,12 @@ display: none;
         <div class="menu-page-item">
           <span class="status-circle" style="background-color: green;margin-left:-20px;" title="User is logged in!"></span>
           <span style="color: var(--text-color); margin-left: 10px; margin-right:auto;">Logged in as <?php echo htmlspecialchars($first_name); ?></span>
+          <div class="logged-in-links">
+              <a href="profile.php" class="underline-link">Profile settings</a> |
+              <a href="logout.php" class="underline-link">Log out</a>
+          </div>
         </div>
-        <div class="logged-in-links">
-          <a href="profile.php" class="underline-link">Profile settings</a> |
-          <a href="logout.php" class="underline-link">Log out</a>
-        </div>
+
         <!-- Additional menu items for logged-in users -->
         <div class="menu-page-item">
           <a href="dashboard.php">Dashboard</a>

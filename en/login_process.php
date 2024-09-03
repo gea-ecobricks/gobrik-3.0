@@ -137,9 +137,14 @@ if ($stmt_credential) {
 
                     // Set the session variable to indicate the user is logged in
                     $_SESSION['buwana_id'] = $buwana_id;
-                    // Redirect to the dashboard page
-                    header("Location: dashboard.php");
+
+                    // Check if the redirect variable has a value
+                    $redirect_url = !empty($redirect) ? $redirect . '.php' : 'dashboard.php';
+
+                    // Redirect to the appropriate page
+                    header("Location: " . $redirect_url);
                     exit();
+
 
                 } else {
                     // Redirect to login page with an error message if the password is incorrect

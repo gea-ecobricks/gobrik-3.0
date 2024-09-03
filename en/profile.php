@@ -11,9 +11,14 @@ $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 // Check if the user is logged in
 if (!isset($_SESSION['buwana_id'])) {
-    echo '<script>alert("Please login before viewing this page."); window.location.href = "login.php";</script>';
+    // Redirect to login page with the redirect parameter set to the current page
+    echo '<script>
+        alert("Please login before viewing this page.");
+        window.location.href = "login.php?redirect=' . urlencode($page) . '";
+    </script>';
     exit();
 }
+?>
 
 $buwana_id = $_SESSION['buwana_id'];
 

@@ -29,6 +29,8 @@ $buwana_id = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_SANITIZE_NUMBER
 $code = isset($_GET['code']) ? filter_var($_GET['code'], FILTER_SANITIZE_STRING) : ''; // Extract code from the URL
 $credential_key = ''; // Initialize $credential_key as empty
 $first_name = '';  // Initialize the first_name variable
+$redirect = isset($_GET['redirect']) ? filter_var($_GET['redirect'], FILTER_SANITIZE_STRING) : '';
+
 
 // Check if buwana_id is available and valid to fetch corresponding email and first_name from users_tb
 if (!empty($buwana_id)) {

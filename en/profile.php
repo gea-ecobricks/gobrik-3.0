@@ -69,8 +69,8 @@ echo '<!DOCTYPE html>
 <div id="form-submission-box" style="height:fit-content;margin-top: 90px;">
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
-            <div id="status-message"><?php echo htmlspecialchars($first_name); ?>'s' Profile Settings</div>
-            <div id="sub-status-message">Manage your GoBrik user settings here.</div>
+            <div id="status-message"><?php echo htmlspecialchars($first_name); ?>'s Profile Settings</div>
+            <div id="sub-status-message">Update your GoBrik user settings here.</div>
         </div>
 
         <div class="form-container" style="padding-top:20px">
@@ -151,15 +151,15 @@ echo '<!DOCTYPE html>
                 </div>
 
                 <!-- Save and Update Button -->
-                <div class="submit-button-container">
-                    <button type="submit" class="submit-button">Save and Update</button>
+                <div data-lang-id="016-submit-button" style="margin:auto;text-align: center;margin-top:30px;">
+                    <button type="submit" class="submit-button enabled" aria-label="Save and update">Save and Update</button>
                 </div>
             </form>
         </div>
     </div>
 
  <div class="form-item" style="margin: 70px 10px 40px 10px;">
-            <p style="text-align:center;">If you're not interested and would like your old <?php echo htmlspecialchars($email_addr); ?> account completely deleted, you can do that too.</p>
+            <p style="text-align:center;">You can delete your GoBrik and Buwana accounts permanently here.  Warning, this is permanent and immediate!</p>
             <!-- DELETE ACCOUNT FORM -->
             <form id="delete-account-form" method="post" action="delete_account.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
                 <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
@@ -221,6 +221,17 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+</script>
+
+
+<script>
+function confirmDeletion() {
+    if (confirm("Are you certain you wish to delete your account? This cannot be undone.")) {
+        if (confirm("Ok. We will delete your account! Note that this does not affect ecobrick data that has been permanently archived in the brikchain. Note that currently our Earthen newsletter is separate from GoBrik-- which has its own easy unsubscribe mechanism.")) {
+            document.getElementById('delete-account-form').submit();
+        }
+    }
+}
 </script>
 
 </body>

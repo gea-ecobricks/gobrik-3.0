@@ -68,7 +68,7 @@ try {
 
     // Redirect back to profile.php with success message
     echo '<script>
-        window.location.href = "profile.php?status=deleted";
+        window.location.href = "goodbye.php?status=deleted";
     </script>';
 
 } catch (Exception $e) {

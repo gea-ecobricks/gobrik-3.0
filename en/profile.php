@@ -197,7 +197,6 @@ echo '<!DOCTYPE html>
 <!-- FOOTER STARTS HERE -->
 <?php require_once("../footer-2024.php"); ?>
 
-
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     // Function to handle the update status
@@ -206,11 +205,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (status === 'succeeded') {
             updateStatusDiv.innerHTML = "👍 Your user profile was updated!";
+            scrollToTop();
         } else if (status === 'failed') {
             updateStatusDiv.innerHTML = "🤔 Something went wrong with the update.";
-        } else if (status === 'deleted') {
-            updateStatusDiv.innerHTML = "Goodbye! Your accounts have been fully deleted. 👋";
+            scrollToTop();
         }
+    }
+
+    // Function to smoothly scroll to the top of the page
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // Handle the form submission using AJAX
@@ -235,7 +239,6 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error:', error);
             catchUpdateReport('failed');
         });
-
     });
 
     // Check for status message from URL
@@ -246,6 +249,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 </script>
+
 
 
 

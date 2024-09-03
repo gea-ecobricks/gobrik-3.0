@@ -355,68 +355,29 @@ display: none;
   <button type="button" onclick="closeSettings()" aria-label="Click to close settings page" class="x-button"></button>
   <div class="overlay-content-settings">
     <!-- Logged-in Status Box -->
-    <div class="logged-in-status">
-      <?php if ($is_logged_in): ?>
-        <!-- Logged in as user details -->
-        <div class="menu-page-item">
-          <div style="width:100%;">
-              <span class="status-circle" style="background-color: green;margin-left:-20px;" title="User is logged in!"></span>
-                <span style="color: var(--text-color); margin-left: 10px; margin-right:auto;">Logged in as <?php echo htmlspecialchars($first_name); ?></span>
-          </div>
-          <div class="logged-in-links" style="width:100%;">
-              <a href="profile.php" class="underline-link">Profile settings</a> |
-              <a href="logout.php" class="underline-link">Log out</a>
-          </div>
+    <?php if ($is_logged_in): ?>
+      <div class="menu-page-item">
+        <div style="width:100%;">
+          <span class="status-circle" style="background-color: green; margin-left:-20px;" title="User is logged in!"></span>
+          <span style="color: var(--text-color); margin-left: 10px;">Logged in as <?php echo htmlspecialchars($first_name); ?></span>
         </div>
-
-        <!-- Additional menu items for logged-in users -->
-        <div class="menu-page-item">
-          <a href="dashboard.php">Dashboard</a>
-          <span class="status-circle" style="background-color: green;" title="Working, Under development"></span>
+        <div class="logged-in-links" style="width:100%; font-size: 0.8em; margin-top: 5px;">
+          <a href="profile.php" class="underline-link">Profile settings</a> |
+          <a href="logout.php" class="underline-link">Log out</a>
         </div>
-      <?php else: ?>
-        <!-- If the user is not logged in, show the login/signup options -->
-        <div class="menu-page-item">
-          <a href="login.php" aria-label="Register" data-lang-id="1000-login" style="margin-right:10px">Login</a> |
-          <a href="signup.php" aria-label="Signup" data-lang-id="1000-signup" style="margin-left:10px">Signup</a>
-          <span class="status-circle" style="background-color: green;" title="Deployed. Under beta testing."></span>
-        </div>
-      <?php endif; ?>
-    </div>
+      </div>
 
-    <!-- Other menu items -->
-    <div class="menu-page-item">
-      <a href="log.php" aria-label="Log" data-lang-id="1000-log-ecobrick">Log Ecobrick</a>
-      <span class="status-circle" style="background-color: orange;" title="Under development"></span>
-    </div>
-    <div class="menu-page-item">
-      <a href="brikchain.php" data-lang-id="1000-brikchain">The Brikchain</a>
-      <span class="status-circle" style="background-color: yellow;" title="Under development, but active!"></span>
-    </div>
-    <div class="menu-page-item">
-      <a href="newest-briks.php" data-lang-id="1000-latest-ecobricks">Latest Ecobricks</a>
-      <span class="status-circle" style="background-color: yellow;" title="Under development, but active!"></span>
-    </div>
-    <div class="menu-page-item">
-      <a href="newest-projects.php" data-lang-id="1000-featured-projects">Featured Projects</a>
-      <span class="status-circle" style="background-color: red;" title="Not yet deployed"></span>
-    </div>
-    <div class="menu-page-item">
-      <a href="newest-trainings.php" data-lang-id="1000-latest-trainings">Latest Trainings</a>
-      <span class="status-circle" style="background-color: red;" title="Not yet deployed"></span>
-    </div>
-    <div class="menu-page-item">
-      <a href="index.php" data-lang-id="1000-landing-page">Landing Page</a>
-      <span class="status-circle" style="background-color: green;" title="Deployed. Under development."></span>
-    </div>
-
-    <!-- GoBrik Tour at the bottom -->
-    <div class="menu-page-item">
-      <a data-lang-id="1001-gobrik-tour" onclick="closeSettings(); setTimeout(guidedTour, 500);">GoBrik Tour</a>
-      <span class="status-circle" style="background-color: orange;" title="Under development"></span>
-    </div>
-  </div> <!-- close overlay-content-settings -->
-</div> <!-- close main menu -->
+      <!-- Additional menu items for logged-in users -->
+      <div class="menu-page-item">
+        <a href="dashboard.php">Dashboard</a>
+        <span class="status-circle" style="background-color: green;" title="Working, Under development"></span>
+      </div>
+    <?php else: ?>
+      <!-- If the user is not logged in, show the login/signup options -->
+      <div class="menu-page-item">
+        <a href="login.php" aria-label="Register" data-lang-id="1000-login" style="margin-right:10px">Login</a> |
+        <a href="signup.php" aria-label="Signup" data-lang-id="1000-signup" style="margin-left:10px">Signup</a>
+        <span class="status-circle" style="background-color: green;" title="Deployed. Under beta test
 
 
 

@@ -68,7 +68,7 @@ echo '<!DOCTYPE html>
     <div class="form-container" style="padding-top:20px">
         <div style="text-align:center;width:100%;margin:auto;">
             <div id="status-message"><?php echo htmlspecialchars($first_name); ?>'s Profile Settings</div>
-            <div id="sub-status-message">Update your GoBrik user settings here.</div>
+            <div id="sub-status-message">Review and update your Buwana account profile here:</div>
         </div>
 
 
@@ -76,13 +76,16 @@ echo '<!DOCTYPE html>
         <div class="left-column" style="font-size:0.9em">
             <!-- Non-editable Fields -->
             <div class="form-item">
-                <h4><strong>Full Name:</strong><br> <?php echo htmlspecialchars($full_name); ?></h4>
+                <p><strong>Full Name:</strong><p>
+                    <h4> <?php echo htmlspecialchars($full_name); ?></h4>
             </div>
             <div class="form-item">
-                <p><strong>Account Created At:</strong> <?php echo htmlspecialchars($created_at); ?></p>
+                <p><strong>Account Created At:</strong></p>
+                <p><?php echo htmlspecialchars($created_at); ?></p>
             </div>
             <div class="form-item">
-                <p><strong>Last Login:</strong> <?php echo htmlspecialchars($last_login); ?></p>
+                <p><strong>Last Login:</strong></p>
+                 <p><?php echo htmlspecialchars($last_login); ?></p>
             </div>
             <div class="form-item">
                 <p><strong>Brikcoin Balance:</strong> <?php echo htmlspecialchars($brikcoin_balance); ?></p>

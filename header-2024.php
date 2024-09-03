@@ -356,9 +356,9 @@ display: none;
   <div class="overlay-content-settings">
     <!-- Logged-in Status Box -->
     <?php if ($is_logged_in): ?>
-      <div class="menu-page-item" style="flex-flow:column">
-        <div style="width:100%;">
-          <span class="status-circle" style="background-color: green; margin-left:-20px;" title="User is logged in!"></span>
+      <div class="menu-page-item" style="display: flex; flex-direction: column; align-items: flex-start;">
+        <div style="width:100%; display: flex; align-items: center;">
+          <span class="status-circle" style="background-color: green; margin-left: -20px;" title="User is logged in!"></span>
           <span style="color: var(--text-color); margin-left: 10px;">Logged in as <?php echo htmlspecialchars($first_name); ?></span>
         </div>
         <div class="logged-in-links" style="width:100%; font-size: 0.8em; margin-top: 5px;">
@@ -366,13 +366,21 @@ display: none;
           <a href="logout.php" class="underline-link">Log out</a>
         </div>
       </div>
+    <?php else: ?>
+      <!-- If the user is not logged in, show the login/signup options -->
+      <div class="menu-page-item">
+        <a href="login.php" aria-label="Register" data-lang-id="1000-login" style="margin-right:10px">Login</a> |
+        <a href="signup.php" aria-label="Signup" data-lang-id="1000-signup" style="margin-left:10px">Signup</a>
+        <span class="status-circle" style="background-color: green;" title="Deployed. Under beta testing."></span>
+      </div>
+    <?php endif; ?>
 
-      <!-- Additional menu items for logged-in users -->
+
       <div class="menu-page-item">
         <a href="dashboard.php">Dashboard</a>
         <span class="status-circle" style="background-color: green;" title="Working, Under development"></span>
       </div>
-    <?php else: ?>
+
       <!-- If the user is not logged in, show the login/signup options -->
       <div class="menu-page-item">
         <a href="login.php" aria-label="Register" data-lang-id="1000-login" style="margin-right:10px">Login</a> |

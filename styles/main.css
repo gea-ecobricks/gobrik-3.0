@@ -486,6 +486,17 @@ display:none;
 /* -------------------------------------------------------------------------- */
 /* 6. Main Menu Overlay Curtain - Comes in from the right after clicking +- button. */
 /* -------------------------------------------------------------------------- */
+/* Underline hover effect for specific links */
+.underline-link {
+  text-decoration: none;
+  color: var(--subdued-text);
+}
+
+.underline-link:hover {
+  text-decoration: underline;
+  color: var(--h1); /* Color change on hover */
+}
+
 /* Main Menu Overlay Curtain */
 #main-menu-overlay {
   background-color: var(--side-overlays);
@@ -571,6 +582,7 @@ display:none;
   display: inline-block;
   margin-left: 10px; /* Adds space between the text and the circle */
 }
+
 
 
 /*

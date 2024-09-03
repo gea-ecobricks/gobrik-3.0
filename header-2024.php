@@ -350,21 +350,26 @@ display: none;
 
 <?php $is_logged_in = isset($buwana_id) && !empty($first_name); ?>
 
-
 <!-- MAIN MENU -->
 <div id="main-menu-overlay" class="overlay-settings" style="display:none;">
   <button type="button" onclick="closeSettings()" aria-label="Click to close settings page" class="x-button"></button>
   <div class="overlay-content-settings">
     <div>
       <?php if ($is_logged_in): ?>
-        <!-- If the user is logged in, show the user's status -->
+        <!-- Dashboard Link for logged-in users -->
         <div class="menu-page-item">
-          <span class="status-circle" style="background-color: green;margin-left:-20px;" title="User is logged in!"></span>
-          <span style="color: var(--text-color); margin-left: 10px;margin-right:auto;">Logged in as <?php echo htmlspecialchars($first_name); ?></span><br><br>
-          <div style="font-size: 0.8em; color: var(--subdued-text); margin-left: 5px; margin-top: 5px;">
-            <a href="profile.php" style="text-decoration: none; color: var(--subdued-text);" class="underline-link">Profile settings</a> |
-            <a href="logout.php" style="color: var(--subdued-text);" class="underline-link">Log out</a>
-          </div>
+          <a href="dashboard.php" aria-label="Dashboard">Dashboard</a>
+          <span class="status-circle" style="background-color: green;"></span>
+        </div>
+
+        <!-- User status and settings -->
+        <div class="menu-page-item">
+          <span class="status-circle" style="background-color: green; margin-left:-20px;" title="User is logged in!"></span>
+          <span style="color: var(--text-color); margin-left: 10px; margin-right:auto;">Logged in as <?php echo htmlspecialchars($first_name); ?></span>
+        </div>
+        <div class="menu-page-item">
+          <a href="profile.php" class="underline-link">Profile settings</a>
+          <a href="logout.php" class="underline-link">Log out</a>
         </div>
       <?php else: ?>
         <!-- If the user is not logged in, show the login/signup options -->
@@ -376,10 +381,6 @@ display: none;
       <?php endif; ?>
 
       <!-- Other menu items -->
-      <div class="menu-page-item">
-        <a data-lang-id="1001-gobrik-tour" onclick="closeSettings(); setTimeout(guidedTour, 500);">GoBrik Tour</a>
-        <span class="status-circle" style="background-color: orange;" title="Under development"></span>
-      </div>
       <div class="menu-page-item">
         <a href="log.php" aria-label="Log" data-lang-id="1000-log-ecobrick">Log Ecobrick</a>
         <span class="status-circle" style="background-color: orange;" title="Under development"></span>
@@ -404,10 +405,13 @@ display: none;
         <a href="index.php" data-lang-id="1000-landing-page">Landing Page</a>
         <span class="status-circle" style="background-color: green;" title="Deployed. Under development."></span>
       </div>
+      <div class="menu-page-item">
+        <a data-lang-id="1001-gobrik-tour" onclick="closeSettings(); setTimeout(guidedTour, 500);">GoBrik Tour</a>
+        <span class="status-circle" style="background-color: orange;" title="Under development"></span>
+      </div>
     </div>
   </div> <!-- close overlay-content-settings -->
 </div> <!-- close main menu -->
-
 
 
 

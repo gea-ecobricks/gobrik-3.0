@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.38';
+$version = '0.381';
 $page = 'profile';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -157,6 +157,19 @@ echo '<!DOCTYPE html>
             </form>
         </div>
     </div>
+
+ <div class="form-item" style="margin: 70px 10px 40px 10px;">
+            <p style="text-align:center;">If you're not interested and would like your old <?php echo htmlspecialchars($email_addr); ?> account completely deleted, you can do that too.</p>
+            <!-- DELETE ACCOUNT FORM -->
+            <form id="delete-account-form" method="post" action="delete_account.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
+                <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
+                    <button type="button" class="submit-button delete" onclick="confirmDeletion()">Delete my account</button>
+                </div>
+
+            </form>
+            <p data-lang-id="003-warning" style="font-size:medium; text-align: center;">WARNING: This cannot be undone.</p>
+            <br>
+         </div>
 
         <!-- Other Dashboard Buttons -->
         <div style="display:flex;flex-flow:row;width:100%;justify-content:center; margin-top:50px;">

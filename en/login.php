@@ -19,7 +19,7 @@ if (empty($_SESSION['csrf_token'])) {
 
 // VERSION Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.72';
+$version = '0.73';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 

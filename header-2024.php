@@ -359,9 +359,10 @@ display: none;
       <?php if ($is_logged_in): ?>
         <!-- Logged in as user details -->
         <div class="menu-page-item">
-          <span class="status-circle" style="background-color: green;margin-left:-20px;" title="User is logged in!"></span>
-          <span style="color: var(--text-color); margin-left: 10px; margin-right:auto;">Logged in as <?php echo htmlspecialchars($first_name); ?></span>
-          <div class="logged-in-links">
+          <div style="width:100%;">
+              <span class="status-circle" style="background-color: green;margin-left:-20px;" title="User is logged in!"></span>
+                <span style="color: var(--text-color); margin-left: 10px; margin-right:auto;">Logged in as <?php echo htmlspecialchars($first_name); ?></span>
+          <div class="logged-in-links" style="width:100%;">
               <a href="profile.php" class="underline-link">Profile settings</a> |
               <a href="logout.php" class="underline-link">Log out</a>
           </div>
@@ -370,6 +371,7 @@ display: none;
         <!-- Additional menu items for logged-in users -->
         <div class="menu-page-item">
           <a href="dashboard.php">Dashboard</a>
+          <span class="status-circle" style="background-color: green;" title="Working, Under development"></span>
         </div>
       <?php else: ?>
         <!-- If the user is not logged in, show the login/signup options -->

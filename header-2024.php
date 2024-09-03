@@ -358,8 +358,8 @@ display: none;
     <?php if ($is_logged_in): ?>
       <div class="menu-page-item" style="display: flex; flex-direction: column; align-items: flex-start;padding-bottom: 30px;">
         <div style="width:100%; display: flex; align-items: center;">
-          <span class="status-circle" style="background-color: green; margin-left: -20px;" title="User is logged in!"></span>
-          <span style="color: var(--text-color); margin-left: 10px;">Logged in as <?php echo htmlspecialchars($first_name); ?></span>
+          <!--<span class="status-circle" style="background-color: green; margin-left: -20px;" title="User is logged in!"></span>-->
+          <span style="color: var(--text-color); margin-left: 10px;">🌏 Logged in as <?php echo htmlspecialchars($first_name); ?></span>
         </div>
         <div class="logged-in-links" style="width:100%; font-size: 0.8em; margin-top: 5px;
   text-align: left;">

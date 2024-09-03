@@ -168,7 +168,7 @@ echo '<!DOCTYPE html>
             </form>
         </div><!--close right column-->
 
-    </div>
+
 
  <div class="form-item" style="margin: 70px 10px 40px 10px;">
             <p style="text-align:center;">You can delete your GoBrik and Buwana accounts permanently here.  Warning, this is permanent and immediate!</p>

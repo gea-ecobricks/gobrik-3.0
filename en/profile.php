@@ -75,6 +75,7 @@ echo '<!DOCTYPE html>
             <h1>⚙️</h1>
             <div id="status-message"><?php echo htmlspecialchars($first_name); ?>'s Profile Settings</div>
             <div id="sub-status-message">Review and update your Buwana account profile here:</div>
+            <div id="update-status"></div>
         </div>
 
 

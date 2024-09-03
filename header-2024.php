@@ -362,6 +362,7 @@ display: none;
           <div style="width:100%;">
               <span class="status-circle" style="background-color: green;margin-left:-20px;" title="User is logged in!"></span>
                 <span style="color: var(--text-color); margin-left: 10px; margin-right:auto;">Logged in as <?php echo htmlspecialchars($first_name); ?></span>
+          </div>
           <div class="logged-in-links" style="width:100%;">
               <a href="profile.php" class="underline-link">Profile settings</a> |
               <a href="logout.php" class="underline-link">Log out</a>

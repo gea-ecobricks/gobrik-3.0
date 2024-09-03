@@ -363,7 +363,7 @@ display: none;
         </div>
         <div class="logged-in-links" style="width:100%; font-size: 0.8em; margin-top: 5px;
   text-align: left;">
-          <a href="profile.php" class="underline-link">Profile settings</a> |
+          <a href="profile.php" class="underline-link">⚙️ Profile settings</a> |
           <a href="logout.php" class="underline-link">Log out</a>
         </div>
       </div>

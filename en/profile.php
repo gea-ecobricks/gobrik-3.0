@@ -67,6 +67,7 @@ echo '<!DOCTYPE html>
 <div id="form-submission-box" style="height:fit-content;margin-top: 90px;">
     <div class="form-container" style="padding-top:20px">
         <div style="text-align:center;width:100%;margin:auto;">
+            <h1>⚙️</h1>
             <div id="status-message"><?php echo htmlspecialchars($first_name); ?>'s Profile Settings</div>
             <div id="sub-status-message">Review and update your Buwana account profile here:</div>
         </div>

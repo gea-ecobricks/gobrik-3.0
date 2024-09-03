@@ -64,21 +64,19 @@ echo '<!DOCTYPE html>
 
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
-<div id="top-page-image" class="dolphin-pic top-page-image"></div>
-<div id="update-status"></div>
 <div id="form-submission-box" style="height:fit-content;margin-top: 90px;">
-    <div class="form-container">
+    <div class="form-container" style="padding-top:20px">
         <div style="text-align:center;width:100%;margin:auto;">
             <div id="status-message"><?php echo htmlspecialchars($first_name); ?>'s Profile Settings</div>
             <div id="sub-status-message">Update your GoBrik user settings here.</div>
         </div>
 
-        <div class="form-container" style="padding-top:20px">
+
 
         <div class="left-column" style="font-size:0.9em">
             <!-- Non-editable Fields -->
             <div class="form-item">
-                <p><strong>Full Name:</strong> <?php echo htmlspecialchars($full_name); ?></p>
+                <h4><strong>Full Name:</strong><br> <?php echo htmlspecialchars($full_name); ?></h4>
             </div>
             <div class="form-item">
                 <p><strong>Account Created At:</strong> <?php echo htmlspecialchars($created_at); ?></p>
@@ -155,7 +153,7 @@ echo '<!DOCTYPE html>
                     <button type="submit" class="submit-button enabled" aria-label="Save and update">Save and Update</button>
                 </div>
             </form>
-        </div>
+
     </div>
 
  <div class="form-item" style="margin: 70px 10px 40px 10px;">

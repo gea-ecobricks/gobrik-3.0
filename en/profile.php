@@ -75,11 +75,11 @@ echo '<!DOCTYPE html>
             <h1>⚙️</h1>
             <div id="status-message"><?php echo htmlspecialchars($first_name); ?>'s Profile Settings</div>
             <div id="sub-status-message">Review and update your Buwana account profile here:</div>
-            <div id="update-status"></div>
+            <div id="update-status" style="font-size:1.3em, color:green;padding:10px;margin-top:10px;"></div>
         </div>
 
 
-
+    <div id="buwana-account" style="background:var(--lighter); padding:10px;border-radius:12px;"
         <div class="left-column" style="font-size:0.9em">
             <!-- Non-editable Fields -->
             <div class="form-item">
@@ -166,13 +166,14 @@ echo '<!DOCTYPE html>
                     <button type="submit" class="submit-button enabled" aria-label="Save and update">Save and Update</button>
                 </div>
             </form>
+        </div><!--close right column-->
 
     </div>
 
  <div class="form-item" style="margin: 70px 10px 40px 10px;">
             <p style="text-align:center;">You can delete your GoBrik and Buwana accounts permanently here.  Warning, this is permanent and immediate!</p>
             <!-- DELETE ACCOUNT FORM -->
-            <form id="delete-account-form" method="post" action="delete_account.php?id=<?php echo htmlspecialchars($ecobricker_id); ?>">
+            <form id="delete-account-form" method="post" action="double_delete_account.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
                 <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
                     <button type="button" class="submit-button delete" onclick="confirmDeletion()">Delete my account</button>
                 </div>
@@ -195,6 +196,8 @@ echo '<!DOCTYPE html>
 
 <!-- FOOTER STARTS HERE -->
 <?php require_once("../footer-2024.php"); ?>
+
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     // Function to handle the update status
@@ -205,6 +208,8 @@ document.addEventListener('DOMContentLoaded', function () {
             updateStatusDiv.innerHTML = "👍 Your user profile was updated!";
         } else if (status === 'failed') {
             updateStatusDiv.innerHTML = "🤔 Something went wrong with the update.";
+        } else if (status === 'deleted') {
+            updateStatusDiv.innerHTML = "Goodbye! Your accounts have been fully deleted. 👋";
         }
     }
 
@@ -230,9 +235,18 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error:', error);
             catchUpdateReport('failed');
         });
+
     });
+
+    // Check for status message from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const status = urlParams.get('status');
+    if (status) {
+        catchUpdateReport(status);
+    }
 });
 </script>
+
 
 
 <script>

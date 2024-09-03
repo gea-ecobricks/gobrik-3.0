@@ -486,15 +486,35 @@ display:none;
 /* -------------------------------------------------------------------------- */
 /* 6. Main Menu Overlay Curtain - Comes in from the right after clicking +- button. */
 /* -------------------------------------------------------------------------- */
-/* Underline hover effect for specific links */
-.underline-link {
-  text-decoration: none;
-  color: var(--subdued-text);
+
+
+/* Logged-in Status Box */
+.logged-in-status {
+  padding: 10px;
+  font-family: 'Mulish';
+  color: var(--text-color);
+  border-bottom: 1px solid var(--divider-line);
+  margin-bottom: 10px;
+  text-align: left;
 }
 
-.underline-link:hover {
+/* Styling for Profile Settings and Log Out links */
+.logged-in-links {
+  font-size: 0.8em;
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+.logged-in-links a {
+  text-decoration: none;
+  color: var(--subdued-text);
+  margin-right: 10px;
+  font-size: 0.9em;
+}
+
+.logged-in-links a:hover {
   text-decoration: underline;
-  color: var(--h1); /* Color change on hover */
+  color: var(--h1);
 }
 
 /* Main Menu Overlay Curtain */

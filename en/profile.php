@@ -84,7 +84,7 @@ echo '<!DOCTYPE html>
             <!-- Non-editable Fields -->
             <div class="form-item">
                 <p><strong>Full Name:</strong><p>
-                    <h4> <?php echo htmlspecialchars($full_name); ?></h4>
+                    <h3> <?php echo htmlspecialchars($full_name); ?></h3>
             </div>
             <div class="form-item">
                 <p><strong>Account Created At:</strong></p>
@@ -95,13 +95,16 @@ echo '<!DOCTYPE html>
                  <p><?php echo htmlspecialchars($last_login); ?></p>
             </div>
             <div class="form-item">
-                <p><strong>Brikcoin Balance:</strong> <?php echo htmlspecialchars($brikcoin_balance); ?></p>
+                <p><strong>Brikcoin Balance:</p>
+                <p></strong> <?php echo htmlspecialchars($brikcoin_balance); ?></p>
             </div>
             <div class="form-item">
-                <p><strong>Role:</strong> <?php echo htmlspecialchars($role); ?></p>
+                <p><strong>Role(s):</strong></p>
+                <p> <?php echo htmlspecialchars($role); ?></p>
             </div>
             <div class="form-item">
-                <p><strong>Account Status:</strong> <?php echo htmlspecialchars($account_status); ?></p>
+                <p><strong>Account Status:</strong></p>
+                 <p><?php echo htmlspecialchars($account_status); ?></p>
             </div>
             <div class="form-item">
                 <p><strong>Account Notes:</strong> <?php echo htmlspecialchars($notes); ?></p>

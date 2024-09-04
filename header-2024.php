@@ -374,6 +374,10 @@ display: none;
         <a href="signup.php" aria-label="Signup" data-lang-id="1000-signup" style="margin-left:10px">Signup</a>
         <span class="status-circle" style="background-color: green;" title="Deployed. Under beta testing."></span>
       </div>
+  <div class="menu-page-item">
+      <a href="dashboard.php" aria-label="Log" data-lang-id="1000-dashboard">Dashboard</a>
+      <span class="status-circle" style="background-color: yellow;" title="Working. Under development"></span>
+    </div>
     <?php endif; ?>
 
     <!-- Other menu items -->

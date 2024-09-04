@@ -1,17 +1,53 @@
 <?php
+session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.1';
+$version = '0.11';
 $page = 'brik';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
+// Initialize user variables
+$first_name = '';
+$buwana_id = '';
+
+// Check if the user is logged in
+if (isset($_SESSION['buwana_id'])) {
+    $buwana_id = $_SESSION['buwana_id'];
+
+    // Include database connection
+    require_once '../buwanaconn_env.php';
+
+    // Fetch user's first name using buwana_id from the Buwana database
+    $sql_user_info = "SELECT first_name FROM users_tb WHERE buwana_id = ?";
+    $stmt_user_info = $buwana_conn->prepare($sql_user_info);
+
+    if ($stmt_user_info) {
+        $stmt_user_info->bind_param('i', $buwana_id);
+        $stmt_user_info->execute();
+        $stmt_user_info->bind_result($first_name);
+        $stmt_user_info->fetch();
+        $stmt_user_info->close();
+    } else {
+        error_log('Error preparing statement for fetching user info: ' . $buwana_conn->error);
+    }
+
+    // Close the database connection
+    $buwana_conn->close();
+}
+
+// Determine if the user is logged in
+$is_logged_in = isset($buwana_id) && !empty($first_name);
+
 echo '<!DOCTYPE html>
-<html lang="' . $lang . '">
+<html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">
 <head>
 <meta charset="UTF-8">
 ';
 ?>
+
 
 
 <?php

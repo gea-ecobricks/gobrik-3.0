@@ -1,5 +1,5 @@
 <?php
-require_once 'earthenAuth_helper.php'; // Include the authentication helper functions
+require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
 // Start a secure session with regeneration to prevent session fixation
 startSecureSession();

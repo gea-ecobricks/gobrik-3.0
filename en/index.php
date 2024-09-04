@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.421';
+$version = '0.422';
 $page = 'index';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 

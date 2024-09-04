@@ -107,8 +107,7 @@ echo '</script>';
     </div>
 
    <!-- Form starts here-->
-<form id="login" method="post" action="login_process.php">
-    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+<form id="login" method="post" action="login_process.php?redirect=<?php echo htmlspecialchars($redirect); ?>">    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
 
     <div class="form-item">
         <div class="input-wrapper" style="position: relative;">
@@ -145,7 +144,7 @@ echo '</script>';
             <input type="text" maxlength="1" class="code-box" placeholder="-">
             <input type="text" maxlength="1" class="code-box" placeholder="-">
         </div>
-    <p id="code-status" class="form-caption" data-lang-id="003-code-status" style="margin-top:5px;">A code will be sent to your email.</p>
+    <p id="code-status" class="form-caption" data-lang-id="003-code-status" style="margin-top:5px;">A code to login will be sent to your email.</p>
 
     </div>
 

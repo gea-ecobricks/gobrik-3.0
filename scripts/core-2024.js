@@ -345,7 +345,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 -------------------------------------------*/
 
-
 function handleLogout(event) {
     event.preventDefault(); // Prevent default link behavior
 
@@ -353,8 +352,10 @@ function handleLogout(event) {
     fetch(event.target.href)
         .then(response => {
             if (response.ok) {
-                // Reload the page after logout to update the menu
-                window.location.reload();
+                // Redirect to the login page with the appropriate parameters
+                window.location.href = response.url;
+            } else {
+                console.error('Failed to log out:', response.statusText);
             }
         })
         .catch(error => {

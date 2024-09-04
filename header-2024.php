@@ -347,6 +347,7 @@ display: none;
       </div>
     </div>
     </div>
+
 <?php $is_logged_in = isset($buwana_id) && !empty($first_name); ?>
 
 <!-- MAIN MENU -->
@@ -376,11 +377,6 @@ display: none;
         <span class="status-circle" style="background-color: green;" title="Deployed. Under beta testing."></span>
       </div>
     <?php endif; ?>
-  </div> <!-- close overlay-content-settings -->
-</div> <!-- close main menu -->
-
-
-
 
     <!-- Other menu items -->
     <div class="menu-page-item">

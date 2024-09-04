@@ -1,13 +1,36 @@
 <?php
-$directory = basename(dirname($_SERVER['SCRIPT_NAME']));
-$lang = $directory;
+require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
+
+// Start a secure session with regeneration to prevent session fixation
+startSecureSession();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.421';
 $page = 'index';
-include '../ecobricks_env.php';
-$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+i$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+
+// Initialize user variables
+$first_name = '';
+$buwana_id = '';
+
+// Check if the user is logged in
+if (isLoggedIn()) {
+    $buwana_id = $_SESSION['buwana_id'];
+    require_once '../buwanaconn_env.php'; // Include the Buwana database connection
+
+    // Fetch user's first name
+    $first_name = getUserFirstName($buwana_conn, $buwana_id);
+
+    $buwana_conn->close();  // Close the database connection
+}
+
+// Determine if the user is logged in for dynamic content handling later
+$is_logged_in = isset($buwana_id) && !empty($first_name);
 
 echo '<!DOCTYPE html>
-<html lang="' . $lang . '">
+<html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">
 <head>
 <meta charset="UTF-8">
 ';

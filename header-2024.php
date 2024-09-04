@@ -347,7 +347,6 @@ display: none;
       </div>
     </div>
     </div>
-
 <?php $is_logged_in = isset($buwana_id) && !empty($first_name); ?>
 
 <!-- MAIN MENU -->
@@ -358,14 +357,16 @@ display: none;
     <?php if ($is_logged_in): ?>
       <div class="menu-page-item" style="display: flex; flex-direction: column; align-items: flex-start;padding-bottom: 30px;">
         <div style="width:100%; display: flex; align-items: center;">
-          <!--<span class="status-circle" style="background-color: green; margin-left: -20px;" title="User is logged in!"></span>-->
           <span style="color: var(--text-color); margin-left: 7px;">🌏 Logged in as <?php echo htmlspecialchars($first_name); ?></span>
         </div>
-        <div class="logged-in-links" style="width:100%; font-size: 0.8em; margin-top: 5px;
-  text-align: left;">
+        <div class="logged-in-links" style="width:100%; font-size: 0.8em; margin-top: 5px; text-align: left;">
           <a href="profile.php" class="underline-link">⚙️ Profile settings</a> |
-            <a href="logout.php?redirect=<?php echo urlencode($page); ?>" class="underline-link">🐳 Log out</a>
+          <a href="logout.php?redirect=<?php echo urlencode($page); ?>" class="underline-link" onclick="handleLogout(event)">🐳 Log out</a>
         </div>
+      </div>
+      <div class="menu-page-item">
+        <a href="dashboard.php" aria-label="Log" data-lang-id="1000-dashboard">Dashboard</a>
+        <span class="status-circle" style="background-color: yellow;" title="Working. Under development"></span>
       </div>
     <?php else: ?>
       <!-- If the user is not logged in, show the login/signup options -->
@@ -374,11 +375,12 @@ display: none;
         <a href="signup.php" aria-label="Signup" data-lang-id="1000-signup" style="margin-left:10px">Signup</a>
         <span class="status-circle" style="background-color: green;" title="Deployed. Under beta testing."></span>
       </div>
-  <div class="menu-page-item">
-      <a href="dashboard.php" aria-label="Log" data-lang-id="1000-dashboard">Dashboard</a>
-      <span class="status-circle" style="background-color: yellow;" title="Working. Under development"></span>
-    </div>
     <?php endif; ?>
+  </div> <!-- close overlay-content-settings -->
+</div> <!-- close main menu -->
+
+
+
 
     <!-- Other menu items -->
     <div class="menu-page-item">

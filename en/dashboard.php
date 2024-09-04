@@ -205,10 +205,7 @@ document.getElementById('newest-ecobricks-button').addEventListener('click', fun
     window.location.href = 'newest-briks.php';
 });
 
-document.getElementById('logout-button').addEventListener('click', function() {
-    // Log out and redirect to the login.php page
-    window.location.href = 'logout.php';
-});
+
 
 
 </script>

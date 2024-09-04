@@ -446,5 +446,20 @@ function showModalInfo(type, lang) {
     document.body.classList.add('modal-open');
 }
 
+function handleLogout(event) {
+    event.preventDefault(); // Prevent default link behavior
+
+    // Perform logout via AJAX
+    fetch(event.target.href)
+        .then(response => {
+            if (response.ok) {
+                // Reload the page after logout to update the menu
+                window.location.reload();
+            }
+        })
+        .catch(error => {
+            console.error('Error during logout:', error);
+        });
+}
 
 </script>

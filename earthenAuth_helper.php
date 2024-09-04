@@ -1,6 +1,16 @@
 <?php
 session_start();
 
+function startSecureSession() {
+    // Regenerate the session ID periodically to prevent session fixation
+    if (!isset($_SESSION['CREATED'])) {
+        $_SESSION['CREATED'] = time();
+    } elseif (time() - $_SESSION['CREATED'] > 1800) { // Regenerate session ID every 30 minutes
+        session_regenerate_id(true);
+        $_SESSION['CREATED'] = time();
+    }
+}
+
 function isLoggedIn() {
     return isset($_SESSION['buwana_id']);
 }

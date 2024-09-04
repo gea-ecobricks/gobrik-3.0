@@ -186,8 +186,6 @@ echo '<!DOCTYPE html>
         <!-- Other Dashboard Buttons -->
         <div style="display:flex;flex-flow:row;width:100%;justify-content:center; margin-top:50px;">
             <a href="newest-briks.php"><button id="newest-ecobricks-button" style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;">📅 Newest Ecobricks</button></a>
-            <!-- Logout Button -->
-            <button id="logout-button" style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;">📤 Log Out</button>
         </div>
     </div>
 </div>

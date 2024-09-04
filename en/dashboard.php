@@ -139,7 +139,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     <?php foreach ($recent_ecobricks as $ecobrick) : ?>
                         <tr>
                             <td>
-                                <img src="https://ecobricks.org/<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>"
+                                <img src="/<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>"
                                      alt="Ecobrick Thumbnail"
                                      class="table-thumbnail"
                                      onclick="ecobrickPreview('<?php echo htmlspecialchars($ecobrick['ecobrick_full_photo_url']); ?>', '<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['weight_g']); ?>g', '<?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?>', '<?php echo htmlspecialchars($ecobrick['location_full']); ?>')">
@@ -161,8 +161,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <div style="display:flex;flex-flow:row;width:100%;justify-content:center; margin-top:50px;">
             <a href="newest-briks.php"><button id="newest-ecobricks-button"  style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;">📅 Newest Ecobricks</button></a>
-            <!-- Logout Button -->
-            <button id="logout-button" style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;">📤 Log Out</button>
         </div>
 
         <div style="text-align:center;width:100%;margin:auto;">

@@ -9,7 +9,7 @@ ini_set('display_errors', 1);
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.421';
 $page = 'index';
-i$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 // Initialize user variables
 $first_name = '';

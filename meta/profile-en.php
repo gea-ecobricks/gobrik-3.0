@@ -1,6 +1,6 @@
-<title>User Profile | GoBrik 3.0</title>
+<title>Account Profile | Settings</title>
 
-<meta name="keywords" content="user profile, user settings, account, update profile, gobrik">
+<meta name="keywords" content="user profile, user settings, account, update profile, gobrik, save settings, set country, language, watershed">
 <meta name="description" content="Manage your GoBrik and Buwana Account settings">
 <meta name="author" content="Global Ecobrick Alliance">
 <meta name="last-modified" content="' . $lastModified . '">

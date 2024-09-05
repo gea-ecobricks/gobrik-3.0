@@ -348,7 +348,29 @@ display: none;
     </div>
     </div>
 
+<?php
+require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
+// Check if the user is logged in using the helper function
+$is_logged_in = isLoggedIn();
+
+// Initialize the country icon
+$country_icon = '';
+$first_name = '';
+
+// If the user is logged in, get the user's details and country icon
+if ($is_logged_in) {
+    // Ensure the database connection is available
+    require_once '../buwanaconn_env.php'; // Buwana database credentials
+
+    $buwana_id = $_SESSION['buwana_id']; // Retrieve the user's ID from the session
+
+    // Fetch the user's first name from the database
+    $first_name = getUserFirstName($buwana_conn, $buwana_id);
+    // Fetch the user's continent icon
+    $country_icon = getUserContinent($buwana_conn, $buwana_id);
+}
+?>
 
 <!-- MAIN MENU -->
 <div id="main-menu-overlay" class="overlay-settings" style="display:none;">
@@ -359,7 +381,7 @@ display: none;
       <div class="menu-page-item" style="display: flex; flex-direction: column; align-items: flex-start; padding-bottom: 30px;">
         <div style="width:100%; display: flex; align-items: center;">
           <div style="color: var(--text-color); margin-left: 7px;">
-              <span id="continent-icon"><?php echo $country_icon; ?></span> <span data-lang-id="1000-logged-in-as">Logged in as</span> <span><?php echo htmlspecialchars($first_name); ?></span>
+              <span id="continent-icon"><?php echo htmlspecialchars($country_icon); ?></span> <span data-lang-id="1000-logged-in-as">Logged in as</span> <span><?php echo htmlspecialchars($first_name); ?></span>
           </div>
         </div>
         <div class="logged-in-links" style="width:100%; font-size: 0.8em; margin-top: 5px; text-align: left;">
@@ -379,6 +401,7 @@ display: none;
         <span class="status-circle" style="background-color: green;" title="Deployed. Under beta testing."></span>
       </div>
     <?php endif; ?>
+
 
 
     <!-- Other menu items -->

@@ -1,15 +1,12 @@
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
-/* Deply code
-cd repositories/gobrik-3-0-2
-cp -R en/* id/
-*/
 
 // Start a secure session with regeneration to prevent session fixation
 startSecureSession();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+// Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.423';
 $page = 'index';
@@ -18,6 +15,7 @@ $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 // Initialize user variables
 $first_name = '';
 $buwana_id = '';
+$country_icon = '';
 
 // Check if the user is logged in
 if (isLoggedIn()) {
@@ -26,6 +24,7 @@ if (isLoggedIn()) {
 
     // Fetch user's first name
     $first_name = getUserFirstName($buwana_conn, $buwana_id);
+    $country_icon = getUserContinent($buwana_conn, $buwana_id);
 
     $buwana_conn->close();  // Close the database connection
 }
@@ -38,12 +37,18 @@ echo '<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 ';
+
+
 ?>
 
 
 <title>GoBrik | 3.0</title>
 
-<!--
+
+    /* Deply code
+cd repositories/gobrik-3-0-2
+cp -R en/* id/
+
 GoBrik.com site version 3.0
 Developed and made open source by the Global Ecobrick Alliance
 See our git hub repository for the full code and to help out:

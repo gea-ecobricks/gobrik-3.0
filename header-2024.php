@@ -353,8 +353,6 @@ display: none;
 // Check if the user is logged in
 $is_logged_in = isset($buwana_id) && !empty($first_name);
 
-// Initialize the country icon
-$country_icon = '';
 
 // If the user is logged in, get the country icon
 if ($is_logged_in) {

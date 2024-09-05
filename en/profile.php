@@ -1,5 +1,8 @@
 <?php
-session_start();
+require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
+
+// Start a secure session with regeneration to prevent session fixation
+startSecureSession();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -8,6 +11,11 @@ $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.384';
 $page = 'profile';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+
+// Initialize user variables
+$first_name = '';
+$buwana_id = '';
+$country_icon = '';
 
 // Check if the user is logged in
 if (!isset($_SESSION['buwana_id'])) {
@@ -27,6 +35,8 @@ require_once '../gobrikconn_env.php';
 require_once '../buwanaconn_env.php'; // Buwana database credentials
 
 // Fetch user information using buwana_id from the Buwana database
+$country_icon = getUserContinent($buwana_conn, $buwana_id);
+
 $sql_user_info = "SELECT full_name, first_name, last_name, email, country_id, languages_id, birth_date, created_at, last_login, brikcoin_balance, role, account_status, notes, terms_of_service FROM users_tb WHERE buwana_id = ?";
 $stmt_user_info = $buwana_conn->prepare($sql_user_info);
 

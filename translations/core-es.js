@@ -43,6 +43,7 @@ const es_Translations = {
     "1000-latest-trainings": "Últimas Capacitaciones",
     "1000-landing-page": "Página de inicio",
     "1000-about-gobrik": `<a href="https://ecobricks.org/gobrik" target="_blank">El proyecto GoBrik</a> es desarrollado por la <a href="https://ecobricks.org/about" target="_blank">Alianza Global de Ecoladrillos</a>, una empresa sin fines de lucro dedicada a acelerar la transición del plástico y el petro-capital.`,
+"000-field-required-error": "☝️ Este campo de formulario es obligatorio.",
 
 /*Textos Generales*/
     '1000-learn-more': 'Aprende más',

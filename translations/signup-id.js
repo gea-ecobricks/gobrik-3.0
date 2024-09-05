@@ -13,20 +13,15 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 
 const id_Page_Translations = {
     "001-signup-heading": "Buat Akun Anda",
-    "002-gobrik-subtext": "GoBrik dikembangkan oleh sukarelawan yang sama-sama bersemangat tentang transisi plastik seperti Anda!",
-    "003-first-name": "Apa nama depan Anda?",
-    "000-field-required-error": "Bidang ini harus diisi.",
+    "002-signup-subtext": "Bergabunglah dengan kami di GoBrik dengan akun Buwana—alternatif open source untuk Bumi dibanding login korporat.",
+    "003-firstname": "Apa nama depan Anda?",
     "000-name-field-too-long-error": "Nama terlalu panjang. Maksimal 255 karakter.",
-    "005b-name-error": "Entri mengandung karakter tidak valid. Hindari tanda kutip, garis miring, dan tanda lebih besar, silakan.",
-    "006-credential": "Dengan kredensial apa Anda ingin mendaftar?",
-    "006-way-to-contact": "Ini adalah cara kami akan menghubungi Anda untuk mengonfirmasi akun Anda",
-    "016-submit-to-password": "Selanjutnya: Atur Kata Sandi",
-    "000-already-have-account": "Sudah punya akun? <a href=\"login.php\">Login</a>",
-    "000-name-placeholder":'<input type="text" id="first_name" name="first_name" aria-label="Your first name" title="Required. Max 255 characters." required placeholder="Namamu...">',
-    "000-already-have-account": "Sudah punya akun? <a href=\"login.php\">Login</a>",
-    "000-select": "Pilih..."
+    "005b-name-error": "Masukan mengandung karakter yang tidak valid. Hindari tanda kutip, garis miring, dan tanda lebih besar.",
+    "006-credential-choice": "Login pilihan Anda:",
+    "007-way-to-contact": "Ini adalah cara kami akan menghubungi Anda untuk mengonfirmasi akun Anda",
+    "016-submit-to-password": "Lanjut ➡️",
+};
 
-    };
 
 
 

@@ -25,6 +25,7 @@ const fr_Translations = {
     "000-forgot-your-password": 'Vous avez oublié votre mot de passe? <a href="#" onclick="showModalInfo(\'reset\')" class="underline-link">Réinitialisez-le.</a>',
     "000-password-wrong": "👉 Entrée incorrecte.",
     "000-no-account-yet": 'Vous n\'avez pas encore de compte? <a href="signup.php">Inscrivez-vous!</a>',
+"000-field-required-error": "☝️ Ce champ de formulaire est requis.",
 
 
 /*Menu de pages de rideau*/

@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.761';
+$version = '0.762';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $response = ['success' => false];
 $buwana_id = $_GET['id'] ?? null;
@@ -87,7 +87,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
 
-
             <div style="text-align:center;width:100%;margin:auto;">
                 <h2 data-lang-id="001-setup-access-heading">Setup Your Access</h2>
                 <p>Ok <?php echo $first_name; ?>, <span data-lang-id="002-setup-access-heading-a">let's use your </span> <?php echo $credential_type; ?> <span data-lang-id="003-setup-access-heading-b">as your means of registration and the way we contact you.</span></p>
@@ -137,7 +136,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     </div>
                     <div>
                         <input type="checkbox" id="newsletter" name="newsletter" checked>
-                        <label for="newsletter" style="font-size:medium;" class="form-caption" data-lang-id="014-i-agree-newsletter">I agree to receive the <a href="#" onclick="showModalInfo('earthen', '<?php echo $lang; ?>')" class="underline-link">Earthen newsletter</a> for app, ecobrick, and earthen updates</label>
+                        <label for="newsletter" style="font-size:1.0;" class="form-caption" data-lang-id="014-i-agree-newsletter">I agree to receive the <a href="#" onclick="showModalInfo('earthen', '<?php echo $lang; ?>')" class="underline-link">Earthen newsletter</a> for app, ecobrick, and earthen updates</label>
                     </div>
                 </div>
 

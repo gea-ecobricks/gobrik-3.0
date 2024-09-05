@@ -27,7 +27,17 @@ if (!isLoggedIn()) {
     exit();
 }
 
-$buwana_id = $_SESSION['buwana_id'];
+$buwana_id = $_SESSION['buwana_id'] ?? ''; // Ensure buwana_id is retrieved from session
+
+// Ensure buwana_id is valid and not empty
+if (empty($buwana_id)) {
+    // Redirect to login page with the redirect parameter set to the current page
+    echo '<script>
+        alert("Please login before viewing this page.");
+        window.location.href = "login.php?redirect=' . urlencode($page) . '";
+    </script>';
+    exit();
+}
 
 // Include database connection
 require_once '../gobrikconn_env.php';

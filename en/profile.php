@@ -37,6 +37,7 @@ require_once '../buwanaconn_env.php'; // Buwana database credentials
 // Fetch user information using buwana_id from the Buwana database
 $country_icon = getUserContinent($buwana_conn, $buwana_id);
 
+// Fetch Full user information using buwana_id from the Buwana database
 $sql_user_info = "SELECT full_name, first_name, last_name, email, country_id, languages_id, birth_date, created_at, last_login, brikcoin_balance, role, account_status, notes, terms_of_service FROM users_tb WHERE buwana_id = ?";
 $stmt_user_info = $buwana_conn->prepare($sql_user_info);
 

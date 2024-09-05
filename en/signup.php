@@ -173,9 +173,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 </form>
 
 </div>
-<div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%; margin: auto; text-align: center;">
-    <p style="font-size: medium;" data-lang-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
-</div>
+    <div id="signup-link-holder" style="width: 100%; max-height: 100vh; display: flex; align-items: center; justify-content: center;">
+        <p style="font-size: medium; text-align: center;" data-land-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
+    </div>
 
 
     </div><!--closes Landing content-->

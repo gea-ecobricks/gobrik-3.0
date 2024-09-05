@@ -240,8 +240,9 @@
     }
 
 .code-box.enabled {
-    pointer: auto; /* Enable typing */
+    pointer-events: auto; /* Enable typing */
     background-color: #ffffff; /* Reset background when enabled */
+    cursor: auto;
 }
 
 @media screen and (min-width: 769px) {

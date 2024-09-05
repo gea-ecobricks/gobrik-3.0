@@ -8,17 +8,15 @@ ini_set('display_errors', 1);
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.761';
-$page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
-
+$response = ['success' => false];
+$buwana_id = $_GET['id'] ?? null;
+$page = 'signup';
 
 // Initialize user variables
-$first_name = '';
-$buwana_id = '';
-$country_icon = '';
-$is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 $credential_type = '';
 $credential_key = '';
+$first_name = '';
 $account_status = '';
 
 include '../buwanaconn_env.php'; // Database connection

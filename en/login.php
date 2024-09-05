@@ -1,7 +1,7 @@
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
-session_start(); // Start the session for managing CSRF token and session-related checks (not this doesn't start the login!)
+session_start(); // Start the session for managing CSRF token and session-related checks
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -15,10 +15,10 @@ $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $first_name = '';
 $buwana_id = '';
 $country_icon = '';
-$is_logged_in = isLoggedIn();// Check if the user is logged in using the helper function
+$is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 
 // Check if user is logged in and session active
-if (isLoggedIn()) {
+if ($is_logged_in) {
     header('Location: dashboard.php');
     exit();
 }

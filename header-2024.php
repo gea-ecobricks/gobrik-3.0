@@ -348,12 +348,11 @@ display: none;
     </div>
     </div>
 
-
 <!-- MAIN MENU -->
 <div id="main-menu-overlay" class="overlay-settings" style="display:none;">
   <button type="button" onclick="closeSettings()" aria-label="Click to close settings page" class="x-button"></button>
   <div class="overlay-content-settings">
-    <!-- Logged-in Status Box -->
+    <!-- Check if the user is logged in before displaying the logged-in status box -->
     <?php if ($is_logged_in): ?>
       <div class="menu-page-item" style="display: flex; flex-direction: column; align-items: flex-start; padding-bottom: 30px;">
         <div style="width:100%; display: flex; align-items: center;">
@@ -378,6 +377,7 @@ display: none;
         <span class="status-circle" style="background-color: green;" title="Deployed. Under beta testing."></span>
       </div>
     <?php endif; ?>
+
 
 
 

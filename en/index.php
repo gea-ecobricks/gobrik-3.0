@@ -1,8 +1,7 @@
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
-// Start a secure session with regeneration to prevent session fixation
-startSecureSession();
+session_start(); // Start the session for managing CSRF token and session-related checks
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -45,7 +44,7 @@ echo '<!DOCTYPE html>
 <title>GoBrik | 3.0</title>
 
 
-    /* Deply code
+    /* Deploy code
 cd repositories/gobrik-3-0-2
 cp -R en/* id/
 

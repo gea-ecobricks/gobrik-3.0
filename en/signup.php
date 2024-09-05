@@ -139,7 +139,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     <div class="form-item">
         <label for="first_name" data-lang-id="003-firstname">What is your first name?</label><br>
-        <span data-lang-id="000-name-placeholder">
+        <span data-lang-id="004-name-placeholder">
             <input type="text" id="first_name" name="first_name" aria-label="Your first name" title="Required. Max 255 characters." required placeholder="Your name...">
         </span>
 

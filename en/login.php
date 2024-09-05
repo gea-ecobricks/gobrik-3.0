@@ -165,7 +165,7 @@ echo '</script>';
             <div class="login-slider"></div>
             <span data-lang-id="004-login-button">
                 <input type="submit" id="submit-password-button" value="Login" class="login-button-75">
-            <span>
+            </span>
             <input type="button" id="send-code-button" value="📨 Send Code" class="code-button-75" style="display:none;">
 
         </div>
@@ -182,7 +182,6 @@ echo '</script>';
 
     </div>
 
-<p>Testing the switcher<a href="" onclick="switchLanguage(id)">Indo</a>
 </div>
 
 </div>

@@ -1,13 +1,13 @@
 <?php
-// Turn on or off error reporting
+require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
+
+// Start a secure session with regeneration to prevent session fixation
+startSecureSession();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Start the session before any output
-session_start();
-
 // Check if user is logged in and session active
-if (isset($_SESSION['buwana_id'])) {
+if (isLoggedIn()) {
     header('Location: dashboard.php');
     exit();
 }
@@ -17,7 +17,7 @@ if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
-// VERSION Set page variables
+// Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.74';
 $page = 'login';
@@ -31,10 +31,9 @@ $credential_key = ''; // Initialize $credential_key as empty
 $first_name = '';  // Initialize the first_name variable
 $redirect = isset($_GET['redirect']) ? filter_var($_GET['redirect'], FILTER_SANITIZE_STRING) : '';
 
-
 // Check if buwana_id is available and valid to fetch corresponding email and first_name from users_tb
 if (!empty($buwana_id)) {
-    require_once '../buwanaconn_env.php'; //sets up buwana_conn database connection
+    require_once '../buwanaconn_env.php'; // Sets up buwana_conn database connection
 
     // Prepare the query to fetch the email and first_name from users_tb
     $sql = "SELECT email, first_name FROM users_tb WHERE buwana_id = ?";
@@ -44,19 +43,21 @@ if (!empty($buwana_id)) {
         $stmt->bind_param("i", $buwana_id);
 
         // Execute the statement
-        $stmt->execute();
+        if ($stmt->execute()) {
+            // Bind the result
+            $stmt->bind_result($fetched_email, $fetched_first_name);
 
-        // Bind the result
-        $stmt->bind_result($fetched_email, $fetched_first_name);
-
-        // Fetch the result and overwrite the email and first_name if found
-        if ($stmt->fetch()) {
-            $credential_key = $fetched_email;  // Store the fetched email
-            $first_name = $fetched_first_name;  // Store the fetched first_name
+            // Fetch the result and overwrite the email and first_name if found
+            if ($stmt->fetch()) {
+                $credential_key = $fetched_email;  // Store the fetched email
+                $first_name = $fetched_first_name;  // Store the fetched first_name
+            }
         }
 
         // Close the statement
         $stmt->close();
+    } else {
+        error_log('Error preparing statement: ' . $buwana_conn->error);
     }
 
     // Close the database connection
@@ -80,6 +81,7 @@ echo 'const buwanaId = "' . addslashes($buwana_id) . '";';
 echo 'const code = "' . addslashes($code) . '";';
 echo '</script>';
 ?>
+
 
 
 

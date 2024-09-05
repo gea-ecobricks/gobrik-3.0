@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 
 function startSecureSession() {
     // Regenerate the session ID periodically to prevent session fixation

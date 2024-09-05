@@ -18,7 +18,7 @@ $buwana_id = '';
 $country_icon = '';
 
 // Check if the user is logged in
-if (!isset($_SESSION['buwana_id'])) {
+if (!isLoggedIn()) {
     // Redirect to login page with the redirect parameter set to the current page
     echo '<script>
         alert("Please login before viewing this page.");
@@ -29,7 +29,7 @@ if (!isset($_SESSION['buwana_id'])) {
 
 $buwana_id = $_SESSION['buwana_id'];
 
-// Include database connection
+// Include database connections
 require_once '../gobrikconn_env.php';
 require_once '../buwanaconn_env.php';
 
@@ -54,7 +54,7 @@ if ($stmt_user_info) {
 $languages = [];
 $sql_languages = "SELECT lang_id, languages_eng_name, language_active FROM languages_tb ORDER BY languages_eng_name";
 $result_languages = $buwana_conn->query($sql_languages);
-if ($result_languages->num_rows > 0) {
+if ($result_languages && $result_languages->num_rows > 0) {
     while ($row = $result_languages->fetch_assoc()) {
         $languages[] = $row;
     }
@@ -64,17 +64,23 @@ if ($result_languages->num_rows > 0) {
 $countries = [];
 $sql_countries = "SELECT country_id, country_name FROM countries_tb ORDER BY country_name";
 $result_countries = $buwana_conn->query($sql_countries);
-if ($result_countries->num_rows > 0) {
+if ($result_countries && $result_countries->num_rows > 0) {
     while ($row = $result_countries->fetch_assoc()) {
         $countries[] = $row;
     }
 }
+
+// Close the database connections
+$buwana_conn->close();
+$gobrik_conn->close();
+
 echo '<!DOCTYPE html>
-<html lang="' . $lang . '">
+<html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">
 <head>
 <meta charset="UTF-8">
 ';
 ?>
+
 <?php require_once("../includes/profile-inc.php"); ?>
 
 <div class="splash-title-block"></div>

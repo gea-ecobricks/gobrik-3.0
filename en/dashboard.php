@@ -18,7 +18,7 @@ $buwana_id = '';
 $country_icon = '';
 
 // Check if the user is logged in
-if (!isset($_SESSION['buwana_id'])) {
+if (!isLoggedIn()) {
     // Redirect to login page with the redirect parameter set to the current page
     echo '<script>
         alert("Please login before viewing this page.");
@@ -33,7 +33,10 @@ $buwana_id = $_SESSION['buwana_id'];
 require_once '../gobrikconn_env.php';
 require_once '../buwanaconn_env.php';
 
-// Look up fields from tb_ecobrickers using the buwana_id
+// Fetch the user's continent icon using helper function
+$country_icon = getUserContinent($buwana_conn, $buwana_id);
+
+// Fetch user details from the GoBrik database
 $sql_lookup_user = "SELECT first_name, ecobricks_made, location_full_txt, maker_id FROM tb_ecobrickers WHERE buwana_id = ?";
 $stmt_lookup_user = $gobrik_conn->prepare($sql_lookup_user);
 
@@ -47,12 +50,11 @@ if ($stmt_lookup_user) {
     die("Error preparing statement for tb_ecobrickers: " . $gobrik_conn->error);
 }
 
-
 // SQL query to fetch the count of ecobricks and the sum of weight_g divided by 1000 to get kg
 $sql = "SELECT COUNT(*) as ecobrick_count, SUM(weight_g) / 1000 as total_weight FROM tb_ecobricks";
 $result = $gobrik_conn->query($sql);
 
-if ($result->num_rows > 0) {
+if ($result && $result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $ecobrick_count = $row['ecobrick_count'];
     $total_weight = $row['total_weight'];
@@ -60,7 +62,6 @@ if ($result->num_rows > 0) {
     $ecobrick_count = 0;
     $total_weight = 0;
 }
-
 
 // SQL query to fetch the 20 most recent ecobricks made by the user and calculate totals
 $sql_recent = "SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, volume_ml, location_full, ecobricker_maker, serial_no, status FROM tb_ecobricks WHERE maker_id = ? ORDER BY date_logged_ts DESC LIMIT 20";
@@ -90,22 +91,21 @@ if ($stmt_recent) {
     $stmt_recent->close();
 }
 
+// Calculate net density
+$net_density = $total_volume > 0 ? $total_weight / $total_volume : 0;
+
+// Close database connections
+$buwana_conn->close();
 $gobrik_conn->close();
 
-if ($total_volume > 0) {
-    $net_density = $total_weight / $total_volume;
-} else {
-    $net_density = 0;
-}
-
 echo '<!DOCTYPE html>
-<html lang="' . $lang . '">
+<html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">
 <head>
 <meta charset="UTF-8">
 <title>Dashboard</title>
 ';
-
 ?>
+
 
 <title>Dashboard | GoBrik 3.0</title>
 

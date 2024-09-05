@@ -34,11 +34,13 @@ const en_Translations = {
 
       /*Menu of pages curtain*/
 
-
-        "1000-dashboard": "Dashboard",
+    "1000-logged-in-as": "Logged in as",
+    "1000-log-out": "🐳 Log out",
+    "1000-profile-settings": "⚙️ Profile settings",
+    "1000-dashboard": "Dashboard",
     "1001-gobrik-tour": "GoBrik Tour",
-    "1000-login": "Login",
-    "1000-signup": "Signup",
+    "1000-login": "Log in",
+    "1000-signup": "Sign up",
     "1000-log-ecobrick": "Log Ecobrick",
     "1000-brikchain": "The Brikchain",
     "1000-latest-ecobricks": "Latest Ecobricks",

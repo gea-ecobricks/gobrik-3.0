@@ -1,5 +1,9 @@
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
+/* Deply code
+cd repositories/gobrik-3-0-2
+cp -R en/* id/
+*/
 
 // Start a secure session with regeneration to prevent session fixation
 startSecureSession();
@@ -7,7 +11,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.422';
+$version = '0.423';
 $page = 'index';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 

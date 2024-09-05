@@ -349,7 +349,7 @@ display: none;
     </div>
 
 
-
+<?php
 // Check if the user is logged in
 $is_logged_in = isset($buwana_id) && !empty($first_name);
 

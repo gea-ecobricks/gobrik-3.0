@@ -66,51 +66,49 @@ echo '<!DOCTYPE html>
 ';
 ?>
     <?php require_once("../includes/profile-inc.php"); ?>
-
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
 <div id="form-submission-box" style="height:fit-content;margin-top: 90px;">
     <div class="form-container" style="padding-top:20px">
         <div style="text-align:center;width:100%;margin:auto;">
             <h1>⚙️</h1>
-            <div id="status-message"><?php echo htmlspecialchars($first_name); ?>'s Profile Settings</div>
-            <div id="sub-status-message">Review and update your Buwana account profile here:</div>
-            <div id="update-status" style="font-size:1.3em, color:green;padding:10px;margin-top:10px;"></div>
+            <div id="status-message" data-lang-id="001-profile-settings-title"><?php echo htmlspecialchars($first_name); ?>'s Profile Settings</div>
+            <div id="sub-status-message" data-lang-id="002-review-update-message">Review and update your Buwana account profile here:</div>
+            <div id="update-status" style="font-size:1.3em; color:green;padding:10px;margin-top:10px;"></div>
         </div>
 
-
-    <div id="buwana-account" style="background:var(--lighter); padding:10px;border-radius:12px;"
+    <div id="buwana-account" style="background:var(--lighter); padding:10px;border-radius:12px;">
         <div class="left-column" style="font-size:0.9em">
             <!-- Non-editable Fields -->
             <div class="form-item">
-                <p><strong>Full Name:</strong><p>
-                    <h3> <?php echo htmlspecialchars($full_name); ?></h3>
+                <p data-lang-id="004-full-name"><strong>Full Name:</strong></p>
+                <h3> <?php echo htmlspecialchars($full_name); ?></h3>
             </div>
             <div class="form-item">
-                <p><strong>Account Created At:</strong></p>
+                <p data-lang-id="005-account-created-at"><strong>Account Created At:</strong></p>
                 <p><?php echo htmlspecialchars($created_at); ?></p>
             </div>
             <div class="form-item">
-                <p><strong>Last Login:</strong></p>
-                 <p><?php echo htmlspecialchars($last_login); ?></p>
+                <p data-lang-id="006-last-login"><strong>Last Login:</strong></p>
+                <p><?php echo htmlspecialchars($last_login); ?></p>
             </div>
             <div class="form-item">
-                <p><strong>Brikcoin Balance:</p>
-                <p></strong> <?php echo htmlspecialchars($brikcoin_balance); ?></p>
+                <p data-lang-id="007-brikcoin-balance"><strong>Brikcoin Balance:</strong></p>
+                <p><?php echo htmlspecialchars($brikcoin_balance); ?></p>
             </div>
             <div class="form-item">
-                <p><strong>Role(s):</strong></p>
+                <p data-lang-id="008-roles"><strong>Role(s):</strong></p>
                 <p> <?php echo htmlspecialchars($role); ?></p>
             </div>
             <div class="form-item">
-                <p><strong>Account Status:</strong></p>
-                 <p><?php echo htmlspecialchars($account_status); ?></p>
+                <p data-lang-id="009-account-status"><strong>Account Status:</strong></p>
+                <p><?php echo htmlspecialchars($account_status); ?></p>
             </div>
             <div class="form-item">
-                <p><strong>Account Notes:</strong> <?php echo htmlspecialchars($notes); ?></p>
+                <p data-lang-id="010-account-notes"><strong>Account Notes:</strong> <?php echo htmlspecialchars($notes); ?></p>
             </div>
             <div class="form-item">
-                <p><strong>Agreed to Terms of Service:</strong> <?php echo $terms_of_service ? 'Yes' : 'No'; ?></p>
+                <p data-lang-id="011-agreed-terms"><strong>Agreed to Terms of Service:</strong> <?php echo $terms_of_service ? 'Yes' : 'No'; ?></p>
             </div>
         </div>
 
@@ -118,24 +116,24 @@ echo '<!DOCTYPE html>
             <!-- Editable Fields -->
             <form method="post" action="update_profile.php">
                 <div class="form-item">
-                    <label for="first_name">First Name:</label>
+                    <label for="first_name" data-lang-id="012-first-name">First Name:</label>
                     <input type="text" name="first_name" id="first_name" value="<?php echo htmlspecialchars($first_name); ?>" required>
                 </div>
 
                 <div class="form-item">
-                    <label for="last_name">Last Name:</label>
+                    <label for="last_name" data-lang-id="013-last-name">Last Name:</label>
                     <input type="text" name="last_name" id="last_name" value="<?php echo htmlspecialchars($last_name); ?>" required>
                 </div>
 
                 <div class="form-item">
-                    <label for="email">Email:</label>
+                    <label for="email" data-lang-id="014-email">Email:</label>
                     <input type="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
                 </div>
 
                 <div class="form-item">
-                    <label for="country_id">Country:</label>
+                    <label for="country_id" data-lang-id="015-country">Country:</label>
                     <select name="country_id" id="country_id">
-                        <option value="">Select Country</option>
+                        <option value="" data-lang-id="016-select-country">Select Country</option>
                         <?php foreach ($countries as $country): ?>
                             <option value="<?php echo $country['country_id']; ?>" <?php if ($country['country_id'] == $country_id) echo 'selected'; ?>>
                                 <?php echo htmlspecialchars($country['country_name']); ?>
@@ -145,9 +143,9 @@ echo '<!DOCTYPE html>
                 </div>
 
                 <div class="form-item">
-                    <label for="language_id">Preferred Language:</label>
+                    <label for="language_id" data-lang-id="017-preferred-language">Preferred Language:</label>
                     <select name="language_id" id="language_id">
-                        <option value="">Select Language</option>
+                        <option value="" data-lang-id="018-select-language">Select Language</option>
                         <?php foreach ($languages as $language): ?>
                             <option value="<?php echo $language['lang_id']; ?>" <?php if ($language['lang_id'] == $languages_id) echo 'selected'; ?>>
                                 <?php echo htmlspecialchars($language['languages_eng_name']); ?>
@@ -157,35 +155,32 @@ echo '<!DOCTYPE html>
                 </div>
 
                 <div class="form-item">
-                    <label for="birth_date">Birth Date:</label>
+                    <label for="birth_date" data-lang-id="019-birth-date">Birth Date:</label>
                     <input type="date" name="birth_date" id="birth_date" value="<?php echo htmlspecialchars($birth_date); ?>">
                 </div>
 
                 <!-- Save and Update Button -->
-                <div data-lang-id="016-submit-button" style="margin:auto;text-align: center;margin-top:30px;">
+                <div data-lang-id="020-submit-button" style="margin:auto;text-align: center;margin-top:30px;">
                     <button type="submit" class="submit-button enabled" aria-label="Save and update">Save and Update</button>
                 </div>
             </form>
         </div><!--close right column-->
 
-
-
- <div class="form-item" style="margin: 70px 10px 40px 10px;">
-            <p style="text-align:center;">You can delete your GoBrik and Buwana accounts permanently here.  Warning, this is permanent and immediate!</p>
+        <div class="form-item" style="margin: 70px 10px 40px 10px;">
+            <p style="text-align:center;" data-lang-id="021-delete-account-message">You can delete your GoBrik and Buwana accounts permanently here. Warning, this is permanent and immediate!</p>
             <!-- DELETE ACCOUNT FORM -->
             <form id="delete-account-form" method="post" action="double_delete_account.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
                 <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
                     <button type="button" class="submit-button delete" onclick="confirmDeletion()">Delete my account</button>
                 </div>
-
             </form>
-            <p data-lang-id="003-warning" style="font-size:medium; text-align: center;">WARNING: This cannot be undone.</p>
+            <p data-lang-id="022-warning" style="font-size:medium; text-align: center;">WARNING: This cannot be undone.</p>
             <br>
-         </div>
+        </div>
 
         <!-- Other Dashboard Buttons -->
         <div style="display:flex;flex-flow:row;width:100%;justify-content:center; margin-top:50px;">
-            <a href="newest-briks.php"><button id="newest-ecobricks-button" style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;">📅 Newest Ecobricks</button></a>
+            <a href="newest-briks.php"><button id="newest-ecobricks-button" data-lang-id="023-newest-ecobricks" style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;">📅 Newest Ecobricks</button></a>
         </div>
     </div>
 </div>

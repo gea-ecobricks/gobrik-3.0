@@ -22,6 +22,25 @@ const en_Page_Translations = {
     "007-way-to-contact": "You'll use this credential to login and receive GoBrik messages.",
     "016-submit-to-password": "Next ➡️",
 
+/* Signup 2 */
+
+ "001-setup-access-heading": "Setup Your Access",
+    "002-setup-access-heading-a": "let's use your ",
+    "003-setup-access-heading-b": "as your means of registration and the way we contact you.",
+    "004-your": "Your",
+    "004b-please": " please:",
+    "010-duplicate-email": "🚧 Whoops! Looks like that e-mail address is already being used by a Buwana Account. Please choose another.",
+    "010-gobrik-duplicate": "🌏 It looks like this email is already being used with a legacy GoBrik account. Please <a href=\"login.php\" class=\"underline-link\">login with this email to upgrade your account.</a>",
+    "006-email-sub-caption": "💌 This is the way we will contact you to confirm your account",
+    "007-set-your-pass": "Set your password:",
+    "008-password-advice": "🔑 Your password must be at least 6 characters.",
+    "009-confirm-pass": "Confirm Your Password:",
+    "010-pass-error-no-match": "👉 Passwords do not match.",
+    "011-prove-human": "Please prove you are human by typing the word \"ecobrick\" below:",
+    "012-fun-fact": "🤓 Fun fact: <a href=\"#\" onclick=\"showModalInfo('ecobrick', '<?php echo $lang; ?>')\" class=\"underline-link\">Ecobrick</a> is spelled without a space, capital or hyphen!",
+    "013-by-registering": "By registering today, I agree to the <a href=\"#\" onclick=\"showModalInfo('terms', '<?php echo $lang; ?>')\" class=\"underline-link\">GoBrik Terms of Service</a>",
+    "014-i-agree-newsletter": "I agree to receive the <a href=\"#\" onclick=\"showModalInfo('earthen', '<?php echo $lang; ?>')\" class=\"underline-link\">Earthen newsletter</a> for app, ecobrick, and earthen updates",
+
 
 };
 

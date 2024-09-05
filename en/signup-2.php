@@ -8,7 +8,7 @@ $response = ['success' => false];
 $buwana_id = $_GET['id'] ?? null;
 $directory = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lang = $directory;
-$version = '0.48';
+$version = '0.49';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $credential_type = '';
@@ -86,15 +86,15 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
             <div style="text-align:center;width:100%;margin:auto;">
-                <h2 data-lang-id="001-page2-heading">Setup Your Access</h2>
-                <p><span data-lang-id="002-page2-heading">Alright </span> <?php echo $first_name; ?>:<span data-lang-id="002-let-use-you"> Let's use your</span> <?php echo $credential_type; ?> <span data-lang-id="003-as-your-means">as your means of registration and the way we contact you.</span></p>
+                <h2 data-lang-id="001-setup-access-heading">Setup Your Access</h2>
+                <p>Ok <?php echo $first_name; ?>:, <span data-lang-id="002-setup-access-heading-a">let's use your </span> <?php echo $credential_type; ?> <span data-lang-id="003-setup-access-heading-b">as your means of registration and the way we contact you.</span></p>
             </div>
 
 
             <!--SIGNUP FORM-->
             <form id="password-confirm-form" method="post" action="signup_process.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
                 <div class="form-item" id="credential-section">
-                    <label for="credential_value"><span data-lang-id="004-your">Your</span> <?php echo $credential_type; ?> please:</label><br>
+                    <label for="credential_value"><span data-lang-id="004-your">Your</span> <?php echo $credential_type; ?><span data-lang-id="004b-please"> please:</span></label><br>
                     <div id="duplicate-email-error" class="form-field-error" style="margin-top:10px;margin-bottom:-13px;" data-lang-id="010-duplicate-email">🚧 Whoops! Looks like that e-mail address is already being used by a Buwana Account. Please choose another.</div>
                     <div id="duplicate-gobrik-email" class="form-warning" style="margin-top:10px;margin-bottom:-13px;" ><span data-lang-id="010-gobrik-duplicate">🌏 It looks like this email is already being used with a legacy GoBrik account. Please <a href="login.php" class="underline-link">login with this email to upgrade your account.</a></div>
 
@@ -102,7 +102,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                         <input type="text" id="credential_value" name="credential_value" required style="padding-left:45px;" aria-label="your email">
                         <div id="loading-spinner" class="spinner" style="display: none;"></div>
                     </div>
-                <p class="form-caption" data-lang-id="006-email-subcaption">💌 This is the way we will contact you to confirm your account</p>
+                <p class="form-caption" data-lang-id="006-email-sub-caption">💌 This is the way we will contact you to confirm your account</p>
                 </div>
 
                 <div class="form-item" id="set-password" style="display: none;">
@@ -146,9 +146,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         </div>
 
-     <div style="text-align:center;width:100%;margin:auto;margin-top: 50px;">
-                <p style="font-size:medium;" data-land-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
-            </div>
+         <div style="font-size: medium; text-align: center; margin: auto; align-self: center;padding-bottom:40px;">
+        <p data-lang-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
+        </div>
 
 
     </div>

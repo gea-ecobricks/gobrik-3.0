@@ -15,7 +15,7 @@ if (isset($_SESSION['buwana_id'])) {
 // Grab language directory from URL
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.62';
-$page = 'login';
+$page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 // Echo the HTML structure
@@ -38,7 +38,7 @@ if (isset($_SESSION['buwana_id'])) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    include '../buwana_env.php'; // This file provides the database server, user, dbname information
+require_once '../buwanaconn_env.php'; // Sets up buwana_conn database connection
 
     // Retrieve form data and sanitize inputs
     $first_name = trim($_POST['first_name']);
@@ -54,18 +54,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Prepare the SQL statement for inserting user data into the Buwana user_tb
     $sql_user = "INSERT INTO users_tb (first_name, full_name, created_at, last_login, account_status, role, notes) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    $stmt_user = $conn->prepare($sql_user);
+    $stmt_user = $buwana_conn->prepare($sql_user);
 
     // Bind the data to the user_tb (s = string)
     if ($stmt_user) {
         $stmt_user->bind_param("sssssss", $first_name, $full_name, $created_at, $last_login, $account_status, $role, $notes);
 
         if ($stmt_user->execute()) {
-            $buwana_id = $conn->insert_id;
+            $buwana_id = $buwana_conn->insert_id;
 
             // Prepare the SQL statement for inserting credential data into credentials_tb
             $sql_credential = "INSERT INTO credentials_tb (buwana_id, credential_type, times_used, times_failed, last_login) VALUES (?, ?, 0, 0, ?)";
-            $stmt_credential = $conn->prepare($sql_credential);
+            $stmt_credential = $buwana_conn->prepare($sql_credential);
 
             if ($stmt_credential) {
                 $stmt_credential->bind_param("iss", $buwana_id, $credential, $last_login);
@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt_credential->close();
             } else {
                 // Log error
-                error_log("Error preparing credential statement: " . $conn->error);
+                error_log("Error preparing credential statement: " . $buwana_conn->error);
                 echo "An error occurred while creating your account. Please try again.";
             }
         } else {
@@ -94,11 +94,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt_user->close();
     } else {
         // Log error
-        error_log("Error preparing user statement: " . $conn->error);
+        error_log("Error preparing user statement: " . $buwana_conn->error);
         echo "An error occurred while creating your account. Please try again.";
     }
 
-    $conn->close();
+    $buwana_conn->close();
 }
 ?>
 

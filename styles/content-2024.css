@@ -518,7 +518,6 @@ margin-bottom: 40px;
 
 .action-btn {
   -webkit-border-radius: 14px;
-  -moz-border-radius: 14px;
   border-radius: 14px;
 font-family: 'Mulish', Arial, Helvetica, sans-serif;
 color: #fff;
@@ -539,7 +538,6 @@ margin-top: 40px;
 
 .action-btn-blue {
   -webkit-border-radius: 14px;
-  -moz-border-radius: 14px;
   border-radius: 14px;
 font-family: 'Mulish', Arial, Helvetica, sans-serif;
 color: #fff;
@@ -560,7 +558,6 @@ margin-top: 40px;
 
 .preview-btn {
     -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
     border-radius: 10px;
     font-family: 'Mulish', Arial, Helvetica, sans-serif;
     color: grey;
@@ -612,7 +609,6 @@ margin: auto;
 
 .module-btn {
   -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
   border-radius: 10px;
   font-family: 'Mulish', Arial, Helvetica, sans-serif;
   color: var(--slide-overlays);

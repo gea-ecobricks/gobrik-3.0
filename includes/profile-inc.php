@@ -127,8 +127,7 @@ color: var(--text-color);
 
 
 
-
-.form-container {
+#buwana-account {
     display: flex; /* Use flexbox for layout */
     flex-wrap: wrap; /* Allow wrapping if the content overflows */
     gap: 20px; /* Add spacing between columns */
@@ -140,7 +139,7 @@ color: var(--text-color);
 }
 
 @media screen and (min-width: 900px) {
-    .form-container {
+    #buwana-account {
         flex-direction: row; /* Align items in a row for larger screens */
     }
     .left-column {
@@ -152,7 +151,7 @@ color: var(--text-color);
 }
 
 @media screen and (max-width: 900px) {
-    .form-container {
+    #buwana-account {
         flex-direction: column; /* Stack columns for smaller screens */
     }
 }
@@ -165,6 +164,7 @@ color: var(--text-color);
     text-align: center;
     width: 100%;
 }
+
 
 
 </style>

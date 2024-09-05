@@ -19,13 +19,18 @@ $credential_key = '';
 $first_name = '';
 $account_status = '';
 
-include '../buwanaconn_env.php'; // Database connection
-
-// PART 1: Check if the user is already logged in
-if (isset($_SESSION['buwana_id'])) {
-    header("Location: dashboard.php");
+// Check if user is logged in and session active
+if ($is_logged_in) {
+    header('Location: dashboard.php');
     exit();
 }
+
+// Generate CSRF token if not already set
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
+include '../buwanaconn_env.php'; // Database connection
 
 // Look up user information if buwana_id is provided
 if ($buwana_id) {

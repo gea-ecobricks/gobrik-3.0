@@ -8,7 +8,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.384';
+$version = '0.385';
 $page = 'profile';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -76,7 +76,8 @@ echo '<!DOCTYPE html>
 <meta charset="UTF-8">
 ';
 ?>
-    <?php require_once("../includes/profile-inc.php"); ?>
+<?php require_once("../includes/profile-inc.php"); ?>
+
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
 <div id="form-submission-box" style="height:fit-content;margin-top: 90px;">
@@ -171,8 +172,8 @@ echo '<!DOCTYPE html>
                     </div>
 
                     <!-- Save and Update Button -->
-                    <div data-lang-id="020-submit-button" style="margin:auto;text-align: center;margin-top:30px;">
-                        <button type="submit" class="submit-button enabled" aria-label="Save and update">Save and Update</button>
+                    <div style="margin:auto;text-align: center;margin-top:30px;">
+                        <button type="submit" class="submit-button enabled" aria-label="Save and update" data-lang-id="020-submit-button">Save and Update</button>
                     </div>
                 </form>
             </div><!--close right column-->

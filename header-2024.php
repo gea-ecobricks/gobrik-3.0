@@ -349,16 +349,7 @@ display: none;
     </div>
 
 
-<?php
-// Check if the user is logged in
-$is_logged_in = isset($buwana_id) && !empty($first_name);
 
-
-// If the user is logged in, get the country icon
-if ($is_logged_in) {
-    $country_icon = getUserContinent($buwana_conn, $buwana_id);
-}
-?>
 <!-- MAIN MENU -->
 <div id="main-menu-overlay" class="overlay-settings" style="display:none;">
   <button type="button" onclick="closeSettings()" aria-label="Click to close settings page" class="x-button"></button>

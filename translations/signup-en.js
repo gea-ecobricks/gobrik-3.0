@@ -18,7 +18,7 @@ const en_Page_Translations = {
     "000-name-field-too-long-error": "The name is too long. Max 255 characters.",
     "005b-name-error": "The entry contains invalid characters. Avoid quotes, slashes, and greater-than signs please.",
     "006-credential-choice": " Your preferred login:",
-    "007-way-to-contact": "This is the way we will contact you to confirm your account",
+    "007-way-to-contact": "You'll use this credential to login and receive GoBrik messages.",
     "016-submit-to-password": "Next ➡️",
 
 };

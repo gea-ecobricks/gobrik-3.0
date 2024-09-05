@@ -12,6 +12,9 @@
 
 <STYLE>
 
+#main {
+    height: fit-content;
+}
 
 
 .module-btn {

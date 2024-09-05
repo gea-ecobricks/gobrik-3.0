@@ -131,14 +131,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <div style="text-align:center;width:100%;margin:auto;">
             <div id="status-message" data-lang-id="001-signup-heading">Create Your Account</div>
-            <div id="sub-status-message" data-lang-id="002-page1-heading" style="margin-bottom:15px;">Join us on GoBrik with a Buwana account— an open source, for-Earth alternative to corporate logins.</div>
+            <div id="sub-status-message" data-lang-id="002-signup-subtext" style="margin-bottom:15px;">Join us on GoBrik with a Buwana account— an open source, for-Earth alternative to corporate logins.</div>
         </div>
 
        <!--SIGNUP FORM-->
 <form id="user-signup-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
     <div class="form-item">
-        <label for="first_name" data-lang-id="003-first-name">What is your first name?</label><br>
+        <label for="first_name" data-lang-id="003-firstname">What is your first name?</label><br>
         <span data-lang-id="000-name-placeholder">
             <input type="text" id="first_name" name="first_name" aria-label="Your first name" title="Required. Max 255 characters." required placeholder="Your name...">
         </span>
@@ -151,7 +151,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 
     <div class="form-item">
-        <label for="credential" data-lang-id="006-credential">Your preferred login:</label><br>
+        <label for="credential" data-lang-id="006-credential-choice">Your preferred login:</label><br>
         <select id="credential" name="credential" aria-label="Preferred Credential" required placeholder="Select...">
             <option value="" disabled selected data-lang-id="000-select">Select...</option>
             <option value="email">E-mail</option>

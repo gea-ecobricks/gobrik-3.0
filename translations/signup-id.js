@@ -18,7 +18,7 @@ const id_Page_Translations = {
     "000-name-field-too-long-error": "Nama terlalu panjang. Maksimal 255 karakter.",
     "005b-name-error": "Masukan mengandung karakter yang tidak valid. Hindari tanda kutip, garis miring, dan tanda lebih besar.",
     "006-credential-choice": "Login pilihan Anda:",
-    "007-way-to-contact": "Ini adalah cara kami akan menghubungi Anda untuk mengonfirmasi akun Anda",
+"007-way-to-contact": "Anda akan menggunakan kredensial ini untuk masuk dan menerima pesan GoBrik.",
     "016-submit-to-password": "Lanjut ➡️",
 };
 

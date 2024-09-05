@@ -348,29 +348,7 @@ display: none;
     </div>
     </div>
 
-<?php
-require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
-// Check if the user is logged in using the helper function
-$is_logged_in = isLoggedIn();
-
-// Initialize the country icon
-$country_icon = '';
-$first_name = '';
-
-// If the user is logged in, get the user's details and country icon
-if ($is_logged_in) {
-    // Ensure the database connection is available
-    require_once '../buwanaconn_env.php'; // Buwana database credentials
-
-    $buwana_id = $_SESSION['buwana_id']; // Retrieve the user's ID from the session
-
-    // Fetch the user's first name from the database
-    $first_name = getUserFirstName($buwana_conn, $buwana_id);
-    // Fetch the user's continent icon
-    $country_icon = getUserContinent($buwana_conn, $buwana_id);
-}
-?>
 
 <!-- MAIN MENU -->
 <div id="main-menu-overlay" class="overlay-settings" style="display:none;">

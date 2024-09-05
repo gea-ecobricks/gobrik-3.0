@@ -372,8 +372,8 @@ display: none;
     <?php else: ?>
       <!-- If the user is not logged in, show the login/signup options -->
       <div class="menu-page-item">
-        <a href="login.php" aria-label="Login" data-lang-id="1000-log-in" style="margin-right:10px">Log in</a> |
-        <a href="signup.php" aria-label="Signup" data-lang-id="1000-sign-up" style="margin-left:10px">Sign up</a>
+        <a href="login.php" data-lang-id="1000-log-in" style="margin-right:10px">Log in</a> |
+        <a href="signup.php" data-lang-id="1000-sign-up" style="margin-left:10px">Sign up</a>
         <span class="status-circle" style="background-color: green;" title="Deployed. Under beta testing."></span>
       </div>
     <?php endif; ?>

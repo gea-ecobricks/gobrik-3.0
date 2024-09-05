@@ -22,7 +22,7 @@ const en_Page_Translations = {
     "007-way-to-contact": "You'll use this credential to login and receive GoBrik messages.",
     "016-submit-to-password": "Next ➡️",
 
-/* Signup 2 */
+/* Next page: Signup-2 - Set your name and email  */
 
  "001-setup-access-heading": "Setup Your Access",
     "002-setup-access-heading-a": "let's use your ",

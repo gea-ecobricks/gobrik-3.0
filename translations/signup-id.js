@@ -21,6 +21,26 @@ const id_Page_Translations = {
     "006-credential-choice": "Login pilihan Anda:",
     "007-way-to-contact": "Anda akan menggunakan kredensial ini untuk masuk dan menerima pesan GoBrik.",
     "016-submit-to-password": "Lanjut ➡️",
+
+    /* Next page: Signup-2 - Set your name and email  */
+
+    "001-setup-access-heading": "Atur Akses Anda",
+"002-setup-access-heading-a": "mari gunakan ",
+"003-setup-access-heading-b": "sebagai cara pendaftaran Anda dan cara kami menghubungi Anda.",
+"004-your": "Anda",
+"004b-please": " tolong:",
+"010-duplicate-email": "🚧 Ups! Sepertinya alamat email tersebut sudah digunakan oleh Akun Buwana. Silakan pilih yang lain.",
+"010-gobrik-duplicate": "🌏 Sepertinya email ini sudah digunakan dengan akun GoBrik lama. Silakan <a href=\"login.php\" class=\"underline-link\">masuk dengan email ini untuk memperbarui akun Anda.</a>",
+"006-email-sub-caption": "💌 Ini adalah cara kami akan menghubungi Anda untuk mengonfirmasi akun Anda",
+"007-set-your-pass": "Buat kata sandi Anda:",
+"008-password-advice": "🔑 Kata sandi Anda harus minimal 6 karakter.",
+"009-confirm-pass": "Konfirmasi Kata Sandi Anda:",
+"010-pass-error-no-match": "👉 Kata sandi tidak cocok.",
+"011-prove-human": "Silakan buktikan Anda bukan robot dengan mengetikkan kata \"ecobrick\" di bawah ini:",
+"012-fun-fact": "🤓 Fakta menyenangkan: <a href=\"#\" onclick=\"showModalInfo('ecobrick', '<?php echo $lang; ?>')\" class=\"underline-link\">Ecobrick</a> dieja tanpa spasi, huruf kapital, atau tanda hubung!",
+"013-by-registering": "Dengan mendaftar hari ini, saya setuju dengan <a href=\"#\" onclick=\"showModalInfo('terms', '<?php echo $lang; ?>')\" class=\"underline-link\">Ketentuan Layanan GoBrik</a>",
+"014-i-agree-newsletter": "Saya setuju untuk menerima <a href=\"#\" onclick=\"showModalInfo('earthen', '<?php echo $lang; ?>')\" class=\"underline-link\">newsletter Earthen</a> untuk pembaruan aplikasi, ecobrick, dan earthen",
+
 };
 
 

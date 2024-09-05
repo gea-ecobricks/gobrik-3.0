@@ -1,19 +1,24 @@
 <?php
-session_start();
+require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
+
+session_start(); // Start the session for managing CSRF token and session-related checks
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Initialize variables
-$response = ['success' => false];
-$buwana_id = $_GET['id'] ?? null;
-$directory = basename(dirname($_SERVER['SCRIPT_NAME']));
-$lang = $directory;
-$version = '0.49';
+// Set page variables
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$version = '0.761';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+
+
+// Initialize user variables
+$first_name = '';
+$buwana_id = '';
+$country_icon = '';
+$is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 $credential_type = '';
 $credential_key = '';
-$first_name = '';
 $account_status = '';
 
 include '../buwanaconn_env.php'; // Database connection
@@ -87,7 +92,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
             <div style="text-align:center;width:100%;margin:auto;">
                 <h2 data-lang-id="001-setup-access-heading">Setup Your Access</h2>
-                <p>Ok <?php echo $first_name; ?>:, <span data-lang-id="002-setup-access-heading-a">let's use your </span> <?php echo $credential_type; ?> <span data-lang-id="003-setup-access-heading-b">as your means of registration and the way we contact you.</span></p>
+                <p>Ok <?php echo $first_name; ?>, <span data-lang-id="002-setup-access-heading-a">let's use your </span> <?php echo $credential_type; ?> <span data-lang-id="003-setup-access-heading-b">as your means of registration and the way we contact you.</span></p>
             </div>
 
 

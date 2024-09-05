@@ -27,12 +27,11 @@ if (!isset($_SESSION['buwana_id'])) {
     exit();
 }
 
-
 $buwana_id = $_SESSION['buwana_id'];
 
 // Include database connection
 require_once '../gobrikconn_env.php';
-require_once '../buwanaconn_env.php'; // Buwana database credentials
+require_once '../buwanaconn_env.php';
 
 // Fetch user information using buwana_id from the Buwana database
 $country_icon = getUserContinent($buwana_conn, $buwana_id);

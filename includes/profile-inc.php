@@ -127,23 +127,35 @@ color: var(--text-color);
 
 
 
-/* Add this to your existing CSS file */
-#buwana-account {
-    display: flex;
-    flex-wrap: wrap; /* Allows columns to wrap on smaller screens */
+
+.form-container {
+    display: flex; /* Use flexbox for layout */
+    flex-wrap: wrap; /* Allow wrapping if the content overflows */
+    gap: 20px; /* Add spacing between columns */
 }
 
 .left-column, .right-column {
-    flex: 1 1 50%; /* Take up 50% width each, allowing side-by-side layout */
-    padding: 10px;
+    flex: 1; /* Make columns flexible */
+    min-width: 250px; /* Minimum width for responsiveness */
 }
 
-@media screen and (max-width: 900px) {
-    .left-column, .right-column {
-        flex: 1 1 100%; /* Stack the columns on smaller screens */
+@media screen and (min-width: 900px) {
+    .form-container {
+        flex-direction: row; /* Align items in a row for larger screens */
+    }
+    .left-column {
+        max-width: 40%; /* Set maximum width for the left column */
+    }
+    .right-column {
+        max-width: 60%; /* Set maximum width for the right column */
     }
 }
 
+@media screen and (max-width: 900px) {
+    .form-container {
+        flex-direction: column; /* Stack columns for smaller screens */
+    }
+}
 
 .form-item {
     margin-bottom: 15px; /* Spacing between form items */

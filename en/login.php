@@ -197,6 +197,9 @@ echo '</script>';
 
     /* auto run the language switcher */
 
+        var siteName = 'beta.gobrik.com';
+    var currentLanguage = '<?php echo ($lang); ?>'; // Default language code
+    switchLanguage(currentLanguage);
 
 
 /* Code entry and processing for 2FA */

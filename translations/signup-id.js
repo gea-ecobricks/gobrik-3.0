@@ -13,12 +13,13 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 
 const id_Page_Translations = {
     "001-signup-heading": "Buat Akun Anda",
-    "002-signup-subtext": "Bergabunglah dengan kami di GoBrik dengan akun Buwana—alternatif open source untuk Bumi dibanding login korporat.",
+    "002-signup-subtext": "Bergabunglah dengan kami di GoBrik dengan akun Buwana—alternatif open source untuk Bumi dibandingkan dengan login korporat.",
     "003-firstname": "Apa nama depan Anda?",
+    "004-name-placeholder": '<input type="text" id="first_name" name="first_name" aria-label="Nama depan Anda" title="Wajib diisi. Maksimal 255 karakter." required placeholder="Nama Anda....">',
     "000-name-field-too-long-error": "Nama terlalu panjang. Maksimal 255 karakter.",
-    "005b-name-error": "Masukan mengandung karakter yang tidak valid. Hindari tanda kutip, garis miring, dan tanda lebih besar.",
+    "005b-name-error": "Entri mengandung karakter tidak valid. Hindari tanda kutip, garis miring, dan tanda lebih besar.",
     "006-credential-choice": "Login pilihan Anda:",
-"007-way-to-contact": "Anda akan menggunakan kredensial ini untuk masuk dan menerima pesan GoBrik.",
+    "007-way-to-contact": "Anda akan menggunakan kredensial ini untuk masuk dan menerima pesan GoBrik.",
     "016-submit-to-password": "Lanjut ➡️",
 };
 

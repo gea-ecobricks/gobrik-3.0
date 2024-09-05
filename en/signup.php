@@ -14,7 +14,7 @@ if (isset($_SESSION['buwana_id'])) {
 
 // Grab language directory from URL
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.63';
+$version = '0.631';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -177,9 +177,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div><!--closes Landing content-->
 
 
-<div style="text-align:center;width:100%;margin:auto;">
-    <p style="font-size:medium;" data-land-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
+<div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%; margin: auto; text-align: center;">
+    <p style="font-size: medium;" data-lang-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
 </div>
+
 
 
  </div>

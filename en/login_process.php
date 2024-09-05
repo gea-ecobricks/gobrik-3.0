@@ -1,11 +1,14 @@
 <?php
-session_start();
+require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
+
+// Start a secure session with regeneration to prevent session fixation
+startSecureSession();
 
 // PART 1: Grab user credentials from the login form submission
 $credential_key = $_POST['credential_key'] ?? '';
 $password = $_POST['password'] ?? '';
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$redirect = isset($_GET['redirect']) ? filter_var($_GET['redirect'], FILTER_SANITIZE_STRING) : ''; // Capture the redirect variable
+$redirect = isset($_POST['redirect']) ? filter_var($_POST['redirect'], FILTER_SANITIZE_STRING) : ''; // Capture the redirect variable from POST
 
 if (empty($credential_key) || empty($password)) {
     header("Location: ../$lang/login.php?status=empty_fields&key=" . urlencode($credential_key));
@@ -29,8 +32,8 @@ if ($stmt_check_email) {
         $stmt_check_email->bind_result($ecobricker_id, $buwana_activated);
         $stmt_check_email->fetch();
 
-        if ($buwana_activated == '0') {  // Ensure this is a comparison
-            header("Location: ../$lang/activate.php?id=$ecobricker_id");  // Redirect to activation page
+        if ($buwana_activated == '0') {
+            header("Location: ../$lang/activate.php?id=$ecobricker_id");
             exit();
         }
 

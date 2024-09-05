@@ -383,7 +383,7 @@ display: none;
 
     <!-- Other menu items -->
     <div class="menu-page-item">
-      <a href="log.php" aria-label="Log" data-lang-id="1000-log-ecobrick">Log Ecobrick</a>
+      <a href="log.php" aria-label="Log" data-lang-id="1000-log-ecobrick">Log Ecobricks</a>
       <span class="status-circle" style="background-color: orange;" title="Under development"></span>
     </div>
     <div class="menu-page-item">

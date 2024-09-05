@@ -14,7 +14,7 @@ if (isset($_SESSION['buwana_id'])) {
 
 // Grab language directory from URL
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.633';
+$version = '0.64';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -159,7 +159,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <option value="sms" disabled>SMS</option>
             <option value="peer" disabled>Peer</option>
         </select>
-        <p class="form-caption" data-lang-id="006-way-to-contact">You'll use this credential to login and receive GoBrik messages.</p>
+        <p class="form-caption" data-lang-id="007-way-to-contact">You'll use this credential to login and receive GoBrik messages.</p>
         <!--ERRORS-->
         <div id="credential-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
     </div>

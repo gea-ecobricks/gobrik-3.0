@@ -349,21 +349,6 @@ display: none;
     </div>
 
 
-<?php
-// Include the helper file
-require_once 'earthenAuth_helper.php';
-
-// Check if the user is logged in
-$is_logged_in = isset($buwana_id) && !empty($first_name);
-
-// Initialize the country icon
-$country_icon = '';
-
-// If the user is logged in, get the country icon
-if ($is_logged_in) {
-    $country_icon = getUserContinent($buwana_conn, $buwana_id);
-}
-?>
 
 <!-- MAIN MENU -->
 <div id="main-menu-overlay" class="overlay-settings" style="display:none;">

@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.74';
+$version = '0.751';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -163,11 +163,13 @@ echo '</script>';
             <div class="toggle-button password">🔒</div>
             <div class="toggle-button code">📱</div>
             <div class="login-slider"></div>
-            <input type="submit" id="submit-password-button" value="Login" class="login-button-75">
+            <span data-lang-id="004-login-button">
+                <input type="submit" id="submit-password-button" value="Login" class="login-button-75">
+            <span>
             <input type="button" id="send-code-button" value="📨 Send Code" class="code-button-75" style="display:none;">
 
         </div>
-            <div id="code-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 5px;margin-bottom:-15px;">👉 Code is wrong.</div>
+            <div id="code-error" data-lang-id="002-password-wrong" class="form-field-error" style="display:none;margin-top: 5px;margin-bottom:-15px;">👉 Entry is incorrect.</div>
     </div>
 </form>
 

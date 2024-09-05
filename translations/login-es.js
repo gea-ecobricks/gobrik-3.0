@@ -12,11 +12,11 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 
 
 const es_Page_Translations = {
-    "001-login-heading": "Iniciar sesión",
-    "002-login-subheading": "¡Bienvenido de nuevo a GoBrik!",
-    "003-login-email": "<input type=\"text\" id=\"credential_value\" name=\"credential_value\" required placeholder=\"Tu correo electrónico...\">",
-    "004-login-password": " <input type=\"password\" id=\"password\" name=\"password\" required placeholder=\"Tu contraseña..\"><p class=\"form-caption\">¿Olvidaste tu contraseña? <a href=\"#\" onclick=\"showModalInfo('reset')\" class=\"underline-link\">Restablécela.</a></p><div id=\"password-error\" class=\"form-field-error\" style=\"display:none;\">👉 La contraseña es incorrecta.</div>",
-    "006-login-button": "Iniciar sesión",
-    "000-no-account-yet": "¿Aún no tienes una cuenta? <a href=\"signup.php\">¡Regístrate!</a>"
+    "001-cant-find": "🤔 No podemos encontrar esta credencial en la base de datos.",
+    "002-password-is-wrong": "👉 La contraseña es incorrecta.",
+    "003-forgot-your-password": "¿Olvidaste tu contraseña? ",
+    "003-code-status": "Un código para iniciar sesión será enviado a tu correo electrónico.",
+    "004-login-button": '<input type="submit" id="submit-password-button" value="Iniciar sesión" class="login-button-75">',
+    "005-password-field-placeholder": '<input type="password" id="password" name="password" required placeholder="Tu contraseña...">'
 };
 

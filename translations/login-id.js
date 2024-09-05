@@ -11,10 +11,10 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 // Forward slash (/): Should be escaped as \/ in </script> tags to prevent prematurely closing a script.
 
 const id_Page_Translations = {
-    "001-login-heading": "Masuk",
-    "002-login-subheading": "Selamat datang kembali di GoBrik!",
-    "003-login-email": "<input type=\"text\" id=\"credential_value\" name=\"credential_value\" required placeholder=\"Email Anda...\">",
-    "004-login-password": " <input type=\"password\" id=\"password\" name=\"password\" required placeholder=\"Kata sandi Anda..\"><p class=\"form-caption\">Lupa kata sandi Anda? <a href=\"#\" onclick=\"showModalInfo('reset')\" class=\"underline-link\">Setel ulang.</a></p><div id=\"password-error\" class=\"form-field-error\" style=\"display:none;\">👉 Kata sandi salah.</div>",
-    "006-login-button": "Masuk",
-    "000-no-account-yet": "Belum punya akun? <a href=\"signup.php\">Daftar!</a>"
+    "001-cant-find": "🤔 Kami tidak dapat menemukan kredensial ini di database.",
+    "002-password-is-wrong": "👉 Kata sandi salah.",
+    "003-forgot-your-password": "Lupa kata sandi Anda? ",
+    "003-code-status": "Kode untuk masuk akan dikirim ke email Anda.",
+    "004-login-button": '<input type="submit" id="submit-password-button" value="Masuk" class="login-button-75">',
+    "005-password-field-placeholder": '<input type="password" id="password" name="password" required placeholder="Kata sandi Anda...">'
 };

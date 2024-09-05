@@ -1,8 +1,7 @@
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
-// Start a secure session with regeneration to prevent session fixation
-startSecureSession();
+startSecureSession(); // Start a secure session with regeneration to prevent session fixation
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -16,10 +15,9 @@ $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $first_name = '';
 $buwana_id = '';
 $country_icon = '';
+$is_logged_in = isLoggedIn();// Check if the user is logged in using the helper function
 
-// Check if the user is logged in using the helper function
-$is_logged_in = isLoggedIn();
-
+// Check if user is logged in and session active
 if ($is_logged_in) {
     $buwana_id = $_SESSION['buwana_id'] ?? ''; // Retrieve buwana_id from session
 

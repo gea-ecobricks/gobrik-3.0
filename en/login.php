@@ -1,9 +1,21 @@
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
-session_start(); // Start the session for managing CSRF token and session-related checks
+session_start(); // Start the session for managing CSRF token and session-related checks (not this doesn't start the login!)
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
+// Set page variables
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$version = '0.74';
+$page = 'login';
+$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+
+// Initialize user variables
+$first_name = '';
+$buwana_id = '';
+$country_icon = '';
+$is_logged_in = isLoggedIn();// Check if the user is logged in using the helper function
 
 // Check if user is logged in and session active
 if (isLoggedIn()) {
@@ -15,12 +27,6 @@ if (isLoggedIn()) {
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
-
-// Set page variables
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.74';
-$page = 'login';
-$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 // Get the status, id (buwana_id), code, and key (credential_key) from URL
 $status = isset($_GET['status']) ? filter_var($_GET['status'], FILTER_SANITIZE_STRING) : '';

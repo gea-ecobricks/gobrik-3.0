@@ -1,8 +1,7 @@
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
-// Start a secure session with regeneration to prevent session fixation
-startSecureSession();
+session_start(); // Start the session for managing CSRF token and session-related checks
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -81,6 +80,7 @@ echo 'const buwanaId = "' . addslashes($buwana_id) . '";';
 echo 'const code = "' . addslashes($code) . '";';
 echo '</script>';
 ?>
+
 
 
 

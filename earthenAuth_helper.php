@@ -2,6 +2,11 @@
 
 
 function startSecureSession() {
+    // Start the session if it's not already started
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
     // Regenerate the session ID periodically to prevent session fixation
     if (!isset($_SESSION['CREATED'])) {
         $_SESSION['CREATED'] = time();

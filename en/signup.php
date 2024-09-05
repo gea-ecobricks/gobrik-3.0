@@ -14,7 +14,7 @@ if (isset($_SESSION['buwana_id'])) {
 
 // Grab language directory from URL
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.62';
+$version = '0.63';
 $page = 'signup';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -130,7 +130,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <div id="status-message" data-lang-id="001-page1-heading">Create Your Account</div>
+            <div id="status-message" data-lang-id="001-signup-heading">Create Your Account</div>
             <div id="sub-status-message" data-lang-id="002-page1-heading" style="margin-bottom:15px;">Join us on GoBrik with a Buwana account— an open source, for-Earth alternative to corporate logins.</div>
         </div>
 
@@ -177,12 +177,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div><!--closes Landing content-->
 
 
-
-
-
+<div style="text-align:center;width:100%;margin:auto;">
+    <p style="font-size:medium;" data-land-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
 </div>
 
-<div style="text-align:center;width:100%;margin:auto;margin-top:34px;"><p style="font-size:medium;" data-land-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
+
  </div>
 
 </div><!--closes main and starry background-->

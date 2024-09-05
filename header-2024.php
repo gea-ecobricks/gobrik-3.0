@@ -359,7 +359,6 @@ if ($is_logged_in) {
     $country_icon = getUserContinent($buwana_conn, $buwana_id);
 }
 ?>
-
 <!-- MAIN MENU -->
 <div id="main-menu-overlay" class="overlay-settings" style="display:none;">
   <button type="button" onclick="closeSettings()" aria-label="Click to close settings page" class="x-button"></button>
@@ -424,6 +423,7 @@ if ($is_logged_in) {
     </div>
   </div> <!-- close overlay-content-settings -->
 </div> <!-- close main menu -->
+
 
 
 <div id="page-content"> <!--modal blur added here-->

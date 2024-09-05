@@ -177,24 +177,24 @@ echo '<!DOCTYPE html>
                     </div>
                 </form>
             </div><!--close right column-->
+         </div><!--close buwana account-->
 
-            <div class="form-item" style="margin: 70px 10px 40px 10px;">
-                <p style="text-align:center;" data-lang-id="021-delete-account-message">You can delete your GoBrik and Buwana accounts permanently here. Warning, this is permanent and immediate!</p>
-                <!-- DELETE ACCOUNT FORM -->
-                <form id="delete-account-form" method="post" action="double_delete_account.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
-                    <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
-                        <button type="button" class="submit-button delete" onclick="confirmDeletion()">Delete my account</button>
-                    </div>
-                </form>
-                <p data-lang-id="022-warning" style="font-size:medium; text-align: center;">WARNING: This cannot be undone.</p>
-                <br>
-            </div>
+        <div class="form-item" style="margin: 70px 10px 40px 10px;">
+            <p style="text-align:center;" data-lang-id="021-delete-account-message">You can delete your GoBrik and Buwana accounts permanently here. Warning, this is permanent and immediate!</p>
+            <!-- DELETE ACCOUNT FORM -->
+            <form id="delete-account-form" method="post" action="double_delete_account.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
+                <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
+                    <button type="button" class="submit-button delete" onclick="confirmDeletion()">Delete my account</button>
+                </div>
+            </form>
+            <p data-lang-id="022-warning" style="font-size:medium; text-align: center;">WARNING: This cannot be undone.</p>
+            <br>
+        </div>
 
-            <!-- Other Dashboard Buttons -->
-            <div style="display:flex;flex-flow:row;width:100%;justify-content:center; margin-top:50px;">
-                <a href="newest-briks.php"><button id="newest-ecobricks-button" data-lang-id="023-newest-ecobricks" style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;">📅 Newest Ecobricks</button></a>
-            </div>
-        </div> <!-- close buwana-account -->
+        <!-- Other Dashboard Buttons -->
+        <div style="display:flex;flex-flow:row;width:100%;justify-content:center; margin-top:50px;">
+            <a href="newest-briks.php"><button id="newest-ecobricks-button" data-lang-id="023-newest-ecobricks" style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;">📅 Newest Ecobricks</button></a>
+        </div>
     </div> <!-- close form-container -->
 </div> <!-- close form-submission-box -->
 

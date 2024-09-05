@@ -8,7 +8,7 @@
 <link rel="preload" as="image" href="../webps/biosphere2.webp">
 <link rel="preload" as="image" href="../webps/biosphere-day.webp">-->
 
-<?php require_once ("../meta/$page-$lang.php");?>
+<?php require_once ("../meta/login-$lang.php");?>
 
 
 <STYLE>

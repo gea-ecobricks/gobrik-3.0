@@ -126,7 +126,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <!-- PAGE CONTENT -->
    <div id="top-page-image" class="signup-team top-page-image"></div>
 
-<div id="form-submission-box" class="landing-page-form">
+<div id="form-submission-box" class="landing-page-form" style="flex-direction: column; justify-content: space-between;">
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
@@ -174,8 +174,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 </div>
 
-    <div id="signup-link-holder" style="font-size: medium; text-align: center; margin: auto; display: flex; justify-content: center; align-items: center; height: 100%; max-height: 100%;">
-        <p style="margin: 0;" data-lang-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
+    <div id="signup-link-holder" style="font-size: medium; text-align: center; margin: auto 0 0 0; align-self: center;" data-land-id="000-already-have-account">
+        Already have an account? <a href="login.php">Login</a>
     </div>
 
 

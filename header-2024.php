@@ -372,8 +372,8 @@ display: none;
     <?php else: ?>
       <!-- If the user is not logged in, show the login/signup options -->
       <div class="menu-page-item">
-        <a href="login.php" aria-label="Login" data-lang-id="1000-login" style="margin-right:10px">Log in</a> |
-        <a href="signup.php" aria-label="Signup" data-lang-id="1000-signup" style="margin-left:10px">Sign up</a>
+        <a href="login.php" aria-label="Login" data-lang-id="1000-log-in" style="margin-right:10px">Log in</a> |
+        <a href="signup.php" aria-label="Signup" data-lang-id="1000-sign-up" style="margin-left:10px">Sign up</a>
         <span class="status-circle" style="background-color: green;" title="Deployed. Under beta testing."></span>
       </div>
     <?php endif; ?>
@@ -383,7 +383,7 @@ display: none;
 
     <!-- Other menu items -->
     <div class="menu-page-item">
-      <a href="log.php" aria-label="Log" data-lang-id="1000-log-ecobrick">Log Ecobricks</a>
+      <a href="log.php" aria-label="Log" data-lang-id="1000-log-ecobricks">Log Ecobricks</a>
       <span class="status-circle" style="background-color: orange;" title="Under development"></span>
     </div>
     <div class="menu-page-item">

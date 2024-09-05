@@ -36,15 +36,14 @@ echo '<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 ';
-
-
 ?>
 
 
 <title>GoBrik | 3.0</title>
 
 
-    /* Deploy code
+<!--
+Deploy code
 cd repositories/gobrik-3-0-2
 cp -R en/* id/
 

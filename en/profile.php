@@ -89,8 +89,9 @@ echo '<!DOCTYPE html>
             <div id="update-status" style="font-size:1.3em; color:green;padding:10px;margin-top:10px;"></div>
         </div>
 
-        <div id="buwana-account" style="background:var(--lighter); padding:10px;border-radius:12px;">
-            <div class="left-column" style="font-size:0.9em">
+        <div id="buwana-account" style="background:var(--lighter); padding:10px; border-radius:12px; display:flex; flex-wrap: wrap;">
+    <div class="left-column" style="font-size:0.9em; flex: 1 1 50%; padding: 10px;">
+
                 <!-- Non-editable Fields -->
                 <div class="form-item">
                     <p data-lang-id="004-full-name"><strong>Full Name:</strong></p>
@@ -124,7 +125,7 @@ echo '<!DOCTYPE html>
                 </div>
             </div>
 
-            <div class="right-column">
+            <div class="right-column" style="flex: 1 1 50%; padding: 10px;">
                 <!-- Editable Fields -->
                 <form method="post" action="update_profile.php">
                     <div class="form-item">

@@ -1,6 +1,7 @@
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
+session_start(); // Start the session
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -25,7 +26,8 @@ if ($is_logged_in) {
     header('Location: dashboard.php');
     exit();
 }
-
+// Explicitly set $is_logged_in to false to prevent any unintended menu behavior
+$is_logged_in = false;
 // Remove CSRF token generation since it is not used
 
 include '../buwanaconn_env.php'; // Database connection

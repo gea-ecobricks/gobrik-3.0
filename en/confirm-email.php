@@ -30,6 +30,7 @@ $page = 'activate';
 $static_code = 'AYYEW'; // The static code for now
 $generated_code = ''; // New generated code
 $country_icon = '';
+$buwana_id = '';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;

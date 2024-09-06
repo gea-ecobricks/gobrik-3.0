@@ -220,7 +220,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 </div>
 
 <div id="new-account-another-email-please" style="text-align:center;width:90%;margin:auto;margin-top:30px;margin-bottom:30px;">
-    <p style="font-size:1em;"><span data-lang-id="011-change-email">Want to change your email? </span>  <a href="signup-2.php?id=$buwana_id"><span data-lang-id="012-go-back-new-email">Go back to enter a different email address.</span></a></p>
+    <p style="font-size:1em;"><span data-lang-id="011-change-email">Want to change your email? </span>
+    <a href="signup-2.php?id=<?php echo $buwana_id; ?>"><span data-lang-id="012-go-back-new-email">Go back to enter a different email address.</span></a></p>
 </div>
 
 </div>
@@ -306,7 +307,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (timeLeft <= 0) {
             clearInterval(countdownTimer);
             document.getElementById('resend-code').innerHTML = '<a href="#" id="resend-link">Resend the code now.</a>';
-            document.getElementById('timer').textContent = ''; // Clear the timer text
 
             // Add click event to trigger form submission
             document.getElementById('resend-link').addEventListener('click', function(event) {

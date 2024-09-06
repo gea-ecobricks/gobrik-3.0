@@ -242,6 +242,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const generatedCode = <?php echo json_encode($generated_code); ?>;
     const ecobricker_id = <?php echo json_encode($ecobricker_id); ?>;
     const lang = '<?php echo $lang; ?>'; // Get the language from PHP
+    let timeLeft = 60;
     const sendEmailForm = document.getElementById('send-email-code');
 
     // Define feedback messages in different languages

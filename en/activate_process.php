@@ -78,11 +78,15 @@ if ($response === false) {
 
 $response_data = json_decode($response, true);
 
-$registered = 0;
-if ($response_data && isset($response_data['members']) && count($response_data['members']) > 0) {
-    $registered = 1;
-}
+$registered = 0; // Default to not registered
 
+// Check if the response data is valid and contains members
+if ($response_data && isset($response_data['members']) && is_array($response_data['members'])) {
+    if (count($response_data['members']) > 0) {
+        // Member with the given email exists
+        $registered = 1;
+    }
+}
 
 // Update GoBrik Database with registration status
 $sql_update_registration = "UPDATE tb_ecobrickers SET earthen_registered = ? WHERE ecobricker_id = ?";
@@ -120,3 +124,4 @@ if (isset($buwana_conn)) {
 header('Location: activate-3.php?id=' . $ecobricker_id);
 exit();
 ?>
+

@@ -298,7 +298,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-});
+
 
 
     // Handle the resend code timer

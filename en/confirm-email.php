@@ -104,7 +104,6 @@ if (is_null($ecobricker_id)) {
     exit();
 }
 
-
 // PART 4: Look up user information using ecobricker_id provided in URL
 require_once("../gobrikconn_env.php");
 
@@ -117,15 +116,14 @@ if ($stmt_user_info) {
     $stmt_user_info->fetch();
     $stmt_user_info->close();
 } else {
-    die('Error preparing statement for fetching user info: ' . $gobrik_conn->error);
+    error_log('Error preparing statement for fetching user info: ' . $gobrik_conn->error);
+    die('Error fetching user info');
 }
 
-// Check if buwana_id is empty and handle accordingly (if needed)
+// Check if buwana_id is empty and handle accordingly
 if (empty($buwana_id)) {
-    // Handle the case where buwana_id is null or empty
-    $buwana_id = null; // You can choose to set it to null or any default value if needed
+    $buwana_id = null;
 }
-
 
 // PART 5: Generate the code and update the activation_code field in the database
 $generated_code = generateCode();
@@ -137,22 +135,19 @@ if ($stmt_update_code) {
     $stmt_update_code->execute();
     $stmt_update_code->close();
 } else {
-    die('Error preparing statement for updating activation code: ' . $gobrik_conn->error);
+    error_log('Error preparing statement for updating activation code: ' . $gobrik_conn->error);
+    die('Error updating activation code');
 }
 
-
-//PART 6: Handle form submission to send the confirmation code by email
+// PART 6: Handle form submission to send the confirmation code by email
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['send_email']) || isset($_POST['resend_email']))) {
     $code_sent = sendVerificationCode($first_name, $email_addr, $generated_code, $lang);
-    if ($code_sent) {
-        $code_sent_flag = true;
-    } else {
+    if (!$code_sent) {
         echo '<script>alert("Message could not be sent. Please try again later.");</script>';
     }
 }
 
 $gobrik_conn->close();
-
 ?>
 
 <!DOCTYPE html>
@@ -344,13 +339,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Handle Resend Link Click
-    document.addEventListener('click', function(e) {
-        if (e.target && e.target.id === 'resend-link') {
-            e.preventDefault();
-            // Reset timer and form submission
-            document.getElementById('resend-code-form').submit();
-        }
-    });
+//     document.addEventListener('click', function(e) {
+//         if (e.target && e.target.id === 'resend-link') {
+//             e.preventDefault();
+//             // Reset timer and form submission
+//             document.getElementById('resend-code-form').submit();
+//         }
+//     });
 });
 </script>
 

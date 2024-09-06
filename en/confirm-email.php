@@ -312,6 +312,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (timeLeft <= 0) {
             clearInterval(countdownTimer);
             document.getElementById('resend-code').innerHTML = '<a href="#" id="resend-link">Resend the code now.</a>';
+            document.getElementById('timer').textContent = ''; // Clear the timer text
 
             // Add click event to trigger form submission
             document.getElementById('resend-link').addEventListener('click', function(event) {

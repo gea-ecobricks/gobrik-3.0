@@ -1,16 +1,25 @@
 <?php
-session_start();
+require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// PART 1 Initialize
+// Check if the user is logged in
+if (isLoggedIn()) {
+    header('Location: dashboard.php'); // Redirect to dashboard if user is logged in
+    exit();
+}
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+// If not redirected, set $is_logged_in to false for this page
+$is_logged_in = false;
 
-require '../vendor/autoload.php'; // Path to PHPMailer
+// Set page variables
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$version = '0.762';
+$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
-// Initialize variables
+
+// Initialize user variables
 $ecobricker_id = $_GET['id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $first_name = '';
@@ -20,7 +29,12 @@ $version = '0.48';
 $page = 'activate';
 $static_code = 'AYYEW'; // The static code for now
 $generated_code = ''; // New generated code
+$country_icon = '';
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../vendor/autoload.php'; // Path to PHPMailer
 
 
 // PART 2 FUNCTIONS

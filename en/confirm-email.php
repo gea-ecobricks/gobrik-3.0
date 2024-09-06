@@ -240,7 +240,31 @@ document.addEventListener('DOMContentLoaded', function() {
     const staticCode = "AYYEW";
     const generatedCode = <?php echo json_encode($generated_code); ?>;
     const ecobricker_id = <?php echo json_encode($ecobricker_id); ?>;
+    const lang = '<?php echo $lang; ?>'; // Get the language from PHP
     let timeLeft = 60;
+
+    // Define feedback messages in different languages
+    const messages = {
+        en: {
+            confirmed: "Code confirmed!",
+            incorrect: "Code incorrect. Try again."
+        },
+        fr: {
+            confirmed: "Code confirmé!",
+            incorrect: "Code incorrect. Réessayez."
+        },
+        es: {
+            confirmed: "Código confirmado!",
+            incorrect: "Código incorrecto. Inténtalo de nuevo."
+        },
+        id: {
+            confirmed: "Kode dikonfirmasi!",
+            incorrect: "Kode salah. Coba lagi."
+        }
+    };
+
+    // Default to English if the language is not supported
+    const feedbackMessages = messages[lang] || messages.en;
 
     // Ensure codeFeedback is declared to handle feedback messages
     const codeFeedback = document.querySelector('#code-feedback');
@@ -259,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (enteredCode.length === 5) {
                 // Check if the code matches either staticCode or the generated code
                 if (enteredCode === staticCode || enteredCode === generatedCode) {
-                    codeFeedback.textContent = 'Code confirmed!';
+                    codeFeedback.textContent = feedbackMessages.confirmed;
                     codeFeedback.classList.add('success');
                     codeFeedback.classList.remove('error');
                     setTimeout(function() {
@@ -267,13 +291,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         window.location.href = "activate-2.php?id=" + ecobricker_id;
                     }, 1000);
                 } else {
-                    codeFeedback.textContent = 'Code incorrect';
+                    codeFeedback.textContent = feedbackMessages.incorrect;
                     codeFeedback.classList.add('error');
                     codeFeedback.classList.remove('success');
                 }
             }
         });
     });
+});
+
 
     // Handle the resend code timer
     let countdownTimer = setInterval(function() {

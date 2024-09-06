@@ -187,7 +187,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <p data-lang-id="003-to-create">To create your Buwana GoBrik account we need to confirm your chosen credential. This is how we'll keep in touch and keep your account secure.  Click the send button and we'll send an account activation code to:</p>
 
     <h3><?php echo htmlspecialchars($email_addr); ?></h3>
-    <form method="post" action="">
+    <form id="send-email-code" method="post" action="">
         <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
             <div id="submit-section" style="text-align:center;margin-top:20px;padding-right:15px;padding-left:15px" title="Start Activation process" data-lang-id="004-send-email-button">
                 <input type="submit" name="send_email" id="send_email" value="📨 Send Code" class="submit-button activate">
@@ -213,7 +213,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     <p id="code-feedback"></p>
 
-    <p id="resend-code" style="font-size:1em"><span data-lang-id="009-no-code">Didn't get your code? You can request a resend of the code in </span><span id="timer">1:00</span></p>
+    <p id="resend-code" style="font-size:1em"><span data-lang-id="009-no-code">Didn't get your code? You can request a resend of the code in</span> <span id="timer">1:00</span></p>
 </div>
 
 
@@ -302,12 +302,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-    // Handle the resend code timer
+ // Handle the resend code timer
     let countdownTimer = setInterval(function() {
         timeLeft--;
         if (timeLeft <= 0) {
             clearInterval(countdownTimer);
-            document.getElementById('resend-code').innerHTML = '<a href="resend-code.php?id=' + ecobricker_id + '">Resend the code now.</a>';
+            document.getElementById('resend-code').innerHTML = '<a href="#" id="resend-link">Resend the code now.</a>';
+            document.getElementById('timer').textContent = ''; // Clear the timer text
+
+            // Add click event to trigger form submission
+            document.getElementById('resend-link').addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent default anchor behavior
+                sendEmailForm.submit(); // Submit the form programmatically
+            });
         } else {
             document.getElementById('timer').textContent = '0:' + (timeLeft < 10 ? '0' : '') + timeLeft;
         }

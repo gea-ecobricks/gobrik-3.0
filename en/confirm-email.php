@@ -15,7 +15,7 @@ $is_logged_in = false;
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.762';
+$version = '0.763';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 

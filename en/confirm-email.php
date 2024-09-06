@@ -4,15 +4,11 @@ require_once '../earthenAuth_helper.php'; // Include the authentication helper f
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-
 // Check if the user is logged in
 if (isLoggedIn()) {
-    header('Location: dashboard.php'); // Redirect to dashboard if user is logged in
+    header('Location: dashboard.php'); // Redirect to dashboard if the user is logged in
     exit();
 }
-
-// If not redirected, set $is_logged_in to false for this page
-$is_logged_in = false;
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
@@ -20,29 +16,29 @@ $version = '0.766';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 // Initialize user variables
-$ecobricker_id = $_GET['id'] ?? null;
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$ecobricker_id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 $first_name = '';
 $email_addr = '';
 $code_sent = false;
-$version = '0.48';
 $page = 'activate';
 $static_code = 'AYYEW'; // The static code for now
 $generated_code = ''; // New generated code
 $country_icon = '';
 $buwana_id = '';
 
+// Load PHPMailer classes
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require '../vendor/autoload.php'; // Path to PHPMailer
 
-// PART 2 FUNCTIONS
+// PART 2: FUNCTIONS
 
 // Function to generate a random 5-character alphanumeric code
 function generateCode() {
     return strtoupper(substr(bin2hex(random_bytes(3)), 0, 5));
 }
+
 
 // Function to send the verification code email
 function sendVerificationCode($first_name, $email_addr, $verification_code, $lang) {
@@ -104,7 +100,6 @@ if (is_null($ecobricker_id)) {
     exit();
 }
 
-
 // PART 4: Look up user information using ecobricker_id provided in URL
 require_once("../gobrikconn_env.php");
 
@@ -117,15 +112,14 @@ if ($stmt_user_info) {
     $stmt_user_info->fetch();
     $stmt_user_info->close();
 } else {
-    die('Error preparing statement for fetching user info: ' . $gobrik_conn->error);
+    error_log('Error preparing statement for fetching user info: ' . $gobrik_conn->error);
+    die('Error fetching user info');
 }
 
-// Check if buwana_id is empty and handle accordingly (if needed)
+// Check if buwana_id is empty and handle accordingly
 if (empty($buwana_id)) {
-    // Handle the case where buwana_id is null or empty
-    $buwana_id = null; // You can choose to set it to null or any default value if needed
+    $buwana_id = null;
 }
-
 
 // PART 5: Generate the code and update the activation_code field in the database
 $generated_code = generateCode();
@@ -137,22 +131,19 @@ if ($stmt_update_code) {
     $stmt_update_code->execute();
     $stmt_update_code->close();
 } else {
-    die('Error preparing statement for updating activation code: ' . $gobrik_conn->error);
+    error_log('Error preparing statement for updating activation code: ' . $gobrik_conn->error);
+    die('Error updating activation code');
 }
 
-
-//PART 6: Handle form submission to send the confirmation code by email
+// PART 6: Handle form submission to send the confirmation code by email
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['send_email']) || isset($_POST['resend_email']))) {
     $code_sent = sendVerificationCode($first_name, $email_addr, $generated_code, $lang);
-    if ($code_sent) {
-        $code_sent_flag = true;
-    } else {
+    if (!$code_sent) {
         echo '<script>alert("Message could not be sent. Please try again later.");</script>';
     }
 }
 
 $gobrik_conn->close();
-
 ?>
 
 <!DOCTYPE html>
@@ -313,7 +304,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (timeLeft <= 0) {
             clearInterval(countdownTimer);
             document.getElementById('resend-code').innerHTML = '<a href="#" id="resend-link">Resend the code now.</a>';
-            document.getElementById('timer').textContent = ''; // Clear the timer text
 
             // Add click event to trigger form submission
             document.getElementById('resend-link').addEventListener('click', function(event) {

@@ -14,6 +14,8 @@ if (isLoggedIn()) {
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.766';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+// set $is_logged_in to false for this page
+$is_logged_in = false;
 
 // Initialize user variables
 $ecobricker_id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
@@ -298,13 +300,19 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-
     // Handle the resend code timer
     let countdownTimer = setInterval(function() {
         timeLeft--;
         if (timeLeft <= 0) {
             clearInterval(countdownTimer);
-            document.getElementById('resend-code').innerHTML = '<p>Resend the code now.</p>';
+            document.getElementById('resend-code').innerHTML = '<a href="#" id="resend-link">Resend the code now.</a>';
+            document.getElementById('timer').textContent = ''; // Clear the timer text
+
+            // Add click event to trigger form submission
+            document.getElementById('resend-link').addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent default anchor behavior
+                sendEmailForm.submit(); // Submit the form programmatically
+            });
         } else {
             document.getElementById('timer').textContent = '0:' + (timeLeft < 10 ? '0' : '') + timeLeft;
         }
@@ -334,14 +342,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('second-code-confirm').style.display = 'block';
     }
 
-    // Handle Resend Link Click
-    document.addEventListener('click', function(e) {
-        if (e.target && e.target.id === 'resend-link') {
-            e.preventDefault();
-            // Reset timer and form submission
-            document.getElementById('resend-code-form').submit();
-        }
-    });
+
 });
 </script>
 

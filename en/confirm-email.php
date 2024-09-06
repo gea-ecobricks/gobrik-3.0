@@ -215,15 +215,23 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 </div>
 
 
+
+
+<?php if (!empty($buwana_id)) : ?>
+<div id="new-account-another-email-please" style="text-align:center;width:90%;margin:auto;margin-top:30px;margin-bottom:30px;">
+    <p style="font-size:1em;"><span data-lang-id="011-change-email">Want to change your email? </span><a href="signup-2.php?id=<?php echo htmlspecialchars($buwana_id); ?>"><span data-lang-id="012-go-back-new-email">Go back to enter a different email address.</span></a>
+
+        <span data-lang-id="012-go-back-new-email">Go back to enter a different email address.</span>
+
+    </p>
+<?php else : ?>
 <div id="legacy-account-email-not-used" style="text-align:center;width:90%;margin:auto;margin-top:30px;margin-bottom:50px;">
     <p style="font-size:1em;" data-lang-id="010-email-no-longer">Do you no longer use this email address?<br>If not, you'll need to <a href="signup.php">create a new account</a> or contact our team at support@gobrik.com.</p>
 </div>
+<?php endif; ?>
 
-<div id="new-account-another-email-please" style="text-align:center;width:90%;margin:auto;margin-top:30px;margin-bottom:30px;">
-    <p style="font-size:1em;"><span data-lang-id="011-change-email">Want to change your email? </span>
-    <a href="signup-2.php?id=<a href="signup-2.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
-"><span data-lang-id="012-go-back-new-email">Go back to enter a different email address.</span></a></p>
 </div>
+
 
 </div>
 
@@ -320,15 +328,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 1000);
 
     // JavaScript function to show/hide divs based on gobrik_migrated
-    function showDependingOnLegacy(gobrikMigrated) {
-        if (gobrikMigrated === 1) {
-            document.getElementById('legacy-account-email-not-used').style.display = 'block';
-            document.getElementById('new-account-another-email-please').style.display = 'none';
-        } else {
-            document.getElementById('legacy-account-email-not-used').style.display = 'none';
-            document.getElementById('new-account-another-email-please').style.display = 'block';
-        }
-    }
+//     function showDependingOnLegacy(gobrikMigrated) {
+//         if (gobrikMigrated === 1) {
+//             document.getElementById('legacy-account-email-not-used').style.display = 'block';
+//             document.getElementById('new-account-another-email-please').style.display = 'none';
+//         } else {
+//             document.getElementById('legacy-account-email-not-used').style.display = 'none';
+//             document.getElementById('new-account-another-email-please').style.display = 'block';
+//         }
+//     }
 
     // Fetch the gobrik_migrated value from PHP safely using json_encode
     var gobrikMigrated = <?php echo json_encode($gobrik_migrated); ?>;

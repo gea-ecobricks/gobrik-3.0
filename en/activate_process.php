@@ -62,27 +62,86 @@ if (!empty($buwana_id)) {
     }
 }
 
-// PART 3: Check registration status on the Ghost platform
+// PART 3: Check registration status on the Ghost platform using cURL
+
 $email_encoded = urlencode($email_addr);
-$ghost_url = "https://earthen.io/ghost/api/v3/admin/members/?email=$email_encoded&key=66db68b5cff59f045598dbc3:5c82d570631831f277b1a9b4e5840703e73a68e948812b2277a0bc11c12c973f";
+$ghost_admin_api_key = '66db68b5cff59f045598dbc3:5c82d570631831f277b1a9b4e5840703e73a68e948812b2277a0bc11c12c973f'; // Admin API Key
+$ghost_url = "https://earthen.io/ghost/api/v3/admin/members/?filter=email:$email_encoded";
 
-// Perform the API call
-$response = file_get_contents($ghost_url);
+// Create JWT for Ghost Admin API
+function createJWT($api_key) {
+    $parts = explode(':', $api_key);
+    $id = $parts[0];
+    $secret = $parts[1];
 
+    $header = json_encode(['alg' => 'HS256', 'typ' => 'JWT']);
+    $payload = json_encode([
+        'iat' => time(),
+        'exp' => time() + 60, // Token valid for 60 seconds
+        'aud' => '/v3/admin/'
+    ]);
+
+    // Encode Header
+    $base64UrlHeader = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($header));
+    // Encode Payload
+    $base64UrlPayload = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($payload));
+    // Create Signature Hash
+    $signature = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, hex2bin($secret), true);
+    // Encode Signature to Base64Url
+    $base64UrlSignature = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($signature));
+    // Create JWT
+    $jwt = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
+
+    return $jwt;
+}
+
+// Generate the JWT token
+$jwt = createJWT($ghost_admin_api_key);
+
+// Initialize cURL session
+$curl = curl_init();
+
+// Set cURL options
+curl_setopt_array($curl, [
+    CURLOPT_URL => $ghost_url,
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_FAILONERROR => true,
+    CURLOPT_SSL_VERIFYHOST => false, // For testing; remove in production
+    CURLOPT_SSL_VERIFYPEER => false, // For testing; remove in production
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Ghost ' . $jwt,
+        'Content-Type: application/json'
+    ],
+]);
+
+// Execute the cURL request
+$response = curl_exec($curl);
+
+// Check for cURL errors
 if ($response === false) {
-    error_log('API call to Earthen.io failed.');
-    echo '<script>console.error("API call to Earthen.io failed.");</script>';
-    // Skip further processing and redirect
+    $error_msg = curl_error($curl);
+    error_log('cURL error: ' . $error_msg);
+    echo '<script>console.error("API call to Earthen.io failed: ' . $error_msg . '");</script>';
+
+    // Close cURL session and redirect
+    curl_close($curl);
     header('Location: activate-3.php?id=' . $ecobricker_id);
     exit();
 }
 
+// Close cURL session
+curl_close($curl);
+
+// Decode the API response
 $response_data = json_decode($response, true);
 
 $registered = 0;
 if ($response_data && isset($response_data['members']) && count($response_data['members']) > 0) {
     $registered = 1;
 }
+
+
+//PART 4
 
 
 // Update GoBrik Database with registration status

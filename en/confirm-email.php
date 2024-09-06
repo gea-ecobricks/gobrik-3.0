@@ -303,6 +303,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
  // Handle the resend code timer
+    const sendEmailForm = document.getElementById('send-email-code');
+    let timeLeft = 60; // Adjust the countdown time as needed
+
     let countdownTimer = setInterval(function() {
         timeLeft--;
         if (timeLeft <= 0) {

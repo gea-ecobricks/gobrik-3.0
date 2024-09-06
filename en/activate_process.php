@@ -65,6 +65,15 @@ if (!empty($buwana_id)) {
 // PART 3: Check registration status on the Ghost platform
 $ghost_url = 'https://earthen.io/ghost/api/content/members/?filter=email:' . urlencode($email_addr) . '&key=fdabe2f9fb0e1ecc4249a7ada5';
 $response = file_get_contents($ghost_url);
+
+if ($response === false) {
+    error_log('API call to Earthen.io failed.');
+    echo '<script>console.error("API call to Earthen.io failed.");</script>';
+    // Skip further processing and redirect
+    header('Location: activate-3.php?id=' . $ecobricker_id);
+    exit();
+}
+
 $response_data = json_decode($response, true);
 
 $registered = 0;

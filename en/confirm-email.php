@@ -16,7 +16,7 @@ $is_logged_in = false;
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.764';
+$version = '0.765';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 // Initialize user variables
@@ -182,7 +182,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="first-send-form" style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;"
     class="<?php echo $code_sent ? 'hidden' : ''; ?>"> <!-- Fix the inline PHP inside attributes -->
 
-    <h2><span data-lang-id="001-alright">Alright </span><?php echo htmlspecialchars($first_name); ?>,<span data-lang-id="002-lets-confirm"> let's confirm your email.</span></h2>
+    <h2><span data-lang-id="001-alright">Alright</span> <?php echo htmlspecialchars($first_name); ?>, <span data-lang-id="002-lets-confirm"> let's confirm your email.</span></h2>
     <p data-lang-id="003-to-create">To create your Buwana GoBrik account we need to confirm your chosen credential. This is how we'll keep in touch and keep your account secure.  Click the send button and we'll send an account activation code to:</p>
 
     <h3><?php echo htmlspecialchars($email_addr); ?></h3>
@@ -221,7 +221,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 </div>
 
 <div id="new-account-another-email-please" style="text-align:center;width:90%;margin:auto;margin-top:30px;margin-bottom:30px;">
-    <p style="font-size:1em;"><span data-lang-id="011-change-email">Want to change your email? </span><a href="signup-2.php?id=$buwana_id"><span data-lang-id="012-go-back-new-email">Go back to enter a different email address.</span></a></p>
+    <p style="font-size:1em;"><span data-lang-id="011-change-email">Want to change your email? </span>  <a href="signup-2.php?id=$buwana_id"><span data-lang-id="012-go-back-new-email">Go back to enter a different email address.</span></a></p>
 </div>
 
 </div>

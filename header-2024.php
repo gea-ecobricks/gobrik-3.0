@@ -1,12 +1,5 @@
 <!-- PHP starts by laying out canonical URLs for the page and language -->
-<?php
-	$parts = explode ("/", $_SERVER['SCRIPT_NAME']);
-	$name = $parts [count($parts)-1];
-	if (strcmp($name, "welcome.php") == 0)
-  $name = "";
-  $is_logged_in = isset($buwana_id) && !empty($first_name);
 
-	;?>
 
 	<link rel="canonical" href="https://gobrik.com/<?php echo ($lang); ;?>/<?php echo ($name); ;?>">
 	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
@@ -347,13 +340,13 @@ display: none;
       </div>
     </div>
     </div>
-
 <!-- MAIN MENU -->
 <div id="main-menu-overlay" class="overlay-settings" style="display:none;">
   <button type="button" onclick="closeSettings()" aria-label="Click to close settings page" class="x-button"></button>
   <div class="overlay-content-settings">
     <!-- Check if the user is logged in before displaying the logged-in status box -->
     <?php if ($is_logged_in): ?>
+      <!-- Logged-in Menu -->
       <div class="menu-page-item" style="display: flex; flex-direction: column; align-items: flex-start; padding-bottom: 30px;">
         <div style="width:100%; display: flex; align-items: center;">
           <div style="color: var(--text-color); margin-left: 7px;">
@@ -370,13 +363,16 @@ display: none;
         <span class="status-circle" style="background-color: yellow;" title="Working. Under development"></span>
       </div>
     <?php else: ?>
-      <!-- If the user is not logged in, show the login/signup options -->
+      <!-- Non-logged-in Menu -->
       <div class="menu-page-item">
         <a href="login.php" data-lang-id="1000-log-in" style="margin-right:10px">Log in</a> |
         <a href="signup.php" data-lang-id="1000-sign-up" style="margin-left:10px">Sign up</a>
         <span class="status-circle" style="background-color: green;" title="Deployed. Under beta testing."></span>
       </div>
     <?php endif; ?>
+  </div>
+</div>
+
 
 
 

@@ -302,22 +302,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
- // Handle the resend code timer
-    const sendEmailForm = document.getElementById('send-email-code');
-    let timeLeft = 60; // Adjust the countdown time as needed
-
+    // Handle the resend code timer
     let countdownTimer = setInterval(function() {
         timeLeft--;
         if (timeLeft <= 0) {
             clearInterval(countdownTimer);
-            document.getElementById('resend-code').innerHTML = '<a href="#" id="resend-link">Resend the code now.</a>';
-            document.getElementById('timer').textContent = ''; // Clear the timer text
-
-            // Add click event to trigger form submission
-            document.getElementById('resend-link').addEventListener('click', function(event) {
-                event.preventDefault(); // Prevent default anchor behavior
-                sendEmailForm.submit(); // Submit the form programmatically
-            });
+            document.getElementById('resend-code').innerHTML = '<a href="resend-code.php?id=' + ecobricker_id + '">Resend the code now.</a>';
         } else {
             document.getElementById('timer').textContent = '0:' + (timeLeft < 10 ? '0' : '') + timeLeft;
         }

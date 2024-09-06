@@ -62,19 +62,20 @@ if (!empty($buwana_id)) {
     }
 }
 
-// Correct the API URL
-$ghost_url = 'https://earthen.io/ghost/api/content/members/?filter=email:' . urlencode($email_addr) . '&key=fdabe2f9fb0e1ecc4249a7ada5';
+// PART 3: Check registration status on the Ghost platform
+$email_encoded = urlencode($email_addr);
+$ghost_url = "https://earthen.io/ghost/api/v3/admin/members/?email=$email_encoded&key=66db68b5cff59f045598dbc3:5c82d570631831f277b1a9b4e5840703e73a68e948812b2277a0bc11c12c973f";
 
+// Perform the API call
 $response = file_get_contents($ghost_url);
 
 if ($response === false) {
-    error_log('API call to Earthen.io failed: ' . error_get_last()['message']);
-    echo '<script>console.error("API call to Earthen.io failed: ' . addslashes(error_get_last()['message']) . '");</script>';
+    error_log('API call to Earthen.io failed.');
+    echo '<script>console.error("API call to Earthen.io failed.");</script>';
     // Skip further processing and redirect
     header('Location: activate-3.php?id=' . $ecobricker_id);
     exit();
 }
-
 
 $response_data = json_decode($response, true);
 
@@ -82,6 +83,7 @@ $registered = 0;
 if ($response_data && isset($response_data['members']) && count($response_data['members']) > 0) {
     $registered = 1;
 }
+
 
 // Update GoBrik Database with registration status
 $sql_update_registration = "UPDATE tb_ecobrickers SET earthen_registered = ? WHERE ecobricker_id = ?";

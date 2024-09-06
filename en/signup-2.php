@@ -1,9 +1,17 @@
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
-session_start(); // Start the session
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
+// Check if the user is logged in
+if (isLoggedIn()) {
+    header('Location: dashboard.php'); // Redirect to dashboard if user is logged in
+    exit();
+}
+
+// If not redirected, set $is_logged_in to false for this page
+$is_logged_in = false;
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
@@ -19,13 +27,8 @@ $credential_key = '';
 $first_name = '';
 $account_status = '';
 
-// Explicitly set $is_logged_in to false to prevent any unintended menu behavior
-$is_logged_in = false;
-
-
-// Remove CSRF token generation since it is not used
-
-include '../buwanaconn_env.php'; // Database connection
+// Include database connection
+include '../buwanaconn_env.php';
 
 // Look up user information if buwana_id is provided
 if ($buwana_id) {
@@ -67,7 +70,7 @@ if ($buwana_id) {
 <html lang="<?php echo $lang; ?>">
 <head>
 <meta charset="UTF-8">
-<title>Sign Up | Step 2 | GoBrik</title>
+<title>Step 2 - Sign up | GoBrik</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!--

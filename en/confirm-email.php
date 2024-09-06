@@ -3,7 +3,8 @@ require_once '../earthenAuth_helper.php'; // Include the authentication helper f
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-$is_logged_in = '';
+
+
 // Check if the user is logged in
 if (isLoggedIn()) {
     header('Location: dashboard.php'); // Redirect to dashboard if user is logged in
@@ -181,13 +182,13 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="first-send-form" style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;"
     class="<?php echo $code_sent ? 'hidden' : ''; ?>"> <!-- Fix the inline PHP inside attributes -->
 
-    <h2>Alright <?php echo htmlspecialchars($first_name); ?>, let's confirm your email.</h2>
-    <p>To create your Buwana GoBrik account we need to confirm your chosen credential. This is how we'll keep in touch and keep your account secure.  Click the send button and we'll send an account activation code to:</p>
+    <h2><span data-lang-id="001-alright">Alright </span><?php echo htmlspecialchars($first_name); ?>,<span data-lang-id="002-lets-confirm"> let's confirm your email.</span></h2>
+    <p data-lang-id="003-to-create">To create your Buwana GoBrik account we need to confirm your chosen credential. This is how we'll keep in touch and keep your account secure.  Click the send button and we'll send an account activation code to:</p>
 
     <h3><?php echo htmlspecialchars($email_addr); ?></h3>
     <form method="post" action="">
         <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
-            <div id="submit-section" style="text-align:center;margin-top:20px;padding-right:15px;padding-left:15px" title="Start Activation process">
+            <div id="submit-section" style="text-align:center;margin-top:20px;padding-right:15px;padding-left:15px" title="Start Activation process" data-lang-id="004-send-email-button">
                 <input type="submit" name="send_email" id="send_email" value="📨 Send Code" class="submit-button activate">
             </div>
         </div>
@@ -198,8 +199,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="second-code-confirm" style="text-align:center;"
     class="<?php echo !$code_sent ? 'hidden' : ''; ?>"> <!-- Fix the inline PHP inside attributes -->
 
-    <h2>Please enter your code:</h2>
-    <p>Check your email <?php echo htmlspecialchars($email_addr); ?> for your account confirmation code. Enter it here:</p>
+    <h2 data-lang-id="006-enter-code">Please enter your code:</h2>
+    <p><span data-lang-id="007-check-email">Check your email</span> <?php echo htmlspecialchars($email_addr); ?> <span data-lang-id="008-for-your-code">for your account confirmation code. Enter it here:</span></p>
 
     <form id="code-form">
         <input type="text" maxlength="1" class="code-box" required>
@@ -211,16 +212,16 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     <p id="code-feedback"></p>
 
-    <p id="resend-code" style="font-size:1em">Didn't get your code? You can request a resend of the code in <span id="timer">1:00</span></p>
+    <p id="resend-code" style="font-size:1em"><span data-lang-id="009-no-code">Didn't get your code? You can request a resend of the code in </span><span id="timer">1:00</span></p>
 </div>
 
 
 <div id="legacy-account-email-not-used" style="text-align:center;width:90%;margin:auto;margin-top:30px;margin-bottom:50px;">
-    <p style="font-size:1em;">Do you no longer use this email address?<br>If not, you'll need to <a href="signup.php">create a new account</a> or contact our team at support@gobrik.com.</p>
+    <p style="font-size:1em;" data-lang-id="010-email-no-longer">Do you no longer use this email address?<br>If not, you'll need to <a href="signup.php">create a new account</a> or contact our team at support@gobrik.com.</p>
 </div>
 
 <div id="new-account-another-email-please" style="text-align:center;width:90%;margin:auto;margin-top:30px;margin-bottom:50px;">
-    <p style="font-size:1em;">Want to change your email? <a href="signup-2.php?id=$buwana_id">Go back to enter a different email address.</a></p>
+    <p style="font-size:1em;"><span data-lang-id="011-change-email">Want to change your email? </span><a href="signup-2.php?id=$buwana_id"><span data-lang-id="012-go-back-new-email">Go back to enter a different email address.</span></a></p>
 </div>
 
 </div>

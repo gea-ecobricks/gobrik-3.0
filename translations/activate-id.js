@@ -12,8 +12,15 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 
 
 const id_Page_Translations = {
-
-
-
-}
-
+  "001-alright": "Baiklah",
+  "002-lets-confirm": "mari konfirmasi email Anda.",
+  "003-to-create": "Untuk membuat akun Buwana GoBrik Anda, kami perlu mengonfirmasi kredensial yang Anda pilih. Ini adalah cara kami akan tetap berhubungan dan menjaga keamanan akun Anda. Klik tombol kirim dan kami akan mengirimkan kode aktivasi akun ke:",
+  "004-send-email-button": "Mulai proses aktivasi",
+  "006-enter-code": "Silakan masukkan kode Anda:",
+  "007-check-email": "Periksa email Anda",
+  "008-for-your-code": "untuk kode konfirmasi akun Anda. Masukkan di sini:",
+  "009-no-code": "Tidak menerima kode Anda? Anda dapat meminta pengiriman ulang kode dalam",
+  "010-email-no-longer": "Apakah Anda tidak lagi menggunakan alamat email ini?<br>Jika tidak, Anda perlu <a href=\"signup.php\">membuat akun baru</a> atau hubungi tim kami di support@gobrik.com.",
+  "011-change-email": "Ingin mengganti email Anda?",
+  "012-go-back-new-email": "Kembali untuk memasukkan alamat email yang berbeda."
+};

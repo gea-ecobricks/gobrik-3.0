@@ -10,10 +10,17 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 // Backslash (\): Should be escaped as \\ in JavaScript strings to prevent ending the string prematurely.
 // Forward slash (/): Should be escaped as \/ in </script> tags to prevent prematurely closing a script.
 
-
 const fr_Page_Translations = {
-
-
-
-}
+  "001-alright": "D'accord",
+  "002-lets-confirm": "confirmons votre email.",
+  "003-to-create": "Pour créer votre compte Buwana GoBrik, nous devons confirmer vos identifiants choisis. C'est ainsi que nous resterons en contact et que votre compte restera sécurisé. Cliquez sur le bouton d'envoi et nous vous enverrons un code d'activation de compte à l'adresse suivante :",
+  "004-send-email-button": "Démarrer le processus d'activation",
+  "006-enter-code": "Veuillez entrer votre code :",
+  "007-check-email": "Vérifiez votre e-mail",
+  "008-for-your-code": "pour votre code de confirmation de compte. Entrez-le ici :",
+  "009-no-code": "Vous n'avez pas reçu votre code ? Vous pouvez demander un renvoi du code dans",
+  "010-email-no-longer": "N'utilisez-vous plus cette adresse e-mail ?<br>Si non, vous devrez <a href=\"signup.php\">créer un nouveau compte</a> ou contacter notre équipe à l'adresse support@gobrik.com.",
+  "011-change-email": "Voulez-vous changer votre adresse e-mail ?",
+  "012-go-back-new-email": "Retournez pour entrer une autre adresse e-mail."
+};
 

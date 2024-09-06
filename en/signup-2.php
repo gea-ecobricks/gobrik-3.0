@@ -19,15 +19,14 @@ $credential_key = '';
 $first_name = '';
 $account_status = '';
 
-// Check if user is logged in and session active
-$is_logged_in = isLoggedIn(); // Set the $is_logged_in variable based on the helper function
+// Explicitly set $is_logged_in to false to prevent any unintended menu behavior
+$is_logged_in = false;
 
 if ($is_logged_in) {
     header('Location: dashboard.php');
     exit();
 }
-// Explicitly set $is_logged_in to false to prevent any unintended menu behavior
-$is_logged_in = false;
+
 // Remove CSRF token generation since it is not used
 
 include '../buwanaconn_env.php'; // Database connection

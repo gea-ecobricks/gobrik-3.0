@@ -64,7 +64,9 @@ if (!empty($buwana_id)) {
 
 // PART 3: Check registration status on the Ghost platform
 $email_encoded = urlencode($email_addr);
-$ghost_url = "https://earthen.io/ghost/api/canary/admin/members/?filter=email:$email_encoded";
+$ghost_admin_key = '66db68b5cff59f045598dbc3:5c82d570631831f277b1a9b4e5840703e73a68e948812b2277a0bc11c12c973f'; // Replace this with your actual Admin API key
+$ghost_url = "https://earthen.io/ghost/api/canary/admin/members/?filter=email:$email_encoded&key=" . urlencode($ghost_admin_key);
+
 // Perform the API call
 $response = file_get_contents($ghost_url);
 

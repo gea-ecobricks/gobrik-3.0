@@ -26,6 +26,7 @@ $credential_type = '';
 $credential_key = '';
 $first_name = '';
 $account_status = '';
+$country_icon = '';
 
 // Include database connection
 include '../buwanaconn_env.php';

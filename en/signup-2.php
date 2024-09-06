@@ -22,10 +22,6 @@ $account_status = '';
 // Explicitly set $is_logged_in to false to prevent any unintended menu behavior
 $is_logged_in = false;
 
-if ($is_logged_in) {
-    header('Location: dashboard.php');
-    exit();
-}
 
 // Remove CSRF token generation since it is not used
 

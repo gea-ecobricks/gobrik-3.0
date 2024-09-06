@@ -243,6 +243,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const ecobricker_id = <?php echo json_encode($ecobricker_id); ?>;
     const lang = '<?php echo $lang; ?>'; // Get the language from PHP
     let timeLeft = 60;
+    const sendEmailForm = document.getElementById('send-email-code');
 
     // Define feedback messages in different languages
     const messages = {
@@ -303,11 +304,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // Handle the resend code timer
+
+
+
+    // Handle the resend code timer
     let countdownTimer = setInterval(function() {
         timeLeft--;
         if (timeLeft <= 0) {
             clearInterval(countdownTimer);
-            document.getElementById('resend-code').innerHTML = '<a href="resend-code.php?id=' + ecobricker_id + '">Resend the code now.</a>';
+            document.getElementById('resend-code').innerHTML = '<a href="#" id="resend-link">Resend the code now.</a>';
+            document.getElementById('timer').textContent = ''; // Clear the timer text
+
+            // Add click event to trigger form submission
+            document.getElementById('resend-link').addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent default anchor behavior
+                sendEmailForm.submit(); // Submit the form programmatically
+            });
         } else {
             document.getElementById('timer').textContent = '0:' + (timeLeft < 10 ? '0' : '') + timeLeft;
         }

@@ -16,7 +16,7 @@ $is_logged_in = false;
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.763';
+$version = '0.764';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 // Initialize user variables
@@ -220,7 +220,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <p style="font-size:1em;" data-lang-id="010-email-no-longer">Do you no longer use this email address?<br>If not, you'll need to <a href="signup.php">create a new account</a> or contact our team at support@gobrik.com.</p>
 </div>
 
-<div id="new-account-another-email-please" style="text-align:center;width:90%;margin:auto;margin-top:30px;margin-bottom:50px;">
+<div id="new-account-another-email-please" style="text-align:center;width:90%;margin:auto;margin-top:30px;margin-bottom:30px;">
     <p style="font-size:1em;"><span data-lang-id="011-change-email">Want to change your email? </span><a href="signup-2.php?id=$buwana_id"><span data-lang-id="012-go-back-new-email">Go back to enter a different email address.</span></a></p>
 </div>
 

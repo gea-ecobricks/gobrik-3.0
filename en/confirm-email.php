@@ -4,15 +4,11 @@ require_once '../earthenAuth_helper.php'; // Include the authentication helper f
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-
 // Check if the user is logged in
 if (isLoggedIn()) {
-    header('Location: dashboard.php'); // Redirect to dashboard if user is logged in
+    header('Location: dashboard.php'); // Redirect to dashboard if the user is logged in
     exit();
 }
-
-// If not redirected, set $is_logged_in to false for this page
-$is_logged_in = false;
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
@@ -20,24 +16,23 @@ $version = '0.766';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 // Initialize user variables
-$ecobricker_id = $_GET['id'] ?? null;
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$ecobricker_id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 $first_name = '';
 $email_addr = '';
 $code_sent = false;
-$version = '0.48';
 $page = 'activate';
 $static_code = 'AYYEW'; // The static code for now
 $generated_code = ''; // New generated code
 $country_icon = '';
 $buwana_id = '';
 
+// Load PHPMailer classes
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require '../vendor/autoload.php'; // Path to PHPMailer
 
-// PART 2 FUNCTIONS
+// PART 2: FUNCTIONS
 
 // Function to generate a random 5-character alphanumeric code
 function generateCode() {
@@ -52,8 +47,8 @@ function sendVerificationCode($first_name, $email_addr, $verification_code, $lan
         $mail->isSMTP();
         $mail->Host = 'mail.ecobricks.org';
         $mail->SMTPAuth = true;
-        $mail->Username = 'gobrik@ecobricks.org';
-        $mail->Password = '1Welcome!';
+        $mail->Username = getenv('SMTP_USERNAME'); // Use environment variable
+        $mail->Password = getenv('SMTP_PASSWORD'); // Use environment variable
         $mail->SMTPSecure = false;
         $mail->Port = 26;
 
@@ -90,6 +85,7 @@ function sendVerificationCode($first_name, $email_addr, $verification_code, $lan
         $mail->send();
         return true;
     } catch (Exception $e) {
+        error_log('Mail error: ' . $mail->ErrorInfo);
         return false;
     }
 }
@@ -302,18 +298,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
+
     // Handle the resend code timer
     let countdownTimer = setInterval(function() {
         timeLeft--;
         if (timeLeft <= 0) {
             clearInterval(countdownTimer);
-            document.getElementById('resend-code').innerHTML = '<a href="#" id="resend-link">Resend the code now.</a>';
-
-            // Add click event to trigger form submission
-            document.getElementById('resend-link').addEventListener('click', function(event) {
-                event.preventDefault(); // Prevent default anchor behavior
-                sendEmailForm.submit(); // Submit the form programmatically
-            });
+            document.getElementById('resend-code').innerHTML = '<p>Resend the code now.</p>';
         } else {
             document.getElementById('timer').textContent = '0:' + (timeLeft < 10 ? '0' : '') + timeLeft;
         }
@@ -344,13 +335,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Handle Resend Link Click
-//     document.addEventListener('click', function(e) {
-//         if (e.target && e.target.id === 'resend-link') {
-//             e.preventDefault();
-//             // Reset timer and form submission
-//             document.getElementById('resend-code-form').submit();
-//         }
-//     });
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.id === 'resend-link') {
+            e.preventDefault();
+            // Reset timer and form submission
+            document.getElementById('resend-code-form').submit();
+        }
+    });
 });
 </script>
 

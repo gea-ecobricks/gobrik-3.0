@@ -219,7 +219,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <?php if (!empty($buwana_id)) : ?>
 <div id="new-account-another-email-please" style="text-align:center;width:90%;margin:auto;margin-top:30px;margin-bottom:30px;">
-    <p style="font-size:1em;"><span data-lang-id="011-change-email">Want to change your email? </span><a href="signup-2.php?id=<?php echo htmlspecialchars($buwana_id); ?>"><span data-lang-id="012-go-back-new-email">Go back to enter a different email address.</span></a>
+    <p style="font-size:1em;"><span data-lang-id="011-change-email">Want to change your email? </span><a href="signup-2.php?id=<?php echo htmlspecialchars($buwana_id); ?>"><span data-lang-id="012-go-back-new-email"> Go back to enter a different email address.</span></a>
     </p>
 <?php else : ?>
 <div id="legacy-account-email-not-used" style="text-align:center;width:90%;margin:auto;margin-top:30px;margin-bottom:50px;">
@@ -249,6 +249,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const lang = '<?php echo $lang; ?>'; // Get the language from PHP
     let timeLeft = 60;
     const sendEmailForm = document.getElementById('send-email-code');
+    const buwana_id = <?php echo json_encode($buwana_id); ?>;
 
     // Define feedback messages in different languages
     const messages = {
@@ -293,16 +294,21 @@ document.addEventListener('DOMContentLoaded', function() {
                     codeFeedback.textContent = feedbackMessages.confirmed;
                     codeFeedback.classList.add('success');
                     codeFeedback.classList.remove('error');
+
+                    // Hide the resend-code div
+                    document.getElementById('resend-code').style.display = 'none';
+
+                    // Redirect to activate_process.php after 1500ms
                     setTimeout(function() {
-                        // Redirect to activate-2.php with ecobricker_id as a parameter
-                        window.location.href = "activate-2.php?id=" + ecobricker_id;
-                    }, 1000);
+                        window.location.href = "activate_process.php?id=" + ecobricker_id + "&buwana_id=" + buwana_id;
+                    }, 1500);
                 } else {
                     codeFeedback.textContent = feedbackMessages.incorrect;
                     codeFeedback.classList.add('error');
                     codeFeedback.classList.remove('success');
                 }
             }
+
         });
     });
 

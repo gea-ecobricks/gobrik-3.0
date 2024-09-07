@@ -13,7 +13,7 @@ if (isLoggedIn()) {
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.54';
+$version = '0.55';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 // set $is_logged_in to false for this page
 $is_logged_in = false;
@@ -178,7 +178,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <form id="user-info-form" method="post" action="activate-3.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
                         <div class="form-item" id="language-select">
                           <!--<label for="language_id">Please tell us which language you prefer...</label><br>-->
-            <select name="language_id" id="language_id" style="max-width:480px;display: block;margin: auto;cursor:pointer;" required placeholder="Select your preferred language...">
+            <select name="language_id" id="language_id" style="max-width:480px;display: block;margin: auto;cursor:pointer;" required>
                 <!-- Placeholder option -->
                 <span data-lang-id="014-language-placeholder">
                 <option value="" disabled selected>Select your preferred language...</option>
@@ -197,9 +197,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <div class="form-item" id="country-select" style="display:none;">
                 <!--<label for="country_id">Please select your country of residence...</label><br>-->
               <select name="country_id" id="country_id" style="max-width:480px;display: block;margin: auto;cursor:pointer;" required >
-                  <span data-lang-id="015-country-place-holder">
-                    <option value="">Select your country of residence...</option>
-                  </span>
+                    <option value="" disabled selected data-lang-id="015-country-place-holder">Select your country of residence...</option>
                     <?php foreach ($countries as $country) { ?>
                         <option value="<?php echo $country['country_id']; ?>">
                             <?php echo htmlspecialchars($country['country_name']); ?>
@@ -210,10 +208,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <div class="form-item" id="watershed-select" style="display:block;">
                 <!--<label for="country_id">Please select your country of residence...</label><br>-->
-               <span data-lang-id="015-watershed-place-holder"><select name="watershed_id" id="watershed_id" style="max-width:480px;display: block;margin: auto;cursor:pointer;" required></span>
-
-
-
+               <select name="watershed_id" id="watershed_id" style="max-width:480px;display: block;margin: auto;cursor:pointer;" required>
+                    <option value="" disabled selected data-lang-id="015-country-place-holder">Select your country of residence...</option>
                     <?php foreach ($countries as $country) { ?>
                         <option value="<?php echo $country['country_id']; ?>">
                             <?php echo htmlspecialchars($country['country_name']); ?>

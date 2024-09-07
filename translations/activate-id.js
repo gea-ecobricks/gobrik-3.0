@@ -28,9 +28,9 @@ const id_Page_Translations = {
 
      "012-status-heading": "kata sandi & email Anda telah diatur!",
     "013-sub-status-tell": "Sekarang tolong ceritakan sedikit tentang diri Anda...",
-    "014-language-placeholder": "<option value=\"\" disabled selected>Pilih bahasa yang Anda inginkan...</option>",
-    "015-country-place-holder": "<option value=\"\">Pilih negara tempat tinggal Anda...</option>",
-    "015-watershed-place-holder": "<option value=\"\">Pilih daerah aliran sungai lokal Anda...</option>",
+    "014-language-placeholder": "Pilih bahasa yang Anda inginkan...",
+    "015-country-place-holder": "Pilih negara tempat tinggal Anda...",
+    "015-watershed-place-holder": "Pilih daerah aliran sungai lokal Anda...",
     "018-what-is-watershed": "Apa itu ",
     "016-submit-complete-button": "<input type=\"submit\" id=\"submit-button\" value=\"✔️ Selesaikan Pengaturan\" class=\"submit-button disabled\" disabled>",
     "019-watershed": "daerah aliran sungai",

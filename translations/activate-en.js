@@ -30,9 +30,9 @@ const en_Page_Translations = {
 
     "012-status-heading": "your password & email are set!",
     "013-sub-status-tell": "Now please tell us a little about yourself...",
-    "014-language-placeholder": "<option value=\"\" disabled selected>Select your preferred language...</option>",
-    "015-country-place-holder": "<option value=\"\">Select your country of residence...</option>",
-    "015-watershed-place-holder": "<option value=\"\">Select your local watershed...</option>",
+    "014-language-placeholder": "Select your preferred language...",
+    "015-country-place-holder": "Select your country of residence...",
+    "015-watershed-place-holder": "Select your local watershed...",
     "018-what-is-watershed": "What is a ",
     "016-submit-complete-button": "<input type=\"submit\" id=\"submit-button\" value=\"✔️ Complete Setup\" class=\"submit-button disabled\" disabled>",
     "019-watershed": "watershed",

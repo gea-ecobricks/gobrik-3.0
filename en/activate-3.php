@@ -104,15 +104,15 @@ if ($result_watersheds->num_rows > 0) {
 
 // PART 4: Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $selected_continent_id = $_POST['continent_id'];
+    $selected_continent_code = $_POST['continent_code'];
     $selected_country_id = $_POST['country_id'];
     $selected_watershed_id = $_POST['watershed_id'];
 
     // Update the Buwana user's continent, country, and watershed using buwana_id
-    $sql_update_buwana = "UPDATE users_tb SET continent_id = ?, country_id = ?, watershed_id = ? WHERE buwana_id = ?";
+    $sql_update_buwana = "UPDATE users_tb SET continent_code = ?, country_id = ?, watershed_id = ? WHERE buwana_id = ?";
     $stmt_update_buwana = $buwana_conn->prepare($sql_update_buwana);
     if ($stmt_update_buwana) {
-        $stmt_update_buwana->bind_param('iiii', $selected_continent_id, $selected_country_id, $selected_watershed_id, $buwana_id);
+        $stmt_update_buwana->bind_param('iiii', $selected_continent_code, $selected_country_id, $selected_watershed_id, $buwana_id);
         $stmt_update_buwana->execute();
         $stmt_update_buwana->close();
 
@@ -194,10 +194,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     <!-- CONTINENT -->
     <div class="form-item" id="continent-select" style="display:block;">
-        <select name="continent_id" id="continent_id" style="max-width:480px;display: block;margin: auto;cursor:pointer;" required>
+        <select name="continent_code" id="continent_code" style="max-width:480px;display: block;margin: auto;cursor:pointer;" required>
             <option value="" disabled selected data-lang-id="015-continent-place-holder">Select your continent...</option>
             <?php foreach ($continents as $continent) { ?>
-                <option value="<?php echo $continent['continent_id']; ?>">
+                <option value="<?php echo $continent['continent_code']; ?>">
                     <?php echo htmlspecialchars($continent['continent_name']); ?>
                 </option>
             <?php } ?>
@@ -246,7 +246,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Get references to elements
-    var continentSelect = document.getElementById('continent_id');
+    var continentSelect = document.getElementById('continent_code');
     var countrySelectDiv = document.getElementById('country-select');
     var countrySelect = document.getElementById('country_id');
     var watershedSelectDiv = document.getElementById('watershed-select');

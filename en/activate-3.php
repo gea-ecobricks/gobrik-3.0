@@ -204,30 +204,34 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </select>
 </div>
 
-    <!-- WATERSHED -->
-    <div class="form-item" id="watershed-select" style="display:none;">
-        <select name="watershed_id" id="watershed_id" style="max-width:480px; display: block; margin: auto; cursor: pointer;" required>
-            <option value="" selected disabled data-lang-id="015-watershed-place-holder">Select your watershed...</option>
-            <?php foreach ($watersheds as $watershed) { ?>
-                <option value="<?php echo $watershed['watershed_id']; ?>">
-                    <?php echo htmlspecialchars($watershed['watershed_name']); ?>
-                </option>
-            <?php } ?>
-        </select>
-        <p class="form-caption" style="text-align:center"><span data-lang-id="018-what-is-watershed">What is a </span><a href="#" onclick="showModalInfo('watershed', '<?php echo $lang; ?>')" class="underline-link" data-lang-id="019-watershed">watershed</a>?</p>
-    </div>
+ <!-- WATERSHED -->
+<div class="form-item" id="watershed-select" style="display:none;">
+    <select name="watershed_id" id="watershed_id" style="max-width:480px; display: block; margin: auto; cursor: pointer;" required>
+        <option value="" disabled selected data-lang-id="015-watershed-place-holder">Select your watershed...</option>
+        <?php foreach ($watersheds as $watershed) { ?>
+            <option value="<?php echo htmlspecialchars($watershed['watershed_id']); ?>">
+                <?php echo htmlspecialchars($watershed['watershed_name']); ?>
+            </option>
+        <?php } ?>
+    </select>
+    <p class="form-caption" style="text-align:center">
+        <span data-lang-id="018-what-is-watershed">What is a </span>
+        <a href="#" onclick="showModalInfo('watershed', '<?php echo htmlspecialchars($lang); ?>')" class="underline-link" data-lang-id="019-watershed">watershed</a>?
+    </p>
+</div>
 
-    <!-- COUNTRY -->
-    <div class="form-item" id="country-select" style="display:none;">
-        <select name="country_id" id="country_id" style="max-width:480px; display: block; margin: auto; cursor: pointer;" required>
-            <option value="" disabled selected data-lang-id="015-country-place-holder">Select your country of residence...</option>
-            <?php foreach ($countries as $country) { ?>
-                <option value="<?php echo $country['country_id']; ?>" data-continent="<?php echo $country['continent_code']; ?>">
-                    <?php echo htmlspecialchars($country['country_name']); ?>
-                </option>
-            <?php } ?>
-        </select>
-    </div>
+<!-- COUNTRY -->
+<div class="form-item" id="country-select" style="display:none;">
+    <select name="country_id" id="country_id" style="max-width:480px; display: block; margin: auto; cursor: pointer;" required>
+        <option value="" disabled selected data-lang-id="015-country-place-holder">Select your country of residence...</option>
+        <?php foreach ($countries as $country) { ?>
+            <option value="<?php echo htmlspecialchars($country['country_id']); ?>" data-continent="<?php echo htmlspecialchars($country['continent_code']); ?>">
+                <?php echo htmlspecialchars($country['country_name']); ?>
+            </option>
+        <?php } ?>
+    </select>
+</div>
+
 
     <div id="submit-section" style="text-align:center;margin-top:15px;" data-lang-id="016-submit-complete-button">
         <input type="submit" id="submit-button" value="✔️ Complete Setup" class="submit-button disabled" disabled>

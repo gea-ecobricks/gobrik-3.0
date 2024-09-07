@@ -64,81 +64,105 @@ if (!empty($buwana_id)) {
 
 
 
-
 // PART 3: Check registration status on the Ghost platform
+
+// Prepare and encode the email address for use in the API URL
 $email_encoded = urlencode($email_addr);
-$ghost_admin_key = '66db68b5cff59f045598dbc3:5c82d570631831f277b1a9b4e5840703e73a68e948812b2277a0bc11c12c973f'; // Your Admin API key
-$ghost_url = "https://earthen.io/ghost/api/v3/admin/members/?filter=email:$email_encoded";
+$ghost_api_url = "https://earthen.io/ghost/api/canary/admin/members/?filter=email:$email_encoded";
 
-// Create the token using the Admin API key
-$token = base64_encode($ghost_admin_key);
+// Split API Key into ID and Secret for JWT generation
+$apiKey = '66db68b5cff59f045598dbc3:5c82d570631831f277b1a9b4e5840703e73a68e948812b2277a0bc11c12c973f';
+list($id, $secret) = explode(':', $apiKey);
 
-// Prepare the cURL request
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $ghost_url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_HTTPHEADER, [
-    'Authorization: Ghost ' . $token, // Correctly format the Authorization header with 'Ghost' prefix
-    'Content-Type: application/json'  // Set content type to JSON
+// Prepare the header and payload for the JWT
+$header = json_encode(['typ' => 'JWT', 'alg' => 'HS256', 'kid' => $id]);
+$now = time();
+$payload = json_encode([
+    'iat' => $now,
+    'exp' => $now + 300, // Token valid for 5 minutes
+    'aud' => '/v3/admin/' // Audience for Ghost API
 ]);
 
-// Perform the API call
+// Base64Url Encode function
+function base64UrlEncode($data) {
+    return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
+}
+
+// Encode Header and Payload
+$base64UrlHeader = base64UrlEncode($header);
+$base64UrlPayload = base64UrlEncode($payload);
+
+// Create the Signature
+$signature = hash_hmac('sha256', $base64UrlHeader . '.' . $base64UrlPayload, hex2bin($secret), true);
+$base64UrlSignature = base64UrlEncode($signature);
+
+// Create the JWT token
+$jwt = $base64UrlHeader . '.' . $base64UrlPayload . '.' . $base64UrlSignature;
+
+// Set up the cURL request to the Ghost Admin API
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $ghost_api_url);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    'Authorization: Ghost ' . $jwt,
+    'Content-Type: application/json'
+));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPGET, true); // Use GET instead of POST since we are fetching data
+
+// Execute the cURL session
 $response = curl_exec($ch);
 $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-// Check for errors
-if ($response === false || $http_code !== 200) {
-    error_log('API call to Earthen.io failed with response: ' . curl_error($ch) . ' and HTTP code: ' . $http_code);
+if (curl_errno($ch)) {
+    error_log('Curl error: ' . curl_error($ch));
+}
+
+if ($http_code >= 200 && $http_code < 300) {
+    // Successful response, parse the JSON data
+    $response_data = json_decode($response, true);
+
+    // Check if members are found
+    $registered = 0; // Default to not registered
+    if ($response_data && isset($response_data['members']) && is_array($response_data['members']) && count($response_data['members']) > 0) {
+        $registered = 1; // Member with the given email exists
+    }
+
+    // Update GoBrik Database with registration status
+    $sql_update_registration = "UPDATE tb_ecobrickers SET earthen_registered = ? WHERE ecobricker_id = ?";
+    $stmt_update_registration = $gobrik_conn->prepare($sql_update_registration);
+
+    if ($stmt_update_registration) {
+        $stmt_update_registration->bind_param('ii', $registered, $ecobricker_id);
+        $stmt_update_registration->execute();
+        $stmt_update_registration->close();
+    } else {
+        error_log('Error preparing statement for updating earthen_registered in tb_ecobrickers: ' . $gobrik_conn->error);
+    }
+
+    // Update Buwana Database with registration status if buwana_id is provided
+    if (!empty($buwana_id)) {
+        $sql_update_earthen_status = "UPDATE credentials_tb SET earthen_registered = ? WHERE buwana_id = ?";
+        $stmt_update_earthen_status = $buwana_conn->prepare($sql_update_earthen_status);
+
+        if ($stmt_update_earthen_status) {
+            $stmt_update_earthen_status->bind_param('ii', $registered, $buwana_id);
+            $stmt_update_earthen_status->execute();
+            $stmt_update_earthen_status->close();
+        } else {
+            error_log('Error preparing statement for updating earthen_registered in credentials_tb: ' . $buwana_conn->error);
+        }
+    }
+} else {
+    // Handle error
+    error_log('HTTP status ' . $http_code . ': ' . $response);
     echo '<script>console.error("API call to Earthen.io failed with HTTP code: ' . $http_code . '");</script>';
-    curl_close($ch);
     // Skip further processing and redirect
     header('Location: activate-3.php?id=' . $ecobricker_id);
     exit();
 }
 
-// Close cURL session
+// Close the cURL session
 curl_close($ch);
-
-// Decode the JSON response
-$response_data = json_decode($response, true);
-
-$registered = 0; // Default to not registered
-
-// Check if the response data is valid and contains members
-if ($response_data && isset($response_data['members']) && is_array($response_data['members'])) {
-    if (count($response_data['members']) > 0) {
-        // Member with the given email exists
-        $registered = 1;
-    }
-}
-
-
-//PART 4
-// Update GoBrik Database with registration status
-$sql_update_registration = "UPDATE tb_ecobrickers SET earthen_registered = ? WHERE ecobricker_id = ?";
-$stmt_update_registration = $gobrik_conn->prepare($sql_update_registration);
-
-if ($stmt_update_registration) {
-    $stmt_update_registration->bind_param('ii', $registered, $ecobricker_id);
-    $stmt_update_registration->execute();
-    $stmt_update_registration->close();
-} else {
-    error_log('Error preparing statement for updating earthen_registered in tb_ecobrickers: ' . $gobrik_conn->error);
-}
-
-// Update Buwana Database with registration status if buwana_id is provided
-if (!empty($buwana_id)) {
-    $sql_update_earthen_status = "UPDATE credentials_tb SET earthen_registered = ? WHERE buwana_id = ?";
-    $stmt_update_earthen_status = $buwana_conn->prepare($sql_update_earthen_status);
-
-    if ($stmt_update_earthen_status) {
-        $stmt_update_earthen_status->bind_param('ii', $registered, $buwana_id);
-        $stmt_update_earthen_status->execute();
-        $stmt_update_earthen_status->close();
-    } else {
-        error_log('Error preparing statement for updating earthen_registered in credentials_tb: ' . $buwana_conn->error);
-    }
-}
 
 // Close database connections
 $gobrik_conn->close();
@@ -150,5 +174,6 @@ if (isset($buwana_conn)) {
 header('Location: activate-3.php?id=' . $ecobricker_id);
 exit();
 ?>
+
 
 

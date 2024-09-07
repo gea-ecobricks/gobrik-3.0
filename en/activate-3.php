@@ -13,7 +13,7 @@ if (isLoggedIn()) {
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.53';
+$version = '0.54';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 // set $is_logged_in to false for this page
 $is_logged_in = false;
@@ -168,7 +168,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
-    <div id="status-message"><?php echo htmlspecialchars($first_name); ?>, <span data-lang-id="012-status-heading">your password & email are set!</span><div>
+    <div id="status-message"><?php echo htmlspecialchars($first_name); ?>, <span data-lang-id="012-status-heading">your password & email are set!</span></div>
+
     <div id="sub-status-message" data-lang-id="013-sub-status-tell">Now please tell us a little about yourself...</div>
 </div>
 
@@ -177,7 +178,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <form id="user-info-form" method="post" action="activate-3.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
                         <div class="form-item" id="language-select">
                           <!--<label for="language_id">Please tell us which language you prefer...</label><br>-->
-            <select name="language_id" id="language_id" style="max-width:480px;display: block;margin: auto;cursor:pointer;" required>
+            <select name="language_id" id="language_id" style="max-width:480px;display: block;margin: auto;cursor:pointer;" required placeholder="Select your preferred language...">
                 <!-- Placeholder option -->
                 <span data-lang-id="014-language-placeholder">
                 <option value="" disabled selected>Select your preferred language...</option>

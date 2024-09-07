@@ -32,6 +32,7 @@ const id_Page_Translations = {
     "015-country-place-holder": "<option value=\"\">Pilih negara tempat tinggal Anda...</option>",
     "015-watershed-place-holder": "<option value=\"\">Pilih daerah aliran sungai lokal Anda...</option>",
     "018-what-is-watershed": "Apa itu ",
-    "016-submit-complete-button": "<input type=\"submit\" id=\"submit-button\" value=\"✔️ Selesaikan Pengaturan\" class=\"submit-button disabled\" disabled>"
+    "016-submit-complete-button": "<input type=\"submit\" id=\"submit-button\" value=\"✔️ Selesaikan Pengaturan\" class=\"submit-button disabled\" disabled>",
+    "019-watershed": "daerah aliran sungai",
 
 };

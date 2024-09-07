@@ -34,7 +34,8 @@ const en_Page_Translations = {
     "015-country-place-holder": "<option value=\"\">Select your country of residence...</option>",
     "015-watershed-place-holder": "<option value=\"\">Select your local watershed...</option>",
     "018-what-is-watershed": "What is a ",
-    "016-submit-complete-button": "<input type=\"submit\" id=\"submit-button\" value=\"✔️ Complete Setup\" class=\"submit-button disabled\" disabled>"
+    "016-submit-complete-button": "<input type=\"submit\" id=\"submit-button\" value=\"✔️ Complete Setup\" class=\"submit-button disabled\" disabled>",
+    "019-watershed": "watershed",
 
 
 };

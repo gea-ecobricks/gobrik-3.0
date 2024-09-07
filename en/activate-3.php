@@ -247,51 +247,54 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 </div>
     <!--FOOTER STARTS HERE-->
 <?php require_once ("../footer-2024.php"); ?>
+
+
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Get references to elements
     var continentSelect = document.getElementById('continent_code');
-    var watershedSelectDiv = document.getElementById('watershed-select');
-    var watershedSelect = document.getElementById('watershed_id');
-    var countrySelectDiv = document.getElementById('country-select');
-    var countrySelect = document.getElementById('country_id');
+    var watershedSelect = document.getElementById('watershed-select');
+    var watershedDropdown = document.getElementById('watershed_id');
+    var countrySelect = document.getElementById('country-select');
+    var countryDropdown = document.getElementById('country_id');
     var submitButton = document.getElementById('submit-button');
 
-    // Initialize variables
-    var allCountries = <?php echo json_encode($countries); ?>; // Get all countries from PHP
+    // Initially hide the watershed and country dropdowns
+    watershedSelect.style.display = 'none';
+    countrySelect.style.display = 'none';
 
-    // Initially hide all fields except the continent selection
-    watershedSelectDiv.style.display = 'none';
-    countrySelectDiv.style.display = 'none';
-    submitButton.disabled = true;
-    submitButton.classList.add('disabled');
-
-    // Show watershed selection after continent is selected
+    // Event listener for continent selection
     continentSelect.addEventListener('change', function() {
         if (this.value !== '') {
-            watershedSelectDiv.style.display = 'block'; // Show the watershed select
+            var continentCode = this.value;
+
+            // Fetch countries and watersheds based on the selected continent using AJAX
+            fetchCountries(continentCode);
+            fetchWatersheds(continentCode);
         } else {
-            watershedSelectDiv.style.display = 'none'; // Hide the watershed select
-            countrySelectDiv.style.display = 'none'; // Hide the country select
+            // Reset and hide subsequent dropdowns
+            watershedSelect.style.display = 'none';
+            countrySelect.style.display = 'none';
+            watershedDropdown.innerHTML = '<option value="" disabled selected>Select your watershed...</option>';
+            countryDropdown.innerHTML = '<option value="" disabled selected>Select your country of residence...</option>';
             submitButton.disabled = true;
             submitButton.classList.add('disabled');
         }
     });
 
-    // Show country selection after watershed is selected
-    watershedSelect.addEventListener('change', function() {
+    // Show country dropdown after selecting watershed
+    watershedDropdown.addEventListener('change', function() {
         if (this.value !== '') {
-            filterCountriesByContinent(continentSelect.value); // Filter and display countries
-            countrySelectDiv.style.display = 'block'; // Show the country select
+            countrySelect.style.display = 'block';
         } else {
-            countrySelectDiv.style.display = 'none'; // Hide the country select
+            countrySelect.style.display = 'none';
             submitButton.disabled = true;
             submitButton.classList.add('disabled');
         }
     });
 
     // Enable submit button after country is selected
-    countrySelect.addEventListener('change', function() {
+    countryDropdown.addEventListener('change', function() {
         if (this.value !== '') {
             submitButton.disabled = false;
             submitButton.classList.remove('disabled');
@@ -303,26 +306,68 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Function to filter and display countries based on selected continent
-    function filterCountriesByContinent(continentCode) {
-        // Clear current country options
-        countrySelect.innerHTML = '<option value="" disabled selected>Select your country...</option>';
+    // AJAX function to fetch countries
+    function fetchCountries(continentCode) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'fetch_countries.php', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-        // Filter countries based on the selected continent
-        var filteredCountries = allCountries.filter(function(country) {
-            return country.continent_code === continentCode;
-        });
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
 
-        // Add filtered countries to the dropdown
-        filteredCountries.forEach(function(country) {
-            var option = document.createElement('option');
-            option.value = country.country_id;
-            option.textContent = country.country_name;
-            countrySelect.appendChild(option);
-        });
+                // Clear current options
+                countryDropdown.innerHTML = '<option value="" disabled selected>Select your country of residence...</option>';
+
+                // Add new options from the response
+                response.forEach(function(country) {
+                    var option = document.createElement('option');
+                    option.value = country.country_id;
+                    option.textContent = country.country_name;
+                    countryDropdown.appendChild(option);
+                });
+
+                // Show the country dropdown
+                countrySelect.style.display = 'block';
+            }
+        };
+
+        // Send continent code to the server
+        xhr.send('continent_code=' + encodeURIComponent(continentCode));
+    }
+
+    // AJAX function to fetch watersheds
+    function fetchWatersheds(continentCode) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'fetch_watersheds.php', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+
+                // Clear current options
+                watershedDropdown.innerHTML = '<option value="" disabled selected>Select your watershed...</option>';
+
+                // Add new options from the response
+                response.forEach(function(watershed) {
+                    var option = document.createElement('option');
+                    option.value = watershed.watershed_id;
+                    option.textContent = watershed.watershed_name;
+                    watershedDropdown.appendChild(option);
+                });
+
+                // Show the watershed dropdown
+                watershedSelect.style.display = 'block';
+            }
+        };
+
+        // Send continent code to the server
+        xhr.send('continent_code=' + encodeURIComponent(continentCode));
     }
 });
 </script>
+
 
 
 

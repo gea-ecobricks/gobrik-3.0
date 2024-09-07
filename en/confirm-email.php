@@ -330,22 +330,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 1000);
 
-    // JavaScript function to show/hide divs based on gobrik_migrated
-//     function showDependingOnLegacy(gobrikMigrated) {
-//         if (gobrikMigrated === 1) {
-//             document.getElementById('legacy-account-email-not-used').style.display = 'block';
-//             document.getElementById('new-account-another-email-please').style.display = 'none';
-//         } else {
-//             document.getElementById('legacy-account-email-not-used').style.display = 'none';
-//             document.getElementById('new-account-another-email-please').style.display = 'block';
-//         }
-//     }
 
-//     // Fetch the gobrik_migrated value from PHP safely using json_encode
-//     var gobrikMigrated = <?php echo json_encode($gobrik_migrated); ?>;
-//
-//     // Call the function with the retrieved value
-//     showDependingOnLegacy(gobrikMigrated);
 
     // Show/Hide Divs after email is sent
     var codeSent = <?php echo json_encode($code_sent_flag ?? false); ?>;  // Only set once

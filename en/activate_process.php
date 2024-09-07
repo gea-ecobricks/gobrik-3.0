@@ -63,17 +63,23 @@ if (!empty($buwana_id)) {
 }
 
 
+
+
 // PART 3: Check registration status on the Ghost platform
 $email_encoded = urlencode($email_addr);
 $ghost_admin_key = '66db68b5cff59f045598dbc3:5c82d570631831f277b1a9b4e5840703e73a68e948812b2277a0bc11c12c973f'; // Your Admin API key
-$ghost_url = "https://earthen.io/ghost/api/canary/admin/members/?filter=email:$email_encoded";
+$ghost_url = "https://earthen.io/ghost/api/v3/admin/members/?filter=email:$email_encoded";
+
+// Create the token using the Admin API key
+$token = base64_encode($ghost_admin_key);
 
 // Prepare the cURL request
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $ghost_url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
-    'Authorization: Ghost ' . base64_encode($ghost_admin_key) // Set the Authorization header with the encoded Admin API key
+    'Authorization: Ghost ' . $token, // Correctly format the Authorization header with 'Ghost' prefix
+    'Content-Type: application/json'  // Set content type to JSON
 ]);
 
 // Perform the API call
@@ -83,7 +89,7 @@ $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 // Check for errors
 if ($response === false || $http_code !== 200) {
     error_log('API call to Earthen.io failed with response: ' . curl_error($ch) . ' and HTTP code: ' . $http_code);
-    echo '<script>console.error("API call to Earthen.io failed.");</script>';
+    echo '<script>console.error("API call to Earthen.io failed with HTTP code: ' . $http_code . '");</script>';
     curl_close($ch);
     // Skip further processing and redirect
     header('Location: activate-3.php?id=' . $ecobricker_id);
@@ -106,6 +112,8 @@ if ($response_data && isset($response_data['members']) && is_array($response_dat
     }
 }
 
+
+//PART 4
 // Update GoBrik Database with registration status
 $sql_update_registration = "UPDATE tb_ecobrickers SET earthen_registered = ? WHERE ecobricker_id = ?";
 $stmt_update_registration = $gobrik_conn->prepare($sql_update_registration);

@@ -1,12 +1,24 @@
 <?php
-session_start();
+require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+// Check if the user is logged in
+if (isLoggedIn()) {
+    header('Location: dashboard.php'); // Redirect to dashboard if the user is logged in
+    exit();
+}
+
+// Set page variables
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$version = '0.5';
+$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+// set $is_logged_in to false for this page
+$is_logged_in = false;
+
 // Initialize variables
 $buwana_id = $_GET['id'] ?? null;  // Correctly initializing buwana_id
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.459';
 $page = 'activate';
 $first_name = '';
 $email_addr = '';

@@ -192,17 +192,17 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <!-- ACTIVATE 3 FORM -->
 <form id="user-info-form" method="post" action="activate-3.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
 
-    <!-- CONTINENT -->
-    <div class="form-item" id="continent-select" style="display:block;">
-        <select name="continent_code" id="continent_code" style="max-width:480px; display: block; margin: auto; cursor: pointer;" required>
-            <option value="" disabled selected data-lang-id="015-continent-place-holder">Select your continent...</option>
-            <?php foreach ($continents as $continent) { ?>
-                <option value="<?php echo $continent['continent_code']; ?>">
-                    <?php echo htmlspecialchars($continent['continent_name']); ?>
-                </option>
-            <?php } ?>
-        </select>
-    </div>
+<!-- CONTINENT -->
+<div class="form-item" id="continent-select" style="display:block;">
+    <select name="continent_code" id="continent_code" style="max-width:480px; display: block; margin: auto; cursor: pointer;" required>
+        <option value="" disabled data-lang-id="015-continent-place-holder" selected>Select your continent...</option>
+        <?php foreach ($continents as $continent) { ?>
+            <option value="<?php echo $continent['continent_code']; ?>">
+                <?php echo htmlspecialchars($continent['continent_name']); ?>
+            </option>
+        <?php } ?>
+    </select>
+</div>
 
     <!-- WATERSHED -->
     <div class="form-item" id="watershed-select" style="display:none;">

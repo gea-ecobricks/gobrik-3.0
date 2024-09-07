@@ -79,7 +79,7 @@ $now = time();
 $payload = json_encode([
     'iat' => $now,
     'exp' => $now + 300, // Token valid for 5 minutes
-    'aud' => '/canary/admin/' // Corrected audience value to match the expected pattern
+    'aud' => '/v3/admin/' // Corrected audience value to match the expected pattern
 ]);
 
 // Base64Url Encode function

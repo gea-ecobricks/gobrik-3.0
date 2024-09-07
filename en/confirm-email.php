@@ -1,4 +1,5 @@
 <?php
+//signup-2.php sends new users here.
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
 error_reporting(E_ALL);

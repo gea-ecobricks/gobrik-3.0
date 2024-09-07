@@ -1,4 +1,5 @@
 <?php
+//THis page is triggered by activate-2 and sends the user to activate-3
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
 error_reporting(E_ALL);
@@ -158,7 +159,7 @@ if ($http_code >= 200 && $http_code < 300) {
     error_log('HTTP status ' . $http_code . ': ' . $response);
     echo '<script>console.error("API call to Earthen.io failed with HTTP code: ' . $http_code . '");</script>';
     // Skip further processing and redirect
-    header('Location: activate-3.php?id=' . $ecobricker_id);
+    header('Location: activate-3.php?id=' . $buwana_id);
     exit();
 }
 
@@ -172,7 +173,7 @@ if (isset($buwana_conn)) {
 }
 
 // Redirect to the next activation page
-header('Location: activate-3.php?id=' . $ecobricker_id);
+header('Location: activate-3.php?id=' . $buwana_id);
 exit();
 ?>
 

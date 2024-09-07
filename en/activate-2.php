@@ -1,4 +1,5 @@
 <?php
+//Not active!!
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -278,6 +279,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <?php require_once ("../footer-2024.php"); ?>
 
 <script>
+//activate.php send new users here
 
 /*FORM FIELD VALIDATION*/
 

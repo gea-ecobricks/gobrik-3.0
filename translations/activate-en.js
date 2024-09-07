@@ -24,6 +24,8 @@ const en_Page_Translations = {
   "010-email-no-longer": "Do you no longer use this email address?<br>If not, you'll need to <a href=\"signup.php\">create a new account</a> or contact our team at support@gobrik.com.",
   "011-change-email": "Want to change your email?",
   "012-go-back-new-email": "Go back to enter a different email address."
+
+  //Ativate-3
 };
 
 

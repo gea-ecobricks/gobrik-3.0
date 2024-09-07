@@ -114,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 exit();
             }
 
-            // Now create the Ecobricker account in GoBrik using the first_name from Buwana
+            // Now create the Ecobricker account in GoBrik using the first_name and other info from Buwana
             $sql_create_ecobricker = "INSERT INTO tb_ecobrickers (first_name, buwana_id, email_addr, date_registered, maker_id, buwana_activated, buwana_activation_dt) VALUES (?, ?, ?, NOW(), ?, 1, NOW())";
             $stmt_create_ecobricker = $gobrik_conn->prepare($sql_create_ecobricker);
 

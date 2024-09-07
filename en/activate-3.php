@@ -1,4 +1,5 @@
 <?php
+//confirm-email and activate-2 sends users here.
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
 error_reporting(E_ALL);
@@ -167,8 +168,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
-    <h2><?php echo htmlspecialchars($first_name); ?>, your password & email are set!</h2>
-    <p>Now please tell us a little about yourself...</p>
+    <div id="status-message"><?php echo htmlspecialchars($first_name); ?>, <span data-lang-id="012-status-heading">your password & email are set!</span><div>
+    <div id="sub-status-message" data-lang-id="013-sub-status-tell">Now please tell us a little about yourself...</div>
 </div>
 
 
@@ -178,7 +179,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                           <!--<label for="language_id">Please tell us which language you prefer...</label><br>-->
             <select name="language_id" id="language_id" style="max-width:480px;display: block;margin: auto;cursor:pointer;" required>
                 <!-- Placeholder option -->
+                <span data-lang-id="014-language-placeholder">
                 <option value="" disabled selected>Select your preferred language...</option>
+                <span>
 
                 <?php foreach ($languages as $language): ?>
                     <option value="<?php echo htmlspecialchars($language['lang_id']); ?>"
@@ -193,7 +196,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <div class="form-item" id="country-select" style="display:none;">
                 <!--<label for="country_id">Please select your country of residence...</label><br>-->
               <select name="country_id" id="country_id" style="max-width:480px;display: block;margin: auto;cursor:pointer;" required >
+                  <span data-lang-id="015-country-place-holder">
                     <option value="">Select your country of residence...</option>
+                  </span>
                     <?php foreach ($countries as $country) { ?>
                         <option value="<?php echo $country['country_id']; ?>">
                             <?php echo htmlspecialchars($country['country_name']); ?>
@@ -202,16 +207,13 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 </select>
             </div>
 
-            <div id="submit-section" style="text-align:center;margin-top:15px;">
+            <div id="submit-section" style="text-align:center;margin-top:15px;" data-lang-id="016-submit-complete-button">
                 <input type="submit" id="submit-button" value="✔️ Complete Setup" class="submit-button disabled" disabled>
             </div>
         </form>
     </div>
 
-    <!--<div style="text-align:center;width:100%;margin:auto;margin-top: 20px;">
-        <p style="font-size:medium;" data-land-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
-    </div>
--->
+
 
 </div>
 </div>

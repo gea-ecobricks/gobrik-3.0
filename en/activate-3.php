@@ -67,7 +67,7 @@ if (empty($first_name)) {
 }
 
 // Fetch continents from Buwana database
-$sql_continents = "SELECT continent_id, continent_name FROM continents_tb ORDER BY continent_name";
+$sql_continents = "SELECT continent_code, continent_name FROM continents_tb ORDER BY continent_name";
 $result_continents = $buwana_conn->query($sql_continents);
 
 if ($result_continents->num_rows > 0) {

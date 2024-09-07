@@ -63,12 +63,11 @@ if (!empty($buwana_id)) {
 }
 
 
-
 // PART 3: Check registration status on the Ghost platform
 
 // Prepare and encode the email address for use in the API URL
 $email_encoded = urlencode($email_addr);
-$ghost_api_url = "https://earthen.io/ghost/api/canary/admin/members/?filter=email:$email_encoded";
+$ghost_api_url = "https://earthen.io/ghost/api/v3/admin/members/?filter=email:$email_encoded";
 
 // Split API Key into ID and Secret for JWT generation
 $apiKey = '66db68b5cff59f045598dbc3:5c82d570631831f277b1a9b4e5840703e73a68e948812b2277a0bc11c12c973f';
@@ -80,7 +79,7 @@ $now = time();
 $payload = json_encode([
     'iat' => $now,
     'exp' => $now + 300, // Token valid for 5 minutes
-    'aud' => '/v3/admin/' // Audience for Ghost API
+    'aud' => '/canary/admin/' // Corrected audience value to match the expected pattern
 ]);
 
 // Base64Url Encode function
@@ -107,7 +106,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
     'Content-Type: application/json'
 ));
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_HTTPGET, true); // Use GET instead of POST since we are fetching data
+curl_setopt($ch, CURLOPT_HTTPGET, true); // Use GET to fetch data
 
 // Execute the cURL session
 $response = curl_exec($ch);
@@ -127,6 +126,8 @@ if ($http_code >= 200 && $http_code < 300) {
         $registered = 1; // Member with the given email exists
     }
 
+
+//PART 4
     // Update GoBrik Database with registration status
     $sql_update_registration = "UPDATE tb_ecobrickers SET earthen_registered = ? WHERE ecobricker_id = ?";
     $stmt_update_registration = $gobrik_conn->prepare($sql_update_registration);
@@ -174,6 +175,7 @@ if (isset($buwana_conn)) {
 header('Location: activate-3.php?id=' . $ecobricker_id);
 exit();
 ?>
+
 
 
 

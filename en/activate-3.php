@@ -207,7 +207,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <!-- WATERSHED -->
     <div class="form-item" id="watershed-select" style="display:none;">
         <select name="watershed_id" id="watershed_id" style="max-width:480px; display: block; margin: auto; cursor: pointer;" required>
-            <option value="" disabled selected data-lang-id="015-watershed-place-holder">Select your watershed...</option>
+            <option value="" selected disabled data-lang-id="015-watershed-place-holder">Select your watershed...</option>
             <?php foreach ($watersheds as $watershed) { ?>
                 <option value="<?php echo $watershed['watershed_id']; ?>">
                     <?php echo htmlspecialchars($watershed['watershed_name']); ?>

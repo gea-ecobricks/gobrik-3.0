@@ -23,9 +23,20 @@ const en_Page_Translations = {
   "009-no-code": "Didn't get your code? You can request a resend of the code in",
   "010-email-no-longer": "Do you no longer use this email address?<br>If not, you'll need to <a href=\"signup.php\">create a new account</a> or contact our team at support@gobrik.com.",
   "011-change-email": "Want to change your email?",
-  "012-go-back-new-email": "Go back to enter a different email address."
+  "012-go-back-new-email": "Go back to enter a different email address.",
 
-  //Ativate-3
+  // Activate-3.php
+
+
+    "012-status-heading": "your password & email are set!",
+    "013-sub-status-tell": "Now please tell us a little about yourself...",
+    "014-language-placeholder": "<option value=\"\" disabled selected>Select your preferred language...</option>",
+    "015-country-place-holder": "<option value=\"\">Select your country of residence...</option>",
+    "015-watershed-place-holder": "<option value=\"\">Select your local watershed...</option>",
+    "018-what-is-watershed": "What is a ",
+    "016-submit-complete-button": "<input type=\"submit\" id=\"submit-button\" value=\"✔️ Complete Setup\" class=\"submit-button disabled\" disabled>"
+
+
 };
 
 

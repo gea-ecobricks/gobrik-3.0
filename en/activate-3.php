@@ -13,7 +13,7 @@ if (isLoggedIn()) {
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.51';
+$version = '0.52';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 // set $is_logged_in to false for this page
 $is_logged_in = false;
@@ -205,6 +205,22 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                         </option>
                     <?php } ?>
                 </select>
+            </div>
+
+        <div class="form-item" id="watershed-select" style="display:block;">
+                <!--<label for="country_id">Please select your country of residence...</label><br>-->
+              <select name="watershed_id" id="watershed_id" style="max-width:480px;display: block;margin: auto;cursor:pointer;" required >
+                  <span data-lang-id="015-watershed-place-holder">
+                    <option value="">Select your local watershed...</option>
+                  </span>
+                    <?php foreach ($countries as $country) { ?>
+                        <option value="<?php echo $country['country_id']; ?>">
+                            <?php echo htmlspecialchars($country['country_name']); ?>
+                        </option>
+                    <?php } ?>
+                </select>
+                    <p class="form-caption"><span  data-lang-id="018-what-is-watershed">What is a </span><a href="#" onclick="showModalInfo('watershed', '<?php echo $lang; ?>')" class="underline-link">whatershed</a>?</p>
+
             </div>
 
             <div id="submit-section" style="text-align:center;margin-top:15px;" data-lang-id="016-submit-complete-button">

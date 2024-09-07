@@ -22,5 +22,16 @@ const id_Page_Translations = {
   "009-no-code": "Tidak menerima kode Anda? Anda dapat meminta pengiriman ulang kode dalam",
   "010-email-no-longer": "Apakah Anda tidak lagi menggunakan alamat email ini?<br>Jika tidak, Anda perlu <a href=\"signup.php\">membuat akun baru</a> atau hubungi tim kami di support@gobrik.com.",
   "011-change-email": "Ingin mengganti email Anda?",
-  "012-go-back-new-email": "Kembali untuk memasukkan alamat email yang berbeda."
+  "012-go-back-new-email": "Kembali untuk memasukkan alamat email yang berbeda.",
+
+    // Activate-3.php
+
+     "012-status-heading": "kata sandi & email Anda telah diatur!",
+    "013-sub-status-tell": "Sekarang tolong ceritakan sedikit tentang diri Anda...",
+    "014-language-placeholder": "<option value=\"\" disabled selected>Pilih bahasa yang Anda inginkan...</option>",
+    "015-country-place-holder": "<option value=\"\">Pilih negara tempat tinggal Anda...</option>",
+    "015-watershed-place-holder": "<option value=\"\">Pilih daerah aliran sungai lokal Anda...</option>",
+    "018-what-is-watershed": "Apa itu ",
+    "016-submit-complete-button": "<input type=\"submit\" id=\"submit-button\" value=\"✔️ Selesaikan Pengaturan\" class=\"submit-button disabled\" disabled>"
+
 };

@@ -194,7 +194,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     <!-- CONTINENT -->
     <div class="form-item" id="continent-select" style="display:block;">
-        <select name="continent_code" id="continent_code" style="max-width:480px;display: block;margin: auto;cursor:pointer;" required>
+        <select name="continent_code" id="continent_code" style="max-width:480px; display: block; margin: auto; cursor: pointer;" required>
             <option value="" disabled selected data-lang-id="015-continent-place-holder">Select your continent...</option>
             <?php foreach ($continents as $continent) { ?>
                 <option value="<?php echo $continent['continent_code']; ?>">
@@ -204,21 +204,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </select>
     </div>
 
-    <!-- COUNTRY -->
-    <div class="form-item" id="country-select" style="display:block;">
-        <select name="country_id" id="country_id" style="max-width:480px;display: block;margin: auto;cursor:pointer;" required>
-            <option value="" disabled selected data-lang-id="015-country-place-holder">Select your country of residence...</option>
-            <?php foreach ($countries as $country) { ?>
-                <option value="<?php echo $country['country_id']; ?>">
-                    <?php echo htmlspecialchars($country['country_name']); ?>
-                </option>
-            <?php } ?>
-        </select>
-    </div>
-
     <!-- WATERSHED -->
-    <div class="form-item" id="watershed-select" style="display:block;">
-        <select name="watershed_id" id="watershed_id" style="max-width:480px;display: block;margin: auto;cursor:pointer;" required>
+    <div class="form-item" id="watershed-select" style="display:none;">
+        <select name="watershed_id" id="watershed_id" style="max-width:480px; display: block; margin: auto; cursor: pointer;" required>
             <option value="" disabled selected data-lang-id="015-watershed-place-holder">Select your watershed...</option>
             <?php foreach ($watersheds as $watershed) { ?>
                 <option value="<?php echo $watershed['watershed_id']; ?>">
@@ -229,10 +217,23 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <p class="form-caption" style="text-align:center"><span data-lang-id="018-what-is-watershed">What is a </span><a href="#" onclick="showModalInfo('watershed', '<?php echo $lang; ?>')" class="underline-link" data-lang-id="019-watershed">watershed</a>?</p>
     </div>
 
+    <!-- COUNTRY -->
+    <div class="form-item" id="country-select" style="display:none;">
+        <select name="country_id" id="country_id" style="max-width:480px; display: block; margin: auto; cursor: pointer;" required>
+            <option value="" disabled selected data-lang-id="015-country-place-holder">Select your country of residence...</option>
+            <?php foreach ($countries as $country) { ?>
+                <option value="<?php echo $country['country_id']; ?>" data-continent="<?php echo $country['continent_code']; ?>">
+                    <?php echo htmlspecialchars($country['country_name']); ?>
+                </option>
+            <?php } ?>
+        </select>
+    </div>
+
     <div id="submit-section" style="text-align:center;margin-top:15px;" data-lang-id="016-submit-complete-button">
         <input type="submit" id="submit-button" value="✔️ Complete Setup" class="submit-button disabled" disabled>
     </div>
 </form>
+
 
     </div>
 
@@ -246,47 +247,47 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 document.addEventListener('DOMContentLoaded', function() {
     // Get references to elements
     var continentSelect = document.getElementById('continent_code');
-    var countrySelectDiv = document.getElementById('country-select');
-    var countrySelect = document.getElementById('country_id');
     var watershedSelectDiv = document.getElementById('watershed-select');
     var watershedSelect = document.getElementById('watershed_id');
+    var countrySelectDiv = document.getElementById('country-select');
+    var countrySelect = document.getElementById('country_id');
     var submitButton = document.getElementById('submit-button');
 
     // Initialize variables
     var allCountries = <?php echo json_encode($countries); ?>; // Get all countries from PHP
 
     // Initially hide all fields except the continent selection
-    countrySelectDiv.style.display = 'none';
     watershedSelectDiv.style.display = 'none';
+    countrySelectDiv.style.display = 'none';
     submitButton.disabled = true;
     submitButton.classList.add('disabled');
 
-    // Show country selection after continent is selected
+    // Show watershed selection after continent is selected
     continentSelect.addEventListener('change', function() {
-        if (this.value !== '') {
-            filterCountriesByContinent(this.value); // Filter and display countries
-            countrySelectDiv.style.display = 'block'; // Show the country select
-        } else {
-            countrySelectDiv.style.display = 'none'; // Hide the country select
-            watershedSelectDiv.style.display = 'none'; // Hide the watershed select
-            submitButton.disabled = true;
-            submitButton.classList.add('disabled');
-        }
-    });
-
-    // Show watershed selection after country is selected
-    countrySelect.addEventListener('change', function() {
         if (this.value !== '') {
             watershedSelectDiv.style.display = 'block'; // Show the watershed select
         } else {
             watershedSelectDiv.style.display = 'none'; // Hide the watershed select
+            countrySelectDiv.style.display = 'none'; // Hide the country select
             submitButton.disabled = true;
             submitButton.classList.add('disabled');
         }
     });
 
-    // Enable submit button after watershed is selected
+    // Show country selection after watershed is selected
     watershedSelect.addEventListener('change', function() {
+        if (this.value !== '') {
+            filterCountriesByContinent(continentSelect.value); // Filter and display countries
+            countrySelectDiv.style.display = 'block'; // Show the country select
+        } else {
+            countrySelectDiv.style.display = 'none'; // Hide the country select
+            submitButton.disabled = true;
+            submitButton.classList.add('disabled');
+        }
+    });
+
+    // Enable submit button after country is selected
+    countrySelect.addEventListener('change', function() {
         if (this.value !== '') {
             submitButton.disabled = false;
             submitButton.classList.remove('disabled');
@@ -318,6 +319,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+
 
 
 

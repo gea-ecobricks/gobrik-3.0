@@ -23,8 +23,9 @@ $buwana_id = $_GET['id'] ?? null;  // Correctly initializing buwana_id
 $page = 'activate';
 $first_name = '';
 $email_addr = '';
-$languages = [];
+$continents = [];
 $countries = [];
+$watersheds = [];
 
 // PART 1: Check if the user is already logged in
 if (isset($_SESSION['buwana_id'])) {
@@ -65,14 +66,16 @@ if (empty($first_name)) {
     $first_name = 'User'; // Fallback if first name is not set
 }
 
-// Fetch languages from Buwana database
-$sql_languages = "SELECT lang_id, languages_eng_name, language_active FROM languages_tb ORDER BY languages_eng_name";
-$result_languages = $buwana_conn->query($sql_languages);
+// Fetch continents from Buwana database
+$sql_continents = "SELECT continent_id, continent_name FROM continents_tb ORDER BY continent_name";
+$result_continents = $buwana_conn->query($sql_continents);
 
-if ($result_languages->num_rows > 0) {
-    while ($row = $result_languages->fetch_assoc()) {
-        $languages[] = $row;
+if ($result_continents->num_rows > 0) {
+    while ($row = $result_continents->fetch_assoc()) {
+        $continents[] = $row;
     }
+} else {
+    error_log('No continents found or error in query: ' . $buwana_conn->error);
 }
 
 // Fetch countries from Buwana database
@@ -84,24 +87,36 @@ if ($result_countries->num_rows > 0) {
         $countries[] = $row;
     }
 } else {
-    echo "No countries found.";
+    error_log('No countries found or error in query: ' . $buwana_conn->error);
 }
 
+// Fetch watersheds from Buwana database
+$sql_watersheds = "SELECT watershed_id, watershed_name FROM watersheds_tb ORDER BY watershed_name";
+$result_watersheds = $buwana_conn->query($sql_watersheds);
+
+if ($result_watersheds->num_rows > 0) {
+    while ($row = $result_watersheds->fetch_assoc()) {
+        $watersheds[] = $row;
+    }
+} else {
+    error_log('No watersheds found or error in query: ' . $buwana_conn->error);
+}
 
 // PART 4: Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $selected_language_id = $_POST['language_id'];
+    $selected_continent_id = $_POST['continent_id'];
     $selected_country_id = $_POST['country_id'];
+    $selected_watershed_id = $_POST['watershed_id'];
 
-    // Update the Buwana user's language and country using buwana_id
-    $sql_update_buwana = "UPDATE users_tb SET languages_id = ?, country_id = ? WHERE buwana_id = ?";
+    // Update the Buwana user's continent, country, and watershed using buwana_id
+    $sql_update_buwana = "UPDATE users_tb SET continent_id = ?, country_id = ?, watershed_id = ? WHERE buwana_id = ?";
     $stmt_update_buwana = $buwana_conn->prepare($sql_update_buwana);
     if ($stmt_update_buwana) {
-        $stmt_update_buwana->bind_param('iii', $selected_language_id, $selected_country_id, $buwana_id);
+        $stmt_update_buwana->bind_param('iiii', $selected_continent_id, $selected_country_id, $selected_watershed_id, $buwana_id);
         $stmt_update_buwana->execute();
         $stmt_update_buwana->close();
 
-          // PART 5: Open GoBrik connection and update tb_ecobrickers to set buwana_activated to 1
+        // PART 5: Open GoBrik connection and update tb_ecobrickers to set buwana_activated to 1
         require_once("../gobrikconn_env.php");
 
         $sql_update_gobrik = "UPDATE tb_ecobrickers SET buwana_activated = 1 WHERE buwana_id = ?";
@@ -143,6 +158,7 @@ $buwana_conn->close();
 
 
 
+
 <!DOCTYPE html>
 <html lang="<?php echo $lang; ?>">
 <head>
@@ -170,60 +186,54 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <div style="text-align:center;width:100%;margin:auto;">
     <div id="status-message"><?php echo htmlspecialchars($first_name); ?>, <span data-lang-id="012-status-heading">your password & email are set!</span></div>
 
-    <div id="sub-status-message" data-lang-id="013-sub-status-tell">Now please tell us a little about yourself...</div>
+    <div id="sub-status-message" data-lang-id="013-sub-status-tell">Your new Buwana and GoBrik account is all about local and global ecological action.  Please tell us about where you live...</div>
 </div>
 
+<!-- ACTIVATE 3 FORM -->
+<form id="user-info-form" method="post" action="activate-3.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
 
-        <!--ACTIVATE 3 FORM-->
-        <form id="user-info-form" method="post" action="activate-3.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
-                        <div class="form-item" id="language-select">
-                          <!--<label for="language_id">Please tell us which language you prefer...</label><br>-->
-            <select name="language_id" id="language_id" style="max-width:480px;display: block;margin: auto;cursor:pointer;" required>
-                <!-- Placeholder option -->
-                <span data-lang-id="014-language-placeholder">
-                <option value="" disabled selected>Select your preferred language...</option>
-                <span>
+    <!-- CONTINENT -->
+    <div class="form-item" id="continent-select" style="display:block;">
+        <select name="continent_id" id="continent_id" style="max-width:480px;display: block;margin: auto;cursor:pointer;" required>
+            <option value="" disabled selected data-lang-id="015-continent-place-holder">Select your continent...</option>
+            <?php foreach ($continents as $continent) { ?>
+                <option value="<?php echo $continent['continent_id']; ?>">
+                    <?php echo htmlspecialchars($continent['continent_name']); ?>
+                </option>
+            <?php } ?>
+        </select>
+    </div>
 
-                <?php foreach ($languages as $language): ?>
-                    <option value="<?php echo htmlspecialchars($language['lang_id']); ?>"
-                        <?php echo $language['language_active'] == 0 ? 'disabled' : ''; ?>>
-                        <?php echo htmlspecialchars($language['languages_eng_name']); ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
+    <!-- COUNTRY -->
+    <div class="form-item" id="country-select" style="display:block;">
+        <select name="country_id" id="country_id" style="max-width:480px;display: block;margin: auto;cursor:pointer;" required>
+            <option value="" disabled selected data-lang-id="015-country-place-holder">Select your country of residence...</option>
+            <?php foreach ($countries as $country) { ?>
+                <option value="<?php echo $country['country_id']; ?>">
+                    <?php echo htmlspecialchars($country['country_name']); ?>
+                </option>
+            <?php } ?>
+        </select>
+    </div>
 
-            </div>
+    <!-- WATERSHED -->
+    <div class="form-item" id="watershed-select" style="display:block;">
+        <select name="watershed_id" id="watershed_id" style="max-width:480px;display: block;margin: auto;cursor:pointer;" required>
+            <option value="" disabled selected data-lang-id="015-watershed-place-holder">Select your watershed...</option>
+            <?php foreach ($watersheds as $watershed) { ?>
+                <option value="<?php echo $watershed['watershed_id']; ?>">
+                    <?php echo htmlspecialchars($watershed['watershed_name']); ?>
+                </option>
+            <?php } ?>
+        </select>
+        <p class="form-caption" style="text-align:center"><span data-lang-id="018-what-is-watershed">What is a </span><a href="#" onclick="showModalInfo('watershed', '<?php echo $lang; ?>')" class="underline-link" data-lang-id="019-watershed">watershed</a>?</p>
+    </div>
 
-            <div class="form-item" id="country-select" style="display:none;">
-                <!--<label for="country_id">Please select your country of residence...</label><br>-->
-              <select name="country_id" id="country_id" style="max-width:480px;display: block;margin: auto;cursor:pointer;" required >
-                    <option value="" disabled selected data-lang-id="015-country-place-holder">Select your country of residence...</option>
-                    <?php foreach ($countries as $country) { ?>
-                        <option value="<?php echo $country['country_id']; ?>">
-                            <?php echo htmlspecialchars($country['country_name']); ?>
-                        </option>
-                    <?php } ?>
-                </select>
-            </div>
+    <div id="submit-section" style="text-align:center;margin-top:15px;" data-lang-id="016-submit-complete-button">
+        <input type="submit" id="submit-button" value="✔️ Complete Setup" class="submit-button disabled" disabled>
+    </div>
+</form>
 
-        <div class="form-item" id="watershed-select" style="display:block;">
-                <!--<label for="country_id">Please select your country of residence...</label><br>-->
-               <select name="watershed_id" id="watershed_id" style="max-width:480px;display: block;margin: auto;cursor:pointer;" required>
-                    <option value="" disabled selected data-lang-id="015-country-place-holder">Select your country of residence...</option>
-                    <?php foreach ($countries as $country) { ?>
-                        <option value="<?php echo $country['country_id']; ?>">
-                            <?php echo htmlspecialchars($country['country_name']); ?>
-                        </option>
-                    <?php } ?>
-                </select>
-                    <p class="form-caption"><span  data-lang-id="018-what-is-watershed">What is a </span><a href="#" onclick="showModalInfo('watershed', '<?php echo $lang; ?>')" class="underline-link" data-lang-id="019-watershed">whatershed</a>?</p>
-
-            </div>
-
-            <div id="submit-section" style="text-align:center;margin-top:15px;" data-lang-id="016-submit-complete-button">
-                <input type="submit" id="submit-button" value="✔️ Complete Setup" class="submit-button disabled" disabled>
-            </div>
-        </form>
     </div>
 
 
@@ -235,24 +245,45 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Show country selection after language is selected
-    var languageSelect = document.getElementById('language_id');
-    var countrySelect = document.getElementById('country-select');
+    // Get references to elements
+    var continentSelect = document.getElementById('continent_id');
+    var countrySelectDiv = document.getElementById('country-select');
+    var countrySelect = document.getElementById('country_id');
+    var watershedSelectDiv = document.getElementById('watershed-select');
+    var watershedSelect = document.getElementById('watershed_id');
     var submitButton = document.getElementById('submit-button');
-    var countryDropdown = document.getElementById('country_id');
 
-    languageSelect.addEventListener('change', function() {
+    // Initially hide all fields except the continent selection
+    countrySelectDiv.style.display = 'none';
+    watershedSelectDiv.style.display = 'none';
+    submitButton.disabled = true;
+    submitButton.classList.add('disabled');
+
+    // Show country selection after continent is selected
+    continentSelect.addEventListener('change', function() {
         if (this.value !== '') {
-            countrySelect.style.display = 'block'; // Show the country select
+            countrySelectDiv.style.display = 'block'; // Show the country select
         } else {
-            countrySelect.style.display = 'none'; // Hide the country select
+            countrySelectDiv.style.display = 'none'; // Hide the country select
+            watershedSelectDiv.style.display = 'none'; // Hide the watershed select
             submitButton.disabled = true;
             submitButton.classList.add('disabled');
         }
     });
 
-    // Enable submit button after country is selected
-    countryDropdown.addEventListener('change', function() {
+    // Show watershed selection after country is selected
+    countrySelect.addEventListener('change', function() {
+        if (this.value !== '') {
+            watershedSelectDiv.style.display = 'block'; // Show the watershed select
+        } else {
+            watershedSelectDiv.style.display = 'none'; // Hide the watershed select
+            submitButton.disabled = true;
+            submitButton.classList.add('disabled');
+        }
+    });
+
+    // Enable submit button after watershed is selected
+    watershedSelect.addEventListener('change', function() {
         if (this.value !== '') {
             submitButton.disabled = false;
             submitButton.classList.remove('disabled');
@@ -265,6 +296,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
 
 </body>
 </html>

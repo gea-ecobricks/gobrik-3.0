@@ -242,7 +242,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 </div>
     <!--FOOTER STARTS HERE-->
 <?php require_once ("../footer-2024.php"); ?>
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Get references to elements
@@ -253,6 +252,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var watershedSelect = document.getElementById('watershed_id');
     var submitButton = document.getElementById('submit-button');
 
+    // Initialize variables
+    var allCountries = <?php echo json_encode($countries); ?>; // Get all countries from PHP
+
     // Initially hide all fields except the continent selection
     countrySelectDiv.style.display = 'none';
     watershedSelectDiv.style.display = 'none';
@@ -262,6 +264,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Show country selection after continent is selected
     continentSelect.addEventListener('change', function() {
         if (this.value !== '') {
+            filterCountriesByContinent(this.value); // Filter and display countries
             countrySelectDiv.style.display = 'block'; // Show the country select
         } else {
             countrySelectDiv.style.display = 'none'; // Hide the country select
@@ -294,8 +297,28 @@ document.addEventListener('DOMContentLoaded', function() {
             submitButton.classList.add('disabled');
         }
     });
+
+    // Function to filter and display countries based on selected continent
+    function filterCountriesByContinent(continentCode) {
+        // Clear current country options
+        countrySelect.innerHTML = '<option value="" disabled selected>Select your country...</option>';
+
+        // Filter countries based on the selected continent
+        var filteredCountries = allCountries.filter(function(country) {
+            return country.continent_code === continentCode;
+        });
+
+        // Add filtered countries to the dropdown
+        filteredCountries.forEach(function(country) {
+            var option = document.createElement('option');
+            option.value = country.country_id;
+            option.textContent = country.country_name;
+            countrySelect.appendChild(option);
+        });
+    }
 });
 </script>
+
 
 
 </body>

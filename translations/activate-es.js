@@ -26,7 +26,6 @@ const es_Page_Translations = {
 
       // Activate-3.php
 
-      const es_Page_Translations = {
     "012-status-heading": "¡su contraseña y correo electrónico están configurados!",
     "013-sub-status-tell": "Su nueva cuenta de Buwana y GoBrik se trata de acción ecológica local y global. Por favor, cuéntenos sobre dónde vive...",
     "014-your-continent": "¿En qué continente vive?",

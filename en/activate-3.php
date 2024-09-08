@@ -198,7 +198,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
             <!-- WATERSHED -->
             <div class="form-item" id="watershed-select" style="display:none;">
-                <label for="watershed" data-lang-id="014-your-watershed">In what river basic do you live?</label><br>
+                <label for="watershed" data-lang-id="014-your-watershed">In what river basin do you live?</label><br>
                 <select name="watershed_id" id="watershed_id" required>
                     <option value="" disabled selected data-lang-id="015-watershed-place-holder">Select your watershed...</option>
                     <option value="I don't know" data-lang-id="016-dont-know">I don't know</option>

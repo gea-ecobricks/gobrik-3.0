@@ -1,7 +1,6 @@
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
-// Start a secure session with regeneration to prevent session fixation
 startSecureSession();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -16,18 +15,12 @@ $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $first_name = '';
 $buwana_id = '';
 $country_icon = '';
+$watershed_name = 'Athabaska Basin';
+$is_logged_in = isLoggedIn();// Check if the user is logged in using the helper function
 
-// Check if the user is logged in
-if (!isLoggedIn()) {
-    // Redirect to login page with the redirect parameter set to the current page
-    echo '<script>
-        alert("Please login before viewing this page.");
-        window.location.href = "login.php?redirect=' . urlencode($page) . '";
-    </script>';
-    exit();
-}
-
-$buwana_id = $_SESSION['buwana_id'];
+// Check if user is logged in and session active
+if ($is_logged_in) {
+    $buwana_id = $_SESSION['buwana_id'] ?? ''; // Retrieve buwana_id from session
 
 // Include database connections
 require_once '../gobrikconn_env.php';

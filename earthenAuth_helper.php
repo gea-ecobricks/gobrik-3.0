@@ -35,6 +35,9 @@ function getUserFirstName($buwana_conn, $buwana_id) {
     }
     return $first_name;
 }
+
+
+
 function getUserContinent($buwana_conn, $buwana_id, $lang = '') {
     $continent_code = '';
     $country_icon = '';
@@ -81,10 +84,18 @@ function getUserContinent($buwana_conn, $buwana_id, $lang = '') {
                         $stmt_watershed->bind_result($watershed_name);
                         $stmt_watershed->fetch();
                         $stmt_watershed->close();
+                    } else {
+                        error_log("Failed to execute watershed query: " . $stmt_watershed->error);
                     }
+                } else {
+                    error_log("Failed to prepare watershed query: " . $buwana_conn->error);
                 }
             }
+        } else {
+            error_log("Failed to execute user query: " . $stmt_user->error);
         }
+    } else {
+        error_log("Failed to prepare user query: " . $buwana_conn->error);
     }
 
     // Determine the globe emoticon based on the continent code
@@ -116,5 +127,6 @@ function getUserContinent($buwana_conn, $buwana_id, $lang = '') {
 
     return ['continent_icon' => $country_icon, 'watershed_name' => $watershed_name];
 }
+
 
 ?>

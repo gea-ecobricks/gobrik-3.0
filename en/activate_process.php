@@ -1,5 +1,8 @@
 <?php
-//THis page is triggered by activate-2 and sends the user to activate-3
+//THis page is triggered by confirm-email and sends the user to activate-3 if they have a buwana account.  If not they go to activate-2
+//update at part2
+
+//PART 0 start up get ids
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
 error_reporting(E_ALL);
@@ -62,6 +65,8 @@ if (!empty($buwana_id)) {
         die('Error preparing statement for updating credentials_tb: ' . $buwana_conn->error);
     }
 }
+
+
 
 
 // PART 3: Check registration status on the Ghost platform
@@ -127,33 +132,38 @@ if ($http_code >= 200 && $http_code < 300) {
         $registered = 1; // Member with the given email exists
     }
 
+// PART 4
+// Update GoBrik Database with registration status
+$sql_update_registration = "UPDATE tb_ecobrickers SET earthen_registered = ? WHERE ecobricker_id = ?";
+$stmt_update_registration = $gobrik_conn->prepare($sql_update_registration);
 
-//PART 4
-    // Update GoBrik Database with registration status
-    $sql_update_registration = "UPDATE tb_ecobrickers SET earthen_registered = ? WHERE ecobricker_id = ?";
-    $stmt_update_registration = $gobrik_conn->prepare($sql_update_registration);
+if ($stmt_update_registration) {
+    $stmt_update_registration->bind_param('ii', $registered, $ecobricker_id);
+    $stmt_update_registration->execute();
+    $stmt_update_registration->close();
+} else {
+    error_log('Error preparing statement for updating earthen_registered in tb_ecobrickers: ' . $gobrik_conn->error);
+}
 
-    if ($stmt_update_registration) {
-        $stmt_update_registration->bind_param('ii', $registered, $ecobricker_id);
-        $stmt_update_registration->execute();
-        $stmt_update_registration->close();
-    } else {
-        error_log('Error preparing statement for updating earthen_registered in tb_ecobrickers: ' . $gobrik_conn->error);
-    }
+// Check if buwana_id exists
+if (empty($buwana_id)) {
+    // Redirect to activate-2.php if buwana_id does not exist
+    header('Location: activate-2.php?id=' . urlencode($ecobricker_id));
+    exit();
+}
 
-    // Update Buwana Database with registration status if buwana_id is provided
-    if (!empty($buwana_id)) {
-        $sql_update_earthen_status = "UPDATE credentials_tb SET earthen_registered = ? WHERE buwana_id = ?";
-        $stmt_update_earthen_status = $buwana_conn->prepare($sql_update_earthen_status);
+// Continue if buwana_id exists and update Buwana Database with registration status
+$sql_update_earthen_status = "UPDATE credentials_tb SET earthen_registered = ? WHERE buwana_id = ?";
+$stmt_update_earthen_status = $buwana_conn->prepare($sql_update_earthen_status);
 
-        if ($stmt_update_earthen_status) {
-            $stmt_update_earthen_status->bind_param('ii', $registered, $buwana_id);
-            $stmt_update_earthen_status->execute();
-            $stmt_update_earthen_status->close();
-        } else {
-            error_log('Error preparing statement for updating earthen_registered in credentials_tb: ' . $buwana_conn->error);
-        }
-    }
+if ($stmt_update_earthen_status) {
+    $stmt_update_earthen_status->bind_param('ii', $registered, $buwana_id);
+    $stmt_update_earthen_status->execute();
+    $stmt_update_earthen_status->close();
+} else {
+    error_log('Error preparing statement for updating earthen_registered in credentials_tb: ' . $buwana_conn->error);
+}
+
 } else {
     // Handle error
     error_log('HTTP status ' . $http_code . ': ' . $response);

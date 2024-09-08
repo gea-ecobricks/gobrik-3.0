@@ -1,5 +1,5 @@
 <?php
-//Not active!!
+//Happens after a user who has activated their account and enters the email code.
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);

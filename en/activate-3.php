@@ -211,7 +211,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
             <!-- COUNTRY -->
             <div class="form-item" id="country-select" style="display:none;">
-                <label for="country" data-lang-id="014-your-continent">In what country do you reside?</label><br>
+                <label for="country" data-lang-id="014-your-country">In what country do you reside?</label><br>
                 <select name="country_id" id="country_id" required>
                     <option value="" disabled selected data-lang-id="015-country-place-holder">Select your country of residence...</option>
                 </select>

@@ -238,7 +238,7 @@ echo '<!DOCTYPE html>
                         break;
                     case 'en':
                     default:
-                        echo htmlspecialchars($language['languages_eng_name']); // Default to English
+                        echo htmlspecialchars($language['languages_name_en']); // Default to English
                         break;
                 }
                 ?>
@@ -271,7 +271,7 @@ echo '<!DOCTYPE html>
         </div>
     </div> <!-- close form-container -->
 </div> <!-- close form-submission-box -->
-
+</div>
 
 </div> <!--closes main-->
 

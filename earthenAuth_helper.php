@@ -36,6 +36,48 @@ function getUserFirstName($buwana_conn, $buwana_id) {
     return $first_name;
 }
 
+function getWatershedName($buwana_conn, $buwana_id, $lang) {
+    $watershed_name = '';
+
+    // Determine the appropriate field name for the watershed based on the language
+    switch (strtolower($lang)) {
+        case 'fr':
+            $field_name = 'watershed_name_fr';
+            break;
+        case 'es':
+            $field_name = 'watershed_name_es';
+            break;
+        case 'id':
+            $field_name = 'watershed_name_id';
+            break;
+        case 'en':
+        default:
+            $field_name = 'watershed_name'; // Default to the general name if $lang is not set or is 'en'
+            break;
+    }
+
+    // Query to get the user's watershed name based on the determined field
+    $sql_watershed = "SELECT $field_name FROM watersheds_tb WHERE watershed_id = (SELECT watershed_id FROM users_tb WHERE buwana_id = ?)";
+    $stmt_watershed = $buwana_conn->prepare($sql_watershed);
+
+    if ($stmt_watershed) {
+        $stmt_watershed->bind_param('i', $buwana_id);
+        if ($stmt_watershed->execute()) {
+            $stmt_watershed->bind_result($watershed_name);
+            $stmt_watershed->fetch();
+            $stmt_watershed->close();
+        }
+    }
+
+    // If $watershed_name is still empty or null, set a default value
+    if (empty($watershed_name)) {
+        $watershed_name = 'Unknown Watershed'; // Default value if no valid watershed name is found
+    }
+
+    return $watershed_name;
+}
+
+
 
 function getUserContinent($buwana_conn, $buwana_id) {
     $continent_code = '';

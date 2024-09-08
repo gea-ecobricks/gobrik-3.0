@@ -216,17 +216,35 @@ echo '<!DOCTYPE html>
     </div>
 
     <!-- Preferred Language -->
-    <div class="form-item">
-        <label for="language_id" data-lang-id="017-preferred-language">Preferred Language:</label>
-        <select name="language_id" id="language_id">
-            <option value="" data-lang-id="018-select-language">Select Language</option>
-            <?php foreach ($languages as $language): ?>
-                <option value="<?php echo $language['lang_id']; ?>" <?php if ($language['lang_id'] == $languages_id) echo 'selected'; ?>>
-                    <?php echo htmlspecialchars($language['languages_eng_name']); ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </div>
+   <div class="form-item">
+    <label for="language_id" data-lang-id="017-preferred-language">Preferred Language:</label>
+    <select name="language_id" id="language_id">
+        <option value="" data-lang-id="018-select-language">Select Language</option>
+        <?php foreach ($languages as $language): ?>
+            <option value="<?php echo $language['lang_id']; ?>" <?php if ($language['lang_id'] == $languages_id) echo 'selected'; ?>>
+                <?php
+                // Display the language name based on the user's selected language ($lang)
+                switch (strtolower($lang)) {
+                    case 'id':
+                        echo htmlspecialchars($language['language_name_id']); // Indonesian
+                        break;
+                    case 'fr':
+                        echo htmlspecialchars($language['language_name_fr']); // French
+                        break;
+                    case 'es':
+                        echo htmlspecialchars($language['language_name_es']); // Spanish
+                        break;
+                    case 'en':
+                    default:
+                        echo htmlspecialchars($language['languages_eng_name']); // Default to English
+                        break;
+                }
+                ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</div>
+
 
     <!-- Birth Date -->
     <div class="form-item">

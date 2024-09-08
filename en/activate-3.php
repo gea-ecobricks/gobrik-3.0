@@ -185,7 +185,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
             <!-- CONTINENT -->
             <div class="form-item" id="continent-select" style="display:block;">
-                <select name="continent_code" id="continent_code" style="max-width:480px; display: block; margin: auto; cursor: pointer;" required>
+                <label for="continent" data-lang-id="014-your-continent">On what continent do you live?</label><br>
+<select name="continent_code" id="continent_code" style="max-width:480px; display: block; margin: auto; cursor: pointer;" required>
                     <option value="" disabled selected data-lang-id="015-continent-place-holder">Select your continent...</option>
                     <?php foreach ($continents as $continent) { ?>
                         <option value="<?php echo $continent['continent_code']; ?>">
@@ -197,6 +198,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
             <!-- WATERSHED -->
             <div class="form-item" id="watershed-select" style="display:none;">
+                <label for="watershed" data-lang-id="014-your-watershed">In what river basic do you live?</label><br>
                 <select name="watershed_id" id="watershed_id" style="max-width:480px; display: block; margin: auto; cursor: pointer;" required>
                     <option value="" disabled selected data-lang-id="015-watershed-place-holder">Select your watershed...</option>
                 </select>
@@ -208,6 +210,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
             <!-- COUNTRY -->
             <div class="form-item" id="country-select" style="display:none;">
+                <label for="country" data-lang-id="014-your-continent">In what country do you reside?</label><br>
                 <select name="country_id" id="country_id" style="max-width:480px; display: block; margin: auto; cursor: pointer;" required>
                     <option value="" disabled selected data-lang-id="015-country-place-holder">Select your country of residence...</option>
                 </select>

@@ -46,9 +46,13 @@ if ($is_logged_in) {
         die('Error preparing statement for fetching user info: ' . $buwana_conn->error);
     }
 
-  // Fetch languages from Buwana database
+// Fetch active languages from Buwana database
 $languages = [];
-$sql_languages = "SELECT lang_id, language_name_en, language_name_id, language_name_fr, language_name_es, language_active FROM languages_tb ORDER BY languages_eng_name";
+$sql_languages = "SELECT language_id, language_name_en, language_name_id, language_name_fr, language_name_es, language_active
+                  FROM languages_tb
+                  WHERE language_active = 1
+                  ORDER BY language_name_en";
+
 $result_languages = $buwana_conn->query($sql_languages);
 
 if ($result_languages && $result_languages->num_rows > 0) {
@@ -56,6 +60,7 @@ if ($result_languages && $result_languages->num_rows > 0) {
         $languages[] = $row;
     }
 }
+
 
 
     // Fetch countries from Buwana database
@@ -218,12 +223,12 @@ echo '<!DOCTYPE html>
     </div>
 
     <!-- Preferred Language -->
-   <div class="form-item">
+ <div class="form-item">
     <label for="language_id" data-lang-id="017-preferred-language">Preferred Language:</label>
     <select name="language_id" id="language_id">
         <option value="" data-lang-id="018-select-language">Select Language</option>
         <?php foreach ($languages as $language): ?>
-            <option value="<?php echo htmlspecialchars($language['lang_id']); ?>" <?php if ($language['lang_id'] == $languages_id) echo 'selected'; ?>>
+            <option value="<?php echo htmlspecialchars($language['language_id']); ?>" <?php if ($language['language_id'] == $languages_id) echo 'selected'; ?>>
                 <?php
                 // Display the language name based on the user's selected language ($lang)
                 switch (strtolower($lang)) {
@@ -238,7 +243,7 @@ echo '<!DOCTYPE html>
                         break;
                     case 'en':
                     default:
-                        echo htmlspecialchars($language['languages_name_en']); // Default to English
+                        echo htmlspecialchars($language['language_name_en']); // Default to English
                         break;
                 }
                 ?>
@@ -246,6 +251,7 @@ echo '<!DOCTYPE html>
         <?php endforeach; ?>
     </select>
 </div>
+
 
 
 

@@ -201,7 +201,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <label for="watershed" data-lang-id="014-your-watershed">In what river basin do you live?</label><br>
                 <select name="watershed_id" id="watershed_id" required>
                     <option value="" disabled selected data-lang-id="015-watershed-place-holder">Select your watershed...</option>
-                    <option value="I don't know" data-lang-id="016-dont-know">I don't know</option>
+                    <option value="Unsure" data-lang-id="016-dont-know">I am not sure</option>
+                    <option value="not listed" data-lang-id="016-dont-know">Not listed</option>
                 </select>
                 <p class="form-caption">
                     <span data-lang-id="018-what-is-watershed">Everyone lives in one of the Earth 157 main river basin's.  Learn more about </span>
@@ -228,8 +229,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <!-- FOOTER STARTS HERE -->
 <?php require_once ("../footer-2024.php"); ?>
 
+
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+
+ document.addEventListener('DOMContentLoaded', function () {
     var continentSelect = document.getElementById('continent_code');
     var watershedSelect = document.getElementById('watershed-select');
     var watershedDropdown = document.getElementById('watershed_id');
@@ -252,7 +255,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Reset and hide subsequent dropdowns
             watershedSelect.style.display = 'none';
             countrySelect.style.display = 'none';
-            watershedDropdown.innerHTML = '<option value="" disabled selected>Select your watershed...</option>';
+            watershedDropdown.innerHTML = '<option value="" disabled selected>Select your watershed...</option><option value="unsure">I am unsure</option><option value="not listed" selected>Not listed</option>';
             countryDropdown.innerHTML = '<option value="" disabled selected>Select your country of residence...</option>';
             submitButton.disabled = true;
             submitButton.classList.add('disabled');
@@ -273,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Enable the submit button after a country is selected
+    // Enable submit button after country is selected
     countryDropdown.addEventListener('change', function () {
         if (this.value !== '') {
             submitButton.disabled = false;
@@ -344,6 +347,7 @@ document.addEventListener('DOMContentLoaded', function () {
         xhr.send('continent_code=' + encodeURIComponent(continentCode));
     }
 });
+
 
 </script>
 

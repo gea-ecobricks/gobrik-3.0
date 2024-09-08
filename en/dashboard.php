@@ -15,6 +15,7 @@ $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $first_name = '';
 $buwana_id = '';
 $country_icon = '';
+$watershed_name = '';
 $is_logged_in = isLoggedIn();// Check if the user is logged in using the helper function
 
 // Check if user is logged in and session active

@@ -21,6 +21,24 @@ const fr_Page_Translations = {
   "009-no-code": "Vous n'avez pas reçu votre code ? Vous pouvez demander un renvoi du code dans",
   "010-email-no-longer": "N'utilisez-vous plus cette adresse e-mail ?<br>Si non, vous devrez <a href=\"signup.php\">créer un nouveau compte</a> ou contacter notre équipe à l'adresse support@gobrik.com.",
   "011-change-email": "Voulez-vous changer votre adresse e-mail ?",
-  "012-go-back-new-email": "Retournez pour entrer une autre adresse e-mail."
+  "012-go-back-new-email": "Retournez pour entrer une autre adresse e-mail.",
+
+        // Activate-3.php
+
+
+    "012-status-heading": "votre mot de passe et votre email sont définis !",
+    "013-sub-status-tell": "Votre nouveau compte Buwana et GoBrik concerne l'action écologique locale et mondiale. Veuillez nous parler de l'endroit où vous vivez...",
+    "014-your-continent": "Sur quel continent vivez-vous ?",
+    "015-continent-place-holder": "<option value=\"\" disabled selected>Sélectionnez votre continent...</option>",
+    "014-your-watershed": "Dans quel bassin fluvial vivez-vous ?",
+    "015-watershed-place-holder": "<option value=\"\" disabled selected>Sélectionnez votre bassin hydrographique...</option>",
+    "016-dont-know": "<option value=\"I don't know\">Je ne sais pas</option>",
+    "018-what-is-watershed": "Tout le monde vit dans l'un des 157 grands bassins fluviaux de la Terre. En savoir plus sur ",
+    "019-watershed": "le bassin hydrographique",
+    "014-your-country": "Dans quel pays résidez-vous ?",
+    "015-country-place-holder": "<option value=\"\" disabled selected>Sélectionnez votre pays de résidence...</option>",
+    "016-submit-complete-button": "<input type=\"submit\" id=\"submit-button\" value=\"✔️ Terminer l'installation\" class=\"submit-button disabled\" disabled>"
+
+
 };
 

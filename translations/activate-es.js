@@ -22,5 +22,22 @@ const es_Page_Translations = {
   "009-no-code": "¿No recibiste tu código? Puedes solicitar un reenvío del código en",
   "010-email-no-longer": "¿Ya no usas esta dirección de correo electrónico?<br>Si no, necesitarás <a href=\"signup.php\">crear una nueva cuenta</a> o contactar a nuestro equipo en support@gobrik.com.",
   "011-change-email": "¿Quieres cambiar tu correo electrónico?",
-  "012-go-back-new-email": "Regresar para ingresar una dirección de correo electrónico diferente."
+  "012-go-back-new-email": "Regresar para ingresar una dirección de correo electrónico diferente.",
+
+      // Activate-3.php
+
+      const es_Page_Translations = {
+    "012-status-heading": "¡su contraseña y correo electrónico están configurados!",
+    "013-sub-status-tell": "Su nueva cuenta de Buwana y GoBrik se trata de acción ecológica local y global. Por favor, cuéntenos sobre dónde vive...",
+    "014-your-continent": "¿En qué continente vive?",
+    "015-continent-place-holder": "<option value=\"\" disabled selected>Seleccione su continente...</option>",
+    "014-your-watershed": "¿En qué cuenca fluvial vive?",
+    "015-watershed-place-holder": "<option value=\"\" disabled selected>Seleccione su cuenca hidrográfica...</option>",
+    "016-dont-know": "<option value=\"I don't know\">No sé</option>",
+    "018-what-is-watershed": "Todos viven en una de las 157 principales cuencas fluviales de la Tierra. Aprenda más sobre ",
+    "019-watershed": "la cuenca hidrográfica",
+    "014-your-country": "¿En qué país reside?",
+    "015-country-place-holder": "<option value=\"\" disabled selected>Seleccione su país de residencia...</option>",
+    "016-submit-complete-button": "<input type=\"submit\" id=\"submit-button\" value=\"✔️ Completar configuración\" class=\"submit-button disabled\" disabled>"
+
 };

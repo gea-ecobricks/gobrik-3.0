@@ -27,15 +27,19 @@ const en_Page_Translations = {
 
   // Activate-3.php
 
-
-    "012-status-heading": "your password & email are set!",
-    "013-sub-status-tell": "Now please tell us a little about yourself...",
-    "014-language-placeholder": "Select your preferred language...",
-    "015-country-place-holder": "Select your country of residence...",
-    "015-watershed-place-holder": "Select your local watershed...",
-    "018-what-is-watershed": "What is a ",
-    "016-submit-complete-button": "<input type=\"submit\" id=\"submit-button\" value=\"✔️ Complete Setup\" class=\"submit-button disabled\" disabled>",
+"012-status-heading": "your password & email are set!",
+    "013-sub-status-tell": "Your new Buwana and GoBrik account is all about local and global ecological action. Please tell us about where you live...",
+    "014-your-continent": "On what continent do you live?",
+    "015-continent-place-holder": "<option value=\"\" disabled selected>Select your continent...</option>",
+    "014-your-watershed": "In what river basin do you live?",
+    "015-watershed-place-holder": "<option value=\"\" disabled selected>Select your watershed...</option>",
+    "016-dont-know": "<option value=\"I don't know\">I don't know</option>",
+    "018-what-is-watershed": "Everyone lives in one of the Earth's 157 main river basins. Learn more about ",
     "019-watershed": "watershed",
+    "014-your-country": "In what country do you reside?",
+    "015-country-place-holder": "<option value=\"\" disabled selected>Select your country of residence...</option>",
+    "016-submit-complete-button": "<input type=\"submit\" id=\"submit-button\" value=\"✔️ Complete Setup\" class=\"submit-button disabled\" disabled>"
+
 
 
 };

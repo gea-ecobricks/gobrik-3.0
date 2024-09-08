@@ -22,50 +22,59 @@ $is_logged_in = isLoggedIn();// Check if the user is logged in using the helper 
 if ($is_logged_in) {
     $buwana_id = $_SESSION['buwana_id'] ?? ''; // Retrieve buwana_id from session
 
-// Include database connections
-require_once '../gobrikconn_env.php';
-require_once '../buwanaconn_env.php';
+    // Include database connections
+    require_once '../gobrikconn_env.php';
+    require_once '../buwanaconn_env.php';
 
-// Fetch user information using buwana_id from the Buwana database
-$country_icon = getUserContinent($buwana_conn, $buwana_id);
+    // Fetch user information using buwana_id from the Buwana database
+    $country_icon = getUserContinent($buwana_conn, $buwana_id);
 
-// Fetch Full user information using buwana_id from the Buwana database
-$sql_user_info = "SELECT full_name, first_name, last_name, email, country_id, languages_id, birth_date, created_at, last_login, brikcoin_balance, role, account_status, notes, terms_of_service FROM users_tb WHERE buwana_id = ?";
-$stmt_user_info = $buwana_conn->prepare($sql_user_info);
+    // Fetch Full user information using buwana_id from the Buwana database
+    $sql_user_info = "SELECT full_name, first_name, last_name, email, country_id, languages_id, birth_date, created_at, last_login, brikcoin_balance, role, account_status, notes, terms_of_service FROM users_tb WHERE buwana_id = ?";
+    $stmt_user_info = $buwana_conn->prepare($sql_user_info);
 
-if ($stmt_user_info) {
-    $stmt_user_info->bind_param('i', $buwana_id);
-    $stmt_user_info->execute();
-    $stmt_user_info->bind_result($full_name, $first_name, $last_name, $email, $country_id, $languages_id, $birth_date, $created_at, $last_login, $brikcoin_balance, $role, $account_status, $notes, $terms_of_service);
-    $stmt_user_info->fetch();
-    $stmt_user_info->close();
+    if ($stmt_user_info) {
+        $stmt_user_info->bind_param('i', $buwana_id);
+        $stmt_user_info->execute();
+        $stmt_user_info->bind_result($full_name, $first_name, $last_name, $email, $country_id, $languages_id, $birth_date, $created_at, $last_login, $brikcoin_balance, $role, $account_status, $notes, $terms_of_service);
+        $stmt_user_info->fetch();
+        $stmt_user_info->close();
+    } else {
+        die('Error preparing statement for fetching user info: ' . $buwana_conn->error);
+    }
+
+    // Fetch languages from Buwana database
+    $languages = [];
+    $sql_languages = "SELECT lang_id, languages_eng_name, language_active FROM languages_tb ORDER BY languages_eng_name";
+    $result_languages = $buwana_conn->query($sql_languages);
+    if ($result_languages && $result_languages->num_rows > 0) {
+        while ($row = $result_languages->fetch_assoc()) {
+            $languages[] = $row;
+        }
+    }
+
+    // Fetch countries from Buwana database
+    $countries = [];
+    $sql_countries = "SELECT country_id, country_name FROM countries_tb ORDER BY country_name";
+    $result_countries = $buwana_conn->query($sql_countries);
+    if ($result_countries && $result_countries->num_rows > 0) {
+        while ($row = $result_countries->fetch_assoc()) {
+            $countries[] = $row;
+        }
+    }
+    // Close the database connections
+    $buwana_conn->close();
+    $gobrik_conn->close();
 } else {
-    die('Error preparing statement for fetching user info: ' . $buwana_conn->error);
+    // Redirect to login page with the redirect parameter set to the current page
+    echo '<script>
+        alert("Please login before viewing this page.");
+        window.location.href = "login.php?redirect=' . urlencode($page) . '";
+    </script>';
+    exit();
 }
 
-// Fetch languages from Buwana database
-$languages = [];
-$sql_languages = "SELECT lang_id, languages_eng_name, language_active FROM languages_tb ORDER BY languages_eng_name";
-$result_languages = $buwana_conn->query($sql_languages);
-if ($result_languages && $result_languages->num_rows > 0) {
-    while ($row = $result_languages->fetch_assoc()) {
-        $languages[] = $row;
-    }
-}
 
-// Fetch countries from Buwana database
-$countries = [];
-$sql_countries = "SELECT country_id, country_name FROM countries_tb ORDER BY country_name";
-$result_countries = $buwana_conn->query($sql_countries);
-if ($result_countries && $result_countries->num_rows > 0) {
-    while ($row = $result_countries->fetch_assoc()) {
-        $countries[] = $row;
-    }
-}
-
-// Close the database connections
-$buwana_conn->close();
-$gobrik_conn->close();
 
 echo '<!DOCTYPE html>
 <html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">

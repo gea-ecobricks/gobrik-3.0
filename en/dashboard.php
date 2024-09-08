@@ -18,9 +18,9 @@ $country_icon = '';
 $watershed_name = '';
 $is_logged_in = isLoggedIn();// Check if the user is logged in using the helper function
 
-// Check if user is logged in and session active
-if ($is_logged_in) {
-    $buwana_id = $_SESSION['buwana_id'] ?? ''; // Retrieve buwana_id from session
+    // Check if user is logged in and session active
+    if ($is_logged_in) {
+        $buwana_id = $_SESSION['buwana_id'] ?? ''; // Retrieve buwana_id from session
 
     // Include database connection
     require_once '../gobrikconn_env.php';

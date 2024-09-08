@@ -219,8 +219,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <p class="form-caption">Filtered for countries in your continent.</p>
             </div>
 
-            <div id="submit-section" style="text-align:center;margin-top:15px;" data-lang-id="016-submit-complete-button">
-                <input type="submit" id="submit-button" value="✔️ Complete Setup" class="submit-button disabled">
+            <div id="submit-section" style="text-align:center;margin-top:15px;display:none;" data-lang-id="016-submit-complete-button">
+                <input type="submit" id="submit-button" value="✔️ Complete Setup" class="submit-button enabled">
             </div>
         </form>
     </div>
@@ -237,11 +237,12 @@ document.addEventListener('DOMContentLoaded', function () {
     var watershedDropdown = document.getElementById('watershed_id');
     var countrySelect = document.getElementById('country-select');
     var countryDropdown = document.getElementById('country_id');
-    var submitButton = document.getElementById('submit-button');
+    var submitSection = document.getElementById('submit-section');
 
-    // Initially hide the watershed and country dropdowns
+    // Initially hide the watershed, country dropdowns, and submit button
     watershedSelect.style.display = 'none';
     countrySelect.style.display = 'none';
+    submitSection.style.display = 'none';
 
     // Event listener for continent selection
     continentSelect.addEventListener('change', function () {
@@ -251,12 +252,12 @@ document.addEventListener('DOMContentLoaded', function () {
             // Fetch watersheds based on the selected continent using AJAX
             fetchWatersheds(continentCode);
         } else {
-            // Reset and hide subsequent dropdowns
+            // Reset and hide subsequent dropdowns and submit button
             watershedSelect.style.display = 'none';
             countrySelect.style.display = 'none';
-            watershedDropdown.innerHTML = '<option value="" disabled selected>Select your watershed...</option><option value="unsure">I am unsure</option><option value="not listed" selected>Not listed</option>';
+            submitSection.style.display = 'none';
+            watershedDropdown.innerHTML = '<option value="" disabled selected>Select your watershed...</option><option value="unsure">I am unsure</option><option value="not listed">Not listed</option>';
             countryDropdown.innerHTML = '<option value="" disabled selected>Select your country of residence...</option>';
-            disableSubmitButton();
         }
     });
 
@@ -269,33 +270,18 @@ document.addEventListener('DOMContentLoaded', function () {
             fetchCountries(continentCode);
         } else {
             countrySelect.style.display = 'none';
-            disableSubmitButton();
+            submitSection.style.display = 'none';
         }
     });
 
-    // Enable submit button after country is selected
+    // Show submit button after country is selected
     countryDropdown.addEventListener('change', function () {
         if (this.value !== '') {
-            enableSubmitButton();
+            submitSection.style.display = 'block';
         } else {
-            disableSubmitButton();
+            submitSection.style.display = 'none';
         }
     });
-
-    // Function to enable the submit button
-    function enableSubmitButton() {
-    alert('hello!');
-        submitButton.disabled = false;
-        submitButton.classList.remove('disabled');
-        submitButton.classList.add('enabled');
-    }
-
-    // Function to disable the submit button
-    function disableSubmitButton() {
-        submitButton.disabled = true;
-        submitButton.classList.remove('enabled');
-        submitButton.classList.add('disabled');
-    }
 
     // AJAX function to fetch countries
     function fetchCountries(continentCode) {
@@ -357,6 +343,7 @@ document.addEventListener('DOMContentLoaded', function () {
         xhr.send('continent_code=' + encodeURIComponent(continentCode));
     }
 });
+
 
 
 

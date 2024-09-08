@@ -14,7 +14,7 @@ if (!isset($_SESSION['buwana_id'])) {
 $buwana_id = $_SESSION['buwana_id'];
 
 // Check if all required fields are present
-if (!isset($_POST['first_name'], $_POST['last_name'], $_POST['country_id'], $_POST['language_id'], $_POST['birth_date'])) {
+if (!isset($_POST['first_name'], $_POST['last_name'], $_POST['country_id'], $_POST['language_id'], $_POST['birth_date'], $_POST['continent_code'], $_POST['watershed_id'])) {
     echo json_encode(['status' => 'failed', 'message' => 'Missing required fields.']);
     exit();
 }
@@ -25,13 +25,15 @@ $last_name = trim($_POST['last_name']);
 $country_id = (int)$_POST['country_id'];
 $language_id = (int)$_POST['language_id'];
 $birth_date = $_POST['birth_date'];
+$continent_code = trim($_POST['continent_code']); // Sanitize continent_code
+$watershed_id = (int)$_POST['watershed_id']; // Sanitize watershed_id
 
 // Update the user's profile in the Buwana database
-$sql_update = "UPDATE users_tb SET first_name = ?, last_name = ?, country_id = ?, languages_id = ?, birth_date = ? WHERE buwana_id = ?";
+$sql_update = "UPDATE users_tb SET first_name = ?, last_name = ?, country_id = ?, languages_id = ?, birth_date = ?, continent_code = ?, watershed_id = ? WHERE buwana_id = ?";
 $stmt_update = $buwana_conn->prepare($sql_update);
 
 if ($stmt_update) {
-    $stmt_update->bind_param('ssiisi', $first_name, $last_name, $country_id, $language_id, $birth_date, $buwana_id);
+    $stmt_update->bind_param('ssiissii', $first_name, $last_name, $country_id, $language_id, $birth_date, $continent_code, $watershed_id, $buwana_id);
 
     if ($stmt_update->execute()) {
         echo json_encode(['status' => 'succeeded']);

@@ -156,67 +156,89 @@ echo '<!DOCTYPE html>
 
             <div class="right-column" style="flex: 1 1 50%; padding: 10px;">
                 <!-- Editable Fields -->
-                <form method="post" action="update_profile.php">
-                    <div class="form-item">
-                        <label for="first_name" data-lang-id="012-first-name">First Name:</label>
-                        <input type="text" name="first_name" id="first_name" value="<?php echo htmlspecialchars($first_name); ?>" required>
-                    </div>
+               <form method="post" action="update_profile.php">
+    <!-- First Name -->
+    <div class="form-item">
+        <label for="first_name" data-lang-id="012-first-name">First Name:</label>
+        <input type="text" name="first_name" id="first_name" value="<?php echo htmlspecialchars($first_name); ?>" required>
+    </div>
 
-                    <div class="form-item">
-                        <label for="last_name" data-lang-id="013-last-name">Last Name:</label>
-                        <input type="text" name="last_name" id="last_name" value="<?php echo htmlspecialchars($last_name); ?>" required>
-                    </div>
+    <!-- Last Name -->
+    <div class="form-item">
+        <label for="last_name" data-lang-id="013-last-name">Last Name:</label>
+        <input type="text" name="last_name" id="last_name" value="<?php echo htmlspecialchars($last_name); ?>" required>
+    </div>
 
-                    <div class="form-item">
-                        <label for="email" data-lang-id="014-email">Email:</label>
-                        <input type="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
-                    </div>
+    <!-- Email -->
+    <div class="form-item">
+        <label for="email" data-lang-id="014-email">Email:</label>
+        <input type="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
+    </div>
 
-                    <div class="form-item">
-                        <label for="country_id" data-lang-id="015-country">Country:</label>
-                        <select name="country_id" id="country_id">
-                            <option value="" data-lang-id="016-select-country">Select Country</option>
-                            <?php foreach ($countries as $country): ?>
-                                <option value="<?php echo $country['country_id']; ?>" <?php if ($country['country_id'] == $country_id) echo 'selected'; ?>>
-                                    <?php echo htmlspecialchars($country['country_name']); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
+    <!-- Continent -->
+    <div class="form-item">
+        <label for="continent_code" data-lang-id="021-continent">Continent:</label>
+        <select name="continent_code" id="continent_code">
+            <option value="" data-lang-id="022-select-continent">Select Continent</option>
+            <?php foreach ($continents as $continent): ?>
+                <option value="<?php echo $continent['continent_code']; ?>" <?php if ($continent['continent_code'] == $continent_code) echo 'selected'; ?>>
+                    <?php echo htmlspecialchars($continent['continent_name_en']); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
 
-                    <div class="form-item">
-                        <label for="language_id" data-lang-id="017-preferred-language">Preferred Language:</label>
-                        <select name="language_id" id="language_id">
-                            <option value="" data-lang-id="018-select-language">Select Language</option>
-                            <?php foreach ($languages as $language): ?>
-                                <option value="<?php echo $language['lang_id']; ?>" <?php if ($language['lang_id'] == $languages_id) echo 'selected'; ?>>
-                                    <?php echo htmlspecialchars($language['languages_eng_name']); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
+    <!-- Country -->
+    <div class="form-item">
+        <label for="country_id" data-lang-id="015-country">Country:</label>
+        <select name="country_id" id="country_id">
+            <option value="" data-lang-id="016-select-country">Select Country</option>
+            <?php foreach ($countries as $country): ?>
+                <option value="<?php echo $country['country_id']; ?>" <?php if ($country['country_id'] == $country_id) echo 'selected'; ?>>
+                    <?php echo htmlspecialchars($country['country_name']); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
 
-                    <div class="form-item">
-                        <label for="birth_date" data-lang-id="019-birth-date">Birth Date:</label>
-                        <input type="date" name="birth_date" id="birth_date" value="<?php echo htmlspecialchars($birth_date); ?>">
-                    </div>
+    <!-- Watershed -->
+    <div class="form-item">
+        <label for="watershed_id" data-lang-id="023-watershed">Watershed:</label>
+        <select name="watershed_id" id="watershed_id">
+            <option value="" data-lang-id="024-select-watershed">Select Watershed</option>
+            <?php foreach ($watersheds as $watershed): ?>
+                <option value="<?php echo $watershed['watershed_id']; ?>" <?php if ($watershed['watershed_id'] == $watershed_id) echo 'selected'; ?>>
+                    <?php echo htmlspecialchars($watershed['watershed_name']); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
 
-                    <!-- Save and Update Button -->
-                    <div style="margin:auto;text-align: center;margin-top:30px;">
-                        <button type="submit" class="submit-button enabled" aria-label="Save and update" data-lang-id="020-submit-button">Save and Update</button>
-                    </div>
-                </form>
-            </div><!--close right column-->
-         </div><!--close buwana account-->
+    <!-- Preferred Language -->
+    <div class="form-item">
+        <label for="language_id" data-lang-id="017-preferred-language">Preferred Language:</label>
+        <select name="language_id" id="language_id">
+            <option value="" data-lang-id="018-select-language">Select Language</option>
+            <?php foreach ($languages as $language): ?>
+                <option value="<?php echo $language['lang_id']; ?>" <?php if ($language['lang_id'] == $languages_id) echo 'selected'; ?>>
+                    <?php echo htmlspecialchars($language['languages_eng_name']); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
 
-        <div class="form-item" style="margin: 70px 10px 40px 10px;">
-            <p style="text-align:center;" data-lang-id="021-delete-account-message">You can delete your GoBrik and Buwana accounts permanently here. Warning, this is permanent and immediate!</p>
-            <!-- DELETE ACCOUNT FORM -->
-            <form id="delete-account-form" method="post" action="double_delete_account.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
-                <div style="text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;">
-                    <button type="button" class="submit-button delete" onclick="confirmDeletion()">Delete my account</button>
-                </div>
-            </form>
+    <!-- Birth Date -->
+    <div class="form-item">
+        <label for="birth_date" data-lang-id="019-birth-date">Birth Date:</label>
+        <input type="date" name="birth_date" id="birth_date" value="<?php echo htmlspecialchars($birth_date); ?>">
+    </div>
+
+    <!-- Save and Update Button -->
+    <div style="margin:auto;text-align: center;margin-top:30px;">
+        <button type="submit" class="submit-button enabled" aria-label="Save and update" data-lang-id="020-submit-button">Save and Update</button>
+    </div>
+</form>
+
             <p data-lang-id="022-warning" style="font-size:medium; text-align: center;">WARNING: This cannot be undone.</p>
             <br>
         </div>

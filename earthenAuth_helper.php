@@ -35,58 +35,44 @@ function getUserFirstName($buwana_conn, $buwana_id) {
     }
     return $first_name;
 }
-
 function getUserContinent($buwana_conn, $buwana_id) {
-    $country_continent = '';
+    $continent_code = '';
     $country_icon = '';
 
-    // Query to get the user's country_id from users_tb
-    $sql_country = "SELECT country_id FROM users_tb WHERE buwana_id = ?";
-    $stmt_country = $buwana_conn->prepare($sql_country);
+    // Query to get the user's continent_code from users_tb
+    $sql_continent = "SELECT continent_code FROM users_tb WHERE buwana_id = ?";
+    $stmt_continent = $buwana_conn->prepare($sql_continent);
 
-    if ($stmt_country) {
-        $stmt_country->bind_param('i', $buwana_id);
-        if ($stmt_country->execute()) {
-            $stmt_country->bind_result($country_id);
-            $stmt_country->fetch();
-            $stmt_country->close();
-
-            // Now query the country_tb to get the country_continent using country_id
-            $sql_continent = "SELECT country_continent FROM country_tb WHERE country_id = ?";
-            $stmt_continent = $buwana_conn->prepare($sql_continent);
-
-            if ($stmt_continent) {
-                $stmt_continent->bind_param('i', $country_id);
-                if ($stmt_continent->execute()) {
-                    $stmt_continent->bind_result($country_continent);
-                    $stmt_continent->fetch();
-                    $stmt_continent->close();
-                }
-            }
+    if ($stmt_continent) {
+        $stmt_continent->bind_param('i', $buwana_id);
+        if ($stmt_continent->execute()) {
+            $stmt_continent->bind_result($continent_code);
+            $stmt_continent->fetch();
+            $stmt_continent->close();
         }
     }
 
-    // Determine the globe emoticon based on the continent
-    switch (strtolower($country_continent)) {
-        case 'africa':
-            $country_icon = '🌍';
+    // Determine the globe emoticon based on the continent_code
+    switch (strtoupper($continent_code)) {
+        case 'AF':
+            $country_icon = '🌍'; // Africa
             break;
-        case 'europe':
-            $country_icon = '🌍';
+        case 'EU':
+            $country_icon = '🌍'; // Europe
             break;
-        case 'asia':
-            $country_icon = '🌏';
+        case 'AS':
+            $country_icon = '🌏'; // Asia
             break;
-        case 'north america':
-        case 'south america':
-            $country_icon = '🌎';
+        case 'NA':
+        case 'SA':
+            $country_icon = '🌎'; // North America, South America
             break;
-        case 'australia':
-        case 'oceania':
-            $country_icon = '🌏';
+        case 'AU':
+        case 'OC':
+            $country_icon = '🌏'; // Australia, Oceania
             break;
-        case 'antarctica':
-            $country_icon = '❄️';
+        case 'AN':
+            $country_icon = '❄️'; // Antarctica
             break;
         default:
             $country_icon = '🌐'; // Default icon if continent is not recognized
@@ -95,4 +81,5 @@ function getUserContinent($buwana_conn, $buwana_id) {
 
     return $country_icon;
 }
+
 ?>

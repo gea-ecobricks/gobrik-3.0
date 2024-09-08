@@ -15,8 +15,9 @@ $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $first_name = '';
 $buwana_id = '';
 $country_icon = '';
-$watershed_name = 'Athabaska Basin';
-$is_logged_in = isLoggedIn();// Check if the user is logged in using the helper function
+$watershed_name = '';
+$continent_name = ''; // Initialize continent name variable
+$is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 
 // Check if user is logged in and session active
 if ($is_logged_in) {
@@ -28,16 +29,16 @@ if ($is_logged_in) {
 
     // Fetch user information using buwana_id from the Buwana database
     $country_icon = getUserContinent($buwana_conn, $buwana_id);
-    $watershed_name = getWatershedName($buwana_conn, $buwana_id, $lang);
+    $watershed_name = getWatershedName($buwana_conn, $buwana_id); // Fetch user's watershed name
 
     // Fetch Full user information using buwana_id from the Buwana database
-    $sql_user_info = "SELECT full_name, first_name, last_name, email, country_id, languages_id, birth_date, created_at, last_login, brikcoin_balance, role, account_status, notes, terms_of_service FROM users_tb WHERE buwana_id = ?";
+    $sql_user_info = "SELECT full_name, first_name, last_name, email, country_id, languages_id, birth_date, created_at, last_login, brikcoin_balance, role, account_status, notes, terms_of_service, continent_code FROM users_tb WHERE buwana_id = ?";
     $stmt_user_info = $buwana_conn->prepare($sql_user_info);
 
     if ($stmt_user_info) {
         $stmt_user_info->bind_param('i', $buwana_id);
         $stmt_user_info->execute();
-        $stmt_user_info->bind_result($full_name, $first_name, $last_name, $email, $country_id, $languages_id, $birth_date, $created_at, $last_login, $brikcoin_balance, $role, $account_status, $notes, $terms_of_service);
+        $stmt_user_info->bind_result($full_name, $first_name, $last_name, $email, $country_id, $languages_id, $birth_date, $created_at, $last_login, $brikcoin_balance, $role, $account_status, $notes, $terms_of_service, $continent_code);
         $stmt_user_info->fetch();
         $stmt_user_info->close();
     } else {
@@ -63,6 +64,27 @@ if ($is_logged_in) {
             $countries[] = $row;
         }
     }
+
+    // Fetch continents from Buwana database
+    $continents = [];
+    $sql_continents = "SELECT continent_code, continent_name_en FROM continents_tb ORDER BY continent_name_en";
+    $result_continents = $buwana_conn->query($sql_continents);
+    if ($result_continents && $result_continents->num_rows > 0) {
+        while ($row = $result_continents->fetch_assoc()) {
+            $continents[] = $row;
+        }
+    }
+
+    // Fetch watersheds from Buwana database
+    $watersheds = [];
+    $sql_watersheds = "SELECT watershed_id, watershed_name FROM watersheds_tb ORDER BY watershed_name";
+    $result_watersheds = $buwana_conn->query($sql_watersheds);
+    if ($result_watersheds && $result_watersheds->num_rows > 0) {
+        while ($row = $result_watersheds->fetch_assoc()) {
+            $watersheds[] = $row;
+        }
+    }
+
     // Close the database connections
     $buwana_conn->close();
     $gobrik_conn->close();
@@ -75,14 +97,13 @@ if ($is_logged_in) {
     exit();
 }
 
-
-
 echo '<!DOCTYPE html>
 <html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">
 <head>
 <meta charset="UTF-8">
 ';
 ?>
+
 
 <?php require_once("../includes/profile-inc.php"); ?>
 

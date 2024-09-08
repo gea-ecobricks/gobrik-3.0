@@ -361,7 +361,7 @@ display: none;
         </div>
 
         <div class="logged-in-links" style="width:100%; font-size: 0.8em; margin-top: 5px; text-align: left;">
-          <span>💧 <?php echo htmlspecialchars($watershed_name); ?></span><a href="profile.php" class="underline-link" data-lang-id="1000-profile-settings">⚙️ Profile settings</a> |
+          <span>🌳 <?php echo htmlspecialchars($watershed_name); ?> | </span><a href="profile.php" class="underline-link" data-lang-id="1000-profile-settings">⚙️ Profile settings</a> |
           <a href="logout.php?redirect=<?php echo urlencode($page); ?>" class="underline-link" onclick="handleLogout(event)" data-lang-id="1000-log-out">🐳 Log out</a>
         </div>
       </div>

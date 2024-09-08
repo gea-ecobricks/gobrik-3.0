@@ -23,7 +23,7 @@ if (!isset($_POST['first_name'], $_POST['last_name'], $_POST['country_id'], $_PO
 $first_name = trim($_POST['first_name']);
 $last_name = trim($_POST['last_name']);
 $country_id = (int)$_POST['country_id'];
-$language_id = (int)$_POST['language_id'];
+$language_id = trim($_POST['language_id']); // Correct: Treat language_id as a string
 $birth_date = $_POST['birth_date'];
 $continent_code = trim($_POST['continent_code']); // Sanitize continent_code
 $watershed_id = (int)$_POST['watershed_id']; // Sanitize watershed_id
@@ -33,16 +33,16 @@ $sql_update = "UPDATE users_tb SET first_name = ?, last_name = ?, country_id = ?
 $stmt_update = $buwana_conn->prepare($sql_update);
 
 if ($stmt_update) {
-    $stmt_update->bind_param('ssiissii', $first_name, $last_name, $country_id, $language_id, $birth_date, $continent_code, $watershed_id, $buwana_id);
+    $stmt_update->bind_param('ssisssii', $first_name, $last_name, $country_id, $language_id, $birth_date, $continent_code, $watershed_id, $buwana_id);
 
     if ($stmt_update->execute()) {
         echo json_encode(['status' => 'succeeded']);
     } else {
-        echo json_encode(['status' => 'failed', 'message' => 'Failed to execute update query.']);
+        echo json_encode(['status' => 'failed', 'message' => 'Failed to execute update query: ' . $stmt_update->error]);
     }
     $stmt_update->close();
 } else {
-    echo json_encode(['status' => 'failed', 'message' => 'Failed to prepare update statement.']);
+    echo json_encode(['status' => 'failed', 'message' => 'Failed to prepare update statement: ' . $buwana_conn->error]);
 }
 
 $buwana_conn->close();

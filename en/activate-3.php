@@ -186,7 +186,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <!-- CONTINENT -->
             <div class="form-item" id="continent-select" style="display:block;">
                 <label for="continent" data-lang-id="014-your-continent">On what continent do you live?</label><br>
-<select name="continent_code" id="continent_code" style="max-width:480px; display: block; margin: auto; cursor: pointer;" required>
+<select name="continent_code" id="continent_code" required>
                     <option value="" disabled selected data-lang-id="015-continent-place-holder">Select your continent...</option>
                     <?php foreach ($continents as $continent) { ?>
                         <option value="<?php echo $continent['continent_code']; ?>">
@@ -199,11 +199,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <!-- WATERSHED -->
             <div class="form-item" id="watershed-select" style="display:none;">
                 <label for="watershed" data-lang-id="014-your-watershed">In what river basic do you live?</label><br>
-                <select name="watershed_id" id="watershed_id" style="max-width:480px; display: block; margin: auto; cursor: pointer;" required>
+                <select name="watershed_id" id="watershed_id" required>
                     <option value="" disabled selected data-lang-id="015-watershed-place-holder">Select your watershed...</option>
                 </select>
-                <p class="form-caption" style="text-align:center">
-                    <span data-lang-id="018-what-is-watershed">What is a </span>
+                <p class="form-caption">
+                    <span data-lang-id="018-what-is-watershed">Everyone lives in one of the Earth 157 main river basin's.  Learn more about </span>
                     <a href="#" onclick="showModalInfo('watershed', '<?php echo htmlspecialchars($lang); ?>')" class="underline-link" data-lang-id="019-watershed">watershed</a>?
                 </p>
             </div>
@@ -211,9 +211,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <!-- COUNTRY -->
             <div class="form-item" id="country-select" style="display:none;">
                 <label for="country" data-lang-id="014-your-continent">In what country do you reside?</label><br>
-                <select name="country_id" id="country_id" style="max-width:480px; display: block; margin: auto; cursor: pointer;" required>
+                <select name="country_id" id="country_id" required>
                     <option value="" disabled selected data-lang-id="015-country-place-holder">Select your country of residence...</option>
                 </select>
+            <p class="form-caption">Filtered for countries in your continent.</p>
             </div>
 
             <div id="submit-section" style="text-align:center;margin-top:15px;" data-lang-id="016-submit-complete-button">
@@ -226,7 +227,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once ("../footer-2024.php"); ?>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     var continentSelect = document.getElementById('continent_code');
     var watershedSelect = document.getElementById('watershed-select');
     var watershedDropdown = document.getElementById('watershed_id');
@@ -239,13 +240,12 @@ document.addEventListener('DOMContentLoaded', function() {
     countrySelect.style.display = 'none';
 
     // Event listener for continent selection
-    continentSelect.addEventListener('change', function() {
+    continentSelect.addEventListener('change', function () {
         if (this.value !== '') {
             var continentCode = this.value;
 
-            // Fetch countries and watersheds based on the selected continent using AJAX
+            // Fetch watersheds based on the selected continent using AJAX
             fetchWatersheds(continentCode);
-            fetchCountries(continentCode);
         } else {
             // Reset and hide subsequent dropdowns
             watershedSelect.style.display = 'none';
@@ -257,10 +257,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Show country dropdown after selecting watershed
-    watershedDropdown.addEventListener('change', function() {
+    // Show country dropdown after selecting a watershed
+    watershedDropdown.addEventListener('change', function () {
         if (this.value !== '') {
-            countrySelect.style.display = 'block';
+            var continentCode = continentSelect.value; // Use the selected continent code
+
+            // Fetch countries based on the selected continent using AJAX
+            fetchCountries(continentCode);
         } else {
             countrySelect.style.display = 'none';
             submitButton.disabled = true;
@@ -268,8 +271,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Enable submit button after country is selected
-    countryDropdown.addEventListener('change', function() {
+    // Enable the submit button after a country is selected
+    countryDropdown.addEventListener('change', function () {
         if (this.value !== '') {
             submitButton.disabled = false;
             submitButton.classList.remove('disabled');
@@ -285,7 +288,7 @@ document.addEventListener('DOMContentLoaded', function() {
         xhr.open('POST', 'fetch_countries.php', true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
 
@@ -293,7 +296,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 countryDropdown.innerHTML = '<option value="" disabled selected>Select your country of residence...</option>';
 
                 // Add new options from the response
-                response.forEach(function(country) {
+                response.forEach(function (country) {
                     var option = document.createElement('option');
                     option.value = country.country_id;
                     option.textContent = country.country_name;
@@ -315,7 +318,7 @@ document.addEventListener('DOMContentLoaded', function() {
         xhr.open('POST', 'fetch_watersheds.php', true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
 
@@ -323,7 +326,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 watershedDropdown.innerHTML = '<option value="" disabled selected>Select your watershed...</option>';
 
                 // Add new options from the response
-                response.forEach(function(watershed) {
+                response.forEach(function (watershed) {
                     var option = document.createElement('option');
                     option.value = watershed.watershed_id;
                     option.textContent = watershed.watershed_name;
@@ -339,6 +342,7 @@ document.addEventListener('DOMContentLoaded', function() {
         xhr.send('continent_code=' + encodeURIComponent(continentCode));
     }
 });
+
 </script>
 
 

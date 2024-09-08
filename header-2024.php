@@ -355,16 +355,13 @@ display: none;
       <div class="menu-page-item" style="display: flex; flex-direction: column; align-items: flex-start; padding-bottom: 30px;">
         <div style="width:100%; display: flex; align-items: center;">
           <div style="color: var(--text-color); margin-left: 7px;">
-              <span data-lang-id="1000-logged-in-as">Logged in as</span> <span><?php echo htmlspecialchars($first_name); ?></span>
+              <span id="continent-icon"><?php echo htmlspecialchars($country_icon); ?></span> <span data-lang-id="1000-logged-in-as">Logged in as</span> <span><?php echo htmlspecialchars($first_name); ?></span>
 
           </div>
         </div>
-    <div class="logged-in-links" style="width:100%; font-size: 0.8em; margin-top: 5px; text-align: left;">
-         <span id="continent-icon"><?php echo htmlspecialchars($country_icon); ?></span> <span><?php echo htmlspecialchars($watershed_name, ENT_QUOTES, 'UTF-8'); ?></span>
 
-        </div>
         <div class="logged-in-links" style="width:100%; font-size: 0.8em; margin-top: 5px; text-align: left;">
-          <a href="profile.php" class="underline-link" data-lang-id="1000-profile-settings">⚙️ Profile settings</a> |
+          <span>💧 <?php echo htmlspecialchars($watershed_name); ?></span><a href="profile.php" class="underline-link" data-lang-id="1000-profile-settings">⚙️ Profile settings</a> |
           <a href="logout.php?redirect=<?php echo urlencode($page); ?>" class="underline-link" onclick="handleLogout(event)" data-lang-id="1000-log-out">🐳 Log out</a>
         </div>
       </div>

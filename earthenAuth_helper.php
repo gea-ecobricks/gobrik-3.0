@@ -35,8 +35,6 @@ function getUserFirstName($buwana_conn, $buwana_id) {
     }
     return $first_name;
 }
-
-
 function getUserContinent($buwana_conn, $buwana_id, $lang = '') {
     $continent_code = '';
     $country_icon = '';

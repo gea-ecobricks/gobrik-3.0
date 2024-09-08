@@ -360,7 +360,8 @@ display: none;
           </div>
         </div>
     <div class="logged-in-links" style="width:100%; font-size: 0.8em; margin-top: 5px; text-align: left;">
-          <span><?php echo htmlspecialchars($watershed_name); ?>
+         <span><?php echo htmlspecialchars($watershed_name, ENT_QUOTES, 'UTF-8'); ?></span>
+
         </div>
         <div class="logged-in-links" style="width:100%; font-size: 0.8em; margin-top: 5px; text-align: left;">
           <a href="profile.php" class="underline-link" data-lang-id="1000-profile-settings">⚙️ Profile settings</a> |

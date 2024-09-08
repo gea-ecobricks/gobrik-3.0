@@ -37,68 +37,24 @@ function getUserFirstName($buwana_conn, $buwana_id) {
 }
 
 
-
-function getUserContinent($buwana_conn, $buwana_id, $lang = '') {
+function getUserContinent($buwana_conn, $buwana_id) {
     $continent_code = '';
     $country_icon = '';
-    $watershed_name = '';
 
-    // Determine which column to use for watershed name based on the $lang variable
-    $lang_column = 'watershed_name'; // Default column if $lang is empty or not set
-    if (!empty($lang)) {
-        switch (strtolower($lang)) {
-            case 'en':
-                $lang_column = 'watershed_name_en';
-                break;
-            case 'fr':
-                $lang_column = 'watershed_name_fr';
-                break;
-            case 'es':
-                $lang_column = 'watershed_name_es';
-                break;
-            case 'id':
-                $lang_column = 'watershed_name_id';
-                break;
+    // Query to get the user's continent_code from users_tb
+    $sql_continent = "SELECT continent_code FROM users_tb WHERE buwana_id = ?";
+    $stmt_continent = $buwana_conn->prepare($sql_continent);
+
+    if ($stmt_continent) {
+        $stmt_continent->bind_param('i', $buwana_id);
+        if ($stmt_continent->execute()) {
+            $stmt_continent->bind_result($continent_code);
+            $stmt_continent->fetch();
+            $stmt_continent->close();
         }
     }
 
-    // Query to get the user's continent_code and watershed_id from users_tb
-    $sql_user = "SELECT continent_code, watershed_id FROM users_tb WHERE buwana_id = ?";
-    $stmt_user = $buwana_conn->prepare($sql_user);
-
-    if ($stmt_user) {
-        $stmt_user->bind_param('i', $buwana_id);
-        if ($stmt_user->execute()) {
-            $stmt_user->bind_result($continent_code, $watershed_id);
-            $stmt_user->fetch();
-            $stmt_user->close();
-
-            // If watershed_id is not null, query the watershed name from watersheds_tb
-            if (!empty($watershed_id)) {
-                $sql_watershed = "SELECT $lang_column FROM watersheds_tb WHERE watershed_id = ?";
-                $stmt_watershed = $buwana_conn->prepare($sql_watershed);
-
-                if ($stmt_watershed) {
-                    $stmt_watershed->bind_param('i', $watershed_id);
-                    if ($stmt_watershed->execute()) {
-                        $stmt_watershed->bind_result($watershed_name);
-                        $stmt_watershed->fetch();
-                        $stmt_watershed->close();
-                    } else {
-                        error_log("Failed to execute watershed query: " . $stmt_watershed->error);
-                    }
-                } else {
-                    error_log("Failed to prepare watershed query: " . $buwana_conn->error);
-                }
-            }
-        } else {
-            error_log("Failed to execute user query: " . $stmt_user->error);
-        }
-    } else {
-        error_log("Failed to prepare user query: " . $buwana_conn->error);
-    }
-
-    // Determine the globe emoticon based on the continent code
+    // Determine the globe emoticon based on the continent_code
     switch (strtoupper($continent_code)) {
         case 'AF':
             $country_icon = '🌍'; // Africa
@@ -125,8 +81,7 @@ function getUserContinent($buwana_conn, $buwana_id, $lang = '') {
             break;
     }
 
-    return ['continent_icon' => $country_icon, 'watershed_name' => $watershed_name];
+    return $country_icon;
 }
-
 
 ?>

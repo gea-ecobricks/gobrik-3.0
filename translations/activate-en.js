@@ -38,7 +38,7 @@ const en_Page_Translations = {
     "019-watershed": "watershed",
     "014-your-country": "In what country do you reside?",
     "015-country-place-holder": "<option value=\"\" disabled selected>Select your country of residence...</option>",
-    "016-submit-complete-button": "<input type=\"submit\" id=\"submit-button\" value=\"✔️ Complete Setup\" class=\"submit-button disabled\" disabled>"
+    "016-submit-complete-button": "<input type=\"submit\" id=\"submit-button\" value=\"✔️ Complete Setup\" class=\"submit-button disabled\">"
 
 
 

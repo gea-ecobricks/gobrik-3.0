@@ -220,7 +220,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             </div>
 
             <div id="submit-section" style="text-align:center;margin-top:15px;" data-lang-id="016-submit-complete-button">
-                <input type="submit" id="submit-button" value="✔️ Complete Setup" class="submit-button disabled" disabled>
+                <input type="submit" id="submit-button" value="✔️ Complete Setup" class="submit-button disabled">
             </div>
         </form>
     </div>

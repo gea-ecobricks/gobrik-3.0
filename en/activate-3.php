@@ -176,7 +176,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
-            <div id="status-message"><?php echo htmlspecialchars($first_name); ?>, <span data-lang-id="012-status-heading">your password & email are set!</span></div>
+            <div id="status-message"><?php echo htmlspecialchars($first_name); ?>, <span data-lang-id="012-status-heading">your password is set!</span></div>
             <div id="sub-status-message" data-lang-id="013-sub-status-tell">Your new Buwana and GoBrik account is all about local and global ecological action. Please tell us about where you live...</div>
         </div>
 
@@ -200,7 +200,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <div class="form-item" id="watershed-select" style="display:none;">
                 <label for="watershed" data-lang-id="014-your-watershed">In what river basin do you live?</label><br>
                 <select name="watershed_id" id="watershed_id" required>
-                    <option value="" disabled selected data-lang-id="015-watershed-place-holder">Select your watershed...</option>
+                    <option value="" disabled selected data-lang-id="015-watershed-place-holder">Select your river basin...</option>
                     <option value="Unsure" data-lang-id="016-dont-know">I am not sure</option>
                     <option value="not listed" data-lang-id="016-dont-know">Not listed</option>
                 </select>
@@ -328,7 +328,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 var response = JSON.parse(xhr.responseText);
 
                 // Clear current options
-                watershedDropdown.innerHTML = '<option value="" disabled selected>Select your watershed...</option>';
+                watershedDropdown.innerHTML = '<option value="" disabled selected>Select your watershed...</option><option value="unsure">I am unsure</option><option value="not listed" selected>Not listed</option>';
 
                 // Add new options from the response
                 response.forEach(function (watershed) {

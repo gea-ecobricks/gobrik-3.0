@@ -12,7 +12,7 @@ if (isLoggedIn()) {
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.56';
+$version = '0.57';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $is_logged_in = false; // Ensure not logged in for this page
 
@@ -205,7 +205,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 </select>
                 <p class="form-caption">
                     <span data-lang-id="018-what-is-watershed">Everyone lives in one of the Earth 157 main river basin's.  Learn more about </span>
-                    <a href="#" onclick="showModalInfo('watershed', '<?php echo htmlspecialchars($lang); ?>')" class="underline-link" data-lang-id="019-watershed">watershed</a>?
+                    <a href="#" onclick="showModalInfo('watershed', '<?php echo htmlspecialchars($lang); ?>')" class="underline-link" data-lang-id="019-watershed">watershed</a>.
                 </p>
             </div>
 

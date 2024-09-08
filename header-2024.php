@@ -350,13 +350,17 @@ display: none;
 <div id="main-menu-overlay" class="overlay-settings" style="display:none;">
   <button type="button" onclick="closeSettings()" aria-label="Click to close settings page" class="x-button"></button>
   <div class="overlay-content-settings">
-    <!-- Check if the user is logged in before displaying the logged-in status box -->
+    <!-- Check if the user is logged in before displaying the logged-in status box : earthen values set by earthenAuth_helper-->
     <?php if ($is_logged_in): ?>
       <div class="menu-page-item" style="display: flex; flex-direction: column; align-items: flex-start; padding-bottom: 30px;">
         <div style="width:100%; display: flex; align-items: center;">
           <div style="color: var(--text-color); margin-left: 7px;">
               <span id="continent-icon"><?php echo htmlspecialchars($country_icon); ?></span> <span data-lang-id="1000-logged-in-as">Logged in as</span> <span><?php echo htmlspecialchars($first_name); ?></span>
+
           </div>
+        </div>
+    <div class="logged-in-links" style="width:100%; font-size: 0.8em; margin-top: 5px; text-align: left;">
+          <span><?php echo htmlspecialchars($watershed_name); ?>
         </div>
         <div class="logged-in-links" style="width:100%; font-size: 0.8em; margin-top: 5px; text-align: left;">
           <a href="profile.php" class="underline-link" data-lang-id="1000-profile-settings">⚙️ Profile settings</a> |

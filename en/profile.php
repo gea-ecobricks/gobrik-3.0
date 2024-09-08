@@ -15,7 +15,7 @@ $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $first_name = '';
 $buwana_id = '';
 $country_icon = '';
-$watershed_name = '';
+$watershed_name = 'Athabaska Basin';
 $continent_name = ''; // Initialize continent name variable
 $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 
@@ -29,7 +29,7 @@ if ($is_logged_in) {
 
     // Fetch user information using buwana_id from the Buwana database
     $country_icon = getUserContinent($buwana_conn, $buwana_id);
-    $watershed_name = getWatershedName($buwana_conn, $buwana_id); // Fetch user's watershed name
+    $watershed_name = getWatershedName($buwana_conn, $buwana_id, $lang); // Corrected to include the $lang parameter
 
     // Fetch Full user information using buwana_id from the Buwana database
     $sql_user_info = "SELECT full_name, first_name, last_name, email, country_id, languages_id, birth_date, created_at, last_login, brikcoin_balance, role, account_status, notes, terms_of_service, continent_code FROM users_tb WHERE buwana_id = ?";

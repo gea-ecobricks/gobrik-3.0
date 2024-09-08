@@ -77,7 +77,7 @@ if ($is_logged_in) {
 
     // Fetch watersheds from Buwana database
     $watersheds = [];
-    $sql_watersheds = "SELECT watershed_code, watershed_name FROM watersheds_tb ORDER BY watershed_name";
+    $sql_watersheds = "SELECT watershed_id, watershed_name FROM watersheds_tb ORDER BY watershed_name";
     $result_watersheds = $buwana_conn->query($sql_watersheds);
     if ($result_watersheds && $result_watersheds->num_rows > 0) {
         while ($row = $result_watersheds->fetch_assoc()) {
@@ -203,11 +203,11 @@ echo '<!DOCTYPE html>
 
     <!-- Watershed -->
     <div class="form-item">
-        <label for="watershed_code" data-lang-id="023-watershed">Watershed:</label>
-        <select name="watershed_code" id="watershed_code">
+        <label for="watershed_id" data-lang-id="023-watershed">Watershed:</label>
+        <select name="watershed_id" id="watershed_id">
             <option value="" data-lang-id="024-select-watershed">Select Watershed</option>
             <?php foreach ($watersheds as $watershed): ?>
-                <option value="<?php echo $watershed['watershed_code']; ?>" <?php if ($watershed['watershed_code'] == $watershed_code) echo 'selected'; ?>>
+                <option value="<?php echo $watershed['watershed_id']; ?>" <?php if ($watershed['watershed_id'] == $watershed_id) echo 'selected'; ?>>
                     <?php echo htmlspecialchars($watershed['watershed_name']); ?>
                 </option>
             <?php endforeach; ?>

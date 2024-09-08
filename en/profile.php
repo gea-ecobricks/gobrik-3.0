@@ -48,8 +48,9 @@ if ($is_logged_in) {
 
     // Fetch languages from Buwana database
     $languages = [];
-    $sql_languages = "SELECT lang_id, languages_eng_name, language_active FROM languages_tb ORDER BY languages_eng_name";
+    $sql_languages = "SELECT lang_id, languages_eng_name, language_name_id, language_name_fr, language_name_es, language_active FROM languages_tb ORDER BY languages_eng_name";
     $result_languages = $buwana_conn->query($sql_languages);
+
     if ($result_languages && $result_languages->num_rows > 0) {
         while ($row = $result_languages->fetch_assoc()) {
             $languages[] = $row;

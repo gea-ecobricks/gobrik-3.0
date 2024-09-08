@@ -231,8 +231,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 <script>
-
- document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
     var continentSelect = document.getElementById('continent_code');
     var watershedSelect = document.getElementById('watershed-select');
     var watershedDropdown = document.getElementById('watershed_id');
@@ -257,8 +256,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             countrySelect.style.display = 'none';
             watershedDropdown.innerHTML = '<option value="" disabled selected>Select your watershed...</option><option value="unsure">I am unsure</option><option value="not listed" selected>Not listed</option>';
             countryDropdown.innerHTML = '<option value="" disabled selected>Select your country of residence...</option>';
-            submitButton.disabled = true;
-            submitButton.classList.add('disabled');
+            disableSubmitButton();
         }
     });
 
@@ -271,21 +269,32 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             fetchCountries(continentCode);
         } else {
             countrySelect.style.display = 'none';
-            submitButton.disabled = true;
-            submitButton.classList.add('disabled');
+            disableSubmitButton();
         }
     });
 
     // Enable submit button after country is selected
     countryDropdown.addEventListener('change', function () {
         if (this.value !== '') {
-            submitButton.disabled = false;
-            submitButton.classList.remove('disabled');
+            enableSubmitButton();
         } else {
-            submitButton.disabled = true;
-            submitButton.classList.add('disabled');
+            disableSubmitButton();
         }
     });
+
+    // Function to enable the submit button
+    function enableSubmitButton() {
+        submitButton.disabled = false;
+        submitButton.classList.remove('disabled');
+        submitButton.classList.add('enabled');
+    }
+
+    // Function to disable the submit button
+    function disableSubmitButton() {
+        submitButton.disabled = true;
+        submitButton.classList.remove('enabled');
+        submitButton.classList.add('disabled');
+    }
 
     // AJAX function to fetch countries
     function fetchCountries(continentCode) {
@@ -328,7 +337,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 var response = JSON.parse(xhr.responseText);
 
                 // Clear current options
-                watershedDropdown.innerHTML = '<option value="" disabled selected>Select your watershed...</option><option value="unsure">I am unsure</option><option value="not listed" selected>Not listed</option>';
+                watershedDropdown.innerHTML = '<option value="" disabled selected>Select your watershed...</option><option value="unsure">I am unsure</option><option value="not listed">Not listed</option>';
 
                 // Add new options from the response
                 response.forEach(function (watershed) {
@@ -347,6 +356,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         xhr.send('continent_code=' + encodeURIComponent(continentCode));
     }
 });
+
 
 
 </script>

@@ -15,7 +15,8 @@ $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $first_name = '';
 $buwana_id = '';
 $country_icon = '';
-$watershed_name = 'Athabaska Basin';
+$watershed_id = ''; // Initialize watershed_id to prevent undefined variable error
+$watershed_name = '';
 $continent_name = ''; // Initialize continent name variable
 $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 

@@ -10,13 +10,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['continent_code'])) {
     $stmt = $buwana_conn->prepare("SELECT watershed_id, watershed_name FROM watersheds_tb WHERE continent_code = ? ORDER BY watershed_name");
     $stmt->bind_param('s', $continent_code);
     $stmt->execute();
-    $result = $stmt->get_result();
+
+    // Bind the results
+    $stmt->bind_result($watershed_id, $watershed_name);
 
     $watersheds = [];
-    while ($row = $result->fetch_assoc()) {
-        $watersheds[] = $row;
+    // Fetch values and store in array
+    while ($stmt->fetch()) {
+        $watersheds[] = [
+            'watershed_id' => $watershed_id,
+            'watershed_name' => $watershed_name
+        ];
     }
 
+    $stmt->close();
     echo json_encode($watersheds); // Encode the result as JSON
 } else {
     // If the request is invalid, return an empty array

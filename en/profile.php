@@ -46,16 +46,17 @@ if ($is_logged_in) {
         die('Error preparing statement for fetching user info: ' . $buwana_conn->error);
     }
 
-    // Fetch languages from Buwana database
-    $languages = [];
-    $sql_languages = "SELECT lang_id, languages_eng_name, language_name_id, language_name_fr, language_name_es, language_active FROM languages_tb ORDER BY languages_eng_name";
-    $result_languages = $buwana_conn->query($sql_languages);
+  // Fetch languages from Buwana database
+$languages = [];
+$sql_languages = "SELECT lang_id, languages_eng_name, language_name_id, language_name_fr, language_name_es, language_active FROM languages_tb ORDER BY languages_eng_name";
+$result_languages = $buwana_conn->query($sql_languages);
 
-    if ($result_languages && $result_languages->num_rows > 0) {
-        while ($row = $result_languages->fetch_assoc()) {
-            $languages[] = $row;
-        }
+if ($result_languages && $result_languages->num_rows > 0) {
+    while ($row = $result_languages->fetch_assoc()) {
+        $languages[] = $row;
     }
+}
+
 
     // Fetch countries from Buwana database
     $countries = [];
@@ -222,7 +223,7 @@ echo '<!DOCTYPE html>
     <select name="language_id" id="language_id">
         <option value="" data-lang-id="018-select-language">Select Language</option>
         <?php foreach ($languages as $language): ?>
-            <option value="<?php echo $language['lang_id']; ?>" <?php if ($language['lang_id'] == $languages_id) echo 'selected'; ?>>
+            <option value="<?php echo htmlspecialchars($language['lang_id']); ?>" <?php if ($language['lang_id'] == $languages_id) echo 'selected'; ?>>
                 <?php
                 // Display the language name based on the user's selected language ($lang)
                 switch (strtolower($lang)) {
@@ -245,6 +246,7 @@ echo '<!DOCTYPE html>
         <?php endforeach; ?>
     </select>
 </div>
+
 
 
     <!-- Birth Date -->

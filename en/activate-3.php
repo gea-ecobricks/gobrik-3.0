@@ -284,6 +284,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to enable the submit button
     function enableSubmitButton() {
+    alert('hello!');
         submitButton.disabled = false;
         submitButton.classList.remove('disabled');
         submitButton.classList.add('enabled');

@@ -374,7 +374,7 @@ echo '<!DOCTYPE html>
         <input type="hidden" name="buwana_id" value="<?php echo htmlspecialchars($buwana_id); ?>" />
 
         <div style="text-align: center; margin-top: 20px;">
-            <button type="submit" class="delete-button">Delete My Account</button>
+                <button type="button" onclick="confirmDeletion('<?php echo htmlspecialchars($ecobricker_id); ?>')" class="delete">Delete My Account</button>
         </div>
     </form>
 </div>
@@ -449,13 +449,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 <script>
-function confirmDeletion() {
+function confirmDeletion(ecobricker_id) {
     if (confirm("Are you certain you wish to delete your account? This cannot be undone.")) {
         if (confirm("Ok. We will delete your account! Note that this does not affect ecobrick data that has been permanently archived in the brikchain. Note that currently our Earthen newsletter is separate from GoBrik-- which has its own easy unsubscribe mechanism.")) {
-            document.getElementById('delete-account-form').submit();
+            // Append the ecobricker_id to the form action URL
+            var form = document.getElementById('delete-account-form');
+            form.action = 'double_delete_account.php?id=' + encodeURIComponent(ecobricker_id);
+            form.submit();
         }
     }
 }
+
 </script>
 
 <!--Earthe DB check-->

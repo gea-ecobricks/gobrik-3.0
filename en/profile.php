@@ -370,13 +370,9 @@ echo '<!DOCTYPE html>
     <h2>Delete Your Account</h2>
     <p>Warning: Deleting your account will permanently remove all your data and cannot be undone.</p>
 
-    <form id="delete-account-form" method="post" action="delete_account.php" onsubmit="return confirmDelete();">
-        <input type="hidden" name="buwana_id" value="<?php echo htmlspecialchars($buwana_id); ?>" />
-
-        <div style="text-align: center; margin-top: 20px;">
-                <button type="button" onclick="confirmDeletion('<?php echo htmlspecialchars($ecobricker_id); ?>')" class="delete">Delete My Account</button>
-        </div>
-    </form>
+    <form id="delete-account-form" method="post">
+    <button type="button" onclick="confirmDeletion('<?php echo htmlspecialchars($ecobricker_id); ?>')" class="submit-button delete" aria-label="Delete Account" data-lang-id="020-delet-my-account">Delete My Account</button>
+</form>
 </div>
 
         <!-- Other Dashboard Buttons -->

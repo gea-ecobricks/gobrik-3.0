@@ -22,9 +22,9 @@ $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper
 
 // earthen_helper.php
 
-function checkEarthenEmailStatus($email_addr) {
+function checkEarthenEmailStatus($email) {
     // Prepare and encode the email address for use in the API URL
-    $email_encoded = urlencode($email_addr);
+    $email_encoded = urlencode($email);
     $ghost_api_url = "https://earthen.io/ghost/api/v3/admin/members/?filter=email:$email_encoded";
 
     // Split API Key into ID and Secret for JWT generation
@@ -462,7 +462,7 @@ function confirmDeletion() {
 
 <script>
 document.getElementById('check-earthen-status-button').addEventListener('click', function() {
-    var email = '<?php echo addslashes($email_addr); ?>'; // Use the user's email address and escape any potential line breaks
+    var email = '<?php echo addslashes($email); ?>'; // Use the user's email address and escape any potential line breaks
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'check_earthen_subscription.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');

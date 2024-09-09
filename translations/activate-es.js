@@ -37,6 +37,6 @@ const es_Page_Translations = {
     "019-watershed": "la cuenca hidrográfica",
     "014-your-country": "¿En qué país reside?",
     "015-country-place-holder": "<option value=\"\" disabled selected>Seleccione su país de residencia...</option>",
-    "016-submit-complete-button": "<input type=\"submit\" id=\"submit-button\" value=\"✔️ Completar configuración\" class=\"submit-button disabled\" disabled>"
+    "016-submit-complete-button": "<input type=\"submit\" id=\"submit-button\" value=\"✔️ Completar configuración\" class=\"submit-button enabled\">"
 
 };

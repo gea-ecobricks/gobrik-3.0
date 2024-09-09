@@ -37,7 +37,7 @@ const fr_Page_Translations = {
     "019-watershed": "le bassin hydrographique",
     "014-your-country": "Dans quel pays résidez-vous ?",
     "015-country-place-holder": "<option value=\"\" disabled selected>Sélectionnez votre pays de résidence...</option>",
-    "016-submit-complete-button": "<input type=\"submit\" id=\"submit-button\" value=\"✔️ Terminer l'installation\" class=\"submit-button disabled\" disabled>"
+    "016-submit-complete-button": "<input type=\"submit\" id=\"submit-button\" value=\"✔️ Terminer l'installation\" class=\"submit-button enabled\">"
 
 
 };

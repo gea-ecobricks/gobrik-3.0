@@ -362,7 +362,7 @@ echo '<!DOCTYPE html>
     <h2>Earthen Newsletter Subscription Status</h2>
     <p>Check to see if your <?php echo htmlspecialchars($email); ?> is subscribed to the Earthen newsletter</p>
     <p id="earthen-status-message" style="display:none;"></p>
-    <button id="check-earthen-status">Check Earthen Status</button>
+    <button id="check-earthen-status-button">Check Earthen Status</button>
 </div>
 
 

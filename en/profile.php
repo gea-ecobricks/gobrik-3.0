@@ -371,7 +371,7 @@ echo '<!DOCTYPE html>
     <p>Warning: Deleting your account will permanently remove all your data and cannot be undone.</p>
 
     <form id="delete-account-form" method="post">
-    <button type="button" onclick="confirmDeletion('<?php echo htmlspecialchars($ecobricker_id); ?>')" class="submit-button delete" aria-label="Delete Account" data-lang-id="020-delet-my-account">Delete My Account</button>
+    <button type="button" onclick="confirmDeletion('<?php echo htmlspecialchars($buwana_id); ?>')" class="submit-button delete" aria-label="Delete Account" data-lang-id="020-delet-my-account">Delete My Account</button>
 </form>
 </div>
 

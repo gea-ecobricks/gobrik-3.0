@@ -66,7 +66,11 @@ try {
     $buwana_conn->commit();
     $gobrik_conn->commit();
 
-    // Redirect back to profile.php with success message
+    // Terminate the session and clear session data
+    session_unset(); // Remove all session variables
+    session_destroy(); // Destroy the session
+
+    // Redirect to goodbye page with success message
     echo '<script>
         window.location.href = "goodbye.php?status=deleted";
     </script>';

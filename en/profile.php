@@ -385,7 +385,7 @@ function confirmDeletion(buwana_id) {
 document.getElementById('check-earthen-status-button').addEventListener('click', function() {
     var email = '<?php echo addslashes($email); ?>';
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'check_earthen_subscription.php', true);
+    xhr.open('POST', 'check_earthen_status.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
     xhr.onreadystatechange = function() {

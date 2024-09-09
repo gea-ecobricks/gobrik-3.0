@@ -462,7 +462,7 @@ function confirmDeletion() {
 
 <script>
 document.getElementById('check-earthen-status-button').addEventListener('click', function() {
-    var email = '<?php echo $email_addr; ?>'; // Use the user's email address
+    var email = '<?php echo addslashes($email_addr); ?>'; // Use the user's email address and escape any potential line breaks
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'check_earthen_subscription.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -475,11 +475,12 @@ document.getElementById('check-earthen-status-button').addEventListener('click',
 
                 if (response.status === 'success') {
                     if (response.registered) {
-                        messageElement.textContent = "Yes! You're subscribed.";
-                        // Show buttons to unsubscribe or update
+                        messageElement.innerHTML = `Yes! You're subscribed.<br>
+                        <button onclick="unsubscribe()">Unsubscribe</button>
+                        <button onclick="updateSubscription()">Update Subscription</button>`;
                     } else {
-                        messageElement.textContent = "You're not yet subscribed.";
-                        // Show button to subscribe
+                        messageElement.innerHTML = `You're not yet subscribed.<br>
+                        <button onclick="subscribe()">Subscribe</button>`;
                     }
                 } else {
                     messageElement.textContent = response.message;
@@ -493,6 +494,7 @@ document.getElementById('check-earthen-status-button').addEventListener('click',
 
     xhr.send('email=' + encodeURIComponent(email));
 });
+
 
 </script>
 

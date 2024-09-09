@@ -1,6 +1,5 @@
 <?php
 
-
 function checkEarthenEmailStatus($email) {
     // Prepare and encode the email address for use in the API URL
     $email_encoded = urlencode($email);
@@ -77,6 +76,7 @@ function checkEarthenEmailStatus($email) {
     // Close the cURL session
     curl_close($ch);
 }
+
 
 
 //end of the function

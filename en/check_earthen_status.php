@@ -1,7 +1,6 @@
 <?php
 
 
-
 function checkEarthenEmailStatus($email) {
     // Prepare and encode the email address for use in the API URL
     $email_encoded = urlencode($email);
@@ -44,7 +43,7 @@ function checkEarthenEmailStatus($email) {
         'Content-Type: application/json'
     ));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET'); // Corrected to use CURLOPT_CUSTOMREQUEST for a GET request
+    curl_setopt($ch, CURLOPT_HTTPGET, true); // Use GET to fetch data
 
     // Execute the cURL session
     $response = curl_exec($ch);
@@ -53,6 +52,7 @@ function checkEarthenEmailStatus($email) {
     if (curl_errno($ch)) {
         error_log('Curl error: ' . curl_error($ch));
         echo json_encode(['status' => 'error', 'message' => 'Curl error: ' . curl_error($ch)]);
+        curl_close($ch);
         exit();
     }
 
@@ -64,10 +64,10 @@ function checkEarthenEmailStatus($email) {
         $registered = 0; // Default to not registered
         if ($response_data && isset($response_data['members']) && is_array($response_data['members']) && count($response_data['members']) > 0) {
             $registered = 1; // Member with the given email exists
-            echo json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is subscribed.']);
-        } else {
-            echo json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is not subscribed.']);
         }
+
+        // Return single JSON response
+        echo json_encode(['status' => 'success', 'registered' => $registered, 'message' => $registered ? 'User is subscribed.' : 'User is not subscribed.']);
     } else {
         // Handle error
         error_log('HTTP status ' . $http_code . ': ' . $response);
@@ -78,6 +78,8 @@ function checkEarthenEmailStatus($email) {
     curl_close($ch);
 }
 
+
+//end of the function
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

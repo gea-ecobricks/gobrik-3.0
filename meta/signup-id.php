@@ -1,3 +1,5 @@
+<title>Daftar ke GoBrik</title>
+
 <meta name="keywords" content="gobrik, aplikasi ecobrick, daftar, mendaftar, mendaftar, sign up">
 <meta name="description" content="Daftar ke aplikasi Gobrik untuk mengelola ecobrick, plastik, dan proyek Anda.">
 <meta name="author" content="Aliansi Global Ecobrick">

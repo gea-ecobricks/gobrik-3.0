@@ -20,6 +20,78 @@ $watershed_name = '';
 $continent_name = ''; // Initialize continent name variable
 $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 
+// earthen_helper.php
+
+function checkEarthenEmailStatus($email_addr) {
+    // Prepare and encode the email address for use in the API URL
+    $email_encoded = urlencode($email_addr);
+    $ghost_api_url = "https://earthen.io/ghost/api/v3/admin/members/?filter=email:$email_encoded";
+
+    // Split API Key into ID and Secret for JWT generation
+    $apiKey = '66db68b5cff59f045598dbc3:5c82d570631831f277b1a9b4e5840703e73a68e948812b2277a0bc11c12c973f';
+    list($id, $secret) = explode(':', $apiKey);
+
+    // Prepare the header and payload for the JWT
+    $header = json_encode(['typ' => 'JWT', 'alg' => 'HS256', 'kid' => $id]);
+    $now = time();
+    $payload = json_encode([
+        'iat' => $now,
+        'exp' => $now + 300, // Token valid for 5 minutes
+        'aud' => '/v3/admin/' // Corrected audience value to match the expected pattern
+    ]);
+
+    // Base64Url Encode function
+    function base64UrlEncode($data) {
+        return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
+    }
+
+    // Encode Header and Payload
+    $base64UrlHeader = base64UrlEncode($header);
+    $base64UrlPayload = base64UrlEncode($payload);
+
+    // Create the Signature
+    $signature = hash_hmac('sha256', $base64UrlHeader . '.' . $base64UrlPayload, hex2bin($secret), true);
+    $base64UrlSignature = base64UrlEncode($signature);
+
+    // Create the JWT token
+    $jwt = $base64UrlHeader . '.' . $base64UrlPayload . '.' . $base64UrlSignature;
+
+    // Set up the cURL request to the Ghost Admin API
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $ghost_api_url);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'Authorization: Ghost ' . $jwt,
+        'Content-Type: application/json'
+    ));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPGET, true); // Use GET to fetch data
+
+    // Execute the cURL session
+    $response = curl_exec($ch);
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+    if (curl_errno($ch)) {
+        error_log('Curl error: ' . curl_error($ch));
+        return false;
+    }
+
+    if ($http_code >= 200 && $http_code < 300) {
+        // Successful response, parse the JSON data
+        $response_data = json_decode($response, true);
+
+        // Check if members are found
+        if ($response_data && isset($response_data['members']) && is_array($response_data['members']) && count($response_data['members']) > 0) {
+            return true; // Member with the given email exists
+        }
+    }
+
+    return false; // Default to not registered or error occurred
+}
+
+
+
+
+
 // Check if user is logged in and session active
 if ($is_logged_in) {
     $buwana_id = $_SESSION['buwana_id'] ?? ''; // Retrieve buwana_id from session
@@ -32,19 +104,20 @@ if ($is_logged_in) {
     $country_icon = getUserContinent($buwana_conn, $buwana_id);
     $watershed_name = getWatershedName($buwana_conn, $buwana_id, $lang); // Corrected to include the $lang parameter
 
-    // Fetch Full user information using buwana_id from the Buwana database
-    $sql_user_info = "SELECT full_name, first_name, last_name, email, country_id, languages_id, birth_date, created_at, last_login, brikcoin_balance, role, account_status, notes, terms_of_service, continent_code FROM users_tb WHERE buwana_id = ?";
+    // Fetch Full user information including watershed_id using buwana_id from the Buwana database
+    $sql_user_info = "SELECT full_name, first_name, last_name, email, country_id, languages_id, birth_date, created_at, last_login, brikcoin_balance, role, account_status, notes, terms_of_service, continent_code, watershed_id FROM users_tb WHERE buwana_id = ?";
     $stmt_user_info = $buwana_conn->prepare($sql_user_info);
 
     if ($stmt_user_info) {
         $stmt_user_info->bind_param('i', $buwana_id);
         $stmt_user_info->execute();
-        $stmt_user_info->bind_result($full_name, $first_name, $last_name, $email, $country_id, $languages_id, $birth_date, $created_at, $last_login, $brikcoin_balance, $role, $account_status, $notes, $terms_of_service, $continent_code);
+        $stmt_user_info->bind_result($full_name, $first_name, $last_name, $email, $country_id, $languages_id, $birth_date, $created_at, $last_login, $brikcoin_balance, $role, $account_status, $notes, $terms_of_service, $continent_code, $watershed_id);
         $stmt_user_info->fetch();
         $stmt_user_info->close();
     } else {
         die('Error preparing statement for fetching user info: ' . $buwana_conn->error);
     }
+
 
 // Fetch active languages from Buwana database
 $languages = [];
@@ -83,7 +156,8 @@ if ($result_languages && $result_languages->num_rows > 0) {
         }
     }
 
-    // Fetch watersheds from Buwana database
+
+    // Fetch watersheds from the Buwana database
     $watersheds = [];
     $sql_watersheds = "SELECT watershed_id, watershed_name FROM watersheds_tb ORDER BY watershed_name";
     $result_watersheds = $buwana_conn->query($sql_watersheds);
@@ -92,6 +166,8 @@ if ($result_languages && $result_languages->num_rows > 0) {
             $watersheds[] = $row;
         }
     }
+
+
 
     // Close the database connections
     $buwana_conn->close();
@@ -267,9 +343,16 @@ echo '<!DOCTYPE html>
     </div>
 </form>
 
-            <p data-lang-id="022-warning" style="font-size:medium; text-align: center;">WARNING: This cannot be undone.</p>
-            <br>
+
         </div>
+
+    <!--earthen db check-->
+<div class="form-container" style="padding-top:20px">
+    <h2>Earthen Newsletter Subscription Status</h2>
+    <p>Check to see if your <?php echo htmlspecialchars($email_addr); ?> is subscribed to the Earthen newsletter</p>
+    <p id="earthen-status-message" style="display:none;"></p>
+    <button id="check-earthen-status">Check Earthen Status</button>
+</div>
 
         <!-- Other Dashboard Buttons -->
         <div style="display:flex;flex-flow:row;width:100%;justify-content:center; margin-top:50px;">
@@ -348,6 +431,37 @@ function confirmDeletion() {
         }
     }
 }
+</script>
+
+<!--Earthe DB check-->
+
+<script>
+document.getElementById('check-earthen-status').addEventListener('click', function() {
+    var email = "<?php echo $email_addr; ?>";
+
+    // Make an AJAX call to check the email status
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'check_earthen_status.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            var statusMessage = document.getElementById('earthen-status-message');
+
+            if (response.isSubscribed) {
+                statusMessage.innerHTML = "Yes! You're subscribed.";
+                statusMessage.innerHTML += '<button id="unsubscribe-button">Unsubscribe</button> <button id="update-button">Update Subscription</button>';
+            } else {
+                statusMessage.innerHTML = "You're not yet subscribed.";
+                statusMessage.innerHTML += '<button id="subscribe-button">Subscribe</button>';
+            }
+            statusMessage.style.display = 'block';
+        }
+    };
+
+    xhr.send('email=' + encodeURIComponent(email));
+});
 </script>
 
 </body>

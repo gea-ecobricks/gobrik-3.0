@@ -1,3 +1,6 @@
+<title>Inscrivez-vous sur GoBrik</title>
+
+
 <meta name="keywords" content="gobrik, application ecobrick, inscription, s'inscrire, signer, enregistrement">
 <meta name="description" content="Inscrivez-vous à l'application Gobrik pour gérer vos écobriques, plastiques et projets.">
 <meta name="author" content="Alliance Globale d'Écobriques">

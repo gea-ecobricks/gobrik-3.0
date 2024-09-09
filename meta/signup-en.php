@@ -1,3 +1,5 @@
+<title>Sign up to GoBrik</sign>
+
 <meta name="keywords" content="gobrik, ecobrick app, signup, sign up, sign, up">
 <meta name="description" content="Signup to the Gobrik app to manage your ecobrick, plastic and projects.">
 <meta name="author" content="Global Ecobrick Alliance">

@@ -1,3 +1,5 @@
+<title>Regístrate en GoBrik</title>
+
 <meta name="keywords" content="gobrik, aplicación de ecoladrillos, registrarse, inscripción, firmar, registro">
 <meta name="description" content="Regístrate en la aplicación Gobrik para gestionar tus ecoladrillos, plásticos y proyectos.">
 <meta name="author" content="Alianza Global de Ecoladrillos">

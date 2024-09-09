@@ -22,9 +22,9 @@ $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper
 
 // earthen_helper.php
 
-function checkEarthenEmailStatus($email) {
+function checkEarthenEmailStatus($email_addr) {
     // Prepare and encode the email address for use in the API URL
-    $email_encoded = urlencode($email);
+    $email_encoded = urlencode($email_addr);
     $ghost_api_url = "https://earthen.io/ghost/api/v3/admin/members/?filter=email:$email_encoded";
 
     // Split API Key into ID and Secret for JWT generation
@@ -72,7 +72,8 @@ function checkEarthenEmailStatus($email) {
 
     if (curl_errno($ch)) {
         error_log('Curl error: ' . curl_error($ch));
-        return false;
+        echo json_encode(['status' => 'error', 'message' => 'Curl error: ' . curl_error($ch)]);
+        exit();
     }
 
     if ($http_code >= 200 && $http_code < 300) {
@@ -80,13 +81,23 @@ function checkEarthenEmailStatus($email) {
         $response_data = json_decode($response, true);
 
         // Check if members are found
+        $registered = 0; // Default to not registered
         if ($response_data && isset($response_data['members']) && is_array($response_data['members']) && count($response_data['members']) > 0) {
-            return true; // Member with the given email exists
+            $registered = 1; // Member with the given email exists
+            echo json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is subscribed.']);
+        } else {
+            echo json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is not subscribed.']);
         }
+    } else {
+        // Handle error
+        error_log('HTTP status ' . $http_code . ': ' . $response);
+        echo json_encode(['status' => 'error', 'message' => 'API call to Earthen.io failed with HTTP code: ' . $http_code]);
     }
 
-    return false; // Default to not registered or error occurred
+    // Close the cURL session
+    curl_close($ch);
 }
+
 
 
 
@@ -450,32 +461,39 @@ function confirmDeletion() {
 <!--Earthe DB check-->
 
 <script>
-document.getElementById('check-earthen-status').addEventListener('click', function() {
-    var email = "<?php echo $email; ?>";
-
-    // Make an AJAX call to check the email status
+document.getElementById('check-earthen-status-button').addEventListener('click', function() {
+    var email = '<?php echo $email_addr; ?>'; // Use the user's email address
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'check_earthen_status.php', true);
+    xhr.open('POST', 'check_earthen_subscription.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            var response = JSON.parse(xhr.responseText);
-            var statusMessage = document.getElementById('earthen-status-message');
+            try {
+                var response = JSON.parse(xhr.responseText);
+                var messageElement = document.getElementById('earthen-status-message');
 
-            if (response.isSubscribed) {
-                statusMessage.innerHTML = "Yes! You're subscribed.";
-                statusMessage.innerHTML += '<button id="unsubscribe-button">Unsubscribe</button> <button id="update-button">Update Subscription</button>';
-            } else {
-                statusMessage.innerHTML = "You're not yet subscribed.";
-                statusMessage.innerHTML += '<button id="subscribe-button">Subscribe</button>';
+                if (response.status === 'success') {
+                    if (response.registered) {
+                        messageElement.textContent = "Yes! You're subscribed.";
+                        // Show buttons to unsubscribe or update
+                    } else {
+                        messageElement.textContent = "You're not yet subscribed.";
+                        // Show button to subscribe
+                    }
+                } else {
+                    messageElement.textContent = response.message;
+                }
+                messageElement.style.display = 'block';
+            } catch (e) {
+                console.error('Error parsing JSON:', e);
             }
-            statusMessage.style.display = 'block';
         }
     };
 
     xhr.send('email=' + encodeURIComponent(email));
 });
+
 </script>
 
 </body>

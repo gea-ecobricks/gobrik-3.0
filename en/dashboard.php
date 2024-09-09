@@ -193,23 +193,67 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <script type="text/javascript">
 
-
 // JavaScript to determine the user's time of day and display an appropriate greeting
 window.onload = function() {
     var now = new Date();
     var hours = now.getHours();
     var greeting;
+    var lang = "<?php echo htmlspecialchars($lang); ?>"; // Get the language from PHP
 
+    // Determine greeting based on the time of day
     if (hours < 12) {
-        greeting = "Good morning";
+        switch (lang) {
+            case 'fr':
+                greeting = "Bonjour";
+                break;
+            case 'es':
+                greeting = "Buenos días";
+                break;
+            case 'id':
+                greeting = "Selamat pagi";
+                break;
+            case 'en':
+            default:
+                greeting = "Good morning";
+                break;
+        }
     } else if (hours < 18) {
-        greeting = "Good afternoon";
+        switch (lang) {
+            case 'fr':
+                greeting = "Bon après-midi";
+                break;
+            case 'es':
+                greeting = "Buenas tardes";
+                break;
+            case 'id':
+                greeting = "Selamat siang";
+                break;
+            case 'en':
+            default:
+                greeting = "Good afternoon";
+                break;
+        }
     } else {
-        greeting = "Good evening";
+        switch (lang) {
+            case 'fr':
+                greeting = "Bonsoir";
+                break;
+            case 'es':
+                greeting = "Buenas noches";
+                break;
+            case 'id':
+                greeting = "Selamat malam";
+                break;
+            case 'en':
+            default:
+                greeting = "Good evening";
+                break;
+        }
     }
 
     document.getElementById("greeting").innerHTML = greeting + " <?php echo htmlspecialchars($first_name); ?>!";
 }
+
 
 
 document.getElementById('log-ecobrick-button').addEventListener('click', function() {

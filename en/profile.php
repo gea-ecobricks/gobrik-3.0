@@ -22,9 +22,9 @@ $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper
 
 // earthen_helper.php
 
-function checkEarthenEmailStatus($email_addr) {
+function checkEarthenEmailStatus($email) {
     // Prepare and encode the email address for use in the API URL
-    $email_encoded = urlencode($email_addr);
+    $email_encoded = urlencode($email);
     $ghost_api_url = "https://earthen.io/ghost/api/v3/admin/members/?filter=email:$email_encoded";
 
     // Split API Key into ID and Secret for JWT generation
@@ -354,6 +354,20 @@ echo '<!DOCTYPE html>
     <button id="check-earthen-status">Check Earthen Status</button>
 </div>
 
+
+<div class="form-container" style="padding-top:20px; margin-top: 20px; border-top: 1px solid #ddd;">
+    <h2>Delete Your Account</h2>
+    <p>Warning: Deleting your account will permanently remove all your data and cannot be undone.</p>
+
+    <form id="delete-account-form" method="post" action="delete_account.php" onsubmit="return confirmDelete();">
+        <input type="hidden" name="buwana_id" value="<?php echo htmlspecialchars($buwana_id); ?>" />
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button type="submit" class="delete-button">Delete My Account</button>
+        </div>
+    </form>
+</div>
+
         <!-- Other Dashboard Buttons -->
         <div style="display:flex;flex-flow:row;width:100%;justify-content:center; margin-top:50px;">
             <a href="newest-briks.php"><button id="newest-ecobricks-button" data-lang-id="023-newest-ecobricks" style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;">📅 Newest Ecobricks</button></a>
@@ -437,7 +451,7 @@ function confirmDeletion() {
 
 <script>
 document.getElementById('check-earthen-status').addEventListener('click', function() {
-    var email = "<?php echo $email_addr; ?>";
+    var email = "<?php echo $email; ?>";
 
     // Make an AJAX call to check the email status
     var xhr = new XMLHttpRequest();

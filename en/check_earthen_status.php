@@ -58,9 +58,6 @@ function checkEarthenEmailStatus($email) {
         exit();
     }
 
-    // Log the server response to console
-    echo "<script>console.log('Server response: " . addslashes($response) . "');</script>";
-
     if ($http_code >= 200 && $http_code < 300) {
         // Successful response, parse the JSON data
         $response_data = json_decode($response, true);

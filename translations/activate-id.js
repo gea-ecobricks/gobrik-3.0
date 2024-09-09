@@ -37,6 +37,6 @@ const id_Page_Translations = {
     "019-watershed": "daerah aliran sungai",
     "014-your-country": "Di negara mana Anda tinggal?",
     "015-country-place-holder": "<option value=\"\" disabled selected>Pilih negara tempat tinggal Anda...</option>",
-    "016-submit-complete-button": "<input type=\"submit\" id=\"submit-button\" value=\"✔️ Selesaikan Pengaturan\" class=\"submit-button disabled\" disabled>"
+    "016-submit-complete-button": "<input type=\"submit\" id=\"submit-button\" value=\"✔️ Selesaikan Pengaturan\" class=\"submit-button enabled\">"
 
 };

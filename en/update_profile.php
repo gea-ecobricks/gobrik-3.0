@@ -32,20 +32,6 @@ $watershed_id = (int)$_POST['watershed_id']; // Sanitize watershed_id
 $sql_update = "UPDATE users_tb SET first_name = ?, last_name = ?, country_id = ?, languages_id = ?, birth_date = ?, continent_code = ?, watershed_id = ? WHERE buwana_id = ?";
 $stmt_update = $buwana_conn->prepare($sql_update);
 
-// Debugging output to check watershed_id value
-error_log("Debug: Updating user $buwana_id with watershed_id: " . $watershed_id);
-
-// After binding and before executing, check for errors
-if ($stmt_update->execute()) {
-    echo json_encode(['status' => 'succeeded']);
-} else {
-    // Log the exact error message for debugging
-    error_log('Failed to execute update query: ' . $stmt_update->error);
-    echo json_encode(['status' => 'failed', 'message' => 'Failed to execute update query: ' . $stmt_update->error]);
-}
-
-
-
 if ($stmt_update) {
     // Bind parameters
     $stmt_update->bind_param('ssisssii', $first_name, $last_name, $country_id, $language_id, $birth_date, $continent_code, $watershed_id, $buwana_id);

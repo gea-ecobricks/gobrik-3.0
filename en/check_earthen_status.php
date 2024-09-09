@@ -1,15 +1,6 @@
 <?php
 
 
-require_once 'earthen_helper.php'; // Include the helper functions
-
-$is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
-
-
-// Check if user is logged in and session active
-if ($is_logged_in) {
-    $buwana_id = $_SESSION['buwana_id'] ?? ''; // Retrieve buwana_id from session
-
 
 function checkEarthenEmailStatus($email) {
     // Prepare and encode the email address for use in the API URL

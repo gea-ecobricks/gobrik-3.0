@@ -1,5 +1,9 @@
 <?php
+// Enable error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
+// Prepare the function to check the subscription status
 function checkEarthenEmailStatus($email) {
     // Prepare and encode the email address for use in the API URL
     $email_encoded = urlencode($email);
@@ -51,9 +55,11 @@ function checkEarthenEmailStatus($email) {
     if (curl_errno($ch)) {
         error_log('Curl error: ' . curl_error($ch));
         echo json_encode(['status' => 'error', 'message' => 'Curl error: ' . curl_error($ch)]);
-        curl_close($ch);
         exit();
     }
+
+    // Log the server response to console
+    echo "<script>console.log('Server response: " . addslashes($response) . "');</script>";
 
     if ($http_code >= 200 && $http_code < 300) {
         // Successful response, parse the JSON data
@@ -63,10 +69,10 @@ function checkEarthenEmailStatus($email) {
         $registered = 0; // Default to not registered
         if ($response_data && isset($response_data['members']) && is_array($response_data['members']) && count($response_data['members']) > 0) {
             $registered = 1; // Member with the given email exists
+            echo json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is subscribed.']);
+        } else {
+            echo json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is not subscribed.']);
         }
-
-        // Return single JSON response
-        echo json_encode(['status' => 'success', 'registered' => $registered, 'message' => $registered ? 'User is subscribed.' : 'User is not subscribed.']);
     } else {
         // Handle error
         error_log('HTTP status ' . $http_code . ': ' . $response);
@@ -77,24 +83,11 @@ function checkEarthenEmailStatus($email) {
     curl_close($ch);
 }
 
-
-
-//end of the function
-
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email_addr = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-
-    if (!empty($email_addr)) {
-        // Call the function to check the email status
-        $isSubscribed = checkEarthenEmailStatus($email_addr);
-
-        // Return the result as JSON
-        echo json_encode(['isSubscribed' => $isSubscribed]);
-    } else {
-        echo json_encode(['error' => 'Invalid email address']);
-    }
+// Get the email address from the request
+if (isset($_POST['email'])) {
+    $email = $_POST['email'];
+    checkEarthenEmailStatus($email);
+} else {
+    echo json_encode(['status' => 'error', 'message' => 'No email address provided.']);
 }
-
-
 ?>

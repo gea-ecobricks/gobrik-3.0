@@ -382,25 +382,19 @@ function confirmDeletion(buwana_id) {
 <script>
 
 //CHECK EARTHEN SUBSCRIPTION
-document.getElementById('check-earthen-status-button').addEventListener('click', function() {
+document.getElementById('check-earthen-status-button').addEventListener('click', function () {
     var email = '<?php echo addslashes($email); ?>';
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'check_earthen_status.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            try {
-                // Attempt to split the response if it contains multiple JSON objects
-                var responseParts = xhr.responseText.split('}{').map(function(part, index, array) {
-                    if (index === 0) return part + '}';
-                    if (index === array.length - 1) return '{' + part;
-                    return '{' + part + '}';
-                });
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            console.log('Server response:', xhr.responseText); // Log the server response to console
 
-                // Iterate through each response part and handle it
-                responseParts.forEach(function(responseText) {
-                    var response = JSON.parse(responseText);
+            if (xhr.status === 200) {
+                try {
+                    var response = JSON.parse(xhr.responseText);
                     var messageElement = document.getElementById('earthen-status-message');
 
                     if (response.status === 'success') {
@@ -416,17 +410,17 @@ document.getElementById('check-earthen-status-button').addEventListener('click',
                         messageElement.textContent = response.message;
                     }
                     messageElement.style.display = 'block';
-                });
-
-            } catch (e) {
-                console.error('Error parsing JSON:', e, 'Response:', xhr.responseText);
+                } catch (e) {
+                    console.error('Error parsing JSON:', e);
+                }
+            } else {
+                console.error('Request failed with status code:', xhr.status);
             }
         }
     };
 
     xhr.send('email=' + encodeURIComponent(email));
 });
-
 
 </script>
 

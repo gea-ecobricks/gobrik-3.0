@@ -445,12 +445,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 <script>
-function confirmDeletion(ecobricker_id) {
+function confirmDeletion(buwana_id) {
     if (confirm("Are you certain you wish to delete your account? This cannot be undone.")) {
         if (confirm("Ok. We will delete your account! Note that this does not affect ecobrick data that has been permanently archived in the brikchain. Note that currently our Earthen newsletter is separate from GoBrik-- which has its own easy unsubscribe mechanism.")) {
-            // Append the ecobricker_id to the form action URL
+            // Append the buwana_id to the form action URL
             var form = document.getElementById('delete-account-form');
-            form.action = 'double_delete_account.php?id=' + encodeURIComponent(ecobricker_id);
+            form.action = 'double_delete_account.php?id=' + encodeURIComponent(buwana_id);
             form.submit();
         }
     }

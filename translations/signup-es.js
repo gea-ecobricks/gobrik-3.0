@@ -12,6 +12,7 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 
 
 const es_Page_Translations = {
+
     "001-signup-heading": "Crea tu cuenta",
     "002-signup-subtext": "Únase a nosotros en GoBrik con una cuenta Buwana: una alternativa de código abierto, para la Tierra, a los inicios de sesión corporativos.",
     "003-firstname": "¿Cuál es tu nombre?",
@@ -40,9 +41,6 @@ const es_Page_Translations = {
     "012-fun-fact": "🤓 Dato curioso: <a href=\"#\" onclick=\"showModalInfo('ecobrick', '<?php echo $lang; ?>')\" class=\"underline-link\">Ecoladrillo</a> se escribe sin espacio, mayúscula ni guion!",
     "013-by-registering": "Al registrarme hoy, acepto los <a href=\"#\" onclick=\"showModalInfo('terms', '<?php echo $lang; ?>')\" class=\"underline-link\">Términos de servicio de GoBrik</a>",
     "014-i-agree-newsletter": "Acepto recibir el <a href=\"#\" onclick=\"showModalInfo('earthen', '<?php echo $lang; ?>')\" class=\"underline-link\">boletín informativo Earthen</a> para actualizaciones de la aplicación, ecoladrillos y tierra"
-};
-
-
 
 
 };

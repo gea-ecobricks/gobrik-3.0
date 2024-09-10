@@ -278,18 +278,25 @@ echo '<!DOCTYPE html>
     <!--EARTHEN ACCOUNT DB CHECK -->
 <div class="form-container" style="padding-top:20px">
     <h2>Earthen Newsletter Subscription Status</h2>
-    <p>Check to see if your <?php echo htmlspecialchars($email); ?> is subscribed to the Earthen newsletter</p>
-    <div id="earthen-status-yes" style="display:none;"><p>
-    Yes! You're subscribed.</p>
-                            <button onclick="unsubscribe()">Unsubscribe</button>
-                            <button onclick="updateSubscription()">Update Subscription</button></div>
+    <p>Check to see if your <?php echo htmlspecialchars($email_addr); ?> is subscribed to the Earthen newsletter</p>
+    <div id="earthen-status-message" style="display:none;"></div>
+    <button id="check-earthen-status-button">Check Earthen Status</button>
 
-    <div id="earthen-status-no" style="display:none;"><p>You're not yet subscribed.</p>
-                            <button onclick="subscribe()">Subscribe</button>
-                            </div>
+    <!-- Status Yes -->
+    <div id="earthen-status-yes" style="display:none;">
+        <p>Yes! You're subscribed to the following newsletters:</p>
+        <ul id="newsletter-list"></ul>
+        <button id="unsubscribe-button">Unsubscribe</button>
+        <button id="manage-subscription-button">Manage Subscription</button>
+    </div>
 
-    <button id="check-earthen-status-button" class="submit-button enabled">Check Earthen Status</button>
+    <!-- Status No -->
+    <div id="earthen-status-no" style="display:none;">
+        <p>You're not yet subscribed.</p>
+        <button onclick="subscribe()">Subscribe</button>
+    </div>
 </div>
+
 
 
 <!-- DELETE ACCOUNT -->
@@ -390,45 +397,65 @@ function confirmDeletion(buwana_id) {
 <script>
 
 //CHECK EARTHEN SUBSCRIPTION
-document.getElementById('check-earthen-status-button').addEventListener('click', function () {
+document.getElementById('check-earthen-status-button').addEventListener('click', function() {
     var email = '<?php echo addslashes($email); ?>';
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'check_earthen_status.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-    // Send the POST request to check the subscription status
-    fetch('check_earthen_status.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: 'email=' + encodeURIComponent(email)
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Server response:', data); // Log the server response to the console
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            try {
+                var response = JSON.parse(xhr.responseText);
+                if (response.status === 'success') {
+                    var statusYes = document.getElementById('earthen-status-yes');
+                    var statusNo = document.getElementById('earthen-status-no');
+                    var newsletterList = document.getElementById('newsletter-list');
+                    var checkButton = document.getElementById('check-earthen-status-button');
 
-        // Check if the response is successful
-        if (data.status === 'success') {
-            if (data.registered) {
-                // User is subscribed, show the "yes" status div
-                document.getElementById('earthen-status-yes').style.display = 'block';
+                    if (response.registered) {
+                        // Hide check status button and display the status yes div
+                        checkButton.style.display = 'none';
+                        statusYes.style.display = 'block';
 
-                // Display the newsletters the user is subscribed to
-                if (data.newsletters && data.newsletters.length > 0) {
-                    var newsletterList = data.newsletters.join(', ');
-                    document.getElementById('earthen-status-yes').innerHTML += `<p>Subscribed to: ${newsletterList}</p>`;
+                        // Clear any existing list items
+                        newsletterList.innerHTML = '';
+
+                        // Add the newsletters to the list
+                        response.newsletters.forEach(function(newsletter) {
+                            var li = document.createElement('li');
+                            li.textContent = newsletter.name;
+                            newsletterList.appendChild(li);
+                        });
+                    } else {
+                        // Hide check status button and display the status no div
+                        checkButton.style.display = 'none';
+                        statusNo.style.display = 'block';
+                    }
+                } else {
+                    console.error(response.message);
                 }
-            } else {
-                // User is not subscribed, show the "no" status div
-                document.getElementById('earthen-status-no').style.display = 'block';
+            } catch (e) {
+                console.error('Error parsing JSON:', e);
             }
-            // Hide the check status button
-            document.getElementById('check-earthen-status-button').style.display = 'none';
-        } else {
-            console.error('Error:', data.message); // Log any errors to the console
         }
-    })
-    .catch(error => {
-        console.error('Error fetching the subscription status:', error);
-    });
+    };
+
+    xhr.send('email=' + encodeURIComponent(email));
+});
+
+// Listener for manage subscription button
+document.getElementById('manage-subscription-button').addEventListener('click', function() {
+    window.open('https://earthen.io', '_blank');
+});
+
+// Listener for unsubscribe button
+document.getElementById('unsubscribe-button').addEventListener('click', function() {
+    if (confirm("Are you sure you want to do this? We'll permanently unsubscribe you from all Earthen newsletters. Note, this will not affect your GoBrik or Buwana accounts.")) {
+        // Call the unsubscribe PHP function (to be implemented)
+        // earthenUnsubscribe(email);
+        alert("Unsubscription process initiated.");
+    }
 });
 
 

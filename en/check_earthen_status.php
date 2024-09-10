@@ -90,10 +90,10 @@ function checkEarthenEmailStatus($email) {
     curl_close($ch);
 }
 
+// Function to unsubscribe a user
 function earthenUnsubscribe($email) {
-    // Prepare and encode the email address for use in the API URL
     $email_encoded = urlencode($email);
-    $ghost_api_url = "https://earthen.io/ghost/api/v3/admin/members/?filter=email:$email_encoded";
+    $ghost_api_url = "https://earthen.io/ghost/api/v3/admin/members/$email_encoded";
 
     // Split API Key into ID and Secret for JWT generation
     $apiKey = '66db68b5cff59f045598dbc3:5c82d570631831f277b1a9b4e5840703e73a68e948812b2277a0bc11c12c973f';
@@ -105,13 +105,8 @@ function earthenUnsubscribe($email) {
     $payload = json_encode([
         'iat' => $now,
         'exp' => $now + 300, // Token valid for 5 minutes
-        'aud' => '/v3/admin/' // Corrected audience value to match the expected pattern
+        'aud' => '/v3/admin/'
     ]);
-
-    // Base64Url Encode function
-    function base64UrlEncode($data) {
-        return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
-    }
 
     // Encode Header and Payload
     $base64UrlHeader = base64UrlEncode($header);
@@ -124,7 +119,7 @@ function earthenUnsubscribe($email) {
     // Create the JWT token
     $jwt = $base64UrlHeader . '.' . $base64UrlPayload . '.' . $base64UrlSignature;
 
-    // Set up the cURL request to the Ghost Admin API to unsubscribe
+    // Set up the cURL request to delete the user
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $ghost_api_url);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
@@ -132,7 +127,7 @@ function earthenUnsubscribe($email) {
         'Content-Type: application/json'
     ));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE'); // Use DELETE to unsubscribe the user
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE'); // Use DELETE to unsubscribe
 
     // Execute the cURL session
     $response = curl_exec($ch);
@@ -146,10 +141,10 @@ function earthenUnsubscribe($email) {
 
     if ($http_code >= 200 && $http_code < 300) {
         // Successful response
-        echo json_encode(['status' => 'success', 'message' => 'Successfully unsubscribed from all newsletters.']);
+        echo json_encode(['status' => 'success', 'message' => 'User has been unsubscribed.']);
     } else {
         // Handle error
-        error_log('Unsubscribe failed with HTTP code: ' . $http_code . ' and response: ' . $response);
+        error_log('HTTP status ' . $http_code . ': ' . $response);
         echo json_encode(['status' => 'error', 'message' => 'Unsubscribe failed with HTTP code: ' . $http_code]);
     }
 
@@ -157,4 +152,16 @@ function earthenUnsubscribe($email) {
     curl_close($ch);
 }
 
+// Handle incoming requests
+if (isset($_POST['email'])) {
+    $email = $_POST['email'];
+
+    if (isset($_POST['unsubscribe']) && $_POST['unsubscribe'] === 'true') {
+        earthenUnsubscribe($email);
+    } else {
+        checkEarthenEmailStatus($email);
+    }
+} else {
+    echo json_encode(['status' => 'error', 'message' => 'No email address provided.']);
+}
 ?>

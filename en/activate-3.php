@@ -177,7 +177,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
             <div id="status-message"><?php echo htmlspecialchars($first_name); ?>, <span data-lang-id="012-status-heading">your password is set! Now let's get you localized.</span></div>
-            <div id="sub-status-message" data-lang-id="013-sub-status-tell" style="font-size:1.4em;">Your new Buwana and GoBrik account is all about local and global ecological action. Please tell us about where you live...</div>
+            <div id="sub-status-message" data-lang-id="013-sub-status-tell" style="font-size:1.3em;padding-top:10px;padding-bottom:10px;">Your new Buwana and GoBrik account is all about local and global ecological action. Please tell us about where you live...</div>
         </div>
 
         <!-- ACTIVATE 3 FORM -->
@@ -195,6 +195,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                         </option>
                     <?php } ?>
                 </select>
+            <p class="form-caption">Continents are where biomes, Earth's major ecosystems, get their unique diversity and vitality of species. </p>
             </div>
 
             <!-- COUNTRY -->
@@ -203,7 +204,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <select name="country_id" id="country_id" required>
                     <option value="" disabled selected data-lang-id="015-country-place-holder">Select your country of residence...</option>
                 </select>
-                <p class="form-caption">Filtered for countries in your continent.</p>
+                <p id="country-caption" class="form-caption" style="margin-bottom:-5px;">Filtered for countries in your continent.</p>
             </div>
 
             <!-- WATERSHED -->

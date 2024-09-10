@@ -133,7 +133,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
             <h2 id="greeting">Hello <?php echo htmlspecialchars($first_name); ?>!</h2>
-            <p>Welcome to the new GoBrik 3.0! So far you've logged <?php echo htmlspecialchars($ecobricks_made); ?> ecobricks in <?php echo htmlspecialchars($location_full_txt); ?>! In total you've logged <?php echo $total_weight; ?> grams with a net density of <?php echo number_format($net_density, 2); ?> g/ml.</p>
+            <p id="subgreeting">Welcome to the new GoBrik 3.0!</p>
         </div>
         <div style="display:flex;flex-flow:row;width:100%;justify-content:center;">
             <button class="go-button" id="log-ecobrick-button">➕ Log an Ecobrick</button>
@@ -273,6 +273,56 @@ document.getElementById('newest-ecobricks-button').addEventListener('click', fun
 
 
 </script>
+
+
+<script>
+
+function subGreeting() {
+    // Retrieve the language setting from the server-side PHP variable
+    const lang = '<?php echo htmlspecialchars($lang); ?>';
+    const ecobricksMade = <?php echo (int) $ecobricks_made; ?>;
+    const locationFullTxt = '<?php echo htmlspecialchars($location_full_txt); ?>';
+    const totalWeight = '<?php echo htmlspecialchars($total_weight); ?>';
+    const netDensity = '<?php echo number_format($net_density, 2); ?>';
+
+    // Define translations for different cases
+    const messages = {
+        en: {
+            welcomeBeta: "Welcome to the new GoBrik 3.0! Thanks for helping with the beta testing!",
+            loggedEcobricks: `So far you've logged ${ecobricksMade} ecobricks in ${locationFullTxt}! In total you've logged ${totalWeight} grams with a net density of ${netDensity} g/ml.`
+        },
+        fr: {
+            welcomeBeta: "Bienvenue sur le nouveau GoBrik 3.0! Merci de nous aider avec le test bêta!",
+            loggedEcobricks: `Jusqu'à présent, vous avez enregistré ${ecobricksMade} écobriques à ${locationFullTxt}! Au total, vous avez enregistré ${totalWeight} grammes avec une densité nette de ${netDensity} g/ml.`
+        },
+        es: {
+            welcomeBeta: "¡Bienvenido al nuevo GoBrik 3.0! ¡Gracias por ayudar con las pruebas beta!",
+            loggedEcobricks: `Hasta ahora has registrado ${ecobricksMade} ecoladrillos en ${locationFullTxt}! En total has registrado ${totalWeight} gramos con una densidad neta de ${netDensity} g/ml.`
+        },
+        id: {
+            welcomeBeta: "Selamat datang di GoBrik 3.0 baru! Terima kasih telah membantu dengan pengujian beta!",
+            loggedEcobricks: `Sejauh ini Anda telah mencatat ${ecobricksMade} ecobrick di ${locationFullTxt}! Secara total Anda telah mencatat ${totalWeight} gram dengan kepadatan bersih ${netDensity} g/ml.`
+        }
+    };
+
+    // Determine the message to display based on the number of ecobricks made
+    let message;
+    if (ecobricksMade < 1) {
+        message = messages[lang]?.welcomeBeta || messages.en.welcomeBeta; // Default to English if translation is missing
+    } else {
+        message = messages[lang]?.loggedEcobricks || messages.en.loggedEcobricks; // Default to English if translation is missing
+    }
+
+    // Set the inner HTML of the subgreeting paragraph
+    document.getElementById('subgreeting').innerHTML = message;
+}
+
+// Initialize the greeting function on page load
+window.onload = subGreeting;
+
+
+</script>
+
 
 </body>
 </html>

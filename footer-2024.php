@@ -433,7 +433,6 @@ function showModalInfo(type, lang) {
             }
             break;
 
-
             case 'watershed':
                 switch (lang) {
                     case 'fr':

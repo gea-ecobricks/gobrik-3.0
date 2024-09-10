@@ -5,14 +5,7 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Check if the user is logged in
-if (isLoggedIn()) {
-    echo "<script>
-        alert('Looks like you already have an account and are logged in! Let\'s take you to your dashboard.');
-        window.location.href = 'dashboard.php';
-    </script>";
-    exit();
-}
+
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
@@ -21,6 +14,41 @@ $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $is_logged_in = false; // Ensure not logged in for this page
 
 $page = 'signup';
+
+
+// Define the translations for each language
+$translations = [
+    'en' => [
+        'alert_message' => "Looks like you already have an account and are logged in! Let's take you to your dashboard.",
+    ],
+    'fr' => [
+        'alert_message' => "Il semble que vous avez déjà un compte et que vous êtes connecté ! Nous vous emmenons à votre tableau de bord.",
+    ],
+    'id' => [
+        'alert_message' => "Sepertinya Anda sudah memiliki akun dan sedang masuk! Mari kita bawa Anda ke dasbor Anda.",
+    ],
+    'es' => [
+        'alert_message' => "¡Parece que ya tienes una cuenta y has iniciado sesión! Vamos a llevarte a tu panel.",
+    ]
+];
+
+// Set a default language if $lang is not set or if it is an unknown language
+if (!isset($translations[$lang])) {
+    $lang = 'en'; // Default to English
+}
+
+// Get the appropriate translation for the alert message
+$alert_message = $translations[$lang]['alert_message'];
+
+// Check if the user is logged in
+if (isLoggedIn()) {
+    echo "<script>
+        alert('{$alert_message}');
+        window.location.href = 'dashboard.php';
+    </script>";
+    exit();
+}
+
 
 
 // Echo the HTML structure

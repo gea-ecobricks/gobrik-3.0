@@ -287,7 +287,7 @@ echo '<!DOCTYPE html>
         <p>Yes! You're subscribed to the following newsletters:</p>
         <ul id="newsletter-list"></ul>
         <button id="unsubscribe-button" class="submit-button delete">Unsubscribe</button>
-        <button id="manage-subscription-button" class="submit-button">Manage Subscription</button>
+        <button id="manage-subscription-button" class="submit-button enabled">↗️ Manage Subscription</button>
     </div>
 
     <!-- Status No -->
@@ -396,7 +396,6 @@ function confirmDeletion(buwana_id) {
 
 <script>
 
-//CHECK EARTHEN SUBSCRIPTION
 // CHECK EARTHEN SUBSCRIPTION
 document.getElementById('check-earthen-status-button').addEventListener('click', function() {
     var email = '<?php echo addslashes($email); ?>';
@@ -455,6 +454,9 @@ document.getElementById('check-earthen-status-button').addEventListener('click',
     xhr.send('email=' + encodeURIComponent(email));
 });
 
+// Event listener for the unsubscribe button click
+document.getElementById('unsubscribe-button').addEventListener('click', unsubscribe);
+
 // Function to handle the unsubscribe button click
 function unsubscribe() {
     if (confirm("Are you sure you want to do this? We'll permanently unsubscribe you from all Earthen newsletters. Note, this will not affect your GoBrik or Buwana accounts.")) {
@@ -489,9 +491,10 @@ function unsubscribe() {
     }
 }
 
-
-
-
+// Event listener for the manage subscription button
+document.getElementById('manage-subscription-button').addEventListener('click', function() {
+    window.open('https://earthen.io', '_blank');
+});
 
 </script>
 

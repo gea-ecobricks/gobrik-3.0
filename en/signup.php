@@ -3,6 +3,7 @@ require_once '../earthenAuth_helper.php'; // Include the authentication helper f
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 
 // Define the translations for each language
 $translations = [
@@ -39,7 +40,6 @@ if (isLoggedIn()) {
 
 
 // Set page variables
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $is_logged_in = false; // Ensure not logged in for this page

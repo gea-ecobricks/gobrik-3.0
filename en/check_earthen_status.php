@@ -64,9 +64,19 @@ function checkEarthenEmailStatus($email) {
 
         // Check if members are found
         $registered = 0; // Default to not registered
+        $newsletters = []; // Array to hold newsletter names
+
         if ($response_data && isset($response_data['members']) && is_array($response_data['members']) && count($response_data['members']) > 0) {
             $registered = 1; // Member with the given email exists
-            echo json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is subscribed.']);
+
+            // Extract newsletter names
+            if (isset($response_data['members'][0]['newsletters'])) {
+                foreach ($response_data['members'][0]['newsletters'] as $newsletter) {
+                    $newsletters[] = $newsletter['name'];
+                }
+            }
+
+            echo json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is subscribed.', 'newsletters' => $newsletters]);
         } else {
             echo json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is not subscribed.']);
         }

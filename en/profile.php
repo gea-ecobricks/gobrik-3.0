@@ -410,6 +410,12 @@ document.getElementById('check-earthen-status-button').addEventListener('click',
             if (data.registered) {
                 // User is subscribed, show the "yes" status div
                 document.getElementById('earthen-status-yes').style.display = 'block';
+
+                // Display the newsletters the user is subscribed to
+                if (data.newsletters && data.newsletters.length > 0) {
+                    var newsletterList = data.newsletters.join(', ');
+                    document.getElementById('earthen-status-yes').innerHTML += `<p>Subscribed to: ${newsletterList}</p>`;
+                }
             } else {
                 // User is not subscribed, show the "no" status div
                 document.getElementById('earthen-status-no').style.display = 'block';

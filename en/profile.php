@@ -397,7 +397,6 @@ function confirmDeletion(buwana_id) {
 <script>
 
 // CHECK EARTHEN SUBSCRIPTION
-// CHECK EARTHEN SUBSCRIPTION
 document.getElementById('check-earthen-status-button').addEventListener('click', function() {
     var email = '<?php echo addslashes($email); ?>';
     var xhr = new XMLHttpRequest();
@@ -424,6 +423,9 @@ document.getElementById('check-earthen-status-button').addEventListener('click',
 
                             // Clear any existing list items
                             newsletterList.innerHTML = '';
+
+                            // Store the member ID for unsubscribing
+                            window.memberId = response.member_id;
 
                             // Add the newsletters to the list
                             if (response.newsletters && response.newsletters.length > 0) {
@@ -462,6 +464,7 @@ document.getElementById('unsubscribe-button').addEventListener('click', unsubscr
 function unsubscribe() {
     if (confirm("Are you sure you want to do this? We'll permanently unsubscribe you from all Earthen newsletters. Note, this will not affect your GoBrik or Buwana accounts.")) {
         var email = '<?php echo addslashes($email); ?>'; // Get email from PHP
+        var memberId = window.memberId; // Use the stored member ID
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'check_earthen_status.php', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -488,7 +491,7 @@ function unsubscribe() {
         };
 
         // Send email and unsubscribe parameters to the server
-        xhr.send('email=' + encodeURIComponent(email) + '&unsubscribe=true');
+        xhr.send('email=' + encodeURIComponent(email) + '&unsubscribe=true&member_id=' + encodeURIComponent(memberId));
     }
 }
 

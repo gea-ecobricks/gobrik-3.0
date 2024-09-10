@@ -406,34 +406,35 @@ document.getElementById('check-earthen-status-button').addEventListener('click',
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             try {
+                console.log('Server response:', xhr.responseText); // Log the full server response
                 var response = JSON.parse(xhr.responseText);
-                if (response.status === 'success') {
-                    var statusYes = document.getElementById('earthen-status-yes');
-                    var statusNo = document.getElementById('earthen-status-no');
-                    var newsletterList = document.getElementById('newsletter-list');
-                    var checkButton = document.getElementById('check-earthen-status-button');
 
+                var statusYes = document.getElementById('earthen-status-yes');
+                var statusNo = document.getElementById('earthen-status-no');
+                var newsletterList = document.getElementById('newsletter-list');
+                var checkButton = document.getElementById('check-earthen-status-button');
+
+                if (response.status === 'success') {
                     if (response.registered) {
-                        // Hide check status button and display the status yes div
+                        // Hide the check status button and show the subscribed status
                         checkButton.style.display = 'none';
                         statusYes.style.display = 'block';
 
                         // Clear any existing list items
                         newsletterList.innerHTML = '';
 
-                        // Check if newsletters are available in the response
+                        // Add the newsletters to the list
                         if (response.newsletters && response.newsletters.length > 0) {
-                            // Add the newsletters to the list
                             response.newsletters.forEach(function(newsletter) {
                                 var li = document.createElement('li');
-                                li.textContent = newsletter.name; // Ensure the textContent is correctly set
+                                li.textContent = newsletter; // Corrected to set text content
                                 newsletterList.appendChild(li);
                             });
                         } else {
                             newsletterList.innerHTML = '<li>No newsletters found.</li>';
                         }
                     } else {
-                        // Hide check status button and display the status no div
+                        // Hide the check status button and show the not subscribed status
                         checkButton.style.display = 'none';
                         statusNo.style.display = 'block';
                     }
@@ -449,17 +450,27 @@ document.getElementById('check-earthen-status-button').addEventListener('click',
     xhr.send('email=' + encodeURIComponent(email));
 });
 
-// Listener for manage subscription button
+// Listener for the manage subscription button
 document.getElementById('manage-subscription-button').addEventListener('click', function() {
     window.open('https://earthen.io', '_blank');
 });
 
-// Listener for unsubscribe button
+// Listener for the unsubscribe button
 document.getElementById('unsubscribe-button').addEventListener('click', function() {
     if (confirm("Are you sure you want to do this? We'll permanently unsubscribe you from all Earthen newsletters. Note, this will not affect your GoBrik or Buwana accounts.")) {
-        // Call the unsubscribe PHP function (to be implemented)
-        // earthenUnsubscribe(email);
-        alert("Unsubscription process initiated.");
+        var email = '<?php echo addslashes($email); ?>';
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'check_earthen_status.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log('Unsubscribe response:', xhr.responseText);
+                alert('You have been unsubscribed from all Earthen newsletters.');
+            }
+        };
+
+        xhr.send('unsubscribe_email=' + encodeURIComponent(email));
     }
 });
 

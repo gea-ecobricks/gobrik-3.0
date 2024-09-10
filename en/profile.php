@@ -279,7 +279,15 @@ echo '<!DOCTYPE html>
 <div class="form-container" style="padding-top:20px">
     <h2>Earthen Newsletter Subscription Status</h2>
     <p>Check to see if your <?php echo htmlspecialchars($email); ?> is subscribed to the Earthen newsletter</p>
-    <p id="earthen-status-message" style="display:none;"></p>
+    <div id="earthen-status-yes" style="display:none;"><p>
+    Yes! You're subscribed.</p>
+                            <button onclick="unsubscribe()">Unsubscribe</button>
+                            <button onclick="updateSubscription()">Update Subscription</button></div>
+
+    <div id="earthen-status-no" style="display:none;"><p>You're not yet subscribed.</p>
+                            <button onclick="subscribe()">Subscribe</button>
+                            </div>
+
     <button id="check-earthen-status-button" class="submit-button enabled">Check Earthen Status</button>
 </div>
 
@@ -384,43 +392,39 @@ function confirmDeletion(buwana_id) {
 //CHECK EARTHEN SUBSCRIPTION
 document.getElementById('check-earthen-status-button').addEventListener('click', function () {
     var email = '<?php echo addslashes($email); ?>';
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'check_earthen_status.php', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            console.log('Server response:', xhr.responseText); // Log the server response to console
+    // Send the POST request to check the subscription status
+    fetch('check_earthen_status.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'email=' + encodeURIComponent(email)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Server response:', data); // Log the server response to the console
 
-            if (xhr.status === 200) {
-                try {
-                    var response = JSON.parse(xhr.responseText);
-                    var messageElement = document.getElementById('earthen-status-message');
-
-                    if (response.status === 'success') {
-                        if (response.registered) {
-                            messageElement.innerHTML = `Yes! You're subscribed.<br>
-                            <button onclick="unsubscribe()">Unsubscribe</button>
-                            <button onclick="updateSubscription()">Update Subscription</button>`;
-                        } else {
-                            messageElement.innerHTML = `You're not yet subscribed.<br>
-                            <button onclick="subscribe()">Subscribe</button>`;
-                        }
-                    } else {
-                        messageElement.textContent = response.message;
-                    }
-                    messageElement.style.display = 'block';
-                } catch (e) {
-                    console.error('Error parsing JSON:', e);
-                }
+        // Check if the response is successful
+        if (data.status === 'success') {
+            if (data.registered) {
+                // User is subscribed, show the "yes" status div
+                document.getElementById('earthen-status-yes').style.display = 'block';
             } else {
-                console.error('Request failed with status code:', xhr.status);
+                // User is not subscribed, show the "no" status div
+                document.getElementById('earthen-status-no').style.display = 'block';
             }
+            // Hide the check status button
+            document.getElementById('check-earthen-status-button').style.display = 'none';
+        } else {
+            console.error('Error:', data.message); // Log any errors to the console
         }
-    };
-
-    xhr.send('email=' + encodeURIComponent(email));
+    })
+    .catch(error => {
+        console.error('Error fetching the subscription status:', error);
+    });
 });
+
 
 </script>
 

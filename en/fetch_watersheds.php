@@ -3,12 +3,19 @@ require_once("../buwanaconn_env.php"); // Include the database connection file
 
 header('Content-Type: application/json'); // Set header for JSON response
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['continent_code'])) {
-    $continent_code = $_POST['continent_code'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['country_id'])) {
+    $country_id = $_POST['country_id'];
 
-    // Prepare and execute query
-    $stmt = $buwana_conn->prepare("SELECT watershed_id, watershed_name FROM watersheds_tb WHERE continent_code = ? ORDER BY watershed_name");
-    $stmt->bind_param('s', $continent_code);
+    // Prepare and execute query to fetch watersheds based on the selected country_id
+    $stmt = $buwana_conn->prepare("
+        SELECT w.watershed_id, w.watershed_name
+        FROM watersheds_tb w
+        INNER JOIN watersheds_countries wc ON w.watershed_id = wc.watershed_id
+        WHERE wc.country_id = ?
+        ORDER BY w.watershed_name
+    ");
+
+    $stmt->bind_param('i', $country_id);
     $stmt->execute();
 
     // Bind the results
@@ -30,3 +37,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['continent_code'])) {
     echo json_encode([]);
 }
 ?>
+

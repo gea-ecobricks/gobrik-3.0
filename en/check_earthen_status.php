@@ -1,4 +1,3 @@
-<?php
 // Enable error reporting for debugging
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -10,9 +9,13 @@ function base64UrlEncode($data) {
 
 // Function to check subscription status
 function checkEarthenEmailStatus($email) {
+    // (Existing code for checking status)
+}
+
+// Function to unsubscribe a user
+function earthenUnsubscribe($email, $member_id) {
     // Prepare and encode the email address for use in the API URL
-    $email_encoded = urlencode($email);
-    $ghost_api_url = "https://earthen.io/ghost/api/v3/admin/members/?filter=email:$email_encoded";
+    $ghost_api_url = "https://earthen.io/ghost/api/v3/admin/members/" . urlencode($member_id) . "/";
 
     // Split API Key into ID and Secret for JWT generation
     $apiKey = '66db68b5cff59f045598dbc3:5c82d570631831f277b1a9b4e5840703e73a68e948812b2277a0bc11c12c973f';
@@ -46,7 +49,7 @@ function checkEarthenEmailStatus($email) {
         'Content-Type: application/json'
     ));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPGET, true); // Use GET to fetch data
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE'); // Use DELETE to unsubscribe the user
 
     // Execute the cURL session
     $response = curl_exec($ch);
@@ -59,48 +62,19 @@ function checkEarthenEmailStatus($email) {
     }
 
     if ($http_code >= 200 && $http_code < 300) {
-        // Successful response, parse the JSON data
-        $response_data = json_decode($response, true);
-
-        // Check if members are found
-        $registered = 0; // Default to not registered
-        $newsletters = []; // Array to hold newsletter names
-        $member_id = null; // Initialize member ID
-
-        if ($response_data && isset($response_data['members']) && is_array($response_data['members']) && count($response_data['members']) > 0) {
-            $registered = 1; // Member with the given email exists
-
-            // Extract member ID
-            $member_id = $response_data['members'][0]['id'] ?? null;
-
-            // Extract newsletter names
-            if (isset($response_data['members'][0]['newsletters'])) {
-                foreach ($response_data['members'][0]['newsletters'] as $newsletter) {
-                    $newsletters[] = $newsletter['name'];
-                }
-            }
-
-            echo json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is subscribed.', 'newsletters' => $newsletters, 'member_id' => $member_id]);
-        } else {
-            echo json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is not subscribed.']);
-        }
+        // Successful response
+        echo json_encode(['status' => 'success', 'message' => 'You have been unsubscribed from all Earthen newsletters.']);
     } else {
         // Handle error
         error_log('HTTP status ' . $http_code . ': ' . $response);
-        echo json_encode(['status' => 'error', 'message' => 'API call to Earthen.io failed with HTTP code: ' . $http_code]);
+        echo json_encode(['status' => 'error', 'message' => 'Unsubscribe failed with HTTP code: ' . $http_code]);
     }
 
     // Close the cURL session
     curl_close($ch);
 }
 
-// Function to unsubscribe a user
-function earthenUnsubscribe($email, $member_id) {
-    // Your unsubscribe logic here, similar to the above function
-    // Use the member_id when making the API call to delete the user
-}
-
-// Get the email address from the request
+// Handle the unsubscribe request
 if (isset($_POST['email']) && isset($_POST['unsubscribe']) && $_POST['unsubscribe'] == 'true') {
     $email = $_POST['email'];
     $member_id = $_POST['member_id'] ?? '';
@@ -111,5 +85,3 @@ if (isset($_POST['email']) && isset($_POST['unsubscribe']) && $_POST['unsubscrib
 } else {
     echo json_encode(['status' => 'error', 'message' => 'No email address provided.']);
 }
-
-?>

@@ -24,7 +24,7 @@ $page = 'signup';
 $version = '0.6';
 
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.763';
+$version = '0.764';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $response = ['success' => false];
 $buwana_id = $_GET['id'] ?? null;
@@ -162,7 +162,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         </div>
 
-<div style="font-size: medium; text-align: center; margin: auto; align-self: center;padding-bottom:40px;">
+<div style="font-size: medium; text-align: center; margin: auto; align-self: center;padding-bottom:40px;margin-top: 0px;">
         <p style="font-size:medium;" data-lang-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
     </div>
 

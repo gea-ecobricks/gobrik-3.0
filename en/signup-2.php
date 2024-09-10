@@ -12,14 +12,12 @@ if (isLoggedIn()) {
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.6';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $is_logged_in = false; // Ensure not logged in for this page
 
 // Set page variables
 $page = 'signup';
-$watershed_id = '';
-$continents = [];
+$version = '0.6';
 
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.763';

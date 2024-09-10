@@ -15,17 +15,15 @@ $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.59';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $is_logged_in = false; // Ensure not logged in for this page
+
 $page = 'signup';
 $watershed_id = '';
-
-// Echo the HTML structure
-echo '<!DOCTYPE html>
-<html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">
-<head>
-<meta charset="UTF-8">
-';
-
-$success = false;
+$page = 'activate';
+$first_name = '';
+$email_addr = '';
+$continents = [];
+$countries = [];
+$watersheds = [];
 
 // PART 1: Check if the user is already logged in
 if (isset($_SESSION['buwana_id'])) {
@@ -35,6 +33,15 @@ if (isset($_SESSION['buwana_id'])) {
     </script>";
     exit();
 }
+
+// Echo the HTML structure
+echo '<!DOCTYPE html>
+<html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">
+<head>
+<meta charset="UTF-8">
+';
+
+$success = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 

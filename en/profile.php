@@ -397,6 +397,7 @@ function confirmDeletion(buwana_id) {
 <script>
 
 // CHECK EARTHEN SUBSCRIPTION
+// CHECK EARTHEN SUBSCRIPTION
 document.getElementById('check-earthen-status-button').addEventListener('click', function() {
     var email = '<?php echo addslashes($email); ?>';
     var xhr = new XMLHttpRequest();
@@ -454,6 +455,9 @@ document.getElementById('check-earthen-status-button').addEventListener('click',
     xhr.send('email=' + encodeURIComponent(email));
 });
 
+// Event listener for the unsubscribe button click
+document.getElementById('unsubscribe-button').addEventListener('click', unsubscribe);
+
 // Function to handle the unsubscribe button click
 function unsubscribe() {
     if (confirm("Are you sure you want to do this? We'll permanently unsubscribe you from all Earthen newsletters. Note, this will not affect your GoBrik or Buwana accounts.")) {
@@ -488,7 +492,10 @@ function unsubscribe() {
     }
 }
 
-
+// Event listener for the manage subscription button
+document.getElementById('manage-subscription-button').addEventListener('click', function() {
+    window.open('https://earthen.io', '_blank');
+});
 
 
 

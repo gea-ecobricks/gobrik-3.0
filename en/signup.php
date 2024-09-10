@@ -12,15 +12,13 @@ if (isLoggedIn()) {
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.6';
+$version = '0.61';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $is_logged_in = false; // Ensure not logged in for this page
 
 $page = 'signup';
-$watershed_id = '';
-$first_name = '';
-$continents = [];
-$watersheds = [];
+
+
 
 // PART 1: Check if the user is already logged in
 if (isset($_SESSION['buwana_id'])) {

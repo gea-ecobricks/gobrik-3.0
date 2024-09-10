@@ -10,10 +10,19 @@ if (isLoggedIn()) {
     exit();
 }
 
-// If not redirected, set $is_logged_in to false for this page
-$is_logged_in = false;
+// Set page variables
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$version = '0.59';
+$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+$is_logged_in = false; // Ensure not logged in for this page
 
 // Set page variables
+$page = 'signup';
+$watershed_id = '';
+$continents = [];
+$countries = [];
+
+
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.763';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));

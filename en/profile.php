@@ -278,7 +278,7 @@ echo '<!DOCTYPE html>
     <!--EARTHEN ACCOUNT DB CHECK -->
 <div class="form-container" style="padding-top:20px">
     <h2>Earthen Newsletter Subscription Status</h2>
-    <p>Check to see if your <?php echo htmlspecialchars($email_addr); ?> is subscribed to the Earthen newsletter</p>
+    <p>Check to see if your <?php echo htmlspecialchars($email); ?> is subscribed to the Earthen newsletter</p>
     <div id="earthen-status-message" style="display:none;"></div>
     <button id="check-earthen-status-button">Check Earthen Status</button>
 

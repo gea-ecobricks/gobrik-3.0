@@ -421,12 +421,17 @@ document.getElementById('check-earthen-status-button').addEventListener('click',
                         // Clear any existing list items
                         newsletterList.innerHTML = '';
 
-                        // Add the newsletters to the list
-                        response.newsletters.forEach(function(newsletter) {
-                            var li = document.createElement('li');
-                            li.textContent = newsletter.name;
-                            newsletterList.appendChild(li);
-                        });
+                        // Check if newsletters are available in the response
+                        if (response.newsletters && response.newsletters.length > 0) {
+                            // Add the newsletters to the list
+                            response.newsletters.forEach(function(newsletter) {
+                                var li = document.createElement('li');
+                                li.textContent = newsletter.name; // Ensure the textContent is correctly set
+                                newsletterList.appendChild(li);
+                            });
+                        } else {
+                            newsletterList.innerHTML = '<li>No newsletters found.</li>';
+                        }
                     } else {
                         // Hide check status button and display the status no div
                         checkButton.style.display = 'none';
@@ -457,6 +462,7 @@ document.getElementById('unsubscribe-button').addEventListener('click', function
         alert("Unsubscription process initiated.");
     }
 });
+
 
 
 </script>

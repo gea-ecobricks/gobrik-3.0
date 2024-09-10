@@ -1,4 +1,4 @@
-<title>Sign up to GoBrik</sign>
+<title>Sign up to GoBrik</title>
 
 <meta name="keywords" content="gobrik, ecobrick app, signup, sign up, sign, up">
 <meta name="description" content="Signup to the Gobrik app to manage your ecobrick, plastic and projects.">

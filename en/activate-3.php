@@ -176,17 +176,18 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
-            <div id="status-message"><?php echo htmlspecialchars($first_name); ?>, <span data-lang-id="012-status-heading">your password is set!</span></div>
-            <div id="sub-status-message" data-lang-id="013-sub-status-tell">Your new Buwana and GoBrik account is all about local and global ecological action. Please tell us about where you live...</div>
+            <div id="status-message"><?php echo htmlspecialchars($first_name); ?>, <span data-lang-id="012-status-heading">your password is set! Now let's get you localized.</span></div>
+            <div id="sub-status-message" data-lang-id="013-sub-status-tell" style="font-size:1.4em;">Your new Buwana and GoBrik account is all about local and global ecological action. Please tell us about where you live...</div>
         </div>
 
         <!-- ACTIVATE 3 FORM -->
+
         <form id="user-info-form" method="post" action="activate-3.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
 
             <!-- CONTINENT -->
             <div class="form-item" id="continent-select" style="display:block;">
                 <label for="continent" data-lang-id="014-your-continent">On what continent do you live?</label><br>
-<select name="continent_code" id="continent_code" required>
+                <select name="continent_code" id="continent_code" required>
                     <option value="" disabled selected data-lang-id="015-continent-place-holder">Select your continent...</option>
                     <?php foreach ($continents as $continent) { ?>
                         <option value="<?php echo $continent['continent_code']; ?>">
@@ -194,6 +195,15 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                         </option>
                     <?php } ?>
                 </select>
+            </div>
+
+            <!-- COUNTRY -->
+            <div class="form-item" id="country-select" style="display:none;">
+                <label for="country" data-lang-id="014-your-country">In what country do you reside?</label><br>
+                <select name="country_id" id="country_id" required>
+                    <option value="" disabled selected data-lang-id="015-country-place-holder">Select your country of residence...</option>
+                </select>
+                <p class="form-caption">Filtered for countries in your continent.</p>
             </div>
 
             <!-- WATERSHED -->
@@ -205,30 +215,21 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     <option value="not listed" data-lang-id="016-dont-know">Not listed</option>
                 </select>
                 <p class="form-caption">
-                    <span data-lang-id="018-what-is-watershed">Everyone lives in one of the Earth 157 main river basin's.  Learn more about </span>
+                    <span data-lang-id="018-what-is-watershed">Everyone lives in one of the Earth's 157 main river basins. Learn more about </span>
                     <a href="#" onclick="showModalInfo('watershed', '<?php echo htmlspecialchars($lang); ?>')" class="underline-link" data-lang-id="019-watershed">watershed</a>.
                 </p>
-            </div>
-
-            <!-- COUNTRY -->
-            <div class="form-item" id="country-select" style="display:none;">
-                <label for="country" data-lang-id="014-your-country">In what country do you reside?</label><br>
-                <select name="country_id" id="country_id" required>
-                    <option value="" disabled selected data-lang-id="015-country-place-holder">Select your country of residence...</option>
-                </select>
-            <p class="form-caption">Filtered for countries in your continent.</p>
             </div>
 
             <div id="submit-section" style="text-align:center;margin-top:15px;display:none;" data-lang-id="016-submit-complete-button">
                 <input type="submit" id="submit-button" value="✔️ Complete Setup" class="submit-button enabled">
             </div>
         </form>
+
     </div>
 </div>
 </div>
 <!-- FOOTER STARTS HERE -->
 <?php require_once ("../footer-2024.php"); ?>
-
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -249,8 +250,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if (this.value !== '') {
             var continentCode = this.value;
 
-            // Fetch watersheds based on the selected continent using AJAX
-            fetchWatersheds(continentCode);
+            // Fetch countries based on the selected continent using AJAX
+            fetchCountries(continentCode);
         } else {
             // Reset and hide subsequent dropdowns and submit button
             watershedSelect.style.display = 'none';
@@ -261,21 +262,18 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Show country dropdown after selecting a watershed
-    watershedDropdown.addEventListener('change', function () {
+    // Show watershed dropdown after selecting a country
+    countryDropdown.addEventListener('change', function () {
         if (this.value !== '') {
-            var continentCode = continentSelect.value; // Use the selected continent code
-
-            // Fetch countries based on the selected continent using AJAX
-            fetchCountries(continentCode);
+            watershedSelect.style.display = 'block';
         } else {
-            countrySelect.style.display = 'none';
+            watershedSelect.style.display = 'none';
             submitSection.style.display = 'none';
         }
     });
 
-    // Show submit button after country is selected
-    countryDropdown.addEventListener('change', function () {
+    // Show submit button after watershed is selected
+    watershedDropdown.addEventListener('change', function () {
         if (this.value !== '') {
             submitSection.style.display = 'block';
         } else {
@@ -333,9 +331,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     option.textContent = watershed.watershed_name;
                     watershedDropdown.appendChild(option);
                 });
-
-                // Show the watershed dropdown
-                watershedSelect.style.display = 'block';
             }
         };
 
@@ -343,9 +338,6 @@ document.addEventListener('DOMContentLoaded', function () {
         xhr.send('continent_code=' + encodeURIComponent(continentCode));
     }
 });
-
-
-
 
 </script>
 

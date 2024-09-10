@@ -1,12 +1,16 @@
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
+session_start();
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Check if the user is logged in
 if (isLoggedIn()) {
-    header('Location: dashboard.php'); // Redirect to dashboard if user is logged in
+    echo "<script>
+        alert('Looks like you already have an account and are logged in! Let\'s take you to your dashboard.');
+        window.location.href = 'dashboard.php';
+    </script>";
     exit();
 }
 

@@ -204,7 +204,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <select name="country_id" id="country_id" required>
                     <option value="" disabled selected data-lang-id="015-country-place-holder">Select your country of residence...</option>
                 </select>
-                <p id="country-caption" class="form-caption" style="margin-bottom:-5px;"><span data-lang-id="015b-country-caption">Showing all countries in </span><?php echo htmlspecialchars($continent['continent_name']); ?></p>>
+                <p id="country-caption" class="form-caption" style="margin-bottom:-5px;"><span data-lang-id="015b-country-caption">Showing all countries in </span><?php echo htmlspecialchars($continent['continent_name']); ?></p>
             </div>
 
             <!-- WATERSHED -->
@@ -216,8 +216,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     <option value="not listed" data-lang-id="016-dont-know">Not listed</option>
                 </select>
                 <p class="form-caption">
-                    <span data-lang-id="018-what-is-watershed">Almost everyone lives in one of Earth's 200 main watersheds!  See if you can locate yours.  </span>
-                    <a href="#" onclick="showModalInfo('watershed', '<?php echo htmlspecialchars($lang); ?>')" class="underline-link" data-lang-id="019-watershed">watershed</a>.
+                    <span data-lang-id="018-what-is-watershed">Almost everyone lives in one of Earth's 200 main watersheds!  See if you can locate yours. We're still working on this, so not all watersheds will be shown.  Learn more about </span>
+                    <a href="#" onclick="showModalInfo('watershed', '<?php echo htmlspecialchars($lang); ?>')" class="underline-link" data-lang-id="019-watershed">watersheds</a>.
                 </p>
             </div>
 

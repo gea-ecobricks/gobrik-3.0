@@ -16,7 +16,7 @@ $version = '0.59';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $is_logged_in = false; // Ensure not logged in for this page
 
-$page = 'signup';
+$page = 'activate';
 $watershed_id = '';
 $first_name = '';
 $email_addr = '';

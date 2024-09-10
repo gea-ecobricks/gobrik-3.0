@@ -263,10 +263,16 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Show watershed dropdown after selecting a country
+    // Show watershed dropdown and submit button after selecting a country
     countryDropdown.addEventListener('change', function () {
         if (this.value !== '') {
-            watershedSelect.style.display = 'block';
+            var countryId = this.value;
+
+            // Fetch watersheds based on the selected country using AJAX
+            fetchWatersheds(countryId);
+
+            // Show the submit section after selecting a country
+            submitSection.style.display = 'block';
         } else {
             watershedSelect.style.display = 'none';
             submitSection.style.display = 'none';
@@ -313,7 +319,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // AJAX function to fetch watersheds
-    function fetchWatersheds(continentCode) {
+    function fetchWatersheds(countryId) {
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'fetch_watersheds.php', true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -332,13 +338,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     option.textContent = watershed.watershed_name;
                     watershedDropdown.appendChild(option);
                 });
+
+                // Show the watershed dropdown
+                watershedSelect.style.display = 'block';
             }
         };
 
-        // Send continent code to the server
-        xhr.send('continent_code=' + encodeURIComponent(continentCode));
+        // Send country ID to the server
+        xhr.send('country_id=' + encodeURIComponent(countryId));
     }
 });
+
 
 </script>
 

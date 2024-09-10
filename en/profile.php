@@ -280,14 +280,14 @@ echo '<!DOCTYPE html>
     <h2>Earthen Newsletter Subscription Status</h2>
     <p>Check to see if your <?php echo htmlspecialchars($email); ?> is subscribed to the Earthen newsletter</p>
     <div id="earthen-status-message" style="display:none;"></div>
-    <button id="check-earthen-status-button">Check Earthen Status</button>
+    <button id="check-earthen-status-button" class="submit-button enabled">Check Earthen Status</button>
 
     <!-- Status Yes -->
     <div id="earthen-status-yes" style="display:none;">
         <p>Yes! You're subscribed to the following newsletters:</p>
         <ul id="newsletter-list"></ul>
-        <button id="unsubscribe-button">Unsubscribe</button>
-        <button id="manage-subscription-button">Manage Subscription</button>
+        <button id="unsubscribe-button" class="submit-button delete">Unsubscribe</button>
+        <button id="manage-subscription-button" class="submit-button">Manage Subscription</button>
     </div>
 
     <!-- Status No -->
@@ -397,6 +397,7 @@ function confirmDeletion(buwana_id) {
 <script>
 
 //CHECK EARTHEN SUBSCRIPTION
+// CHECK EARTHEN SUBSCRIPTION
 document.getElementById('check-earthen-status-button').addEventListener('click', function() {
     var email = '<?php echo addslashes($email); ?>';
     var xhr = new XMLHttpRequest();
@@ -404,45 +405,49 @@ document.getElementById('check-earthen-status-button').addEventListener('click',
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
     xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            try {
-                console.log('Server response:', xhr.responseText); // Log the full server response
-                var response = JSON.parse(xhr.responseText);
+        if (xhr.readyState === 4) {
+            console.log('Server response:', xhr.responseText); // Log the full server response
+            if (xhr.status === 200) {
+                try {
+                    var response = JSON.parse(xhr.responseText);
 
-                var statusYes = document.getElementById('earthen-status-yes');
-                var statusNo = document.getElementById('earthen-status-no');
-                var newsletterList = document.getElementById('newsletter-list');
-                var checkButton = document.getElementById('check-earthen-status-button');
+                    var statusYes = document.getElementById('earthen-status-yes');
+                    var statusNo = document.getElementById('earthen-status-no');
+                    var newsletterList = document.getElementById('newsletter-list');
+                    var checkButton = document.getElementById('check-earthen-status-button');
 
-                if (response.status === 'success') {
-                    if (response.registered) {
-                        // Hide the check status button and show the subscribed status
-                        checkButton.style.display = 'none';
-                        statusYes.style.display = 'block';
+                    if (response.status === 'success') {
+                        if (response.registered) {
+                            // Hide the check status button and show the subscribed status
+                            checkButton.style.display = 'none';
+                            statusYes.style.display = 'block';
 
-                        // Clear any existing list items
-                        newsletterList.innerHTML = '';
+                            // Clear any existing list items
+                            newsletterList.innerHTML = '';
 
-                        // Add the newsletters to the list
-                        if (response.newsletters && response.newsletters.length > 0) {
-                            response.newsletters.forEach(function(newsletter) {
-                                var li = document.createElement('li');
-                                li.textContent = newsletter; // Corrected to set text content
-                                newsletterList.appendChild(li);
-                            });
+                            // Add the newsletters to the list
+                            if (response.newsletters && response.newsletters.length > 0) {
+                                response.newsletters.forEach(function(newsletter) {
+                                    var li = document.createElement('li');
+                                    li.textContent = newsletter; // Set text content correctly
+                                    newsletterList.appendChild(li);
+                                });
+                            } else {
+                                newsletterList.innerHTML = '<li>No newsletters found.</li>';
+                            }
                         } else {
-                            newsletterList.innerHTML = '<li>No newsletters found.</li>';
+                            // Hide the check status button and show the not subscribed status
+                            checkButton.style.display = 'none';
+                            statusNo.style.display = 'block';
                         }
                     } else {
-                        // Hide the check status button and show the not subscribed status
-                        checkButton.style.display = 'none';
-                        statusNo.style.display = 'block';
+                        console.error(response.message);
                     }
-                } else {
-                    console.error(response.message);
+                } catch (e) {
+                    console.error('Error parsing JSON:', e);
                 }
-            } catch (e) {
-                console.error('Error parsing JSON:', e);
+            } else {
+                console.error('Failed to fetch subscription status. HTTP Status:', xhr.status);
             }
         }
     };
@@ -450,29 +455,41 @@ document.getElementById('check-earthen-status-button').addEventListener('click',
     xhr.send('email=' + encodeURIComponent(email));
 });
 
-// Listener for the manage subscription button
-document.getElementById('manage-subscription-button').addEventListener('click', function() {
-    window.open('https://earthen.io', '_blank');
-});
-
-// Listener for the unsubscribe button
-document.getElementById('unsubscribe-button').addEventListener('click', function() {
+// Function to handle the unsubscribe button click
+function unsubscribe() {
     if (confirm("Are you sure you want to do this? We'll permanently unsubscribe you from all Earthen newsletters. Note, this will not affect your GoBrik or Buwana accounts.")) {
-        var email = '<?php echo addslashes($email); ?>';
+        var email = '<?php echo addslashes($email); ?>'; // Get email from PHP
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'check_earthen_status.php', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                console.log('Unsubscribe response:', xhr.responseText);
-                alert('You have been unsubscribed from all Earthen newsletters.');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                console.log('Unsubscribe response:', xhr.responseText); // Log the server response
+
+                if (xhr.status === 200) {
+                    try {
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.status === 'success') {
+                            alert(response.message);
+                        } else {
+                            alert('Error: ' + response.message);
+                        }
+                    } catch (e) {
+                        console.error('Error parsing JSON:', e);
+                    }
+                } else {
+                    alert('Failed to unsubscribe. Please try again.');
+                }
             }
         };
 
-        xhr.send('unsubscribe_email=' + encodeURIComponent(email));
+        // Send email and unsubscribe parameters to the server
+        xhr.send('email=' + encodeURIComponent(email) + '&unsubscribe=true');
     }
-});
+}
+
+
 
 
 

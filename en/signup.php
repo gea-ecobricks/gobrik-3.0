@@ -6,28 +6,18 @@ ini_set('display_errors', 1);
 
 // Check if the user is logged in
 if (isLoggedIn()) {
-    header('Location: dashboard.php'); // Redirect to dashboard if the user is logged in
-    exit();
-}
-
-// Set page variables
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.61';
-$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
-$is_logged_in = false; // Ensure not logged in for this page
-
-$page = 'signup';
-
-
-
-// PART 1: Check if the user is already logged in
-if (isset($_SESSION['buwana_id'])) {
     echo "<script>
         alert('Looks like you already have an account and are logged in! Let\'s take you to your dashboard.');
         window.location.href = 'dashboard.php';
     </script>";
-    exit();
 }
+
+// Set page variables
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+$is_logged_in = false; // Ensure not logged in for this page
+$page = 'signup';
+$version = '0.61';
 
 // Echo the HTML structure
 echo '<!DOCTYPE html>
@@ -174,7 +164,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 </div>
 
-<div style="font-size: medium; text-align: center; margin: auto; align-self: center;padding-bottom:40px;">
+<div style="font-size: medium; text-align: center; margin: auto; align-self: center;padding-bottom:40px;margin-top: 0px;">
         <p style="font-size:medium;" data-lang-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
     </div>
 

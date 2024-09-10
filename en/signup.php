@@ -1,22 +1,21 @@
 <?php
-// Turn on or off error reporting
+require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Start the session before any output
-session_start();
-
-// Check if user is logged in and session active
-if (isset($_SESSION['buwana_id'])) {
-    header('Location: dashboard.php');
+// Check if the user is logged in
+if (isLoggedIn()) {
+    header('Location: dashboard.php'); // Redirect to dashboard if the user is logged in
     exit();
 }
 
-// Grab language directory from URL
+// Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.655';
-$page = 'signup';
+$version = '0.59';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+$is_logged_in = false; // Ensure not logged in for this page
+$page = 'signup';
 
 // Echo the HTML structure
 echo '<!DOCTYPE html>

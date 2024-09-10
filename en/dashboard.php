@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.374';
+$version = '0.375';
 $page = 'dashboard';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -275,9 +275,7 @@ document.getElementById('newest-ecobricks-button').addEventListener('click', fun
 
 </script>
 
-
 <script>
-
 function subGreeting() {
     // Retrieve the language setting from the server-side PHP variable
     const lang = '<?php echo htmlspecialchars($lang); ?>';
@@ -289,19 +287,19 @@ function subGreeting() {
     // Define translations for different cases
     const messages = {
         en: {
-            welcomeBeta: "Welcome to the new GoBrik 3.0! Thanks for helping with the beta testing!",
+            welcomeBeta: `Welcome to the new GoBrik 3.0! Thank you for helping with the beta testing. No need to test any other features as we are still working on everything. Please record your experience and any bugs on our <a href="https://forms.gle/4tYxvrMYYk5iohyN7" target="_blank">google review form</a>.`,
             loggedEcobricks: `So far you've logged ${ecobricksMade} ecobricks in ${locationFullTxt}! In total you've logged ${totalWeight} grams with a net density of ${netDensity} g/ml.`
         },
         fr: {
-            welcomeBeta: "Bienvenue sur le nouveau GoBrik 3.0! Merci de nous aider avec le test bêta!",
+            welcomeBeta: `Bienvenue sur le nouveau GoBrik 3.0! Merci de nous aider avec le test bêta. Pas besoin de tester d'autres fonctionnalités car nous travaillons encore sur tout. Veuillez enregistrer votre expérience et tout bug sur notre <a href="https://forms.gle/4tYxvrMYYk5iohyN7" target="_blank">formulaire de revue Google</a>.`,
             loggedEcobricks: `Jusqu'à présent, vous avez enregistré ${ecobricksMade} écobriques à ${locationFullTxt}! Au total, vous avez enregistré ${totalWeight} grammes avec une densité nette de ${netDensity} g/ml.`
         },
         es: {
-            welcomeBeta: "¡Bienvenido al nuevo GoBrik 3.0! ¡Gracias por ayudar con las pruebas beta!",
+            welcomeBeta: `¡Bienvenido al nuevo GoBrik 3.0! Gracias por ayudar con las pruebas beta. No es necesario probar ninguna otra función ya que todavía estamos trabajando en todo. Por favor, registre su experiencia y cualquier error en nuestro <a href="https://forms.gle/4tYxvrMYYk5iohyN7" target="_blank">formulario de revisión de Google</a>.`,
             loggedEcobricks: `Hasta ahora has registrado ${ecobricksMade} ecoladrillos en ${locationFullTxt}! En total has registrado ${totalWeight} gramos con una densidad neta de ${netDensity} g/ml.`
         },
         id: {
-            welcomeBeta: "Selamat datang di GoBrik 3.0 baru! Terima kasih telah membantu dengan pengujian beta!",
+            welcomeBeta: `Selamat datang di GoBrik 3.0 baru! Terima kasih telah membantu dengan pengujian beta. Tidak perlu menguji fitur lain karena kami masih mengerjakan semuanya. Silakan catat pengalaman Anda dan setiap bug di <a href="https://forms.gle/4tYxvrMYYk5iohyN7" target="_blank">formulir ulasan Google kami</a>.`,
             loggedEcobricks: `Sejauh ini Anda telah mencatat ${ecobricksMade} ecobrick di ${locationFullTxt}! Secara total Anda telah mencatat ${totalWeight} gram dengan kepadatan bersih ${netDensity} g/ml.`
         }
     };
@@ -320,9 +318,8 @@ function subGreeting() {
 
 // Initialize the greeting function on page load
 window.onload = subGreeting;
-
-
 </script>
+
 
 
 </body>

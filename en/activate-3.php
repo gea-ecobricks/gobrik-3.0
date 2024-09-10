@@ -12,7 +12,7 @@ if (isLoggedIn()) {
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.6';
+$version = '0.61';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $is_logged_in = false; // Ensure not logged in for this page
 
@@ -223,8 +223,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
             <div id="submit-section" style="text-align:center;margin-top:25px;display:none;" data-lang-id="016-submit-complete-button">
                 <input type="submit" id="submit-button" value="Complete Setup" class="submit-button enabled">
+                <p style="font-size:smaller;">Can't find your watershed?  No worries! We're still working on adding them.</p>
             </div>
-        <p data-lang-id="020-no-watershed-worries" style="font-size:smaller;">Can't find your watershed?  No worries! We're still working on adding them.</p>
+
         </form>
 
     </div>

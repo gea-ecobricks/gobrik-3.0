@@ -204,7 +204,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <select name="country_id" id="country_id" required>
                     <option value="" disabled selected data-lang-id="015-country-place-holder">Select your country of residence...</option>
                 </select>
-                <p id="country-caption" class="form-caption" style="margin-bottom:-5px;"><span data-lang-id="015b-country-caption">Showing all countries in </span><?php echo htmlspecialchars($continent['continent_name']); ?></p>
+                <p id="country-caption" class="form-caption" style="margin-bottom:-5px;">Showing all countries in </span><?php echo htmlspecialchars($continent['continent_name']); ?></p>
             </div>
 
             <!-- WATERSHED -->
@@ -216,13 +216,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     <option value="not listed" data-lang-id="016-dont-know">Not listed</option>
                 </select>
                 <p class="form-caption">
-                    <span data-lang-id="018-what-is-watershed">Almost everyone lives in one of Earth's 200 main watersheds!  See if you can locate yours. We're still working on this, so not all watersheds will be shown.  Learn more about </span>
+                    <span data-lang-id="018-what-is-watershed">Almost everyone lives in one of Earth's 200 main watersheds.  See if you can locate yours! Learn more about </span>
                     <a href="#" onclick="showModalInfo('watershed', '<?php echo htmlspecialchars($lang); ?>')" class="underline-link" data-lang-id="019-watershed">watersheds</a>.
                 </p>
             </div>
 
             <div id="submit-section" style="text-align:center;margin-top:15px;display:none;" data-lang-id="016-submit-complete-button">
                 <input type="submit" id="submit-button" value="✔️ Complete Setup" class="submit-button enabled">
+                <p data-lang-id="020-no-watershed-worries">Can't find your watershed?  No worries! We're still working on adding them.</p>
             </div>
         </form>
 
@@ -353,6 +354,50 @@ document.addEventListener('DOMContentLoaded', function () {
 
 </script>
 
+<script>
+    // Function to update the country-caption div based on continent selection
+    function updateCountryCaption() {
+        // Retrieve the language setting from the server-side PHP variable
+        const lang = '<?php echo htmlspecialchars($lang); ?>';
+
+        // Get the continent menu element and the country caption div
+        const continentMenu = document.getElementById('continent_code');
+        const countryCaption = document.getElementById('country-caption');
+
+        // Add an event listener to detect changes in the continent selection
+        continentMenu.addEventListener('change', function () {
+            // Get the selected continent's value and name
+            const selectedContinent = continentMenu.value;
+            const continentName = continentMenu.options[continentMenu.selectedIndex].text;
+
+            // Prepare translations for the message in different languages
+            const translations = {
+                en: `Showing all countries in the continent of ${continentName}.`,
+                fr: `Afficher tous les pays du continent de ${continentName}.`,
+                es: `Mostrando todos los países en el continente de ${continentName}.`,
+                id: `Menampilkan semua negara di benua ${continentName}.`,
+                special_en: "Showing all countries in Europe. Do you live in the UK? Note that we've listed England, Northern Ireland, Wales, and Scotland separately.",
+                special_fr: "Afficher tous les pays en Europe. Habitez-vous au Royaume-Uni ? Notez que nous avons répertorié séparément l'Angleterre, l'Irlande du Nord, le Pays de Galles et l'Écosse.",
+                special_es: "Mostrando todos los países en Europa. ¿Vives en el Reino Unido? Tenga en cuenta que hemos enumerado por separado a Inglaterra, Irlanda del Norte, Gales y Escocia.",
+                special_id: "Menampilkan semua negara di Eropa. Apakah Anda tinggal di Inggris? Harap dicatat bahwa kami telah mencantumkan Inggris, Irlandia Utara, Wales, dan Skotlandia secara terpisah."
+            };
+
+            // Determine the message based on the selected continent and language
+            let message = '';
+            if (selectedContinent === 'EU') {
+                message = translations[`special_${lang}`] || translations['special_en']; // Use special message for Europe
+            } else {
+                message = translations[lang] || translations['en']; // Default to English if no translation is available
+            }
+
+            // Update the content of the country-caption div
+            countryCaption.innerHTML = message;
+        });
+    }
+
+    // Initialize the function on page load
+    window.onload = updateCountryCaption;
+</script>
 
 
 

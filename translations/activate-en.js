@@ -27,18 +27,20 @@ const en_Page_Translations = {
 
   // Activate-3.php
 
-"012-status-heading": "your password & email are set!",
-    "013-sub-status-tell": "Your new Buwana and GoBrik account is all about local and global ecological action. Please tell us about where you live...",
+
     "014-your-continent": "On what continent do you live?",
-    "015-continent-place-holder": "<option value=\"\" disabled selected>Select your continent...</option>",
-    "014-your-watershed": "In what river basin do you live?",
-    "015-watershed-place-holder": "<option value=\"\" disabled selected>Select your watershed...</option>",
-    "016-dont-know": "<option value=\"I don't know\">I don't know</option>",
-    "018-what-is-watershed": "Everyone lives in one of the Earth's 157 main river basins. Learn more about ",
-    "019-watershed": "watershed",
+    "015-continent-place-holder": "Select your continent...",
     "014-your-country": "In what country do you reside?",
-    "015-country-place-holder": "<option value=\"\" disabled selected>Select your country of residence...</option>",
-    "016-submit-complete-button": "<input type=\"submit\" id=\"submit-button\" value=\"✔️ Complete Setup\" class=\"submit-button enabled\">"
+    "015-country-place-holder": "Select your country of residence...",
+    "014-your-watershed": "In what river basin do you live?",
+    "015-watershed-place-holder": "Select your river basin...",
+    "016-dont-know": "I am not sure",
+    "016-dont-know-alt": "Not listed",
+    "018-what-is-watershed": "Almost everyone lives in one of Earth's 200 main watersheds. See if you can locate yours! Learn more about ",
+    "019-watershed": "watersheds",
+    "016-submit-complete-button": "✔️ Complete Setup",
+    "020-no-watershed-worries": "Can't find your watershed? No worries! We're still working on adding them."
+
 
 
 

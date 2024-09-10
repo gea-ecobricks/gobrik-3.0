@@ -15,7 +15,7 @@ const en_Page_Translations = {
     "001-signup-heading": "Create Your Account",
     "002-signup-subtext": "Join us on GoBrik with a Buwana account— an open source, for-Earth alternative to corporate logins.",
     "003-firstname": "What is your first name?",
-    "004-name-placeholder": '<input type="text" id="first_name" name="first_name" aria-label="Your first name" title="Required. Max 255 characters." required placeholder="Your name....">',
+    "004-name-placeholder": '<input type="text" id="first_name" name="first_name" aria-label="Your first name" title="Required. Max 255 characters." required placeholder="Your name...">',
     "000-name-field-too-long-error": "The name is too long. Max 255 characters.",
     "005b-name-error": "The entry contains invalid characters. Avoid quotes, slashes, and greater-than signs please.",
     "006-credential-choice": " Your preferred login:",

@@ -12,7 +12,7 @@ if (isLoggedIn()) {
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.59';
+$version = '0.6';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $is_logged_in = false; // Ensure not logged in for this page
 
@@ -20,8 +20,6 @@ $is_logged_in = false; // Ensure not logged in for this page
 $page = 'signup';
 $watershed_id = '';
 $continents = [];
-$countries = [];
-
 
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.763';
@@ -162,9 +160,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         </div>
 
-         <div style="font-size: medium; text-align: center; margin: auto; align-self: center;padding-bottom:40px;">
-        <p data-lang-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
-        </div>
+<div style="font-size: medium; text-align: center; margin: auto; align-self: center;padding-bottom:40px;">
+        <p style="font-size:medium;" data-lang-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
+    </div>
+
 
 
     </div>

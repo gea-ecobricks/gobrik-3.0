@@ -38,8 +38,8 @@ const en_Page_Translations = {
     "016-dont-know-alt": "Not listed",
     "018-what-is-watershed": "Almost everyone lives in one of Earth's 200 main watersheds. See if you can locate yours! Learn more about ",
     "019-watershed": "watersheds",
-    "016-submit-complete-button": "✔️ Complete Setup",
-    "020-no-watershed-worries": "Can't find your watershed? No worries! We're still working on adding them."
+    "016-submit-complete-button": "Complete Setup",
+    "020-no-watershed-worries": '<input type="submit" id="submit-button" value="Complete Setup" class="submit-button enabled">';
 
 
 

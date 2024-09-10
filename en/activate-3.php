@@ -221,10 +221,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 </p>
             </div>
 
-            <div id="submit-section" style="text-align:center;margin-top:15px;display:none;" data-lang-id="016-submit-complete-button">
-                <input type="submit" id="submit-button" value="✔️ Complete Setup" class="submit-button enabled">
-                <p data-lang-id="020-no-watershed-worries">Can't find your watershed?  No worries! We're still working on adding them.</p>
+            <div id="submit-section" style="text-align:center;margin-top:25px;display:none;" data-lang-id="016-submit-complete-button">
+                <input type="submit" id="submit-button" value="Complete Setup" class="submit-button enabled">
             </div>
+        <p data-lang-id="020-no-watershed-worries" style="font-size:smaller;">Can't find your watershed?  No worries! We're still working on adding them.</p>
         </form>
 
     </div>

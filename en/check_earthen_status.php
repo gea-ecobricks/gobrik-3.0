@@ -1,3 +1,4 @@
+<?php
 // Enable error reporting for debugging
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -85,3 +86,6 @@ if (isset($_POST['email']) && isset($_POST['unsubscribe']) && $_POST['unsubscrib
 } else {
     echo json_encode(['status' => 'error', 'message' => 'No email address provided.']);
 }
+
+
+?>

@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.373';
+$version = '0.374';
 $page = 'dashboard';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -136,11 +136,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <p id="subgreeting">Welcome to the new GoBrik 3.0!</p>
         </div>
         <div style="display:flex;flex-flow:row;width:100%;justify-content:center;">
-            <button class="go-button" id="log-ecobrick-button">➕ Log an Ecobrick</button>
+            <button class="go-button disabled" id="log-ecobrick-button" data-lang-id="001-log-an-ecobrick">➕ Log an Ecobrick</button>
         </div>
 
         <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
-            <h3>My Ecobricks</h3>
+            <h3 data-lang-id="002-my-ecobricks">My Ecobricks</h3>
             <table id="latest-ecobricks">
                 <tr>
                     <th data-lang-id="1103-brik">Brik</th>
@@ -152,7 +152,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <?php if (empty($recent_ecobricks)) : ?>
                     <tr>
                         <td colspan="5" style="text-align:center;">
-                            It looks like you haven't logged any ecobricks yet! When you do, they will appear here for you to manage.
+                            <span data-lang-id="003-no-ecobricks-yet">It looks like you haven't logged any ecobricks yet! When you do, they will appear here for you to manage.</span>
                         </td>
                     </tr>
                 <?php else : ?>
@@ -180,12 +180,13 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>
 
         <div style="display:flex;flex-flow:row;width:100%;justify-content:center; margin-top:50px;">
-            <a href="newest-briks.php"><button id="newest-ecobricks-button"  style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;">📅 Newest Ecobricks</button></a>
+            <a href="newest-briks.php"><button id="newest-ecobricks-button"  style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;" data-lang-id="005-newest-ecobricks">📅 Newest Ecobricks</button></a>
         </div>
 
-        <div style="text-align:center;width:100%;margin:auto;">
+    <!--    <div style="text-align:center;width:100%;margin:auto;">
             <p style="font-size:smaller;">As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik, representing over <?php echo round($total_weight); ?> kg of sequestered plastic!</p>
         </div>
+    -->
     </div>
 </div>
 

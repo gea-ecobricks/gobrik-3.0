@@ -280,18 +280,23 @@ $(document).ready(function() {
         }
     });
 
-    // Activate submit button when "ecobrick" is typed and terms checkbox is checked
-    function updateSubmitButtonState() {
-        if (humanCheckField.value.toLowerCase() === 'ecobrick' && termsCheckbox.checked) {
-            submitButton.classList.remove('disabled');
-            submitButton.classList.add('enabled');
-            submitButton.disabled = false;
-        } else {
-            submitButton.classList.remove('enabled');
-            submitButton.classList.add('disabled');
-            submitButton.disabled = true;
-        }
+// Activate submit button when a valid word is typed and terms checkbox is checked
+function updateSubmitButtonState() {
+    const validWords = ['ecobrick', 'ecoladrillo', 'écobrique', 'ecobrique']; // List of accepted words
+    const enteredWord = humanCheckField.value.toLowerCase(); // Get the user's input and convert to lowercase
+
+    // Check if the entered word is in the list of valid words and if the terms checkbox is checked
+    if (validWords.includes(enteredWord) && termsCheckbox.checked) {
+        submitButton.classList.remove('disabled');
+        submitButton.classList.add('enabled');
+        submitButton.disabled = false;
+    } else {
+        submitButton.classList.remove('enabled');
+        submitButton.classList.add('disabled');
+        submitButton.disabled = true;
     }
+}
+
 
     humanCheckField.addEventListener('input', updateSubmitButtonState);
     termsCheckbox.addEventListener('change', updateSubmitButtonState);

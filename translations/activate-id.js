@@ -26,17 +26,19 @@ const id_Page_Translations = {
 
     // Activate-3.php
 
-    "012-status-heading": "kata sandi & email Anda telah diatur!",
-    "013-sub-status-tell": "Akun Buwana dan GoBrik baru Anda adalah tentang aksi ekologis lokal dan global. Tolong ceritakan tentang tempat tinggal Anda...",
-    "014-your-continent": "Di benua apa Anda tinggal?",
-    "015-continent-place-holder": "<option value=\"\" disabled selected>Pilih benua Anda...</option>",
-    "014-your-watershed": "Di lembah sungai mana Anda tinggal?",
-    "015-watershed-place-holder": "<option value=\"\" disabled selected>Pilih daerah aliran sungai Anda...</option>",
-    "016-dont-know": "<option value=\"I don't know\">Saya tidak tahu</option>",
-    "018-what-is-watershed": "Setiap orang tinggal di salah satu dari 157 lembah sungai utama di Bumi. Pelajari lebih lanjut tentang ",
-    "019-watershed": "daerah aliran sungai",
+
+    "014-your-continent": "Di benua mana Anda tinggal?",
+    "015-continent-place-holder": "Pilih benua Anda...",
     "014-your-country": "Di negara mana Anda tinggal?",
-    "015-country-place-holder": "<option value=\"\" disabled selected>Pilih negara tempat tinggal Anda...</option>",
-    "016-submit-complete-button": "<input type=\"submit\" id=\"submit-button\" value=\"✔️ Selesaikan Pengaturan\" class=\"submit-button enabled\">"
+    "015-country-place-holder": "Pilih negara tempat tinggal Anda...",
+    "014-your-watershed": "Di daerah aliran sungai mana Anda tinggal?",
+    "015-watershed-place-holder": "Pilih daerah aliran sungai Anda...",
+    "016-dont-know": "Saya tidak yakin",
+    "016-dont-know-alt": "Tidak terdaftar",
+    "018-what-is-watershed": "Hampir semua orang tinggal di salah satu dari 200 daerah aliran sungai utama di Bumi. Lihat apakah Anda dapat menemukan milik Anda! Pelajari lebih lanjut tentang ",
+    "019-watershed": "daerah aliran sungai",
+    "016-submit-complete-button": "Selesaikan Pengaturan",
+    "020-no-watershed-worries": '<input type="submit" id="submit-button" value="Selesaikan Pengaturan" class="submit-button enabled"><p style="font-size:smaller;">Tidak menemukan daerah aliran sungai Anda? Jangan khawatir! Kami masih bekerja untuk menambahkannya.</p>',
+
 
 };

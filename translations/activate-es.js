@@ -26,17 +26,19 @@ const es_Page_Translations = {
 
       // Activate-3.php
 
-    "012-status-heading": "¡su contraseña y correo electrónico están configurados!",
-    "013-sub-status-tell": "Su nueva cuenta de Buwana y GoBrik se trata de acción ecológica local y global. Por favor, cuéntenos sobre dónde vive...",
-    "014-your-continent": "¿En qué continente vive?",
-    "015-continent-place-holder": "<option value=\"\" disabled selected>Seleccione su continente...</option>",
-    "014-your-watershed": "¿En qué cuenca fluvial vive?",
-    "015-watershed-place-holder": "<option value=\"\" disabled selected>Seleccione su cuenca hidrográfica...</option>",
-    "016-dont-know": "<option value=\"I don't know\">No sé</option>",
-    "018-what-is-watershed": "Todos viven en una de las 157 principales cuencas fluviales de la Tierra. Aprenda más sobre ",
-    "019-watershed": "la cuenca hidrográfica",
-    "014-your-country": "¿En qué país reside?",
-    "015-country-place-holder": "<option value=\"\" disabled selected>Seleccione su país de residencia...</option>",
-    "016-submit-complete-button": "<input type=\"submit\" id=\"submit-button\" value=\"✔️ Completar configuración\" class=\"submit-button enabled\">"
+
+    "014-your-continent": "¿En qué continente vives?",
+    "015-continent-place-holder": "Seleccione su continente...",
+    "014-your-country": "¿En qué país resides?",
+    "015-country-place-holder": "Seleccione su país de residencia...",
+    "014-your-watershed": "¿En qué cuenca hidrográfica vives?",
+    "015-watershed-place-holder": "Seleccione su cuenca hidrográfica...",
+    "016-dont-know": "No estoy seguro",
+    "016-dont-know-alt": "No listado",
+    "018-what-is-watershed": "Casi todos viven en una de las 200 principales cuencas hidrográficas de la Tierra. ¡Vea si puede localizar la suya! Aprende más sobre ",
+    "019-watershed": "cuencas hidrográficas",
+    "016-submit-complete-button": "Completar configuración",
+    "020-no-watershed-worries": '<input type="submit" id="submit-button" value="Completar configuración" class="submit-button enabled"><p style="font-size:smaller;">¿No puedes encontrar tu cuenca hidrográfica? ¡No te preocupes! Todavía estamos trabajando en agregarlas.</p>',
+
 
 };

@@ -19,9 +19,7 @@ $is_logged_in = false; // Ensure not logged in for this page
 $page = 'signup';
 $watershed_id = '';
 $first_name = '';
-$email_addr = '';
 $continents = [];
-$countries = [];
 $watersheds = [];
 
 // PART 1: Check if the user is already logged in

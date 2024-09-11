@@ -343,7 +343,6 @@ function closeInfoModal() {
 
 
 
-
 function showModalInfo(type, lang) {
     const modal = document.getElementById('form-modal-message');
     const photobox = document.getElementById('modal-photo-box');
@@ -370,7 +369,7 @@ function showModalInfo(type, lang) {
             break;
 
         case 'earthen':
-            switch(lang) {
+            switch (lang) {
                 case 'fr':
                     content = `
                         <img src="../svgs/earthen-newsletter-logo.svg" alt="Bulletin Earthen" height="250px" width="250px" class="preview-image">
@@ -402,7 +401,7 @@ function showModalInfo(type, lang) {
             break;
 
         case 'ecobrick':
-            switch(lang) {
+            switch (lang) {
                 case 'fr':
                     content = `
                         <img src="../webps/faqs-400px.webp" alt="Termes et Types Ecobrick" height="200px" width="200px" class="preview-image">
@@ -433,34 +432,33 @@ function showModalInfo(type, lang) {
             }
             break;
 
-            case 'watershed':
-                switch (lang) {
-                    case 'fr':
-                        content = `
-                            <div class="preview-title">Bassin Versant</div>
-                            <div class="preview-text">Un bassin versant est une zone de terre où toute l'eau provenant de la pluie, de la fonte des neiges ou de la glace converge vers un point unique, généralement une rivière, un lac ou un océan. Ces bassins constituent une frontière naturelle qui capture et canalise les précipitations à travers un réseau de rivières, de ruisseaux et d'aquifères souterrains, dirigeant finalement l'eau vers un exutoire commun. Les bassins versants jouent un rôle écologique crucial et fournissent de l'eau pour un usage humain. La santé et la gestion des bassins versants sont vitales pour la vitalité écologique.</div>
-                        `;
-                        break;
-                    case 'es':
-                        content = `
-                            <div class="preview-title">Cuencas Hidrográficas</div>
-                            <div class="preview-text">Una cuenca hidrográfica es un área de tierra donde toda el agua de la lluvia, la nieve derretida o el hielo converge en un solo punto, típicamente un río, un lago o un océano. Estas cuencas son una frontera natural que captura y canaliza la precipitación a través de una red de ríos, arroyos y acuíferos subterráneos, dirigiendo finalmente el agua hacia un punto de salida común. Las cuencas hidrográficas juegan un papel ecológico crucial y proporcionan agua para uso humano. La salud y la gestión de las cuencas hidrográficas son vitales para la vitalidad ecológica.</div>
-                        `;
-                        break;
-                    case 'id':
-                        content = `
-                            <div class="preview-title">Daerah Aliran Sungai (DAS)</div>
-                            <div class="preview-text">Daerah aliran sungai (DAS) adalah suatu wilayah daratan di mana semua air dari hujan, salju yang mencair, atau es berkumpul di satu titik, biasanya sebuah sungai, danau, atau laut. DAS ini membentuk batasan alami yang menangkap dan menyalurkan presipitasi melalui jaringan sungai, aliran, dan akuifer bawah tanah, akhirnya mengarahkan air ke satu saluran keluaran. DAS memainkan peran ekologis penting dan menyediakan air untuk penggunaan manusia. Kesehatan dan pengelolaan DAS sangat penting untuk vitalitas ekologi.</div>
-                        `;
-                        break;
-                    default: // 'en' or any other
-                        content = `
-                            <div class="preview-title">Watersheds</div>
-                            <div class="preview-text">A watershed is an area of land where all the water from rain, melting snow, or ice converges to a single point, typically a river, lake, or ocean. These basins are a natural boundary that captures and channels precipitation through a network of rivers, streams, and underground aquifers, eventually directing the water to a common outlet. Watersheds play a crucial ecological role and provide water for human use. The health and management of watersheds are vital for ecological vitality.</div>
-                        `;
-                }
-                break;
-
+        case 'watershed':
+            switch (lang) {
+                case 'fr':
+                    content = `
+                        <div class="preview-title">Bassin Versant</div>
+                        <div class="preview-text">Un bassin versant est une zone de terre où toute l'eau provenant de la pluie, de la fonte des neiges ou de la glace converge vers un point unique, généralement une rivière, un lac ou un océan. Ces bassins constituent une frontière naturelle qui capture et canalise les précipitations à travers un réseau de rivières, de ruisseaux et d'aquifères souterrains, dirigeant finalement l'eau vers un exutoire commun. Les bassins versants jouent un rôle écologique crucial et fournissent de l'eau pour un usage humain. La santé et la gestion des bassins versants sont vitales pour la vitalité écologique.</div>
+                    `;
+                    break;
+                case 'es':
+                    content = `
+                        <div class="preview-title">Cuencas Hidrográficas</div>
+                        <div class="preview-text">Una cuenca hidrográfica es un área de tierra donde toda el agua de la lluvia, la nieve derretida o el hielo converge en un solo punto, típicamente un río, un lago o un océano. Estas cuencas son una frontera natural que captura y canaliza la precipitación a través de una red de ríos, arroyos y acuíferos subterráneos, dirigiendo finalmente el agua hacia un punto de salida común. Las cuencas hidrográficas juegan un papel ecológico crucial y proporcionan agua para uso humano. La salud y la gestión de las cuencas hidrográficas son vitales para la vitalidad ecológica.</div>
+                    `;
+                    break;
+                case 'id':
+                    content = `
+                        <div class="preview-title">Daerah Aliran Sungai (DAS)</div>
+                        <div class="preview-text">Daerah aliran sungai (DAS) adalah suatu wilayah daratan di mana semua air dari hujan, salju yang mencair, atau es berkumpul di satu titik, biasanya sebuah sungai, danau, atau laut. DAS ini membentuk batasan alami yang menangkap dan menyalurkan presipitasi melalui jaringan sungai, aliran, dan akuifer bawah tanah, akhirnya mengarahkan air ke satu saluran keluaran. DAS memainkan peran ekologis penting dan menyediakan air untuk penggunaan manusia. Kesehatan dan pengelolaan DAS sangat penting untuk vitalitas ekologi.</div>
+                    `;
+                    break;
+                default: // 'en' or any other
+                    content = `
+                        <div class="preview-title">Watersheds</div>
+                        <div class="preview-text">A watershed is an area of land where all the water from rain, melting snow, or ice converges to a single point, typically a river, lake, or ocean. These basins are a natural boundary that captures and channels precipitation through a network of rivers, streams, and underground aquifers, eventually directing the water to a common outlet. Watersheds play a crucial ecological role and provide water for human use. The health and management of watersheds are vital for ecological vitality.</div>
+                    `;
+            }
+            break;
 
         default:
             content = '<p>Invalid term selected.</p>';
@@ -474,6 +472,7 @@ function showModalInfo(type, lang) {
     document.getElementById('footer-full').classList.add('blurred');
     document.body.classList.add('modal-open');
 }
+
 
 
 </script>

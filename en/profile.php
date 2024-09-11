@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.388';
+$version = '0.39';
 $page = 'profile';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -293,7 +293,7 @@ echo '<!DOCTYPE html>
     <!-- Status No -->
     <div id="earthen-status-no" style="display:none;">
         <p data-lang-id="026-not-subscribed">You're not yet subscribed.</p>
-        <a href="https://earthen.io/#register" target="_blank" class="submit-button enabled" data-lang-id="027-subscribe-button">↗️ Subscribe on Earthen</a>
+        <a href="https://earthen.io/#register" target="_blank" class="enabled" style="padding:6px;" data-lang-id="027-subscribe-button">↗️ Subscribe on Earthen</a>
     </div>
 </div>
 

@@ -59,7 +59,7 @@
 
         <div class="footer-box">
             <div class="footer-header" data-lang-id="408-wikipedia-title">Ecobricks on Wikipedia</div>
-            <div class="footer-subtext" data-lang-id="409-wikipedia-text">Also known as Eco Bricks, Eco-Bricks, Ecolladrillos, briks, bottle bricks and ecobriques the Global Ecobrick Alliance and <a href="https://en.wikipedia.org/wiki/Ecobricks" target="_blank" rel="noopener">Wikipedia</a> endorse the spelling 'ecobrick' to refer to the <a href="https://en.wikipedia.org/wiki/Plastic_Sequestration" target="_blank" rel="noopener">sequestration of plastic</a> in a PET bottle to make a reusable building block.
+            <div class="footer-subtext" data-lang-id="409-wikipedia-text">Also known as Eco Bricks, Eco-Bricks, Ecolladrillos, briks, bottle bricks and ecobriques the Global Ecobrick Alliance and <a href="https://en.wikipedia.org/wiki/Ecobricks" target="_blank" rel="noopener">Wikipedia</a> endorse the spelling '<a href="#" onclick="showModalInfo('ecobrick', '<?php echo $lang; ?>')" class="underline-link">ecobrick</a>' to refer to the <a href="https://en.wikipedia.org/wiki/Plastic_Sequestration" target="_blank" rel="noopener">sequestration of plastic</a> in a PET bottle to make a reusable building block.
             </div>
 
         </div>

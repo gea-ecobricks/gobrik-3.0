@@ -11,9 +11,10 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 // Forward slash (/): Should be escaped as \/ in </script> tags to prevent prematurely closing a script.
 
 
-const fr_Page_Translations = {
-    "001-good-bye": "Au revoir!",
-    "002-successfuly-deleted": "Votre compte a été supprimé avec succès.",
-    "003-change-mind": "Si vous changez d'avis, vous pouvez <a href=\"signup.php\">créer un nouveau compte</a> à tout moment."
+const id_Page_Translations = {
+    "001-good-bye": "Selamat tinggal!",
+    "002-successfuly-deleted": "Akun Anda telah berhasil dihapus.",
+    "003-change-mind": "Jika Anda berubah pikiran, Anda dapat <a href=\"signup.php\">membuat akun baru</a> kapan saja."
 };
+
 

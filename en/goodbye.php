@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.476';
-$page = 'activate';
+$page = 'goodbye';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 // PART 1: Check if the user is already logged in
@@ -40,9 +40,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
       <div style="text-align:center;width:100%;margin:auto;">
 
-        <h1>Goodbye!</h1>
-        <p>Your account has been successfully deleted.</p>
-        <p>If you change your mind, you can <a href="signup.php">create a new account</a> anytime.</p>
+        <h1 data-lang-id="001-good-bye">Goodbye!</h1>
+        <p data-lang-id="002-successfuly-deleted">Your account has been successfully deleted.</p>
+        <p data-lang-id="003-change-mind">If you change your mind, you can <a href="signup.php">create a new account</a> anytime.</p>
     </div>
  </div>
     </div>

@@ -9,8 +9,8 @@
 
 	<!-- Facebook Open Graph Tags for social sharing-->
 
-<meta property="og:url"           content="https://gobrik.com/en/log.php">
-<meta property="og:locale" content="en_GB" >
+<meta property="og:url"           content="https://gobrik.com/fr/activate.php">
+<meta property="og:locale" content="fr_FR" >
 <meta property="og:type"          content="website">
 <meta property="og:title"         content="Activate your Buwana Account">
 <meta property="og:description"   content="Upgrade you old GoBrik account into a Buwana account to access GoBrik and other regen apps.">
@@ -18,7 +18,6 @@
 <meta property="og:image:width" content="1024">
 <meta property="og:image:height" content="1017">
 <meta property="og:image:alt"     content="An ecobrick being packed with plastic using a wooden stick.">
-<meta property="og:locale" content="en_GB">
 
 	<meta property="og:type" content="form" >
 	<meta property="og:site_name" content="GoBrik.com" >

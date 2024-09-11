@@ -310,10 +310,7 @@ echo '<!DOCTYPE html>
 </form>
 </div>
 
-        <!-- Other Dashboard Buttons -->
-        <div style="display:flex;flex-flow:row;width:100%;justify-content:center; margin-top:50px;">
-            <a href="newest-briks.php"><button id="newest-ecobricks-button" data-lang-id="023-newest-ecobricks" style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;">📅 Newest Ecobricks</button></a>
-        </div>
+
     </div> <!-- close form-container -->
 </div> <!-- close form-submission-box -->
 </div>

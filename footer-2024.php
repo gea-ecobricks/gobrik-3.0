@@ -419,4 +419,6 @@ function showModalInfo(type, lang) {
 }
 
 
+</script>
+
 

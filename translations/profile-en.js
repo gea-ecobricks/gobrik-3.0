@@ -45,6 +45,7 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
     "022-select-continent": "Select Continent",
     "023-watershed": "Watershed:",
     "024-select-watershed": "Select Watershed",
+    "030-delete-my-account-button": "Delete My Account",
     "confirmDeletion1": "Are you certain you wish to delete your account? This cannot be undone.",
     "confirmDeletion2": "Ok. We will delete your account! Note that this does not affect ecobrick data that has been permanently archived in the brikchain. Note that currently our Earthen newsletter is separate from GoBrik-- which has its own easy unsubscribe mechanism."
 };

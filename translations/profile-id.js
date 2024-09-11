@@ -45,6 +45,7 @@ const id_Page_Translations = {
     "022-select-continent": "Pilih Benua",
     "023-watershed": "Daerah Aliran Sungai:",
     "024-select-watershed": "Pilih Daerah Aliran Sungai",
+    "030-delete-my-account-button": "Menghapus Akun Saya",
     "confirmDeletion1": "Apakah Anda yakin ingin menghapus akun Anda? Ini tidak dapat diurungkan.",
     "confirmDeletion2": "Baik. Kami akan menghapus akun Anda! Perhatikan bahwa ini tidak mempengaruhi data ecobrick yang telah diarsipkan secara permanen di brikchain. Perhatikan bahwa saat ini buletin Earthen kami terpisah dari GoBrik, yang memiliki mekanisme berhenti berlangganan yang mudah."
 };

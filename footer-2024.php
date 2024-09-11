@@ -133,6 +133,8 @@
 
 	<!--FOOTER ENDS-->
 
+
+<!-- Translation variable files for the languageSwitcher-->
 <script src="../translations/core-en.js?v=1.<?php echo ($version); ;?>"></script>
 <script src="../translations/core-fr.js?v=1.<?php echo ($version); ;?>"></script>
 <script src="../translations/core-id.js?v=1.<?php echo ($version); ;?>"></script>

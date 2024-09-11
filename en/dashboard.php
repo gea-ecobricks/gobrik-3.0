@@ -268,12 +268,6 @@ document.getElementById('newest-ecobricks-button').addEventListener('click', fun
     window.location.href = 'newest-briks.php';
 });
 
-
-
-
-</script>
-
-<script>
 function subGreeting() {
     // Retrieve the language setting from the server-side PHP variable
     const lang = '<?php echo htmlspecialchars($lang); ?>';

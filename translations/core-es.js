@@ -91,4 +91,15 @@ const es_Translations = {
     "420-conclusion-contribute": "El sitio Ecobricks.org está codificado a mano en HTML, PHP MYSQL, CSS y Javascript de código abierto. Contribuye a mejorar esta página dejando un informe de error o solicitud de inserción en Github:",
     "421-conclusion-data": "Todo el contenido educativo de nuestro sitio (fotos, videos y texto) está disponible para compartir por la Alianza de Ecoladrillos bajo una <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Licencia Internacional de Creative Commons Attribution-ShareAlike 4.0</a>.<br>Atribuya todo uso a \"La Alianza Global de Ecoladrillos, ecobricks.org\" utilizando la misma licencia.",
     "422-conclusion-copyright": "Los logotipos y emblemas de Ecobricks.org, GEA, Earthen, AES y Gobrik son derechos de autor 2010-2024 por la Alianza Global de Ecoladrillos.",
+
+    //UNIVERSAL MODAL TRANSLATIONS
+
+    "earthen-title": "Boletín de Earthen",
+    "earthen-text": "Iniciado en 2016 en la tierra del pueblo Igorot, Earthen es nuestro boletín bimensual del movimiento regenerativo de la tierra. Compartimos las últimas noticias del mundo de los ecobricks y la construcción con tierra, la ciencia y la filosofía regenerativas. También te mantenemos al día con los principales anuncios y noticias de GoBrik. Gratis. Fácil de darse de baja en cualquier momento.",
+    "ecobrick-title": "El Término",
+    "ecobrick-text": "En 2016, los líderes de la transición plástica de todo el mundo acordaron usar el término 'ecobrick' sin guion y sin mayúscula como el término de referencia coherente y estandarizado en la guía y sus materiales. De esta manera, los ecobrickers de todo el mundo podrían referirse con una sola palabra al mismo concepto y las búsquedas en la web, así como los hashtags, acelerarían la difusión global. Consulte wikipedia.org/ecobricks para la historia completa.",
+    "watershed-title": "Cuencas Hidrográficas",
+    "watershed-text": "Una cuenca hidrográfica es un área de tierra donde toda el agua de la lluvia, la nieve derretida o el hielo converge en un solo punto, típicamente un río, un lago o un océano. Estas cuencas son una frontera natural que captura y canaliza la precipitación a través de una red de ríos, arroyos y acuíferos subterráneos, dirigiendo finalmente el agua hacia un punto de salida común. Las cuencas hidrográficas juegan un papel ecológico crucial y proporcionan agua para uso humano. La salud y la gestión de las cuencas hidrográficas son vitales para la vitalidad ecológica."
+
+
 }

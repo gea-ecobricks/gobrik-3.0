@@ -95,4 +95,18 @@ const en_Translations = {
     "421-conclusion-data": "All of the educational content on our site (photos, videos and text) are made available for sharing by the Ecobrick Alliance under a <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br>Please attribute all usage to \"The Global Ecobrick Alliance, ecobricks.org\" using the same license.",
     "422-conclusion-copyright": "The Ecobricks.org, GEA, Earthen, AES and Gobrik logos and emblems are copyright 2010-2024 by the Global Ecobrick Alliance.",
 
+//UNIVERSAL MODAL TRANSLATIONS
+
+
+    "earthen-title": "Earthen Newsletter",
+    "earthen-text": "Started in 2016 in the land of the Igorot people, Earthen is our bi-monthly newsletter of the earthen regenerative movement. We share the latest news from the world of ecobricks and earth building, regenerative science, and philosophy. We also keep you up to date with major GoBrik announcements and news. Free. Easy to unsubscribe at any time.",
+    "ecobrick-title": "The Term",
+    "ecobrick-text": "In 2016, plastic transition leaders around the world agreed to use the non-hyphenated, non-capitalized term ‘ecobrick’ as the consistent, standardized term of reference in the guidebook and their materials. In this way, ecobrickers around the world would be able to refer with one word to the same concept, and web searches and hashtags would accelerate global dissemination. See wikipedia.org/ecobricks for the full history.",
+    "watershed-title": "Watersheds",
+    "watershed-text": "A watershed is an area of land where all the water from rain, melting snow, or ice converges to a single point, typically a river, lake, or ocean. These basins are a natural boundary that captures and channels precipitation through a network of rivers, streams, and underground aquifers, eventually directing the water to a common outlet. Watersheds play a crucial ecological role and provide water for human use. The health and management of watersheds are vital for ecological vitality."
+
+
+
+
+
 }

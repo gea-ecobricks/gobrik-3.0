@@ -91,4 +91,21 @@ const fr_Translations = {
     "420-conclusion-contribute": "Le site Ecobricks.org est codé à la main en HTML, PHP MYSQL, CSS et Javascript open source. Contribuez à améliorer cette page en laissant un rapport de bug ou une demande d'ajout sur Github:",
     "421-conclusion-data": "Tout le contenu éducatif de notre site (photos, vidéos et texte) est mis à disposition pour le partage par l'Alliance des Ecobriques sous une <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Licence Creative Commons Attribution-ShareAlike 4.0 International</a>.<br>Veuillez attribuer toute utilisation à \"L'Alliance Globale d'Écobriques, ecobricks.org\" en utilisant la même licence.",
     "422-conclusion-copyright": "Les logos et emblèmes Ecobricks.org, GEA, Earthen, AES et Gobrik sont copyright 2010-2024 par l'Alliance Globale d'Écobriques.",
+
+
+//UNIVERSAL MODALS
+
+
+    "earthen-title": "Bulletin Earthen",
+    "earthen-text": "Lancé en 2016 au pays du peuple Igorot, Earthen est notre bulletin bimensuel du mouvement de régénération de la terre. Nous partageons les dernières nouvelles du monde des ecobricks et de la construction en terre, de la science et de la philosophie régénératives. Nous vous tenons également informé des annonces et nouvelles importantes de GoBrik. Gratuit. Désabonnement facile à tout moment.",
+    "ecobrick-title": "Le Terme",
+    "ecobrick-text": "En 2016, les leaders de la transition plastique du monde entier ont convenu d'utiliser le terme 'ecobrick' sans trait d'union ni majuscule comme terme de référence cohérent et standardisé dans le guide et leurs documents. Ainsi, les ecobrickers du monde entier pourraient se référer avec un seul mot au même concept et les recherches sur le web ainsi que les hashtags accéléreraient la diffusion mondiale. Consultez wikipedia.org/ecobricks pour l'histoire complète.",
+    "watershed-title": "Bassin Versant",
+    "watershed-text": "Un bassin versant est une zone de terre où toute l'eau provenant de la pluie, de la fonte des neiges ou de la glace converge vers un point unique, généralement une rivière, un lac ou un océan. Ces bassins constituent une frontière naturelle qui capture et canalise les précipitations à travers un réseau de rivières, de ruisseaux et d'aquifères souterrains, dirigeant finalement l'eau vers un exutoire commun. Les bassins versants jouent un rôle écologique crucial et fournissent de l'eau pour un usage humain. La santé et la gestion des bassins versants sont vitales pour la vitalité écologique."
+
+
+
+
+
+
 }

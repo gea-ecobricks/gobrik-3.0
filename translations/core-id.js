@@ -91,4 +91,16 @@ const id_Translations = {
     "420-conclusion-contribute": "Situs Ecobricks.org ini dikodekan dengan tangan dalam HTML, PHP MYSQL, CSS, dan Javascript sumber terbuka. Berkontribusi untuk membuat halaman ini lebih baik dengan meninggalkan laporan bug atau permintaan push di Github:",
     "421-conclusion-data": "Semua konten edukatif di situs kami (foto, video, dan teks) disediakan untuk dibagikan oleh Ecobrick Alliance di bawah <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Lisensi Creative Commons Attribution-ShareAlike 4.0 International</a>.<br>Harap atribusikan semua penggunaan ke \"The Global Ecobrick Alliance, ecobricks.org\" menggunakan lisensi yang sama.",
     "422-conclusion-copyright": "Logo dan lambang Ecobricks.org, GEA, Earthen, AES, dan Gobrik adalah hak cipta 2010-2024 oleh Global Ecobrick Alliance.",
+
+    //UNIVERSAL MODAL TRANSLATIONS
+
+    "earthen-title": "Buletin Earthen",
+    "earthen-text": "Dimulai pada tahun 2016 di tanah orang Igorot, Earthen adalah buletin dua bulanan kami tentang gerakan regeneratif bumi. Kami berbagi berita terbaru dari dunia ecobricks dan bangunan tanah, sains, dan filosofi regeneratif. Kami juga memberi Anda pembaruan tentang pengumuman dan berita utama dari GoBrik. Gratis. Mudah untuk berhenti berlangganan kapan saja.",
+    "ecobrick-title": "Istilah",
+    "ecobrick-text": "Pada tahun 2016, para pemimpin transisi plastik di seluruh dunia sepakat untuk menggunakan istilah 'ecobrick' tanpa tanda hubung dan huruf kapital sebagai istilah standar yang konsisten dalam panduan dan materi mereka. Dengan cara ini, ecobrickers di seluruh dunia dapat merujuk dengan satu kata ke konsep yang sama dan pencarian web serta tagar akan mempercepat penyebaran global. Lihat wikipedia.org/ecobricks untuk sejarah lengkapnya.",
+    "watershed-title": "Daerah Aliran Sungai (DAS)",
+    "watershed-text": "Daerah aliran sungai (DAS) adalah suatu wilayah daratan di mana semua air dari hujan, salju yang mencair, atau es berkumpul di satu titik, biasanya sebuah sungai, danau, atau laut. DAS ini membentuk batasan alami yang menangkap dan menyalurkan presipitasi melalui jaringan sungai, aliran, dan akuifer bawah tanah, akhirnya mengarahkan air ke satu saluran keluaran. DAS memainkan peran ekologis penting dan menyediakan air untuk penggunaan manusia. Kesehatan dan pengelolaan DAS sangat penting untuk vitalitas ekologi."
+
+
+
 }

@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.41';
+$version = '0.42';
 $page = 'log';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -17,6 +17,7 @@ $buwana_id = '';
 $country_icon = '';
 $watershed_id = '';
 $watershed_name = '';
+$is_logged_in = '';
 $is_logged_in = isLoggedIn();// Check if the user is logged in using the helper function
 
     // Check if user is logged in and session active
@@ -36,15 +37,15 @@ $is_logged_in = isLoggedIn();// Check if the user is logged in using the helper 
     $first_name = getUserFirstName($buwana_conn, $buwana_id);
 
 
-
-// PART 1: CHECK IF USER LOGGED IN
-if (!isset($_SESSION['buwana_id'])) {
-    echo "<script>
-        alert('You must be logged in to log an ecobrick.');
-        window.location.href = 'login.php';
-    </script>";
-    exit();
-}
+//
+// // PART 1: CHECK IF USER LOGGED IN
+// if (!isset($_SESSION['buwana_id'])) {
+//     echo "<script>
+//         alert('You must be logged in to log an ecobrick.');
+//         window.location.href = 'login.php';
+//     </script>";
+//     exit();
+// }
 
 // PART 2: ADD USER INFO
 $buwana_id = $_SESSION['buwana_id'];

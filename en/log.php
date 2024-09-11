@@ -17,7 +17,6 @@ $buwana_id = '';
 $country_icon = '';
 $watershed_id = '';
 $watershed_name = '';
-$is_logged_in = '';
 $is_logged_in = isLoggedIn();// Check if the user is logged in using the helper function
 
     // Check if user is logged in and session active

@@ -24,7 +24,7 @@ $page = 'signup';
 $version = '0.6';
 
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.764';
+$version = '0.765';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $response = ['success' => false];
 $buwana_id = $_GET['id'] ?? null;

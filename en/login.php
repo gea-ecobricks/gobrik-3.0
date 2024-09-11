@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.761';
+$version = '0.762';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -140,7 +140,7 @@ echo '</script>';
         </div>
         <div id="password-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">👉 Password is wrong.</div>
 
-        <p class="form-caption" data-lang-id="003-forgot-your-password">Forgot your password? <a href="#" onclick="showPasswordReset('reset')" class="underline-link" datala-lang-id="000-reset-it">Reset it.</a></p>
+        <p class="form-caption"><span data-lang-id="003-forgot-your-password">Forgot your password?</span> <a href="#" onclick="showPasswordReset('reset')" class="underline-link" data-lang-id="000-reset-it">Reset it.</a></p>
     </div>
 
     <div class="form-item" id="code-form" style="text-align:center;height:80px;">

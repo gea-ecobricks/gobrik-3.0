@@ -13,7 +13,8 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 const id_Page_Translations = {
     "001-cant-find": "🤔 Kami tidak dapat menemukan kredensial ini di database.",
     "002-password-is-wrong": "👉 Kata sandi salah.",
-    "003-forgot-your-password": "Lupa kata sandi Anda? ",
+    "003-forgot-your-password": "Lupa kata sandi Anda?",
+    "000-reset-it": "Atur ulang.",
     "003-code-status": "Kode untuk masuk akan dikirim ke email Anda.",
     "004-login-button": '<input type="submit" id="submit-password-button" value="Masuk" class="login-button-75">',
     "005-password-field-placeholder": '<input type="password" id="password" name="password" required placeholder="Kata sandi Anda...">'

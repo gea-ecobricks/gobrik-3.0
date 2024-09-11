@@ -14,7 +14,8 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 const es_Page_Translations = {
     "001-cant-find": "🤔 No podemos encontrar esta credencial en la base de datos.",
     "002-password-is-wrong": "👉 La contraseña es incorrecta.",
-    "003-forgot-your-password": "¿Olvidaste tu contraseña? ",
+    "003-forgot-your-password": "¿Olvidaste tu contraseña?",
+    "000-reset-it": "Restablécela.",
     "003-code-status": "Un código para iniciar sesión será enviado a tu correo electrónico.",
     "004-login-button": '<input type="submit" id="submit-password-button" value="Iniciar sesión" class="login-button-75">',
     "005-password-field-placeholder": '<input type="password" id="password" name="password" required placeholder="Tu contraseña...">'

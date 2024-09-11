@@ -355,16 +355,16 @@ function showModalInfo(type, lang) {
     let translations;
     switch (lang) {
         case 'fr':
-            translations = fr_Page_Translations;
+            translations = fr_Translations;
             break;
         case 'es':
-            translations = es_Page_Translations;
+            translations = es_Translations;
             break;
         case 'id':
-            translations = id_Page_Translations;
+            translations = id_Translations;
             break;
         default:
-            translations = en_Page_Translations; // Default to English
+            translations = en_Translations; // Default to English
     }
 
     switch (type) {

@@ -105,7 +105,4 @@ const fr_Translations = {
 
 
 
-
-
-
 };

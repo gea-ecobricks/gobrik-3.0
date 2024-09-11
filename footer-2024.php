@@ -133,10 +133,10 @@
 
 	<!--FOOTER ENDS-->
 
-<script src="../translations/core-en.js?v=<?php echo ($version); ;?>3"></script>
-<script src="../translations/core-fr.js?v=<?php echo ($version); ;?>3"></script>
-<script src="../translations/core-id.js?v=<?php echo ($version); ;?>3"></script>
-<script src="../translations/core-es.js?v=<?php echo ($version); ;?>3"></script>
+<script src="../translations/core-en.js?v=1.<?php echo ($version); ;?>"></script>
+<script src="../translations/core-fr.js?v=1.<?php echo ($version); ;?>"></script>
+<script src="../translations/core-id.js?v=1.<?php echo ($version); ;?>"></script>
+<script src="../translations/core-es.js?v=1.<?php echo ($version); ;?>"></script>
 
 <script src="../translations/<?php echo ($page); ;?>-en.js?v=<?php echo ($version); ;?>"></script>
 <script src="../translations/<?php echo ($page); ;?>-fr.js?v=<?php echo ($version); ;?>"></script>

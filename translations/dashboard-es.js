@@ -12,8 +12,14 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 
 
 const es_Page_Translations = {
-
-
-
-}
+    "001-log-an-ecobrick": "➕ Registrar un Ecoladrillo",
+    "002-my-ecobricks": "Mis Ecoladrillos",
+    "1103-brik": "Ladrillo",
+    "1104-weight": "Peso",
+    "1105-location": "Ubicación",
+    "1106-status": "Estado",
+    "1107-serial": "Serial",
+    "003-no-ecobricks-yet": "¡Parece que aún no has registrado ningún ecoladrillo! Cuando lo hagas, aparecerán aquí para que los administres.",
+    "005-newest-ecobricks": "📅 Ecoladrillos más nuevos"
+};
 

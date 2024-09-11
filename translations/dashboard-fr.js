@@ -12,8 +12,13 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 
 
 const fr_Page_Translations = {
-
-
-
-}
-
+    "001-log-an-ecobrick": "➕ Enregistrer une écobrique",
+    "002-my-ecobricks": "Mes Écobriques",
+    "1103-brik": "Brique",
+    "1104-weight": "Poids",
+    "1105-location": "Emplacement",
+    "1106-status": "Statut",
+    "1107-serial": "Série",
+    "003-no-ecobricks-yet": "Il semble que vous n'ayez pas encore enregistré d'écobriques! Lorsque vous le ferez, elles apparaîtront ici pour que vous puissiez les gérer.",
+    "005-newest-ecobricks": "📅 Écobriques les plus récentes"
+};

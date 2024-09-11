@@ -12,8 +12,15 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 
 
 const en_Page_Translations = {
+    "001-log-an-ecobrick": "➕ Log an Ecobrick",
+    "002-my-ecobricks": "My Ecobricks",
+    "1103-brik": "Brik",
+    "1104-weight": "Weight",
+    "1105-location": "Location",
+    "1106-status": "Status",
+    "1107-serial": "Serial",
+    "003-no-ecobricks-yet": "It looks like you haven't logged any ecobricks yet! When you do, they will appear here for you to manage.",
+    "005-newest-ecobricks": "📅 Newest Ecobricks"
+};
 
-
-
-}
 

@@ -114,8 +114,6 @@ echo '<!DOCTYPE html>
 ?>
 
 
-<title>Dashboard | GoBrik 3.0</title>
-
 <!--
 GoBrik.com site version 3.0
 Developed and made open source by the Global Ecobrick Alliance

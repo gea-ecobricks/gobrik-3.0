@@ -12,8 +12,14 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 
 
 const id_Page_Translations = {
-
-
-
-}
+    "001-log-an-ecobrick": "➕ Catat Ecobrick",
+    "002-my-ecobricks": "Ecobrick Saya",
+    "1103-brik": "Bata",
+    "1104-weight": "Berat",
+    "1105-location": "Lokasi",
+    "1106-status": "Status",
+    "1107-serial": "Seri",
+    "003-no-ecobricks-yet": "Sepertinya Anda belum mencatat ecobrick apapun! Setelah Anda melakukannya, ecobrick akan muncul di sini untuk Anda kelola.",
+    "005-newest-ecobricks": "📅 Ecobrick Terbaru"
+};
 

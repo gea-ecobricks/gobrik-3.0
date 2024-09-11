@@ -1,36 +1,41 @@
 <?php
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));  //grabs language directory from url
-session_start();
+require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
-ini_set('display_errors', 1);
+startSecureSession(); // Start a secure session with regeneration to prevent session fixation
 error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-// GoBrik database credentials
-$gobrik_servername = "localhost";
-$gobrik_username = "ecobricks_brikchain_viewer";
-$gobrik_password = "desperate-like-the-Dawn";
-$gobrik_dbname = "ecobricks_gobrik_msql_db";
+// Set up page variables
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$version = '0.41';
+$page = 'log';
+$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+
+// Initialize user variables
+$first_name = '';
+$buwana_id = '';
+$country_icon = '';
+$watershed_id = '';
+$watershed_name = '';
+$is_logged_in = isLoggedIn();// Check if the user is logged in using the helper function
+
+    // Check if user is logged in and session active
+    if ($is_logged_in) {
+        $buwana_id = $_SESSION['buwana_id'] ?? ''; // Retrieve buwana_id from session
+
+    // Include database connection
+    require_once '../gobrikconn_env.php';
+    require_once '../buwanaconn_env.php';
+
+    // Fetch the user's continent icon
+    $country_icon = getUserContinent($buwana_conn, $buwana_id);
+    $watershed_name = getWatershedName($buwana_conn, $buwana_id, $lang); // Corrected to include the $lang parameter
 
 
-// Create connection for GoBrik database
-$gobrik_conn = new mysqli($gobrik_servername, $gobrik_username, $gobrik_password, $gobrik_dbname);
-if ($gobrik_conn->connect_error) {
-    die("Connection failed: " . $gobrik_conn->connect_error);
-}
-$gobrik_conn->set_charset("utf8mb4");
+    // Fetch the user's first name from the database
+    $first_name = getUserFirstName($buwana_conn, $buwana_id);
 
-// Buwana database credentials
-$buwana_servername = "localhost";
-$buwana_username = "ecobricks_gobrik_app";
-$buwana_password = "1EarthenAuth!";
-$buwana_dbname = "ecobricks_earthenAuth_db";
 
-// Create connection for Buwana database
-$buwana_conn = new mysqli($buwana_servername, $buwana_username, $buwana_password, $buwana_dbname);
-if ($buwana_conn->connect_error) {
-    die("Connection failed: " . $buwana_conn->connect_error);
-}
-$buwana_conn->set_charset("utf8mb4");
 
 // PART 1: CHECK IF USER LOGGED IN
 if (!isset($_SESSION['buwana_id'])) {
@@ -185,15 +190,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error: " . $e->getMessage() . "<br>";
     }
 }
-?>
 
-
-<?php
-
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.25';
-$page = 'log';
-$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 echo '<!DOCTYPE html>
 <html lang="' . $lang . '">

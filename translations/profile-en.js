@@ -10,17 +10,17 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 // Backslash (\): Should be escaped as \\ in JavaScript strings to prevent ending the string prematurely.
 // Forward slash (/): Should be escaped as \/ in </script> tags to prevent prematurely closing a script.
 
-const en_Page_Translations = {
+ const en_Page_Translations = {
     "001-profile-settings-title": "Profile Settings",
     "002-review-update-message": "Review and update your Buwana account profile here:",
-    "004-full-name": "Full Name:",
-    "005-account-created-at": "Account Created At:",
-    "006-last-login": "Last Login:",
-    "007-brikcoin-balance": "Brikcoin Balance:",
-    "008-roles": "Role(s):",
-    "009-account-status": "Account Status:",
-    "010-account-notes": "Account Notes:",
-    "011-agreed-terms": "Agreed to Terms of Service:",
+    "004-full-name": "<strong>Full Name:</strong>",
+    "005-account-created-at": "<strong>Account Created At:</strong>",
+    "006-last-login": "<strong>Last Login:</strong>",
+    "007-brikcoin-balance": "<strong>Brikcoin Balance:</strong>",
+    "008-roles": "<strong>Role(s):</strong>",
+    "009-account-status": "<strong>Account Status:</strong>",
+    "010-account-notes": "<strong>Account Notes:</strong>",
+    "011-agreed-terms": "<strong>Agreed to Terms of Service:</strong>",
     "012-first-name": "First Name:",
     "013-last-name": "Last Name:",
     "014-email": "Email:",
@@ -30,8 +30,23 @@ const en_Page_Translations = {
     "018-select-language": "Select Language",
     "019-birth-date": "Birth Date:",
     "020-submit-button": "Save and Update",
-    "021-delete-account-message": "You can delete your GoBrik and Buwana accounts permanently here. Warning, this is permanent and immediate!",
-    "022-warning": "WARNING: This cannot be undone.",
-    "023-newest-ecobricks": "📅 Newest Ecobricks"
+    "021-earthen-status-title": "Earthen Newsletter Subscription Status",
+    "022-check-to-see": "Check to see if your",
+    "023-is-subscribed": "is subscribed to the Earthen newsletter",
+    "024-check-earthen-button": "Check Earthen Status",
+    "025-yes-subscribed": "Yes! You're subscribed to the following newsletters:",
+    "026-not-subscribed": "You're not yet subscribed.",
+    "027-subscribe-button": "↗️ Subscribe on Earthen",
+    "028-delete-heading": "Delete Your Account",
+    "029-delete-warning": "Warning: Deleting your account will permanently remove all your data and cannot be undone.",
+    "020-delete-my-account-button": "Delete My Account",
+    "023-newest-ecobricks": "📅 Newest Ecobricks",
+    "021-continent": "Continent:",
+    "022-select-continent": "Select Continent",
+    "023-watershed": "Watershed:",
+    "024-select-watershed": "Select Watershed",
+    "confirmDeletion1": "Are you certain you wish to delete your account? This cannot be undone.",
+    "confirmDeletion2": "Ok. We will delete your account! Note that this does not affect ecobrick data that has been permanently archived in the brikchain. Note that currently our Earthen newsletter is separate from GoBrik-- which has its own easy unsubscribe mechanism."
 };
+
 

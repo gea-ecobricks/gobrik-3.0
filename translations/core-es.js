@@ -30,8 +30,8 @@ const es_Translations = {
 /*Menú de páginas cortina*/
 
     "1000-logged-in-as": "Conectado como",
-    "1000-log-out": "🐳 Cerrar sesión",
-    "1000-profile-settings": "⚙️ Configuración de perfil",
+    "1000-log-out": "Cerrar sesión",
+    "1000-profile-settings": "Configuración de perfil",
     "1000-dashboard": "Tablero",
     "1001-gobrik-tour": "Tour de GoBrik",
     "1000-login": "Iniciar sesión",

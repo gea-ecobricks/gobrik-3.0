@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.387';
+$version = '0.388';
 $page = 'profile';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -126,7 +126,7 @@ echo '<!DOCTYPE html>
     <div class="form-container" style="padding-top:20px">
         <div style="text-align:center;width:100%;margin:auto;">
             <h1>⚙️</h1>
-            <div id="status-message" data-lang-id="001-profile-settings-title"><?php echo htmlspecialchars($first_name); ?>'s Profile Settings</div>
+            <div id="status-message"><?php echo htmlspecialchars($first_name); ?>'s <span data-lang-id="001-profile-settings-title">Profile Settings</span></div>
             <div id="sub-status-message" data-lang-id="002-review-update-message">Review and update your Buwana account profile here:</div>
             <div id="update-status" style="font-size:1.3em; color:green;padding:10px;margin-top:10px;"></div>
         </div>
@@ -277,14 +277,14 @@ echo '<!DOCTYPE html>
 
     <!--EARTHEN ACCOUNT DB CHECK -->
 <div class="form-container" style="padding-top:20px">
-    <h2>Earthen Newsletter Subscription Status</h2>
-    <p>Check to see if your <?php echo htmlspecialchars($email); ?> is subscribed to the Earthen newsletter</p>
+    <h2 data-lang-id="021-earthen-status-title">Earthen Newsletter Subscription Status</h2>
+    <p><span data-lang-id="022-check-to-see">Check to see if your</span> <?php echo htmlspecialchars($email); ?> <span data-lang-id="023-is-subscribed">is subscribed to the Earthen newsletter</span></p>
     <div id="earthen-status-message" style="display:none;"></div>
-    <button id="check-earthen-status-button" class="submit-button enabled">Check Earthen Status</button>
+    <button id="check-earthen-status-button" class="submit-button enabled" data-lang-id="024-check-earthen-button">Check Earthen Status</button>
 
     <!-- Status Yes -->
     <div id="earthen-status-yes" style="display:none;">
-        <p>Yes! You're subscribed to the following newsletters:</p>
+        <p data-lang-id="025-yes-subscribed" style="color:green">Yes! You're subscribed to the following newsletters:</p>
         <ul id="newsletter-list"></ul>
         <button id="unsubscribe-button" class="submit-button delete">Unsubscribe</button>
         <button id="manage-subscription-button" class="submit-button enabled">↗️ Manage Subscription</button>
@@ -292,8 +292,8 @@ echo '<!DOCTYPE html>
 
     <!-- Status No -->
     <div id="earthen-status-no" style="display:none;">
-        <p>You're not yet subscribed.</p>
-        <button onclick="subscribe()">Subscribe</button>
+        <p data-lang-id="026-not-subscribed">You're not yet subscribed.</p>
+        <a href="https://earthen.io/#register" target="_blank" class="submit-button enabled" data-lang-id="027-subscribe-button">↗️ Subscribe on Earthen</button>
     </div>
 </div>
 
@@ -301,11 +301,12 @@ echo '<!DOCTYPE html>
 
 <!-- DELETE ACCOUNT -->
 <div class="form-container" style="padding-top:20px; margin-top: 20px; border-top: 1px solid #ddd;">
-    <h2>Delete Your Account</h2>
-    <p>Warning: Deleting your account will permanently remove all your data and cannot be undone.</p>
+    <h2 data-lang-id="028-delete-heading">Delete Your Account</h2>
+    <p data-lang-id="029-delete-warning">Warning: Deleting your account will permanently remove all your data and cannot be undone.</p>
 
     <form id="delete-account-form" method="post">
-    <button type="button" onclick="confirmDeletion('<?php echo htmlspecialchars($buwana_id); ?>')" class="submit-button delete" aria-label="Delete Account" data-lang-id="020-delet-my-account">Delete My Account</button>
+    <button type="button" onclick="confirmDeletion('<?php echo htmlspecialchars($buwana_id); ?>', '<?php echo htmlspecialchars($lang); ?>')" class="submit-button delete" aria-label="Delete Account" data-lang-id="020-delete-my-account-button">Delete My Account</button>
+
 </form>
 </div>
 
@@ -376,12 +377,26 @@ document.addEventListener('DOMContentLoaded', function () {
         catchUpdateReport(status);
     }
 });
+function confirmDeletion(buwana_id, lang) {
+    // Determine the appropriate language object based on the current language setting
+    let translations;
+    switch (lang) {
+        case 'fr':
+            translations = fr_Page_Translations;
+            break;
+        case 'es':
+            translations = es_Page_Translations;
+            break;
+        case 'id':
+            translations = id_Page_Translations;
+            break;
+        default:
+            translations = en_Page_Translations; // Default to English if no match is found
+    }
 
-/* Delete Account Script */
-
-function confirmDeletion(buwana_id) {
-    if (confirm("Are you certain you wish to delete your account? This cannot be undone.")) {
-        if (confirm("Ok. We will delete your account! Note that this does not affect ecobrick data that has been permanently archived in the brikchain. Note that currently our Earthen newsletter is separate from GoBrik-- which has its own easy unsubscribe mechanism.")) {
+    // Display confirmation messages based on the selected language
+    if (confirm(translations["confirmDeletion1"])) {
+        if (confirm(translations["confirmDeletion2"])) {
             // Append the buwana_id to the form action URL
             var form = document.getElementById('delete-account-form');
             form.action = 'double_delete_account.php?id=' + encodeURIComponent(buwana_id);
@@ -389,6 +404,8 @@ function confirmDeletion(buwana_id) {
         }
     }
 }
+
+
 
 </script>
 

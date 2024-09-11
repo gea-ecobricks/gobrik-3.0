@@ -108,4 +108,4 @@ const fr_Translations = {
 
 
 
-}
+};

@@ -293,7 +293,7 @@ echo '<!DOCTYPE html>
     <!-- Status No -->
     <div id="earthen-status-no" style="display:none;">
         <p data-lang-id="026-not-subscribed">You're not yet subscribed.</p>
-        <a href="https://earthen.io/#register" target="_blank" class="submit-button enabled" data-lang-id="027-subscribe-button">↗️ Subscribe on Earthen</button>
+        <a href="https://earthen.io/#register" target="_blank" class="submit-button enabled" data-lang-id="027-subscribe-button">↗️ Subscribe on Earthen</a>
     </div>
 </div>
 

@@ -21,10 +21,8 @@ $is_logged_in = false; // Ensure not logged in for this page
 
 // Set page variables
 $page = 'signup';
-$version = '0.6';
-
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.765';
+$version = '0.766';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $response = ['success' => false];
 $buwana_id = $_GET['id'] ?? null;

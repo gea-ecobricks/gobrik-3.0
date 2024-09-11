@@ -18,7 +18,7 @@ const en_Translations = {
     "1000-profile-settings": "Profile settings",
     "1000-dashboard": "Dashboard",
     "1001-gobrik-tour": "GoBrik Tour",
-    "1000-login": "Log in",
+    "1000-login": "Log in TEST",
     "1000-signup": "Sign up",
     "1000-log-ecobrick": "Log Ecobrick",
     "1000-brikchain": "The Brikchain",

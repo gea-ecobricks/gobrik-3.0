@@ -63,7 +63,11 @@ const fr_Page_Translations = {
     "016-dont-know-alt": "Non répertorié",
     "018-what-is-watershed": "Presque tout le monde vit dans l'un des 200 principaux bassins versants de la Terre. Voyez si vous pouvez trouver le vôtre ! En savoir plus sur ",
     "019-watershed": "les bassins versants",
-    "016-submit-complete-button": '<input type="submit" id="submit-button" value="Terminer l\'installation" class="submit-button enabled"><p style="font-size:smaller;">Vous ne trouvez pas votre bassin versant ? Pas de soucis ! Nous travaillons encore à les ajouter.</p>'
+    "016-submit-complete-button": '<input type="submit" id="submit-button" value="Terminer l\'installation" class="submit-button enabled"><p style="font-size:smaller;">Vous ne trouvez pas votre bassin versant ? Pas de soucis ! Nous travaillons encore à les ajouter.</p>',
+
+    "015-continents-caption": "Les continents sont là où les biomes, les principaux écosystèmes de la Terre, obtiennent leur diversité unique et leur vitalité des espèces.",
+    "0016-select-country-placeholder": "Sélectionnez votre pays de résidence..."
+
 
 
 };

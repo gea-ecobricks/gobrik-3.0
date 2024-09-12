@@ -66,7 +66,10 @@ const en_Page_Translations = {
     "016-dont-know-alt": "Not listed",
     "018-what-is-watershed": "Almost everyone lives in one of Earth's 200 main watersheds. See if you can locate yours! Learn more about ",
     "019-watershed": "watersheds",
-    "016-submit-complete-button": '<input type="submit" id="submit-button" value="Complete Setup" class="submit-button enabled"><p style="font-size:smaller;">Can\'t find your watershed? No worries! We\'re still working on adding them.</p>'
+    "016-submit-complete-button": '<input type="submit" id="submit-button" value="Complete Setup" class="submit-button enabled"><p style="font-size:smaller;">Can\'t find your watershed? No worries! We\'re still working on adding them.</p>',
+
+    "015-continents-caption": "Continents are where biomes, Earth's major ecosystems, get their unique diversity and vitality of species.",
+    "0016-select-country-placeholder": "Select your country of residence..."
 };
 
 

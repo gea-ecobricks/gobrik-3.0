@@ -12,7 +12,7 @@ if (isLoggedIn()) {
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.67';
+$version = '0.68';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $is_logged_in = false; // Ensure not logged in for this page
 
@@ -195,14 +195,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                         </option>
                     <?php } ?>
                 </select>
-            <p class="form-caption"  style="margin-bottom:-5px;">Continents are where biomes, Earth's major ecosystems, get their unique diversity and vitality of species. </p>
+            <p class="form-caption"  style="margin-bottom:-5px;" data-lang-id="015-continents-caption">Continents are where biomes, Earth's major ecosystems, get their unique diversity and vitality of species. </p>
             </div>
 
             <!-- COUNTRY -->
             <div class="form-item" id="country-select" style="display:none;margin-top:5px;">
                 <label for="country" data-lang-id="014-your-country" style="margin-top:10px;">In what country do you reside?</label><br>
                 <select name="country_id" id="country_id" required>
-                    <option value="" disabled selected data-lang-id="015-country-place-holder">Select your country of residence...</option>
+                    <option value="" disabled selected data-lang-id="015-country-place-holder"><span data-lang-id="0016-select-contry-placeholder">Select your country of residence...</span></option>
                 </select>
                 <p id="country-caption" class="form-caption" style="margin-bottom:-5px;">Showing all countries in </span><?php echo htmlspecialchars($continent['continent_name']); ?></p>
             </div>
@@ -211,7 +211,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <div class="form-item" id="watershed-select" style="display:none;">
                 <label for="watershed" data-lang-id="014-your-watershed" style="margin-top:10px;">In what river basin do you live?</label><br>
                 <select name="watershed_id" id="watershed_id" required>
-                    <option value="" disabled selected data-lang-id="015-watershed-place-holder">Select your river basin...</option>
+                    <option value="" disabled selected><span data-lang-id="015-watershed-place-holder">Select your river basin...</span></option>
                     <option value="Unsure" data-lang-id="016-dont-know">I am not sure</option>
                     <option value="not listed" data-lang-id="016-dont-know">Not listed</option>
                 </select>

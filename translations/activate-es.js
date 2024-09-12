@@ -63,6 +63,10 @@ const es_Page_Translations = {
     "016-dont-know-alt": "No listado",
     "018-what-is-watershed": "Casi todos viven en una de las 200 principales cuencas hidrográficas de la Tierra. ¡Vea si puede localizar la suya! Aprende más sobre ",
     "019-watershed": "cuencas hidrográficas",
-    "016-submit-complete-button": '<input type="submit" id="submit-button" value="Completar configuración" class="submit-button enabled"><p style="font-size:smaller;">¿No puedes encontrar tu cuenca hidrográfica? ¡No te preocupes! Todavía estamos trabajando en agregarlas.</p>'
+    "016-submit-complete-button": '<input type="submit" id="submit-button" value="Completar configuración" class="submit-button enabled"><p style="font-size:smaller;">¿No puedes encontrar tu cuenca hidrográfica? ¡No te preocupes! Todavía estamos trabajando en agregarlas.</p>',
+
+        "015-continents-caption": "Los continentes son donde los biomas, los principales ecosistemas de la Tierra, obtienen su diversidad y vitalidad únicas de especies.",
+    "0016-select-country-placeholder": "Seleccione su país de residencia...",
+
 };
 

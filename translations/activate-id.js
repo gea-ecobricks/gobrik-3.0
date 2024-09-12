@@ -64,6 +64,10 @@ const id_Page_Translations = {
     "016-dont-know-alt": "Tidak terdaftar",
     "018-what-is-watershed": "Hampir semua orang tinggal di salah satu dari 200 daerah aliran sungai utama di Bumi. Lihat apakah Anda dapat menemukan milik Anda! Pelajari lebih lanjut tentang ",
     "019-watershed": "daerah aliran sungai",
-    "016-submit-complete-button": '<input type="submit" id="submit-button" value="Selesaikan Pengaturan" class="submit-button enabled"><p style="font-size:smaller;">Tidak menemukan daerah aliran sungai Anda? Jangan khawatir! Kami masih bekerja untuk menambahkannya.</p>'
+    "016-submit-complete-button": '<input type="submit" id="submit-button" value="Selesaikan Pengaturan" class="submit-button enabled"><p style="font-size:smaller;">Tidak menemukan daerah aliran sungai Anda? Jangan khawatir! Kami masih bekerja untuk menambahkannya.</p>',
+
+        "015-continents-caption": "Benua adalah tempat bioma, ekosistem utama Bumi, mendapatkan keanekaragaman dan vitalitas spesies mereka yang unik.",
+    "0016-select-country-placeholder": "Pilih negara tempat tinggal Anda...",
+
 };
 

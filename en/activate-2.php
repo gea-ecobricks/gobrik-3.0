@@ -24,7 +24,7 @@ $is_logged_in = false; // Ensure not logged in for this page
 // PART 1: Setup
 $ecobricker_id = $_GET['id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.47';
+$version = '0.48';
 $page = 'activate';
 $first_name = '';
 $last_name = '';
@@ -278,8 +278,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 </div>
             </div>
 
-            <div id="submit-section" style="text-align:center;margin-top:15px;">
-                <input type="submit" id="submit-button" value="🔑 Confirm" class="submit-button disabled">
+            <div id="submit-section" style="text-align:center;margin-top:15px;" data-lang-id="015-confirm-pass-button">
+                <input type="submit" id="submit-button" value="Confirm Password" class="submit-button disabled">
             </div>
         </form>
 

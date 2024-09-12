@@ -42,7 +42,8 @@ const en_Page_Translations = {
     "009-confirm-pass": "Confirm Your Password:",
     "010-pass-error-no-match": "👉 Passwords do not match.",
     "013-by-registering": "By registering today, I agree to the <a href=\"#\" onclick=\"showModalInfo('terms')\" class=\"underline-link\">GoBrik Terms of Service</a>",
-    "014-i-agree-newsletter": "Please send me the <a href=\"#\" onclick=\"showModalInfo('earthen')\" class=\"underline-link\">Earthen newsletter</a> for app, ecobrick, and earthen updates",
+    "014-i-agree-newsletter": "Please send me the <a href=\"#\" onclick=\"showModalInfo('earthen', 'en')\" class=\"underline-link\">Earthen newsletter</a> for app, ecobrick, and earthen updates",
+        "015-confirm-pass-button": "Confirm Password",
 
 //confirm email
 

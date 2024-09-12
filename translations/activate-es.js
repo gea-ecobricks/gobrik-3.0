@@ -36,8 +36,9 @@ const es_Page_Translations = {
     "008-password-advice": "🔑 Tu contraseña debe tener al menos 6 caracteres.",
     "009-confirm-pass": "Confirma tu contraseña:",
     "010-pass-error-no-match": "👉 Las contraseñas no coinciden.",
-    "013-by-registering": "Al registrarme hoy, acepto los <a href=\"#\" onclick=\"showModalInfo('terms')\" class=\"underline-link\">Términos de Servicio de GoBrik</a>",
+    "013-by-registering": "Al registrarme hoy, acepto los <a href=\"#\" onclick=\"showModalInfo('terms', 'es')\" class=\"underline-link\">Términos de Servicio de GoBrik</a>",
     "014-i-agree-newsletter": "Por favor, envíame el <a href=\"#\" onclick=\"showModalInfo('earthen')\" class=\"underline-link\">boletín de Earthen</a> para actualizaciones de la aplicación, ecoladrillos y proyectos en tierra",
+        "015-confirm-pass-button": "Confirmar Contraseña",
 
     //confirm email
 

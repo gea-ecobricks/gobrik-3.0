@@ -35,7 +35,8 @@ const fr_Page_Translations = {
     "009-confirm-pass": "Confirmez votre mot de passe :",
     "010-pass-error-no-match": "👉 Les mots de passe ne correspondent pas.",
     "013-by-registering": "En m'inscrivant aujourd'hui, j'accepte les <a href=\"#\" onclick=\"showModalInfo('terms')\" class=\"underline-link\">Conditions d'utilisation de GoBrik</a>",
-    "014-i-agree-newsletter": "Veuillez m'envoyer la <a href=\"#\" onclick=\"showModalInfo('earthen')\" class=\"underline-link\">newsletter Earthen</a> pour les mises à jour sur les applications, les écobriques et les projets en terre",
+    "014-i-agree-newsletter": "Veuillez m'envoyer la <a href=\"#\" onclick=\"showModalInfo('earthen', 'fr')\" class=\"underline-link\">newsletter Earthen</a> pour les mises à jour sur les applications, les écobriques et les projets en terre",
+        "015-confirm-pass-button": "Confirmer le Mot de Passe",
 
 
 //confirm email

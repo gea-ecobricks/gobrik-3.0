@@ -28,6 +28,20 @@ const es_Page_Translations = {
     "0010-delete-button": 'Eliminar mi cuenta',
     "0011-warning": "ADVERTENCIA: Esto no se puede deshacer.",
 
+    //activate-2
+
+     "001-set-your-pass": "Establece tu nueva contraseña",
+    "002-to-get-going": " Para comenzar con tu cuenta mejorada, por favor establece una nueva contraseña...",
+    "007-set-your-pass": "Establece tu contraseña:",
+    "008-password-advice": "🔑 Tu contraseña debe tener al menos 6 caracteres.",
+    "009-confirm-pass": "Confirma tu contraseña:",
+    "010-pass-error-no-match": "👉 Las contraseñas no coinciden.",
+    "013-by-registering": "Al registrarme hoy, acepto los <a href=\"#\" onclick=\"showModalInfo('terms')\" class=\"underline-link\">Términos de Servicio de GoBrik</a>",
+    "014-i-agree-newsletter": "Por favor, envíame el <a href=\"#\" onclick=\"showModalInfo('earthen')\" class=\"underline-link\">boletín de Earthen</a> para actualizaciones de la aplicación, ecoladrillos y proyectos en tierra",
+
+    //confirm email
+
+
   "001-alright": "Bien",
   "002-lets-confirm": "confirmemos tu correo electrónico.",
   "003-to-create": "Para crear tu cuenta de Buwana GoBrik, necesitamos confirmar tu credencial elegida. Así es como nos mantendremos en contacto y tu cuenta se mantendrá segura. Haz clic en el botón de envío y te enviaremos un código de activación de cuenta a:",

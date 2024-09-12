@@ -13,11 +13,24 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 
 const id_Page_Translations = {
 
+//activate
     "0001-activate-notice": "Sejak terakhir kali Anda masuk, kami telah melakukan peningkatan besar pada GoBrik.",
     "0002-activate-explantion-1": "Versi lama GoBrik kami berjalan di server dan kode perusahaan. Kami telah membiarkannya berlalu.",
     "0002-activate-explantion-2": "Sebagai gantinya, kami telah memigrasi semua data kami ke server mandiri yang independen. GoBrik 3.0 baru kami sekarang 100% sumber terbuka dan sepenuhnya berfokus pada akuntabilitas ekologis. Kami juga telah mengembangkan sistem login Buwana kami sendiri sebagai alternatif untuk login Google dan Apple. Untuk bergabung dengan kami di GoBrik yang diregenerasi dengan ",
     "0002-activate-explantion-3": " harap luangkan waktu sebentar untuk meningkatkan ke akun Buwana.",
 
+
+    //activate 2
+     "001-set-your-pass": "Atur Kata Sandi Baru Anda",
+    "002-to-get-going": " Untuk memulai dengan akun yang ditingkatkan, silakan atur kata sandi baru...",
+    "007-set-your-pass": "Atur kata sandi Anda:",
+    "008-password-advice": "🔑 Kata sandi Anda harus memiliki setidaknya 6 karakter.",
+    "009-confirm-pass": "Konfirmasi Kata Sandi Anda:",
+    "010-pass-error-no-match": "👉 Kata sandi tidak cocok.",
+    "013-by-registering": "Dengan mendaftar hari ini, saya setuju dengan <a href=\"#\" onclick=\"showModalInfo('terms')\" class=\"underline-link\">Ketentuan Layanan GoBrik</a>",
+    "014-i-agree-newsletter": "Tolong kirimkan saya <a href=\"#\" onclick=\"showModalInfo('earthen')\" class=\"underline-link\">newsletter Earthen</a> untuk pembaruan aplikasi, ecobrick, dan earthen",
+
+//confirm email
     "0003-activate-button": '<input type="submit" id="submit-button" value="🍃 Tingkatkan Akun!" class="submit-button activate">',
     "0004-buwana-accounts": "Akun Buwana dirancang dengan mempertimbangkan ekologi, keamanan, dan privasi. Segera, Anda dapat masuk ke aplikasi regeneratif hebat lainnya dengan cara yang sama seperti Anda masuk ke GoBrik!",
     "0005-new-terms": "Syarat dan Ketentuan Baru Buwana & GoBrik",

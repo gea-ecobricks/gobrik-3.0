@@ -26,6 +26,20 @@ const fr_Page_Translations = {
     "0010-delete-button": 'Supprimer mon compte',
     "0011-warning": "AVERTISSEMENT : Cela ne peut pas être annulé.",
 
+    //activate-2
+
+     "001-set-your-pass": "Définissez votre nouveau mot de passe",
+    "002-to-get-going": " Pour commencer avec votre compte mis à niveau, veuillez définir un nouveau mot de passe...",
+    "007-set-your-pass": "Définissez votre mot de passe :",
+    "008-password-advice": "🔑 Votre mot de passe doit comporter au moins 6 caractères.",
+    "009-confirm-pass": "Confirmez votre mot de passe :",
+    "010-pass-error-no-match": "👉 Les mots de passe ne correspondent pas.",
+    "013-by-registering": "En m'inscrivant aujourd'hui, j'accepte les <a href=\"#\" onclick=\"showModalInfo('terms')\" class=\"underline-link\">Conditions d'utilisation de GoBrik</a>",
+    "014-i-agree-newsletter": "Veuillez m'envoyer la <a href=\"#\" onclick=\"showModalInfo('earthen')\" class=\"underline-link\">newsletter Earthen</a> pour les mises à jour sur les applications, les écobriques et les projets en terre",
+
+
+//confirm email
+
 
   "001-alright": "D'accord",
   "002-lets-confirm": "confirmons votre email.",

@@ -29,7 +29,7 @@ const id_Page_Translations = {
     "010-pass-error-no-match": "👉 Kata sandi tidak cocok.",
     "013-by-registering": "Dengan mendaftar hari ini, saya setuju dengan <a href=\"#\" onclick=\"showModalInfo('terms')\" class=\"underline-link\">Ketentuan Layanan GoBrik</a>",
     "014-i-agree-newsletter": "Tolong kirimkan saya <a href=\"#\" onclick=\"showModalInfo('earthen', 'id')\" class=\"underline-link\">newsletter Earthen</a> untuk pembaruan aplikasi, ecobrick, dan earthen",
-        "015-confirm-pass-button": "Konfirmasi Kata Sandi",
+    "015-confirm-pass-button": '<input type="submit" id="submit-button" value="Konfirmasi Kata Sandi" class="submit-button disabled">',
 
 //confirm email
     "0003-activate-button": '<input type="submit" id="submit-button" value="🍃 Tingkatkan Akun!" class="submit-button activate">',

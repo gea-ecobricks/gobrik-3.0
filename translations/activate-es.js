@@ -16,7 +16,8 @@ const es_Page_Translations = {
 
     "0001-activate-notice": "Desde la última vez que iniciaste sesión, hemos hecho una gran mejora en GoBrik.",
     "0002-activate-explantion-1": "Nuestra versión antigua de GoBrik funcionaba en servidores y códigos corporativos. Hemos dejado que esto pase.",
-    "0002-activate-explantion-2": "En su lugar, hemos migrado todos nuestros datos a nuestro propio servidor independiente y autogestionado. Nuestro nuevo GoBrik 3.0 ahora es 100% de código abierto y totalmente enfocado en la responsabilidad ecológica. También hemos desarrollado nuestro propio sistema de inicio de sesión Buwana como una alternativa al inicio de sesión de Google y Apple. Para unirte a nosotros en el regenerado GoBrik con <?php echo htmlspecialchars($email_addr); ?>, tómate un minuto para actualizar a una cuenta Buwana.",
+    "0002-activate-explantion-2": "En su lugar, hemos migrado todos nuestros datos a nuestro propio servidor independiente y autogestionado. Nuestro nuevo GoBrik 3.0 ahora es 100% de código abierto y totalmente enfocado en la responsabilidad ecológica. También hemos desarrollado nuestro propio sistema de inicio de sesión Buwana como una alternativa al inicio de sesión de Google y Apple. Para unirte a nosotros en el regenerado GoBrik con ",
+    "0002-activate-explantion-3": " tómate un minuto para actualizar a una cuenta Buwana.",
     "0003-activate-button": '<input type="submit" id="submit-button" value="🍃 ¡Actualizar Cuenta!" class="submit-button activate">',
     "0004-buwana-accounts": "Las cuentas Buwana están diseñadas teniendo en cuenta la ecología, la seguridad y la privacidad. Pronto, podrás iniciar sesión en otras grandes aplicaciones regenerativas del mismo modo que lo haces en GoBrik.",
     "0005-new-terms": "Nuevos Términos y Condiciones de Buwana y GoBrik",

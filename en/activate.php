@@ -22,7 +22,7 @@ $is_logged_in = false; // Ensure not logged in for this page
 // Set page variables
 $page = 'activate';
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.768';
+$version = '0.769';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $response = ['success' => false];
 $ecobricker_id = $_GET['id'] ?? null;
@@ -91,7 +91,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
             <p data-lang-id="0002-activate-explantion-1" style="font-weight:bold">Our old version of GoBrik ran on corporate servers and code.   We've let this pass pass away.</p>
 
-            <p data-lang-id="0002-activate-explantion-2">In its place, we have migrated all our data to our own independent, self-run server.  Our new GoBrik 3.0 is now 100% open source fully focused on ecological accountability.  We've also developed our own Buwana login system as an alternative to Google and Apple login.  To join us on the regenerated GoBrik with <?php echo htmlspecialchars($email_addr); ?>, please take a minute to upgrade to a Buwana account.</p>
+            <p><span data-lang-id="0002-activate-explantion-2">In its place, we have migrated all our data to our own independent, self-run server.  Our new GoBrik 3.0 is now 100% open source fully focused on ecological accountability.  We've also developed our own Buwana login system as an alternative to Google and Apple login.  To join us on the regenerated GoBrik with </span><?php echo htmlspecialchars($email_addr); ?>,<span data-lang-id="0002-activate-explantion-3"> please take a minute to upgrade to a Buwana account.</span></p>
         </div>
 
         <!--SIGNUP FORM-->

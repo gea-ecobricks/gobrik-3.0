@@ -20,7 +20,8 @@ const en_Page_Translations = {
 
     "0001-activate-notice": "since you've last logged in, we've made a massive upgrade to GoBrik.",
     "0002-activate-explantion-1": "Our old version of GoBrik ran on corporate servers and code.   We've let this pass pass away.",
-    "0002-activate-explantion-2": "In its place, we have migrated all our data to our own independent, self-run server.  Our new GoBrik 3.0 is now 100% open source fully focused on ecological accountability.  We've also developed our own Buwana login system as an alternative to Google and Apple login.  To join us on the regenerated GoBrik with <?php echo htmlspecialchars($email_addr); ?>, please take a minute to upgrade to a Buwana account.",
+    "0002-activate-explantion-2": "In its place, we have migrated all our data to our own independent, self-run server. Our new GoBrik 3.0 is now 100% open source fully focused on ecological accountability. We've also developed our own Buwana login system as an alternative to Google and Apple login. To join us on the regenerated GoBrik with ",
+    "0002-activate-explantion-3": " please take a minute to upgrade to a Buwana account.",
     "0003-activate-button": '<input type="submit" id="submit-button" value="🍃 Upgrade Account!" class="submit-button activate">',
     "0004-buwana-accounts": "Buwana accounts are designed with ecology, security, and privacy in mind. Soon, you'll be able to login to other great regenerative apps movement in the same way you login to GoBrik!.",
     "0005-new-terms": "New Buwana & GoBrik Terms of Service",

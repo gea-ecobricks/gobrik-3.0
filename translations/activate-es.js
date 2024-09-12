@@ -51,6 +51,8 @@ const es_Page_Translations = {
     "012-go-back-new-email": "Regresar para ingresar una dirección de correo electrónico diferente.",
 
     // Activate-3.php
+    "012-status-heading": "¡tu contraseña está configurada! Ahora vamos a localizarte.",
+    "013-sub-status-tell": "Tu nueva cuenta de Buwana y GoBrik trata sobre la acción ecológica local y global. Por favor, cuéntanos dónde vives...",
     "014-your-continent": "¿En qué continente vives?",
     "015-continent-place-holder": "Seleccione su continente...",
     "014-your-country": "¿En qué país resides?",
@@ -61,7 +63,6 @@ const es_Page_Translations = {
     "016-dont-know-alt": "No listado",
     "018-what-is-watershed": "Casi todos viven en una de las 200 principales cuencas hidrográficas de la Tierra. ¡Vea si puede localizar la suya! Aprende más sobre ",
     "019-watershed": "cuencas hidrográficas",
-    "016-submit-complete-button": "Completar configuración",
-    "020-no-watershed-worries": "&lt;input type=&quot;submit&quot; id=&quot;submit-button&quot; value=&quot;Completar configuración&quot; class=&quot;submit-button enabled&quot;&gt;&lt;p style=&quot;font-size:smaller;&quot;&gt;¿No puedes encontrar tu cuenca hidrográfica? ¡No te preocupes! Todavía estamos trabajando en agregarlas.&lt;/p&gt;",
-
+    "016-submit-complete-button": '<input type="submit" id="submit-button" value="Completar configuración" class="submit-button enabled"><p style="font-size:smaller;">¿No puedes encontrar tu cuenca hidrográfica? ¡No te preocupes! Todavía estamos trabajando en agregarlas.</p>'
 };
+

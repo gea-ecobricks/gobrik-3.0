@@ -52,6 +52,8 @@ const id_Page_Translations = {
     "012-go-back-new-email": "Kembali untuk memasukkan alamat email yang berbeda.",
 
     // Activate-3.php
+    "012-status-heading": "kata sandi Anda telah diatur! Sekarang mari kita tentukan lokasi Anda.",
+    "013-sub-status-tell": "Akun Buwana dan GoBrik baru Anda berfokus pada aksi ekologi lokal dan global. Tolong beri tahu kami di mana Anda tinggal...",
     "014-your-continent": "Di benua mana Anda tinggal?",
     "015-continent-place-holder": "Pilih benua Anda...",
     "014-your-country": "Di negara mana Anda tinggal?",
@@ -62,7 +64,6 @@ const id_Page_Translations = {
     "016-dont-know-alt": "Tidak terdaftar",
     "018-what-is-watershed": "Hampir semua orang tinggal di salah satu dari 200 daerah aliran sungai utama di Bumi. Lihat apakah Anda dapat menemukan milik Anda! Pelajari lebih lanjut tentang ",
     "019-watershed": "daerah aliran sungai",
-    "016-submit-complete-button": "Selesaikan Pengaturan",
-    "020-no-watershed-worries": "&lt;input type=&quot;submit&quot; id=&quot;submit-button&quot; value=&quot;Selesaikan Pengaturan&quot; class=&quot;submit-button enabled&quot;&gt;&lt;p style=&quot;font-size:smaller;&quot;&gt;Tidak menemukan daerah aliran sungai Anda? Jangan khawatir! Kami masih bekerja untuk menambahkannya.&lt;/p&gt;",
-
+    "016-submit-complete-button": '<input type="submit" id="submit-button" value="Selesaikan Pengaturan" class="submit-button enabled"><p style="font-size:smaller;">Tidak menemukan daerah aliran sungai Anda? Jangan khawatir! Kami masih bekerja untuk menambahkannya.</p>'
 };
+

@@ -54,6 +54,8 @@ const en_Page_Translations = {
     "012-go-back-new-email": "Go back to enter a different email address.",
 
     // activate-3.php
+    "012-status-heading": "your password is set! Now let's get you localized.",
+    "013-sub-status-tell": "Your new Buwana and GoBrik account is all about local and global ecological action. Please tell us about where you live...",
     "014-your-continent": "On what continent do you live?",
     "015-continent-place-holder": "Select your continent...",
     "014-your-country": "In what country do you reside?",
@@ -64,8 +66,8 @@ const en_Page_Translations = {
     "016-dont-know-alt": "Not listed",
     "018-what-is-watershed": "Almost everyone lives in one of Earth's 200 main watersheds. See if you can locate yours! Learn more about ",
     "019-watershed": "watersheds",
-    "016-submit-complete-button": "Complete Setup",
-    "020-no-watershed-worries": '<input type="submit" id="submit-button" value="Complete Setup" class="submit-button enabled"><p style="font-size:smaller;">Can\'t find your watershed? No worries! We\'re still working on adding them.</p>'
+    "016-submit-complete-button": '<input type="submit" id="submit-button" value="Complete Setup" class="submit-button enabled"><p style="font-size:smaller;">Can\'t find your watershed? No worries! We\'re still working on adding them.</p>'
 };
+
 
 

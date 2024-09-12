@@ -51,6 +51,8 @@ const fr_Page_Translations = {
     "012-go-back-new-email": "Retournez pour entrer une autre adresse e-mail.",
 
     // Activate-3.php
+    "012-status-heading": "votre mot de passe est défini ! Passons maintenant à votre localisation.",
+    "013-sub-status-tell": "Votre nouveau compte Buwana et GoBrik concerne l'action écologique locale et globale. Veuillez nous indiquer où vous vivez...",
     "014-your-continent": "Sur quel continent vivez-vous ?",
     "015-continent-place-holder": "Sélectionnez votre continent...",
     "014-your-country": "Dans quel pays résidez-vous ?",
@@ -61,8 +63,8 @@ const fr_Page_Translations = {
     "016-dont-know-alt": "Non répertorié",
     "018-what-is-watershed": "Presque tout le monde vit dans l'un des 200 principaux bassins versants de la Terre. Voyez si vous pouvez trouver le vôtre ! En savoir plus sur ",
     "019-watershed": "les bassins versants",
-    "016-submit-complete-button": "Terminer l'installation",
-    "020-no-watershed-worries": '<input type="submit" id="submit-button" value="Terminer l\'installation" class="submit-button enabled"><p style="font-size:smaller;">Vous ne trouvez pas votre bassin versant ? Pas de soucis ! Nous travaillons encore à les ajouter.</p>',
+    "016-submit-complete-button": '<input type="submit" id="submit-button" value="Terminer l\'installation" class="submit-button enabled"><p style="font-size:smaller;">Vous ne trouvez pas votre bassin versant ? Pas de soucis ! Nous travaillons encore à les ajouter.</p>'
+
 
 };
 

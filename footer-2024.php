@@ -134,6 +134,7 @@
 	<!--FOOTER ENDS-->
 
 
+
 <!-- Translation variable files for the languageSwitcher-->
 <script src="../translations/core-texts-en.js?v=<?php echo ($version); ;?>"></script>
 <script src="../translations/core-texts-fr.js?v=<?php echo ($version); ;?>"></script>
@@ -146,6 +147,10 @@
 <script src="../translations/<?php echo ($page); ;?>-es.js?v=<?php echo ($version); ;?>"></script>
 
 <script>
+
+var siteName = 'beta.gobrik.com';
+var currentLanguage = '<?php echo ($lang); ?>'; // Default language code
+switchLanguage(currentLanguage);
 
 document.getElementById('top-settings-button').addEventListener('touchstart', function(event) {
   if (window.matchMedia("(max-width: 700px)").matches) {

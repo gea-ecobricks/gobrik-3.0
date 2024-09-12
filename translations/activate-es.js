@@ -12,6 +12,21 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 
 
 const es_Page_Translations = {
+
+
+    "0001-activate-notice": "Desde la última vez que iniciaste sesión, hemos hecho una gran mejora en GoBrik.",
+    "0002-activate-explantion-1": "Nuestra versión antigua de GoBrik funcionaba en servidores y códigos corporativos. Hemos dejado que esto pase.",
+    "0002-activate-explantion-2": "En su lugar, hemos migrado todos nuestros datos a nuestro propio servidor independiente y autogestionado. Nuestro nuevo GoBrik 3.0 ahora es 100% de código abierto y totalmente enfocado en la responsabilidad ecológica. También hemos desarrollado nuestro propio sistema de inicio de sesión Buwana como una alternativa al inicio de sesión de Google y Apple. Para unirte a nosotros en el regenerado GoBrik con <?php echo htmlspecialchars($email_addr); ?>, tómate un minuto para actualizar a una cuenta Buwana.",
+    "0003-activate-button": '<input type="submit" id="submit-button" value="🍃 ¡Actualizar Cuenta!" class="submit-button activate">',
+    "0004-buwana-accounts": "Las cuentas Buwana están diseñadas teniendo en cuenta la ecología, la seguridad y la privacidad. Pronto, podrás iniciar sesión en otras grandes aplicaciones regenerativas del mismo modo que lo haces en GoBrik.",
+    "0005-new-terms": "Nuevos Términos y Condiciones de Buwana y GoBrik",
+    "0005-regen-blog": "¿Por qué? Lee nuestro artículo de blog 'La Gran Regeneración de GoBrik'.",
+    "0006-github-code": "Nuevo repositorio de código fuente en Github",
+    "0007-not-interested": "Si no estás interesado y deseas que tu antiguo ",
+    "0009-that-too": " cuenta sea completamente eliminada, también puedes hacerlo.",
+    "0010-delete-button": '<button type="button" class="submit-button delete" onclick="confirmDeletion()" data-lang-id="0010-delete-button">Eliminar mi cuenta</button>',
+    "0011-warning": "ADVERTENCIA: Esto no se puede deshacer.",
+
   "001-alright": "Bien",
   "002-lets-confirm": "confirmemos tu correo electrónico.",
   "003-to-create": "Para crear tu cuenta de Buwana GoBrik, necesitamos confirmar tu credencial elegida. Así es como nos mantendremos en contacto y tu cuenta se mantendrá segura. Haz clic en el botón de envío y te enviaremos un código de activación de cuenta a:",

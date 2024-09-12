@@ -12,7 +12,28 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 
 
 // English translations
+
 const en_Page_Translations = {
+
+
+//first activate page
+
+    "0001-activate-notice": "since you've last logged in, we've made a massive upgrade to GoBrik.",
+    "0002-activate-explantion-1": "Our old version of GoBrik ran on corporate servers and code.   We've let this pass pass away.",
+    "0002-activate-explantion-2": "In its place, we have migrated all our data to our own independent, self-run server.  Our new GoBrik 3.0 is now 100% open source fully focused on ecological accountability.  We've also developed our own Buwana login system as an alternative to Google and Apple login.  To join us on the regenerated GoBrik with <?php echo htmlspecialchars($email_addr); ?>, please take a minute to upgrade to a Buwana account.",
+    "0003-activate-button": '<input type="submit" id="submit-button" value="🍃 Upgrade Account!" class="submit-button activate">',
+    "0004-buwana-accounts": "Buwana accounts are designed with ecology, security, and privacy in mind. Soon, you'll be able to login to other great regenerative apps movement in the same way you login to GoBrik!.",
+    "0005-new-terms": "New Buwana & GoBrik Terms of Service",
+    "0005-regen-blog": "Why?  Read our 'Great GoBrik Regeneration' blog post.",
+    "0006-github-code": "New Github Source Code Repository",
+    "0007-not-interested": "If you're not interested and would like your old ",
+    "0009-that-too": " account completely deleted, you can do that too.",
+    "0010-delete-button": '<button type="button" class="submit-button delete" onclick="confirmDeletion()" data-lang-id="0010-delete-button">Delete My Account</button>',
+    "0011-warning": "WARNING: This cannot be undone.",
+
+
+//activate-2
+
   "001-alright": "Alright",
   "002-lets-confirm": "let's confirm your email.",
   "003-to-create": "To create your Buwana GoBrik account we need to confirm your chosen credential. This is how we'll keep in touch and keep your account secure. Click the send button and we'll send an account activation code to:",

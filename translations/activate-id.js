@@ -12,6 +12,20 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 
 
 const id_Page_Translations = {
+
+    "0001-activate-notice": "Sejak terakhir kali Anda masuk, kami telah melakukan peningkatan besar pada GoBrik.",
+    "0002-activate-explantion-1": "Versi lama GoBrik kami berjalan di server dan kode perusahaan. Kami telah membiarkannya berlalu.",
+    "0002-activate-explantion-2": "Sebagai gantinya, kami telah memigrasi semua data kami ke server mandiri yang independen. GoBrik 3.0 baru kami sekarang 100% sumber terbuka dan sepenuhnya berfokus pada akuntabilitas ekologis. Kami juga telah mengembangkan sistem login Buwana kami sendiri sebagai alternatif untuk login Google dan Apple. Untuk bergabung dengan kami di GoBrik yang diregenerasi dengan <?php echo htmlspecialchars($email_addr); ?>, harap luangkan waktu sebentar untuk meningkatkan ke akun Buwana.",
+    "0003-activate-button": '<input type="submit" id="submit-button" value="🍃 Tingkatkan Akun!" class="submit-button activate">',
+    "0004-buwana-accounts": "Akun Buwana dirancang dengan mempertimbangkan ekologi, keamanan, dan privasi. Segera, Anda dapat masuk ke aplikasi regeneratif hebat lainnya dengan cara yang sama seperti Anda masuk ke GoBrik!",
+    "0005-new-terms": "Syarat dan Ketentuan Baru Buwana & GoBrik",
+    "0005-regen-blog": "Mengapa? Baca posting blog kami 'Regenerasi Besar GoBrik'.",
+    "0006-github-code": "Repositori Kode Sumber Github Baru",
+    "0007-not-interested": "Jika Anda tidak tertarik dan ingin ",
+    "0009-that-too": " akun lama Anda sepenuhnya dihapus, Anda juga dapat melakukannya.",
+    "0010-delete-button": '<button type="button" class="submit-button delete" onclick="confirmDeletion()" data-lang-id="0010-delete-button">Hapus Akun Saya</button>',
+    "0011-warning": "PERINGATAN: Ini tidak dapat dibatalkan.",
+
   "001-alright": "Baiklah",
   "002-lets-confirm": "mari konfirmasi email Anda.",
   "003-to-create": "Untuk membuat akun Buwana GoBrik Anda, kami perlu mengonfirmasi kredensial yang Anda pilih. Ini adalah cara kami akan tetap berhubungan dan menjaga keamanan akun Anda. Klik tombol kirim dan kami akan mengirimkan kode aktivasi akun ke:",

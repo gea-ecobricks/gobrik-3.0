@@ -24,7 +24,7 @@ $is_logged_in = false; // Ensure not logged in for this page
 // PART 1: Setup
 $ecobricker_id = $_GET['id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.48';
+$version = '0.49';
 $page = 'activate';
 $first_name = '';
 $last_name = '';

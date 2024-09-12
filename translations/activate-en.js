@@ -35,6 +35,17 @@ const en_Page_Translations = {
 
 //activate-2
 
+ "001-set-your-pass": "Set Your New Password",
+    "002-to-get-going": " To get going with your upgraded account please set a new password...",
+    "007-set-your-pass": "Set your password:",
+    "008-password-advice": "🔑 Your password must be at least 6 characters.",
+    "009-confirm-pass": "Confirm Your Password:",
+    "010-pass-error-no-match": "👉 Passwords do not match.",
+    "013-by-registering": "By registering today, I agree to the <a href=\"#\" onclick=\"showModalInfo('terms')\" class=\"underline-link\">GoBrik Terms of Service</a>",
+    "014-i-agree-newsletter": "Please send me the <a href=\"#\" onclick=\"showModalInfo('earthen')\" class=\"underline-link\">Earthen newsletter</a> for app, ecobrick, and earthen updates"
+
+//confirm email
+
   "001-alright": "Alright",
   "002-lets-confirm": "let's confirm your email.",
   "003-to-create": "To create your Buwana GoBrik account we need to confirm your chosen credential. This is how we'll keep in touch and keep your account secure. Click the send button and we'll send an account activation code to:",

@@ -1,13 +1,30 @@
 <?php
-//Happens after a user who has activated their account and enters the email code.
+require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 session_start();
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
+// Check if the user is logged in
+if (isLoggedIn()) {
+    echo "<script>
+        alert('Looks like you already have an account and are logged in! Let\'s take you to your dashboard.');
+        window.location.href = 'dashboard.php';
+    </script>";
+    exit();
+}
+
+// Set page variables
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+$is_logged_in = false; // Ensure not logged in for this page
+
+
 
 // PART 1: Setup
 $ecobricker_id = $_GET['id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.455';
+$version = '0.46';
 $page = 'activate';
 $first_name = '';
 $last_name = '';
@@ -19,11 +36,11 @@ $birth_date = '';
 $terms_of_service = 1;
 $earthen_newsletter_join = 1;
 
-// Redirect if user is already logged in
-if (isset($_SESSION['buwana_id'])) {
-    header("Location: dashboard.php");
-    exit();
-}
+// // Redirect if user is already logged in
+// if (isset($_SESSION['buwana_id'])) {
+//     header("Location: dashboard.php");
+//     exit();
+// }
 
 // PART 2: Database Connections
 require_once '../gobrikconn_env.php';
@@ -205,7 +222,6 @@ exit();
 <html lang="<?php echo $lang; ?>">
 <head>
 <meta charset="UTF-8">
-<title>Activate your Buwana Account | Step 2 | GoBrik</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!--
@@ -226,8 +242,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="001-signup-heading2">Set Your New Password</h2>
-            <p><span data-lang-id="002-alright">Alright </span> <?php echo htmlspecialchars($first_name); ?>: <span data-lang-id="002-let-use-you"> To get going with your upgraded account please set a new password...</span></p>
+            <h2 data-lang-id="001-set-your-pass">Set Your New Password</h2>
+            <p><span data-lang-id="001-alright">Alright </span> <?php echo htmlspecialchars($first_name); ?>: <span data-lang-id="002-to-get-going"> To get going with your upgraded account please set a new password...</span></p>
         </div>
 
         <!--ACTIVATE 2 FORM-->
@@ -269,9 +285,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     </div>
 
-    <div style="text-align:center;width:100%;margin:auto;margin-top: 20px;">
-        <p style="font-size:medium;" data-land-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
-    </div>
 
 </div>
 </div>

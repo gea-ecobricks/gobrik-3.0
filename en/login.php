@@ -176,10 +176,9 @@ echo '</script>';
 
 
     </div>
-   <div style="text-align:center;width:100%;margin:auto;margin-top:30px;margin-bottom:50px;">
+
+ <div style="font-size: medium; text-align: center; margin: auto; align-self: center;padding-top:40px;padding-bottom:50px;margin-top: 0px;">
         <p style="font-size:medium;" data-lang-id="000-no-account-yet">Don't have an account yet? <a href="signup.php">Signup!</a></p>
-
-
     </div>
 
 </div>

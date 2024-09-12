@@ -26,7 +26,6 @@ $version = '0.768';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $response = ['success' => false];
 $buwana_id = $_GET['id'] ?? null;
-$page = 'signup';
 
 // Initialize user variables
 $credential_type = '';

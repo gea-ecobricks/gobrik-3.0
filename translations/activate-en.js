@@ -28,7 +28,7 @@ const en_Page_Translations = {
     "0006-github-code": "New Github Source Code Repository",
     "0007-not-interested": "If you're not interested and would like your old ",
     "0009-that-too": " account completely deleted, you can do that too.",
-    "0010-delete-button": '<button type="button" class="submit-button delete" onclick="confirmDeletion()" data-lang-id="0010-delete-button">Delete My Account</button>',
+    "0010-delete-button": 'Delete My Account',
     "0011-warning": "WARNING: This cannot be undone.",
 
 

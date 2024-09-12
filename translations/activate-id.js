@@ -23,7 +23,7 @@ const id_Page_Translations = {
     "0006-github-code": "Repositori Kode Sumber Github Baru",
     "0007-not-interested": "Jika Anda tidak tertarik dan ingin ",
     "0009-that-too": " akun lama Anda sepenuhnya dihapus, Anda juga dapat melakukannya.",
-    "0010-delete-button": '<button type="button" class="submit-button delete" onclick="confirmDeletion()" data-lang-id="0010-delete-button">Hapus Akun Saya</button>',
+    "0010-delete-button": 'Hapus Akun Saya',
     "0011-warning": "PERINGATAN: Ini tidak dapat dibatalkan.",
 
   "001-alright": "Baiklah",

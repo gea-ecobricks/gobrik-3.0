@@ -22,7 +22,7 @@ const fr_Page_Translations = {
     "0006-github-code": "Nouveau dépôt de code source sur Github",
     "0007-not-interested": "Si vous n'êtes pas intéressé et souhaitez que votre ancien ",
     "0009-that-too": " compte soit complètement supprimé, vous pouvez également le faire.",
-    "0010-delete-button": '<button type="button" class="submit-button delete" onclick="confirmDeletion()" data-lang-id="0010-delete-button">Supprimer mon compte</button>',
+    "0010-delete-button": 'Supprimer mon compte',
     "0011-warning": "AVERTISSEMENT : Cela ne peut pas être annulé.",
 
 

@@ -24,7 +24,7 @@ const es_Page_Translations = {
     "0006-github-code": "Nuevo repositorio de código fuente en Github",
     "0007-not-interested": "Si no estás interesado y deseas que tu antiguo ",
     "0009-that-too": " cuenta sea completamente eliminada, también puedes hacerlo.",
-    "0010-delete-button": '<button type="button" class="submit-button delete" onclick="confirmDeletion()" data-lang-id="0010-delete-button">Eliminar mi cuenta</button>',
+    "0010-delete-button": 'Eliminar mi cuenta',
     "0011-warning": "ADVERTENCIA: Esto no se puede deshacer.",
 
   "001-alright": "Bien",

@@ -31,6 +31,9 @@ if ($is_logged_in) {
     $country_icon = getUserContinent($buwana_conn, $buwana_id);
     $watershed_name = getWatershedName($buwana_conn, $buwana_id, $lang); // Corrected to include the $lang parameter
 
+    // Fetch the user's first name from the database
+    $first_name = getUserFirstName($buwana_conn, $buwana_id);
+
     // Fetch first and last name from the Buwana database
     $sql_user = "SELECT first_name, last_name FROM users_tb WHERE buwana_id = ?";
     $stmt_user = $buwana_conn->prepare($sql_user);

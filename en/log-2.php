@@ -214,17 +214,17 @@ echo '<!DOCTYPE html>
                         <img src="../svgs/basic.svg" style="width: 200px">
                         <br><br>
                         <label for="ecobrick_photo_main" data-lang-id="003-feature-photo">Upload a basic ecobrick photo:</label><br>
-                        <ul>
-                            <li>Take a vertical portrait photo</li>
+                        <ol>
+                            <lo>Take a vertical portrait photo</li>
                             <li>Be sure your photo shows the serial & weight clearly</li>
                             <li>Be sure your photo shows your ecobricks bottom color</li>
                             <li>Be sure your photo shows your ecobricks top</li>
                             <li>Be sure your data is permanently enscribed!</li>
                             <li>Do not use an external label to mark the ecobrick </li>
-                        </ul>
+                        </ol>
                        <div class="photo-upload-container">
                             <label for="ecobrick_photo_main" class="custom-file-upload">
-                                📷 Take or Upload Photo
+                                📷 Take Basic Photo
                                 <input type="file" id="ecobrick_photo_main" name="ecobrick_photo_main">
                             </label>
                             <p class="form-caption" data-lang-id="004-feature-desc">Please choose a photo of the ecobrick. Required.</p>
@@ -237,7 +237,7 @@ echo '<!DOCTYPE html>
                     <img src="../svgs/selfie.svg" style="height: 200px">
                     <br><br>
                     <label for="selfie_photo_main" data-lang-id="005-another-photo">Upload an ecobrick selfie:</label><br>
-                    <ul>
+                    <ol>
                         <li>Be sure your photo is a horizontal landscape</li>
                         <li>Be sure your photo shows the serial & weight clearly</li>
                         <li>Be sure your photo shows your ecobricks bottom color</li>
@@ -246,13 +246,19 @@ echo '<!DOCTYPE html>
                         <li>Do not use an external label to mark the ecobrick</li>
                         <li>And smile!</li>
 
-                    </ul>
+                    </ol>
 
-                    <input type="file" id="selfie_photo_main" name="selfie_photo_main">
-                    <p class="form-caption" data-lang-id="006-another-photo-optional">Your photo will be uploaded to on Ecobricks.org Brikchain.</p>
+                    <div class="photo-upload-container">
+                            <label for="ecobrick_photo_main" class="custom-file-upload">
+                                📷 Take Selfie Photo
+                                <input type="file" id="selfie_photo_main" name="selfie_photo_main">
+                            </label>
+                            <p class="form-caption" data-lang-id="006-another-photo-optional">Your photo will be uploaded to on Ecobricks.org Brikchain.</p>
+                        </div>
+
                 </div>
 
-                <div data-lang-id="013-submit-upload-button">
+                <div style="display:flex;flex-flow:row;width:100%;justify-content:center;" data-lang-id="013-submit-upload-button">
                     <input type="submit" value="⬆️ Upload Photos" id="upload-progress-button" aria-label="Submit photos for upload" class="submit-button enabled">
                 </div>
             </form>

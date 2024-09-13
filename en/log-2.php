@@ -470,11 +470,11 @@ echo '<!DOCTYPE html>
             document.body.classList.add('modal-open');
 
 //             Disable body scrolling
-            document.body.style.overflow = 'hidden';
+//             document.body.style.overflow = 'hidden';
 
             // Prevent page from scrolling to the top
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            modal.style.top = `${scrollTop}px`;
+//             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+//             modal.style.top = `${scrollTop}px`;
         }
 
         function closeDensityModal() {

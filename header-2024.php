@@ -352,7 +352,7 @@ display: none;
   <div class="overlay-content-settings">
     <!-- Check if the user is logged in before displaying the logged-in status box : earthen values set by earthenAuth_helper-->
     <?php if ($is_logged_in): ?>
-      <div class="menu-page-item" style="display: flex; flex-direction: column; align-items: flex-start; padding-bottom: 46px;">
+      <div class="menu-page-item" style="display: flex; flex-direction: column; align-items: flex-start; padding-bottom: 46px; cursor:unset;">
         <div style="width:100%; display: flex; align-items: center;">
           <div style="color: var(--text-color); margin-left: 0px;">
               <span data-lang-id="1000-logged-in-as">Logged in as</span> <span><?php echo htmlspecialchars($first_name); ?></span>

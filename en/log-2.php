@@ -19,6 +19,7 @@ $watershed_id = '';
 $watershed_name = '';
 $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 
+
 // Check if user is logged in and session active
 if ($is_logged_in) {
     $buwana_id = $_SESSION['buwana_id'] ?? ''; // Retrieve buwana_id from session
@@ -30,6 +31,9 @@ if ($is_logged_in) {
     // Fetch the user's continent icon
     $country_icon = getUserContinent($buwana_conn, $buwana_id);
     $watershed_name = getWatershedName($buwana_conn, $buwana_id, $lang); // Corrected to include the $lang parameter
+
+    // Fetch the user's first name from the database
+    $first_name = getUserFirstName($buwana_conn, $buwana_id);
 
     $error_message = '';
     $full_urls = [];
@@ -454,7 +458,7 @@ echo '<!DOCTYPE html>
             // document.getElementById('footer-full').classList.add('blurred');
             document.body.classList.add('modal-open');
 
-            Disable body scrolling
+//             Disable body scrolling
             document.body.style.overflow = 'hidden';
 
             // Prevent page from scrolling to the top

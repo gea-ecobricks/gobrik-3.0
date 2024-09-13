@@ -31,22 +31,16 @@ $is_logged_in = isLoggedIn();// Check if the user is logged in using the helper 
     $country_icon = getUserContinent($buwana_conn, $buwana_id);
     $watershed_name = getWatershedName($buwana_conn, $buwana_id, $lang); // Corrected to include the $lang parameter
 
+// PART 1: CHECK IF USER LOGGED IN
+if (!isset($_SESSION['buwana_id'])) {
+    echo "<script>
+        alert('You must be logged in to log an ecobrick.');
+        window.location.href = 'login.php';
+    </script>";
+    exit();
+}
 
-    // Fetch the user's first name from the database
-    $first_name = getUserFirstName($buwana_conn, $buwana_id);
-
-
-//
-// // PART 1: CHECK IF USER LOGGED IN
-// if (!isset($_SESSION['buwana_id'])) {
-//     echo "<script>
-//         alert('You must be logged in to log an ecobrick.');
-//         window.location.href = 'login.php';
-//     </script>";
-//     exit();
-// }
-
-// PART 2: ADD USER INFO
+// PART 2: GET USER INFO
 $buwana_id = $_SESSION['buwana_id'];
 
 // Fetch first and last name from the Buwana database
@@ -100,6 +94,8 @@ if ($stmt_user) {
 } else {
     echo "Error fetching user information: " . $buwana_conn->error;
 }
+
+
 // PART 3: POST ECOBRICK DATA to GOBRIK DATABASE
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -197,12 +193,8 @@ echo '<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 ';
-?>
 
-
-
-
-    <?php require_once ("../includes/log-inc.php");?>
+require_once ("../includes/log-inc.php");?>
 
 
 <div class="splash-title-block"></div>

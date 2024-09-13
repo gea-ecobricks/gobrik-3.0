@@ -80,14 +80,14 @@ echo '<!DOCTYPE html>
             <div id="upload-success-message">
                 <?php if ($ecobrick_full_photo_url): ?>
                     <div class="photo-container">
-                        <img src="<?php echo $ecobrick_thumb_photo_url; ?>" alt="Basic Ecobrick Photo">
-                        <p>Basic Ecobrick Photo</p>
+                        <img src="<?php echo $ecobrick_full_photo_url; ?>" alt="Basic Ecobrick Photo" style="max-width:500px;">
+                        <p class="photo-caption" style="font-size:1em;text-align:center;">Basic Ecobrick Photo</p>
                     </div>
                 <?php endif; ?>
                 <?php if ($selfie_photo_url): ?>
                     <div class="photo-container">
                         <img src="<?php echo $selfie_thumb_url; ?>" alt="Ecobrick Selfie Photo">
-                        <p>Ecobrick Selfie Photo</p>
+                        <p class="photo-caption" style="font-size:1em;text-align:center;">Ecobrick Selfie Photo</p>
                     </div>
                 <?php endif; ?>
             </div>

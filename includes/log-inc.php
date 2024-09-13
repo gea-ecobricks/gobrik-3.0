@@ -32,7 +32,6 @@
   filter: none !important;
   margin-bottom: -200px !important;
 }
-
 .photo-upload-container {
     width: 100%;
     padding: 10px;
@@ -41,7 +40,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px; /* Adds space between the button and the caption */
+    gap: 5px; /* Adds space between elements */
 }
 
 .custom-file-upload {
@@ -64,6 +63,12 @@
 
 .custom-file-upload input[type="file"] {
     display: none; /* Hide the actual file input */
+}
+
+.file-name {
+    margin-top: 8px;
+    font-size: 1rem;
+    color: var(--text-color);
 }
 
 .form-caption {

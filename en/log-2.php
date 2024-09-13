@@ -225,11 +225,12 @@ echo '<!DOCTYPE html>
                        <div class="photo-upload-container">
                             <label for="ecobrick_photo_main" class="custom-file-upload">
                                 📷 Take Basic Photo
-                                <input type="file" id="ecobrick_photo_main" name="ecobrick_photo_main">
+                                <input type="file" id="ecobrick_photo_main" name="ecobrick_photo_main" onchange="displayFileName()">
                             </label>
+                            <span id="file-name" class="file-name">No file chosen</span>
                             <p class="form-caption" data-lang-id="004-feature-desc">Please choose a photo of the ecobrick. Required.</p>
                         </div>
-                    </div>
+
                 </div>
 
                 <!-- Selfie Photo Main & Thumbnail -->
@@ -495,6 +496,18 @@ echo '<!DOCTYPE html>
 
 </script>
 
+<script>
+function displayFileName() {
+    const input = document.getElementById('ecobrick_photo_main');
+    const fileNameSpan = document.getElementById('file-name');
+
+    if (input.files.length > 0) {
+        fileNameSpan.textContent = input.files[0].name;
+    } else {
+        fileNameSpan.textContent = 'No file chosen';
+    }
+}
+</script>
 
 
 </body>

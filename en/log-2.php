@@ -466,7 +466,7 @@ echo '<!DOCTYPE html>
             modal.style.top = `${scrollTop}px`;
         }
 
-        function closeModal() {
+        function closeDensityModal() {
             const modal = document.getElementById('form-modal-message');
             modal.style.display = 'none';
             document.getElementById('page-content').classList.remove('blurred');

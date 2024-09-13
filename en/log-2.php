@@ -473,8 +473,8 @@ echo '<!DOCTYPE html>
 //             document.body.style.overflow = 'hidden';
 
             // Prevent page from scrolling to the top
-//             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-//             modal.style.top = `${scrollTop}px`;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            modal.style.top = `${scrollTop}px`;
         }
 
         function closeDensityModal() {

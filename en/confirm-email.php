@@ -13,7 +13,7 @@ if (isLoggedIn()) {
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.768';
+$version = '0.769';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 // set $is_logged_in to false for this page
 $is_logged_in = false;

@@ -1,28 +1,30 @@
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
-// Start a secure session with regeneration to prevent session fixation
 startSecureSession();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+// Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.1';
-$page = 'brik';
+$version = '0.762';
+$page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 // Initialize user variables
 $first_name = '';
 $buwana_id = '';
+$country_icon = '';
+$is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 
 // Check if the user is logged in
 if (isLoggedIn()) {
     $buwana_id = $_SESSION['buwana_id'];
     require_once '../buwanaconn_env.php'; // Include the Buwana database connection
 
-    // Fetch user's first name
-    $first_name = getUserFirstName($buwana_conn, $buwana_id);
-
+    // Fetch the user's continent icon
+    $country_icon = getUserContinent($buwana_conn, $buwana_id);
+    $watershed_name = getWatershedName($buwana_conn, $buwana_id, $lang);
     $buwana_conn->close();  // Close the database connection
 }
 
@@ -63,7 +65,7 @@ echo '<!DOCTYPE html>
 			</div>
 
 			<div class="splash-image">
-				<a href="javascript:void(0);" onclick="viewGalleryImage(\'' . htmlspecialchars($array["ecobrick_full_photo_url"], ENT_QUOTES, 'UTF-8') . '\', \'Ecobrick ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and logged on ' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . '\')"><img src="https://ecobricks.org/' . htmlspecialchars($array["ecobrick_full_photo_url"], ENT_QUOTES, 'UTF-8') . '" alt="Ecobrick ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and logged on ' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . '"
+				<a href="javascript:void(0);" onclick="viewGalleryImage(\'' . htmlspecialchars($array["ecobrick_full_photo_url"], ENT_QUOTES, 'UTF-8') . '\', \'Ecobrick ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and logged on ' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . '\')"><img src="../' . htmlspecialchars($array["ecobrick_full_photo_url"], ENT_QUOTES, 'UTF-8') . '" alt="Ecobrick ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and logged on ' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . '"
 			title="Ecobrick Serial ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and authenticated on ' . htmlspecialchars($array["last_validation_ts"], ENT_QUOTES, 'UTF-8') . '"></a>
 			</div>
 		</div>
@@ -108,7 +110,7 @@ echo '
 
 			if ( isset($array["selfie_photo_url"]) && $array["selfie_photo_url"] != '' ) {
 				echo '<div class="side-details">
-				<img src="https://ecobricks.org/'. $array["selfie_photo_url"] .'" width="100%">
+				<img src="'. $array["selfie_photo_url"] .'" width="100%">
 			</div>
 		';
 			}

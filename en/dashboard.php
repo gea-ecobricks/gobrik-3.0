@@ -29,7 +29,7 @@ $is_logged_in = isLoggedIn();// Check if the user is logged in using the helper 
 
     // Fetch the user's continent icon
     $country_icon = getUserContinent($buwana_conn, $buwana_id);
-    $watershed_name = getWatershedName($buwana_conn, $buwana_id, $lang); // Corrected to include the $lang parameter
+    $watershed_name = getWatershedName($buwana_conn, $buwana_id, $lang);
 
 
     // Fetch the user's first name from the database

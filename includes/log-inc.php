@@ -41,6 +41,7 @@
     flex-direction: column;
     align-items: center;
     gap: 5px; /* Adds space between elements */
+    margin-bottom: 30px;
 }
 
 .custom-file-upload {

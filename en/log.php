@@ -210,6 +210,7 @@ require_once ("../includes/log-inc.php");
 
            <div style="text-align:center;width:100%;margin:auto;">
             <h2 data-lang-id="001-log-title">Log an Ecobrick</h2>
+            <p style="color:red;font-weight:500;">Warning: this form is not yet ready for use or for beta-testing!  All ecobricks logged at this stage will be deleted from the system once we launch.</p>
             <p data-lang-id="002-log-subheading">Share your ecobrick with the world!<br>Use this form to log your ecobrick into the brikchain system.</p>
         </div>
 

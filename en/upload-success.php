@@ -1,90 +1,63 @@
 <?php
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));  //grabs language directory from url
-session_start();
+require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
-ini_set('display_errors', 1);
+startSecureSession(); // Start a secure session with regeneration to prevent session fixation
 error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-// GoBrik database credentials
-$gobrik_servername = "localhost";
-$gobrik_username = "ecobricks_brikchain_viewer";
-$gobrik_password = "desperate-like-the-Dawn";
-$gobrik_dbname = "ecobricks_gobrik_msql_db";
+// Set up page variables
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$version = '0.43';
+$page = 'log';
+$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+
+// Initialize user variables
+$first_name = '';
+$buwana_id = '';
+$country_icon = '';
+$watershed_id = '';
+$watershed_name = '';
+$is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 
 
-// Create connection for GoBrik database
-$gobrik_conn = new mysqli($gobrik_servername, $gobrik_username, $gobrik_password, $gobrik_dbname);
-if ($gobrik_conn->connect_error) {
-    die("Connection failed: " . $gobrik_conn->connect_error);
-}
-$gobrik_conn->set_charset("utf8mb4");
+// Check if user is logged in and session active
+if ($is_logged_in) {
+    $buwana_id = $_SESSION['buwana_id'] ?? ''; // Retrieve buwana_id from session
 
-if (isset($_GET['id'])) {
-    $ecobrick_unique_id = (int)$_GET['id'];
+    // Include database connection
+    require_once '../gobrikconn_env.php';
+    require_once '../buwanaconn_env.php';
 
-    // Fetch the ecobrick details from the database
-    $sql = "SELECT serial_no, ecobrick_full_photo_url, ecobrick_thumb_photo_url, selfie_photo_url, selfie_thumb_url
-            FROM tb_ecobricks
-            WHERE ecobrick_unique_id = ?";
-    $stmt = $gobrik_conn->prepare($sql);
-    $stmt->bind_param("i", $ecobrick_unique_id);
-    $stmt->execute();
-    $stmt->bind_result($serial_no, $ecobrick_full_photo_url, $ecobrick_thumb_photo_url, $selfie_photo_url, $selfie_thumb_url);
-    $stmt->fetch();
-    $stmt->close();
+    if (isset($_GET['id'])) {
+        $ecobrick_unique_id = (int)$_GET['id'];
+
+        // Fetch the ecobrick details from the database
+        $sql = "SELECT serial_no, ecobrick_full_photo_url, ecobrick_thumb_photo_url, selfie_photo_url, selfie_thumb_url
+                FROM tb_ecobricks
+                WHERE ecobrick_unique_id = ?";
+        $stmt = $gobrik_conn->prepare($sql);
+        $stmt->bind_param("i", $ecobrick_unique_id);
+        $stmt->execute();
+        $stmt->bind_result($serial_no, $ecobrick_full_photo_url, $ecobrick_thumb_photo_url, $selfie_photo_url, $selfie_thumb_url);
+        $stmt->fetch();
+        $stmt->close();
+    } else {
+        echo "No ecobrick ID provided.";
+        exit;
+    }
 } else {
-    echo "No ecobrick ID provided.";
-    exit;
+    // Redirect to login page with the redirect parameter set to the current page
+    header('Location: login.php?redirect=' . urlencode($page));
+    exit();
 }
 
+echo '<!DOCTYPE html>
+<html lang="' . $lang . '">
+<head>
+<meta charset="UTF-8">
+';
 ?>
 
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <?php $lang='en';?>
-    <?php $version='2.43';?>
-    <?php $page='log';?>
-
-
-    <script>
-
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('deleteButton').addEventListener('click', function(event) {
-                event.preventDefault(); // Prevent default action
-                if (confirm('Are you sure you want to delete this ecobrick from the database? This cannot be undone.')) {
-                    const ecobrickUniqueId = document.querySelector('input[name="ecobrick_unique_id"]').value;
-
-                    fetch('delete-ecobrick.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: new URLSearchParams({
-                            'ecobrick_unique_id': ecobrickUniqueId
-                        })
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                alert('Your ecobrick has been successfully deleted. You may now log another ecobrick...');
-                                window.location.href = 'log.php';
-                            } else {
-                                alert('There was an error deleting the ecobrick: ' + data.error);
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('There was an error processing your request.');
-                        });
-                }
-            });
-        });
-
-    </script>
 
    <?php require_once ("../includes/log-inc.php");?>
 
@@ -135,5 +108,43 @@ if (isset($_GET['id'])) {
 </div>
 <!--FOOTER STARTS HERE-->
 <?php require_once ("../footer-2024.php");?>
+
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('deleteButton').addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent default action
+                if (confirm('Are you sure you want to delete this ecobrick from the database? This cannot be undone.')) {
+                    const ecobrickUniqueId = document.querySelector('input[name="ecobrick_unique_id"]').value;
+
+                    fetch('delete-ecobrick.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: new URLSearchParams({
+                            'ecobrick_unique_id': ecobrickUniqueId
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert('Your ecobrick has been successfully deleted. You may now log another ecobrick...');
+                                window.location.href = 'log.php';
+                            } else {
+                                alert('There was an error deleting the ecobrick: ' + data.error);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('There was an error processing your request.');
+                        });
+                }
+            });
+        });
+
+    </script>
+
 </body>
 </html>

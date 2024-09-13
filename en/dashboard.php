@@ -257,18 +257,79 @@ window.onload = function() {
 }
 
 
-
-document.getElementById('log-ecobrick-button').addEventListener('click', function() {
-    // Redirect to the log.php page
-    window.location.href = 'log.php';
-});
+//
+// document.getElementById('log-ecobrick-button').addEventListener('click', function() {
+//     // Redirect to the log.php page
+//     window.location.href = 'log.php';
+// });
 
 document.getElementById('newest-ecobricks-button').addEventListener('click', function() {
     // Redirect to the newest-briks.php page
     window.location.href = 'newest-briks.php';
 });
+// Main greeting function to determine the user's time of day and display an appropriate greeting
+function mainGreeting() {
+    var now = new Date();
+    var hours = now.getHours();
+    var greeting;
+    var lang = "<?php echo htmlspecialchars($lang); ?>"; // Get the language from PHP
 
-function subGreeting() {
+    // Determine greeting based on the time of day
+    if (hours < 12) {
+        switch (lang) {
+            case 'fr':
+                greeting = "Bonjour";
+                break;
+            case 'es':
+                greeting = "Buenos días";
+                break;
+            case 'id':
+                greeting = "Selamat pagi";
+                break;
+            case 'en':
+            default:
+                greeting = "Good morning";
+                break;
+        }
+    } else if (hours < 18) {
+        switch (lang) {
+            case 'fr':
+                greeting = "Bon après-midi";
+                break;
+            case 'es':
+                greeting = "Buenas tardes";
+                break;
+            case 'id':
+                greeting = "Selamat siang";
+                break;
+            case 'en':
+            default:
+                greeting = "Good afternoon";
+                break;
+        }
+    } else {
+        switch (lang) {
+            case 'fr':
+                greeting = "Bonsoir";
+                break;
+            case 'es':
+                greeting = "Buenas noches";
+                break;
+            case 'id':
+                greeting = "Selamat malam";
+                break;
+            case 'en':
+            default:
+                greeting = "Good evening";
+                break;
+        }
+    }
+
+    document.getElementById("greeting").innerHTML = greeting + " <?php echo htmlspecialchars($first_name); ?>!";
+}
+
+// Secondary greeting function to provide additional dynamic content
+function secondaryGreeting() {
     // Retrieve the language setting from the server-side PHP variable
     const lang = '<?php echo htmlspecialchars($lang); ?>';
     const ecobricksMade = <?php echo (int) $ecobricks_made; ?>;
@@ -309,8 +370,12 @@ function subGreeting() {
     document.getElementById('subgreeting').innerHTML = message;
 }
 
-// Initialize the greeting function on page load
-window.onload = subGreeting;
+// Combine both functions in the window.onload event
+window.onload = function() {
+    mainGreeting();
+    secondaryGreeting();
+};
+
 
 </script>
 

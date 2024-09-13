@@ -41,7 +41,7 @@ const es_Page_Translations = {
     "012-fun-fact": "🤓 Dato curioso: <a href=\"#\" onclick=\"showModalInfo('ecobrick', 'es')\" class=\"underline-link\">Ecoladrillo</a> se escribe sin espacio, mayúscula ni guion!",
     "013-by-registering": "Al registrarme hoy, acepto los <a href=\"#\" onclick=\"showModalInfo('terms', 'es')\" class=\"underline-link\">Términos de servicio de GoBrik</a>",
     "014-i-agree-newsletter": "Acepto recibir el <a href=\"#\" onclick=\"showModalInfo('earthen', 'es')\" class=\"underline-link\">boletín informativo Earthen</a> para actualizaciones de la aplicación, ecoladrillos y tierra",
-    "015-register-button": '<input type="submit" id="submit-button" value="Register" class="submit-button disabled">',
+    "015-register-button": '<input type="submit" id="submit-button" value="Inscribirse" class="submit-button disabled">',
 
 
 };

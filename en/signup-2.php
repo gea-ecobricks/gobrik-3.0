@@ -22,7 +22,7 @@ $is_logged_in = false; // Ensure not logged in for this page
 // Set page variables
 $page = 'signup';
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.769';
+$version = '0.77';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $response = ['success' => false];
 $buwana_id = $_GET['id'] ?? null;
@@ -151,7 +151,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     </div>
                 </div>
 
-                <div id="submit-section" style="display:none;text-align:center;margin-top:15px;" title="Be sure you wrote ecobrick correctly!">
+                <div id="submit-section" style="display:none;text-align:center;margin-top:15px;" title="Be sure you wrote ecobrick correctly!" data-lang-id="015-register-button">
                     <input type="submit" id="submit-button" value="Register" class="submit-button disabled">
                 </div>
             </form>

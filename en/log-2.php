@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.42';
+$version = '0.43';
 $page = 'log';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -215,7 +215,7 @@ echo '<!DOCTYPE html>
                         <br><br>
                         <label for="ecobrick_photo_main" data-lang-id="003-feature-photo">Upload a basic ecobrick photo:</label><br>
                         <ol>
-                            <lo>Take a vertical portrait photo</li>
+                            <li>Take a vertical portrait photo</li>
                             <li>Be sure your photo shows the serial & weight clearly</li>
                             <li>Be sure your photo shows your ecobricks bottom color</li>
                             <li>Be sure your photo shows your ecobricks top</li>
@@ -253,7 +253,7 @@ echo '<!DOCTYPE html>
                                 📷 Take Selfie Photo
                                 <input type="file" id="selfie_photo_main" name="selfie_photo_main">
                             </label>
-                            <p class="form-caption" data-lang-id="006-another-photo-optional">Your photo will be uploaded to on Ecobricks.org Brikchain.</p>
+                            <p class="form-caption" data-lang-id="006-another-photo-optional">Your photo will be uploaded to the public Brikchain.</p>
                         </div>
 
                 </div>

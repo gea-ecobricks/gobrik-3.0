@@ -541,6 +541,11 @@ background-size: contain;
   background-size: contain;
 }
 
+.snap-ecobrick {
+  background: url(../svgs/step2.svg) no-repeat center bottom;
+  background-size: contain;
+}
+
 
 /*NEW 3.0 LANDING */
 

@@ -517,6 +517,11 @@ light.css
   background-size: contain;
 }
 
+.snap-ecobrick {
+  background: url(../svgs/step2.svg) no-repeat center bottom;
+  background-size: contain;
+}
+
 .log-step-2 {
 
       background: url(../svgs/step2-log-project.svg) no-repeat center;

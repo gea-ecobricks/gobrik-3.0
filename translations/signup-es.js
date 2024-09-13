@@ -37,7 +37,7 @@ const es_Page_Translations = {
     "008-password-advice": "🔑 Su contraseña debe tener al menos 6 caracteres.",
     "009-confirm-pass": "Confirma tu contraseña:",
     "010-pass-error-no-match": "👉 Las contraseñas no coinciden.",
-    "011-prove-human": "Por favor, demuestre que es humano escribiendo la palabra \"ecoladrillo\" a continuación:",
+    "011-prove-human": "Por favor para mostrar que eres un ser humano escribe la palabra \“ecobrick\” o \"ecoladrillo\"",
     "012-fun-fact": "🤓 Dato curioso: <a href=\"#\" onclick=\"showModalInfo('ecobrick', '<?php echo $lang; ?>')\" class=\"underline-link\">Ecoladrillo</a> se escribe sin espacio, mayúscula ni guion!",
     "013-by-registering": "Al registrarme hoy, acepto los <a href=\"#\" onclick=\"showModalInfo('terms', '<?php echo $lang; ?>')\" class=\"underline-link\">Términos de servicio de GoBrik</a>",
     "014-i-agree-newsletter": "Acepto recibir el <a href=\"#\" onclick=\"showModalInfo('earthen', '<?php echo $lang; ?>')\" class=\"underline-link\">boletín informativo Earthen</a> para actualizaciones de la aplicación, ecoladrillos y tierra"

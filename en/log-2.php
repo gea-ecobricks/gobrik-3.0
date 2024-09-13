@@ -421,21 +421,21 @@ echo '<!DOCTYPE html>
             <h1>⚠️</h1>
             <h4>Low Density</h4>
             <div class="preview-text">Careful, your ecobrick's density of ${density}ml is on the low side. It passes the minimum standard of 0.33g/ml however, its density makes it less solid, fire safe and reusable than it could be. Keep going and log this ecobrick, but see if you can pack more plastic next time.</p>
-            <a class="module-btn" onclick="closeInfoModal()" aria-label="Click to close modal">Next: Register Serial</a>
+            <a class="module-btn" onclick="closeDensityModal()" aria-label="Click to close modal">Next: Register Serial</a>
         `;
             } else if (density >= 0.36 && density < 0.65) {
                 content = `
             <h1 style=\"text-align:center;\">👍</h1>
             <h4 style=\"text-align:center;\">Great job!</h4>
             <div class="preview-text" style=\"text-align:center;\">Your ecobrick's density of ${density} is ideal. It passes the minimum standard of 0.33g/ml making it solid, fire safe and reusable.</p>
-            <a class="preview-btn" onclick="closeInfoModal()" aria-label="Click to close modal">Next: Register Serial</a>
+            <a class="preview-btn" onclick="closeDensityModal()" aria-label="Click to close modal">Next: Register Serial</a>
         `;
             } else if (density >= 0.65 && density < 0.73) {
                 content = `
             <h1 style=\"text-align:center;\">⚠️</h1>
             <h4 style=\"text-align:center;\">High Density</h4>
             <div class="preview-text" style=\"text-align:center;\">Careful, your ecobrick's density of ${density} is very high. Your ${volume} bottle packed with ${weight} of plastic is under the maximum density of 0.73g/ml however, its high density makes it nearly too solid and too heavy for certain ecobrick applications.</p>
-            <a class="preview-btn" onclick="closeInfoModal()" aria-label="Click to close modal">Next: Register Serial</a>
+            <a class="preview-btn" onclick="closeDensityModal()" aria-label="Click to close modal">Next: Register Serial</a>
         `;
             } else if (density >= 0.73) {
                 content = `
@@ -454,26 +454,26 @@ echo '<!DOCTYPE html>
             // document.getElementById('footer-full').classList.add('blurred');
             document.body.classList.add('modal-open');
 
-            // Disable body scrolling
-            // document.body.style.overflow = 'hidden';
-            //
-            // // Prevent page from scrolling to the top
-            // const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            // modal.style.top = `${scrollTop}px`;
+            Disable body scrolling
+            document.body.style.overflow = 'hidden';
+
+            // Prevent page from scrolling to the top
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            modal.style.top = `${scrollTop}px`;
         }
 
-        // function closeModal() {
-        //     const modal = document.getElementById('form-modal-message');
-        //     modal.style.display = 'none';
-        //     document.getElementById('page-content').classList.remove('blurred');
-        //     // document.getElementById('footer-full').classList.remove('blurred');
-        //     document.body.classList.remove('modal-open');
-        //     document.body.style.overflow = ''; // Re-enable body scrolling
-        //
-        //     // Show all buttons with class "x-button" again
-        //     const xButtons = document.querySelectorAll('.x-button');
-        //     xButtons.forEach(button => button.style.display = 'inline-block');
-        // }
+        function closeModal() {
+            const modal = document.getElementById('form-modal-message');
+            modal.style.display = 'none';
+            document.getElementById('page-content').classList.remove('blurred');
+            // document.getElementById('footer-full').classList.remove('blurred');
+            document.body.classList.remove('modal-open');
+            document.body.style.overflow = ''; // Re-enable body scrolling
+
+            // Show all buttons with class "x-button" again
+            const xButtons = document.querySelectorAll('.x-button');
+            xButtons.forEach(button => button.style.display = 'inline-block');
+        }
 
         // Assuming density, volume, and weight are set in your PHP and passed to JavaScript
         showDensityConfirmation(density, volume, weight);

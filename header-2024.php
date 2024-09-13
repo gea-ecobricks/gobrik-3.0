@@ -361,8 +361,8 @@ display: none;
         </div>
 
         <div class="logged-in-links" style="width:100%; font-size: 0.8em; margin-top: 5px; text-align: left;">
-           <p style="font-size:0.9em"><span id="continent-icon"><?php echo htmlspecialchars($country_icon); ?> </span> <span style="color:green;"><?php echo htmlspecialchars($watershed_name); ?></span></p>
-           <p style="font-size:0.9em">⚙️ <a href="profile.php" class="underline-link" data-lang-id="1000-profile-settings">Profile settings</a> |
+           <p style="font-size:0.9em; margin:0px;"><span id="continent-icon"><?php echo htmlspecialchars($country_icon); ?> </span> <span style="color:green;"><?php echo htmlspecialchars($watershed_name); ?></span></p>
+           <p style="font-size:0.9em; margin:0px;">⚙️ <a href="profile.php" class="underline-link" data-lang-id="1000-profile-settings">Profile settings</a> |
           🐳 <a href="logout.php?redirect=<?php echo urlencode($page); ?>" class="underline-link" onclick="handleLogout(event)" data-lang-id="1000-log-out">Log out</a></p>
         </div>
       </div>
@@ -428,7 +428,7 @@ display: none;
 
 <!--SEARCH PAGE-->
 <div id="right-search-overlay" class="search-overlay">
-    <button type="button" onclick="closeSearch(), clearResults()" aria-label="Close Search" class="x-button"></button>
+    <button type="button" onclick="closeSearch(), clearResults()" aria-label="Close Search" class="x-button" id="modal-x-button"></button>
     <div class="search-overlay-content">
         <div>
             <h1 style="font-family:'Arvo', serif;text-shadow: none;" data-lang-id="1100-search-title">Search</h1>

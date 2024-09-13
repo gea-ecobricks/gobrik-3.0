@@ -222,8 +222,13 @@ echo '<!DOCTYPE html>
                             <li>Be sure your data is permanently enscribed!</li>
                             <li>Do not use an external label to mark the ecobrick </li>
                         </ul>
-                        <input type="file" id="ecobrick_photo_main" name="ecobrick_photo_main">
-                        <p class="form-caption" data-lang-id="004-feature-desc">Please choose a photo of the ecobrick. Required.</p>
+                       <div class="photo-upload-container">
+                            <label for="ecobrick_photo_main" class="custom-file-upload">
+                                📷 Take or Upload Photo
+                                <input type="file" id="ecobrick_photo_main" name="ecobrick_photo_main">
+                            </label>
+                            <p class="form-caption" data-lang-id="004-feature-desc">Please choose a photo of the ecobrick. Required.</p>
+                        </div>
                     </div>
                 </div>
 

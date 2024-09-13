@@ -33,6 +33,44 @@
   margin-bottom: -200px !important;
 }
 
+.photo-upload-container {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--lighter);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px; /* Adds space between the button and the caption */
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1.3rem;
+    color: var(--text-color);
+    background-color: grey;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.custom-file-upload:hover {
+    background-color: #d3d3d3; /* Lighten the grey background on hover */
+    border-color: var(--text-color); /* Changes border color on hover */
+}
+
+.custom-file-upload input[type="file"] {
+    display: none; /* Hide the actual file input */
+}
+
+.form-caption {
+    font-size: 1rem;
+    color: var(--text-color);
+    text-align: center;
+}
 
 
 

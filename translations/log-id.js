@@ -34,6 +34,27 @@ const id_Page_Translations = {
     "010-plastic-from-caption": "Dari mana plastik ecobrick Anda berasal?",
     "011-location-full": "Di mana ecobrick ini berada?",
     "011-location-full-caption": "Mulailah mengetik nama kota atau desa Anda, dan kami akan mengisi sisanya menggunakan API openstreetmaps yang bersumber terbuka dan non-korporat. Hindari penggunaan alamat lengkap Anda untuk privasi -- cukup kota, desa, atau negara Anda saja."
-};
+
+    "009-select-bottom-color": "Pilih warna bawah...",
+    "010-no-color-set": "Tidak ada warna yang ditentukan",
+    "011-clear": "Bening",
+    "012-white": "Putih",
+    "013-black": "Hitam",
+    "014-yellow": "Kuning",
+    "015-orange": "Oranye",
+    "016-red": "Merah",
+    "017-pink": "Merah Muda",
+    "018-purple": "Ungu",
+    "019-violet": "Violet",
+    "020-dark-blue": "Biru Tua",
+    "021-sky-blue": "Biru Langit",
+    "022-brown": "Coklat",
+    "023-grey": "Abu-abu",
+    "024-silver": "Perak",
+    "025-gold": "Emas",
+    "026-cigbrick-beige": "Beige Cigbrick",
+    "000-field-required-error": "Bidang ini diperlukan."
+
+    };
 
 

@@ -54,7 +54,9 @@ const en_Page_Translations = {
     "024-silver": "Silver",
     "025-gold": "Gold",
     "026-cigbrick-beige": "Cigbrick beige",
-    "000-field-required-error": "This field is required."
+    "000-field-required-error": "This field is required.",
+
+
 
     };
 

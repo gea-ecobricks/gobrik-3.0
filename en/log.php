@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.493';
+$version = '0.494';
 $page = 'log';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -605,16 +605,16 @@ require_once ("../includes/log-inc.php");
         displayError('location-error-required', locationFull === '');
 
         // 7. Community Name Validation (just check length)
-        var communityName = document.getElementById('community_name').value.trim();
-        displayError('community-error-long', communityName.length > 255);
-
-        // 8. Project ID Validation (optional)
-        var projectId = document.getElementById('project_id').value.trim();
-        displayError('project-error-long', projectId !== '' && isNaN(parseInt(projectId, 10)));
-
-        // 9. Training ID Validation (optional)
-        var trainingId = document.getElementById('training_id').value.trim();
-        displayError('training-error-long', trainingId !== '' && isNaN(parseInt(trainingId, 10)));
+//         var communityName = document.getElementById('community_name').value.trim();
+//         displayError('community-error-long', communityName.length > 255);
+//
+//         // 8. Project ID Validation (optional)
+//         var projectId = document.getElementById('project_id').value.trim();
+//         displayError('project-error-long', projectId !== '' && isNaN(parseInt(projectId, 10)));
+//
+//         // 9. Training ID Validation (optional)
+//         var trainingId = document.getElementById('training_id').value.trim();
+//         displayError('training-error-long', trainingId !== '' && isNaN(parseInt(trainingId, 10)));
 
         // 10. Brand Name Validation
         var brandName = document.getElementById('brand_name').value.trim();

@@ -30,7 +30,7 @@ const id_Page_Translations = {
     "008-bottom-color": "Warna dasar Ecobrick:",
     "008-bottom-color-caption": "Silakan pilih warna dasar ecobrick.",
     "009-sequestration-type": "Jenis ecobrick apa ini?",
-    "009-sequestration-type-caption": "Silakan pilih jenis ecobrick. Pelajari lebih lanjut tentang <a href=\"#\" onclick=\"showModalInfo('ocean')\" class=\"underline-link\">Ocean Ecobricks</a>, <a href=\"#\" onclick=\"showModalInfo('cigbrick')\" class=\"underline-link\">Cigbricks</a> dan <a href=\"#\" onclick=\"showModalInfo('regular')\" class=\"underline-link\">Regular Ecobricks</a>.",
+    "009-sequestration-type-caption": "Silakan pilih jenis ecobrick. Pelajari lebih lanjut tentang <a href=\"#\" onclick=\"showModalInfo('ocean')\" class=\"underline-link\">ocean ecobricks</a>, <a href=\"#\" onclick=\"showModalInfo('cigbrick')\" class=\"underline-link\">cigbricks</a> dan <a href=\"#\" onclick=\"showModalInfo('regular')\" class=\"underline-link\">ecobrick biasa</a>.",
     "010-plastic-from": "Dari mana asal plastik ini?",
     "010-plastic-from-caption": "Dari mana plastik ecobrick Anda berasal?",
     "011-location-full": "Di mana ecobrick ini berada?",

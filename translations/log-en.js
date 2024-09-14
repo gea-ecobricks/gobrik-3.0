@@ -30,7 +30,7 @@ const en_Page_Translations = {
     "008-bottom-color": "Bottom color of the Ecobrick:",
     "008-bottom-color-caption": "Please select the bottom color of the ecobrick.",
     "009-sequestration-type": "What kind of ecobrick is this?",
-    "009-sequestration-type-caption": "Please select the type of ecobrick. Learn more about <a href=\"#\" onclick=\"showModalInfo('ocean')\" class=\"underline-link\">Ocean Ecobricks</a>, <a href=\"#\" onclick=\"showModalInfo('cigbrick')\" class=\"underline-link\">Cigbricks</a> and <a href=\"#\" onclick=\"showModalInfo('regular')\" class=\"underline-link\">Regular ecobricks</a>.",
+    "009-sequestration-type-caption": "Please select the type of ecobrick. Learn more about <a href=\"#\" onclick=\"showModalInfo('ocean')\" class=\"underline-link\">ocean ecobricks</a>, <a href=\"#\" onclick=\"showModalInfo('cigbrick')\" class=\"underline-link\">cigbricks</a> and <a href=\"#\" onclick=\"showModalInfo('regular')\" class=\"underline-link\">regular ecobricks</a>.",
     "010-plastic-from": "Where is the plastic from?",
     "010-plastic-from-caption": "From where was your ecobrick's plastic sourced?",
     "011-location-full": "Where is this ecobrick based?",

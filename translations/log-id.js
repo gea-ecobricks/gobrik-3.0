@@ -71,7 +71,6 @@ const id_Page_Translations = {
     "023-forest": "Hutan",
     "024-field": "Ladang",
 
-};
 
 
 

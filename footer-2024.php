@@ -439,7 +439,7 @@ function showModalInfo(type, lang) {
 
         case 'regular':
             content = `
-                <img class="preview-image" src="../webp/eb-sky-400px.webp" alt="${translations['regular-title']}" height="300" width="300" style="margin:auto; display:block;">
+                <img class="preview-image" src="../webps/eb-sky-400px.webp" alt="${translations['regular-title']}" height="300" width="300" style="margin:auto; display:block;">
                 <p class="preview-text" style="text-align:center;">${translations['regular-text']}</p>
                 <div style="width:100%;text-align:center;">
                     <a class="preview-btn" href="what.php">${translations['learn-more']}</a>

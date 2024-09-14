@@ -163,7 +163,7 @@ echo '<!DOCTYPE html>
 <!-- PAGE CONTENT -->
    <div id="top-page-image" class="log-ecobrick top-page-image" style="height: 30px; margin-top: 150px;"></div>
 
-<div id="form-submission-box" class="landing-page-form">
+<div id="form-submission-box" class="landing-page-form" style="height:auto !important">
     <div class="form-container">
             <div class="splash-form-content-block" style="text-align:center; display:flex;flex-flow:column;">
 
@@ -270,6 +270,8 @@ echo '<!DOCTYPE html>
     <br><br>
 
     </div>
+
+</div>
 
 </div>
 
@@ -442,7 +444,7 @@ echo '<!DOCTYPE html>
             } else if (density >= 0.36 && density < 0.65) {
                 content = `
             <h1 style=\"text-align:center;\">👍</h1>
-            <h4 style=\"text-align:center;\">Great job!</h4>
+            <h2 style=\"text-align:center;\">Great job!</h2>
             <div class="preview-text" style=\"text-align:center;\">Your ecobrick's density of ${density} is ideal. It passes the minimum standard of 0.33g/ml making it solid, fire safe and reusable.</p>
             <a class="preview-btn" onclick="closeDensityModal()" aria-label="Click to close modal">Next: Register Serial</a>
         `;

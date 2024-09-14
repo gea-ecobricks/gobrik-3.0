@@ -296,30 +296,31 @@ require_once ("../includes/log-inc.php");
                 <div class="form-item">
                     <label for="bottom_color" data-lang-id="008-bottom-color">Bottom color of the Ecobrick:</label><br>
                     <select id="bottom_color" name="bottom_color" aria-label="Bottom Color" required>
-                        <option value="" disabled selected>Select bottom color...</option>
-                        <option value="No deliberate color set">No deliberate color set</option>
-                        <option value="clear">Clear</option>
-                        <option value="white">White</option>
-                        <option value="black">Black</option>
-                        <option value="yellow">Yellow</option>
-                        <option value="orange">Orange</option>
-                        <option value="red">Red</option>
-                        <option value="pink">Pink</option>
-                        <option value="purple">Purple</option>
-                        <option value="violet">Violet</option>
-                        <option value="dark blue">Dark blue</option>
-                        <option value="sky blue">Sky blue</option>
-                        <option value="brown">Brown</option>
-                        <option value="grey">Grey</option>
-                        <option value="silver">Silver</option>
-                        <option value="gold">Gold</option>
-                        <option value="cigbrick beige">Cigbrick beige</option>
+                        <option value="" disabled selected data-lang-id="009-select-bottom-color">Select bottom color...</option>
+                        <option value="No deliberate color set" data-lang-id="010-no-color-set">No deliberate color set</option>
+                        <option value="clear" data-lang-id="011-clear">Clear</option>
+                        <option value="white" data-lang-id="012-white">White</option>
+                        <option value="black" data-lang-id="013-black">Black</option>
+                        <option value="yellow" data-lang-id="014-yellow">Yellow</option>
+                        <option value="orange" data-lang-id="015-orange">Orange</option>
+                        <option value="red" data-lang-id="016-red">Red</option>
+                        <option value="pink" data-lang-id="017-pink">Pink</option>
+                        <option value="purple" data-lang-id="018-purple">Purple</option>
+                        <option value="violet" data-lang-id="019-violet">Violet</option>
+                        <option value="dark blue" data-lang-id="020-dark-blue">Dark blue</option>
+                        <option value="sky blue" data-lang-id="021-sky-blue">Sky blue</option>
+                        <option value="brown" data-lang-id="022-brown">Brown</option>
+                        <option value="grey" data-lang-id="023-grey">Grey</option>
+                        <option value="silver" data-lang-id="024-silver">Silver</option>
+                        <option value="gold" data-lang-id="025-gold">Gold</option>
+                        <option value="cigbrick beige" data-lang-id="026-cigbrick-beige">Cigbrick beige</option>
                     </select>
                     <p class="form-caption" data-lang-id="008-bottom-color-caption">Please select the bottom color of the ecobrick.</p>
 
                     <!--ERRORS-->
                     <div id="color-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
                 </div>
+
 
                 <div class="form-item">
                     <label for="sequestration_type" data-lang-id="009-sequestration-type">What kind of ecobrick is this?</label><br>

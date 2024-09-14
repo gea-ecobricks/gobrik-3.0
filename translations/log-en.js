@@ -34,5 +34,27 @@ const en_Page_Translations = {
     "010-plastic-from-caption": "From where was your ecobrick's plastic sourced?",
     "011-location-full": "Where is this ecobrick based?",
     "011-location-full-caption": "Start typing the name of your town or city, and we'll fill in the rest using the open source, non-corporate openstreetmaps API. Avoid using your exact address for privacy-- just your town, city or country is fine."
-};
+
+
+    "009-select-bottom-color": "Select bottom color...",
+    "010-no-color-set": "No deliberate color set",
+    "011-clear": "Clear",
+    "012-white": "White",
+    "013-black": "Black",
+    "014-yellow": "Yellow",
+    "015-orange": "Orange",
+    "016-red": "Red",
+    "017-pink": "Pink",
+    "018-purple": "Purple",
+    "019-violet": "Violet",
+    "020-dark-blue": "Dark blue",
+    "021-sky-blue": "Sky blue",
+    "022-brown": "Brown",
+    "023-grey": "Grey",
+    "024-silver": "Silver",
+    "025-gold": "Gold",
+    "026-cigbrick-beige": "Cigbrick beige",
+    "000-field-required-error": "This field is required."
+
+    };
 

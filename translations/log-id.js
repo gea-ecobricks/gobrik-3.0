@@ -21,6 +21,7 @@ const id_Page_Translations = {
     "005b-maker-error": "Entri ini mengandung karakter tidak valid. Hindari penggunaan tanda kutip, garis miring, dan tanda lebih besar dari.",
     "006-volume-ml": "Volume Ecobrick (dalam mililiter):",
     "006-volume-ml-caption": "Harap berikan volume ecobrick dalam mililiter.",
+    "006-select-volume": "Pilih volume...",
     "007-weight-g": "Berat Ecobrick (dalam gram):",
     "007-weight-g-caption": "Harap berikan berat ecobrick dalam gram.",
     "007-brand_name": "Merk botol apa yang digunakan untuk ecobrick ini?",
@@ -53,7 +54,27 @@ const id_Page_Translations = {
     "024-silver": "Perak",
     "025-gold": "Emas",
     "026-cigbrick-beige": "Beige Cigbrick",
-    "000-field-required-error": "Bidang ini diperlukan."
+    "000-field-required-error": "Bidang ini diperlukan.",
+
+    "011-select-ecobrick-type": "Pilih jenis ecobrick...",
+    "012-regular-ecobrick": "Ecobrick biasa",
+    "013-cigbrick": "Cigbrick",
+    "014-ocean-ecobrick": "Ecobrick laut",
+    "015-select-plastic-source": "Pilih sumber plastik...",
+    "016-home": "Rumah",
+    "017-business": "Bisnis",
+    "018-community": "Lingkungan",
+    "019-factory": "Pabrik",
+    "020-beach": "Pantai",
+    "021-ocean": "Laut",
+    "022-river": "Sungai",
+    "023-forest": "Hutan",
+    "024-field": "Ladang",
+
+};
+
+
+
 
     };
 

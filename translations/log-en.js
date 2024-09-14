@@ -20,6 +20,7 @@ const en_Page_Translations = {
     "000-maker-field-too-long-error": "The name is too long. Max 255 characters.",
     "005b-maker-error": "The entry contains invalid characters. Avoid quotes, slashes, and greater-than signs please.",
     "006-volume-ml": "Volume of the Ecobrick (in milliliters):",
+    "006-select-volume": "Select volume...",
     "006-volume-ml-caption": "Please provide the volume of the ecobrick in milliliters.",
     "007-weight-g": "Weight of the Ecobrick (in grams):",
     "007-weight-g-caption": "Please provide the weight of the ecobrick in grams.",
@@ -54,6 +55,21 @@ const en_Page_Translations = {
     "025-gold": "Gold",
     "026-cigbrick-beige": "Cigbrick beige",
     "000-field-required-error": "This field is required.",
+
+    "011-select-ecobrick-type": "Select ecobrick type...",
+    "012-regular-ecobrick": "Regular ecobrick",
+    "013-cigbrick": "Cigbrick",
+    "014-ocean-ecobrick": "Ocean ecobrick",
+    "015-select-plastic-source": "Select plastic source...",
+    "016-home": "Home",
+    "017-business": "Business",
+    "018-community": "Neighbourhood",
+    "019-factory": "Factory",
+    "020-beach": "Beach",
+    "021-ocean": "Ocean",
+    "022-river": "River",
+    "023-forest": "Forest",
+    "024-field": "Field",
 
 
 

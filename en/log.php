@@ -234,7 +234,7 @@ require_once ("../includes/log-inc.php");
                 <div class="form-item">
                     <label for="volume_ml" data-lang-id="006-volume-ml">Volume of the Ecobrick (in milliliters):</label><br>
                     <select id="volume_ml" name="volume_ml" aria-label="Volume in Milliliters" required>
-                        <option value="" disabled selected>Select volume...</option>
+                        <option value="" disabled selected data-lang-id="006-select-volume">Select volume...</option>
                         <option value="200">250 ml</option>
                         <option value="250">250 ml</option>
                         <option value="300">300 ml</option>
@@ -325,10 +325,10 @@ require_once ("../includes/log-inc.php");
                 <div class="form-item">
                     <label for="sequestration_type" data-lang-id="009-sequestration-type">What kind of ecobrick is this?</label><br>
                     <select id="sequestration_type" name="sequestration_type" aria-label="Sequestration Type" required>
-                        <option value="" disabled selected>Select ecobrick type...</option>
-                        <option value="Regular ecobrick">Regular ecobrick</option>
-                        <option value="cigbrick">Cigbrick</option>
-                        <option value="ocean ecobrick">Ocean ecobrick</option>
+                        <option value="" disabled selected data-lang-id="011-select-ecobrick-type">Select ecobrick type...</option>
+                        <option value="Regular ecobrick" data-lang-id="012-regular-ecobrick">Regular ecobrick</option>
+                        <option value="cigbrick" data-lang-id="013-cigbrick">Cigbrick</option>
+                        <option value="ocean ecobrick" data-lang-id="014-ocean-ecobrick">Ocean ecobrick</option>
                     </select>
                     <p class="form-caption" data-lang-id="009-sequestration-type-caption">Please select the type of ecobrick. Learn more about <a href="#" onclick="showModalInfo('ocean')" class="underline-link">Ocean Ecobricks</a>, <a href="#" onclick="showModalInfo('cigbrick')" class="underline-link">Cigbricks</a> and <a href="#" onclick="showModalInfo('regular')" class="underline-link">Regular ecobricks</a>.</p>
 
@@ -340,16 +340,16 @@ require_once ("../includes/log-inc.php");
                 <div class="form-item">
                     <label for="plastic_from" data-lang-id="010-plastic-from">Where is the plastic from?</label><br>
                     <select id="plastic_from" name="plastic_from" aria-label="Plastic From" required>
-                        <option value="" disabled selected>Select plastic source...</option>
-                        <option value="Home">Home</option>
-                        <option value="Business">Business</option>
-                        <option value="Community">Neighbourhood</option>
-                        <option value="Factory">Factory</option>
-                        <option value="Beach">Beach</option>
-                        <option value="Ocean">Ocean</option>
-                        <option value="River">River</option>
-                        <option value="Forest">Forest</option>
-                        <option value="Field">Field</option>
+                        <option value="" disabled selected data-lang-id="015-select-plastic-source">Select plastic source...</option>
+                        <option value="Home" data-lang-id="016-home">Home</option>
+                        <option value="Business" data-lang-id="017-business">Business</option>
+                        <option value="Community" data-lang-id="018-community">Neighbourhood</option>
+                        <option value="Factory" data-lang-id="019-factory">Factory</option>
+                        <option value="Beach" data-lang-id="020-beach">Beach</option>
+                        <option value="Ocean" data-lang-id="021-ocean">Ocean</option>
+                        <option value="River" data-lang-id="022-river">River</option>
+                        <option value="Forest" data-lang-id="023-forest">Forest</option>
+                        <option value="Field" data-lang-id="024-field">Field</option>
                     </select>
                     <p class="form-caption" data-lang-id="010-plastic-from-caption">From where was your ecobrick's plastic sourced?</p>
 

@@ -71,9 +71,7 @@ const id_Page_Translations = {
     "023-forest": "Hutan",
     "024-field": "Ladang",
 
-
-
-
+    "016-submit-button": '<input type="submit" class="submit-button enabled" value="Berikutnya: Periksa Kepadatan" aria-label="Kirim Formulir">',
 
     };
 

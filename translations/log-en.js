@@ -71,7 +71,7 @@ const en_Page_Translations = {
     "023-forest": "Forest",
     "024-field": "Field",
 
-
+    "016-submit-button": '<input type="submit" class="submit-button enabled" value="Next: Density Check" aria-label="Submit Form">',
 
     };
 

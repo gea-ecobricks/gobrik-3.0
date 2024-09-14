@@ -408,7 +408,7 @@ require_once ("../includes/log-inc.php");
             -->
 
                 <div data-lang-id="016-submit-button" style="margin:auto;text-align: center;margin-top:30px;">
-                    <input type="submit" class="submit-button enabled" value="Next: Check Ecobrick Density" aria-label="Submit Form">
+                    <input type="submit" class="submit-button enabled" value="Next: Density Check" aria-label="Submit Form">
                 </div>
 
                 <input type="hidden" id="location_country" name="location_country">

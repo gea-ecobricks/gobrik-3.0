@@ -118,7 +118,7 @@ const fr_Translations = {
     "learn-more": "En savoir plus ↗️",
     "link-note": "Le lien ouvre vers Ecobricks.org",
 
-};
+
 
 
 

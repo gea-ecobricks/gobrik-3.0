@@ -494,7 +494,7 @@ require_once ("../includes/log-inc.php");
 
 
 
-
+/*
     document.addEventListener("DOMContentLoaded", function() {
         // Initially hide all additional fields using visibility and height
         const communityField = document.getElementById("community_name").parentNode;
@@ -554,7 +554,7 @@ require_once ("../includes/log-inc.php");
         headers.forEach(header => {
             header.addEventListener('click', toggleAdvancedBox);
         });
-    });
+    }); */
 
 
     document.getElementById('submit-form').addEventListener('submit', function(event) {

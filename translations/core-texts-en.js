@@ -82,17 +82,18 @@ const en_Translations = {
     "watershed-text": "A watershed is an area of land where all the water from rain, melting snow, or ice converges to a single point, typically a river, lake, or ocean. These basins are a natural boundary that captures and channels precipitation through a network of rivers, streams, and underground aquifers, eventually directing the water to a common outlet. Watersheds play a crucial ecological role and provide water for human use. The health and management of watersheds are vital for ecological vitality.",
 
     "earthen-title": "Earthen",
-    "earthen-text": "Earthen is a sustainable building material...",
+    "earthen-text": "Earthen is a sustainable building material made from a combination of clay, sand, straw, and other natural fibers. It is used for constructing walls, floors, and roofs in eco-friendly buildings and has excellent thermal and acoustic insulation properties.",
     "ecobrick-title": "Ecobrick",
-    "ecobrick-text": "An ecobrick is a PET bottle packed solid...",
+    "ecobrick-text": "An ecobrick is a PET bottle packed solid with used plastic to the standards of plastic sequestration in order to make a reusable building block. It prevents plastic from degrading into toxins and microplastics, and turns it into a useful, durable building material.",
     "watershed-title": "Watershed",
-    "watershed-text": "A watershed is an area of land that drains...",
+    "watershed-text": "A watershed is an area of land that drains or channels water from rain or melting snow into a common outlet, such as a river, bay, or other body of water. It includes the rivers, streams, and groundwater that flow into that common outlet, and plays a crucial role in water quality and ecosystem health.",
     "ocean-title": "Ocean Ecobricks",
-    "ocean-text": "The Ocean Ecobricks are designed for plastics found on beaches, rivers, and in the ocean...",
+    "ocean-text": "The Ocean Ecobricks are designed for plastics found on beaches, rivers, and in the ocean where plastics tend to be large, chunky, dirty, and wet, and are not suited to make a regular ecobrick. The Ocean Ecobrick enables these plastics to be easily transformed into a practical, useful, and reusable building block.",
     "cigbrick-title": "Cigbricks",
-    "cigbrick-text": "Cigbricks are a new class of ecobrick designed to transform the habit of smoking...",
+    "cigbrick-text": "Cigbricks are a new class of ecobrick designed to transform the habit of smoking and the acetate from the cigarette filter into a personal and environmental solution. Cigbricks are made exclusively from the packed acetate filters of cigarette butts (with the paper removed), turning a toxic waste into a building block.",
     "regular-title": "Regular Ecobricks",
-    "regular-text": "A regular ecobrick is an uncut bottle packed solid with used plastic...",
+    "regular-text": "A regular ecobrick is an uncut PET bottle packed solid with used plastic to a set density (between 0.33 and 0.7 g/ml) to make a reusable building block. It is made to the standards of plastic sequestration, ensuring that the plastic is safely secured and unable to degrade into microplastics.",
     "learn-more": "Learn more ↗️",
     "link-note": "Link opens to Ecobricks.org"
+
 };

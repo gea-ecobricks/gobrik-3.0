@@ -446,6 +446,7 @@ function showModalInfo(type, lang) {
                 <p class="preview-text" style="text-align:center;">${translations['regular-text']}</p>
                 <div style="width:100%;text-align:center;">
                     <a class="preview-btn" href="what.php">${translations['learn-more']}</a>
+                    <p style="font-size:smaller">${translations['link-note']}</p>
                 </div>
 
             `;

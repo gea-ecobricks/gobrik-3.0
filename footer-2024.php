@@ -418,7 +418,6 @@ function showModalInfo(type, lang) {
         case 'ocean':
             content = `
                 <img class="preview-image brik-type-image" src="../svgs/oebs.svg" alt="${translations['ocean-title']}" height="200" width="200" style="margin:auto; display:block;">
-                <h4 style="text-align:center; display:block;">${translations['ocean-title']}</h4>
                 <div class="preview-text" style="text-align:center;">${translations['ocean-text']}</div>
                 <div style="width:100%;text-align:center;">
                     <a class="preview-btn" href="https://ecobricks.org/ocean" target="_blank">${translations['learn-more']}</a>
@@ -430,7 +429,6 @@ function showModalInfo(type, lang) {
         case 'cigbrick':
             content = `
                 <img src="../svgs/cigbrick.svg" alt="${translations['cigbrick-title']}" height="250px" width="250px" class="preview-image" style="margin:auto; display:block;">
-                <div class="preview-title" style="text-align:center;">${translations['cigbrick-title']}</div>
                 <div class="preview-text" style="text-align:center;">${translations['cigbrick-text']}</div>
                 <div style="width:100%;text-align:center;">
                     <a class="preview-btn" href="/cigbricks">${translations['learn-more']}</a>
@@ -442,7 +440,6 @@ function showModalInfo(type, lang) {
         case 'regular':
             content = `
                 <img class="preview-image" src="../webp/eb-sky-400px.webp" alt="${translations['regular-title']}" height="300" width="300" style="margin:auto; display:block;">
-                <div class="preview-title" style="text-align:center;">${translations['regular-title']}</div>
                 <p class="preview-text" style="text-align:center;">${translations['regular-text']}</p>
                 <div style="width:100%;text-align:center;">
                     <a class="preview-btn" href="what.php">${translations['learn-more']}</a>

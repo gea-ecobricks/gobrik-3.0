@@ -90,7 +90,7 @@ const en_Translations = {
     "ocean-title": "Ocean Ecobricks",
     "ocean-text": "The Ocean Ecobricks are designed for plastics found on beaches, rivers, and in the ocean where plastics tend to be large, chunky, dirty, and wet, and are not suited to make a regular ecobrick. The Ocean Ecobrick enables these plastics to be easily transformed into a practical, useful, and reusable building block.",
     "cigbrick-title": "Cigbricks",
-    "cigbrick-text": "Cigbricks are a new class of ecobrick designed to transform the habit of smoking and the acetate from the cigarette filter into a personal and environmental solution. Cigbricks are made exclusively from the packed acetate filters of cigarette butts (with the paper removed), turning a toxic waste into a building block.",
+    "cigbrick-text": "Cigbricks are made exclusively from the acetate (a type of plastic) filters of cigarette butts.  The paper and ash are removed from butts and the filter is packed into an uncut PET bottle.",
     "regular-title": "Regular Ecobricks",
     "regular-text": "A regular ecobrick is an uncut PET bottle packed solid with used plastic to a set density (between 0.33 and 0.7 g/ml) to make a reusable building block. It is made to the standards of plastic sequestration, ensuring that the plastic is safely secured and unable to degrade into microplastics.",
     "learn-more": "Learn more ↗️",

@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.42';
+$version = '0.43';
 $page = 'log';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -198,7 +198,7 @@ require_once ("../includes/log-inc.php");
 <!-- PAGE CONTENT -->
    <div id="top-page-image" class="log-ecobrick top-page-image" style="height: 30px; margin-top: 150px;"></div>
 
-<div id="form-submission-box" class="landing-page-form">
+<div id="form-submission-box" class="landing-page-form" style="height:auto !important">
     <div class="form-container">
                <!--<div class="form-top-header" style="display:flex;flex-flow:row;">
 
@@ -369,7 +369,7 @@ require_once ("../includes/log-inc.php");
                 </div>
 
 
-
+<!--
                 <div class="advanced-box" aria-expanded="false" role="region" aria-labelledby="advancedBoxLabel-1">
                     <div class="advanced-box-header"  id="advancedBoxLabel-1">
                         <div class="advanced-title" data-lang-id="013-advanced-options">Advanced Options</div>
@@ -382,7 +382,7 @@ require_once ("../includes/log-inc.php");
                             <input type="text" id="community_name" name="community_name" aria-label="Community Name">
                             <p class="form-caption" data-lang-id="012-community-name-caption">Optional: Provide the name of the community initiative.</p>
 
-                            <!--ERRORS-->
+
                             <div id="community-error-long" class="form-field-error" data-lang-id="000-field-too-long-error">Entry is too long.</div>
                         </div>
 
@@ -391,7 +391,6 @@ require_once ("../includes/log-inc.php");
                             <input type="number" id="project_id" name="project_id" aria-label="Project ID">
                             <p class="form-caption" data-lang-id="014-project-id-caption">Optional: Provide the project ID if this ecobrick is part of a project.</p>
 
-                            <!--ERRORS-->
                             <div id="project-error-long" class="form-field-error" data-lang-id="000-field-too-long-error">Entry is too long.</div>
                         </div>
 
@@ -400,12 +399,12 @@ require_once ("../includes/log-inc.php");
                             <input type="number" id="training_id" name="training_id" aria-label="Training ID">
                             <p class="form-caption" data-lang-id="015-training-id-caption">Optional: Provide the training ID if this ecobrick was made in a training.</p>
 
-                            <!--ERRORS-->
                             <div id="training-error-long" class="form-field-error" data-lang-id="000-field-too-long-error">Entry is too long.</div>
                         </div>
 
                     </div>
                 </div>
+            -->
 
                 <div data-lang-id="016-submit-button" style="margin:auto;text-align: center;margin-top:30px;">
                     <input type="submit" class="submit-button enabled" value="Next: Check Ecobrick Density" aria-label="Submit Form">

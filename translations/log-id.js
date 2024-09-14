@@ -12,8 +12,28 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 
 
 const id_Page_Translations = {
+    "001-log-title": "Catat Ecobrick",
+    "002-log-subheading": "Bagikan ecobrick Anda dengan dunia!<br>Gunakan formulir ini untuk mencatat ecobrick Anda ke dalam sistem brikchain.",
+    "005-ecobricker-maker": "Siapa yang membuat ecobrick ini?",
+    "005b-ecobricker-maker-caption": "Berikan nama pembuat ecobrick. Hindari karakter khusus.",
+    "000-field-required-error": "Bidang ini wajib diisi.",
+    "000-maker-field-too-long-error": "Nama terlalu panjang. Maksimal 255 karakter.",
+    "005b-maker-error": "Entri ini mengandung karakter tidak valid. Hindari penggunaan tanda kutip, garis miring, dan tanda lebih besar dari.",
+    "006-volume-ml": "Volume Ecobrick (dalam mililiter):",
+    "006-volume-ml-caption": "Harap berikan volume ecobrick dalam mililiter.",
+    "007-weight-g": "Berat Ecobrick (dalam gram):",
+    "007-weight-g-caption": "Harap berikan berat ecobrick dalam gram.",
+    "007-brand_name": "Merk botol apa yang digunakan untuk ecobrick ini?",
+    "000-field-too-long-error": "Entri ini harus kurang dari 100 karakter. Yang kami butuhkan hanya nama merek botol, misalnya \"Max Water\".",
+    "000-field-invalid-error": "Entri ini mengandung karakter tidak valid. Hindari penggunaan tanda kutip, garis miring, dan tanda lebih besar dari.",
+    "008-bottom-color": "Warna dasar Ecobrick:",
+    "008-bottom-color-caption": "Silakan pilih warna dasar ecobrick.",
+    "009-sequestration-type": "Jenis ecobrick apa ini?",
+    "009-sequestration-type-caption": "Silakan pilih jenis ecobrick. Pelajari lebih lanjut tentang <a href=\"#\" onclick=\"showModalInfo('ocean')\" class=\"underline-link\">Ocean Ecobricks</a>, <a href=\"#\" onclick=\"showModalInfo('cigbrick')\" class=\"underline-link\">Cigbricks</a> dan <a href=\"#\" onclick=\"showModalInfo('regular')\" class=\"underline-link\">Regular Ecobricks</a>.",
+    "010-plastic-from": "Dari mana asal plastik ini?",
+    "010-plastic-from-caption": "Dari mana plastik ecobrick Anda berasal?",
+    "011-location-full": "Di mana ecobrick ini berada?",
+    "011-location-full-caption": "Mulailah mengetik nama kota atau desa Anda, dan kami akan mengisi sisanya menggunakan API openstreetmaps yang bersumber terbuka dan non-korporat. Hindari penggunaan alamat lengkap Anda untuk privasi -- cukup kota, desa, atau negara Anda saja."
+};
 
-
-
-}
 

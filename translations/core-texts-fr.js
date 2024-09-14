@@ -119,8 +119,4 @@ const fr_Translations = {
     "link-note": "Le lien ouvre vers Ecobricks.org",
 
 
-
-
-
-
 };

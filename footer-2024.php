@@ -406,7 +406,10 @@ function showModalInfo(type, lang) {
 
         case 'watershed':
             content = `
-                <div class="preview-title">${translations['watershed-title']}</div>
+                <div style="width:100%;text-align:center;">
+                    <h1>💦</h2>
+                </div>
+                    >{translations['watershed-title']}</div>
                 <div class="preview-text">${translations['watershed-text']}</div>
             `;
             break;
@@ -417,8 +420,10 @@ function showModalInfo(type, lang) {
                 <img class="preview-image brik-type-image" src="../svgs/oebs.svg" alt="${translations['ocean-title']}" height="200" width="200" style="margin:auto; display:block;">
                 <h4 style="text-align:center; display:block;">${translations['ocean-title']}</h4>
                 <div class="preview-text" style="text-align:center;">${translations['ocean-text']}</div>
-                <a class="submit-button cancel" href="https://ecobricks.org/ocean" target="_blank">${translations['learn-more']}</a>
-                <p style="font-size:smaller">${translations['link-note']}</p>
+                <div style="width:100%;text-align:center;">
+                    <a class="preview-btn" href="https://ecobricks.org/ocean" target="_blank">${translations['learn-more']}</a>
+                    <p style="font-size:smaller">${translations['link-note']}</p>
+                </div>
             `;
             break;
 
@@ -427,17 +432,22 @@ function showModalInfo(type, lang) {
                 <img src="../svgs/cigbrick.svg" alt="${translations['cigbrick-title']}" height="250px" width="250px" class="preview-image" style="margin:auto; display:block;">
                 <div class="preview-title" style="text-align:center;">${translations['cigbrick-title']}</div>
                 <div class="preview-text" style="text-align:center;">${translations['cigbrick-text']}</div>
-                <a class="preview-btn" href="/cigbricks">${translations['learn-more']}</a>
-                <p style="font-size:smaller">${translations['link-note']}</p>
+                <div style="width:100%;text-align:center;">
+                    <a class="preview-btn" href="/cigbricks">${translations['learn-more']}</a>
+                    <p style="font-size:smaller">${translations['link-note']}</p>
+                </div>
             `;
             break;
 
         case 'regular':
             content = `
-                <img class="preview-image" src="../pngs/justandecobrick.png" alt="${translations['regular-title']}" height="300" width="300" style="margin:auto; display:block;">
+                <img class="preview-image" src="../webp/eb-sky-400px.webp" alt="${translations['regular-title']}" height="300" width="300" style="margin:auto; display:block;">
                 <div class="preview-title" style="text-align:center;">${translations['regular-title']}</div>
                 <p class="preview-text" style="text-align:center;">${translations['regular-text']}</p>
-                <a class="submit-button cancel" href="what.php">${translations['learn-more']}</a>
+                <div style="width:100%;text-align:center;">
+                    <a class="preview-btn" href="what.php">${translations['learn-more']}</a>
+                </div>
+
             `;
             break;
 

@@ -33,8 +33,7 @@ const en_Page_Translations = {
     "010-plastic-from": "Where is the plastic from?",
     "010-plastic-from-caption": "From where was your ecobrick's plastic sourced?",
     "011-location-full": "Where is this ecobrick based?",
-    "011-location-full-caption": "Start typing the name of your town or city, and we'll fill in the rest using the open source, non-corporate openstreetmaps API. Avoid using your exact address for privacy-- just your town, city or country is fine."
-
+    "011-location-full-caption": "Start typing the name of your town or city, and we'll fill in the rest using the open source, non-corporate openstreetmaps API. Avoid using your exact address for privacy-- just your town, city or country is fine.",
 
     "009-select-bottom-color": "Select bottom color...",
     "010-no-color-set": "No deliberate color set",

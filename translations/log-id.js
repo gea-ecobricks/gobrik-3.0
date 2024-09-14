@@ -33,7 +33,7 @@ const id_Page_Translations = {
     "010-plastic-from": "Dari mana asal plastik ini?",
     "010-plastic-from-caption": "Dari mana plastik ecobrick Anda berasal?",
     "011-location-full": "Di mana ecobrick ini berada?",
-    "011-location-full-caption": "Mulailah mengetik nama kota atau desa Anda, dan kami akan mengisi sisanya menggunakan API openstreetmaps yang bersumber terbuka dan non-korporat. Hindari penggunaan alamat lengkap Anda untuk privasi -- cukup kota, desa, atau negara Anda saja."
+    "011-location-full-caption": "Mulailah mengetik nama kota atau desa Anda, dan kami akan mengisi sisanya menggunakan API openstreetmaps yang bersumber terbuka dan non-korporat. Hindari penggunaan alamat lengkap Anda untuk privasi -- cukup kota, desa, atau negara Anda saja.",
 
     "009-select-bottom-color": "Pilih warna bawah...",
     "010-no-color-set": "Tidak ada warna yang ditentukan",

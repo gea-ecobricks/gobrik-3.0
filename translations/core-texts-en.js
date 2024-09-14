@@ -79,5 +79,20 @@ const en_Translations = {
     "ecobrick-title": "The Term",
     "ecobrick-text": "In 2016, plastic transition leaders around the world agreed to use the non-hyphenated, non-capitalized term 'ecobrick' as the consistent, standardized term of reference in the guidebook and their materials. In this way, ecobrickers around the world would be able to refer with one word to the same concept, and web searches and hashtags would accelerate global dissemination. See wikipedia.org/ecobricks for the full history.",
     "watershed-title": "Watersheds",
-    "watershed-text": "A watershed is an area of land where all the water from rain, melting snow, or ice converges to a single point, typically a river, lake, or ocean. These basins are a natural boundary that captures and channels precipitation through a network of rivers, streams, and underground aquifers, eventually directing the water to a common outlet. Watersheds play a crucial ecological role and provide water for human use. The health and management of watersheds are vital for ecological vitality."
+    "watershed-text": "A watershed is an area of land where all the water from rain, melting snow, or ice converges to a single point, typically a river, lake, or ocean. These basins are a natural boundary that captures and channels precipitation through a network of rivers, streams, and underground aquifers, eventually directing the water to a common outlet. Watersheds play a crucial ecological role and provide water for human use. The health and management of watersheds are vital for ecological vitality.",
+
+    "earthen-title": "Earthen",
+    "earthen-text": "Earthen is a sustainable building material...",
+    "ecobrick-title": "Ecobrick",
+    "ecobrick-text": "An ecobrick is a PET bottle packed solid...",
+    "watershed-title": "Watershed",
+    "watershed-text": "A watershed is an area of land that drains...",
+    "ocean-title": "Ocean Ecobricks",
+    "ocean-text": "The Ocean Ecobricks are designed for plastics found on beaches, rivers, and in the ocean...",
+    "cigbrick-title": "Cigbricks",
+    "cigbrick-text": "Cigbricks are a new class of ecobrick designed to transform the habit of smoking...",
+    "regular-title": "Regular Ecobricks",
+    "regular-text": "A regular ecobrick is an uncut bottle packed solid with used plastic...",
+    "learn-more": "Learn more ↗️",
+    "link-note": "Link opens to Ecobricks.org"
 };

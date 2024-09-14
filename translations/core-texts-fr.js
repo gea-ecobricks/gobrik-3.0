@@ -101,7 +101,25 @@ const fr_Translations = {
     "ecobrick-title": "Le Terme",
     "ecobrick-text": "En 2016, les leaders de la transition plastique du monde entier ont convenu d'utiliser le terme 'ecobrick' sans trait d'union ni majuscule comme terme de référence cohérent et standardisé dans le guide et leurs documents. Ainsi, les ecobrickers du monde entier pourraient se référer avec un seul mot au même concept et les recherches sur le web ainsi que les hashtags accéléreraient la diffusion mondiale. Consultez wikipedia.org/ecobricks pour l'histoire complète.",
     "watershed-title": "Bassin Versant",
-    "watershed-text": "Un bassin versant est une zone de terre où toute l'eau provenant de la pluie, de la fonte des neiges ou de la glace converge vers un point unique, généralement une rivière, un lac ou un océan. Ces bassins constituent une frontière naturelle qui capture et canalise les précipitations à travers un réseau de rivières, de ruisseaux et d'aquifères souterrains, dirigeant finalement l'eau vers un exutoire commun. Les bassins versants jouent un rôle écologique crucial et fournissent de l'eau pour un usage humain. La santé et la gestion des bassins versants sont vitales pour la vitalité écologique."
+    "watershed-text": "Un bassin versant est une zone de terre où toute l'eau provenant de la pluie, de la fonte des neiges ou de la glace converge vers un point unique, généralement une rivière, un lac ou un océan. Ces bassins constituent une frontière naturelle qui capture et canalise les précipitations à travers un réseau de rivières, de ruisseaux et d'aquifères souterrains, dirigeant finalement l'eau vers un exutoire commun. Les bassins versants jouent un rôle écologique crucial et fournissent de l'eau pour un usage humain. La santé et la gestion des bassins versants sont vitales pour la vitalité écologique.",
+
+    "earthen-title": "Terrestre",
+    "earthen-text": "Terrestre est un matériau de construction durable...",
+    "ecobrick-title": "Écobrique",
+    "ecobrick-text": "Une écobrique est une bouteille PET remplie de plastique...",
+    "watershed-title": "Bassin Versant",
+    "watershed-text": "Un bassin versant est une zone de terre qui draine l'eau...",
+    "ocean-title": "Écobriques Océan",
+    "ocean-text": "Les écobriques océan sont conçues pour les plastiques trouvés sur les plages, les rivières et dans l'océan...",
+    "cigbrick-title": "Cigbricks",
+    "cigbrick-text": "Les Cigbricks sont une nouvelle classe d'écobrique conçue pour transformer l'habitude de fumer...",
+    "regular-title": "Écobriques Régulières",
+    "regular-text": "Une écobrique régulière est une bouteille non coupée remplie de plastique usagé...",
+    "learn-more": "En savoir plus ↗️",
+    "link-note": "Le lien ouvre vers Ecobricks.org",
+
+};
+
 
 
 

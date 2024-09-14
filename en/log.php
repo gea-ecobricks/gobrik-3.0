@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.46';
+$version = '0.48';
 $page = 'log';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -443,52 +443,52 @@ require_once ("../includes/log-inc.php");
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <script>
-
-    function showModalInfo(type) {
-        const modal = document.getElementById('form-modal-message');
-        const photobox = document.getElementById('modal-photo-box');
-        const messageContainer = modal.querySelector('.modal-message');
-        let content = '';
-        photobox.style.display = 'none';
-        switch(type) {
-            case 'ocean':
-                content = `
-                <img class="preview-image" class="brik-type-image" src="../svgs/oebs.svg" alt="Ocean Ecobrick Image" height="200" width="200" style=\"margin:auto; display:block;\">
-                <h4 style=\"text-align:center; display:block;\">Ocean Ecobricks</h4>
-                <div class="preview-text" style=\"text-align:center;\">The Ocean Ecobrick are designed for plastics found on beaches, rivers and in the ocean where plastics tend to be large, chunky, dirty, and wet and are not suited to make a regular ecobrick. The Ocean Ecobrick enables these plastics to be easily transformed into a practical, useful, and reusable building block.</p>
-                <a class="submit-button cancel" href="https://ecobricks.org/ocean" target=_blank>Learn more ↗️</a>
-                <p style="font-size:smaller">Link opens to Ecobricks.org</p>
-            `;
-                break;
-            case 'cigbrick':
-                content = `
-                <img src="../svgs/cigbrick.svg" alt="Cigbrick Image" height="250px" width="250px" class="preview-image" style=\"margin:auto; display:block;\">
-                <div class="preview-title" style=\"text-align:center;\">Cigbricks</div>
-                <div class="preview-text" style=\"text-align:center;\">Cigbricks are a new class of ecobrick design to transform the habit of smoking and the acetate from the cigarette filter into a personal and environmental solution. Cigbricks are made exclusively from the packed acetate filters of cigarette butts (with the paper removed).</div>
-                <a class="preview-btn" href="/cigbricks">Learn more ↗️</a>
-                <p style="font-size:smaller">Link opens to Ecobricks.org</p>
-            `;
-                break;
-            case 'regular':
-                content = `
-                <img class="preview-image" src="../pngs/justandecobrick.png" alt="Regular Ecobrick Image" height="300" width="300" style=\"margin:auto; display:block;\">
-                 <div class="preview-title" style=\"text-align:center;\">Regular Ecobricks</div>
-                <p class="preview-text" style=\"text-align:center;\">An ecobrick is a PET bottle packed solid with used plastic to the standards of plastic sequestration in order to make a reusable building block.  A regular ecobrick is an uncut bottle packed solid with used plastic to a set density (between 0.33 and 0.7 g/ml) to make a reusable building block.</p>
-                <a class="submit-button cancel" href="what.php">Learn more ↗️</a>
-            `;
-                break;
-            default:
-                content = '<p>Invalid ecobrick type selected.</p>';
-        }
-
-        messageContainer.innerHTML = content;
-
-        // Show the modal and update other page elements
-        modal.style.display = 'flex';
-        document.getElementById('page-content').classList.add('blurred');
-        document.getElementById('footer-full').classList.add('blurred');
-        document.body.classList.add('modal-open');
-    }
+//
+//     function showModalInfo(type) {
+//         const modal = document.getElementById('form-modal-message');
+//         const photobox = document.getElementById('modal-photo-box');
+//         const messageContainer = modal.querySelector('.modal-message');
+//         let content = '';
+//         photobox.style.display = 'none';
+//         switch(type) {
+//             case 'ocean':
+//                 content = `
+//                 <img class="preview-image" class="brik-type-image" src="../svgs/oebs.svg" alt="Ocean Ecobrick Image" height="200" width="200" style=\"margin:auto; display:block;\">
+//                 <h4 style=\"text-align:center; display:block;\">Ocean Ecobricks</h4>
+//                 <div class="preview-text" style=\"text-align:center;\">The Ocean Ecobrick are designed for plastics found on beaches, rivers and in the ocean where plastics tend to be large, chunky, dirty, and wet and are not suited to make a regular ecobrick. The Ocean Ecobrick enables these plastics to be easily transformed into a practical, useful, and reusable building block.</p>
+//                 <a class="submit-button cancel" href="https://ecobricks.org/ocean" target=_blank>Learn more ↗️</a>
+//                 <p style="font-size:smaller">Link opens to Ecobricks.org</p>
+//             `;
+//                 break;
+//             case 'cigbrick':
+//                 content = `
+//                 <img src="../svgs/cigbrick.svg" alt="Cigbrick Image" height="250px" width="250px" class="preview-image" style=\"margin:auto; display:block;\">
+//                 <div class="preview-title" style=\"text-align:center;\">Cigbricks</div>
+//                 <div class="preview-text" style=\"text-align:center;\">Cigbricks are a new class of ecobrick design to transform the habit of smoking and the acetate from the cigarette filter into a personal and environmental solution. Cigbricks are made exclusively from the packed acetate filters of cigarette butts (with the paper removed).</div>
+//                 <a class="preview-btn" href="/cigbricks">Learn more ↗️</a>
+//                 <p style="font-size:smaller">Link opens to Ecobricks.org</p>
+//             `;
+//                 break;
+//             case 'regular':
+//                 content = `
+//                 <img class="preview-image" src="../pngs/justandecobrick.png" alt="Regular Ecobrick Image" height="300" width="300" style=\"margin:auto; display:block;\">
+//                  <div class="preview-title" style=\"text-align:center;\">Regular Ecobricks</div>
+//                 <p class="preview-text" style=\"text-align:center;\">An ecobrick is a PET bottle packed solid with used plastic to the standards of plastic sequestration in order to make a reusable building block.  A regular ecobrick is an uncut bottle packed solid with used plastic to a set density (between 0.33 and 0.7 g/ml) to make a reusable building block.</p>
+//                 <a class="submit-button cancel" href="what.php">Learn more ↗️</a>
+//             `;
+//                 break;
+//             default:
+//                 content = '<p>Invalid ecobrick type selected.</p>';
+//         }
+//
+//         messageContainer.innerHTML = content;
+//
+//         // Show the modal and update other page elements
+//         modal.style.display = 'flex';
+//         document.getElementById('page-content').classList.add('blurred');
+//         document.getElementById('footer-full').classList.add('blurred');
+//         document.body.classList.add('modal-open');
+//     }
 
 
 

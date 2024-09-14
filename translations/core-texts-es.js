@@ -82,5 +82,22 @@ const es_Translations = {
     "ecobrick-title": "El Término",
     "ecobrick-text": "En 2016, los líderes de la transición plástica de todo el mundo acordaron usar el término 'ecobrick' sin guion y sin mayúscula como el término de referencia coherente y estandarizado en la guía y sus materiales. De esta manera, los ecobrickers de todo el mundo podrían referirse con una sola palabra al mismo concepto y las búsquedas en la web, así como los hashtags, acelerarían la difusión global. Consulte wikipedia.org/ecobricks para la historia completa.",
     "watershed-title": "Cuencas Hidrográficas",
-    "watershed-text": "Una cuenca hidrográfica es un área de tierra donde toda el agua de la lluvia, la nieve derretida o el hielo converge en un solo punto, típicamente un río, un lago o un océano. Estas cuencas son una frontera natural que captura y canaliza la precipitación a través de una red de ríos, arroyos y acuíferos subterráneos, dirigiendo finalmente el agua hacia un punto de salida común. Las cuencas hidrográficas juegan un papel ecológico crucial y proporcionan agua para uso humano. La salud y la gestión de las cuencas hidrográficas son vitales para la vitalidad ecológica."
+    "watershed-text": "Una cuenca hidrográfica es un área de tierra donde toda el agua de la lluvia, la nieve derretida o el hielo converge en un solo punto, típicamente un río, un lago o un océano. Estas cuencas son una frontera natural que captura y canaliza la precipitación a través de una red de ríos, arroyos y acuíferos subterráneos, dirigiendo finalmente el agua hacia un punto de salida común. Las cuencas hidrográficas juegan un papel ecológico crucial y proporcionan agua para uso humano. La salud y la gestión de las cuencas hidrográficas son vitales para la vitalidad ecológica.",
+
+    "earthen-title": "Terrestre",
+    "earthen-text": "Terrestre es un material de construcción sostenible...",
+    "ecobrick-title": "Ecoladrillo",
+    "ecobrick-text": "Un ecoladrillo es una botella PET empacada con plástico...",
+    "watershed-title": "Cuenca Hidrográfica",
+    "watershed-text": "Una cuenca hidrográfica es un área de tierra que drena el agua...",
+    "ocean-title": "Ecoladrillos Oceánicos",
+    "ocean-text": "Los ecoladrillos oceánicos están diseñados para plásticos encontrados en playas, ríos y en el océano...",
+    "cigbrick-title": "Cigbricks",
+    "cigbrick-text": "Los Cigbricks son una nueva clase de ecoladrillo diseñados para transformar el hábito de fumar...",
+    "regular-title": "Ecoladrillos Regulares",
+    "regular-text": "Un ecoladrillo regular es una botella sin cortar empacada con plástico usado...",
+    "learn-more": "Aprende más ↗️",
+    "link-note": "El enlace se abre en Ecobricks.org",
+
+
 };

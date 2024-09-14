@@ -75,7 +75,7 @@
 .form-caption {
     font-size: 1rem;
     color: var(--text-color);
-    text-align: center;
+/*     text-align: center; */
 }
 
 

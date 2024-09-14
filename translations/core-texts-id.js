@@ -99,7 +99,22 @@ const id_Translations = {
     "ecobrick-title": "Istilah",
     "ecobrick-text": "Pada tahun 2016, para pemimpin transisi plastik di seluruh dunia sepakat untuk menggunakan istilah 'ecobrick' tanpa tanda hubung dan huruf kapital sebagai istilah standar yang konsisten dalam panduan dan materi mereka. Dengan cara ini, ecobrickers di seluruh dunia dapat merujuk dengan satu kata ke konsep yang sama dan pencarian web serta tagar akan mempercepat penyebaran global. Lihat wikipedia.org/ecobricks untuk sejarah lengkapnya.",
     "watershed-title": "Daerah Aliran Sungai (DAS)",
-    "watershed-text": "Daerah aliran sungai (DAS) adalah suatu wilayah daratan di mana semua air dari hujan, salju yang mencair, atau es berkumpul di satu titik, biasanya sebuah sungai, danau, atau laut. DAS ini membentuk batasan alami yang menangkap dan menyalurkan presipitasi melalui jaringan sungai, aliran, dan akuifer bawah tanah, akhirnya mengarahkan air ke satu saluran keluaran. DAS memainkan peran ekologis penting dan menyediakan air untuk penggunaan manusia. Kesehatan dan pengelolaan DAS sangat penting untuk vitalitas ekologi."
+    "watershed-text": "Daerah aliran sungai (DAS) adalah suatu wilayah daratan di mana semua air dari hujan, salju yang mencair, atau es berkumpul di satu titik, biasanya sebuah sungai, danau, atau laut. DAS ini membentuk batasan alami yang menangkap dan menyalurkan presipitasi melalui jaringan sungai, aliran, dan akuifer bawah tanah, akhirnya mengarahkan air ke satu saluran keluaran. DAS memainkan peran ekologis penting dan menyediakan air untuk penggunaan manusia. Kesehatan dan pengelolaan DAS sangat penting untuk vitalitas ekologi.",
+
+     "earthen-title": "Terrestre",
+    "earthen-text": "Terrestre adalah bahan bangunan yang berkelanjutan...",
+    "ecobrick-title": "Ecobrick",
+    "ecobrick-text": "Ecobrick adalah botol PET yang diisi penuh dengan plastik...",
+    "watershed-title": "Daerah Aliran Sungai",
+    "watershed-text": "Daerah aliran sungai adalah area daratan yang mengalirkan air...",
+    "ocean-title": "Ecobrick Laut",
+    "ocean-text": "Ecobrick Laut dirancang untuk plastik yang ditemukan di pantai, sungai, dan laut...",
+    "cigbrick-title": "Cigbrick",
+    "cigbrick-text": "Cigbrick adalah kelas baru ecobrick yang dirancang untuk mengubah kebiasaan merokok...",
+    "regular-title": "Ecobrick Reguler",
+    "regular-text": "Ecobrick reguler adalah botol yang tidak dipotong, diisi penuh dengan plastik bekas...",
+    "learn-more": "Pelajari lebih lanjut ↗️",
+    "link-note": "Tautan membuka ke Ecobricks.org"
 
 
 

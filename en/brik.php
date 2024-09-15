@@ -44,7 +44,7 @@ require_once '../gobrikconn_env.php';
 $serialNo = $_GET['serial_no'];
 
 $sql = "SELECT * FROM tb_ecobricks WHERE serial_no = '" . $serialNo . "'";
-$result = $conn->query($sql);
+$result = $gobrik_conn->query($sql);
 if ($result->num_rows > 0) {
 while($array = $result->fetch_assoc()) {
 

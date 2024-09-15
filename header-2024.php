@@ -491,7 +491,7 @@ display: none;
 
                 <button type="button" id="top-settings-button"  aria-label="Open site settings"></button>
 
-                <div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>
+                <div id="language-code" onclick="showLangSelector()" aria-label="Switch languages">🌐 <span data-lang-id="000-language-code">EN</span></div>
 
                 <button type="button" class="top-search-button"  onclick="openSearch()"  aria-label="Search site">
                 </button>

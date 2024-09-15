@@ -399,11 +399,11 @@
 #language-code {
   color: var(--subdued-text);
   font-size: 1.1em;
-  padding: 5px;
+  padding: 7px;
   cursor: pointer;
   border-radius: 5px;
   background: var(--darker);
-  font-family:'Mulish' sans-serif;
+  font-family: 'Mulish', sans-serif;
   margin-right:15px;
 
 }

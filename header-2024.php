@@ -362,7 +362,7 @@ display: none;
 
         <div class="logged-in-links" style="width:100%; font-size: 0.8em; margin-top: 5px; text-align: left;">
            <p style="font-size:0.9em; margin:0px;"><span id="continent-icon"><?php echo htmlspecialchars($country_icon); ?> </span> <span style="color:green;"><?php echo htmlspecialchars($watershed_name); ?></span></p>
-           <p style="font-size:0.9em; margin:0px;">⚙️ <a href="profile.php" class="underline-link" data-lang-id="1000-profile-settings">Profile settings</a> |
+           <p style="font-size:0.9em; margin:0px;"><span id="language-code" onclick="showLangSelector()" aria-label="Switch languages" data-lang-id="000-language-code">🌐 EN</span> | ⚙️ <a href="profile.php" class="underline-link" data-lang-id="1000-profile-settings">Profile settings</a> |
           🐳 <a href="logout.php?redirect=<?php echo urlencode($page); ?>" class="underline-link" onclick="handleLogout(event)" data-lang-id="1000-log-out">Log out</a></p>
         </div>
       </div>

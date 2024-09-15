@@ -501,7 +501,9 @@ display:none;
 /* Styling for Profile Settings and Log Out links */
 .logged-in-links {
   font-size: 0.8em;
+/*
   margin-left: 10px;
+*/
   margin-top: 5px;
 }
 

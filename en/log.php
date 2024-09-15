@@ -200,12 +200,12 @@ require_once ("../includes/log-inc.php");
 
 <div id="form-submission-box" class="landing-page-form" style="height:auto !important">
     <div class="form-container">
-               <!--<div class="form-top-header" style="display:flex;flex-flow:row;">
+               <div class="form-top-header" style="display:flex;flex-flow:row;">
 
                      <div class="step-graphic">
                     <img src="../svgs/step1-log-project.svg" style="height:25px;" loading="eager">
                 </div><div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>
-            </div>-->
+            </div>
 
 
            <div style="text-align:center;width:100%;margin:auto;">

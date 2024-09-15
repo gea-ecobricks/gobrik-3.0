@@ -484,8 +484,8 @@ display: none;
         <div id="function-icons" style="display: flex;flex-flow:row;margin:auto 10px auto auto;">
 
 
-        <button type="button" class="top-search-button"  onclick="openSearch()"  aria-label="Search site">
-                </button>
+        <!--<button type="button" class="top-search-button"  onclick="openSearch()"  aria-label="Search site">
+                </button>-->
 
             <div id="settings-buttons">
 
@@ -493,13 +493,13 @@ display: none;
 
                 <div id="language-code" onclick="showLangSelector()" aria-label="Switch languages"><span data-lang-id="000-language-code">🌐 EN</span></div>
 
+                <button type="button" class="top-search-button"  onclick="openSearch()"  aria-label="Search site">
+                </button>
 
-                <!--
+                <!--<button type="button" class="top-login-button" onclick="showLoginSelector()" aria-label="Login options"></button>
+
                 <button type="button" class="top-lang-button" onclick="showLangSelector()" aria-label="Switch languages"></button>
-                -->
-
-                <button type="button" class="top-login-button" onclick="showLoginSelector()" aria-label="Login options"></button>
-
+-->
                 <dark-mode-toggle
                 id="dark-mode-toggle-5" style="min-width:82px;margin-top:-5px;margin-bottom:-15px;"
                 class="slider"

@@ -396,6 +396,22 @@
 }
 
 
+#language-code {
+  color: var(--subdued-text);
+  font-size: 1.1em;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  background: var(--darker);
+  font-family:'Mulish' sans-serif;
+  margin-right:15px;
+
+}
+
+#language-code:hover {
+  color: var(--h1);
+}
+
 
 
 .top-lang-button  {

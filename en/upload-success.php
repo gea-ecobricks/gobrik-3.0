@@ -81,7 +81,7 @@ echo '<!DOCTYPE html>
                 <?php if ($ecobrick_full_photo_url): ?>
                     <div class="photo-container">
                         <img src="<?php echo $ecobrick_full_photo_url; ?>" alt="Basic Ecobrick Photo" style="max-width:500px;">
-                        <p class="photo-caption" style="font-size:1em;text-align:center;">Basic Ecobrick Photo</p>
+                        <p class="photo-caption" style="font-size:0.9em;color:grey;text-align:center;">Basic Ecobrick Photo</p>
                     </div>
                 <?php endif; ?>
                 <?php if ($selfie_photo_url): ?>
@@ -92,13 +92,13 @@ echo '<!DOCTYPE html>
                 <?php endif; ?>
             </div>
             <p data-lang-id="002-form-description2" style="text-align: center;">The Earth thanks You for your plastic sequestration and plastic transition!</p>
-            <a class="confirm-button" href="details-ecobrick-page.php?serial_no=<?php echo $serial_no; ?>" data-lang-id="013-view-ecobrick-post" style="max-width:300px;">🎉 View Ecobrick Post</a>
+            <a class="confirm-button" href="brik.php?serial_no=<?php echo $serial_no; ?>" data-lang-id="013-view-ecobrick-post" style="width:300px;">🎉 View Ecobrick Post</a>
             <form id="deleteForm" action="" method="POST">
                 <input type="hidden" name="ecobrick_unique_id" value="<?php echo htmlspecialchars($ecobrick_unique_id); ?>">
                 <input type="hidden" name="action" value="delete_ecobrick">
-                <a class="confirm-button" style="background:red; cursor:pointer;max-width:300px;" id="deleteButton" data-lang-id="014-delete-ecobrick">❌ Delete Ecobrick</a>
+                <a class="confirm-button" style="background:red; cursor:pointer;width:300px;" id="deleteButton" data-lang-id="014-delete-ecobrick">❌ Delete Ecobrick</a>
             </form>
-            <a class="confirm-button" href="log.php" data-lang-id="015-log-another-ecobrick" style="max-width:300px;">➕ Log another ecobrick</a>
+            <a class="confirm-button" href="log.php" data-lang-id="015-log-another-ecobrick" style="width:300px;">➕ Log another ecobrick</a>
             <br>
         </div>
     </div>

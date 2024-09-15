@@ -324,25 +324,25 @@
   transition: 0.4s;
   position: fixed;
   width: fit-content;
-  margin-top: -15px;
+  margin-top: -31px;
   margin-right: 3px;
 }
 
 @media screen and (max-width: 700px) {
   #settings-buttons {
-  right: -230px;
+  right: -250px;
 }
 }
 
 @media screen and (min-width: 700px) {
 
     #settings-buttons {
-    right: -230px;
+    right: -250px;
 }
 }
 
 #settings-buttons:hover {
-    right: -40px;
+    right: -30px;
 }
 
 #top-settings-button  {
@@ -380,7 +380,7 @@
   margin-right:6px;
   cursor:pointer;
   padding: 16px;
-  margin-right: 55px;
+  margin-right: 18px;
 }
 
 .side-menu-button  {

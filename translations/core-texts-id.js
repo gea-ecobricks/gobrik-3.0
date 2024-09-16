@@ -114,7 +114,7 @@ const id_Translations = {
     "regular-title": "Ecobrick Reguler",
     "regular-text": "Ecobrick reguler adalah botol yang tidak dipotong, diisi penuh dengan plastik bekas...",
     "learn-more": "Pelajari lebih lanjut ↗️",
-    "link-note": "Tautan membuka ke Ecobricks.org"
+    "link-note": "Tautan membuka ke Ecobricks.org",
 
 // MODULES
 

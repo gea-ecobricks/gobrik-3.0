@@ -141,7 +141,7 @@ echo
             <a class="module-btn" href="about.php" data-lang-id="106-side-authenticated-button">GEA Standards</a>
             <br><br>
         </div>
-    </div>';
+    ';
 
         }
         } else {

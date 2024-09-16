@@ -69,17 +69,13 @@ echo
 		<div class="main">
 			<div class="row-details">';
 
-         if (isset($array["vision"]) && $array["vision"] != '' && $array["vision"] != '""') {
-    // Remove extraneous double quotes from the vision value
-    $cleaned_vision = str_replace('"', "", $array["vision"]);
-
-    // Check if the cleaned vision value is not empty
-    if ($cleaned_vision !== '') {
-        echo '<p><div class="vision-quote"> "' . $cleaned_vision . '" </div></p>';
-    } else {
-        echo '<p><div class="vision-quote">' . $cleaned_vision . '</div></p>';
+if (isset($array["vision"]) && trim($array["vision"]) != '' && trim($array["vision"]) != '""') {
+    $visionText = trim($array["vision"]);
+    if ($visionText !== '') {
+        echo '<p><div class="vision-quote"> "' . str_replace('"', "", $visionText) . '" </div></p>';
     }
 }
+
 
 
 			echo '<div class="lead-page-paragraph">

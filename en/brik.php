@@ -69,9 +69,18 @@ echo
 		<div class="main">
 			<div class="row-details">';
 
-            if (isset($array["vision"]) && $array["vision"] != '' && $array["vision"] != '""') {
-                echo '<p><div class="vision-quote"> "'. str_replace('"', "", $array["vision"]) . '"  </div></p>';
-            }
+         if (isset($array["vision"]) && $array["vision"] != '' && $array["vision"] != '""') {
+    // Remove extraneous double quotes from the vision value
+    $cleaned_vision = str_replace('"', "", $array["vision"]);
+
+    // Check if the cleaned vision value is not empty
+    if ($cleaned_vision !== '') {
+        echo '<p><div class="vision-quote"> "' . $cleaned_vision . '" </div></p>';
+    } else {
+        echo '<p><div class="vision-quote">' . $cleaned_vision . '</div></p>';
+    }
+}
+
 
 			echo '<div class="lead-page-paragraph">
                     <p><b>'. $array["owner"] .' <span data-lang-id="110">has ecobricked </span> '. $array["weight_g"] .'&#8202;g<span data-lang-id="111"> of community plastic in </span>'. $array["location_full"] .'<span data-lang-id="112"> using a </span>'. $array["volume_ml"] .'ml <span data-lang-id="113"> bottle to make a </span>'. $array["sequestration_type"].'.</b></p>

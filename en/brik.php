@@ -159,6 +159,7 @@ if ($array['ecobrick_not_found']) {
         </div>';
 }
 }
+}
 $gobrik_conn->close();
 ?>
 

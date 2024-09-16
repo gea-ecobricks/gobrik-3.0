@@ -67,7 +67,8 @@ if ($result->num_rows > 0) {
             </div>
             <div id="splash-bar"></div>';
         } else {
-            // For non-authenticated ecobricks, show the modified intro message
+
+            // NON AUTHENTICATED ECOBRICKS
             echo '
             <div class="splash-content-block">
                 <div class="splash-box">
@@ -108,7 +109,7 @@ if ($result->num_rows > 0) {
             <div class="main-details">
                 <div class="page-paragraph">
                     <p><span data-lang-id="114">This ecobrick was with a density of </span>' . htmlspecialchars($array["density"], ENT_QUOTES, 'UTF-8') . '&#8202;g/ml <span data-lang-id="115">and represents </span>' . htmlspecialchars($array["CO2_kg"], ENT_QUOTES, 'UTF-8') . '&#8202;kg <span data-lang-id="116">of sequestered CO2. The ecobrick is permanently marked with Serial Number </span>' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . '<span data-lang-id="117"> and on </span>' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . '<span data-lang-id="118"> was automatically added to the validation queue.</p>
-                    <p><span data-lang-id="121">On </span>' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . '<span data-lang-id="122"> the ecobrick was authenticated after being reviewed by three independent validators. The ecobrick’s authentication generated </span>' . htmlspecialchars($array["ecobrick_dec_brk_val"], ENT_QUOTES, 'UTF-8') . '&#8202;ß. <span data-lang-id="124">The ecobrick was ranked with the score of </span>' . htmlspecialchars($array["final_validation_score"], ENT_QUOTES, 'UTF-8') . '.</p>
+                    <p><b>This ecobrick has not yet been peer reviewed.  Its plastic has not yet been authenticated as sequestered.</b></p>
                     <br>
                 </div>
             </div>';

@@ -103,12 +103,11 @@ if (isset($array["vision"])) {
                   </div>';
 			}
 
-           echo '
 
-			    </div>
-            </div>';
+		//data chunk
 
 			echo '
+			</div>
 			<br><hr><br>
 			<div class="page-paragraph">
 				<h3><p data-lang-id="151">The Brikchain</p></h3>

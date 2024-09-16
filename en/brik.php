@@ -19,7 +19,7 @@ $country_icon = '';
 $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 
 // Check if the user is logged in
-if ($is_logged_in) {
+if (isLoggedIn()) {
     $buwana_id = $_SESSION['buwana_id'];
     require_once '../buwanaconn_env.php'; // Include the Buwana database connection
 
@@ -36,114 +36,106 @@ echo '<!DOCTYPE html>
 <html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">
 <head>
 <meta charset="UTF-8">
-<title>Ecobrick Details</title>
-</head>
-<body>
 ';
 
-require_once("../includes/brik-inc.php");
+require_once ("../includes/brik-inc.php");
 require_once '../gobrikconn_env.php';
 
-// Get the contents from the Ecobrick table as an ordered View, using the serial_no from the URL.
-$serialNo = htmlspecialchars($_GET['serial_no'], ENT_QUOTES, 'UTF-8'); // Secure the input
+// Get the contents from the Ecobrick table as an ordered View, using the serial_no from the URL.  See:
+$serialNo = $_GET['serial_no'];
 
-$sql = "SELECT * FROM tb_ecobricks WHERE serial_no = ?";
-$stmt = $gobrik_conn->prepare($sql);
-$stmt->bind_param("s", $serialNo);
-$stmt->execute();
-$result = $stmt->get_result();
-
+$sql = "SELECT * FROM tb_ecobricks WHERE serial_no = '" . $serialNo . "'";
+$result = $gobrik_conn->query($sql);
 if ($result->num_rows > 0) {
-    while ($array = $result->fetch_assoc()) {
+while($array = $result->fetch_assoc()) {
 
-        echo '<div class="splash-content-block">
-            <div class="splash-box">
-                <div class="splash-heading"><span data-lang-id="001-splash-title">Ecobrick</span> ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . '</div>
-                <div class="splash-sub">' . htmlspecialchars($array["weight_authenticated_kg"], ENT_QUOTES, 'UTF-8') . '&#8202;kg <span data-lang-id="002-splash-subtitle">of plastic has been secured out of the biosphere in</span> ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . '</div>
-            </div>
-            <div class="splash-image">
-                <a href="javascript:void(0);" onclick="viewGalleryImage(\'' . htmlspecialchars($array["ecobrick_full_photo_url"], ENT_QUOTES, 'UTF-8') . '\', \'Ecobrick ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and logged on ' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . '\')">
-                    <img src="../' . htmlspecialchars($array["ecobrick_full_photo_url"], ENT_QUOTES, 'UTF-8') . '" alt="Ecobrick ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and logged on ' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . '" title="Ecobrick Serial ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and authenticated on ' . htmlspecialchars($array["last_validation_ts"], ENT_QUOTES, 'UTF-8') . '">
-                </a>
-            </div>
+echo '<div class="splash-content-block">
+    <div class="splash-box">
+        <div class="splash-heading"><span data-lang-id="001-splash-title">Ecobrick</span> ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . '</div>
+        <div class="splash-sub">' . htmlspecialchars($array["weight_authenticated_kg"], ENT_QUOTES, 'UTF-8') . '&#8202;kg <span data-lang-id="002-splash-subtitle">of plastic has been secured out of the biosphere in</span> ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . '</div>
+    </div>
+    <div class="splash-image">
+        <a href="javascript:void(0);" onclick="viewGalleryImage(\'' . htmlspecialchars($array["ecobrick_full_photo_url"], ENT_QUOTES, 'UTF-8') . '\', \'Ecobrick ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and logged on ' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . '\')">
+            <img src="../' . htmlspecialchars($array["ecobrick_full_photo_url"], ENT_QUOTES, 'UTF-8') . '" alt="Ecobrick ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and logged on ' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . '" title="Ecobrick Serial ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and authenticated on ' . htmlspecialchars($array["last_validation_ts"], ENT_QUOTES, 'UTF-8') . '">
+        </a>
+    </div>
+</div>
+<div id="splash-bar"></div>
+<div id="main-content">
+    <div class="row">
+        <div class="main">
+            <div class="row-details">';
+
+if (isset($array["vision"]) && $array["vision"] != '' && $array["vision"] != '""') {
+    echo '<p><div class="vision-quote"> "' . str_replace('"', "", $array["vision"]) . '"  </div></p>';
+}
+
+echo '<div class="lead-page-paragraph">
+        <p><b>' . $array["owner"] . ' <span data-lang-id="110">has ecobricked </span> ' . $array["weight_g"] . '&#8202;g<span data-lang-id="111"> of community plastic in </span>' . $array["location_city"] . ', ' . $array["location_country"] . '<span data-lang-id="112"> using a </span>' . $array["volume_ml"] . 'ml <span data-lang-id="113"> bottle to make a </span>' . $array["sequestration_type"] . '.</b></p>
+    </div>
+    <div class="main-details">
+        <div class="page-paragraph">
+            <p><span data-lang-id="114">This ecobrick was made with a density of </span>' . $array["density"] . '&#8202;g/ml <span data-lang-id="115">and represents </span>' . $array["CO2_kg"] . '&#8202;kg <span data-lang-id="116">of sequestered CO2. The ecobrick is permanently marked with Serial Number </span>' . $array["serial_no"] . '<span data-lang-id="117"> and on </span>' . $array["date_logged_ts"] . '<span data-lang-id="118"> was automatically added to the validation queue. Based in </span>' . $array["location_region"] . ', ' . $array["owner"] . '<span data-lang-id="119"> and their community </span>' . $array["community_name"] . ', <span data-lang-id="120"> are working hard to keep plastic out of the biosphere in </span>' . $array["location_country"] . '.</p>
+            <p><span data-lang-id="121">On </span>' . $array["date_logged_ts"] . '<span data-lang-id="122"> the ecobrick was authenticated after being reviewed by three independent validators. The ecobrick’s authentication generated </span>' . $array["ecobrick_dec_brk_val"] . '&#8202;ß. <span data-lang-id="124">The ecobrick was ranked with the score of </span>' . $array["final_validation_score"] . '.</p>
+            <br>
         </div>
-        <div id="splash-bar"></div>
-        <div id="main-content">
-            <div class="row">
-                <div class="main">
-                    <div class="row-details">';
+    </div>';
 
-        if (isset($array["vision"]) && $array["vision"] != '' && $array["vision"] != '""') {
-            echo '<p><div class="vision-quote"> "' . str_replace('"', "", $array["vision"]) . '"  </div></p>';
-        }
+if (isset($array["selfie_photo_url"]) && $array["selfie_photo_url"] != '') {
+    echo '<div class="side-details">
+        <img src="' . $array["selfie_photo_url"] . '" width="100%">
+    </div>';
+}
 
-        echo '<div class="lead-page-paragraph">
-                <p><b>' . htmlspecialchars($array["owner"], ENT_QUOTES, 'UTF-8') . ' <span data-lang-id="110">has ecobricked </span> ' . htmlspecialchars($array["weight_g"], ENT_QUOTES, 'UTF-8') . '&#8202;g<span data-lang-id="111"> of community plastic in </span>' . htmlspecialchars($array["location_city"], ENT_QUOTES, 'UTF-8') . ', ' . htmlspecialchars($array["location_country"], ENT_QUOTES, 'UTF-8') . '<span data-lang-id="112"> using a </span>' . htmlspecialchars($array["volume_ml"], ENT_QUOTES, 'UTF-8') . 'ml <span data-lang-id="113"> bottle to make a </span>' . htmlspecialchars($array["sequestration_type"], ENT_QUOTES, 'UTF-8') . '.</b></p>
-            </div>
-            <div class="main-details">
-                <div class="page-paragraph">
-                    <p><span data-lang-id="114">This ecobrick was made with a density of </span>' . htmlspecialchars($array["density"], ENT_QUOTES, 'UTF-8') . '&#8202;g/ml <span data-lang-id="115">and represents </span>' . htmlspecialchars($array["CO2_kg"], ENT_QUOTES, 'UTF-8') . '&#8202;kg <span data-lang-id="116">of sequestered CO2. The ecobrick is permanently marked with Serial Number </span>' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . '<span data-lang-id="117"> and on </span>' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . '<span data-lang-id="118"> was automatically added to the validation queue. Based in </span>' . htmlspecialchars($array["location_region"], ENT_QUOTES, 'UTF-8') . ', ' . htmlspecialchars($array["owner"], ENT_QUOTES, 'UTF-8') . '<span data-lang-id="119"> and their community </span>' . htmlspecialchars($array["community_name"], ENT_QUOTES, 'UTF-8') . ', <span data-lang-id="120"> are working hard to keep plastic out of the biosphere in </span>' . htmlspecialchars($array["location_country"], ENT_QUOTES, 'UTF-8') . '.</p>
-                    <p><span data-lang-id="121">On </span>' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . '<span data-lang-id="122"> the ecobrick was authenticated after being reviewed by three independent validators. The ecobrick’s authentication generated </span>' . htmlspecialchars($array["ecobrick_dec_brk_val"], ENT_QUOTES, 'UTF-8') . '&#8202;ß. <span data-lang-id="124">The ecobrick was ranked with the score of </span>' . htmlspecialchars($array["final_validation_score"], ENT_QUOTES, 'UTF-8') . '.</p>
-                    <br>
-                </div>
-            </div>';
+echo '</div>
+    <div id="data-chunk">
+        <div class="ecobrick-data">
+            <p style="margin-left: -32px;font-weight: bold;" data-lang-id="125"> +++ Raw Brikchain Data Record</p><br>
+            <p>--------------------</p>
+            <p data-lang-id="126">BEGIN BRIK RECORD ></p>
+            <p><b data-lang-id="127">Logged:</b> ' . $array["date_logged_ts"] . '</p>
+            <p><b data-lang-id="128">Volume:</b> ' . $array["volume_ml"] . ' &#8202;ml</p>
+            <p><b data-lang-id="129">Weight:</b> ' . $array["weight_g"] . '&#8202;g</p>
+            <p><b data-lang-id="130">Density:</b> ' . $array["density"] . '&#8202;g/ml</p>
+            <p><b data-lang-id="131">CO2e:</b> ' . $array["CO2_kg"] . ' &#8202;kg</p>
+            <p><b data-lang-id="132">Brikcoin value:</b> ' . $array["ecobrick_dec_brk_val"] . '&#8202;ß</p>
+            <p><b data-lang-id="133">Maker:</b> <i>' . $array["owner"] . '</i></p>
+            <p><b data-lang-id="134">Sequestration:</b> ' . $array["sequestration_type"] . '</p>
+            <p><b data-lang-id="135">Brand:</b> ' . $array["brand_name"] . '</p>
+            <p><b data-lang-id="136">Bottom colour:</b> ' . $array["bottom_colour"] . '</p>
+            <p><b data-lang-id="137">Plastic source:</b> ' . $array["plastic_from"] . '</p>
+            <p><b data-lang-id="138">Community:</b> ' . $array["community_name"] . '</p>
+            <p><b data-lang-id="139">City:</b> ' . $array["location_city"] . '</p>
+            <p><b data-lang-id="140">Region:</b> ' . $array["location_region"] . '</p>
+            <p><b data-lang-id="141">Country:</b> ' . $array["location_country"] . '</p>
+            <p><b data-lang-id="142">Full location:</b> ' . $array["location_full"] . '</p>
+            <p><b data-lang-id="143">Validation:</b> ' . $array["last_validation_ts"] . '</p>
+            <p><b data-lang-id="144">Validator 1:</b> ' . $array["validator_1"] . '</p>
+            <p><b data-lang-id="145">Validator 2:</b> ' . $array["validator_2"] . '</p>
+            <p><b data-lang-id="146">Validator 3:</b> ' . $array["validator_3"] . '</p>
+            <p><b data-lang-id="147">Validation score avg.:</b> ' . $array["validation_score_avg"] . '</p>
+            <p><b data-lang-id="147b">Catalyst:</b> ' . $array["catalyst"] . '</p>
+            <p><b data-lang-id="148">Validation score final:</b> ' . $array["final_validation_score"] . '</p>
+            <p><b data-lang-id="149">Authenticated weight:</b> ' . $array["weight_authenticated_kg"] . '&#8202;kg</p>
+            <p data-lang-id="150"> ||| END RECORD.</p>
+        </div>
+    </div>
+    <br><hr><br>
+    <div class="page-paragraph">
+        <h3><p data-lang-id="151">The Brikchain</p></h3>
+        <p data-lang-id="152">When an ecobrick is authenticated (like the one above!) it is published to the brikcoin manual blockchain and brikcoins are issued according to its ecological value. This is what we call the Brikchain. On the Brikchain, you can find this ecobrick as well as all the other ecobricks, blocks and transactions that underpin the Brickoin currency.</p>
+        <p data-lang-id="153">As a non-capital, manual process, brikcoin generation favors anyone anywhere willing to work with their hands to make a meaningful ecological contribution.</p>
+        <br>
+        <p><a class="action-btn-blue" href="brikchain.php" data-lang-id="154">🔎 Browse the Brikchain</a></p>
+        <p style="font-size: 0.85em; margin-top:20px;" data-lang-id="155">The live chain of transactions and ecobricks.</p>
+    </div>
+</div>';
 
-        if (isset($array["selfie_photo_url"]) && $array["selfie_photo_url"] != '') {
-            echo '<div class="side-details">
-                <img src="' . htmlspecialchars($array["selfie_photo_url"], ENT_QUOTES, 'UTF-8') . '" width="100%">
-            </div>';
-        }
-
-        echo '</div>
-            <div id="data-chunk">
-                <div class="ecobrick-data">
-                    <p style="margin-left: -32px;font-weight: bold;" data-lang-id="125"> +++ Raw Brikchain Data Record</p><br>
-                    <p>--------------------</p>
-                    <p data-lang-id="126">BEGIN BRIK RECORD ></p>
-                    <p><b data-lang-id="127">Logged:</b> ' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . '</p>
-                    <p><b data-lang-id="128">Volume:</b> ' . htmlspecialchars($array["volume_ml"], ENT_QUOTES, 'UTF-8') . ' &#8202;ml</p>
-                    <p><b data-lang-id="129">Weight:</b> ' . htmlspecialchars($array["weight_g"], ENT_QUOTES, 'UTF-8') . '&#8202;g</p>
-                    <p><b data-lang-id="130">Density:</b> ' . htmlspecialchars($array["density"], ENT_QUOTES, 'UTF-8') . '&#8202;g/ml</p>
-                    <p><b data-lang-id="131">CO2e:</b> ' . htmlspecialchars($array["CO2_kg"], ENT_QUOTES, 'UTF-8') . ' &#8202;kg</p>
-                    <p><b data-lang-id="132">Brikcoin value:</b> ' . htmlspecialchars($array["ecobrick_dec_brk_val"], ENT_QUOTES, 'UTF-8') . '&#8202;ß</p>
-                    <p><b data-lang-id="133">Maker:</b> <i>' . htmlspecialchars($array["owner"], ENT_QUOTES, 'UTF-8') . '</i></p>
-                    <p><b data-lang-id="134">Sequestration:</b> ' . htmlspecialchars($array["sequestration_type"], ENT_QUOTES, 'UTF-8') . '</p>
-                    <p><b data-lang-id="135">Brand:</b> ' . htmlspecialchars($array["brand_name"], ENT_QUOTES, 'UTF-8') . '</p>
-                    <p><b data-lang-id="136">Bottom colour:</b> ' . htmlspecialchars($array["bottom_colour"], ENT_QUOTES, 'UTF-8') . '</p>
-                    <p><b data-lang-id="137">Plastic source:</b> ' . htmlspecialchars($array["plastic_from"], ENT_QUOTES, 'UTF-8') . '</p>
-                    <p><b data-lang-id="138">Community:</b> ' . htmlspecialchars($array["community_name"], ENT_QUOTES, 'UTF-8') . '</p>
-                    <p><b data-lang-id="139">City:</b> ' . htmlspecialchars($array["location_city"], ENT_QUOTES, 'UTF-8') . '</p>
-                    <p><b data-lang-id="140">Region:</b> ' . htmlspecialchars($array["location_region"], ENT_QUOTES, 'UTF-8') . '</p>
-                    <p><b data-lang-id="141">Country:</b> ' . htmlspecialchars($array["location_country"], ENT_QUOTES, 'UTF-8') . '</p>
-                    <p><b data-lang-id="142">Full location:</b> ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . '</p>
-                    <p><b data-lang-id="143">Validation:</b> ' . htmlspecialchars($array["last_validation_ts"], ENT_QUOTES, 'UTF-8') . '</p>
-                    <p><b data-lang-id="144">Validator 1:</b> ' . htmlspecialchars($array["validator_1"], ENT_QUOTES, 'UTF-8') . '</p>
-                    <p><b data-lang-id="145">Validator 2:</b> ' . htmlspecialchars($array["validator_2"], ENT_QUOTES, 'UTF-8') . '</p>
-                    <p><b data-lang-id="146">Validator 3:</b> ' . htmlspecialchars($array["validator_3"], ENT_QUOTES, 'UTF-8') . '</p>
-                    <p><b data-lang-id="147">Validation score avg.:</b> ' . htmlspecialchars($array["validation_score_avg"], ENT_QUOTES, 'UTF-8') . '</p>
-                    <p><b data-lang-id="147b">Catalyst:</b> ' . htmlspecialchars($array["catalyst"], ENT_QUOTES, 'UTF-8') . '</p>
-                    <p><b data-lang-id="148">Validation score final:</b> ' . htmlspecialchars($array["final_validation_score"], ENT_QUOTES, 'UTF-8') . '</p>
-                    <p><b data-lang-id="149">Authenticated weight:</b> ' . htmlspecialchars($array["weight_authenticated_kg"], ENT_QUOTES, 'UTF-8') . '&#8202;kg</p>
-                    <p data-lang-id="150"> ||| END RECORD.</p>
-                </div>
-            </div>
-            <br><hr><br>
-            <div class="page-paragraph">
-                <h3><p data-lang-id="151">The Brikchain</p></h3>
-                <p data-lang-id="152">When an ecobrick is authenticated (like the one above!) it is published to the brikcoin manual blockchain and brikcoins are issued according to its ecological value. This is what we call the Brikchain. On the Brikchain, you can find this ecobrick as well as all the other ecobricks, blocks and transactions that underpin the Brickoin currency.</p>
-                <p data-lang-id="153">As a non-capital, manual process, brikcoin generation favors anyone anywhere willing to work with their hands to make a meaningful ecological contribution.</p>
-                <br>
-                <p><a class="action-btn-blue" href="brikchain.php" data-lang-id="154">🔎 Browse the Brikchain</a></p>
-                <p style="font-size: 0.85em; margin-top:20px;" data-lang-id="155">The live chain of transactions and ecobricks.</p>
-            </div>
-        </div>';
-    }
-} else {
-    // ECOBRICK NOT FOUND
+if ($array['ecobrick_not_found']) {
     echo '<div class="splash-content-block">
         <div class="splash-box">
             <div class="splash-heading">Sorry! :-(</div>
-            <div class="splash-sub" data-lang-id="151x">No results for ecobrick ' . htmlspecialchars($serialNo, ENT_QUOTES, 'UTF-8') . ' in the Brikchain. Most likely this is because the Brikchain data is still in migration.</div>
+            <div class="splash-sub" data-lang-id="151x">No results for ecobrick ' . $serialNo . ' in the Brikchain. Most likely this is because the Brikchain data is still in migration.</div>
         </div>
         <div class="splash-image"><img src="../webps/empty-ecobrick-450px.webp?v2" style="width: 80%; margin-top:20px;" alt="empty ecobrick"></div>
     </div>
@@ -153,12 +145,12 @@ if ($result->num_rows > 0) {
             <div class="main">
                 <br><br>
                 <div class="ecobrick-data">
-                    <p data-lang-id="152x"> The data for ecobrick ' . htmlspecialchars($serialNo, ENT_QUOTES, 'UTF-8') . ' has not yet been migrated to the blockchain. This could be because of transfer delay. Normally publishing occurs within 30 seconds of authentication. If more than 24hrs has passed, an error has occurred or this ecobrick was not authenticated.</p>
+                    <p data-lang-id="152x">🚧 The data for ecobrick ' . $serialNo . ' has not yet been migrated to the blockchain. This could be because of transfer delay. Normally publishing occurs within 30 seconds of authentication. If more than 24hrs has passed, an error has occurred or this ecobrick was not authenticated.</p>
                 </div><br><br><br><br>
                 <div class="page-paragraph">
                     <h3 data-lang-id="154">The Brikchain</h3>
-                    <p data-lang-id="155">When an ecobrick is authenticated, it is published to the brikcoin manual blockchain and coins are issued according to its ecological value. This is what we call the Brikchain. On the Brikchain, you can find authenticated ecobricks, blocks, and transactions that underpin the Brickoin complimentary currency.</p>
-                    <p data-lang-id="156">As a non-capital, manual process, Brikcoins favor anyone anywhere willing to work with their hands to make a meaningful ecological contribution.</p>
+                    <p data-lang-id="155">When an ecobrick is authenticated, it is published to the brikcoin manual blockchain and coins are issued according to its ecological value. This is what we call the Brikchain. On the Brikchain, you can find authenticated ecobricks, blocks and transactions that underpin the Brickoin complimentary currency.</p>
+                    <p data-lang-id="156">As a non-capital, manual process, Brikcoins favors anyone anywhere willing to work with their hands to make a meaningful ecological contribution.</p>
                     <br>
                     <p><a class="action-btn-blue" href="brikchain.php" data-lang-id="157">🔎 Browse the Brikchain</a></p>
                     <p style="font-size: 0.85em; margin-top:20px;" data-lang-id="158">The live chain of transactions and ecobricks.</p>
@@ -166,10 +158,9 @@ if ($result->num_rows > 0) {
             </div>
         </div>';
 }
+}
 $gobrik_conn->close();
 ?>
-
-
 
             <div class="side-module-desktop-mobile">
 				<img src="../webps/aes-400px.webp" width="80%" alt="For-Earth Enterprise through eco bricking">

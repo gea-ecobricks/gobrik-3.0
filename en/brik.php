@@ -103,7 +103,11 @@ if (isset($array["vision"])) {
                   </div>';
 			}
 
-		//data chunk
+           echo '
+
+			    </div>
+            <!--data chunk-->
+            </div>';
 
 			echo '
 			<br><hr><br>

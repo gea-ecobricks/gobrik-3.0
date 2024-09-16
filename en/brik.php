@@ -49,7 +49,6 @@ $result = $gobrik_conn->query($sql);
 if ($result->num_rows > 0) {
 while($array = $result->fetch_assoc()) {
 
-<?php
 echo '<div class="splash-content-block">
     <div class="splash-box">
         <div class="splash-heading"><span data-lang-id="001-splash-title">Ecobrick</span> ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . '</div>

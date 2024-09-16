@@ -106,7 +106,6 @@ if (isset($array["vision"])) {
            echo '
 
 			    </div>
-            <!--data chunk-->
             </div>';
 
 			echo '

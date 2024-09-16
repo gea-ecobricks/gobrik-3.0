@@ -8,7 +8,7 @@ ini_set('display_errors', 1);
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.765';
+$version = '0.766';
 $page = 'brik';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 

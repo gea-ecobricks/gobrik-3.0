@@ -118,5 +118,9 @@ const fr_Translations = {
     "learn-more": "En savoir plus ↗️",
     "link-note": "Le lien ouvre vers Ecobricks.org",
 
+ // MODULES
+
+   "2000-for-earth-title": "Entreprise pour la Terre",
+  "2001-for-earth-sub": "L'Alliance Globale d'Écobriques (GEA) s'engage dans un modèle d'entreprise à but non lucratif qui redistribue les avantages financiers au profit de l'écologie. Elle le fait en divulguant ses impacts en termes de carbone, de plastique et de biodiversité et en s'assurant qu'ils soient écologiquement positifs."
 
 };

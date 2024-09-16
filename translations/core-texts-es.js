@@ -99,5 +99,9 @@ const es_Translations = {
     "learn-more": "Aprende más ↗️",
     "link-note": "El enlace se abre en Ecobricks.org",
 
+    //MODULES
+
+     "2000-for-earth-title": "Empresa Para la Tierra",
+  "2001-for-earth-sub": "La GEA se compromete a un modelo de negocio sin fines de lucro que redistribuye el beneficio financiero hacia el beneficio ecológico. Lo hace divulgando sus impactos de carbono, plástico y biodiversidad, y asegurando que sean ecológicamente positivos."
 
 };

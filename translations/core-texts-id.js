@@ -116,6 +116,10 @@ const id_Translations = {
     "learn-more": "Pelajari lebih lanjut ↗️",
     "link-note": "Tautan membuka ke Ecobricks.org"
 
+// MODULES
+
+ "2000-for-earth-title": "Perusahaan Untuk Bumi",
+  "2001-for-earth-sub": "GEA berkomitmen pada model bisnis nirlaba yang mendistribusikan kembali manfaat finansial ke arah manfaat ekologis. Ini dilakukan dengan mengungkapkan dampak karbon, plastik, dan keanekaragaman hayati dan memastikan bahwa mereka ramah lingkungan."
 
 
 };

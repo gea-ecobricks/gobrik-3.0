@@ -94,6 +94,12 @@ const en_Translations = {
     "regular-title": "Regular Ecobricks",
     "regular-text": "A regular ecobrick is an uncut PET bottle packed solid with used plastic to a set density (between 0.33 and 0.7 g/ml) to make a reusable building block. It is made to the standards of plastic sequestration, ensuring that the plastic is safely secured and unable to degrade into microplastics.",
     "learn-more": "Learn more ↗️",
-    "link-note": "Link opens to Ecobricks.org"
+    "link-note": "Link opens to Ecobricks.org",
+
+    //MODULES
+
+     "2000-for-earth-title": "For-Earth Enterprise",
+  "2001-for-earth-sub": "The GEA commits to a not-for-profit business model that redistributes financial benefit towards ecological benefit. It does this by disclosing its carbon, plastic, and biodiversity impacts and by ensuring that they are net-green."
+
 
 };

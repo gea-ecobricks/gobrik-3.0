@@ -123,12 +123,10 @@ echo
     <p><b data-lang-id="148">Validation score final:</b> ' . $array["final_validation_score"] . '</p>
     <p><b data-lang-id="149">Authenticated weight:</b> ' . $array["weight_authenticated_kg"] . '&#8202;kg</p>
     <p data-lang-id="150">||| END RECORD.</p>
+    </div>
+			</div>
 ';
 
-
-				</div>
-			</div>
-			' ;
 			echo '
 			<br><hr><br>
 			<div class="page-paragraph">

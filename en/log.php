@@ -123,8 +123,7 @@ if ($is_logged_in) {
         }
     }
 
-    // Close the Buwana connection
-    if ($buwana_conn) $buwana_conn->close();
+
 
 } else {
     // Redirect to login page with the redirect parameter set to the current page
@@ -188,6 +187,8 @@ echo '<!DOCTYPE html>
     } else {
         echo "Error fetching user information: " . $buwana_conn->error;
     }
+    // Close the Buwana connection
+    if ($buwana_conn) $buwana_conn->close();
 
 require_once ("../includes/log-inc.php");
 ?>

@@ -69,12 +69,20 @@ echo
 		<div class="main">
 			<div class="row-details">';
 
-if (isset($array["vision"]) && trim($array["vision"]) != '' && trim($array["vision"]) != '""') {
+// Trim the vision value and check if it is set and not blank
+if (isset($array["vision"])) {
     $visionText = trim($array["vision"]);
-    if ($visionText !== '') {
-        echo '<p><div class="vision-quote"> "' . str_replace('"', "", $visionText) . '" </div></p>';
+
+    // Check if the trimmed value is not empty or a single space
+    if ($visionText !== '' && $visionText !== ' ') {
+        // Remove any existing quotation marks from the vision value
+        $cleanedVisionText = str_replace('"', '', $visionText);
+
+        // Display the cleaned value wrapped in quotation marks
+        echo '<p><div class="vision-quote"> "' . $cleanedVisionText . '" </div></p>';
     }
 }
+
 
 
 

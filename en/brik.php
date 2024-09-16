@@ -153,7 +153,7 @@ if ($result->num_rows > 0) {
             <div class="main">
                 <br><br>
                 <div class="ecobrick-data">
-                    <p data-lang-id="152x">🚧 The data for ecobrick ' . htmlspecialchars($serialNo, ENT_QUOTES, 'UTF-8') . ' has not yet been migrated to the blockchain. This could be because of transfer delay. Normally publishing occurs within 30 seconds of authentication. If more than 24hrs has passed, an error has occurred or this ecobrick was not authenticated.</p>
+                    <p data-lang-id="152x"> The data for ecobrick ' . htmlspecialchars($serialNo, ENT_QUOTES, 'UTF-8') . ' has not yet been migrated to the blockchain. This could be because of transfer delay. Normally publishing occurs within 30 seconds of authentication. If more than 24hrs has passed, an error has occurred or this ecobrick was not authenticated.</p>
                 </div><br><br><br><br>
                 <div class="page-paragraph">
                     <h3 data-lang-id="154">The Brikchain</h3>

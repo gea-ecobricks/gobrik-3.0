@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.495';
+$version = '0.496';
 $page = 'log';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -31,56 +31,7 @@ if ($is_logged_in) {
     $country_icon = getUserContinent($buwana_conn, $buwana_id);
     $watershed_name = getWatershedName($buwana_conn, $buwana_id, $lang); // Corrected to include the $lang parameter
 
-    // Fetch first and last name from the Buwana database
-    $sql_user = "SELECT first_name, last_name FROM users_tb WHERE buwana_id = ?";
-    $stmt_user = $buwana_conn->prepare($sql_user);
 
-    if ($stmt_user) {
-        $stmt_user->bind_param("s", $buwana_id); // Assuming buwana_id is a string
-        $stmt_user->execute();
-        $stmt_user->bind_result($first_name, $last_name);
-        $stmt_user->fetch();
-        $stmt_user->close();
-
-        $log_full_name = $first_name . ' ' . $last_name;
-
-        echo "<script>
-            document.addEventListener('DOMContentLoaded', function() {
-                document.getElementById('ecobricker_maker').value = '" . htmlspecialchars($log_full_name, ENT_QUOTES) . "';
-            });
-        </script>";
-
-        if (empty($last_name)) {
-            echo "<script>
-                setTimeout(function() {
-                    const modal = document.getElementById('form-modal-message');
-                    const messageContainer = modal.querySelector('.modal-message');
-                    messageContainer.innerHTML = `
-                        <h3 style=\"text-align:center;\">Oops! We're missing your last name.</h3>
-                        <p style=\"text-align:center;\">Looks like your GoBrik account is missing your last name. Ecobricks are best logged with your full name for posterity. Please save your last name here to make ecobrick logging faster:</p>
-                        <form id='update-name-form' method='post' action='update_last_name.php'>
-                            <label for='first_name'>First Name:</label>
-                            <input type='text' id='first_name' name='first_name' value='" . htmlspecialchars($first_name, ENT_QUOTES) . "' required><br>
-                            <label for='last_name'>Last Name:</label>
-                            <input type='text' id='last_name' name='last_name' required><br>
-                            <input type='checkbox' id='update_buwana' name='update_buwana' checked>
-                            <label for='update_buwana' style=\"font-size:0.9em\">Update my Buwana account too</label><br>
-                            <div style=\"text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;\">
-                                <button type='submit' class=\"submit-button enabled\">Save</button>
-                                <button type='button' onclick='closeInfoModal()' class=\"submit-button cancel\">Cancel</button>
-                            </div>
-                        </form>
-                    `;
-                    modal.style.display = 'flex';
-                    document.getElementById('page-content').classList.add('blurred');
-                    document.getElementById('footer-full').classList.add('blurred');
-                    document.body.classList.add('modal-open');
-                }, 5000);
-            </script>";
-        }  // This displays the last name modal after 5 seconds
-    } else {
-        echo "Error fetching user information: " . $buwana_conn->error;
-    }
 
     // PART 3: POST ECOBRICK DATA to GOBRIK DATABASE
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -186,6 +137,57 @@ echo '<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 ';
+
+ // Fetch first and last name from the Buwana database
+    $sql_user = "SELECT first_name, last_name FROM users_tb WHERE buwana_id = ?";
+    $stmt_user = $buwana_conn->prepare($sql_user);
+
+    if ($stmt_user) {
+        $stmt_user->bind_param("s", $buwana_id); // Assuming buwana_id is a string
+        $stmt_user->execute();
+        $stmt_user->bind_result($first_name, $last_name);
+        $stmt_user->fetch();
+        $stmt_user->close();
+
+        $log_full_name = $first_name . ' ' . $last_name;
+
+        echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('ecobricker_maker').value = '" . htmlspecialchars($log_full_name, ENT_QUOTES) . "';
+            });
+        </script>";
+
+        if (empty($last_name)) {
+            echo "<script>
+                setTimeout(function() {
+                    const modal = document.getElementById('form-modal-message');
+                    const messageContainer = modal.querySelector('.modal-message');
+                    messageContainer.innerHTML = `
+                        <h3 style=\"text-align:center;\">Oops! We're missing your last name.</h3>
+                        <p style=\"text-align:center;\">Looks like your GoBrik account is missing your last name. Ecobricks are best logged with your full name for posterity. Please save your last name here to make ecobrick logging faster:</p>
+                        <form id='update-name-form' method='post' action='update_last_name.php'>
+                            <label for='first_name'>First Name:</label>
+                            <input type='text' id='first_name' name='first_name' value='" . htmlspecialchars($first_name, ENT_QUOTES) . "' required><br>
+                            <label for='last_name'>Last Name:</label>
+                            <input type='text' id='last_name' name='last_name' required><br>
+                            <input type='checkbox' id='update_buwana' name='update_buwana' checked>
+                            <label for='update_buwana' style=\"font-size:0.9em\">Update my Buwana account too</label><br>
+                            <div style=\"text-align:center;width:100%;margin:auto;margin-top:10px;margin-bottom:10px;\">
+                                <button type='submit' class=\"submit-button enabled\">Save</button>
+                                <button type='button' onclick='closeInfoModal()' class=\"submit-button cancel\">Cancel</button>
+                            </div>
+                        </form>
+                    `;
+                    modal.style.display = 'flex';
+                    document.getElementById('page-content').classList.add('blurred');
+                    document.getElementById('footer-full').classList.add('blurred');
+                    document.body.classList.add('modal-open');
+                }, 5000);
+            </script>";
+        }  // This displays the last name modal after 5 seconds
+    } else {
+        echo "Error fetching user information: " . $buwana_conn->error;
+    }
 
 require_once ("../includes/log-inc.php");
 ?>

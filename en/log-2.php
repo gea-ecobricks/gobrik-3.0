@@ -262,9 +262,9 @@ echo '<!DOCTYPE html>
                 </div>
 
                 <div style="display:flex;flex-flow:row;width:100%;justify-content:center;" data-lang-id="013-submit-upload-button">
-                    <input type="submit" value="⬆️ Upload Photos" id="upload-progress-button" aria-label="Submit photos for upload" class="submit-button enabled">
+                    <input type="submit" value="⬆️ Upload Photos" id="upload-progress-button" aria-label="Submit photos for upload">
                 </div>
-                <p class="form-caption" data-lang-id="006-another-photo-optional" style="color:grey;font-size:1em;text-align:center;">Your photo will be uploaded to the public Brikchain.</p>
+                <p class="form-caption" data-lang-id="006-another-photo-optional" style="color:grey;font-size:1em;text-align:center;margin-top:16px">Photos are uploaded to the public Brikchain.</p>
 
             </form>
         </div>
@@ -317,9 +317,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 selfiePhotoField.style.display = 'none';
                 break;
             case 'selfie':
-                basicPhotoField.style.display = 'none';
                 selfiePhotoField.style.display = 'block';
-                alert('hello!');
+                basicPhotoField.style.display = 'none';
                 break;
             case 'both':
                 basicPhotoField.style.display = 'block';

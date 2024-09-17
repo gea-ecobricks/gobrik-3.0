@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.43';
+$version = '0.44';
 $page = 'log';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -65,7 +65,7 @@ echo '<!DOCTYPE html>
     <div id="splash-bar"></div>
 
     <!-- PAGE CONTENT-->
-<div id="top-page-image" class="log-step-3" style="margin-top: 105px;z-index: 35;position: absolute;
+<div id="top-page-image" class=" top-page-image log-step-3" style="margin-top: 105px;z-index: 35;position: absolute;
   text-align:center;width:100% ; height: 36px;"></div>
 
     <div id="form-submission-box" style="margin-top:80px;">

@@ -431,7 +431,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     <script>
-function showDensityConfirmation(density, volume, weight) {
+
+      function showDensityConfirmation(density, volume, weight) {
     const modal = document.getElementById('form-modal-message');
     const messageContainer = modal.querySelector('.modal-message');
     let content = '';
@@ -484,30 +485,30 @@ function showDensityConfirmation(density, volume, weight) {
     document.getElementById('page-content').classList.add('blurred');
     document.body.classList.add('modal-open');
 
-    // Scroll to the top of the page
-    window.scrollTo(0, 0);
-
-    // Disable body scrolling and fix the viewport
+    // Disable body scrolling
     document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.width = '100%';
+
+    // Prevent page from scrolling to the top
+//     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+//     modal.style.top = `${scrollTop}px`;
 }
 
-function closeDensityModal() {
-    const modal = document.getElementById('form-modal-message');
-    modal.style.display = 'none';
-    document.getElementById('page-content').classList.remove('blurred');
-    document.body.classList.remove('modal-open');
 
-    // Re-enable body scrolling and reset position
-    document.body.style.overflow = '';
-    document.body.style.position = '';
-    document.body.style.width = '';
+        function closeDensityModal() {
+            const modal = document.getElementById('form-modal-message');
+            modal.style.display = 'none';
+            document.getElementById('page-content').classList.remove('blurred');
+            document.getElementById('footer-full').classList.remove('blurred');
+            document.body.classList.remove('modal-open');
+            document.body.style.overflow = ''; // Re-enable body scrolling
 
-    // Show all buttons with class "x-button" again
-    const xButtons = document.querySelectorAll('.x-button');
-    xButtons.forEach(button => button.style.display = 'inline-block');
-}
+            // Show all buttons with class "x-button" again
+            const xButtons = document.querySelectorAll('.x-button');
+            xButtons.forEach(button => button.style.display = 'inline-block');
+        }
+
+        // Assuming density, volume, and weight are set in your PHP and passed to JavaScript
+        showDensityConfirmation(density, volume, weight);
 
 </script>
 
@@ -534,6 +535,7 @@ document.getElementById('ecobrick_photo_main').addEventListener('change', functi
 document.getElementById('selfie_photo_main').addEventListener('change', function() {
     displayFileName('selfie_photo_main', 'file-name-selfie');
 });
+
 </script>
 
 

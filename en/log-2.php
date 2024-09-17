@@ -499,9 +499,12 @@ echo '<!DOCTYPE html>
 </script>
 
 <script>
-function displayFileName() {
-    const input = document.getElementById('ecobrick_photo_main');
-    const fileNameSpan = document.getElementById('file-name');
+
+    //funtion to add the file name under the photo upload button once file has been chosen.
+
+function displayFileName(inputId, spanId) {
+    const input = document.getElementById(inputId);
+    const fileNameSpan = document.getElementById(spanId);
 
     if (input.files.length > 0) {
         fileNameSpan.textContent = input.files[0].name;
@@ -509,7 +512,17 @@ function displayFileName() {
         fileNameSpan.textContent = 'No file chosen';
     }
 }
+
+// Add event listeners for both input elements
+document.getElementById('ecobrick_photo_main').addEventListener('change', function() {
+    displayFileName('ecobrick_photo_main', 'file-name-basic');
+});
+
+document.getElementById('selfie_photo_main').addEventListener('change', function() {
+    displayFileName('selfie_photo_main', 'file-name-selfie');
+});
 </script>
+
 
 
 </body>

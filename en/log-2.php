@@ -213,7 +213,7 @@ echo '<!DOCTYPE html>
                 <div class="form-item" id="basic-photo" style="display: none;">
                     <div style="max-width:500px;margin:auto;">
                         <div style="text-align:center;">
-                            <img src="../svgs/basic.svg" style="width:240px;margin-bottom:15px;">
+                            <img src="../svgs/basic.svg?v=2" style="width:240px;margin-bottom:15px;">
                         </div>
                         <label for="ecobrick_photo_main" data-lang-id="003-feature-photo">Upload a basic ecobrick photo:</label><br>
                         <ol style="text-align:left;">

@@ -204,7 +204,7 @@ echo '<!DOCTYPE html>
                         <option value="" disabled selected>Select one...</option>
                         <option value="basic">A basic ecobrick photo</option>
                         <option value="selfie">A selfie photo</option>
-                        <option value="both">A basic photo and a selfie photo (best option)</option>
+                        <option value="both">A basic photo and a selfie photo</option>
                     </select>
                 </div>
 
@@ -235,7 +235,7 @@ echo '<!DOCTYPE html>
 
                 <!-- Selfie Photo Main & Thumbnail -->
                 <div class="form-item" id="selfie-photo" style="display: none;">
-                    <div style="max-width:600px;margin-auto">
+                    <div style="max-width:600px;margin:auto;">
                         <div style="text-align:center;">
                             <img src="../svgs/selfie.svg" style="height:300px;margin-bottom:15px;">
                         </div>
@@ -289,56 +289,64 @@ echo '<!DOCTYPE html>
 
 
 <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const enscribeField = document.getElementById('enscribe');
+    const photoOptionsField = document.getElementById('photo-options');
+    const photoOptionsContainer = document.getElementById('photo-options-container');
+    const basicPhotoField = document.getElementById('basic-photo');
+    const selfiePhotoField = document.getElementById('selfie-photo');
+    const submitButton = document.getElementById('upload-progress-button');
 
-    document.addEventListener('DOMContentLoaded', function () {
-        const enscribeField = document.getElementById('enscribe');
-        const photoOptionsField = document.getElementById('photo-options');
-        const photoOptionsContainer = document.getElementById('photo-options-container');
-        const basicPhotoField = document.getElementById('basic-photo');
-        const selfiePhotoField = document.getElementById('selfie-photo');
-        const submitButton = document.getElementById('upload-progress-button');
-
-        function showHidePhotoFields() {
-            // Hide or show photo options based on enscribe field value
-            if (enscribeField.value) {
-                photoOptionsContainer.style.display = 'block';
-            } else {
-                photoOptionsContainer.style.display = 'none';
-                basicPhotoField.style.display = 'none';
-                selfiePhotoField.style.display = 'none';
-                submitButton.style.display = 'none';
-            }
-
-            // Hide or show photo fields based on photo options field value
-            if (photoOptionsField.value) {
-                if (photoOptionsField.value === 'basic') {
-                    basicPhotoField.style.display = 'block';
-                    selfiePhotoField.style.display = 'none';
-                } else if (photoOptionsField.value === 'selfie') {
-                    basicPhotoField.style.display = 'none';
-                    selfiePhotoField.style.display = 'block';
-                } else if (photoOptionsField.value === 'both') {
-                    basicPhotoField.style.display = 'block';
-                    selfiePhotoField.style.display = 'block';
-                }
-                // Show the submit button once a photo option is selected
-                submitButton.style.display = 'block';
-            } else {
-                basicPhotoField.style.display = 'none';
-                selfiePhotoField.style.display = 'none';
-                submitButton.style.display = 'none';
-            }
+    function showHidePhotoFields() {
+        // Show or hide the photo options container based on the enscribe field value
+        if (enscribeField.value) {
+            photoOptionsContainer.style.display = 'block';
+        } else {
+            photoOptionsContainer.style.display = 'none';
+            basicPhotoField.style.display = 'none';
+            selfiePhotoField.style.display = 'none';
+            submitButton.style.display = 'none';
+            return; // Exit the function early if enscribe field is empty
         }
 
-        // Add event listeners
-        enscribeField.addEventListener('change', showHidePhotoFields);
-        photoOptionsField.addEventListener('change', showHidePhotoFields);
-        document.getElementById('ecobrick_photo_main').addEventListener('change', showHidePhotoFields);
-        document.getElementById('selfie_photo_main').addEventListener('change', showHidePhotoFields);
+        // Show or hide photo fields based on photo options field value
+        switch (photoOptionsField.value) {
+            case 'basic':
+                basicPhotoField.style.display = 'block';
+                selfiePhotoField.style.display = 'none';
+                break;
+            case 'selfie':
+                basicPhotoField.style.display = 'none';
+                selfiePhotoField.style.display = 'block';
+                break;
+            case 'both':
+                basicPhotoField.style.display = 'block';
+                selfiePhotoField.style.display = 'block';
+                break;
+            default:
+                basicPhotoField.style.display = 'none';
+                selfiePhotoField.style.display = 'none';
+                break;
+        }
 
-        // Initial state
-        submitButton.style.display = 'none';
-    });
+        // Show the submit button if a valid photo option is selected
+        if (photoOptionsField.value === 'basic' || photoOptionsField.value === 'selfie' || photoOptionsField.value === 'both') {
+            submitButton.style.display = 'block';
+        } else {
+            submitButton.style.display = 'none';
+        }
+    }
+
+    // Add event listeners
+    enscribeField.addEventListener('input', showHidePhotoFields);
+    photoOptionsField.addEventListener('change', showHidePhotoFields);
+    document.getElementById('ecobrick_photo_main').addEventListener('change', showHidePhotoFields);
+    document.getElementById('selfie_photo_main').addEventListener('change', showHidePhotoFields);
+
+    // Initialize fields on page load
+    showHidePhotoFields();
+});
+
 
 
 

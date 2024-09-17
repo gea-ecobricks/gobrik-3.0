@@ -5,16 +5,18 @@
 
 <STYLE>
 
-body {
-    height: 100vh;
-overflow: hidden; /* Prevent scrolling by default */
-}
-
 #page-content {
     filter: blur(5px); /* Apply blur by default */
     transition: filter 0.3s ease; /* Smooth transition for the blur */
 
 }
+
+
+body {
+height: 100vh;
+overflow: hidden;
+}
+
 
 
 

@@ -448,9 +448,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Show the modal and update page elements
         modal.style.display = 'flex';
-        document.getElementById('page-content').classList.add('blurred');
-        document.body.classList.add('modal-open');
-        document.body.style.overflow = 'hidden'; // Disable body scrolling
+
     }
 
     // Function to generate modal content based on density

@@ -235,27 +235,30 @@ echo '<!DOCTYPE html>
 
                 <!-- Selfie Photo Main & Thumbnail -->
                 <div class="form-item" id="selfie-photo" style="display: none;">
-                    <img src="../svgs/selfie.svg" style="height: 200px">
-                    <br><br>
-                    <label for="selfie_photo_main" data-lang-id="005-another-photo">Upload an ecobrick selfie:</label><br>
-                    <ol>
-                        <li>Be sure your photo is a horizontal landscape</li>
-                        <li>Be sure your photo shows the serial & weight clearly</li>
-                        <li>Be sure your photo shows your ecobricks bottom color</li>
-                        <li>Be sure your photo shows your ecobricks top</li>
-                        <li>Be sure your data is permanently enscribed!</li>
-                        <li>Do not use an external label to mark the ecobrick</li>
-                        <li>And smile!</li>
-
-                    </ol>
+                    <div style="max-width:600px;margin-auto">
+                        <div style="text-align:center;">
+                            <img src="../svgs/selfie.svg" style="height:300px;margin-bottom:15px;">
+                        </div>
+                        <label for="selfie_photo_main" data-lang-id="005-another-photo">Upload an ecobrick selfie:</label><br>
+                        <ol style="text-align:left;">
+                            <li>Be sure your photo is a horizontal landscape</li>
+                            <li>Be sure your photo shows the serial & weight clearly</li>
+                            <li>Be sure your photo shows your ecobricks bottom color</li>
+                            <li>Be sure your photo shows your ecobricks top</li>
+                            <li>Be sure your data is permanently enscribed!</li>
+                            <li>Do not use an external label to mark the ecobrick</li>
+                            <li>And smile!</li>
+                        </ol>
+                    </div>
 
                     <div class="photo-upload-container">
-                            <label for="ecobrick_photo_main" class="custom-file-upload">
-                                📷 Take Selfie Photo
-                                <input type="file" id="selfie_photo_main" name="selfie_photo_main">
-                            </label>
-                            <p class="form-caption" data-lang-id="006-another-photo-optional">Your photo will be uploaded to the public Brikchain.</p>
-                        </div>
+                        <label for="selfie_photo_main" class="custom-file-upload">
+                            📷 Take Selfie Photo
+                            <input type="file" id="selfie_photo_main" name="selfie_photo_main">
+                        </label>
+                        <span id="file-name-selfie" class="file-name">No file chosen</span>
+                        <p class="form-caption" data-lang-id="006-another-photo-optional">Your photo will be uploaded to the public Brikchain.</p>
+                    </div>
 
                 </div>
 

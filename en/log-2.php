@@ -210,11 +210,11 @@ echo '<!DOCTYPE html>
 
                 <!-- Photo 1 Main & Thumbnail -->
                 <div class="form-item" id="basic-photo" style="display: none;">
-                    <div>
-                        <img src="../svgs/basic.svg" style="width: 200px">
+                    <div style="max-width:500px;margin:auto;">
+                        <img src="../svgs/basic.svg" style="width:240px;margin-bottom:15px;>
                         <br><br>
                         <label for="ecobrick_photo_main" data-lang-id="003-feature-photo">Upload a basic ecobrick photo:</label><br>
-                        <ol>
+                        <ol style="text-align:left;">
                             <li>Take a vertical portrait photo</li>
                             <li>Be sure your photo shows the serial & weight clearly</li>
                             <li>Be sure your photo shows your ecobricks bottom color</li>

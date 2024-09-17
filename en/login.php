@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.762';
+$version = '0.763';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -200,6 +200,7 @@ echo '</script>';
         var siteName = 'beta.gobrik.com';
     var currentLanguage = '<?php echo ($lang); ?>'; // Default language code
     switchLanguage(currentLanguage);
+    alert('<?php echo htmlspecialchars($redirect); ?>');
 
 
 /* Code entry and processing for 2FA */

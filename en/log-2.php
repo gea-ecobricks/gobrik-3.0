@@ -156,6 +156,87 @@ echo '<!DOCTYPE html>
 
    <?php require_once ("../includes/log-inc.php");?>
 
+  <script>
+
+      function showDensityConfirmation(density, volume, weight) {
+    const modal = document.getElementById('form-modal-message');
+    const messageContainer = modal.querySelector('.modal-message');
+    let content = '';
+
+    // Hide all buttons with class "x-button"
+    const xButtons = document.querySelectorAll('.x-button');
+    xButtons.forEach(button => button.style.display = 'none');
+
+    if (density < 0.33) {
+        content = `
+            <h1>⛔</h1>
+            <h4>${en_Page_Translations.underDensityTitle}</h4>
+            <div class="preview-text">${en_Page_Translations.underDensityMessage.replace('${density}', density)}</div>
+            <a class="preview-btn" href="/what">${en_Page_Translations.geaStandardsLinkText}</a>
+        `;
+    } else if (density >= 0.33 && density < 0.36) {
+        content = `
+            <h1>⚠️</h1>
+            <h4>${en_Page_Translations.lowDensityTitle}</h4>
+            <div class="preview-text">${en_Page_Translations.lowDensityMessage.replace('${density}', density)}</div>
+            <a class="module-btn" onclick="closeDensityModal()" aria-label="Click to close modal">${en_Page_Translations.nextRegisterSerial}</a>
+        `;
+    } else if (density >= 0.36 && density < 0.65) {
+        content = `
+            <h1 style="text-align:center;">👍</h1>
+            <h2 style="text-align:center;">${en_Page_Translations.greatJobTitle}</h2>
+            <div class="preview-text" style="text-align:center;">${en_Page_Translations.greatJobMessage.replace('${density}', density)}</div>
+            <a class="preview-btn" onclick="closeDensityModal()" aria-label="Click to close modal">${en_Page_Translations.nextRegisterSerial}</a>
+        `;
+    } else if (density >= 0.65 && density < 0.73) {
+        content = `
+            <h1 style="text-align:center;">⚠️</h1>
+            <h4 style="text-align:center;">${en_Page_Translations.highDensityTitle}</h4>
+            <div class="preview-text" style="text-align:center;">${en_Page_Translations.highDensityMessage.replace('${density}', density).replace('${volume}', volume).replace('${weight}', weight)}</div>
+            <a class="preview-btn" onclick="closeDensityModal()" aria-label="Click to close modal">${en_Page_Translations.nextRegisterSerial}</a>
+        `;
+    } else if (density >= 0.73) {
+        content = `
+            <h1 style="text-align:center;">⛔</h1>
+            <h4 style="text-align:center;">${en_Page_Translations.overMaxDensityTitle}</h4>
+            <div class="preview-text">${en_Page_Translations.overMaxDensityMessage.replace('${density}', density)}</div>
+            <a class="preview-btn" href="log.php">${en_Page_Translations.goBack}</a>
+        `;
+    }
+
+    messageContainer.innerHTML = content;
+
+    // Show the modal and update other page elements
+    modal.style.display = 'flex';
+    document.getElementById('page-content').classList.add('blurred');
+    document.body.classList.add('modal-open');
+
+    // Disable body scrolling
+    document.body.style.overflow = 'hidden';
+
+    // Prevent page from scrolling to the top
+//     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+//     modal.style.top = `${scrollTop}px`;
+}
+
+
+        function closeDensityModal() {
+            const modal = document.getElementById('form-modal-message');
+            modal.style.display = 'none';
+            document.getElementById('page-content').classList.remove('blurred');
+            document.getElementById('footer-full').classList.remove('blurred');
+            document.body.classList.remove('modal-open');
+            document.body.style.overflow = ''; // Re-enable body scrolling
+
+            // Show all buttons with class "x-button" again
+            const xButtons = document.querySelectorAll('.x-button');
+            xButtons.forEach(button => button.style.display = 'inline-block');
+        }
+
+        // Assuming density, volume, and weight are set in your PHP and passed to JavaScript
+        showDensityConfirmation(density, volume, weight);
+
+</script>
 
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
@@ -430,87 +511,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 
-    <script>
 
-      function showDensityConfirmation(density, volume, weight) {
-    const modal = document.getElementById('form-modal-message');
-    const messageContainer = modal.querySelector('.modal-message');
-    let content = '';
-
-    // Hide all buttons with class "x-button"
-    const xButtons = document.querySelectorAll('.x-button');
-    xButtons.forEach(button => button.style.display = 'none');
-
-    if (density < 0.33) {
-        content = `
-            <h1>⛔</h1>
-            <h4>${en_Page_Translations.underDensityTitle}</h4>
-            <div class="preview-text">${en_Page_Translations.underDensityMessage.replace('${density}', density)}</div>
-            <a class="preview-btn" href="/what">${en_Page_Translations.geaStandardsLinkText}</a>
-        `;
-    } else if (density >= 0.33 && density < 0.36) {
-        content = `
-            <h1>⚠️</h1>
-            <h4>${en_Page_Translations.lowDensityTitle}</h4>
-            <div class="preview-text">${en_Page_Translations.lowDensityMessage.replace('${density}', density)}</div>
-            <a class="module-btn" onclick="closeDensityModal()" aria-label="Click to close modal">${en_Page_Translations.nextRegisterSerial}</a>
-        `;
-    } else if (density >= 0.36 && density < 0.65) {
-        content = `
-            <h1 style="text-align:center;">👍</h1>
-            <h2 style="text-align:center;">${en_Page_Translations.greatJobTitle}</h2>
-            <div class="preview-text" style="text-align:center;">${en_Page_Translations.greatJobMessage.replace('${density}', density)}</div>
-            <a class="preview-btn" onclick="closeDensityModal()" aria-label="Click to close modal">${en_Page_Translations.nextRegisterSerial}</a>
-        `;
-    } else if (density >= 0.65 && density < 0.73) {
-        content = `
-            <h1 style="text-align:center;">⚠️</h1>
-            <h4 style="text-align:center;">${en_Page_Translations.highDensityTitle}</h4>
-            <div class="preview-text" style="text-align:center;">${en_Page_Translations.highDensityMessage.replace('${density}', density).replace('${volume}', volume).replace('${weight}', weight)}</div>
-            <a class="preview-btn" onclick="closeDensityModal()" aria-label="Click to close modal">${en_Page_Translations.nextRegisterSerial}</a>
-        `;
-    } else if (density >= 0.73) {
-        content = `
-            <h1 style="text-align:center;">⛔</h1>
-            <h4 style="text-align:center;">${en_Page_Translations.overMaxDensityTitle}</h4>
-            <div class="preview-text">${en_Page_Translations.overMaxDensityMessage.replace('${density}', density)}</div>
-            <a class="preview-btn" href="log.php">${en_Page_Translations.goBack}</a>
-        `;
-    }
-
-    messageContainer.innerHTML = content;
-
-    // Show the modal and update other page elements
-    modal.style.display = 'flex';
-    document.getElementById('page-content').classList.add('blurred');
-    document.body.classList.add('modal-open');
-
-    // Disable body scrolling
-    document.body.style.overflow = 'hidden';
-
-    // Prevent page from scrolling to the top
-//     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-//     modal.style.top = `${scrollTop}px`;
-}
-
-
-        function closeDensityModal() {
-            const modal = document.getElementById('form-modal-message');
-            modal.style.display = 'none';
-            document.getElementById('page-content').classList.remove('blurred');
-            document.getElementById('footer-full').classList.remove('blurred');
-            document.body.classList.remove('modal-open');
-            document.body.style.overflow = ''; // Re-enable body scrolling
-
-            // Show all buttons with class "x-button" again
-            const xButtons = document.querySelectorAll('.x-button');
-            xButtons.forEach(button => button.style.display = 'inline-block');
-        }
-
-        // Assuming density, volume, and weight are set in your PHP and passed to JavaScript
-        showDensityConfirmation(density, volume, weight);
-
-</script>
 
 <script>
 

@@ -73,6 +73,22 @@ const id_Page_Translations = {
 
     "016-submit-button": '<input type="submit" class="submit-button enabled" value="Berikutnya: Periksa Kepadatan" aria-label="Kirim Formulir">',
 
+//Modals for density check
+
+    "underDensityTitle": "Kepadatan di Bawah Standar",
+    "underDensityMessage": "Kepadatan ecobrick Anda sebesar ${density} berada di bawah standar GEA sebesar 0,33g/ml. Harap periksa apakah Anda telah memasukkan berat dan volume dengan benar. Jika tidak, maka mohon kemas ulang ecobrick Anda dengan lebih banyak plastik untuk mencapai kepadatan minimum. Pedoman GEA dikembangkan untuk memastikan integritas bangunan, keamanan kebakaran, dan kegunaan kembali ecobrick.",
+    "lowDensityTitle": "Kepadatan Rendah",
+    "lowDensityMessage": "Hati-hati! Kepadatan ecobrick Anda sebesar ${density}ml berada di sisi rendah. Ini memenuhi standar minimum sebesar 0,33g/ml, namun kepadatannya membuatnya kurang padat, kurang aman terhadap kebakaran, dan kurang dapat digunakan kembali. Teruskan dan catat ecobrick ini, tetapi lihat apakah Anda dapat mengemas lebih banyak plastik di waktu berikutnya.",
+    "greatJobTitle": "Kerja bagus!",
+    "greatJobMessage": "Kepadatan ecobrick Anda sebesar ${density} adalah ideal. Ini memenuhi standar minimum sebesar 0,33g/ml, membuatnya padat, aman terhadap kebakaran, dan dapat digunakan kembali.",
+    "highDensityTitle": "Kepadatan Tinggi",
+    "highDensityMessage": "Hati-hati, kepadatan ecobrick Anda sebesar ${density} sangat tinggi. Botol ${volume} Anda yang dikemas dengan ${weight} plastik berada di bawah kepadatan maksimum sebesar 0,73g/ml, namun kepadatan yang tinggi ini membuatnya hampir terlalu padat dan terlalu berat untuk beberapa aplikasi ecobrick. Teruskan, tetapi ingat ini untuk waktu berikutnya.",
+    "overMaxDensityTitle": "Melebihi Kepadatan Maksimum",
+    "overMaxDensityMessage": "Kepadatan ecobrick Anda sebesar ${density} melebihi standar GEA sebesar 0,73g/ml. Harap periksa apakah Anda telah memasukkan berat dan volume dengan benar. Jika demikian, maka mohon kemas ulang ecobrick Anda dengan lebih sedikit plastik. Pedoman GEA dikembangkan untuk memastikan keamanan dan kegunaan ecobrick untuk semua aplikasi jangka pendek dan jangka panjang.",
+    "geaStandardsLinkText": "Standar GEA",
+    "nextRegisterSerial": "Berikutnya: Daftar Nomor Seri",
+    "goBack": "Kembali",
+
     };
 
 

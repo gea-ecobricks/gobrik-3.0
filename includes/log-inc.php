@@ -80,7 +80,7 @@
 
 
 
-upload-progress-button {
+#upload-progress-button {
 color: white;
   padding: 10px 20px;
   border: none;

@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.43';
+$version = '0.44';
 $page = 'log';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -263,8 +263,8 @@ echo '<!DOCTYPE html>
 
                 <div style="display:flex;flex-flow:row;width:100%;justify-content:center;" data-lang-id="013-submit-upload-button">
                     <input type="submit" value="⬆️ Upload Photos" id="upload-progress-button" aria-label="Submit photos for upload">
+                    <p class="form-caption" data-lang-id="006-another-photo-optional" style="color:grey;font-size:1em;text-align:center;margin-top:16px">Photos are uploaded to the public Brikchain.</p>
                 </div>
-                <p class="form-caption" data-lang-id="006-another-photo-optional" style="color:grey;font-size:1em;text-align:center;margin-top:16px">Photos are uploaded to the public Brikchain.</p>
 
             </form>
         </div>
@@ -430,67 +430,67 @@ document.addEventListener('DOMContentLoaded', function () {
 
     <script>
 
-        function showDensityConfirmation(density, volume, weight) {
-            const modal = document.getElementById('form-modal-message');
-            const messageContainer = modal.querySelector('.modal-message');
-            let content = '';
+      function showDensityConfirmation(density, volume, weight) {
+    const modal = document.getElementById('form-modal-message');
+    const messageContainer = modal.querySelector('.modal-message');
+    let content = '';
 
-            // Hide all buttons with class "x-button"
-            const xButtons = document.querySelectorAll('.x-button');
-            xButtons.forEach(button => button.style.display = 'none');
+    // Hide all buttons with class "x-button"
+    const xButtons = document.querySelectorAll('.x-button');
+    xButtons.forEach(button => button.style.display = 'none');
 
-            if (density < 0.33) {
-                content = `
+    if (density < 0.33) {
+        content = `
             <h1>⛔</h1>
-            <h4>Under Density</h4>
-            <div class="preview-text">Your ecobrick's density of ${density} is under the GEA standard of 0.33g/ml. Please check that you have entered the weight and volume correctly. If so, then please repack your ecobrick with more plastic to achieve minimum density. GEA guidelines are developed to ensure the building integrity, fire safety and reusability of an ecobrick.</p>
-            <a class="preview-btn" href="/what">GEA Standards</a>
+            <h4>${en_Page_Translations.underDensityTitle}</h4>
+            <div class="preview-text">${en_Page_Translations.underDensityMessage.replace('${density}', density)}</div>
+            <a class="preview-btn" href="/what">${en_Page_Translations.geaStandardsLinkText}</a>
         `;
-            } else if (density >= 0.33 && density < 0.36) {
-                content = `
+    } else if (density >= 0.33 && density < 0.36) {
+        content = `
             <h1>⚠️</h1>
-            <h4>Low Density</h4>
-            <div class="preview-text">Careful, your ecobrick's density of ${density}ml is on the low side. It passes the minimum standard of 0.33g/ml however, its density makes it less solid, fire safe and reusable than it could be. Keep going and log this ecobrick, but see if you can pack more plastic next time.</p>
-            <a class="module-btn" onclick="closeDensityModal()" aria-label="Click to close modal">Next: Register Serial</a>
+            <h4>${en_Page_Translations.lowDensityTitle}</h4>
+            <div class="preview-text">${en_Page_Translations.lowDensityMessage.replace('${density}', density)}</div>
+            <a class="module-btn" onclick="closeDensityModal()" aria-label="Click to close modal">${en_Page_Translations.nextRegisterSerial}</a>
         `;
-            } else if (density >= 0.36 && density < 0.65) {
-                content = `
-            <h1 style=\"text-align:center;\">👍</h1>
-            <h2 style=\"text-align:center;\">Great job!</h2>
-            <div class="preview-text" style=\"text-align:center;\">Your ecobrick's density of ${density} is ideal. It passes the minimum standard of 0.33g/ml making it solid, fire safe and reusable.</p>
-            <a class="preview-btn" onclick="closeDensityModal()" aria-label="Click to close modal">Next: Register Serial</a>
+    } else if (density >= 0.36 && density < 0.65) {
+        content = `
+            <h1 style="text-align:center;">👍</h1>
+            <h2 style="text-align:center;">${en_Page_Translations.greatJobTitle}</h2>
+            <div class="preview-text" style="text-align:center;">${en_Page_Translations.greatJobMessage.replace('${density}', density)}</div>
+            <a class="preview-btn" onclick="closeDensityModal()" aria-label="Click to close modal">${en_Page_Translations.nextRegisterSerial}</a>
         `;
-            } else if (density >= 0.65 && density < 0.73) {
-                content = `
-            <h1 style=\"text-align:center;\">⚠️</h1>
-            <h4 style=\"text-align:center;\">High Density</h4>
-            <div class="preview-text" style=\"text-align:center;\">Careful, your ecobrick's density of ${density} is very high. Your ${volume} bottle packed with ${weight} of plastic is under the maximum density of 0.73g/ml however, its high density makes it nearly too solid and too heavy for certain ecobrick applications.</p>
-            <a class="preview-btn" onclick="closeDensityModal()" aria-label="Click to close modal">Next: Register Serial</a>
+    } else if (density >= 0.65 && density < 0.73) {
+        content = `
+            <h1 style="text-align:center;">⚠️</h1>
+            <h4 style="text-align:center;">${en_Page_Translations.highDensityTitle}</h4>
+            <div class="preview-text" style="text-align:center;">${en_Page_Translations.highDensityMessage.replace('${density}', density).replace('${volume}', volume).replace('${weight}', weight)}</div>
+            <a class="preview-btn" onclick="closeDensityModal()" aria-label="Click to close modal">${en_Page_Translations.nextRegisterSerial}</a>
         `;
-            } else if (density >= 0.73) {
-                content = `
-            <h1 style=\"text-align:center;\">⛔</h1>
-            <h4 style=\"text-align:center;\">Over Max Density</h4>
-            <div class="preview-text">Your ecobrick's density of ${density} is over the GEA standard of 0.73g/ml. Please check that you have entered the weight and volume correctly. If so, then please repack your ecobrick with less plastic. GEA guidelines are developed to ensure the safety and usability of ecobricks for all short and long term applications.</p>
-            <a class="preview-btn" href="log.php">Go Back</a>
+    } else if (density >= 0.73) {
+        content = `
+            <h1 style="text-align:center;">⛔</h1>
+            <h4 style="text-align:center;">${en_Page_Translations.overMaxDensityTitle}</h4>
+            <div class="preview-text">${en_Page_Translations.overMaxDensityMessage.replace('${density}', density)}</div>
+            <a class="preview-btn" href="log.php">${en_Page_Translations.goBack}</a>
         `;
-            }
+    }
 
-            messageContainer.innerHTML = content;
+    messageContainer.innerHTML = content;
 
-            // Show the modal and update other page elements
-            modal.style.display = 'flex';
-            document.getElementById('page-content').classList.add('blurred');
-            // document.getElementById('footer-full').classList.add('blurred');
-            document.body.classList.add('modal-open');
+    // Show the modal and update other page elements
+    modal.style.display = 'flex';
+    document.getElementById('page-content').classList.add('blurred');
+    document.body.classList.add('modal-open');
 
-            Disable body scrolling
-            document.body.style.overflow = 'hidden';
+    // Disable body scrolling
+    document.body.style.overflow = 'hidden';
 
-            // Prevent page from scrolling to the top
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            modal.style.top = `${scrollTop}px`;
-        }
+    // Prevent page from scrolling to the top
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    modal.style.top = `${scrollTop}px`;
+}
+
 
         function closeDensityModal() {
             const modal = document.getElementById('form-modal-message');

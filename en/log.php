@@ -4,8 +4,7 @@ require_once '../earthenAuth_helper.php'; // Include the authentication helper f
 startSecureSession(); // Start a secure session with regeneration to prevent session fixation
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-var_dump($_POST);
-exit();
+
 
 
 // PART 1: Set up page variables

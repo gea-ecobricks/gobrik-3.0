@@ -5,8 +5,6 @@ startSecureSession(); // Start a secure session with regeneration to prevent ses
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-
-
 // PART 1: Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.496';
@@ -32,8 +30,6 @@ if ($is_logged_in) {
     // Fetch the user's continent icon
     $country_icon = getUserContinent($buwana_conn, $buwana_id);
     $watershed_name = getWatershedName($buwana_conn, $buwana_id, $lang); // Corrected to include the $lang parameter
-
-
 
     // PART 3: POST ECOBRICK DATA to GOBRIK DATABASE
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -76,6 +72,10 @@ if ($is_logged_in) {
             $training_id = (int)trim($_POST['training_id']);
             $brand_name = trim($_POST['brand_name']);
 
+            // Determine the location_country from location_full
+            $location_parts = explode(',', $location_full);
+            $location_country = trim(end($location_parts)); // Get the last item and trim whitespace
+
             // Background settings
             $owner = $ecobricker_maker;
             $status = "not ready";
@@ -88,14 +88,14 @@ if ($is_logged_in) {
 
             // Update SQL and binding to match the fields and values
             $sql = "INSERT INTO tb_ecobricks (
-                ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type, plastic_from, location_full, location_lat, location_long, community_name, project_id, training_id, brand_name, owner, status, universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change, actual_maker_name, brik_notes, date_published_ts
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type, plastic_from, location_full, location_country, location_lat, location_long, community_name, project_id, training_id, brand_name, owner, status, universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change, actual_maker_name, brik_notes, date_published_ts
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             if ($stmt = $gobrik_conn->prepare($sql)) {
                 error_log("Statement prepared successfully.");
 
-                $stmt->bind_param("issiisssddssiisssdsdssss",
-                    $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g, $sequestration_type, $plastic_from, $location_full, $latitude, $longitude, $community_name, $project_id, $training_id, $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts, $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts
+                $stmt->bind_param("issiissssddssiisssdsdsssss",
+                    $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g, $sequestration_type, $plastic_from, $location_full, $location_country, $latitude, $longitude, $community_name, $project_id, $training_id, $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts, $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts
                 );
                 error_log("Parameters bound successfully.");
 
@@ -125,13 +125,12 @@ if ($is_logged_in) {
         }
     }
 
-
-
 } else {
     // Redirect to login page with the redirect parameter set to the current page
     header('Location: login.php?redirect=' . urlencode($page));
     exit();
 }
+
 
 echo '<!DOCTYPE html>
 <html lang="' . $lang . '">

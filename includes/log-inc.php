@@ -58,7 +58,7 @@
 }
 
 .custom-file-upload:hover {
-    background-color: #d3d3d3; /* Lighten the grey background on hover */
+    background-color: var(--accordion-background); /* Lighten the grey background on hover */
     border-color: var(--text-color); /* Changes border color on hover */
 }
 

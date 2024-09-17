@@ -235,9 +235,9 @@ echo '<!DOCTYPE html>
 
                 <!-- Selfie Photo Main & Thumbnail -->
                 <div class="form-item" id="selfie-photo" style="display: none;">
-                    <div style="max-width:600px;margin:auto;">
+                    <div style="max-width:500px;margin:auto;">
                         <div style="text-align:center;">
-                            <img src="../svgs/selfie.svg" style="height:300px;margin-bottom:15px;">
+                            <img src="../svgs/selfie.svg" style="height:240px;margin-bottom:15px;">
                         </div>
                         <label for="selfie_photo_main" data-lang-id="005-another-photo">Upload an ecobrick selfie:</label><br>
                         <ol style="text-align:left;">
@@ -257,14 +257,16 @@ echo '<!DOCTYPE html>
                             <input type="file" id="selfie_photo_main" name="selfie_photo_main">
                         </label>
                         <span id="file-name-selfie" class="file-name">No file chosen</span>
-                        <p class="form-caption" data-lang-id="006-another-photo-optional">Your photo will be uploaded to the public Brikchain.</p>
-                    </div>
+                        <p class="form-caption" data-lang-id="006a-another-photo-optional">Upload your ecobrick selfie.</p>
 
+                    </div>
                 </div>
 
                 <div style="display:flex;flex-flow:row;width:100%;justify-content:center;" data-lang-id="013-submit-upload-button">
                     <input type="submit" value="⬆️ Upload Photos" id="upload-progress-button" aria-label="Submit photos for upload" class="submit-button enabled">
                 </div>
+                <p class="form-caption" data-lang-id="006-another-photo-optional">Your photo will be uploaded to the public Brikchain.</p>
+
             </form>
         </div>
 

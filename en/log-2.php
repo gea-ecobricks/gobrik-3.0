@@ -430,8 +430,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 </script>
 
-
- <script>
+<script>
     // Function to show the density confirmation modal
     function showDensityConfirmation(density, volume, weight) {
         const modal = document.getElementById('form-modal-message');
@@ -446,9 +445,8 @@ document.addEventListener('DOMContentLoaded', function () {
         // Update modal content
         messageContainer.innerHTML = content;
 
-        // Show the modal and update page elements
+        // Show the modal
         modal.style.display = 'flex';
-
     }
 
     // Function to generate modal content based on density
@@ -501,8 +499,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function closeDensityModal() {
         const modal = document.getElementById('form-modal-message');
         modal.style.display = 'none';
-        document.getElementById('page-content').classList.remove('blurred');
-        document.body.classList.remove('modal-open');
+        document.getElementById('page-content').classList.remove('blurred'); // Optional: Keep this if you want to remove blur on close
+        document.body.classList.remove('modal-open'); // Optional: Keep this if you want to remove modal state on close
         document.body.style.overflow = ''; // Re-enable body scrolling
 
         // Show all buttons with class "x-button" again
@@ -512,6 +510,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Show the modal on page load
     showDensityConfirmation(density, volume, weight);
 </script>
+
 
 
 <script>

@@ -157,16 +157,10 @@ echo '<!DOCTYPE html>
    <?php require_once ("../includes/log-inc.php");?>
 
 <script>
-    // Function to be executed on page load
-    window.onload = function() {
-        // Scroll the user to the top of the page
-        window.scrollTo(0, 0);
-
-        // Blur the background content
-        document.getElementById('page-content').classList.add('blurred');
-
-        // Lock scrolling
-        document.body.style.overflow = 'hidden';
+    document.addEventListener('DOMContentLoaded', function() {
+        // Immediately hide content by setting styles in JavaScript
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+        document.getElementById('page-content').classList.add('blurred'); // Blur the background
 
         // Show the modal
         const modal = document.getElementById('form-modal-message');
@@ -175,14 +169,18 @@ echo '<!DOCTYPE html>
         // Ensure modal is correctly positioned
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         modal.style.top = `${scrollTop}px`;
-    };
+
+        // Scroll to the top of the page
+        window.scrollTo(0, 0);
+    });
 </script>
+
 
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT -->
-   <div id="top-page-image" class="log-ecobrick top-page-image" style="height: 30px; margin-top: 150px;"></div>
+   <div id="top-page-image" class="snap-ecobrick top-page-image" style="height: 30px; margin-top: 150px;"></div>
 
 <div id="form-submission-box" class="landing-page-form" style="height:auto !important">
     <div class="form-container">
@@ -284,7 +282,7 @@ echo '<!DOCTYPE html>
 
                 <div style="display:flex;flex-flow:row;width:100%;justify-content:center;" data-lang-id="013-submit-upload-button">
                     <input type="submit" value="⬆️ Upload Photos" id="upload-progress-button" aria-label="Submit photos for upload">
-                    <p class="form-caption" data-lang-id="006-another-photo-optional" style="color:grey;font-size:1em;text-align:center;margin-top:16px">Photos are uploaded to the public Brikchain.</p>
+
                 </div>
 
             </form>

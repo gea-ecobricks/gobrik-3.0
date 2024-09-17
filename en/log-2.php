@@ -223,14 +223,15 @@ echo '<!DOCTYPE html>
                             <li>Be sure your data is permanently enscribed!</li>
                             <li>Do not use an external label to mark the ecobrick </li>
                         </ol>
-                       <div class="photo-upload-container">
-                            <label for="ecobrick_photo_main" class="custom-file-upload">
-                                📷 Take Basic Photo
-                                <input type="file" id="ecobrick_photo_main" name="ecobrick_photo_main" onchange="displayFileName()">
-                            </label>
-                            <span id="file-name" class="file-name">No file chosen</span>
-                            <p class="form-caption" data-lang-id="004-feature-desc">Take or select a photo of your serialized ecobrick.</p>
-                        </div>
+                    </div>
+                   <div class="photo-upload-container">
+                        <label for="ecobrick_photo_main" class="custom-file-upload">
+                            📷 Take Basic Photo
+                            <input type="file" id="ecobrick_photo_main" name="ecobrick_photo_main" onchange="displayFileName()">
+                        </label>
+                        <span id="file-name" class="file-name">No file chosen</span>
+                        <p class="form-caption" data-lang-id="004-feature-desc">Take or select a photo of your serialized ecobrick.</p>
+                    </div>
                 </div>
 
                 <!-- Selfie Photo Main & Thumbnail -->
@@ -263,7 +264,7 @@ echo '<!DOCTYPE html>
                 <div style="display:flex;flex-flow:row;width:100%;justify-content:center;" data-lang-id="013-submit-upload-button">
                     <input type="submit" value="⬆️ Upload Photos" id="upload-progress-button" aria-label="Submit photos for upload" class="submit-button enabled">
                 </div>
-                <p class="form-caption" data-lang-id="006-another-photo-optional">Your photo will be uploaded to the public Brikchain.</p>
+                <p class="form-caption" data-lang-id="006-another-photo-optional" style="color:grey;font-size:1em;text-align:center;">Your photo will be uploaded to the public Brikchain.</p>
 
             </form>
         </div>
@@ -318,6 +319,7 @@ document.addEventListener('DOMContentLoaded', function () {
             case 'selfie':
                 basicPhotoField.style.display = 'none';
                 selfiePhotoField.style.display = 'block';
+                alert('hello!');
                 break;
             case 'both':
                 basicPhotoField.style.display = 'block';

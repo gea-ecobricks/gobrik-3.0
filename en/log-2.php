@@ -211,7 +211,9 @@ echo '<!DOCTYPE html>
                 <!-- Photo 1 Main & Thumbnail -->
                 <div class="form-item" id="basic-photo" style="display: none;">
                     <div style="max-width:500px;margin:auto;">
-                        <img src="../svgs/basic.svg" style="width:240px;margin-bottom:15px;">
+                        <div style="text-align:center;">
+                            <img src="../svgs/basic.svg" style="width:240px;margin-bottom:15px;">
+                        </div>
                         <label for="ecobrick_photo_main" data-lang-id="003-feature-photo">Upload a basic ecobrick photo:</label><br>
                         <ol style="text-align:left;">
                             <li>Take a vertical portrait photo</li>
@@ -227,7 +229,7 @@ echo '<!DOCTYPE html>
                                 <input type="file" id="ecobrick_photo_main" name="ecobrick_photo_main" onchange="displayFileName()">
                             </label>
                             <span id="file-name" class="file-name">No file chosen</span>
-                            <p class="form-caption" data-lang-id="004-feature-desc">Please choose a photo of the ecobrick. Required.</p>
+                            <p class="form-caption" data-lang-id="004-feature-desc">Take or select a photo of your serialized ecobrick.</p>
                         </div>
                 </div>
 
@@ -248,7 +250,6 @@ echo '<!DOCTYPE html>
                             <li>And smile!</li>
                         </ol>
                     </div>
-
                     <div class="photo-upload-container">
                         <label for="selfie_photo_main" class="custom-file-upload">
                             📷 Take Selfie Photo
@@ -256,7 +257,6 @@ echo '<!DOCTYPE html>
                         </label>
                         <span id="file-name-selfie" class="file-name">No file chosen</span>
                         <p class="form-caption" data-lang-id="006a-another-photo-optional">Upload your ecobrick selfie.</p>
-
                     </div>
                 </div>
 
@@ -317,7 +317,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 break;
             case 'selfie':
                 basicPhotoField.style.display = 'none';
-                selfiePhotoField.style.display = 'block';
+                selfiePhotoField.style.display = 'block !important';
                 break;
             case 'both':
                 basicPhotoField.style.display = 'block';

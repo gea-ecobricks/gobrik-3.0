@@ -4,8 +4,11 @@ require_once '../earthenAuth_helper.php'; // Include the authentication helper f
 startSecureSession(); // Start a secure session with regeneration to prevent session fixation
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+var_dump($_POST);
+exit();
 
-// Set up page variables
+
+// PART 1: Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.496';
 $page = 'log';
@@ -19,7 +22,7 @@ $watershed_id = '';
 $watershed_name = '';
 $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 
-// Check if user is logged in and session active
+// PART 2: Check if user is logged in and session active
 if ($is_logged_in) {
     $buwana_id = $_SESSION['buwana_id'] ?? ''; // Retrieve buwana_id from session
 
@@ -403,7 +406,7 @@ require_once ("../includes/log-inc.php");
 
                     </div>
                 </div>
-            -->
+
 
                 <div data-lang-id="016-submit-button" style="margin:auto;text-align: center;margin-top:30px;">
                     <input type="submit" class="submit-button enabled" value="Next: Density Check" aria-label="Submit Form">

@@ -211,8 +211,7 @@ echo '<!DOCTYPE html>
                 <!-- Photo 1 Main & Thumbnail -->
                 <div class="form-item" id="basic-photo" style="display: none;">
                     <div style="max-width:500px;margin:auto;">
-                        <img src="../svgs/basic.svg" style="width:240px;margin-bottom:15px;>
-                        <br><br>
+                        <img src="../svgs/basic.svg" style="width:240px;margin-bottom:15px;">
                         <label for="ecobrick_photo_main" data-lang-id="003-feature-photo">Upload a basic ecobrick photo:</label><br>
                         <ol style="text-align:left;">
                             <li>Take a vertical portrait photo</li>
@@ -230,7 +229,6 @@ echo '<!DOCTYPE html>
                             <span id="file-name" class="file-name">No file chosen</span>
                             <p class="form-caption" data-lang-id="004-feature-desc">Please choose a photo of the ecobrick. Required.</p>
                         </div>
-
                 </div>
 
                 <!-- Selfie Photo Main & Thumbnail -->

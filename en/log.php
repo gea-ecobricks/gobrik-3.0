@@ -90,18 +90,20 @@ if ($is_logged_in) {
             $location_parts = explode(',', $location_full);
             $location_country = trim(end($location_parts)); // Get the last item and trim whitespace
 
+            $location_watershed = $watershed_name
+
 
 
             // Update SQL and binding to match the fields and values
             $sql = "INSERT INTO tb_ecobricks (
-                ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type, plastic_from, location_full, location_lat, location_long, community_name, project_id, training_id, brand_name, owner, status, universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change, actual_maker_name, brik_notes, date_published_ts, location_country
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type, plastic_from, location_full, location_lat, location_long, community_name, project_id, training_id, brand_name, owner, status, universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change, actual_maker_name, brik_notes, date_published_ts, location_country, location_watershed
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             if ($stmt = $gobrik_conn->prepare($sql)) {
                 error_log("Statement prepared successfully.");
 
-                $stmt->bind_param("issiisssddssiisssdsdsssss",
-                    $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g, $sequestration_type, $plastic_from, $location_full, $latitude, $longitude, $community_name, $project_id, $training_id, $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts, $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts, $location_country
+                $stmt->bind_param("issiisssddssiisssdsdssssss",
+                    $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g, $sequestration_type, $plastic_from, $location_full, $latitude, $longitude, $community_name, $project_id, $training_id, $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts, $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts, $location_country, $location_watershed
                 );
                 error_log("Parameters bound successfully.");
 

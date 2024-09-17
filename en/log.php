@@ -94,7 +94,7 @@ if ($is_logged_in) {
             if ($stmt = $gobrik_conn->prepare($sql)) {
                 error_log("Statement prepared successfully.");
 
-                $stmt->bind_param("issiiissddssiisssdsdssss",
+                $stmt->bind_param("issiisssddssiisssdsdssss",
                     $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g, $sequestration_type, $plastic_from, $location_full, $latitude, $longitude, $community_name, $project_id, $training_id, $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts, $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts
                 );
                 error_log("Parameters bound successfully.");

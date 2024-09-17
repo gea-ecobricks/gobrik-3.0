@@ -317,7 +317,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 break;
             case 'selfie':
                 basicPhotoField.style.display = 'none';
-                selfiePhotoField.style.display = 'block !important';
+                selfiePhotoField.style.display = 'block';
                 break;
             case 'both':
                 basicPhotoField.style.display = 'block';

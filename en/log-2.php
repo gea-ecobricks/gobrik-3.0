@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.44';
+$version = '0.45';
 $page = 'log';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -290,6 +290,8 @@ echo '<!DOCTYPE html>
 
 
 <script>
+
+
 document.addEventListener('DOMContentLoaded', function () {
     const enscribeField = document.getElementById('enscribe');
     const photoOptionsField = document.getElementById('photo-options');
@@ -429,8 +431,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     <script>
-
-      function showDensityConfirmation(density, volume, weight) {
+function showDensityConfirmation(density, volume, weight) {
     const modal = document.getElementById('form-modal-message');
     const messageContainer = modal.querySelector('.modal-message');
     let content = '';
@@ -483,30 +484,30 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('page-content').classList.add('blurred');
     document.body.classList.add('modal-open');
 
-    // Disable body scrolling
-    document.body.style.overflow = 'hidden';
+    // Scroll to the top of the page
+    window.scrollTo(0, 0);
 
-    // Prevent page from scrolling to the top
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    modal.style.top = `${scrollTop}px`;
+    // Disable body scrolling and fix the viewport
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
 }
 
+function closeDensityModal() {
+    const modal = document.getElementById('form-modal-message');
+    modal.style.display = 'none';
+    document.getElementById('page-content').classList.remove('blurred');
+    document.body.classList.remove('modal-open');
 
-        function closeDensityModal() {
-            const modal = document.getElementById('form-modal-message');
-            modal.style.display = 'none';
-            document.getElementById('page-content').classList.remove('blurred');
-            document.getElementById('footer-full').classList.remove('blurred');
-            document.body.classList.remove('modal-open');
-            document.body.style.overflow = ''; // Re-enable body scrolling
+    // Re-enable body scrolling and reset position
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.width = '';
 
-            // Show all buttons with class "x-button" again
-            const xButtons = document.querySelectorAll('.x-button');
-            xButtons.forEach(button => button.style.display = 'inline-block');
-        }
-
-        // Assuming density, volume, and weight are set in your PHP and passed to JavaScript
-        showDensityConfirmation(density, volume, weight);
+    // Show all buttons with class "x-button" again
+    const xButtons = document.querySelectorAll('.x-button');
+    xButtons.forEach(button => button.style.display = 'inline-block');
+}
 
 </script>
 

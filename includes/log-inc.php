@@ -80,6 +80,20 @@
 
 
 
+upload-progress-button {
+color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #12b712;
+  background-size: 0% 100%;
+  transition: background-size 0.5s ease;
+  font-size: 1.3em;
+  width: 100%;
+  margin-top: 30px;
+  }
+
 </style>
 
 <?php require_once ("../header-2024.php");?>

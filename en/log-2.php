@@ -484,8 +484,8 @@ document.addEventListener('DOMContentLoaded', function () {
             // document.getElementById('footer-full').classList.add('blurred');
             document.body.classList.add('modal-open');
 
-//             Disable body scrolling
-//             document.body.style.overflow = 'hidden';
+            Disable body scrolling
+            document.body.style.overflow = 'hidden';
 
             // Prevent page from scrolling to the top
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -496,7 +496,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const modal = document.getElementById('form-modal-message');
             modal.style.display = 'none';
             document.getElementById('page-content').classList.remove('blurred');
-            // document.getElementById('footer-full').classList.remove('blurred');
+            document.getElementById('footer-full').classList.remove('blurred');
             document.body.classList.remove('modal-open');
             document.body.style.overflow = ''; // Re-enable body scrolling
 

@@ -496,12 +496,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
    // Function to close the density confirmation modal
+// Function to close the density confirmation modal
 function closeDensityModal() {
     const modal = document.getElementById('form-modal-message');
     modal.style.display = 'none';
 
-    // Remove blur effect
-    document.getElementById('page-content').style.filter = ''; // Reset the filter style directly
+    // Reset blur effect directly with higher specificity
+    document.getElementById('page-content').style.filter = 'none'; // Set to 'none' to remove blur
 
     // Re-enable body scrolling
     document.body.style.overflow = 'auto'; // Set overflow back to auto to enable scrolling
@@ -512,6 +513,7 @@ function closeDensityModal() {
     // Show all buttons with class "x-button" again
     toggleButtonsVisibility(true);
 }
+
 
 
     // Show the modal on page load

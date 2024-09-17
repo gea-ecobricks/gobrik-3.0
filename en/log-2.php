@@ -495,17 +495,24 @@ document.addEventListener('DOMContentLoaded', function () {
         xButtons.forEach(button => button.style.display = visible ? 'inline-block' : 'none');
     }
 
-    // Function to close the density confirmation modal
-    function closeDensityModal() {
-        const modal = document.getElementById('form-modal-message');
-        modal.style.display = 'none';
-        document.getElementById('page-content').classList.remove('blurred'); // Optional: Keep this if you want to remove blur on close
-        document.body.classList.remove('modal-open'); // Optional: Keep this if you want to remove modal state on close
-        document.body.style.overflow = ''; // Re-enable body scrolling
+   // Function to close the density confirmation modal
+function closeDensityModal() {
+    const modal = document.getElementById('form-modal-message');
+    modal.style.display = 'none';
 
-        // Show all buttons with class "x-button" again
-        toggleButtonsVisibility(true);
-    }
+    // Remove blur effect
+    document.getElementById('page-content').style.filter = ''; // Reset the filter style directly
+
+    // Re-enable body scrolling
+    document.body.style.overflow = 'auto'; // Set overflow back to auto to enable scrolling
+
+    // Remove any modal state class if needed
+    document.body.classList.remove('modal-open');
+
+    // Show all buttons with class "x-button" again
+    toggleButtonsVisibility(true);
+}
+
 
     // Show the modal on page load
     showDensityConfirmation(density, volume, weight);

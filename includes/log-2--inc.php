@@ -1,6 +1,6 @@
 
 
-<?php require_once ("../meta/log-$lang.php");?>
+<?php require_once ("../meta/log-2-$lang.php");?>
 
 
 <STYLE>

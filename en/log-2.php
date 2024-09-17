@@ -154,7 +154,7 @@ echo '<!DOCTYPE html>
 
 
 
-   <?php require_once ("../includes/log-inc.php");?>
+   <?php require_once ("../includes/log-2-inc.php");?>
 
 
 

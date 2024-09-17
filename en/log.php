@@ -90,8 +90,7 @@ if ($is_logged_in) {
             $location_parts = explode(',', $location_full);
             $location_country = trim(end($location_parts)); // Get the last item and trim whitespace
 
-            $location_watershed = $watershed_name
-
+            $location_watershed = $watershed_name;
 
 
             // Update SQL and binding to match the fields and values

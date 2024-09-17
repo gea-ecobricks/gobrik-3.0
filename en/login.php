@@ -195,12 +195,14 @@ echo '</script>';
 <script>
 
 
-    /* auto run the language switcher */
+    /* auto run the language switcher
+
+    is this needed?!*/
 
         var siteName = 'beta.gobrik.com';
     var currentLanguage = '<?php echo ($lang); ?>'; // Default language code
     switchLanguage(currentLanguage);
-    alert('<?php echo htmlspecialchars($redirect); ?>');
+
 
 
 /* Code entry and processing for 2FA */

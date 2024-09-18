@@ -106,6 +106,13 @@ color: white;
   margin-top: 30px;
   }
 
+  #upload-progress-button.progress-bar {
+    background-color: #4caf50; /* Green background to show progress */
+    background-size: 0% 100%; /* Start with 0% background */
+    transition: background-size 0.4s ease; /* Smooth transition */
+}
+
+
 </style>
 
 <?php require_once ("../header-2024.php");?>

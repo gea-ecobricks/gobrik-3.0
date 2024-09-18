@@ -206,20 +206,17 @@ require_once ("../includes/log-inc.php");
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT -->
-   <div id="top-page-image" class="log-ecobrick top-page-image" style="height: 30px; margin-top: 150px;"></div>
+   <div id="top-page-image" class="log-ecobrick top-page-image" style="height: 30px; margin-top: 140px;"></div>
 <div id="form-submission-box" class="landing-page-form" style="height:auto !important">
     <div class="form-container">
 
-    <div id="log-1-banner" class="log-one-ecobrick" style="height:120px;width:100%;"></div>
+    <div id="log-1-banner" class="log-one-ecobrick" style="height:160px;width:100%;margin-top:-20px;"></div>
 
            <div style="text-align:center;width:100%;margin:auto;">
             <h2 data-lang-id="001-log-title">Log an Ecobrick</h2>
             <p style="color:red;font-weight:500;" data-lang-id="002-log-warning">Warning: this form is not yet ready for use or for beta-testing!  All ecobricks logged at this stage will be deleted from the system once we launch.</p>
             <h3 data-lang-id="002-log-subheading">Record your ecobrick to the brikchain for projects, posterity and posting!</h3>
         </div>
-
-
-
             <!--LOG FORM-->
 
             <form id="submit-form" method="post" action="" enctype="multipart/form-data" novalidate>

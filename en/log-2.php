@@ -267,8 +267,9 @@ echo '<!DOCTYPE html>
                 </div>
 
                 <div style="display:flex;flex-flow:row;width:100%;justify-content:center;" data-lang-id="037-submit-upload-button">
-                    <input type="submit" value="⬆️ Upload Photos" id="upload-progress-button" aria-label="Submit photos for upload">
-                </div>
+    <button id="upload-progress-button" aria-label="Submit photos for upload">⬆️ Upload Photos</button>
+</div>
+
 
             </form>
         </div>
@@ -357,78 +358,77 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+//UPLOAD SUBMIT ACTION AND BUTTON
+document.querySelector('#photoform').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-    //UPLOAD SUBMIT ACTION AND BUTTON
-    document.querySelector('#photoform').addEventListener('submit', function(event) {
-        event.preventDefault();
+    var button = document.getElementById('upload-progress-button');
+    var originalButtonText = button.value; // Save the original button text
+    button.value = 'Uploading...'; // Set button text to indicate progress
+    button.disabled = true; // Disable button to prevent multiple submissions
 
-        var button = document.getElementById('upload-progress-button');
-        var originalButtonText = button.value; // Save the original button text
-        button.innerHTML = '<div class="spinner-photo-loading"></div>'; // Replace button text with spinner
-        button.disabled = true; // Disable button to prevent multiple submissions
+    var messages = {
+        en: "Please choose a file.",
+        es: "Por favor, elige un archivo.",
+        fr: "Veuillez choisir un fichier.",
+        id: "Silakan pilih sebuah berkas."
+    };
 
-        var messages = {
-            en: "Please choose a file.",
-            es: "Por favor, elige un archivo.",
-            fr: "Veuillez choisir un fichier.",
-            id: "Silakan pilih sebuah berkas."
-        };
+    var currentLang = window.currentLanguage || 'en';
+    var chooseFileMessage = messages[currentLang] || messages.en;
 
-        var currentLang = window.currentLanguage || 'en';
-        var chooseFileMessage = messages[currentLang] || messages.en;
+    var fileInput = document.getElementById('ecobrick_photo_main');
+    var selfieInput = document.getElementById('selfie_photo_main');
 
-        var fileInput = document.getElementById('ecobrick_photo_main');
-        var selfieInput = document.getElementById('selfie_photo_main');
+    if (fileInput.files.length === 0 && selfieInput.files.length === 0) {
+        showFormModal(chooseFileMessage);
+        button.value = originalButtonText; // Restore button text if no file chosen
+        button.disabled = false; // Enable button
+        return;
+    }
 
-        if ((fileInput.files.length === 0 && selfieInput.files.length === 0)) {
-            showFormModal(chooseFileMessage);
-            button.innerHTML = originalButtonText; // Restore button text if no file chosen
-            button.disabled = false; // Enable button
-            return;
+    var form = event.target;
+    var formData = new FormData(form);
+    var xhr = new XMLHttpRequest();
+
+    xhr.upload.onprogress = function(event) {
+        if (event.lengthComputable) {
+            var progress = (event.loaded / event.total) * 100;
+            document.getElementById('upload-progress-button').style.backgroundSize = progress + '%';
+            document.getElementById('upload-progress-button').classList.add('progress-bar');
         }
+    };
 
-        var form = event.target;
-        var formData = new FormData(form);
-        var xhr = new XMLHttpRequest();
-
-        xhr.upload.onprogress = function(event) {
-            if (event.lengthComputable) {
-                var progress = (event.loaded / event.total) * 100;
-                document.getElementById('upload-progress-button').style.backgroundSize = progress + '%';
-                document.getElementById('upload-progress-button').classList.add('progress-bar');
-            }
-        };
-
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == XMLHttpRequest.DONE) {
-                button.innerHTML = originalButtonText; // Restore button text after upload
-                button.disabled = false; // Enable button
-                if (xhr.status === 200) {
-                    try {
-                        var response = JSON.parse(xhr.responseText);
-                        var ecobrick_unique_id = response.ecobrick_unique_id;
-                        window.location.href = 'log-3.php?id=' + ecobrick_unique_id; // Redirect to success page with ecobrick_unique_id
-                    } catch (e) {
-                        console.error('Error parsing server response:', e);
-                        handleFormResponse(xhr.responseText); // Handle error response
-                    }
-                } else {
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            button.value = originalButtonText; // Restore button text after upload
+            button.disabled = false; // Enable button
+            if (xhr.status === 200) {
+                try {
+                    var response = JSON.parse(xhr.responseText);
+                    var ecobrick_unique_id = response.ecobrick_unique_id;
+                    window.location.href = 'log-3.php?id=' + ecobrick_unique_id; // Redirect to success page with ecobrick_unique_id
+                } catch (e) {
+                    console.error('Error parsing server response:', e);
                     handleFormResponse(xhr.responseText); // Handle error response
                 }
+            } else {
+                handleFormResponse(xhr.responseText); // Handle error response
             }
-        };
+        }
+    };
 
+    xhr.open(form.method, form.action, true);
+    xhr.send(formData);
+});
 
-        xhr.open(form.method, form.action, true);
-        xhr.send(formData);
-    });
+function showFormModal(message) {
+    const modal = document.getElementById('form-modal-message');
+    const messageContainer = modal.querySelector('.modal-message');
+    messageContainer.innerHTML = message;
+    modal.style.display = 'flex';
+}
 
-    function showFormModal(message) {
-        const modal = document.getElementById('form-modal-message');
-        const messageContainer = modal.querySelector('.modal-message');
-        messageContainer.innerHTML = message;
-        modal.style.display = 'flex';
-    }
 </script>
 
 <script>

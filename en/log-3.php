@@ -8,7 +8,7 @@ ini_set('display_errors', 1);
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.44';
-$page = 'upload-success';
+$page = 'log-3';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 // Initialize user variables
@@ -27,6 +27,13 @@ if ($is_logged_in) {
     // Include database connection
     require_once '../gobrikconn_env.php';
     require_once '../buwanaconn_env.php';
+
+    // Fetch the user's continent icon
+    $country_icon = getUserContinent($buwana_conn, $buwana_id);
+    $watershed_name = getWatershedName($buwana_conn, $buwana_id, $lang); // Corrected to include the $lang parameter
+
+    // Fetch the user's first name from the database
+    $first_name = getUserFirstName($buwana_conn, $buwana_id);
 
     if (isset($_GET['id'])) {
         $ecobrick_unique_id = (int)$_GET['id'];
@@ -92,12 +99,15 @@ echo '<!DOCTYPE html>
                 <?php endif; ?>
             </div>
             <p data-lang-id="002-form-description2" style="text-align: center;">The Earth thanks You for your plastic sequestration and plastic transition!</p>
-            <a class="confirm-button" href="brik.php?serial_no=<?php echo $serial_no; ?>" data-lang-id="013-view-ecobrick-post" style="width:300px;">🎉 View Ecobrick Post</a>
-            <form id="deleteForm" action="" method="POST">
+            <a class="confirm-button" href="brik.php?serial_no=<?php echo $serial_no; ?>" data-lang-id="013-view-ecobrick-post" style="width:300px;">View Ecobrick Post</a>
+
+            <!-- DELETE ECOBRICK-->
+            <form id="deleteForm" method="POST">
                 <input type="hidden" name="ecobrick_unique_id" value="<?php echo htmlspecialchars($ecobrick_unique_id); ?>">
                 <input type="hidden" name="action" value="delete_ecobrick">
                 <a class="confirm-button" style="background:red; cursor:pointer;width:300px;" id="deleteButton" data-lang-id="014-delete-ecobrick">❌ Delete Ecobrick</a>
             </form>
+
             <a class="confirm-button" href="log.php" data-lang-id="015-log-another-ecobrick" style="width:300px;">➕ Log another ecobrick</a>
             <br>
         </div>
@@ -112,37 +122,46 @@ echo '<!DOCTYPE html>
 
     <script>
 
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('deleteButton').addEventListener('click', function(event) {
-                event.preventDefault(); // Prevent default action
-                if (confirm('Are you sure you want to delete this ecobrick from the database? This cannot be undone.')) {
-                    const ecobrickUniqueId = document.querySelector('input[name="ecobrick_unique_id"]').value;
+       document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('deleteButton').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default action
 
-                    fetch('delete-ecobrick.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: new URLSearchParams({
-                            'ecobrick_unique_id': ecobrickUniqueId
-                        })
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                alert('Your ecobrick has been successfully deleted. You may now log another ecobrick...');
-                                window.location.href = 'log.php';
-                            } else {
-                                alert('There was an error deleting the ecobrick: ' + data.error);
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('There was an error processing your request.');
-                        });
+        if (confirm('Are you sure you want to delete this ecobrick from the database? This cannot be undone.')) {
+            const ecobrickUniqueId = document.querySelector('input[name="ecobrick_unique_id"]').value;
+            const action = document.querySelector('input[name="action"]').value;
+
+            fetch('delete-ecobrick.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    'ecobrick_unique_id': ecobrickUniqueId,
+                    'action': action // Include the action field
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok.');
                 }
+                return response.json(); // Expecting JSON from the server
+            })
+            .then(data => {
+                if (data.success) {
+                    alert('Your ecobrick has been successfully deleted. You may now log another ecobrick...');
+                    window.location.href = 'log.php';
+                } else {
+                    alert('There was an error deleting the ecobrick: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error processing your request.');
             });
-        });
+        }
+    });
+});
+
 
     </script>
 

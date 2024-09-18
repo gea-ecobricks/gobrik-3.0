@@ -1,19 +1,19 @@
 <!-- Meta tags for page display and search engine listing-->
 
-<title>Log Ecobrick | Step 2 </title>
+<title>Ecobrick Logged! 🎉 | Step 3 </title>
 <meta name="keywords" content="Ecobricks, Log, Record, submit, ecobrick, Gobrik">
-<meta name="description" content="Get your ecobrick's serial, enscribe it and take a photo.">
+<meta name="description" content="Your ecobrick has been logged.  Add a vision to its brikchain record.">
 <meta name="author" content="GoBrik.com">
 <meta name="last-modified" content="' . $lastModified . '">
 <meta name="revised" content="' . $lastModified . '">
 
 	<!-- Facebook Open Graph Tags for social sharing-->
 
-<meta property="og:url"           content="https://gobrik.com/en/log-2.php">
+<meta property="og:url"           content="https://gobrik.com/en/log-3.php">
 <meta property="og:locale" content="en_GB" >
 <meta property="og:type"          content="website">
 <meta property="og:title"         content="Log Ecobrick | Step 2 ">
-<meta property="og:description"   content="Get your ecobrick's serial, enscribe it and take a photo.">
+<meta property="og:description"   content="Your ecobrick has been logged.  Add a vision to its brikchain record.">
 <meta property="og:image"         content="https://gobrik.com/pngs/what-page-ecobrick-banner-1024px.png">
 <meta property="og:image:width" content="1024">
 <meta property="og:image:height" content="1017">

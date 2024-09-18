@@ -488,6 +488,19 @@ light.css
   background-size: contain;
 }
 
+
+.log-step-2 {
+
+      background: url(../svgs/step2-log-project.svg) no-repeat center;
+      background-size: contain;
+      }
+
+ .log-step-3 {
+
+      background: url(../svgs/step3.svg) no-repeat center;
+      background-size: contain;
+      }
+
     .earth-community {
       background: url(../svgs/earth-community-day.svg) no-repeat center;
       background-size: contain;
@@ -522,17 +535,6 @@ light.css
   background-size: contain;
 }
 
-.log-step-2 {
-
-      background: url(../svgs/step2-log-project.svg) no-repeat center;
-      background-size: contain;
-      }
-
- .log-step-3 {
-
-      background: url(../svgs/step3-log-project.svg) no-repeat center;
-      background-size: contain;
-      }
 
 .regen-top {
       background: url(../svgs/regen-top-simple.svg) no-repeat center;

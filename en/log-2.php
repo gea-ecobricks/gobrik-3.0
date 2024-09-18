@@ -442,7 +442,8 @@ document.addEventListener('DOMContentLoaded', function () {
         toggleButtonsVisibility(false);
 
         // Generate content for the modal
-        const content = generateModalContent(density, volume, weight);
+        const content = generateModalContent(density, volume, weight, '<?php echo ($lang); ?>'); // For French
+
 
         // Update modal content
         messageContainer.innerHTML = content;

@@ -122,8 +122,9 @@ echo '<!DOCTYPE html>
 
 
             <div id="next-options" style="display:none;">
-                <div class="conclusion-message" data-lang-id="003-recorded-ready" style="font-family:'Mulish',sans-serif; font-size:1.2em;color:var(--text-color);margin-top:20px;">Logging of Ecobrick <?php echo $serial_no; ?> Complete</div>
-                <h2>We and the earth thank you for your work.</h2>
+                <div class="conclusion-message"  style="font-family:'Mulish',sans-serif; font-size:1.4em;color:var(--h1);margin-top:20px;"><span data-lang-id="003-logging-is">Logging of Ecobrick </span><?php echo $serial_no; ?><span data-lang-id="003-complete" Complete 👍</span></div>
+                <h2 data-lang-id="003-recorded-ready">We and the earth thank you for your hard work.</h2>
+                <h3>🙏💚🌏</h3>
 
                 <a class="confirm-button" href="brik.php?serial_no=<?php echo $serial_no; ?>" data-lang-id="013-view-ecobrick-post" style="width:300px;">View Ecobrick Post</a>
 

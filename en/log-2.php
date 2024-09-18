@@ -407,7 +407,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     try {
                         var response = JSON.parse(xhr.responseText);
                         var ecobrick_unique_id = response.ecobrick_unique_id;
-                        window.location.href = 'log-3php?id=' + ecobrick_unique_id; // Redirect to success page with ecobrick_unique_id
+                        window.location.href = 'log-3.php?id=' + ecobrick_unique_id; // Redirect to success page with ecobrick_unique_id
                     } catch (e) {
                         console.error('Error parsing server response:', e);
                         handleFormResponse(xhr.responseText); // Handle error response

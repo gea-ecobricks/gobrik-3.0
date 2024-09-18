@@ -96,10 +96,9 @@ echo '<!DOCTYPE html>
                 <h2 data-lang-id="001-form-title">Ecobrick <?php echo $serial_no; ?> has been logged! 🎉</h2>
             </div>
             <div id="upload-success-message">
-                <?php if ($ecobrick_full_photo_url): ?>
+                <?php if (!empty($ecobrick_full_photo_url) && $ecobrick_full_photo_url !== 'url missing'): ?>
                     <div class="photo-container">
-                        <img src="<?php echo $ecobrick_full_photo_url; ?>" alt="Basic Ecobrick Photo" style="max-width:500px;">
-                        <p class="photo-caption" style="font-size:0.9em;color:grey;text-align:center;">Your ecobrick record has been logged to the validation queue. It is now pending peer review. Once authenticated, its record will be permanently added to the brikchain.</p>
+                        <img src="<?php echo htmlspecialchars($ecobrick_full_photo_url); ?>" alt="Basic Ecobrick Photo" style="max-width:500px;" title="Basic ecobrick photo - full">
                     </div>
                 <?php endif; ?>
                 <?php if ($selfie_photo_url): ?>
@@ -108,6 +107,7 @@ echo '<!DOCTYPE html>
                         <p class="photo-caption" style="font-size:1em;text-align:center;">Ecobrick Selfie Photo</p>
                     </div>
                 <?php endif; ?>
+                <p class="photo-caption" style="font-size:0.9em;color:grey;text-align:center;">Your ecobrick record has been logged to the validation queue. It is now pending peer review. Once authenticated, its record will be permanently added to the brikchain.</p>
             </div>
             <h3 data-lang-id="002-earth-thanks-you" style="text-align: center;">Earth thanks you for saving and securing this plastic!</h3>
             <p data-lang-id="003-add-your-vision">You may now add a vision to your ecobrick! This is a short message: a vision, a wish, or a prayer for the future. The message will be added to your ecobrick's record on the brikchain and visible to anyone who reviews your ecobrick's data.</p>

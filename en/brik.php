@@ -73,7 +73,7 @@ if ($result->num_rows > 0) {
             <div class="splash-content-block">
                 <div class="splash-box">
 
-                    <div class="splash-sub">Ecobrick</span> ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was logged on GoBrik On ' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . ', ecobrick ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . '. It is pending review and authentication.</div>
+                    <div class="splash-sub">Ecobrick</span> ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was logged on ' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . '. It is pending review and authentication.</div>
                 </div>
                 <div class="splash-image">
                     <a href="javascript:void(0);" onclick="viewGalleryImage(\'' . htmlspecialchars($array["ecobrick_full_photo_url"], ENT_QUOTES, 'UTF-8') . '\', \'Ecobrick ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and logged on ' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . '\')"><img src="../' . htmlspecialchars($array["ecobrick_full_photo_url"], ENT_QUOTES, 'UTF-8') . '" alt="Ecobrick ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and logged on ' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . '" title="Ecobrick Serial ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and authenticated on ' . htmlspecialchars($array["last_validation_ts"], ENT_QUOTES, 'UTF-8') . '"></a>
@@ -173,8 +173,8 @@ if ($result->num_rows > 0) {
         echo '<div class="side">
             <div class="side-module-desktop-mobile">
                 <img src="../pngs/authenticated-ecobrick.png" width="90%" alt="Following the Earths example through eco bricking">
-                <br><h4 data-lang-id="104-side-authenticated-text">Authenticated!</h4>
-                <h5 data-lang-id="105-side-authenticated-text">This ecobrick has been authenticated by three independent validators that it meets the standards of plastic sequestration.</h5><br><br><br>
+                <br><h4 data-lang-id="104-side-authenticated-text">Pending Review!</h4>
+                <h5 data-lang-id="105-side-authenticated-text">This ecobrick is currently in the validation queue awaiting peer review and authentication.</h5><br><br><br>
             </div>';
 
     }

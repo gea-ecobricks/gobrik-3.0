@@ -142,7 +142,7 @@ echo '<!DOCTYPE html>
             </div>
                 <div id="conclusion-message" data-lang-id="003-recorded-ready" style="font-family:'Mulish',sans-serif; font-size:1.2em;color:var(--text-color);">✔️ Your ecobrick is now in the validation queue now pending peer review.</div>
             </div>
-            <div id="conclusion-message" data-lang-id="003-recorded-ready" style="font-fmaily:'Mulish',sans-serif; font-size:1.4em;color:var(--h1);">Your ecobrick is now in the validation queue now pending peer review.</div>
+
         </div>
     </div>
     <br><br>
@@ -207,7 +207,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const visionForm = document.getElementById('add-vision-form');
     const visionMessage = document.getElementById('vision_message');
     const ecobrickLoggedTitle = document.getElementById('ecobrick-logged-title');
-    const conclusionMessage = document.getElementById('conclusion-message');
     const visionAddedSuccess = document.getElementById('vision-added-success');
     const visionAddedFailure = document.getElementById('vision-added-failure');
     const nextOptions = document.getElementById('next-options');
@@ -217,7 +216,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to hide the form and show the next steps
     function showNextOptions() {
         ecobrickLoggedTitle.style.display = 'none';
-        conclusionMessage.style.display = 'none';
         visionForm.style.display = 'none';
         nextOptions.style.display = 'block';
     }

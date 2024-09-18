@@ -60,7 +60,7 @@ overflow: hidden;
     display: inline-block;
     padding: 10px 20px;
     font-size: 1.3rem;
-    color: var(--text-color);
+    color: var(--h1);
     background-color: grey;
     border: 2px solid transparent;
     border-radius: 6px;
@@ -70,7 +70,7 @@ overflow: hidden;
 }
 
 .custom-file-upload:hover {
-    background-color: #d3d3d3; /* Lighten the grey background on hover */
+    background-color: var(--accordion-background); /* Lighten the grey background on hover */
     border-color: var(--text-color); /* Changes border color on hover */
 }
 

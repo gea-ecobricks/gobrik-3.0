@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.49';
+$version = '0.491';
 $page = 'log-2';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -451,45 +451,52 @@ document.addEventListener('DOMContentLoaded', function () {
         modal.style.display = 'flex';
     }
 
-    // Function to generate modal content based on density
-    function generateModalContent(density, volume, weight) {
-        if (density < 0.33) {
-            return `
-                <h1>⛔</h1>
-                <h4>${en_Page_Translations.underDensityTitle}</h4>
-                <div class="preview-text">${en_Page_Translations.underDensityMessage.replace('${density}', density)}</div>
-                <a class="preview-btn" href="/what">${en_Page_Translations.geaStandardsLinkText}</a>
-            `;
-        } else if (density >= 0.33 && density < 0.36) {
-            return `
-                <h1>⚠️</h1>
-                <h4>${en_Page_Translations.lowDensityTitle}</h4>
-                <div class="preview-text">${en_Page_Translations.lowDensityMessage.replace('${density}', density)}</div>
-                <a class="module-btn" onclick="closeDensityModal()" aria-label="Click to close modal">${en_Page_Translations.nextRegisterSerial}</a>
-            `;
-        } else if (density >= 0.36 && density < 0.65) {
-            return `
-                <h1 style="text-align:center;">👍</h1>
-                <h2 style="text-align:center;">${en_Page_Translations.greatJobTitle}</h2>
-                <div class="preview-text" style="text-align:center;">${en_Page_Translations.greatJobMessage.replace('${density}', density)}</div>
-                <a class="preview-btn" onclick="closeDensityModal()" aria-label="Click to close modal">${en_Page_Translations.nextRegisterSerial}</a>
-            `;
-        } else if (density >= 0.65 && density < 0.73) {
-            return `
-                <h1 style="text-align:center;">⚠️</h1>
-                <h4 style="text-align:center;">${en_Page_Translations.highDensityTitle}</h4>
-                <div class="preview-text" style="text-align:center;">${en_Page_Translations.highDensityMessage.replace('${density}', density).replace('${volume}', volume).replace('${weight}', weight)}</div>
-                <a class="preview-btn" onclick="closeDensityModal()" aria-label="Click to close modal">${en_Page_Translations.nextRegisterSerial}</a>
-            `;
-        } else {
-            return `
-                <h1 style="text-align:center;">⛔</h1>
-                <h4 style="text-align:center;">${en_Page_Translations.overMaxDensityTitle}</h4>
-                <div class="preview-text">${en_Page_Translations.overMaxDensityMessage.replace('${density}', density)}</div>
-                <a class="preview-btn" href="log.php">${en_Page_Translations.goBack}</a>
-            `;
-        }
+   // Function to generate modal content based on density
+function generateModalContent(density, volume, weight, lang) {
+    // Determine the translation object based on the selected language
+    const translations = lang === 'fr' ? fr_Page_Translations :
+                         lang === 'es' ? es_Page_Translations :
+                         lang === 'id' ? id_Page_Translations :
+                         en_Page_Translations; // Default to English if no match
+
+    if (density < 0.33) {
+        return `
+            <h1>⛔</h1>
+            <h4>${translations.underDensityTitle}</h4>
+            <div class="preview-text">${translations.underDensityMessage.replace('${density}', density)}</div>
+            <a class="preview-btn" href="/what">${translations.geaStandardsLinkText}</a>
+        `;
+    } else if (density >= 0.33 && density < 0.36) {
+        return `
+            <h1>⚠️</h1>
+            <h4>${translations.lowDensityTitle}</h4>
+            <div class="preview-text">${translations.lowDensityMessage.replace('${density}', density)}</div>
+            <a class="module-btn" onclick="closeDensityModal()" aria-label="Click to close modal">${translations.nextRegisterSerial}</a>
+        `;
+    } else if (density >= 0.36 && density < 0.65) {
+        return `
+            <h1 style="text-align:center;">👍</h1>
+            <h2 style="text-align:center;">${translations.greatJobTitle}</h2>
+            <div class="preview-text" style="text-align:center;">${translations.greatJobMessage.replace('${density}', density)}</div>
+            <a class="preview-btn" onclick="closeDensityModal()" aria-label="Click to close modal">${translations.nextRegisterSerial}</a>
+        `;
+    } else if (density >= 0.65 && density < 0.73) {
+        return `
+            <h1 style="text-align:center;">⚠️</h1>
+            <h4 style="text-align:center;">${translations.highDensityTitle}</h4>
+            <div class="preview-text" style="text-align:center;">${translations.highDensityMessage.replace('${density}', density).replace('${volume}', volume).replace('${weight}', weight)}</div>
+            <a class="preview-btn" onclick="closeDensityModal()" aria-label="Click to close modal">${translations.nextRegisterSerial}</a>
+        `;
+    } else {
+        return `
+            <h1 style="text-align:center;">⛔</h1>
+            <h4 style="text-align:center;">${translations.overMaxDensityTitle}</h4>
+            <div class="preview-text">${translations.overMaxDensityMessage.replace('${density}', density)}</div>
+            <a class="preview-btn" href="log.php">${translations.goBack}</a>
+        `;
     }
+}
+
 
     // Function to toggle visibility of "x-button" elements
     function toggleButtonsVisibility(visible) {

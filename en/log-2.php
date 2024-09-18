@@ -257,9 +257,9 @@ echo '<!DOCTYPE html>
 
                     <div class="photo-upload-container">
                         <label for="selfie_photo_main" class="custom-file-upload" data-lang-id="035-selfie-upload">
-                            📷 Take Selfie Photo</label>
+                            📷 Take Selfie Photo
                             <input type="file" id="selfie_photo_main" name="selfie_photo_main">
-
+                        </label>
                         <span id="file-name-selfie" class="file-name" data-lang-id="035b-no-file-chosen">No file chosen</span>
                         <p class="form-caption" data-lang-id="036-another-photo-optional">Upload your ecobrick selfie.</p>
                     </div>

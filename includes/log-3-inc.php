@@ -95,6 +95,55 @@ color: white;
   margin-top: 30px;
   }
 
+
+  /* Style for the text form */
+#add-vision-form {
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Style for the textarea */
+#vision_message {
+    width: 100%;
+    font-size: 1.3em;
+    border-radius: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    resize: vertical; /* Allows vertical resizing only */
+    max-width: 100%;
+    min-height: 100px; /* Ensures a comfortable size for typing */
+    line-height: 1.5em; /* Increases space between lines for readability */
+}
+
+/* Style for the character counter */
+#character-counter {
+    text-align: right;
+    font-size: 0.9em;
+    color: grey;
+    margin-top: 5px;
+}
+
+/* Button group style */
+.button-group {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.confirm-button {
+    flex-grow: 1;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#skip-button {
+    background: grey;
+}
+
+
 </style>
 
 <?php require_once ("../header-2024.php");?>

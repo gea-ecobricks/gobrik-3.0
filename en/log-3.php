@@ -108,15 +108,19 @@ echo '<!DOCTYPE html>
 
             <!-- Vision Form -->
             <form id="add-vision-form">
-                <p>Optionally, you may now add a vision to your ecobrick. This is a short message: a vision, a wish, or a prayer for the future. The message will be added to your ecobrick's record on the brikchain and visible to anyone who reviews your ecobrick's data.</p>
+                <p data-lang-id="vision-form-into">Optionally, you may now add a vision to your ecobrick. This is a short message: a vision, a wish, or a prayer for the future. The message will be added to your ecobrick's record on the brikchain and visible to anyone who reviews your ecobrick's data.</p>
 
-                <textarea name="vision_message" id="vision_message" rows="4" style="width:100%;font-size:1.3em; border-radius:15px;" placeholder="Your vision for this ecobrick and its future..."></textarea>
+                <textarea name="vision_message" id="vision_message" rows="4" maxlength="255" placeholder="Your vision for this ecobrick and its future..."></textarea>
+                <p class="form-caption"><span id="character-counter">255</span><span data-lang-id="024-char-remaining"> characters remaining<span></p>
+
                 <input type="hidden" name="ecobrick_unique_id" value="<?php echo htmlspecialchars($ecobrick_unique_id); ?>">
-                <div style="display: flex; gap: 10px; width: 100%;">
-                    <button type="submit" class="confirm-button" style="flex-grow: 1; margin-top: 10px;">Save</button>
-                    <a class="confirm-button" style="background:grey; cursor:pointer; flex-grow: 1; margin-top: 10px; text-align: center;" id="skip-button" data-lang-id="014-skip-button">Skip: Complete Logging</a>
+
+                <div class="button-group">
+                    <button type="submit" class="confirm-button" data-lang-id="027-save-button-text">Save</button>
+                    <a class="confirm-button" id="skip-button" data-lang-id="014-skip-button">Skip: Complete Logging</a>
                 </div>
             </form>
+
 
 
 
@@ -154,6 +158,8 @@ echo '<!DOCTYPE html>
 
 <!--FOOTER STARTS HERE-->
 <?php require_once ("../footer-2024.php");?>
+
+
 
 
     <script>
@@ -195,6 +201,27 @@ echo '<!DOCTYPE html>
                 alert('There was an error processing your request.');
             });
         }
+    });
+});
+
+
+//TEXT FIELD CHARACTER COUNTER
+
+document.addEventListener('DOMContentLoaded', function () {
+    const visionTextarea = document.getElementById('vision_message');
+    const charCounter = document.getElementById('character-counter');
+    const maxLength = 255;
+
+    // Fetch the translation string for "characters remaining"
+    const charRemainingTextElement = document.querySelector('[data-lang-id="024-char-remaining"]');
+    const charRemainingText = charRemainingTextElement.textContent;
+
+    // Update character counter on input
+    visionTextarea.addEventListener('input', function () {
+        const remainingChars = maxLength - visionTextarea.value.length;
+        // Update the counter text dynamically with the translation
+        charCounter.textContent = `${remainingChars} `;
+        charRemainingTextElement.textContent = `${charRemainingText}`;
     });
 });
 

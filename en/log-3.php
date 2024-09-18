@@ -105,14 +105,14 @@ echo '<!DOCTYPE html>
 
             <h2 data-lang-id="001-form-title">Ecobrick <?php echo $serial_no; ?> is logged! 🎉</h2>
 
-            <h4 data-lang-id="003-recorded-ready">Your ecobrick is now in the validation queue now pending peer review.</h4>
+            <div class="conclusion-message" data-lang-id="003-recorded-ready" style="font-fmaily:'Mulish',sans-serif; font-size:1.4em;color:var(--subdued);">Your ecobrick is now in the validation queue now pending peer review.</div>
 
 
                 <!-- Vision Form -->
                 <form id="add-vision-form">
                     <p>Optionally, you may now add a vision to your ecobrick. This is a short message: a vision, a wish, or a prayer for the future. The message will be added to your ecobrick's record on the brikchain and visible to anyone who reviews your ecobrick's data.</p>
 
-                    <textarea name="vision_message" id="vision_message" rows="4" style="width:100%;" placeholder="Your vision for this ecobrick and its future..."></textarea>
+                    <textarea name="vision_message" id="vision_message" rows="4" style="width:100%;font-size:1.3em,border-radius:15px;" placeholder="Your vision for this ecobrick and its future..."></textarea>
                     <input type="hidden" name="ecobrick_unique_id" value="<?php echo htmlspecialchars($ecobrick_unique_id); ?>">
                     <div style="display: flex; gap: 10px; width: 100%;">
                     <button type="submit" class="confirm-button" style="flex-grow: 1; margin-top: 10px;">Save</button>

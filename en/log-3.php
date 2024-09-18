@@ -122,9 +122,9 @@ echo '<!DOCTYPE html>
 
 
             <div id="next-options" style="display:none;">
-                <div class="conclusion-message"  style="font-family:'Mulish',sans-serif; font-size:1.4em;color:var(--h1);margin-top:20px;"><span data-lang-id="003-logging-is">Logging of Ecobrick </span><?php echo $serial_no; ?><span data-lang-id="003-complete" Complete 👍</span></div>
-                <h2 data-lang-id="003-recorded-ready">We and the earth thank you for your hard work.</h2>
-                <h3>🙏💚🌏</h3>
+                <div class="conclusion-message"  style="font-family:'Mulish',sans-serif; font-size:1.4em;color:var(--h1);margin-top:20px;"><span data-lang-id="003-logging-is">Logging of Ecobrick </span><?php echo $serial_no; ?><span data-lang-id="003-complete">is Completed. 👍</span></div>
+                <h2 data-lang-id="003-recorded-ready">We and the earth thank you.</h2>
+                <h3>🙏 💚 🌏</h3><br>
 
                 <a class="confirm-button" href="brik.php?serial_no=<?php echo $serial_no; ?>" data-lang-id="013-view-ecobrick-post" style="width:300px;">View Ecobrick Post</a>
                 <a class="confirm-button" href="log.php" data-lang-id="015-log-another-ecobrick" style="width:300px;">➕ Log another ecobrick</a>
@@ -139,9 +139,9 @@ echo '<!DOCTYPE html>
                 <p id="post-error-message"></p>
             </div>
                 <div id="vision-added-success" style="display:none;font-size:1.2em;">
-                <p>✔️ Vision successfully added to ecobrick <?php echo $ecobrick_unique_id; ?>'s record.</p>
+                <p><span style="color:green;">✔</span> Vision successfully added to ecobrick <?php echo $ecobrick_unique_id; ?>'s record.</p>
             </div>
-                <div id="conclusion-message" data-lang-id="003-recorded-ready" style="font-family:'Mulish',sans-serif; font-size:1.2em;color:var(--text-color);">✔️ Your ecobrick is now in the validation queue now pending peer review.</div>
+                <div id="conclusion-message" data-lang-id="003-recorded-ready" style="font-family:'Mulish',sans-serif; font-size:1.2em;color:var(--text-color);"><span style="color:green;">✔</span> Your ecobrick is now in the validation queue now pending peer review.</div>
             </div>
 
         </div>

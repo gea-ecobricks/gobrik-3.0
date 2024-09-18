@@ -95,7 +95,7 @@ color: white;
   }
 
 
-  .login-one-banner {f
+  .login-one-banner {
     z-index:20;
     position: absolute;
     text-align: center;

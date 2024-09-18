@@ -107,15 +107,16 @@ echo '<!DOCTYPE html>
 
             <h4 data-lang-id="003-recorded-ready">Your ecobrick is now in the validation queue now pending peer review.</h4>
 
-            <p>Optionally, you may now add a vision to your ecobrick. This is a short message: a vision, a wish, or a prayer for the future. The message will be added to your ecobrick's record on the brikchain and visible to anyone who reviews your ecobrick's data.</p>
 
                 <!-- Vision Form -->
                 <form id="add-vision-form">
+                    <p>Optionally, you may now add a vision to your ecobrick. This is a short message: a vision, a wish, or a prayer for the future. The message will be added to your ecobrick's record on the brikchain and visible to anyone who reviews your ecobrick's data.</p>
+
                     <textarea name="vision_message" id="vision_message" rows="4" style="width:100%;" placeholder="Your vision for this ecobrick and its future..."></textarea>
                     <input type="hidden" name="ecobrick_unique_id" value="<?php echo htmlspecialchars($ecobrick_unique_id); ?>">
                     <div style="display: flex; gap: 10px; width: 100%;">
                     <button type="submit" class="confirm-button" style="flex-grow: 1; margin-top: 10px;">Save</button>
-                    <a class="confirm-button" style="background:grey; cursor:pointer; flex-grow: 1; margin-top: 10px; text-align: center;" id="deleteButton" data-lang-id="014-delete-ecobrick">Skip: Complete Logging ></a>
+                    <a class="confirm-button" style="background:grey; cursor:pointer; flex-grow: 1; margin-top: 10px; text-align: center;" id="deleteButton" data-lang-id="014-delete-ecobrick">Skip: Complete Logging</a>
                 </div>
 
                 </form>
@@ -205,7 +206,7 @@ document.getElementById('add-vision-form').addEventListener('submit', function(e
     const visionMessage = document.getElementById('vision_message').value;
     const ecobrickUniqueId = document.querySelector('input[name="ecobrick_unique_id"]').value;
 
-    fetch('../php/log_vision.php', {
+    fetch('../log_vision.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.44';
+$version = '0.441';
 $page = 'log-3';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -82,7 +82,7 @@ echo '<!DOCTYPE html>
                 <img src="../svgs/Happy-turtle-dolphin-opti.svg" style="width:39%; margin:auto; margin-top:-100px;" alt="The Earth Thanks You">
             </div>
             <div>
-                <h2 data-lang-id="001-form-title">Ecobrick <?php echo $serial_no; ?> has been logged! 🎉</h2>
+                <h1 data-lang-id="001-form-title">Ecobrick <?php echo $serial_no; ?> has been logged! 🎉</h1>
             </div>
             <div id="upload-success-message">
                 <?php if ($ecobrick_full_photo_url): ?>
@@ -98,7 +98,7 @@ echo '<!DOCTYPE html>
                     </div>
                 <?php endif; ?>
             </div>
-            <p data-lang-id="002-form-description2" style="text-align: center;">The Earth thanks You for your plastic sequestration and plastic transition!</p>
+            <h2 data-lang-id="002-earth-thanks-you" style="text-align: center;">Earth thanks you for saving and securing this plastic!</h2>
             <a class="confirm-button" href="brik.php?serial_no=<?php echo $serial_no; ?>" data-lang-id="013-view-ecobrick-post" style="width:300px;">View Ecobrick Post</a>
 
             <!-- DELETE ECOBRICK-->

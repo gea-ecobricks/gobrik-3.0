@@ -103,28 +103,27 @@ echo '<!DOCTYPE html>
 
             </div>
 
-            <h2 data-lang-id="001-form-title"> </h2>
-
-
-            <h3 data-lang-id="002-earth-thanks-you" style="text-align: center;">🎉 Earth thanks you for saving and securing this plastic!🙏</h3>
-            <p data-lang-id="003-recorded-ready">Ecobrick <?php echo $serial_no; ?> has been logged! It is in the validation queue now pending peer review. Once reviewed, if it is authenticated, its record will be permanently added to the brikchain.</p>
+            <h2 data-lang-id="001-form-title">Ecobrick <?php echo $serial_no; ?> has been logged!</h2>
+            <h4 data-lang-id="002-earth-thanks-you" style="text-align: center;">The earth thanks you for saving and securing this plastic.</h4>
+            <p data-lang-id="003-recorded-ready">Your ecobrick is now in the validation queue now pending peer review. Once reviewed, if it is authenticated, its record will be permanently added to the brikchain.</p>
             <br><br>
-            <hr>
-            <br>
-            <p data-lang-id="003-add-your-vision">You may now add a vision to your ecobrick! This is a short message: a vision, a wish, or a prayer for the future. The message will be added to your ecobrick's record on the brikchain and visible to anyone who reviews your ecobrick's data.</p>
+            <div id="add-vision-container" style="width:100%;margin:10px;padding:10px;border: 1px solid;border-radius:13px;">
 
-            <!-- Vision Form -->
-            <form id="add-vision-form">
-                <textarea name="vision_message" id="vision_message" rows="4" style="width:100%;" placeholder="Your vision for the future..."></textarea>
-                <input type="hidden" name="ecobrick_unique_id" value="<?php echo htmlspecialchars($ecobrick_unique_id); ?>">
-                <button type="submit" class="confirm-button" style="margin-top: 10px;">Add Vision</button>
-            </form>
+                <p data-lang-id="003-add-your-vision">You may now add a vision to your ecobrick! This is a short message: a vision, a wish, or a prayer for the future. The message will be added to your ecobrick's record on the brikchain and visible to anyone who reviews your ecobrick's data.</p>
 
-            <div id="vision-added-success" style="display:none;">
-                <p>👍 Vision successfully added to ecobrick <?php echo $ecobrick_unique_id; ?>'s record.</p>
-            </div>
-            <div id="vision-added-failure" style="display:none;">
-                <p>😭 Hmmm... something went wrong adding your vision to <?php echo $ecobrick_unique_id; ?>'s record. Let us know on the beta test or bug review form, please!</p>
+                <!-- Vision Form -->
+                <form id="add-vision-form">
+                    <textarea name="vision_message" id="vision_message" rows="4" style="width:100%;" placeholder="Your vision for the future..."></textarea>
+                    <input type="hidden" name="ecobrick_unique_id" value="<?php echo htmlspecialchars($ecobrick_unique_id); ?>">
+                    <button type="submit" class="confirm-button" style="margin-top: 10px;">Add Vision</button>
+                </form>
+
+                <div id="vision-added-success" style="display:none;">
+                    <p>👍 Vision successfully added to ecobrick <?php echo $ecobrick_unique_id; ?>'s record.</p>
+                </div>
+                <div id="vision-added-failure" style="display:none;">
+                    <p>😭 Hmmm... something went wrong adding your vision to <?php echo $ecobrick_unique_id; ?>'s record. Let us know on the beta test or bug review form, please!</p>
+                </div>
             </div>
 
             <a class="confirm-button" href="brik.php?serial_no=<?php echo $serial_no; ?>" data-lang-id="013-view-ecobrick-post" style="width:300px;">View Ecobrick Post</a>

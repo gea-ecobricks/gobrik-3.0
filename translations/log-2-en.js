@@ -13,7 +13,45 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 
 const en_Page_Translations = {
 
-
+ "001-form-title": "Record Serial & Take Photo",
+    "002-form-description-1": "Your ecobrick has been logged with a weight of ",
+    "003-form-description-2": "a volume of ",
+    "004-form-description-3": "and a density of ",
+    "005-form-description-4": " Your ecobrick has been allocated the serial number:",
+    "006-enscribe-label": "How would you like to inscribe the serial number on your ecobrick?",
+    "007-enscribe-option-1": "Select one...",
+    "008-enscribe-option-2": "Permanent marker",
+    "009-enscribe-option-3": "Impermanent marker",
+    "010-enscribe-option-4": "Enamel paint",
+    "011-enscribe-option-5": "Nail polish",
+    "012-enscribe-option-6": "Plastic insert",
+    "013-enscribe-option-7": "Other",
+    "014-photo-options-label": "What kind of photo would you like to log of your ecobrick?",
+    "015-photo-options-option-1": "Select one...",
+    "016-photo-options-option-2": "A basic ecobrick photo",
+    "017-photo-options-option-3": "A selfie photo",
+    "018-photo-options-option-4": "A basic photo and a selfie photo",
+    "019-feature-photo": "Upload a basic ecobrick photo:",
+    "020-feature-photo-step-1": "Take a vertical portrait photo",
+    "021-feature-photo-step-2": "Be sure your photo shows the serial & weight clearly",
+    "022-feature-photo-step-3": "Be sure your photo shows your ecobricks bottom color",
+    "023-feature-photo-step-4": "Be sure your photo shows your ecobricks top",
+    "024-feature-photo-step-5": "Be sure your data is permanently enscribed!",
+    "025-feature-photo-step-6": "Do not use an external label to mark the ecobrick",
+    "025-basic-photo-label": "📷 Take Basic Photo",
+    "026-basic-feature-desc": "Take or select a photo of your serialized ecobrick.",
+    "027-label-selfie": "Upload an ecobrick selfie:",
+    "028-selfie-photo-step-1": "Be sure your photo is a horizontal landscape",
+    "029-selfie-photo-step-2": "Be sure your photo shows the serial & weight clearly",
+    "030-selfie-photo-step-3": "Be sure your photo shows your ecobricks bottom color",
+    "031-selfie-photo-step-4": "Be sure your photo shows your ecobricks top",
+    "032-selfie-photo-step-5": "Be sure your data is permanently enscribed!",
+    "033-selfie-photo-step-6": "Do not use an external label to mark the ecobrick",
+    "034-selfie-photo-step-7": "And smile!",
+    "035-selfie-upload": "📷 Take Selfie Photo",
+    "035b-no-file-chosen": "No file chosen",
+    "036-another-photo-optional": "Upload your ecobrick selfie.",
+    "037-submit-upload-button": '<input type="submit" value="⬆️ Upload Photos" id="upload-progress-button" aria-label="Submit photos for upload">',
 
 //Modals for density check
 
@@ -30,5 +68,7 @@ const en_Page_Translations = {
     "geaStandardsLinkText": 'GEA Standards',
     "nextRegisterSerial": 'Next: Register Serial',
     "goBack": 'Go Back',
+
+
 
     };

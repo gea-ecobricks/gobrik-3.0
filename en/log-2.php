@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.47';
+$version = '0.48';
 $page = 'log-2';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -175,7 +175,7 @@ echo '<!DOCTYPE html>
 
             </div>
 
-            <p data-lang-id="002-form-description2" style="text-align: center;">Your ecobrick has been logged with a weight of <?php echo $weight_g; ?>g, a volume of <?php echo $universal_volume_ml; ?>ml, and a density of <?php echo $density; ?>g/ml. Your ecobrick has been allocated the serial number:</p>
+            <p style="text-align: center;"><span data-lang-id="002-form-description-1">Your ecobrick has been logged with a weight of </span><?php echo $weight_g; ?>g, <span data-lang-id="003-form-description-2">a volume of </span><?php echo $universal_volume_ml; ?>ml, <span data-lang-id="004-form-description-3">and a density of </span><?php echo $density; ?>g/ml.<span data-lang-id="005-form-description-4"> Your ecobrick has been allocated the serial number:</span></p>
             <h1 style="text-align: center;"><?php echo $serial_no; ?></h1>
 
             <br>
@@ -185,29 +185,31 @@ echo '<!DOCTYPE html>
                 <input type="hidden" name="serial_no" value="<?php echo $serial_no; ?>">
 
                 <!-- Eenscribe Field -->
-                <div class="form-item">
-                    <label for="enscribe" data-lang-id="enscribe-label">How would you like to inscribe the serial number on your ecobrick?</label><br>
-                    <select id="enscribe" name="enscribe" required>
-                        <option value="" disabled selected>Select one...</option>
-                        <option value="Permanent marker">Permanent marker</option>
-                        <option value="Impermanent marker">Impermanent marker</option>
-                        <option value="Enamel paint">Enamel paint</option>
-                        <option value="Nail polish">Nail polish</option>
-                        <option value="Plastic insert">Plastic insert</option>
-                        <option value="Other">Other</option>
+              <div class="form-item">
+                <label for="enscribe" data-lang-id="006-enscribe-label">How would you like to inscribe the serial number on your ecobrick?</label><br>
+                <select id="enscribe" name="enscribe" required>
+                    <option value="" disabled selected data-lang-id="007-enscribe-option-1">Select one...</option>
+                    <option value="Permanent marker" data-lang-id="008-enscribe-option-2">Permanent marker</option>
+                    <option value="Impermanent marker" data-lang-id="009-enscribe-option-3">Impermanent marker</option>
+                    <option value="Enamel paint" data-lang-id="010-enscribe-option-4">Enamel paint</option>
+                    <option value="Nail polish" data-lang-id="011-enscribe-option-5">Nail polish</option>
+                    <option value="Plastic insert" data-lang-id="012-enscribe-option-6">Plastic insert</option>
+                    <option value="Other" data-lang-id="013-enscribe-option-7">Other</option>
+                </select>
+            </div>
+
+
+                <!-- Photo Options Field -->
+               <div class="form-item" id="photo-options-container" style="display: none;">
+                    <label for="photo-options" data-lang-id="014-photo-options-label">What kind of photo would you like to log of your ecobrick?</label><br>
+                    <select id="photo-options" name="photo-options" required>
+                        <option value="" disabled selected data-lang-id="015-photo-options-option-1">Select one...</option>
+                        <option value="basic" data-lang-id="016-photo-options-option-2">A basic ecobrick photo</option>
+                        <option value="selfie" data-lang-id="017-photo-options-option-3">A selfie photo</option>
+                        <option value="both" data-lang-id="018-photo-options-option-4">A basic photo and a selfie photo</option>
                     </select>
                 </div>
 
-                <!-- Photo Options Field -->
-                <div class="form-item" id="photo-options-container" style="display: none;">
-                    <label for="photo-options" data-lang-id="photo-options-label">What kind of photo would you like to log of your ecobrick?</label><br>
-                    <select id="photo-options" name="photo-options" required>
-                        <option value="" disabled selected>Select one...</option>
-                        <option value="basic">A basic ecobrick photo</option>
-                        <option value="selfie">A selfie photo</option>
-                        <option value="both">A basic photo and a selfie photo</option>
-                    </select>
-                </div>
 
                 <!-- Photo 1 Main & Thumbnail -->
                 <div class="form-item" id="basic-photo" style="display: none;">
@@ -215,23 +217,24 @@ echo '<!DOCTYPE html>
                         <div style="text-align:center;">
                             <img src="../svgs/basic.svg?v=2" style="width:240px;margin-bottom:15px;">
                         </div>
-                        <label for="ecobrick_photo_main" data-lang-id="003-feature-photo">Upload a basic ecobrick photo:</label><br>
+                        <label for="ecobrick_photo_main" data-lang-id="019-feature-photo">Upload a basic ecobrick photo:</label><br>
                         <ol style="text-align:left;">
-                            <li>Take a vertical portrait photo</li>
-                            <li>Be sure your photo shows the serial & weight clearly</li>
-                            <li>Be sure your photo shows your ecobricks bottom color</li>
-                            <li>Be sure your photo shows your ecobricks top</li>
-                            <li>Be sure your data is permanently enscribed!</li>
-                            <li>Do not use an external label to mark the ecobrick </li>
+                            <li data-lang-id="020-feature-photo-step-1">Take a vertical portrait photo</li>
+                            <li data-lang-id="021-feature-photo-step-2">Be sure your photo shows the serial & weight clearly</li>
+                            <li data-lang-id="022-feature-photo-step-3">Be sure your photo shows your ecobricks bottom color</li>
+                            <li data-lang-id="023-feature-photo-step-4">Be sure your photo shows your ecobricks top</li>
+                            <li data-lang-id="024-feature-photo-step-5">Be sure your data is permanently enscribed!</li>
+                            <li data-lang-id="025-feature-photo-step-6">Do not use an external label to mark the ecobrick</li>
                         </ol>
                     </div>
+
                    <div class="photo-upload-container">
-                        <label for="ecobrick_photo_main" class="custom-file-upload">
-                            📷 Take Basic Photo
+                        <label for="ecobrick_photo_main" class="custom-file-upload" data-lang-id="025-basic-photo-label">
+                            📷 Take Basic Photo</label>
                             <input type="file" id="ecobrick_photo_main" name="ecobrick_photo_main" onchange="displayFileName()">
                         </label>
-                        <span id="file-name" class="file-name">No file chosen</span>
-                        <p class="form-caption" data-lang-id="004-feature-desc">Take or select a photo of your serialized ecobrick.</p>
+                        <span id="file-name" class="file-name" data-lang-id="035b-no-file-chosen">No file chosen</span>
+                        <p class="form-caption" data-lang-id="026-basic-feature-desc">Take or select a photo of your serialized ecobrick.</p>
                     </div>
                 </div>
 
@@ -241,30 +244,30 @@ echo '<!DOCTYPE html>
                         <div style="text-align:center;">
                             <img src="../svgs/selfie.svg" style="height:240px;margin-bottom:15px;">
                         </div>
-                        <label for="selfie_photo_main" data-lang-id="005-another-photo">Upload an ecobrick selfie:</label><br>
+                        <label for="selfie_photo_main" data-lang-id="027-label-selfie">Upload an ecobrick selfie:</label><br>
                         <ol style="text-align:left;">
-                            <li>Be sure your photo is a horizontal landscape</li>
-                            <li>Be sure your photo shows the serial & weight clearly</li>
-                            <li>Be sure your photo shows your ecobricks bottom color</li>
-                            <li>Be sure your photo shows your ecobricks top</li>
-                            <li>Be sure your data is permanently enscribed!</li>
-                            <li>Do not use an external label to mark the ecobrick</li>
-                            <li>And smile!</li>
+                            <li data-lang-id="028-selfie-photo-step-1">Be sure your photo is a horizontal landscape</li>
+                            <li data-lang-id="029-selfie-photo-step-2">Be sure your photo shows the serial & weight clearly</li>
+                            <li data-lang-id="030-selfie-photo-step-3">Be sure your photo shows your ecobricks bottom color</li>
+                            <li data-lang-id="031-selfie-photo-step-4">Be sure your photo shows your ecobricks top</li>
+                            <li data-lang-id="032-selfie-photo-step-5">Be sure your data is permanently enscribed!</li>
+                            <li data-lang-id="033-selfie-photo-step-6">Do not use an external label to mark the ecobrick</li>
+                            <li data-lang-id="034-selfie-photo-step-7">And smile!</li>
                         </ol>
                     </div>
+
                     <div class="photo-upload-container">
-                        <label for="selfie_photo_main" class="custom-file-upload">
-                            📷 Take Selfie Photo
+                        <label for="selfie_photo_main" class="custom-file-upload" data-lang-id="035-selfie-upload">
+                            📷 Take Selfie Photo</label>
                             <input type="file" id="selfie_photo_main" name="selfie_photo_main">
                         </label>
-                        <span id="file-name-selfie" class="file-name">No file chosen</span>
-                        <p class="form-caption" data-lang-id="006a-another-photo-optional">Upload your ecobrick selfie.</p>
+                        <span id="file-name-selfie" class="file-name" data-lang-id="035b-no-file-chosen">No file chosen</span>
+                        <p class="form-caption" data-lang-id="036-another-photo-optional">Upload your ecobrick selfie.</p>
                     </div>
                 </div>
 
-                <div style="display:flex;flex-flow:row;width:100%;justify-content:center;" data-lang-id="013-submit-upload-button">
+                <div style="display:flex;flex-flow:row;width:100%;justify-content:center;" data-lang-id="037-submit-upload-button">
                     <input type="submit" value="⬆️ Upload Photos" id="upload-progress-button" aria-label="Submit photos for upload">
-
                 </div>
 
             </form>

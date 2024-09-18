@@ -5,11 +5,9 @@ startSecureSession(); // Start a secure session with regeneration to prevent ses
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-
-
 // PART 1: Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.498';
+$version = '0.50';
 $page = 'log';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 

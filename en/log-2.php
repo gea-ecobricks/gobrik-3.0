@@ -229,7 +229,7 @@ echo '<!DOCTYPE html>
                     </div>
 
                    <div class="photo-upload-container">
-                        <label for="ecobrick_photo_main" class="custom-file-upload" data-lang-id="025X-basic-photo-label">📷 Take Basic Photo
+                        <label for="ecobrick_photo_main" class="custom-file-upload" data-lang-id="025-basic-photo-label">📷 Take Basic Photo
                             <input type="file" id="ecobrick_photo_main" name="ecobrick_photo_main" onchange="displayFileName()">
                         </label>
                         <span id="file-name" class="file-name" data-lang-id="035b-no-file-chosen">No file chosen</span>
@@ -241,7 +241,7 @@ echo '<!DOCTYPE html>
                 <div class="form-item" id="selfie-photo" style="display: none;">
                     <div style="max-width:500px;margin:auto;">
                         <div style="text-align:center;">
-                            <img src="../svgs/selfie.svg" style="height:240px;margin-bottom:15px;">
+                            <img src="../svgs/selfie.svg?v=2" style="height:240px;margin-bottom:15px;">
                         </div>
                         <label for="selfie_photo_main" data-lang-id="027-label-selfie">Upload an ecobrick selfie:</label><br>
                         <ol style="text-align:left;">

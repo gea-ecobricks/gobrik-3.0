@@ -468,10 +468,10 @@ function generateModalContent(density, volume, weight, lang) {
         `;
     } else if (density >= 0.33 && density < 0.36) {
         return `
-            <h1>⚠️</h1>
-            <h4>${translations.lowDensityTitle}</h4>
+            <h1 style="text-align:center;">⚠️</h1>
+            <h2 style="text-align:center;">${translations.lowDensityTitle}</h4>
             <div class="preview-text">${translations.lowDensityMessage.replace('${density}', density)}</div>
-            <a class="module-btn" onclick="closeDensityModal()" aria-label="Click to close modal">${translations.nextRegisterSerial}</a>
+            <a class="preview-btn" onclick="closeDensityModal()" aria-label="Click to close modal">${translations.nextRegisterSerial}</a>
         `;
     } else if (density >= 0.36 && density < 0.65) {
         return `

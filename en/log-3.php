@@ -103,33 +103,33 @@ echo '<!DOCTYPE html>
 
             </div>
 
-            <h2 data-lang-id="001-form-title">Ecobrick <?php echo $serial_no; ?> is logged! 🎉</h2>
+            <h2 id="ecobrick-logged-title" data-lang-id="001-form-title">Ecobrick <?php echo $serial_no; ?> is logged! 🎉</h2>
 
-            <div class="conclusion-message" data-lang-id="003-recorded-ready" style="font-fmaily:'Mulish',sans-serif; font-size:1.4em;color:var(--subdued);">Your ecobrick is now in the validation queue now pending peer review.</div>
+            <div id="conclusion-message" data-lang-id="003-recorded-ready" style="font-fmaily:'Mulish',sans-serif; font-size:1.4em;color:var(--subdued);">Your ecobrick is now in the validation queue now pending peer review.</div>
 
+            <!-- Vision Form -->
+            <form id="add-vision-form">
+                <p>Optionally, you may now add a vision to your ecobrick. This is a short message: a vision, a wish, or a prayer for the future. The message will be added to your ecobrick's record on the brikchain and visible to anyone who reviews your ecobrick's data.</p>
 
-                <!-- Vision Form -->
-                <form id="add-vision-form">
-                    <p>Optionally, you may now add a vision to your ecobrick. This is a short message: a vision, a wish, or a prayer for the future. The message will be added to your ecobrick's record on the brikchain and visible to anyone who reviews your ecobrick's data.</p>
-
-                    <textarea name="vision_message" id="vision_message" rows="4" style="width:100%;font-size:1.3em,border-radius:15px;" placeholder="Your vision for this ecobrick and its future..."></textarea>
-                    <input type="hidden" name="ecobrick_unique_id" value="<?php echo htmlspecialchars($ecobrick_unique_id); ?>">
-                    <div style="display: flex; gap: 10px; width: 100%;">
+                <textarea name="vision_message" id="vision_message" rows="4" style="width:100%;font-size:1.3em; border-radius:15px;" placeholder="Your vision for this ecobrick and its future..."></textarea>
+                <input type="hidden" name="ecobrick_unique_id" value="<?php echo htmlspecialchars($ecobrick_unique_id); ?>">
+                <div style="display: flex; gap: 10px; width: 100%;">
                     <button type="submit" class="confirm-button" style="flex-grow: 1; margin-top: 10px;">Save</button>
                     <a class="confirm-button" style="background:grey; cursor:pointer; flex-grow: 1; margin-top: 10px; text-align: center;" id="deleteButton" data-lang-id="014-delete-ecobrick">Skip: Complete Logging</a>
                 </div>
+            </form>
 
-                </form>
-
-                <div id="vision-added-success" style="display:none;">
-                    <p>👍 Vision successfully added to ecobrick <?php echo $ecobrick_unique_id; ?>'s record.</p>
-                </div>
-                <div id="vision-added-failure" style="display:none;">
-                    <p>😭 Hmmm... something went wrong adding your vision to <?php echo $ecobrick_unique_id; ?>'s record. Let us know on the beta test or bug review form, please!</p>
-                </div>
+            <div id="vision-added-success" style="display:none;">
+                <p>👍 Vision successfully added to ecobrick <?php echo $ecobrick_unique_id; ?>'s record.</p>
+            </div>
+            <div id="vision-added-failure" style="display:none;">
+                <p>😭 Hmmm... something went wrong adding your vision to <?php echo $ecobrick_unique_id; ?>'s record. Let us know on the beta test or bug review form, please!</p>
             </div>
 
             <div id="next-options" style="display:none;">
+                <div class="conclusion-message" data-lang-id="003-recorded-ready" style="font-fmaily:'Mulish',sans-serif; font-size:1.4em;color:var(--subdued);">Logging of Ecobrick <?php echo $serial_no; ?> Complete</div>
+                <h2>We and the earth thank you for your work.</h2>
+
                 <a class="confirm-button" href="brik.php?serial_no=<?php echo $serial_no; ?>" data-lang-id="013-view-ecobrick-post" style="width:300px;">View Ecobrick Post</a>
 
                 <form id="deleteForm" method="POST">
@@ -137,9 +137,10 @@ echo '<!DOCTYPE html>
                     <input type="hidden" name="action" value="delete_ecobrick">
                     <a class="confirm-button" style="background:red; cursor:pointer;width:300px;" id="deleteButton" data-lang-id="014-delete-ecobrick">❌ Delete Ecobrick</a>
                 </form>
-            <a class="confirm-button" href="log.php" data-lang-id="015-log-another-ecobrick" style="width:300px;">➕ Log another ecobrick</a>
-            <br>
-           </div>
+                <a class="confirm-button" href="log.php" data-lang-id="015-log-another-ecobrick" style="width:300px;">➕ Log another ecobrick</a>
+                <br>
+                <div id="conclusion-message" data-lang-id="003-recorded-ready" style="font-fmaily:'Mulish',sans-serif; font-size:1.4em;color:var(--subdued);">Your ecobrick is now in the validation queue now pending peer review.</div>
+            </div>
         </div>
     </div>
     <br><br>

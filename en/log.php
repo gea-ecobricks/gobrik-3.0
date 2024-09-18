@@ -210,7 +210,7 @@ require_once ("../includes/log-inc.php");
 <div id="form-submission-box" class="landing-page-form" style="height:auto !important">
     <div class="form-container">
 
-    <div id="log-1-banner" class="log-one-banner" style="height:120px;width:100%;"></div>
+    <div id="log-1-banner" class="log-one-ecobrick" style="height:120px;width:100%;"></div>
 
            <div style="text-align:center;width:100%;margin:auto;">
             <h2 data-lang-id="001-log-title">Log an Ecobrick</h2>

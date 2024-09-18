@@ -229,11 +229,12 @@ echo '<!DOCTYPE html>
                     </div>
 
                    <div class="photo-upload-container">
-                        <label for="ecobrick_photo_main" class="custom-file-upload" data-lang-id="025-basic-photo-labelx">📷 Take Basic Photo
-                            <input type="file" id="ecobrick_photo_main" name="ecobrick_photo_main" onchange="displayFileName()">
+                        <label for="ecobrick_photo_main" class="custom-file-upload" data-lang-id="025-basic-photo-labelx">
+                            📷 Take Basic Photo
+                            <input type="file" id="ecobrick_photo_main" name="ecobrick_photo_main" onchange="displayFileName('ecobrick_photo_main', 'file-name-basic')">
                         </label>
-                        <span id="file-name" class="file-name" data-lang-id="035b-no-file-chosenx">No file chosen</span>
-                        <p class="form-caption" data-lang-id="026-basic-feature-descx">Take or select a photo of your serialized ecobrick.</p>
+                        <span id="file-name-basic" class="file-name" data-lang-id="035b-no-file-chosen">No file chosen</span>
+                        <p class="form-caption" data-lang-id="026-basic-feature-desc">Take or select a photo of your serialized ecobrick.</p>
                     </div>
                 </div>
 
@@ -258,7 +259,7 @@ echo '<!DOCTYPE html>
                     <div class="photo-upload-container">
                         <label for="selfie_photo_main" class="custom-file-upload" data-lang-id="035x-selfie-upload">
                             📷 Take Selfie Photo
-                            <input type="file" id="selfie_photo_main" name="selfie_photo_main">
+                            <input type="file" id="selfie_photo_main" name="selfie_photo_main" onchange="displayFileName('selfie_photo_main', 'file-name-selfie')">
                         </label>
                         <span id="file-name-selfie" class="file-name" data-lang-id="035bx-no-file-chosen">No file chosen</span>
                         <p class="form-caption" data-lang-id="036-another-photo-optionalx">Upload your ecobrick selfie.</p>
@@ -505,7 +506,6 @@ function generateModalContent(density, volume, weight, lang) {
         xButtons.forEach(button => button.style.display = visible ? 'inline-block' : 'none');
     }
 
-   // Function to close the density confirmation modal
 // Function to close the density confirmation modal
 function closeDensityModal() {
     const modal = document.getElementById('form-modal-message');
@@ -533,30 +533,30 @@ function closeDensityModal() {
 
 
 <script>
+    // Function to add the file name under the photo upload button once the file has been chosen
+    function displayFileName(inputId, spanId) {
+        const input = document.getElementById(inputId);
+        const fileNameSpan = document.getElementById(spanId);
 
-    //funtion to add the file name under the photo upload button once file has been chosen.
-
-function displayFileName(inputId, spanId) {
-    const input = document.getElementById(inputId);
-    const fileNameSpan = document.getElementById(spanId);
-
-    if (input.files.length > 0) {
-        fileNameSpan.textContent = input.files[0].name;
-    } else {
-        fileNameSpan.textContent = 'No file chosen';
+        if (input && input.files.length > 0) {
+            fileNameSpan.textContent = input.files[0].name;
+        } else {
+            fileNameSpan.textContent = 'No file chosen';
+        }
     }
-}
 
-// Add event listeners for both input elements
-document.getElementById('ecobrick_photo_main').addEventListener('change', function() {
-    displayFileName('ecobrick_photo_main', 'file-name-basic');
-});
+    // Ensure the DOM is fully loaded before adding event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('ecobrick_photo_main').addEventListener('change', function() {
+            displayFileName('ecobrick_photo_main', 'file-name-basic');
+        });
 
-document.getElementById('selfie_photo_main').addEventListener('change', function() {
-    displayFileName('selfie_photo_main', 'file-name-selfie');
-});
-
+        document.getElementById('selfie_photo_main').addEventListener('change', function() {
+            displayFileName('selfie_photo_main', 'file-name-selfie');
+        });
+    });
 </script>
+
 
 
 

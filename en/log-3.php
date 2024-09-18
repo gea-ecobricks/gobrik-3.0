@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.44';
+$version = '0.441';
 $page = 'log-3';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -89,12 +89,6 @@ echo '<!DOCTYPE html>
 <div id="form-submission-box" style="margin-top:80px;">
     <div class="form-container" style="margin-top:-50px;">
         <div class="splash-form-content-block" style="text-align:center; display:flex;flex-flow:column;">
-            <div class="splash-image-2" data-lang-id="003-weigh-plastic-image-alt">
-                <img src="../svgs/Happy-turtle-dolphin-opti.svg" style="width:39%; margin:auto; margin-top:-100px;" alt="The Earth Thanks You">
-            </div>
-            <div>
-                <h2 data-lang-id="001-form-title">Ecobrick <?php echo $serial_no; ?> has been logged! 🎉</h2>
-            </div>
             <div id="upload-success-message">
                 <?php if (!empty($ecobrick_full_photo_url) && $ecobrick_full_photo_url !== 'url missing'): ?>
                     <div class="photo-container">
@@ -108,6 +102,10 @@ echo '<!DOCTYPE html>
                 <?php endif; ?>
 
             </div>
+
+            <h2 data-lang-id="001-form-title">Ecobrick <?php echo $serial_no; ?> has been logged! 🎉</h2>
+
+
             <h3 data-lang-id="002-earth-thanks-you" style="text-align: center;">Earth thanks you for saving and securing this plastic!</h3>
             <p data-lang-id="003-recorded-ready">Your ecobrick record has been logged to the validation queue. It is now pending peer review. Once authenticated, its record will be permanently added to the brikchain.</p>
             <br><br>

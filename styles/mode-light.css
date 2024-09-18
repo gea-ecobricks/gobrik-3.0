@@ -490,14 +490,12 @@ light.css
 
 
 .log-step-2 {
-
       background: url(../svgs/step2-log-project.svg) no-repeat center;
       background-size: contain;
       }
 
  .log-step-3 {
-
-      background: url(../svgs/step3.svg) no-repeat center;
+      background: url(../svgs/step3.svg?v=3) no-repeat center;
       background-size: contain;
       }
 

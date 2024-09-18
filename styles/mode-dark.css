@@ -549,8 +549,7 @@ background-size: contain;
       }
 
  .log-step-3 {
-
-      background: url(../svgs/step3.svg) no-repeat center;
+      background: url(../svgs/step3.svg?v=3) no-repeat center;
       background-size: contain;
       }
 

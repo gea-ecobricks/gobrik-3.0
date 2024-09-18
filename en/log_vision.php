@@ -78,4 +78,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['vision_message']) && 
         'message' => 'Invalid request. Please submit the form correctly.'
     ]);
 }
-?>

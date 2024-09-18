@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.48';
+$version = '0.49';
 $page = 'log-2';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -229,7 +229,7 @@ echo '<!DOCTYPE html>
                     </div>
 
                    <div class="photo-upload-container">
-                        <label for="ecobrick_photo_main" class="custom-file-upload" data-lang-id="025-basic-photo-label">
+                        <label for="ecobrick_photo_main" class="custom-file-upload" data-lang-id="025X-basic-photo-label">
                             📷 Take Basic Photo</label>
                             <input type="file" id="ecobrick_photo_main" name="ecobrick_photo_main" onchange="displayFileName()">
                         </label>

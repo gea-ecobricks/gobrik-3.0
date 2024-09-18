@@ -115,7 +115,7 @@ echo '<!DOCTYPE html>
                 <input type="hidden" name="ecobrick_unique_id" value="<?php echo htmlspecialchars($ecobrick_unique_id); ?>">
                 <div style="display: flex; gap: 10px; width: 100%;">
                     <button type="submit" class="confirm-button" style="flex-grow: 1; margin-top: 10px;">Save</button>
-                    <a class="confirm-button" style="background:grey; cursor:pointer; flex-grow: 1; margin-top: 10px; text-align: center;" id="deleteButton" data-lang-id="014-delete-ecobrick">Skip: Complete Logging</a>
+                    <a class="confirm-button" style="background:grey; cursor:pointer; flex-grow: 1; margin-top: 10px; text-align: center;" id="skip-button" data-lang-id="014-skip-button">Skip: Complete Logging</a>
                 </div>
             </form>
 
@@ -127,7 +127,7 @@ echo '<!DOCTYPE html>
             </div>
 
             <div id="next-options" style="display:none;">
-                <div class="conclusion-message" data-lang-id="003-recorded-ready" style="font-fmaily:'Mulish',sans-serif; font-size:1.4em;color:var(--h1);">Logging of Ecobrick <?php echo $serial_no; ?> Complete</div>
+                <div class="conclusion-message" data-lang-id="003-recorded-ready" style="font-family:'Mulish',sans-serif; font-size:1.2em;color:var(--text-color);margin-top:20px;">Logging of Ecobrick <?php echo $serial_no; ?> Complete</div>
                 <h2>We and the earth thank you for your work.</h2>
 
                 <a class="confirm-button" href="brik.php?serial_no=<?php echo $serial_no; ?>" data-lang-id="013-view-ecobrick-post" style="width:300px;">View Ecobrick Post</a>
@@ -139,7 +139,7 @@ echo '<!DOCTYPE html>
                 </form>
                 <a class="confirm-button" href="log.php" data-lang-id="015-log-another-ecobrick" style="width:300px;">➕ Log another ecobrick</a>
                 <br>
-                <div id="conclusion-message" data-lang-id="003-recorded-ready" style="font-fmaily:'Mulish',sans-serif; font-size:1.4em;color:var(--subdued);">Your ecobrick is now in the validation queue now pending peer review.</div>
+                <div id="conclusion-message" data-lang-id="003-recorded-ready" style="font-family:'Mulish',sans-serif; font-size:1.2em;color:var(--subdued);">Your ecobrick is now in the validation queue now pending peer review.</div>
             </div>
         </div>
     </div>
@@ -209,17 +209,21 @@ document.addEventListener('DOMContentLoaded', function () {
     const visionAddedSuccess = document.getElementById('vision-added-success');
     const visionAddedFailure = document.getElementById('vision-added-failure');
     const nextOptions = document.getElementById('next-options');
-    const deleteButton = document.getElementById('deleteButton');
+    const skipButton = document.getElementById('skip-button');
     const postErrorMessage = document.getElementById('post-error-message');
 
-    // Event listener for the 'Skip: Complete Logging' button
-    deleteButton.addEventListener('click', function (event) {
-        event.preventDefault();
-        // Hide form and show the next options div
+    // Function to hide the form and show the next steps
+    function showNextOptions() {
         ecobrickLoggedTitle.style.display = 'none';
         conclusionMessage.style.display = 'none';
         visionForm.style.display = 'none';
         nextOptions.style.display = 'block';
+    }
+
+    // Event listener for the 'Skip: Complete Logging' button
+    skipButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        showNextOptions();
     });
 
     // Event listener for the form submission
@@ -242,33 +246,22 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Hide form and show the success div
                     visionAddedSuccess.style.display = 'block';
-                    ecobrickLoggedTitle.style.display = 'none';
-                    conclusionMessage.style.display = 'none';
-                    visionForm.style.display = 'none';
-                    nextOptions.style.display = 'block';
                 } else {
-                    // Show error div and message
                     visionAddedFailure.style.display = 'block';
                     postErrorMessage.textContent = data.error;
-                    ecobrickLoggedTitle.style.display = 'none';
-                    conclusionMessage.style.display = 'none';
-                    visionForm.style.display = 'none';
-                    nextOptions.style.display = 'block';
                 }
+                showNextOptions();
             })
             .catch(error => {
                 console.error('Error:', error);
                 visionAddedFailure.style.display = 'block';
                 postErrorMessage.textContent = 'A network error occurred. Please try again later.';
-                ecobrickLoggedTitle.style.display = 'none';
-                conclusionMessage.style.display = 'none';
-                visionForm.style.display = 'none';
-                nextOptions.style.display = 'block';
+                showNextOptions();
             });
     });
 });
+
 
 </script>
 

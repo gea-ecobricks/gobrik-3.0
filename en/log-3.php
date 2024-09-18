@@ -78,19 +78,16 @@ echo '<!DOCTYPE html>
 ';
 ?>
 
+<?php require_once ("../includes/log-3-inc.php");?>
 
+<div class="splash-title-block"></div>
+<div id="splash-bar"></div>
 
-   <?php require_once ("../includes/log-inc.php");?>
+<!-- PAGE CONTENT-->
+<div id="top-page-image" class="top-page-image log-step-3" style="margin-top: 105px; z-index: 35; position: absolute; text-align:center;width:100% ; height: 36px;"></div>
 
-  <div class="splash-title-block"></div>
-    <div id="splash-bar"></div>
-
-    <!-- PAGE CONTENT-->
-<div id="top-page-image" class=" top-page-image log-step-3" style="margin-top: 105px;z-index: 35;position: absolute;
-  text-align:center;width:100% ; height: 36px;"></div>
-
-    <div id="form-submission-box" style="margin-top:80px;">
-    <div class="form-container" style="margin-top:-50px;" >
+<div id="form-submission-box" style="margin-top:80px;">
+    <div class="form-container" style="margin-top:-50px;">
         <div class="splash-form-content-block" style="text-align:center; display:flex;flex-flow:column;">
             <div class="splash-image-2" data-lang-id="003-weigh-plastic-image-alt">
                 <img src="../svgs/Happy-turtle-dolphin-opti.svg" style="width:39%; margin:auto; margin-top:-100px;" alt="The Earth Thanks You">
@@ -102,7 +99,7 @@ echo '<!DOCTYPE html>
                 <?php if ($ecobrick_full_photo_url): ?>
                     <div class="photo-container">
                         <img src="<?php echo $ecobrick_full_photo_url; ?>" alt="Basic Ecobrick Photo" style="max-width:500px;">
-                        <p class="photo-caption" style="font-size:0.9em;color:grey;text-align:center;">Basic Ecobrick Photo</p>
+                        <p class="photo-caption" style="font-size:0.9em;color:grey;text-align:center;">Your ecobrick record has been logged to the validation queue. It is now pending peer review. Once authenticated, its record will be permanently added to the brikchain.</p>
                     </div>
                 <?php endif; ?>
                 <?php if ($selfie_photo_url): ?>
@@ -113,6 +110,22 @@ echo '<!DOCTYPE html>
                 <?php endif; ?>
             </div>
             <h3 data-lang-id="002-earth-thanks-you" style="text-align: center;">Earth thanks you for saving and securing this plastic!</h3>
+            <p data-lang-id="003-add-your-vision">You may now add a vision to your ecobrick! This is a short message: a vision, a wish, or a prayer for the future. The message will be added to your ecobrick's record on the brikchain and visible to anyone who reviews your ecobrick's data.</p>
+
+            <!-- Vision Form -->
+            <form id="add-vision-form">
+                <textarea name="vision_message" id="vision_message" rows="4" style="width:100%;" placeholder="Your vision for the future..."></textarea>
+                <input type="hidden" name="ecobrick_unique_id" value="<?php echo htmlspecialchars($ecobrick_unique_id); ?>">
+                <button type="submit" class="confirm-button" style="margin-top: 10px;">Add Vision</button>
+            </form>
+
+            <div id="vision-added-success" style="display:none;">
+                <p>👍 Vision successfully added to ecobrick <?php echo $ecobrick_unique_id; ?>'s record.</p>
+            </div>
+            <div id="vision-added-failure" style="display:none;">
+                <p>😭 Hmmm... something went wrong adding your vision to <?php echo $ecobrick_unique_id; ?>'s record. Let us know on the beta test or bug review form, please!</p>
+            </div>
+
             <a class="confirm-button" href="brik.php?serial_no=<?php echo $serial_no; ?>" data-lang-id="013-view-ecobrick-post" style="width:300px;">View Ecobrick Post</a>
 
             <!-- DELETE ECOBRICK-->
@@ -130,6 +143,8 @@ echo '<!DOCTYPE html>
 </div>
 
 </div>
+
+
 <!--FOOTER STARTS HERE-->
 <?php require_once ("../footer-2024.php");?>
 
@@ -178,6 +193,43 @@ echo '<!DOCTYPE html>
 
 
     </script>
+
+
+<!-- JavaScript to handle form submission -->
+<script>
+document.getElementById('add-vision-form').addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevent default form submission
+
+    const visionMessage = document.getElementById('vision_message').value;
+    const ecobrickUniqueId = document.querySelector('input[name="ecobrick_unique_id"]').value;
+
+    fetch('../php/log_vision.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            'vision_message': visionMessage,
+            'ecobrick_unique_id': ecobrickUniqueId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('add-vision-form').style.display = 'none';
+            document.getElementById('vision-added-success').style.display = 'block';
+        } else {
+            document.getElementById('vision-added-failure').style.display = 'block';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('vision-added-failure').style.display = 'block';
+    });
+});
+</script>
+
+
 
 </body>
 </html>

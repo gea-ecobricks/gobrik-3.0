@@ -105,7 +105,6 @@ echo '<!DOCTYPE html>
 
             <h2 id="ecobrick-logged-title" data-lang-id="001-form-title">Ecobrick <?php echo $serial_no; ?> is logged! 🎉</h2>
 
-            <div id="conclusion-message" data-lang-id="003-recorded-ready" style="font-fmaily:'Mulish',sans-serif; font-size:1.4em;color:var(--h1);">Your ecobrick is now in the validation queue now pending peer review.</div>
 
             <!-- Vision Form -->
             <form id="add-vision-form">
@@ -139,10 +138,11 @@ echo '<!DOCTYPE html>
                 <a class="confirm-button" href="log.php" data-lang-id="015-log-another-ecobrick" style="width:300px;">➕ Log another ecobrick</a>
                 <br>
                 <div id="vision-added-success" style="display:none;">
-                <p>✅ Vision successfully added to ecobrick <?php echo $ecobrick_unique_id; ?>'s record.</p>
+                <p>✔️ Vision successfully added to ecobrick <?php echo $ecobrick_unique_id; ?>'s record.</p>
             </div>
-                <div id="conclusion-message" data-lang-id="003-recorded-ready" style="font-family:'Mulish',sans-serif; font-size:1.2em;color:var(--text-color);">✅ Your ecobrick is now in the validation queue now pending peer review.</div>
+                <div id="conclusion-message" data-lang-id="003-recorded-ready" style="font-family:'Mulish',sans-serif; font-size:1.2em;color:var(--text-color);">✔️ Your ecobrick is now in the validation queue now pending peer review.</div>
             </div>
+            <div id="conclusion-message" data-lang-id="003-recorded-ready" style="font-fmaily:'Mulish',sans-serif; font-size:1.4em;color:var(--h1);">Your ecobrick is now in the validation queue now pending peer review.</div>
         </div>
     </div>
     <br><br>

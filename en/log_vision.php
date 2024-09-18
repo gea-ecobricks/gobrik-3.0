@@ -11,20 +11,20 @@ ini_set('display_errors', 1);
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['vision_message']) && isset($_POST['ecobrick_unique_id'])) {
 
     // Sanitize and assign POST variables
-    $vision_message = trim($_POST['vision_message']);
+    $vision = trim($_POST['vision_message']); // Use 'vision_message' from the form, mapped to 'vision' in the DB
     $ecobrick_unique_id = (int)$_POST['ecobrick_unique_id'];
 
     // Validate that the vision message isn't empty and the ecobrick_unique_id is a valid integer
-    if (!empty($vision_message) && $ecobrick_unique_id > 0) {
+    if (!empty($vision) && $ecobrick_unique_id > 0) {
 
         // Prepare SQL query to update the ecobrick record
-        $sql = "UPDATE tb_ecobricks SET vision_message = ? WHERE ecobrick_unique_id = ?";
+        $sql = "UPDATE tb_ecobricks SET vision = ? WHERE ecobrick_unique_id = ?";
 
         // Prepare the statement
         if ($stmt = $gobrik_conn->prepare($sql)) {
 
             // Bind parameters (s = string, i = integer)
-            $stmt->bind_param('si', $vision_message, $ecobrick_unique_id);
+            $stmt->bind_param('si', $vision, $ecobrick_unique_id);
 
             // Execute the statement
             if ($stmt->execute()) {
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['vision_message']) && 
                     // Success response
                     echo json_encode([
                         'success' => true,
-                        'message' => 'Vision message successfully added.'
+                        'message' => 'Vision successfully added.'
                     ]);
                 } else {
                     // No rows were affected, meaning ecobrick_unique_id may not exist
@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['vision_message']) && 
         // Invalid input data
         echo json_encode([
             'success' => false,
-            'message' => 'Invalid input data. Please provide a valid vision message and ecobrick ID.'
+            'message' => 'Invalid input data. Please provide a valid vision and ecobrick ID.'
         ]);
     }
 

@@ -105,7 +105,7 @@ echo '<!DOCTYPE html>
 
             <h2 id="ecobrick-logged-title" data-lang-id="001-form-title">Ecobrick <?php echo $serial_no; ?> is logged! 🎉</h2>
 
-            <div id="conclusion-message" data-lang-id="003-recorded-ready" style="font-fmaily:'Mulish',sans-serif; font-size:1.4em;color:var(--subdued);">Your ecobrick is now in the validation queue now pending peer review.</div>
+            <div id="conclusion-message" data-lang-id="003-recorded-ready" style="font-fmaily:'Mulish',sans-serif; font-size:1.4em;color:var(--h1);">Your ecobrick is now in the validation queue now pending peer review.</div>
 
             <!-- Vision Form -->
             <form id="add-vision-form">
@@ -127,7 +127,7 @@ echo '<!DOCTYPE html>
             </div>
 
             <div id="next-options" style="display:none;">
-                <div class="conclusion-message" data-lang-id="003-recorded-ready" style="font-fmaily:'Mulish',sans-serif; font-size:1.4em;color:var(--subdued);">Logging of Ecobrick <?php echo $serial_no; ?> Complete</div>
+                <div class="conclusion-message" data-lang-id="003-recorded-ready" style="font-fmaily:'Mulish',sans-serif; font-size:1.4em;color:var(--h1);">Logging of Ecobrick <?php echo $serial_no; ?> Complete</div>
                 <h2>We and the earth thank you for your work.</h2>
 
                 <a class="confirm-button" href="brik.php?serial_no=<?php echo $serial_no; ?>" data-lang-id="013-view-ecobrick-post" style="width:300px;">View Ecobrick Post</a>
@@ -201,36 +201,75 @@ echo '<!DOCTYPE html>
 
 <!-- JavaScript to handle form submission -->
 <script>
-document.getElementById('add-vision-form').addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevent default form submission
+document.addEventListener('DOMContentLoaded', function () {
+    const visionForm = document.getElementById('add-vision-form');
+    const visionMessage = document.getElementById('vision_message');
+    const ecobrickLoggedTitle = document.getElementById('ecobrick-logged-title');
+    const conclusionMessage = document.getElementById('conclusion-message');
+    const visionAddedSuccess = document.getElementById('vision-added-success');
+    const visionAddedFailure = document.getElementById('vision-added-failure');
+    const nextOptions = document.getElementById('next-options');
+    const deleteButton = document.getElementById('deleteButton');
+    const postErrorMessage = document.getElementById('post-error-message');
 
-    const visionMessage = document.getElementById('vision_message').value;
-    const ecobrickUniqueId = document.querySelector('input[name="ecobrick_unique_id"]').value;
+    // Event listener for the 'Skip: Complete Logging' button
+    deleteButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        // Hide form and show the next options div
+        ecobrickLoggedTitle.style.display = 'none';
+        conclusionMessage.style.display = 'none';
+        visionForm.style.display = 'none';
+        nextOptions.style.display = 'block';
+    });
 
-    fetch('../log_vision.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-            'vision_message': visionMessage,
-            'ecobrick_unique_id': ecobrickUniqueId
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            document.getElementById('add-vision-form').style.display = 'none';
-            document.getElementById('vision-added-success').style.display = 'block';
-        } else {
-            document.getElementById('vision-added-failure').style.display = 'block';
+    // Event listener for the form submission
+    visionForm.addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Check if the vision message is empty
+        if (visionMessage.value.trim() === '') {
+            alert("Seems you forgot to actually add a vision! Please try again or hit Skip.");
+            return;
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        document.getElementById('vision-added-failure').style.display = 'block';
+
+        // Send form data to log_vision.php
+        const formData = new FormData(visionForm);
+
+        fetch('log_vision.php', {
+            method: 'POST',
+            body: formData,
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Hide form and show the success div
+                    visionAddedSuccess.style.display = 'block';
+                    ecobrickLoggedTitle.style.display = 'none';
+                    conclusionMessage.style.display = 'none';
+                    visionForm.style.display = 'none';
+                    nextOptions.style.display = 'block';
+                } else {
+                    // Show error div and message
+                    visionAddedFailure.style.display = 'block';
+                    postErrorMessage.textContent = data.error;
+                    ecobrickLoggedTitle.style.display = 'none';
+                    conclusionMessage.style.display = 'none';
+                    visionForm.style.display = 'none';
+                    nextOptions.style.display = 'block';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                visionAddedFailure.style.display = 'block';
+                postErrorMessage.textContent = 'A network error occurred. Please try again later.';
+                ecobrickLoggedTitle.style.display = 'none';
+                conclusionMessage.style.display = 'none';
+                visionForm.style.display = 'none';
+                nextOptions.style.display = 'block';
+            });
     });
 });
+
 </script>
 
 

@@ -103,13 +103,16 @@ echo '<!DOCTYPE html>
                 <?php endif; ?>
                 <?php if ($selfie_photo_url): ?>
                     <div class="photo-container">
-                        <img src="<?php echo $selfie_thumb_url; ?>" alt="Ecobrick Selfie Photo">
-                        <p class="photo-caption" style="font-size:1em;text-align:center;">Ecobrick Selfie Photo</p>
+                        <img src="<?php echo htmlspecialchars($selfie_photo_url); ?>" alt="Ecobrick Selfie Photo" title="Ecobrick selfie photo" style="max-width:500px;">
                     </div>
                 <?php endif; ?>
-                <p class="photo-caption" style="font-size:0.9em;color:grey;text-align:center;">Your ecobrick record has been logged to the validation queue. It is now pending peer review. Once authenticated, its record will be permanently added to the brikchain.</p>
+
             </div>
             <h3 data-lang-id="002-earth-thanks-you" style="text-align: center;">Earth thanks you for saving and securing this plastic!</h3>
+            <p data-lang-id="003-recorded-ready">Your ecobrick record has been logged to the validation queue. It is now pending peer review. Once authenticated, its record will be permanently added to the brikchain.</p>
+            <br><br>
+            <hr>
+            <br>
             <p data-lang-id="003-add-your-vision">You may now add a vision to your ecobrick! This is a short message: a vision, a wish, or a prayer for the future. The message will be added to your ecobrick's record on the brikchain and visible to anyone who reviews your ecobrick's data.</p>
 
             <!-- Vision Form -->

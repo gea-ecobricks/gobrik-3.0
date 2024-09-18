@@ -232,8 +232,8 @@ echo '<!DOCTYPE html>
                         <label for="ecobrick_photo_main" class="custom-file-upload" data-lang-id="025-basic-photo-labelx">📷 Take Basic Photo
                             <input type="file" id="ecobrick_photo_main" name="ecobrick_photo_main" onchange="displayFileName()">
                         </label>
-                        <span id="file-name" class="file-name" data-lang-id="035b-no-file-chosen">No file chosen</span>
-                        <p class="form-caption" data-lang-id="026-basic-feature-desc">Take or select a photo of your serialized ecobrick.</p>
+                        <span id="file-name" class="file-name" data-lang-id="035b-no-file-chosenx">No file chosen</span>
+                        <p class="form-caption" data-lang-id="026-basic-feature-descx">Take or select a photo of your serialized ecobrick.</p>
                     </div>
                 </div>
 
@@ -260,8 +260,8 @@ echo '<!DOCTYPE html>
                             📷 Take Selfie Photo
                             <input type="file" id="selfie_photo_main" name="selfie_photo_main">
                         </label>
-                        <span id="file-name-selfie" class="file-name" data-lang-id="035b-no-file-chosen">No file chosen</span>
-                        <p class="form-caption" data-lang-id="036-another-photo-optional">Upload your ecobrick selfie.</p>
+                        <span id="file-name-selfie" class="file-name" data-lang-id="035bx-no-file-chosen">No file chosen</span>
+                        <p class="form-caption" data-lang-id="036-another-photo-optionalx">Upload your ecobrick selfie.</p>
                     </div>
                 </div>
 

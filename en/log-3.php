@@ -86,8 +86,8 @@ echo '<!DOCTYPE html>
 <!-- PAGE CONTENT-->
 <div id="top-page-image" class="top-page-image log-step-3" style="margin-top: 105px; z-index: 35; position: absolute; text-align:center;width:100% ; height: 36px;"></div>
 
-<div id="form-submission-box" style="margin-top:80px;">
-    <div class="form-container" style="margin-top:-50px;">
+<div id="form-submission-box" style="margin-top:83px;">
+    <div class="form-container" style="padding-top:90px;">
         <div class="splash-form-content-block" style="text-align:center; display:flex;flex-flow:column;">
             <div id="upload-success-message">
                 <?php if (!empty($ecobrick_full_photo_url) && $ecobrick_full_photo_url !== 'url missing'): ?>

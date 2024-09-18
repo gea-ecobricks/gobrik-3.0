@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.444';
+$version = '0.44';
 $page = 'log-3';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -45,9 +45,22 @@ if ($is_logged_in) {
         $stmt = $gobrik_conn->prepare($sql);
         $stmt->bind_param("i", $ecobrick_unique_id);
         $stmt->execute();
-        $stmt->bind_result($serial_no, $ecobrick_full_photo_url, $ecobrick_thumb_photo_url, $selfie_photo_url, $selfie_thumb_url);
-        $stmt->fetch();
-        $stmt->close();
+        $stmt->store_result(); // Store result to check number of rows
+
+        if ($stmt->num_rows > 0) {
+            // Ecobrick found, fetch its data
+            $stmt->bind_result($serial_no, $ecobrick_full_photo_url, $ecobrick_thumb_photo_url, $selfie_photo_url, $selfie_thumb_url);
+            $stmt->fetch();
+            $stmt->close();
+        } else {
+            // No ecobrick found, show alert and redirect
+            $alert_message = getNoEcobrickAlert($lang);
+            echo "<script>
+                alert('" . addslashes($alert_message) . "');
+                window.location.href = 'log.php';
+            </script>";
+            exit;
+        }
     } else {
         echo "No ecobrick ID provided.";
         exit;
@@ -64,6 +77,7 @@ echo '<!DOCTYPE html>
 <meta charset="UTF-8">
 ';
 ?>
+
 
 
    <?php require_once ("../includes/log-inc.php");?>

@@ -1,6 +1,20 @@
 <?php
 
 
+// Function to display alert message in different languages
+function getNoEcobrickAlert($lang) {
+    switch ($lang) {
+        case 'fr':
+            return "Whoop ! Aucun ecobrick n'a pu être trouvé pour la mise à jour. Quelque chose s'est mal passé lors du processus d'enregistrement ou vous avez supprimé cet ecobrick. Essayez d'enregistrer à nouveau.";
+        case 'es':
+            return "¡Whoop! No se pudo encontrar un ecobrick para actualizar. Algo salió mal en el proceso de registro o eliminaste este ecobrick. Intenta registrarte nuevamente.";
+        case 'id':
+            return "Whoop! Tidak ada ecobrick yang dapat ditemukan untuk diperbarui. Ada yang salah dalam proses pencatatan atau Anda telah menghapus ecobrick ini. Cobalah mencatat lagi.";
+        default: // English as default
+            return "Whoop! No ecobrick could be found to update. Something went wrong in the logging process or you've deleted this ecobrick. Try logging again.";
+    }
+}
+
 function startSecureSession() {
     // Start the session if it's not already started
     if (session_status() === PHP_SESSION_NONE) {

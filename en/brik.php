@@ -173,8 +173,8 @@ if ($result->num_rows > 0) {
         echo '<div class="side">
             <div class="side-module-desktop-mobile">
                 <img src="../pngs/authenticated-ecobrick.png" width="90%" alt="Following the Earths example through eco bricking">
-                <br><h4 data-lang-id="104-side-authenticated-text">Pending Review!</h4>
-                <h5 data-lang-id="105-side-authenticated-text">This ecobrick is currently in the validation queue awaiting peer review and authentication.</h5><br><br><br>
+                <br><h4 data-lang-id="104-side-authenticated-textX">Pending Review!</h4>
+                <h5 data-lang-id="105-side-authenticated-textX">This ecobrick is currently in the validation queue awaiting peer review and authentication.</h5><br><br><br>
             </div>';
 
     }

@@ -119,9 +119,7 @@ echo '<!DOCTYPE html>
                 </div>
             </form>
 
-            <div id="vision-added-success" style="display:none;">
-                <p>👍 Vision successfully added to ecobrick <?php echo $ecobrick_unique_id; ?>'s record.</p>
-            </div>
+
             <div id="vision-added-failure" style="display:none;">
                 <p>😭 Hmmm... something went wrong adding your vision to <?php echo $ecobrick_unique_id; ?>'s record. Let us know on the beta test or bug review form, please!</p>
                 <p id="post-error-message"></p>
@@ -140,7 +138,10 @@ echo '<!DOCTYPE html>
                 </form>
                 <a class="confirm-button" href="log.php" data-lang-id="015-log-another-ecobrick" style="width:300px;">➕ Log another ecobrick</a>
                 <br>
-                <div id="conclusion-message" data-lang-id="003-recorded-ready" style="font-family:'Mulish',sans-serif; font-size:1.2em;color:var(--text-color);">Your ecobrick is now in the validation queue now pending peer review.</div>
+                <div id="vision-added-success" style="display:none;">
+                <p>✅ Vision successfully added to ecobrick <?php echo $ecobrick_unique_id; ?>'s record.</p>
+            </div>
+                <div id="conclusion-message" data-lang-id="003-recorded-ready" style="font-family:'Mulish',sans-serif; font-size:1.2em;color:var(--text-color);">✅ Your ecobrick is now in the validation queue now pending peer review.</div>
             </div>
         </div>
     </div>

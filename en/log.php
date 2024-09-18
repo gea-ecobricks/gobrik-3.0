@@ -209,7 +209,7 @@ require_once ("../includes/log-inc.php");
 
 <!-- PAGE CONTENT -->
    <div id="top-page-image" class="log-ecobrick top-page-image" style="height: 30px; margin-top: 150px;"></div>
-
+    <div id="log-1-banner" class="log-one-banner"></div>
 <div id="form-submission-box" class="landing-page-form" style="height:auto !important">
     <div class="form-container">
 

@@ -94,6 +94,16 @@ color: white;
   margin-top: 30px;
   }
 
+
+  .login-one-banner {f
+    z-index:20;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    height:140px;
+    margin-top:20px;
+  }
+
 </style>
 
 <?php require_once ("../header-2024.php");?>

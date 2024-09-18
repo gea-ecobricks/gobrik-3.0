@@ -138,8 +138,8 @@ echo '<!DOCTYPE html>
                 <p>😭 Hmmm... something went wrong adding your vision to <?php echo $ecobrick_unique_id; ?>'s record. Let us know on the beta test or bug review form, please!</p>
                 <p id="post-error-message"></p>
             </div>
-                <div id="vision-added-success" style="display:none;font-size:1.2em;">
-                <p><span style="color:green;">✔</span> Vision successfully added to ecobrick <?php echo $ecobrick_unique_id; ?>'s record.</p>
+                <div id="vision-added-success" style="display:none;font-family:'Mulish',sans-serif; font-size:1.2em;color:var(--text-color);">
+                <span style="color:green;">✔</span> <span>Vision successfully added to ecobrick <?php echo $ecobrick_unique_id; ?>'s record.</span>
             </div>
                 <div id="conclusion-message" data-lang-id="003-recorded-ready" style="font-family:'Mulish',sans-serif; font-size:1.2em;color:var(--text-color);"><span style="color:green;">✔</span> Your ecobrick is now in the validation queue now pending peer review.</div>
             </div>

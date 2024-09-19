@@ -214,7 +214,7 @@ require_once ("../includes/log-inc.php");
 
            <div style="text-align:center;width:100%;margin:auto;">
             <h2 data-lang-id="001-log-title">Log an Ecobrick</h2>
-            <p style="color:red;font-weight:500;" data-lang-id="002-log-warning">Warning: this form is not yet ready for use or for beta-testing!  All ecobricks logged at this stage will be deleted from the system once we launch.</p>
+            <p style="color:red;font-weight:500;" data-lang-id="002-log-warning">Important: Beta testers do not actually log and serialize an ecobrick.  All ecobricks logged at this stage will be deleted once we launch. Use generic data and photos.</p>
             <h3 data-lang-id="002-log-subheading">Record your ecobrick to the brikchain for projects, posterity and posting!</h3>
         </div>
             <!--LOG FORM-->

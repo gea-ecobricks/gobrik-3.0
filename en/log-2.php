@@ -463,21 +463,21 @@ function generateModalContent(density, volume, weight, lang) {
         return `
             <h1>⛔</h1>
             <h4>${translations.underDensityTitle}</h4>
-            <div class="preview-text">${translations.underDensityMessage.replace('${density}', density)}</div>
+            <p>${translations.underDensityMessage.replace('${density}', density)}</p>
             <a class="preview-btn" href="/what">${translations.geaStandardsLinkText}</a>
         `;
     } else if (density >= 0.33 && density < 0.36) {
         return `
             <h1 style="text-align:center;">⚠️</h1>
             <h2 style="text-align:center;">${translations.lowDensityTitle}</h4>
-            <div class="preview-text">${translations.lowDensityMessage.replace('${density}', density)}</div>
+            <p>${translations.lowDensityMessage.replace('${density}', density)}</p>
             <a class="preview-btn" onclick="closeDensityModal()" aria-label="Click to close modal">${translations.nextRegisterSerial}</a>
         `;
     } else if (density >= 0.36 && density < 0.65) {
         return `
             <h1 style="text-align:center;">👍</h1>
             <h2 style="text-align:center;">${translations.greatJobTitle}</h2>
-            <div class="preview-text" style="text-align:center;">${translations.greatJobMessage.replace('${density}', density)}</div>
+            <p style="text-align:center;">${translations.greatJobMessage.replace('${density}', density)}</p>
             <a class="preview-btn" onclick="closeDensityModal()" aria-label="Click to close modal">${translations.nextRegisterSerial}</a>
         `;
     } else if (density >= 0.65 && density < 0.73) {

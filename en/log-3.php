@@ -84,7 +84,7 @@ echo '<!DOCTYPE html>
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT-->
-<div id="top-page-image" class="top-page-image log-step-3" style="margin-top: 105px; z-index: 35; position: absolute; text-align:center;width:100% ; height: 36px;"></div>
+<div id="top-page-image" class="top-page-image log-step-3" style="margin-top: 105px; z-index: 35; position: absolute; text-align:center;width:100% ; height: 30px;"></div>
 
 <div id="form-submission-box" style="margin-top:83px;">
     <div class="form-container" style="padding-top:75px;">

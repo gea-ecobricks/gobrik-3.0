@@ -330,7 +330,7 @@
 
 @media screen and (max-width: 700px) {
   #settings-buttons {
-  right: -180px;
+  right: -250px;
 }
 }
 
@@ -1760,9 +1760,6 @@ color: red;
             width: 200px;
         }
 
-        #language-code {
-            display:none;
-        }
     }
 
 

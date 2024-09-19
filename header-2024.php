@@ -368,14 +368,14 @@ display: none;
       </div>
       <div class="menu-page-item">
         <a href="dashboard.php" aria-label="Log" data-lang-id="1000-dashboard">Dashboard</a>
-        <span class="status-circle" style="background-color: yellow;" title="Working. Under development"></span>
+        <span class="status-circle" style="background-color: green;" title="Working. Under development"></span>
       </div>
     <?php else: ?>
       <!-- If the user is not logged in, show the login/signup options -->
       <div class="menu-page-item">
         <a href="login.php" data-lang-id="1000-log-in" style="margin-right:10px">Log in</a> |
         <a href="signup.php" data-lang-id="1000-sign-up" style="margin-left:10px">Sign up</a>
-        <span class="status-circle" style="background-color: green;" title="Deployed. Under beta testing."></span>
+        <span class="status-circle" style="background-color: limegreen;" title="Deployed. Under beta testing."></span>
       </div>
     <?php endif; ?>
 
@@ -385,7 +385,7 @@ display: none;
     <!-- Other menu items -->
     <div class="menu-page-item">
       <a href="log.php" data-lang-id="1000-log-ecobricks">Log Ecobricks</a>
-      <span class="status-circle" style="background-color: orange;" title="Under development"></span>
+      <span class="status-circle" style="background-color: limegreen;" title="Under beta testing"></span>
     </div>
     <div class="menu-page-item">
       <a href="brikchain.php" data-lang-id="1000-brikchain">The Brikchain</a>
@@ -411,7 +411,7 @@ display: none;
     <!-- GoBrik Tour at the bottom -->
     <div class="menu-page-item">
       <a data-lang-id="1001-gobrik-tour" onclick="closeSettings(); setTimeout(guidedTour, 500);">GoBrik Tour</a>
-      <span class="status-circle" style="background-color: orange;" title="Under development"></span>
+      <span class="status-circle" style="background-color: red;" title="Under development"></span>
     </div>
   </div> <!-- close overlay-content-settings -->
 </div> <!-- close main menu -->

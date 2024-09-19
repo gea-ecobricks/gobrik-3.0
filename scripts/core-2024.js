@@ -316,7 +316,7 @@ function scrollMoreThan30() {
         document.getElementById("gea-logo").style.width = "170px";
         document.getElementById("gea-logo").style.height = "35px";
         document.getElementById("logo-gobrik").style.opacity = "0.9";
-        document.getElementById("settings-buttons").style.padding = "14px 43px 16px 12px";
+        document.getElementById("settings-buttons").style.padding = "12px 43px 12px 12px";
         document.getElementById("language-menu-slider").style.top = "-35px";
         document.getElementById("login-menu-slider").style.top = "-35px";
 

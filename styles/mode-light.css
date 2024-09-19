@@ -557,6 +557,6 @@ light.css
       }
 
   .log-one-ecobrick {
-  background: url(../svgs/log-ecobrick-night.svg) no-repeat center bottom;
+  background: url(../svgs/log-ecobrick-day.svg) no-repeat center bottom;
   background-size: contain;
 }

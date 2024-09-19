@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.442';
+$version = '0.443';
 $page = 'log-3';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -111,7 +111,8 @@ echo '<!DOCTYPE html>
                 <p data-lang-id="vision-form-into">Optionally, you may now add a vision to your ecobrick. This is a short message: a vision, a wish, or a prayer for the future. The message will be added to your ecobrick's record on the brikchain and visible to anyone who reviews your ecobrick's data.</p>
 
                 <textarea name="vision_message" id="vision_message" rows="4" maxlength="255" placeholder="Your vision for this ecobrick and its future..."></textarea>
-                <p class="form-caption"><span id="character-counter">255</span><span data-lang-id="024-char-remaining"> characters remaining<span></p>
+                <p class="form-caption" style="margin-top: -30px;text-align: right;margin-right: 10px;
+  margin-bottom: 15px;"><span id="character-counter">255</span><span data-lang-id="024-char-remaining"> characters remaining<span></p>
 
                 <input type="hidden" name="ecobrick_unique_id" value="<?php echo htmlspecialchars($ecobrick_unique_id); ?>">
 

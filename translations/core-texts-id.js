@@ -20,7 +20,7 @@ const id_Translations = {
 
     "000-Ecobrick": "Ecobrick",
     "000-ecobrick-low": "ecobrick",
-    "000-ecobricking": "ecobricking"
+    "000-ecobricking": "ecobricking",
 
     "000-your": 'Anda',
     "000-already-have-account": "Sudah punya akun? <a href=\"login.php\">Masuk</a>",

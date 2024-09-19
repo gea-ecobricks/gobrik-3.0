@@ -18,6 +18,10 @@ const fr_Translations = {
 
     "000-language-code": "FR",
 
+    "000-Ecobrick": "Écobrique",
+    "000-ecobrick-low": "écobrique",
+    "000-ecobricking": "écobriquage",
+
     "000-your": 'Votre',
     "000-already-have-account": "Vous avez déjà un compte? <a href=\"login.php\">Se connecter</a>",
     "000-select": "Sélectionner...",

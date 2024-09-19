@@ -5,6 +5,10 @@ const es_Translations = {
 
     "000-language-code": "ES",
 
+    "000-Ecobrick": "Ecoladrillo",
+    "000-ecobrick-low": "ecoladrillo",
+    "000-ecobricking": "haciendo los ecoladrillos",
+
     "000-your": "Tu",
     "000-already-have-account": "¿Ya tienes una cuenta? <a href=\"login.php\">Iniciar sesión</a>",
     "000-select": "Seleccionar...",

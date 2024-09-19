@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.441';
+$version = '0.442';
 $page = 'log-3';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -103,7 +103,7 @@ echo '<!DOCTYPE html>
 
             </div>
 
-            <h2 id="ecobrick-logged-title" data-lang-id="001-form-title">Ecobrick <?php echo $serial_no; ?> is logged! 🎉</h2>
+            <h2 id="ecobrick-logged-title"><span data-lang-id="000-Ecobrick">Ecobrick</span> <?php echo $serial_no; ?> <span data-lang-id="001-form-title"> is logged! </span>🎉</h2>
 
 
             <!-- Vision Form -->
@@ -139,14 +139,14 @@ echo '<!DOCTYPE html>
                 </form>
                 <br>
                 <div id="vision-added-failure" style="display:none;font-size:1.2em;">
-                <p>😭 Hmmm... something went wrong adding your vision to <?php echo $ecobrick_unique_id; ?>'s record. Let us know on the beta test or bug review form, please!</p>
+                <p><span data-lang-id="015-error-happened">😭 Hmmm... something went wrong adding your vision to </span><?php echo $ecobrick_unique_id; ?>'s <span data-lang-id="016-error-happened" record. Let us know on the beta test or bug review form, please!</span></p>
                 <p id="post-error-message"></p>
             </div>
         <h3>🙏 💚 🌏</h3>
                 <div id="vision-added-success" style="display:none;font-family:'Mulish',sans-serif; font-size:1.2em;color:var(--text-color);">
-                <span style="color:green;">✔</span> <span>Vision successfully added to ecobrick <?php echo $ecobrick_unique_id; ?>'s record.</span>
+                <span style="color:green;">✔</span> <span datal-lang-id="015-vision-added">Vision successfully added to ecobrick record </span> <?php echo $ecobrick_unique_id; ?>.
             </div>
-                <div id="conclusion-message" data-lang-id="003-recorded-ready" style="font-family:'Mulish',sans-serif; font-size:1.2em;color:var(--text-color);"><span style="color:green;">✔</span> Your ecobrick is now in the validation queue now pending peer review.</div>
+                <div id="conclusion-message" style="font-family:'Mulish',sans-serif; font-size:1.2em;color:var(--text-color);"><span style="color:green;">✔</span> <span data-lang-id="003-recorded-ready" >Your ecobrick is now in the validation queue now pending peer review.</span></div>
             </div>
 
         </div>

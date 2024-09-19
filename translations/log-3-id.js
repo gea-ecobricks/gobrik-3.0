@@ -12,7 +12,20 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 
 
 const id_Page_Translations = {
+    "001-form-title": "telah dicatat!",
+    "vision-form-into": "Opsional, Anda sekarang dapat menambahkan visi ke ecobrick Anda. Ini adalah pesan singkat: sebuah visi, harapan, atau doa untuk masa depan. Pesan ini akan ditambahkan ke catatan ecobrick Anda di brikchain dan terlihat oleh siapa saja yang meninjau data ecobrick Anda.",
+    "024-char-remaining": "karakter tersisa",
+    "027-save-button-text": "Simpan",
+    "014-skip-button": "Lewati: Selesaikan Pencatatan",
+    "003-logging-is": "Pencatatan ecobrick",
+    "003-complete": "telah selesai. 👍",
+    "003-recorded-ready": "Bumi Berterima Kasih Kepada Anda.",
+    "013-view-ecobrick-post": "Lihat Postingan Ecobrick",
+    "015-log-another-ecobrick": "➕ Catat ecobrick lain",
+    "014-delete-ecobrick": "❌ Hapus Ecobrick",
+    "015-error-happened": "😭 Hmm... terjadi kesalahan saat menambahkan visi Anda ke",
+    "016-error-happened": "rekor. Beri tahu kami melalui formulir uji beta atau ulasan bug, tolong!",
+    "015-vision-added": "Visi berhasil ditambahkan ke catatan ecobrick",
+    "003-recorded-ready": "Ecobrick Anda sekarang ada di antrian validasi, menunggu tinjauan oleh rekan."
+};
 
-
-
-    };

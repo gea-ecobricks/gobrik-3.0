@@ -36,7 +36,7 @@
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg74" />
+     inkscape:current-layer="g74" />
   <metadata
      id="metadata1">
     <rdf:RDF>
@@ -63,28 +63,12 @@
        stroke-width="4.9315"
        id="rect1" />
     <path
-       d="m 145.01,184.76 -44.986,6.2193 c -0.0327,0.69519 -0.14016,2.044 0.60815,2.8708 l 44.493,-7.7382 c 2.6858,-0.85013 2.5207,-1.2822 -0.11474,-1.3519 z"
-       fill="#666666"
-       id="path1" />
-    <path
-       d="m 101.21,190.6 c -1.0984,-0.12433 -2.1832,-0.34811 -3.38,0.2431 0,0 -2.3847,1.592 -3.5115,1.6543 -1.1268,0.0622 -3.8406,-0.32768 -1.2455,0.22228 2.2318,0.63233 5.0405,1.698 6.2734,0.8495 l 2.1544,-1.2237"
-       fill="#666666"
-       id="path2" />
-    <path
        d="m 62.524,160.9 80.028,-0.75102 c 0,0 3.1895,36.551 0.57991,38.053 l -2.6096,1.5021 -77.128,-0.75105 -3.7694,-5.2573 z"
        fill="#808000"
        opacity="0.3"
        stroke="#000000"
        stroke-width="0.24585px"
        id="path3" />
-    <ellipse
-       cx="132.22"
-       cy="162.62"
-       rx="4.9028001"
-       ry="0.90166003"
-       fill="#6e6e48"
-       opacity="0.9"
-       id="ellipse3" />
     <g
        id="g5">
       <rect
@@ -98,12 +82,6 @@
          stroke="#666666"
          stroke-width="4.9315"
          id="rect3" />
-      <path
-         d="m 127.75,161.21 c -0.0132,0.55959 0.0566,1.057 0.46471,1.3006 2.2194,0.16568 4.6057,0.1883 7.3494,-0.0955 0.3972,-0.12581 0.78238,-0.26517 0.76358,-0.859 l -0.0954,-4.7723 c -0.34024,-0.75833 -0.79869,-0.80741 -1.2408,-0.95446 h -1.4317 l -0.38179,-1.8135 c 0,0 -2.1953,0.19089 -2.3862,0.0955 l -0.19089,-0.0955 c 0.0285,0.71363 -0.0128,1.2878 -0.0903,1.7894 l -1.5852,0.0415 c -0.55885,0.3116 -0.82264,0.55012 -1.2782,1.2234 z"
-         fill="#4b4b8e"
-         stroke="#000000"
-         stroke-width="0.15844px"
-         id="path4" />
       <path
          d="m 80.934,156.7 45.764,1.3681 7.6856,14.023 -61.484,-0.68402 z"
          fill="#4d4d4d"
@@ -187,14 +165,6 @@
          d="m 112.34,180.01 -0.40131,-2.4306"
          id="path22" />
     </g>
-    <ellipse
-       cx="114"
-       cy="180.05"
-       rx="0.33812001"
-       ry="0.25358999"
-       stroke="#008080"
-       stroke-width="0.60854"
-       id="ellipse22" />
     <g
        fill="#008080"
        stroke="#008080"
@@ -389,86 +359,6 @@
            d="m 642.45,129.46 c -1.7136,5.0119 1.6033,16.012 4.4653,5.968 9.1987,-6.4548 1.5988,22.758 -1.8995,9.5475 -8.0898,-0.90002 -9.0777,-13.379 -2.5658,-15.516 z"
            id="path67" />
       </g>
-      <path
-         d="m 130.22,154.06 3.442,-0.0675 -0.2407,-2.1674 -3.1062,0.10734 z"
-         fill="#4b4b8e"
-         stroke="#000000"
-         stroke-width="0.15844px"
-         id="path68" />
-    </g>
-    <path
-       d="m 148.33,182.76 -46.967,6.2193 c -0.0341,0.69519 -0.14634,2.044 0.63491,2.8708 l 46.452,-7.7382 c 2.8041,-0.85013 2.6317,-1.2822 -0.11979,-1.3519 z"
-       fill="#a05a2c"
-       stroke="#000000"
-       stroke-width="0.26458px"
-       id="path69" />
-    <path
-       d="m 101.2,189.54 c -1.0984,-0.12432 -2.1832,-0.34808 -3.38,0.24313 0,0 -2.3847,1.592 -3.5115,1.6543 -1.1268,0.0623 -3.8406,-0.32769 -1.2455,0.22228 2.2318,0.63233 5.0405,1.6981 6.2734,0.8495 l 2.1544,-1.2237"
-       fill="#333333"
-       stroke="#000000"
-       stroke-width="0.26458px"
-       id="path70" />
-    <g
-       id="g73">
-      <rect
-         x="128.98"
-         y="157.17"
-         width="6.4524999"
-         height="4.3392"
-         ry="0.64806002"
-         fill="#7a7ac4"
-         opacity="0.9"
-         id="rect70" />
-      <text
-         x="129.89081"
-         y="159.2366"
-         fill="#4b4b8e"
-         font-family="sans-serif"
-         font-size="2.3258px"
-         letter-spacing="0px"
-         stroke="#4b4b8e"
-         stroke-width="0.058144"
-         word-spacing="0px"
-         style="line-height:1.25"
-         xml:space="preserve"
-         id="text71"><tspan
-           x="129.89081"
-           y="159.2366"
-           fill="#4b4b8e"
-           font-family="'Roadshow IAIC 2013'"
-           letter-spacing="-0.013229px"
-           stroke="#4b4b8e"
-           stroke-width="0.058144"
-           style="line-height:0"
-           id="tspan70">perm.</tspan><tspan
-           x="129.89081"
-           y="162.14383"
-           id="tspan71" /></text>
-      <text
-         x="130.53322"
-         y="160.88898"
-         fill="#4b4b8e"
-         font-family="sans-serif"
-         font-size="1.8587px"
-         letter-spacing="0px"
-         stroke="#4b4b8e"
-         stroke-width="0.046468"
-         word-spacing="0px"
-         style="line-height:1.25"
-         xml:space="preserve"
-         id="text73"><tspan
-           x="130.53322"
-           y="160.88898"
-           fill="#4b4b8e"
-           font-family="'Roadshow IAIC 2013'"
-           letter-spacing="-0.010573px"
-           stroke="#4b4b8e"
-           stroke-width="0.046468"
-           style="line-height:0"
-           id="tspan72">paint</tspan><tspan
-           x="130.53322"
-           y="163.2124"
-           id="tspan73" /></text>
     </g>
   </g>
   <g
@@ -553,21 +443,4 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Mulish;-inkscape-font-specification:Mulish;fill:#ffffff;stroke-width:0.941962"
        x="56.654522"
        y="25.010675">4</tspan></text>
-  <circle
-     style="fill:#eeaacc;fill-opacity:0.8;stroke-width:0.32991"
-     id="circle77"
-     cx="83.950012"
-     cy="79.445152"
-     r="6.7924337" />
-  <text
-     xml:space="preserve"
-     style="font-size:11.3036px;fill:#ffffff;fill-opacity:0.8;stroke-width:0.941962"
-     x="80.487083"
-     y="83.329018"
-     id="text78"><tspan
-       sodipodi:role="line"
-       id="tspan78"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Mulish;-inkscape-font-specification:Mulish;fill:#ffffff;stroke-width:0.941962"
-       x="80.487083"
-       y="83.329018">5</tspan></text>
 </svg>

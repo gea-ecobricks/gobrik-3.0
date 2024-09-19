@@ -555,3 +555,8 @@ light.css
       background: url(../svgs/welcome-casandra-day.svg) no-repeat center;
       background-size: contain;
       }
+
+  .log-one-ecobrick {
+  background: url(../svgs/log-ecobrick-night.svg) no-repeat center bottom;
+  background-size: contain;
+}

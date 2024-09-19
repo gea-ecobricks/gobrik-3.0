@@ -1,7 +1,9 @@
 const en_Translations = {
 
     "000-language-code": "EN",
-
+    "000-Ecobrick": "Ecobrick",
+    "000-ecobrick-low": "ecobrick",
+    "000-ecobricking": "ecobricking",
     "000-your": "Your",
     "000-already-have-account": "Already have an account? <a href=\"login.php\">Login</a>",
     "000-select": "Select...",

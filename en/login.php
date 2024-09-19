@@ -116,7 +116,9 @@ echo '</script>';
     </div>
 
    <!-- Form starts here-->
-<form id="login" method="post" action="login_process.php?redirect=<?php echo htmlspecialchars($redirect); ?>">    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+<form id="login" method="post" action="login_process.php">
+    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+    <input type="hidden" name="redirect" value="<?php echo htmlspecialchars($redirect); ?>"> <!-- Add this line -->
 
     <div class="form-item">
         <div class="input-wrapper" style="position: relative;">
@@ -168,9 +170,8 @@ echo '</script>';
                 <input type="submit" id="submit-password-button" value="Login" class="login-button-75">
             </span>
             <input type="button" id="send-code-button" value="📨 Send Code" class="code-button-75" style="display:none;">
-
         </div>
-            <div id="code-error" data-lang-id="002-password-wrong" class="form-field-error" style="display:none;margin-top: 5px;margin-bottom:-15px;">👉 Entry is incorrect.</div>
+        <div id="code-error" data-lang-id="002-password-wrong" class="form-field-error" style="display:none;margin-top: 5px;margin-bottom:-15px;">👉 Entry is incorrect.</div>
     </div>
 </form>
 

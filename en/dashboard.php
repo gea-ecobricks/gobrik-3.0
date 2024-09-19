@@ -133,7 +133,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <p id="subgreeting">Welcome to the new GoBrik 3.0!</p>
         </div>
         <div style="display:flex;flex-flow:row;width:100%;justify-content:center;">
-            <button class="go-button enabled" id="log-ecobrick-button" data-lang-id="001-log-an-ecobrick">➕ Log an Ecobrick</button>
+            <button class="confirm-button enabled" id="log-ecobrick-button" data-lang-id="001-log-an-ecobrick">➕ Log an Ecobrick</button>
         </div>
 
         <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">

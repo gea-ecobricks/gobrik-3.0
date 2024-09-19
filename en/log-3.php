@@ -92,7 +92,7 @@ echo '<!DOCTYPE html>
             <div id="upload-success-message">
                 <?php if (!empty($ecobrick_full_photo_url) && $ecobrick_full_photo_url !== 'url missing'): ?>
                     <div class="photo-container">
-                        <img src="<?php echo htmlspecialchars($ecobrick_full_photo_url); ?>" alt="Basic Ecobrick Photo" style="max-width:500px;" title="Basic ecobrick photo - full">
+                        <img src="<?php echo htmlspecialchars($ecobrick_full_photo_url); ?>" alt="Basic Ecobrick Photo" style="width:500px; max-width:95%" title="Basic ecobrick photo - full">
                     </div>
                 <?php endif; ?>
                 <?php if ($selfie_photo_url): ?>
@@ -112,7 +112,7 @@ echo '<!DOCTYPE html>
 
                 <textarea name="vision_message" id="vision_message" rows="4" maxlength="255" placeholder="Your vision for this ecobrick and its future..."></textarea>
                 <p class="form-caption" style="margin-top: -30px;text-align: right;margin-right: 10px;
-  margin-bottom: 15px;"><span id="character-counter">255</span> <span data-lang-id="024-char-remaining">characters remaining<span></p>
+  margin-bottom: 15px;"><span id="character-counter">256</span> <span data-lang-id="024-char-remaining">characters remaining<span></p>
 
                 <input type="hidden" name="ecobrick_unique_id" value="<?php echo htmlspecialchars($ecobrick_unique_id); ?>">
 

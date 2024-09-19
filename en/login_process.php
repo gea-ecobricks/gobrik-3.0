@@ -9,7 +9,6 @@ $credential_key = $_POST['credential_key'] ?? '';
 $password = $_POST['password'] ?? '';
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $redirect = isset($_POST['redirect']) ? filter_var($_POST['redirect'], FILTER_SANITIZE_STRING) : ''; // Capture the redirect variable from POST
-$redirect = "log";
 if (empty($credential_key) || empty($password)) {
     header("Location: ../$lang/login.php?status=empty_fields&key=" . urlencode($credential_key));
     exit();

@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.444';
+$version = '0.445';
 $page = 'log-3';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -127,8 +127,8 @@ echo '<!DOCTYPE html>
 
 
             <div id="next-options" style="display:none;">
-                <div class="conclusion-message"  style="font-family:'Mulish',sans-serif; font-size:1.4em;color:var(--h1);margin-top:20px;"><span data-lang-id="003-logging-is">Logging of ecobrick </span><?php echo $serial_no; ?> <span data-lang-id="003-complete">is complete. 👍</span></div>
-                <h2 data-lang-id="003-recorded-ready">The Earth Thanks You.</h2>
+                <div class="conclusion-message"  style="font-family:'Mulish',sans-serif; font-size:1.4em;color:var(--h1);margin-top:20px;"><span data-lang-id="003-logging-is">Logging of ecobrick </span> <?php echo $serial_no; ?> <span data-lang-id="003-complete">is complete. 👍</span></div>
+                <h2 data-lang-id="077-earth-thanks-you">The Earth Thanks You.</h2>
                 <br>
 
                 <a class="confirm-button" href="brik.php?serial_no=<?php echo $serial_no; ?>" data-lang-id="013-view-ecobrick-post" style="width:300px;">View Ecobrick Post</a>

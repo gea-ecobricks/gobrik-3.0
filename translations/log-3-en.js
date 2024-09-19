@@ -28,5 +28,6 @@ const en_Page_Translations = {
     "015-error-happened": "😭 Hmmm... something went wrong adding your vision to",
     "016-error-happened": "'s record. Let us know on the beta test or bug review form, please!",
     "015-vision-added": "Vision successfully added to ecobrick record",
-    "003-recorded-ready": "Your ecobrick is now in the validation queue now pending peer review."
-};
+    "003-recorded-ready": "Your ecobrick is now in the validation queue now pending peer review.",
+     "077-earth-thanks-you": "The Earth Thanks You."
+     };

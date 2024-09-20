@@ -92,25 +92,71 @@ overflow: hidden;
 
 
 
-#upload-progress-button {
-color: white;
+/* #upload-progress-button { */
+/* color: white; */
+/*   padding: 10px 20px; */
+/*   border: none; */
+/*   border-radius: 4px; */
+/*   cursor: pointer; */
+/*   background-color: #12b712; */
+/*   background-size: 0% 100%; */
+/*   transition: background-size 0.5s ease; */
+/*   font-size: 1.3em; */
+/*   width: 100%; */
+/*   margin-top: 30px; */
+/*   } */
+
+/*   #upload-progress-button.progress-bar { */
+/*     background-color: #4caf50;  *//* Green background to show progress */
+/*     background-size: 0% 100%;  *//* Start with 0% background */
+/*     transition: background-size 0.4s ease;  *//* Smooth transition */
+/* } */
+
+
+
+
+
+
+
+input[type="submit"] {
+  color: white;
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  background-color: #12b712;
-  background-size: 0% 100%;
-  transition: background-size 0.5s ease;
+  background-color: #12b712; /* Initial background color */
+  background-size: 0% 100%; /* Initial background size (progress bar) */
+  transition: background-size 0.5s ease; /* Transition effect for smooth progress */
   font-size: 1.3em;
   width: 100%;
   margin-top: 30px;
-  }
-
-  #upload-progress-button.progress-bar {
-    background-color: #4caf50; /* Green background to show progress */
-    background-size: 0% 100%; /* Start with 0% background */
-    transition: background-size 0.4s ease; /* Smooth transition */
 }
+
+/* Specify the progress bar color */
+input[type="submit"].progress-bar {
+  background: url(../svgs/square-upload-progress.svg) left center repeat-y, gray; /* Combined background */
+  background-size: auto; /* Auto size for image background */
+}
+
+
+input[type="submit"]:hover {
+  background-color: green;
+}
+
+.spinner-photo-loading {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #ffffff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 
 
 </style>

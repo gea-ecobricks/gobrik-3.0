@@ -292,8 +292,10 @@ echo '<!DOCTYPE html>
                     </div>
                 </div>
 
-                <div style="display:flex;flex-flow:row;width:100%;justify-content:center;" data-lang-id="037-submit-upload-buttonX">
-    <button id="upload-progress-button" aria-label="Submit photos for upload">⬆️ Upload Photos</button>
+
+
+        <div style="display:flex;flex-flow:row;width:100%;justify-content:center;" data-lang-id="037-submit-upload-buttonX">
+                <input type="submit" value="" id="upload-progress-button" aria-lable="Submit photos for upload">⬆️ Upload Photos
 </div>
 
 

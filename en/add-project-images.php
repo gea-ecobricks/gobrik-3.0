@@ -188,7 +188,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['project_id'])) {
 
 
             <div data-lang-id="013-submit-upload-button">
-                <input type="submit" value="" id="upload-progress-button" aria-lable="Submit photos for upload">⬆️ Upload Photos 
+                <input type='submit' value='Next: Upload Photos ➡️' aria-label='Submit Form'>
             </div>
         </form>
     </div>

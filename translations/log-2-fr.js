@@ -41,7 +41,7 @@ const fr_Page_Translations = {
     "013-enscribe-option-7": "Autre",
     "014-photo-options-label": "Quel type de photo souhaitez-vous enregistrer de votre ecobrick ?",
     "015-photo-options-option-1": "Sélectionnez une option...",
-    "016-photo-options-option-2": "Une photo de base de l'ecobrick",
+    "016-photo-options-option-2": "Photo de l’écobrique courant",
     "017-photo-options-option-3": "Une photo selfie",
     "018-photo-options-option-4": "Une photo de base et une photo selfie",
     "019-feature-photo": "Téléchargez une photo de base de l'ecobrick :",

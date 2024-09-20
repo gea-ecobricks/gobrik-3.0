@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.495';
+$version = '0.499';
 $page = 'log-2';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -43,7 +43,24 @@ if ($is_logged_in) {
     if (isset($_GET['id'])) {
         $ecobrick_unique_id = (int)$_GET['id'];
 
-        // Fetch the ecobrick details from the database
+        // Check if the ecobrick has already been processed
+        $status_check_stmt = $gobrik_conn->prepare("SELECT status FROM tb_ecobricks WHERE ecobrick_unique_id = ?");
+        $status_check_stmt->bind_param("i", $ecobrick_unique_id);
+        $status_check_stmt->execute();
+        $status_check_stmt->bind_result($status);
+        $status_check_stmt->fetch();
+        $status_check_stmt->close();
+
+        // If status is 'step 2 complete', show an alert and redirect
+        if ($status === "step 2 complete") {
+            echo "<script>
+                alert('It looks like your ecobrick has already been processed. Please log another.');
+                window.location.href = 'log.php'; // Redirect to the logging page or any other appropriate page
+            </script>";
+            exit();
+        }
+
+        // Fetch the ecobrick details from the database if it has not been processed
         if ($stmt = $gobrik_conn->prepare("SELECT universal_volume_ml, serial_no, density, weight_g FROM tb_ecobricks WHERE ecobrick_unique_id = ?")) {
             $stmt->bind_param("i", $ecobrick_unique_id);
             $stmt->execute();
@@ -162,6 +179,7 @@ echo '<!DOCTYPE html>
 
 
 
+
    <?php require_once ("../includes/log-2-inc.php");?>
 
 
@@ -197,11 +215,11 @@ echo '<!DOCTYPE html>
                 <label for="enscribe" data-lang-id="006-enscribe-label">How would you like to inscribe the serial number on your ecobrick?</label><br>
                 <select id="enscribe" name="enscribe" required>
                     <option value="" disabled selected data-lang-id="007-enscribe-option-1">Select one...</option>
-                    <option value="Permanent marker" data-lang-id="008-enscribe-option-2">Permanent marker</option>
+                    <option value="Plastic insert" data-lang-id="012-enscribe-option-6">⭐⭐⭐ Plastic insert</option>
+                    <option value="Enamel paint" data-lang-id="010-enscribe-option-4">⭐⭐ Enamel paint</option>
+                    <option value="Nail polish" data-lang-id="011-enscribe-option-5">⭐⭐ Nail polish</option>
+                    <option value="Permanent marker" data-lang-id="008-enscribe-option-2">⭐ Permanent marker</option>
                     <option value="Impermanent marker" data-lang-id="009-enscribe-option-3">Impermanent marker</option>
-                    <option value="Enamel paint" data-lang-id="010-enscribe-option-4">Enamel paint</option>
-                    <option value="Nail polish" data-lang-id="011-enscribe-option-5">Nail polish</option>
-                    <option value="Plastic insert" data-lang-id="012-enscribe-option-6">Plastic insert</option>
                     <option value="Other" data-lang-id="013-enscribe-option-7">Other</option>
                 </select>
             </div>
@@ -274,7 +292,7 @@ echo '<!DOCTYPE html>
                     </div>
                 </div>
 
-                <div style="display:flex;flex-flow:row;width:100%;justify-content:center;" data-lang-id="037-submit-upload-button">
+                <div style="display:flex;flex-flow:row;width:100%;justify-content:center;" data-lang-id="037-submit-upload-buttonX">
     <button id="upload-progress-button" aria-label="Submit photos for upload">⬆️ Upload Photos</button>
 </div>
 

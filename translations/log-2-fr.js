@@ -34,7 +34,7 @@ const fr_Page_Translations = {
     "006-enscribe-label": "Comment souhaitez-vous inscrire le numéro de série sur votre ecobrick ?",
     "007-enscribe-option-1": "Sélectionnez une option...",
     "008-enscribe-option-2": "Marqueur permanent",
-    "009-enscribe-option-3": "Marqueur non permanent",
+    "009-enscribe-option-3": "Marqueur soluble dans l'eau 👎",
     "010-enscribe-option-4": "Peinture émail",
     "011-enscribe-option-5": "Vernis à ongles",
     "012-enscribe-option-6": "Insert en plastique",

@@ -276,7 +276,7 @@ require_once ("../includes/log-inc.php");
                 <div class="form-item">
                     <label for="weight_g" data-lang-id="007-weight-g">Weight of the Ecobrick (in grams):</label><br>
                     <input type="number" id="weight_g" name="weight_g" aria-label="Weight in Grams" min="1" required>
-                    <p class="form-caption" data-lang-id="007-weight-g-caption">Please provide the weight of the ecobrick in grams.</p>
+                    <p class="form-caption" data-lang-id="007-weight-g-caption">Please provide the weight of the ecobrick in grams. Round up to the nearest gram.</p>
 
                     <!--ERRORS-->
                     <div id="weight-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>

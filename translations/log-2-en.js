@@ -21,7 +21,7 @@ const en_Page_Translations = {
     "006-enscribe-label": "How would you like to inscribe the serial number on your ecobrick?",
     "007-enscribe-option-1": "Select one...",
     "008-enscribe-option-2": "Permanent marker",
-    "009-enscribe-option-3": "Impermanent marker",
+    "009-enscribe-option-3": "Water soluable marker 👎",
     "010-enscribe-option-4": "Enamel paint",
     "011-enscribe-option-5": "Nail polish",
     "012-enscribe-option-6": "Plastic insert",

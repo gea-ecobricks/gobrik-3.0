@@ -21,7 +21,7 @@ const id_Page_Translations = {
   "006-enscribe-label": "Bagaimana Anda ingin menuliskan nomor seri di ecobrick Anda?",
   "007-enscribe-option-1": "Pilih satu...",
   "008-enscribe-option-2": "Spidol permanen",
-  "009-enscribe-option-3": "Spidol tidak permanen",
+  "009-enscribe-option-3": "Spidol yang larut dalam air 👎",
   "010-enscribe-option-4": "Cat enamel",
   "011-enscribe-option-5": "Cat kuku",
   "012-enscribe-option-6": "Sisipan plastik",

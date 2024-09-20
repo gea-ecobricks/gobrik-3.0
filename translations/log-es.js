@@ -22,7 +22,7 @@ const es_Page_Translations = {
     "006-select-volume": "Seleccionar volumen...",
     "006-volume-ml-caption": "Proporcione el volumen del ecobrick en mililitros.",
     "007-weight-g": "Peso del Ecobrick (en gramos):",
-    "007-weight-g-caption": "Proporcione el peso del ecobrick en gramos.",
+    "007-weight-g-caption": "Redondear al gramo más cercano.",
     "007-brand_name": "¿Qué marca de botella se utiliza para este ecobrick?",
     "000-field-too-long-error": "Esta entrada debe tener menos de 100 caracteres. Solo necesitamos el nombre de la marca de la botella, p. ej., \"Max Water\".",
     "000-field-invalid-error": "La entrada contiene caracteres no válidos. Evite las comillas, barras y signos de mayor que, por favor.",

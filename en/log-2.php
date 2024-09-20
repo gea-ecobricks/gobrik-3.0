@@ -19,7 +19,6 @@ $watershed_id = '';
 $watershed_name = '';
 $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 
-
 // Check if user is logged in and session active
 if ($is_logged_in) {
     $buwana_id = $_SESSION['buwana_id'] ?? ''; // Retrieve buwana_id from session
@@ -103,7 +102,15 @@ if ($is_logged_in) {
         }
 
         if (!empty($db_fields) && empty($error_message)) {
+            // Add 'status' to the fields being updated
             $fields_for_update = implode(", ", array_map(function($field) { return "{$field} = ?"; }, $db_fields));
+            $fields_for_update .= ", status = ?"; // Add the status field
+
+            // Add the status value to the parameters
+            array_push($db_values, "step 2 complete");
+            $db_types .= "s";
+
+            // Prepare and execute the update statement
             $update_sql = "UPDATE tb_ecobricks SET {$fields_for_update} WHERE ecobrick_unique_id = ?";
             $db_values[] = $ecobrick_unique_id;
             $db_types .= "i";
@@ -150,6 +157,7 @@ echo '<!DOCTYPE html>
 <meta charset="UTF-8">
 ';
 ?>
+
 
 
 

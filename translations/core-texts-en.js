@@ -15,7 +15,7 @@ const en_Translations = {
 
     /*Menu of pages curtain*/
 
-    "1000-logged-in-as": "Logged in as",
+    "1000-logged-in-as": "👤",
     "1000-log-out": "Log out",
     "1000-profile-settings": "Profile settings",
     "1000-dashboard": "Dashboard",

@@ -34,9 +34,9 @@ const fr_Translations = {
 
 /*Menu de pages de rideau*/
 
-    "1000-logged-in-as": "Connecté en tant que",
-    "1000-log-out": "Se déconnecter",
-    "1000-profile-settings": "Paramètres du profil",
+    "1000-logged-in-as": "👤",
+    "1000-log-out": "Déconnecter",
+    "1000-profile-settings": "Profil",
     "1000-dashboard": "Tableau de bord",
     "1001-gobrik-tour": "Visite de GoBrik",
     "1000-login": "Se connecter",

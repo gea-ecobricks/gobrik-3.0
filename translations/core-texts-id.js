@@ -34,9 +34,9 @@ const id_Translations = {
 
 /*Menu halaman tirai*/
 
-    "1000-logged-in-as": "Masuk sebagai",
+    "1000-logged-in-as": "👤",
     "1000-log-out": "Keluar",
-    "1000-profile-settings": "Pengaturan Profil",
+    "1000-profile-settings": "Profil",
     "1000-dashboard": "Dasbor",
     "1001-gobrik-tour": "Tur GoBrik",
     "1000-log-in": "Masuk",

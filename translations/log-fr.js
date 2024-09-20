@@ -70,7 +70,7 @@ const fr_Page_Translations = {
     "023-forest": "Forêt",
     "024-field": "Champ",
 
-    "016-submit-button": '<input type="submit" class="submit-button enabled" value="Suivant : Vérification de la Densité" aria-label="Envoyer le Formulaire">',
+    "016-submit-button": '<input type="submit" class="submit-button enabled" value="Suivant: Vérification" aria-label="Envoyer le Formulaire">',
 
 //Modals for density check
 
@@ -85,7 +85,7 @@ const fr_Page_Translations = {
     "overMaxDensityTitle": 'Au-dessus de la Densité Maximale',
     "overMaxDensityMessage": "La densité de votre ecobrick de ${density} dépasse la norme GEA de 0,73 g/ml. Veuillez vérifier que vous avez saisi correctement le poids et le volume. Si c'est le cas, repackez votre ecobrick avec moins de plastique. Les lignes directrices de la GEA sont développées pour assurer la sécurité et la réutilisabilité des ecobricks pour toutes les applications à court et à long terme.",
     "geaStandardsLinkText": 'Normes GEA',
-    "nextRegisterSerial": 'Suivant : Enregistrer le Numéro de Série',
+    "nextRegisterSerial": 'Suivant: Numéro de Série',
     "goBack": 'Retourner',
 };
 

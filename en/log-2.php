@@ -383,14 +383,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
-//UPLOAD SUBMIT ACTION AND BUTTON
+// UPLOAD SUBMIT ACTION AND BUTTON
 document.querySelector('#photoform').addEventListener('submit', function(event) {
     event.preventDefault();
 
     var button = document.getElementById('upload-progress-button');
-    var originalButtonText = button.value; // Save the original button text
-    button.value = 'Uploading...'; // Set button text to indicate progress
+    var originalButtonText = button.innerText; // Save the original button text
+    button.innerText = '⬆️ Uploading...'; // Set button text to indicate progress
     button.disabled = true; // Disable button to prevent multiple submissions
 
     var messages = {
@@ -408,7 +407,7 @@ document.querySelector('#photoform').addEventListener('submit', function(event) 
 
     if (fileInput.files.length === 0 && selfieInput.files.length === 0) {
         showFormModal(chooseFileMessage);
-        button.value = originalButtonText; // Restore button text if no file chosen
+        button.innerText = originalButtonText; // Restore button text if no file chosen
         button.disabled = false; // Enable button
         return;
     }
@@ -420,15 +419,18 @@ document.querySelector('#photoform').addEventListener('submit', function(event) 
     xhr.upload.onprogress = function(event) {
         if (event.lengthComputable) {
             var progress = (event.loaded / event.total) * 100;
-            document.getElementById('upload-progress-button').style.backgroundSize = progress + '%';
-            document.getElementById('upload-progress-button').classList.add('progress-bar');
+            button.style.backgroundSize = progress + '% 100%'; // Adjust the progress bar background size
+            button.classList.add('progress-bar'); // Add class to show progress bar
         }
     };
 
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
-            button.value = originalButtonText; // Restore button text after upload
+            button.innerText = originalButtonText; // Restore button text after upload
             button.disabled = false; // Enable button
+            button.style.backgroundSize = '0% 100%'; // Reset background size after completion
+            button.classList.remove('progress-bar'); // Remove progress bar class
+
             if (xhr.status === 200) {
                 try {
                     var response = JSON.parse(xhr.responseText);
@@ -436,10 +438,10 @@ document.querySelector('#photoform').addEventListener('submit', function(event) 
                     window.location.href = 'log-3.php?id=' + ecobrick_unique_id; // Redirect to success page with ecobrick_unique_id
                 } catch (e) {
                     console.error('Error parsing server response:', e);
-                    handleFormResponse(xhr.responseText); // Handle error response
+                    document.getElementById('post-error-message').innerText = 'An error occurred while processing your upload.';
                 }
             } else {
-                handleFormResponse(xhr.responseText); // Handle error response
+                document.getElementById('post-error-message').innerText = 'Upload failed. Please try again.';
             }
         }
     };
@@ -447,6 +449,7 @@ document.querySelector('#photoform').addEventListener('submit', function(event) 
     xhr.open(form.method, form.action, true);
     xhr.send(formData);
 });
+
 
 function showFormModal(message) {
     const modal = document.getElementById('form-modal-message');

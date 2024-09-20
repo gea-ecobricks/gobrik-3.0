@@ -91,9 +91,8 @@ overflow: hidden;
 }
 
 
-
 #upload-progress-button {
-color: white;
+  color: white;
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
@@ -104,17 +103,17 @@ color: white;
   font-size: 1.3em;
   width: 100%;
   margin-top: 30px;
-  }
-
-  #upload-progress-button.progress-bar {
-      background: url(../svgs/square-upload-progress.svg) left center repeat-y, gray; /* Combined background */
-  background-size: auto; /* Auto size for image background */
 }
 
+#upload-progress-button.progress-bar {
+  background: url('../svgs/square-upload-progress.svg') left center repeat-y, #12b712; /* Combined background */
+  background-size: 0% 100%;
+}
 
 #upload-progress-button:hover {
   background-color: green;
 }
+
 
 
 .spinner-photo-loading {

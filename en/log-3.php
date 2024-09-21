@@ -289,7 +289,7 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault();
 
         // Send a request to update the status without adding a vision
-        fetch('update_status.php', {
+        fetch('log-3.php.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',

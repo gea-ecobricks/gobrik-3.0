@@ -19,25 +19,6 @@ $watershed_id = '';
 $watershed_name = '';
 $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 
-// Include database connection
-require_once '../gobrikconn_env.php'; // Ensure this is included before the function call
-
-// Function to update the status of the ecobrick
-function setEcobrickStatus($status, $ecobrick_unique_id) {
-    global $gobrik_conn;
-
-    // Prepare the SQL query to update the status of the ecobrick
-    $sql = "UPDATE tb_ecobricks SET status = ? WHERE ecobrick_unique_id = ?";
-    if ($stmt = $gobrik_conn->prepare($sql)) {
-        $stmt->bind_param('si', $status, $ecobrick_unique_id);
-        $stmt->execute();
-        $stmt->close();
-        return true;
-    } else {
-        error_log('Failed to update ecobrick status: ' . $gobrik_conn->error);
-        return false;
-    }
-}
 
 // Check if the request method is POST and the action is skip (AJAX request handling)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'skip' && isset($_POST['ecobrick_unique_id'])) {
@@ -58,7 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 if ($is_logged_in) {
     $buwana_id = $_SESSION['buwana_id'] ?? ''; // Retrieve buwana_id from session
 
-    require_once '../buwanaconn_env.php'; // Ensure this is included after the login check
+    // Include database connection
+    require_once '../gobrikconn_env.php';
+    require_once '../buwanaconn_env.php';
 
     // Fetch the user's continent icon
     $country_icon = getUserContinent($buwana_conn, $buwana_id);
@@ -109,6 +92,7 @@ echo '<!DOCTYPE html>
 <meta charset="UTF-8">
 ';
 ?>
+
 
 
 
@@ -289,7 +273,7 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault();
 
         // Send a request to update the status without adding a vision
-        fetch('log-3.php.php', {
+        fetch('update_brik_status.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',

@@ -17,24 +17,6 @@ function getNoEcobrickAlert($lang) {
 
 
 
-/ Function to update the status of the ecobrick
-function setEcobrickStatus($status, $ecobrick_unique_id) {
-    global $gobrik_conn;
-
-    // Prepare the SQL query to update the status of the ecobrick
-    $sql = "UPDATE tb_ecobricks SET status = ? WHERE ecobrick_unique_id = ?";
-    if ($stmt = $gobrik_conn->prepare($sql)) {
-        $stmt->bind_param('si', $status, $ecobrick_unique_id);
-        $stmt->execute();
-        $stmt->close();
-        return true;
-    } else {
-        error_log('Failed to update ecobrick status: ' . $gobrik_conn->error);
-        return false;
-    }
-}
-
-
 function startSecureSession() {
     // Start the session if it's not already started
     if (session_status() === PHP_SESSION_NONE) {

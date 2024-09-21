@@ -19,6 +19,9 @@ $watershed_id = '';
 $watershed_name = '';
 $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 
+// Include database connection
+require_once '../gobrikconn_env.php'; // Ensure this is included before the function call
+
 // Function to update the status of the ecobrick
 function setEcobrickStatus($status, $ecobrick_unique_id) {
     global $gobrik_conn;
@@ -55,9 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 if ($is_logged_in) {
     $buwana_id = $_SESSION['buwana_id'] ?? ''; // Retrieve buwana_id from session
 
-    // Include database connection
-    require_once '../gobrikconn_env.php';
-    require_once '../buwanaconn_env.php';
+    require_once '../buwanaconn_env.php'; // Ensure this is included after the login check
 
     // Fetch the user's continent icon
     $country_icon = getUserContinent($buwana_conn, $buwana_id);
@@ -108,6 +109,7 @@ echo '<!DOCTYPE html>
 <meta charset="UTF-8">
 ';
 ?>
+
 
 
 <?php require_once ("../includes/log-3-inc.php");?>

@@ -99,7 +99,7 @@ color: white;
   /* Style for the text form */
 #add-vision-form {
     width: 100%;
-    margin-top: 20px;
+/*     margin-top: 20px; */
 }
 
 /* Style for the textarea */

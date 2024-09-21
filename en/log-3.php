@@ -19,6 +19,37 @@ $watershed_id = '';
 $watershed_name = '';
 $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 
+// Function to update the status of the ecobrick
+function setEcobrickStatus($status, $ecobrick_unique_id) {
+    global $gobrik_conn;
+
+    // Prepare the SQL query to update the status of the ecobrick
+    $sql = "UPDATE tb_ecobricks SET status = ? WHERE ecobrick_unique_id = ?";
+    if ($stmt = $gobrik_conn->prepare($sql)) {
+        $stmt->bind_param('si', $status, $ecobrick_unique_id);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    } else {
+        error_log('Failed to update ecobrick status: ' . $gobrik_conn->error);
+        return false;
+    }
+}
+
+// Check if the request method is POST and the action is skip (AJAX request handling)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'skip' && isset($_POST['ecobrick_unique_id'])) {
+    header('Content-Type: application/json'); // Set response headers for JSON response
+
+    $ecobrick_unique_id = (int)$_POST['ecobrick_unique_id'];
+
+    // Update the status of the ecobrick to 'Awaiting validation'
+    if (setEcobrickStatus('Awaiting validation', $ecobrick_unique_id)) {
+        echo json_encode(['success' => true, 'message' => 'Status updated to Awaiting validation.']);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Failed to update status.']);
+    }
+    exit(); // Exit to prevent the rest of the script from running
+}
 
 // Check if user is logged in and session active
 if ($is_logged_in) {
@@ -63,7 +94,7 @@ if ($is_logged_in) {
         }
     } else {
         echo "No ecobrick ID provided.";
-        exit;
+        exit();
     }
 } else {
     // Redirect to login page with the redirect parameter set to the current page
@@ -77,6 +108,7 @@ echo '<!DOCTYPE html>
 <meta charset="UTF-8">
 ';
 ?>
+
 
 <?php require_once ("../includes/log-3-inc.php");?>
 
@@ -253,7 +285,30 @@ document.addEventListener('DOMContentLoaded', function () {
     // Event listener for the 'Skip: Complete Logging' button
     skipButton.addEventListener('click', function (event) {
         event.preventDefault();
-        showNextOptions();
+
+        // Send a request to update the status without adding a vision
+        fetch('update_status.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                'action': 'skip',
+                'ecobrick_unique_id': document.querySelector('[name="ecobrick_unique_id"]').value
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showNextOptions();
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('A network error occurred. Please try again later.');
+            });
     });
 
     // Event listener for the form submission
@@ -279,7 +334,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     visionAddedSuccess.style.display = 'block';
                 } else {
                     visionAddedFailure.style.display = 'block';
-                    postErrorMessage.textContent = data.error;
+                    postErrorMessage.textContent = data.message || 'An error occurred while adding your vision.';
                 }
                 showNextOptions();
             })
@@ -291,6 +346,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     });
 });
+
 
 
 </script>

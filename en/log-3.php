@@ -53,6 +53,24 @@ if ($is_logged_in) {
     if (isset($_GET['id'])) {
         $ecobrick_unique_id = (int)$_GET['id'];
 
+        // Check if the ecobrick has already been processed
+        $status_check_stmt = $gobrik_conn->prepare("SELECT status FROM tb_ecobricks WHERE ecobrick_unique_id = ?");
+        $status_check_stmt->bind_param("i", $ecobrick_unique_id);
+        $status_check_stmt->execute();
+        $status_check_stmt->bind_result($status);
+        $status_check_stmt->fetch();
+        $status_check_stmt->close();
+
+        // If status is 'Awaiting validation', show an alert and redirect to the dashboard
+        if ($status === "Awaiting validation") {
+            echo "<script>
+                alert('Oops! It looks like this ecobrick has already had its serial generated and logged. Please log another ecobrick or manage it on your dashboard.');
+                window.location.href = 'dashboard.php'; // Redirect to the dashboard
+            </script>";
+            exit();
+        }
+
+
         // Fetch the ecobrick details from the database
         $sql = "SELECT serial_no, ecobrick_full_photo_url, ecobrick_thumb_photo_url, selfie_photo_url, selfie_thumb_url
                 FROM tb_ecobricks

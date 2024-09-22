@@ -858,7 +858,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 /* PASSWORD RESET MODAL  */
-function showPasswordReset(type, lang = 'en', email = '') {
+function showPasswordReset(type, lang = '<?php echo $lang; ?>', email = '') {
     const modal = document.getElementById('form-modal-message');
     const photobox = document.getElementById('modal-photo-box');
     const messageContainer = modal.querySelector('.modal-message');

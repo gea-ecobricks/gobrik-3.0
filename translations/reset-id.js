@@ -10,25 +10,21 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 // Backslash (\): Should be escaped as \\ in JavaScript strings to prevent ending the string prematurely.
 // Forward slash (/): Should be escaped as \/ in </script> tags to prevent prematurely closing a script.
 
+const id_Page_Translations = {
+    "001-reset-title": "Mari Atur Ulang Kata Sandi Anda",
+    "002-reset-subtitle": "Masukkan kata sandi baru untuk akun Buwana Anda.",
+    "003-new-pass": "Kata sandi baru:",
+    "004-password-field": `
+        <input type="password" id="password" name="password" required placeholder="Kata sandi baru Anda...">
+        <span toggle="#password" class="toggle-password" style="cursor: pointer;">🔒</span>
+    `,
+    "011-six-characters": "Kata sandi harus terdiri dari setidaknya 6 karakter.",
+    "012-re-enter": "Masukkan kembali kata sandi untuk konfirmasi:",
+    "013-password-wrapper": `
+        <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Masukkan kembali kata sandi...">
+        <span toggle="#confirmPassword" class="toggle-password" style="cursor: pointer;">🔒</span>
+    `,
+    "013-password-match": "👉 Kata sandi tidak cocok.",
+    "015-no-need": 'Tidak perlu mengatur ulang kata sandi Anda? <a href="login.php">Login</a>',
+};
 
-const en_Page_Translations = {
-
-
-
-//Modals for density check
-
-    "underDensityTitle": 'Under Density',
-    "underDensityMessage": "Your ecobrick's density of ${density} is under the GEA standard of 0.33g/ml. Please check that you have entered the weight and volume correctly. If not, then please repack your ecobrick with more plastic to achieve minimum density. GEA guidelines are developed to ensure the building integrity, fire safety, and reusability of an ecobrick.",
-    "lowDensityTitle": 'Low Density',
-    "lowDensityMessage": "Careful! Your ecobrick's density of ${density}ml is on the low side. It passes the minimum standard of 0.33g/ml however, its density makes it less solid, fire safe and reusable than it could be. Keep going and log this ecobrick, but see if you can pack more plastic next time.",
-    "greatJobTitle": 'Good job!',
-    "greatJobMessage": "Your ecobrick's density of ${density} is ideal. It passes the minimum standard of 0.33g/ml making it solid, fire safe, and reusable.",
-    "highDensityTitle": 'High Density',
-    "highDensityMessage": "Careful, your ecobrick's density of ${density} is very high. Your ${volume} bottle packed with ${weight} of plastic is under the maximum density of 0.73g/ml however, its high density makes it nearly too solid and too heavy for certain ecobrick applications.  Keep going, but keep this in mind for next time.",
-    "overMaxDensityTitle": 'Over Max Density',
-    "overMaxDensityMessage": "Your ecobrick's density of ${density} is over the GEA standard of 0.73g/ml. Please check that you have entered the weight and volume correctly. If so, then please repack your ecobrick with less plastic. GEA guidelines are developed to ensure the safety and usability of ecobricks for all short and long-term applications.",
-    "geaStandardsLinkText": 'GEA Standards',
-    "nextRegisterSerial": 'Next: Register Serial',
-    "goBack": 'Go Back',
-
-    };

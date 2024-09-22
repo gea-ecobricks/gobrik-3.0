@@ -1,22 +1,35 @@
 <?php
-// Turn on or off error reporting
+require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
+
+session_start(); // Start the session for managing CSRF token and session-related checks
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Start the session before any output
-session_start();
+// Set page variables
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$version = '0.6';
+$page = 'reset';
+$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+
+// Initialize user variables
+$first_name = '';
+$buwana_id = '';
+$country_icon = '';
+$is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 
 // Check if user is logged in and session active
-if (isset($_SESSION['buwana_id'])) {
+if ($is_logged_in) {
     header('Location: dashboard.php');
     exit();
 }
 
-// Grab language directory from URL
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.59';
-$page = 'reset';
-$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+
+// Get the status, id (buwana_id), code, and key (credential_key) from URL
+$status = isset($_GET['status']) ? filter_var($_GET['status'], FILTER_SANITIZE_STRING) : '';
+$buwana_id = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT) : '';
+$code = isset($_GET['code']) ? filter_var($_GET['code'], FILTER_SANITIZE_STRING) : ''; // Extract code from the URL
+$credential_key = ''; // Initialize $credential_key as empty
+$first_name = '';  // Initialize the first_name variable
 
 
 include '../buwanaconn_env.php'; // This file provides the database server, user, dbname information to access the server
@@ -63,16 +76,16 @@ echo '
     <div class="form-container">
 
         <div style="text-align:center;width:100%;margin:auto;">
-            <h3>Let\'s Reset Your Password</h3>
-            <h4 style="margin-top:12px; margin-bottom:8px;">Enter your new password for your Buwana account.</h4>
+            <h3 data-lang-id="001-reset-title">Let\'s Reset Your Password</h3>
+            <h4 data-lang-id="002-reset-subtitle" style="margin-top:12px; margin-bottom:8px;">Enter your new password for your Buwana account.</h4>
         </div>
 
         <!-- Reset password form -->
         <form id="resetForm" method="post" action="process_reset.php">
             <input type="hidden" name="token" value="' . htmlspecialchars($token, ENT_QUOTES, 'UTF-8') . '">
             <div class="form-item">
-                <p>New password:</p>
-                <div class="password-wrapper">
+                <p data-lang-id="003-new-pass">New password:</p>
+                <div class="password-wrapper" data-lang-id="004-password-field">
                     <input type="password" id="password" name="password" required placeholder="Your new password...">
                     <span toggle="#password" class="toggle-password" style="cursor: pointer;">🔒</span>
                 </div>
@@ -83,12 +96,12 @@ echo '
 
 
             <div class="form-item">
-                <p>Re-enter password to confirm:</p>
-                <div class="password-wrapper">
+                <p data-lang-id="012-re-enter">Re-enter password to confirm:</p>
+                <div data-lang-id="013-password-wrapper" class="password-wrapper">
                     <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Re-enter password...">
                     <span toggle="#confirmPassword" class="toggle-password" style="cursor: pointer;">🔒</span>
                 </div>
-                <div id="confirm-password-error" class="form-field-error" style="display:none;margin-top:5px;">👉 Passwords do not match.</div>
+                <div id="confirm-password-error" class="form-field-error" style="display:none;margin-top:5px;" data-lang-id="013-password-match">👉 Passwords do not match.</div>
             </div>
 
             <div style="text-align:center;">
@@ -96,7 +109,7 @@ echo '
             </div>
         </form>
     </div>
-    <div style="text-align:center;width:100%;margin:auto;margin-top:34px;"><p style="font-size:medium;">Already have an account? <a href="login.php">Login</a></p></div>
+    <div style="text-align:center;width:100%;margin:auto;margin-top:34px;"><p style="font-size:medium;" data-lang-id="015-no-need">No need to reset your password?  <a href="login.php">Login</a></p></div>
 </div>
 </div>';
 

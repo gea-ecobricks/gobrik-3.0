@@ -16,7 +16,6 @@ $first_name = '';
 $buwana_id = '';
 $country_icon = '';
 $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
-$redirect = 'log';
 
 // Check if user is logged in and session active
 if ($is_logged_in) {

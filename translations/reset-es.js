@@ -14,21 +14,21 @@ TEXT TRANSLATION SNIPPETS FOR GOBRIK.com
 const es_Page_Translations = {
 
 
+const es_Page_Translations = {
+    "001-reset-title": "Restablezcamos Su Contraseña",
+    "002-reset-subtitle": "Ingrese su nueva contraseña para su cuenta Buwana.",
+    "003-new-pass": "Nueva contraseña:",
+    "004-password-field": `
+        <input type="password" id="password" name="password" required placeholder="Su nueva contraseña...">
+        <span toggle="#password" class="toggle-password" style="cursor: pointer;">🔒</span>
+    `,
+    "011-six-characters": "La contraseña debe tener al menos 6 caracteres.",
+    "012-re-enter": "Vuelva a ingresar la contraseña para confirmar:",
+    "013-password-wrapper": `
+        <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Vuelva a ingresar la contraseña...">
+        <span toggle="#confirmPassword" class="toggle-password" style="cursor: pointer;">🔒</span>
+    `,
+    "013-password-match": "👉 Las contraseñas no coinciden.",
+    "015-no-need": '¿No necesita restablecer su contraseña? <a href="login.php">Iniciar sesión</a>',
+};
 
-//Modals for density check
-
-    "underDensityTitle": 'Under Density',
-    "underDensityMessage": "Your ecobrick's density of ${density} is under the GEA standard of 0.33g/ml. Please check that you have entered the weight and volume correctly. If not, then please repack your ecobrick with more plastic to achieve minimum density. GEA guidelines are developed to ensure the building integrity, fire safety, and reusability of an ecobrick.",
-    "lowDensityTitle": 'Low Density',
-    "lowDensityMessage": "Careful! Your ecobrick's density of ${density}ml is on the low side. It passes the minimum standard of 0.33g/ml however, its density makes it less solid, fire safe and reusable than it could be. Keep going and log this ecobrick, but see if you can pack more plastic next time.",
-    "greatJobTitle": 'Good job!',
-    "greatJobMessage": "Your ecobrick's density of ${density} is ideal. It passes the minimum standard of 0.33g/ml making it solid, fire safe, and reusable.",
-    "highDensityTitle": 'High Density',
-    "highDensityMessage": "Careful, your ecobrick's density of ${density} is very high. Your ${volume} bottle packed with ${weight} of plastic is under the maximum density of 0.73g/ml however, its high density makes it nearly too solid and too heavy for certain ecobrick applications.  Keep going, but keep this in mind for next time.",
-    "overMaxDensityTitle": 'Over Max Density',
-    "overMaxDensityMessage": "Your ecobrick's density of ${density} is over the GEA standard of 0.73g/ml. Please check that you have entered the weight and volume correctly. If so, then please repack your ecobrick with less plastic. GEA guidelines are developed to ensure the safety and usability of ecobricks for all short and long-term applications.",
-    "geaStandardsLinkText": 'GEA Standards',
-    "nextRegisterSerial": 'Next: Register Serial',
-    "goBack": 'Go Back',
-
-    };

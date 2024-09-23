@@ -97,28 +97,30 @@ const id_Translations = {
     "422-conclusion-copyright": "Logo dan lambang Ecobricks.org, GEA, Earthen, AES, dan Gobrik adalah hak cipta 2010-2024 oleh Global Ecobrick Alliance.",
 
     //UNIVERSAL MODAL TRANSLATIONS
+    "earthen-title": "Buletin Terestrial",
+    "earthen-text": "Dimulai pada tahun 2016 di tanah masyarakat Igorot, Terestrial adalah buletin dua bulanan kami untuk gerakan global pro-Bumi. Kami berbagi berita terbaru dari dunia teknologi dan filosofi regeneratif: bangunan bumi, ecobrick, pengumuman GoBrik, dan berita GEA. Gratis dengan opsi langganan kontribusi.",
 
-    "earthen-title": "Buletin Earthen",
-    "earthen-text": "Dimulai pada tahun 2016 di tanah orang Igorot, Earthen adalah buletin dua bulanan kami tentang gerakan regeneratif bumi. Kami berbagi berita terbaru dari dunia ecobricks dan bangunan tanah, sains, dan filosofi regeneratif. Kami juga memberi Anda pembaruan tentang pengumuman dan berita utama dari GoBrik. Gratis. Mudah untuk berhenti berlangganan kapan saja.",
     "ecobrick-title": "Istilah",
-    "ecobrick-text": "Pada tahun 2016, para pemimpin transisi plastik di seluruh dunia sepakat untuk menggunakan istilah 'ecobrick' tanpa tanda hubung dan huruf kapital sebagai istilah standar yang konsisten dalam panduan dan materi mereka. Dengan cara ini, ecobrickers di seluruh dunia dapat merujuk dengan satu kata ke konsep yang sama dan pencarian web serta tagar akan mempercepat penyebaran global. Lihat wikipedia.org/ecobricks untuk sejarah lengkapnya.",
-    "watershed-title": "Daerah Aliran Sungai (DAS)",
-    "watershed-text": "Daerah aliran sungai (DAS) adalah suatu wilayah daratan di mana semua air dari hujan, salju yang mencair, atau es berkumpul di satu titik, biasanya sebuah sungai, danau, atau laut. DAS ini membentuk batasan alami yang menangkap dan menyalurkan presipitasi melalui jaringan sungai, aliran, dan akuifer bawah tanah, akhirnya mengarahkan air ke satu saluran keluaran. DAS memainkan peran ekologis penting dan menyediakan air untuk penggunaan manusia. Kesehatan dan pengelolaan DAS sangat penting untuk vitalitas ekologi.",
+    "ecobrick-text": "Pada tahun 2016, para pemimpin transisi plastik di seluruh dunia sepakat untuk menggunakan istilah 'ecobrick' yang tidak diberi tanda hubung dan tidak menggunakan huruf kapital sebagai istilah standar yang konsisten dalam panduan dan materi mereka. Dengan cara ini, para pembuat ecobrick di seluruh dunia dapat merujuk pada satu kata untuk konsep yang sama, dan pencarian web serta tagar akan mempercepat penyebaran global. Lihat wikipedia.org/ecobricks untuk sejarah lengkapnya.",
 
-     "earthen-title": "Terrestre",
-    "earthen-text": "Terrestre adalah bahan bangunan yang berkelanjutan...",
-    "ecobrick-title": "Ecobrick",
-    "ecobrick-text": "Ecobrick adalah botol PET yang diisi penuh dengan plastik...",
     "watershed-title": "Daerah Aliran Sungai",
-    "watershed-text": "Daerah aliran sungai adalah area daratan yang mengalirkan air...",
+    "watershed-text": "Daerah aliran sungai adalah wilayah daratan di mana semua air dari hujan, salju yang mencair, atau es berkumpul pada satu titik, biasanya sungai, danau, atau laut. Wilayah ini adalah batas alami yang menangkap dan menyalurkan curah hujan melalui jaringan sungai, aliran, dan akuifer bawah tanah, yang akhirnya mengarahkan air ke titik keluar yang sama. Daerah aliran sungai memainkan peran ekologis yang penting dan menyediakan air untuk penggunaan manusia. Kesehatan dan pengelolaan daerah aliran sungai sangat penting untuk kelestarian ekologi.",
+
+    "an-ecobrick-title": "Ecobrick",
+    "an-ecobrick-text": "Ecobrick adalah botol PET yang diisi padat dengan plastik bekas sesuai standar sekuestrasi plastik untuk membuat blok bangunan yang dapat digunakan kembali. Ini mencegah plastik terurai menjadi racun dan mikroplastik, serta mengubahnya menjadi bahan bangunan yang bermanfaat dan tahan lama.",
+
     "ocean-title": "Ecobrick Laut",
-    "ocean-text": "Ecobrick Laut dirancang untuk plastik yang ditemukan di pantai, sungai, dan laut...",
-    "cigbrick-title": "Cigbrick",
-    "cigbrick-text": "Cigbrick adalah kelas baru ecobrick yang dirancang untuk mengubah kebiasaan merokok...",
+    "ocean-text": "Ecobrick laut dirancang untuk plastik yang ditemukan di pantai, sungai, dan laut di mana plastik cenderung besar, kotor, dan basah, serta tidak cocok untuk membuat ecobrick biasa. Ecobrick laut memungkinkan plastik-plastik ini diubah dengan mudah menjadi blok bangunan yang praktis, bermanfaat, dan dapat digunakan kembali.",
+
+    "cigbrick-title": "Cigbricks",
+    "cigbrick-text": "Cigbricks dibuat secara eksklusif dari filter asetat (sejenis plastik) puntung rokok. Kertas dan abu dihilangkan dari puntung, dan filternya dimasukkan ke dalam botol PET yang tidak dipotong.",
+
     "regular-title": "Ecobrick Reguler",
-    "regular-text": "Ecobrick reguler adalah botol yang tidak dipotong, diisi penuh dengan plastik bekas...",
+    "regular-text": "Ecobrick reguler adalah botol PET yang tidak dipotong dan diisi padat dengan plastik bekas dengan kepadatan tertentu (antara 0,33 dan 0,7 g/ml) untuk membuat blok bangunan yang dapat digunakan kembali. Ecobrick dibuat sesuai dengan standar sekuestrasi plastik, memastikan bahwa plastik diamankan dengan aman dan tidak dapat terurai menjadi mikroplastik.",
+
     "learn-more": "Pelajari lebih lanjut ↗️",
-    "link-note": "Tautan membuka ke Ecobricks.org",
+    "link-note": "Tautan terbuka ke Ecobricks.org",
+
 
 // MODULES
 

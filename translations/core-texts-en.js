@@ -77,22 +77,24 @@ const en_Translations = {
     // UNIVERSAL MODAL TRANSLATIONS
 
     "earthen-title": "Earthen Newsletter",
-    "earthen-text": "Started in 2016 in the land of the Igorot people, Earthen is our bi-monthly newsletter of the earthen regenerative movement. We share the latest news from the world of ecobricks and earth building, regenerative science, and philosophy. We also keep you up to date with major GoBrik announcements and news. Free. Easy to unsubscribe at any time.",
+    "earthen-text": "Started in 2016 in the land of the Igorot people, Earthen is our bi-monthly newsletter for the global for-Earth movement. We share the latest news from the world of regenerative technology and philosophy: earth building, ecobricks, GoBrik announcements and GEA news. Free with an option for a contributive subscription.",
+
     "ecobrick-title": "The Term",
     "ecobrick-text": "In 2016, plastic transition leaders around the world agreed to use the non-hyphenated, non-capitalized term 'ecobrick' as the consistent, standardized term of reference in the guidebook and their materials. In this way, ecobrickers around the world would be able to refer with one word to the same concept, and web searches and hashtags would accelerate global dissemination. See wikipedia.org/ecobricks for the full history.",
+
     "watershed-title": "Watersheds",
     "watershed-text": "A watershed is an area of land where all the water from rain, melting snow, or ice converges to a single point, typically a river, lake, or ocean. These basins are a natural boundary that captures and channels precipitation through a network of rivers, streams, and underground aquifers, eventually directing the water to a common outlet. Watersheds play a crucial ecological role and provide water for human use. The health and management of watersheds are vital for ecological vitality.",
 
-    "earthen-title": "Earthen",
-    "earthen-text": "Earthen is a sustainable building material made from a combination of clay, sand, straw, and other natural fibers. It is used for constructing walls, floors, and roofs in eco-friendly buildings and has excellent thermal and acoustic insulation properties.",
-    "ecobrick-title": "Ecobrick",
-    "ecobrick-text": "An ecobrick is a PET bottle packed solid with used plastic to the standards of plastic sequestration in order to make a reusable building block. It prevents plastic from degrading into toxins and microplastics, and turns it into a useful, durable building material.",
-    "watershed-title": "Watershed",
-    "watershed-text": "A watershed is an area of land that drains or channels water from rain or melting snow into a common outlet, such as a river, bay, or other body of water. It includes the rivers, streams, and groundwater that flow into that common outlet, and plays a crucial role in water quality and ecosystem health.",
+
+    "an-ecobrick-title": "Ecobrick",
+    "an-ecobrick-text": "An ecobrick is a PET bottle packed solid with used plastic to the standards of plastic sequestration in order to make a reusable building block. It prevents plastic from degrading into toxins and microplastics, and turns it into a useful, durable building material.",
+
     "ocean-title": "Ocean Ecobricks",
-    "ocean-text": "The Ocean Ecobricks are designed for plastics found on beaches, rivers, and in the ocean where plastics tend to be large, chunky, dirty, and wet, and are not suited to make a regular ecobrick. The Ocean Ecobrick enables these plastics to be easily transformed into a practical, useful, and reusable building block.",
+    "ocean-text": "Ocean ecobricks are designed for plastics found on beaches, rivers, and in the ocean where plastics tend to be large, chunky, dirty, and wet, and are not suited to make a regular ecobrick. An ocean ecobrick enables these plastics to be easily transformed into a practical, useful, and reusable building block.",
+
     "cigbrick-title": "Cigbricks",
     "cigbrick-text": "Cigbricks are made exclusively from the acetate (a type of plastic) filters of cigarette butts.  The paper and ash are removed from butts and the filter is packed into an uncut PET bottle.",
+
     "regular-title": "Regular Ecobricks",
     "regular-text": "A regular ecobrick is an uncut PET bottle packed solid with used plastic to a set density (between 0.33 and 0.7 g/ml) to make a reusable building block. It is made to the standards of plastic sequestration, ensuring that the plastic is safely secured and unable to degrade into microplastics.",
     "learn-more": "Learn more ↗️",

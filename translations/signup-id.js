@@ -38,7 +38,7 @@ const id_Page_Translations = {
 "010-pass-error-no-match": "👉 Kata sandi tidak cocok.",
 "011-prove-human": "Silakan buktikan Anda bukan robot dengan mengetikkan kata \"ecobrick\" di bawah ini:",
 "012-fun-fact": "🤓 Fakta menyenangkan: dieja tanpa spasi, huruf kapital, atau tanda hubung!",
-"012b-is-spelled": " dieja tanpa spasi, huruf kapital, atau tanda hubung!"
+"012b-is-spelled": " dieja tanpa spasi, huruf kapital, atau tanda hubung!",
 "013-by-registering": "Dengan mendaftar hari ini, saya setuju dengan <a href=\"#\" onclick=\"showModalInfo('terms', '<?php echo $lang; ?>')\" class=\"underline-link\">Ketentuan Layanan GoBrik</a>",
 "014-i-agree-newsletter": "Saya setuju untuk menerima <a href=\"#\" onclick=\"showModalInfo('earthen', '<?php echo $lang; ?>')\" class=\"underline-link\">newsletter Earthen</a> untuk pembaruan aplikasi, ecobrick, dan earthen",
 

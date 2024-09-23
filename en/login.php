@@ -142,7 +142,7 @@ echo '</script>';
         </div>
         <div id="password-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">👉 Password is wrong.</div>
 
-        <p class="form-caption"><span data-lang-id="003-forgot-your-password">Forgot your password?</span> <a href="#" onclick="showPasswordReset('reset')" class="underline-link" data-lang-id="000-reset-it">Reset it.</a></p>
+        <p class="form-caption"><span data-lang-id="003-forgot-your-password">Forgot your password?</span> <a href="#" class="underline-link" data-lang-id="000-reset-it">Reset it.</a></p>
     </div>
 
     <div class="form-item" id="code-form" style="text-align:center;height:80px;">

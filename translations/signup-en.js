@@ -37,7 +37,8 @@ const en_Page_Translations = {
     "009-confirm-pass": "Confirm Your Password:",
     "010-pass-error-no-match": "👉 Passwords do not match.",
     "011-prove-human": "Please prove you are human by typing the word \"ecobrick\" below:",
-    "012-fun-fact": "🤓 Fun fact: <a href=\"#\" onclick=\"showModalInfo('ecobrick', '<?php echo $lang; ?>')\" class=\"underline-link\">Ecobrick</a> is spelled without a space, capital or hyphen!",
+    "012-fun-fact": "🤓 Fun fact:",
+    "012b-is-spelled": " is spelled without a space, capital or hyphen!",
     "013-by-registering": "By registering today, I agree to the <a href=\"#\" onclick=\"showModalInfo('terms', '<?php echo $lang; ?>')\" class=\"underline-link\">GoBrik Terms of Service</a>",
     "014-i-agree-newsletter": "I agree to receive the <a href=\"#\" onclick=\"showModalInfo('earthen', '<?php echo $lang; ?>')\" class=\"underline-link\">Earthen newsletter</a> for app, ecobrick, and earthen updates",
 

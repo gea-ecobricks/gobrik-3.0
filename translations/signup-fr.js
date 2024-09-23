@@ -37,7 +37,8 @@ const fr_Page_Translations = {
     "009-confirm-pass": "Confirmez votre mot de passe :",
     "010-pass-error-no-match": "👉 Les mots de passe ne correspondent pas.",
     "011-prove-human": "Veuillez prouver que vous êtes humain en tapant le mot \"écobrique\" ci-dessous :",
-    "012-fun-fact": "🤓 Fait amusant : <a href=\"#\" onclick=\"showModalInfo('ecobrick', '<?php echo $lang; ?>')\" class=\"underline-link\">Ecobrick</a> s'écrit sans espace, majuscule ou trait d'union !",
+    "012-fun-fact": "🤓 Fait amusant :",
+    "012b-is-spelled": " s'écrit sans espace, majuscule ou trait d'union !",
     "013-by-registering": "En vous inscrivant aujourd'hui, j'accepte les <a href=\"#\" onclick=\"showModalInfo('terms', '<?php echo $lang; ?>')\" class=\"underline-link\">Conditions d'utilisation de GoBrik</a>",
     "014-i-agree-newsletter": "J'accepte de recevoir la <a href=\"#\" onclick=\"showModalInfo('earthen', '<?php echo $lang; ?>')\" class=\"underline-link\">newsletter Earthen</a> pour les mises à jour sur l'application, les écobriques et la terre"
 };

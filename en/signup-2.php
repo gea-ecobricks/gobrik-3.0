@@ -145,10 +145,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                         <input type="checkbox" id="terms" name="terms" required checked>
                         <label for="terms" style="font-size:medium;" class="form-caption" data-lang-id="013-by-registering">By registering today, I agree to the <a href="#" onclick="showModalInfo('terms', '<?php echo $lang; ?>')" class="underline-link">GoBrik Terms of Service</a></label>
                     </div>
+                <!--
                     <div>
                         <input type="checkbox" id="newsletter" name="newsletter" checked>
                         <label for="newsletter" style="font-size:1.0;" class="form-caption" data-lang-id="014-i-agree-newsletter">I agree to receive the <a href="#" onclick="showModalInfo('earthen', '<?php echo $lang; ?>')" class="underline-link">Earthen newsletter</a> for app, ecobrick, and earthen updates</label>
                     </div>
+                -->
                 </div>
 
                 <div id="submit-section" style="display:none;text-align:center;margin-top:15px;" title="Be sure you wrote ecobrick correctly!" data-lang-id="015-register-button">

@@ -142,7 +142,7 @@ echo '</script>';
         </div>
         <div id="password-error" data-lang-id="002-password-is-wrong" class="form-field-error" style="display:none;margin-top: 0px;margin-bottom:-15px;">👉 Password is wrong.</div>
 
-        <p class="form-caption"><span data-lang-id="003-forgot-your-password">Forgot your password?</span> <a href="#" class="underline-link" data-lang-id="000-reset-it">Reset it.</a></p>
+        <p class="form-caption"><span data-lang-id="003-forgot-your-password">Forgot your password?</span> <a href="#" onclick="showPasswordReset('reset', '<?php echo $lang; ?>', '')" class="underline-link" data-lang-id="000-reset-it">Reset it.</a></p>
     </div>
 
     <div class="form-item" id="code-form" style="text-align:center;height:80px;">
@@ -939,7 +939,7 @@ window.onload = function() {
         const lang = '<?php echo $lang; ?>'; // Make sure this is echoed from your PHP
 
         // Show the reset modal with the pre-filled email and appropriate language
-        showPasswordReset('reset', lang, email);
+//         showPasswordReset('reset', lang, email);
 
         // Wait for the modal to load, then display the "email not found" error message
         setTimeout(() => {

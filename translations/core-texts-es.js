@@ -81,26 +81,28 @@ const es_Translations = {
 
     //UNIVERSAL MODAL TRANSLATIONS
 
-    "earthen-title": "Boletín de Earthen",
-    "earthen-text": "Iniciado en 2016 en la tierra del pueblo Igorot, Earthen es nuestro boletín bimensual del movimiento regenerativo de la tierra. Compartimos las últimas noticias del mundo de los ecobricks y la construcción con tierra, la ciencia y la filosofía regenerativas. También te mantenemos al día con los principales anuncios y noticias de GoBrik. Gratis. Fácil de darse de baja en cualquier momento.",
-    "ecobrick-title": "El Término",
-    "ecobrick-text": "En 2016, los líderes de la transición plástica de todo el mundo acordaron usar el término 'ecobrick' sin guion y sin mayúscula como el término de referencia coherente y estandarizado en la guía y sus materiales. De esta manera, los ecobrickers de todo el mundo podrían referirse con una sola palabra al mismo concepto y las búsquedas en la web, así como los hashtags, acelerarían la difusión global. Consulte wikipedia.org/ecobricks para la historia completa.",
-    "watershed-title": "Cuencas Hidrográficas",
-    "watershed-text": "Una cuenca hidrográfica es un área de tierra donde toda el agua de la lluvia, la nieve derretida o el hielo converge en un solo punto, típicamente un río, un lago o un océano. Estas cuencas son una frontera natural que captura y canaliza la precipitación a través de una red de ríos, arroyos y acuíferos subterráneos, dirigiendo finalmente el agua hacia un punto de salida común. Las cuencas hidrográficas juegan un papel ecológico crucial y proporcionan agua para uso humano. La salud y la gestión de las cuencas hidrográficas son vitales para la vitalidad ecológica.",
+    "earthen-title": "Boletín Terrestre",
+    "earthen-text": "Iniciado en 2016 en la tierra del pueblo Igorot, Terrestre es nuestro boletín bimestral para el movimiento global a favor de la Tierra. Compartimos las últimas noticias del mundo de la tecnología y filosofía regenerativa: construcción con tierra, ecoladrillos, anuncios de GoBrik y noticias de la GEA. Gratis con opción de suscripción contributiva.",
 
-    "earthen-title": "Terrestre",
-    "earthen-text": "Terrestre es un material de construcción sostenible...",
-    "ecobrick-title": "Ecoladrillo",
-    "ecobrick-text": "Un ecoladrillo es una botella PET empacada con plástico...",
-    "watershed-title": "Cuenca Hidrográfica",
-    "watershed-text": "Una cuenca hidrográfica es un área de tierra que drena el agua...",
+    "ecobrick-title": "El Término",
+    "ecobrick-text": "En 2016, líderes de transición plástica de todo el mundo acordaron usar el término 'ecoladrillo' sin guion y sin mayúscula como el término de referencia estandarizado en la guía y sus materiales. De esta manera, los ecobrickers de todo el mundo podrían referirse con una palabra al mismo concepto, y las búsquedas en la web y los hashtags acelerarían la difusión global. Consulte wikipedia.org/ecobricks para la historia completa.",
+
+    "watershed-title": "Cuencas Hidrográficas",
+    "watershed-text": "Una cuenca hidrográfica es un área de tierra donde toda el agua de la lluvia, la nieve derretida o el hielo converge a un solo punto, generalmente un río, lago u océano. Estas cuencas son un límite natural que captura y canaliza la precipitación a través de una red de ríos, arroyos y acuíferos subterráneos, dirigiendo eventualmente el agua a una salida común. Las cuencas hidrográficas desempeñan un papel ecológico crucial y proporcionan agua para el uso humano. La salud y gestión de las cuencas hidrográficas son vitales para la vitalidad ecológica.",
+
+    "an-ecobrick-title": "Ecoladrillo",
+    "an-ecobrick-text": "Un ecoladrillo es una botella de PET rellena de plástico usado, compactada de acuerdo con los estándares de secuestro de plástico para hacer un bloque de construcción reutilizable. Previene que el plástico se degrade en toxinas y microplásticos, y lo convierte en un material de construcción útil y duradero.",
+
     "ocean-title": "Ecoladrillos Oceánicos",
-    "ocean-text": "Los ecoladrillos oceánicos están diseñados para plásticos encontrados en playas, ríos y en el océano...",
+    "ocean-text": "Los ecoladrillos oceánicos están diseñados para plásticos encontrados en playas, ríos y en el océano, donde los plásticos tienden a ser grandes, gruesos, sucios y mojados, y no son adecuados para hacer un ecoladrillo regular. Un ecoladrillo oceánico permite que estos plásticos se transformen fácilmente en un bloque de construcción práctico, útil y reutilizable.",
+
     "cigbrick-title": "Cigbricks",
-    "cigbrick-text": "Los Cigbricks son una nueva clase de ecoladrillo diseñados para transformar el hábito de fumar...",
+    "cigbrick-text": "Los cigbricks se hacen exclusivamente con los filtros de acetato (un tipo de plástico) de las colillas de cigarrillos. El papel y la ceniza se eliminan de las colillas y el filtro se empaqueta en una botella de PET sin cortar.",
+
     "regular-title": "Ecoladrillos Regulares",
-    "regular-text": "Un ecoladrillo regular es una botella sin cortar empacada con plástico usado...",
-    "learn-more": "Aprende más ↗️",
+    "regular-text": "Un ecoladrillo regular es una botella de PET sin cortar, compactada con plástico usado a una densidad establecida (entre 0,33 y 0,7 g/ml) para hacer un bloque de construcción reutilizable. Se hace según los estándares de secuestro de plástico, asegurando que el plástico esté debidamente asegurado y no pueda degradarse en microplásticos.",
+
+    "learn-more": "Aprender más ↗️",
     "link-note": "El enlace se abre en Ecobricks.org",
 
     //MODULES

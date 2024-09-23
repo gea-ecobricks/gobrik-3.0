@@ -99,28 +99,31 @@ const fr_Translations = {
 
 //UNIVERSAL MODALS
 
+    "earthen-title": "Bulletin Terrestre",
+    "earthen-text": "Lancé en 2016 sur la terre du peuple Igorot, Terrestre est notre bulletin bimensuel pour le mouvement mondial en faveur de la Terre. Nous partageons les dernières nouvelles du monde de la technologie et de la philosophie régénérative : construction en terre, écobriques, annonces de GoBrik et nouvelles de l'Alliance Globale d'Écobriques. Gratuit avec une option d'abonnement contributif.",
 
-    "earthen-title": "Bulletin Earthen",
-    "earthen-text": "Lancé en 2016 au pays du peuple Igorot, Earthen est notre bulletin bimensuel du mouvement de régénération de la terre. Nous partageons les dernières nouvelles du monde des ecobricks et de la construction en terre, de la science et de la philosophie régénératives. Nous vous tenons également informé des annonces et nouvelles importantes de GoBrik. Gratuit. Désabonnement facile à tout moment.",
     "ecobrick-title": "Le Terme",
-    "ecobrick-text": "En 2016, les leaders de la transition plastique du monde entier ont convenu d'utiliser le terme 'ecobrick' sans trait d'union ni majuscule comme terme de référence cohérent et standardisé dans le guide et leurs documents. Ainsi, les ecobrickers du monde entier pourraient se référer avec un seul mot au même concept et les recherches sur le web ainsi que les hashtags accéléreraient la diffusion mondiale. Consultez wikipedia.org/ecobricks pour l'histoire complète.",
-    "watershed-title": "Bassin Versant",
-    "watershed-text": "Un bassin versant est une zone de terre où toute l'eau provenant de la pluie, de la fonte des neiges ou de la glace converge vers un point unique, généralement une rivière, un lac ou un océan. Ces bassins constituent une frontière naturelle qui capture et canalise les précipitations à travers un réseau de rivières, de ruisseaux et d'aquifères souterrains, dirigeant finalement l'eau vers un exutoire commun. Les bassins versants jouent un rôle écologique crucial et fournissent de l'eau pour un usage humain. La santé et la gestion des bassins versants sont vitales pour la vitalité écologique.",
+    "ecobrick-text": "En 2016, les leaders de la transition plastique du monde entier ont convenu d'utiliser le terme « écobrique » sans trait d'union et sans majuscule comme terme de référence standardisé et cohérent dans le guide et leurs matériaux. De cette manière, les écobriqueurs du monde entier pourraient se référer avec un mot unique au même concept, et les recherches sur le web et les hashtags accéléreraient la diffusion mondiale. Consultez wikipedia.org/ecobricks pour l'histoire complète.",
 
-    "earthen-title": "Terrestre",
-    "earthen-text": "Terrestre est un matériau de construction durable...",
-    "ecobrick-title": "Écobrique",
-    "ecobrick-text": "Une écobrique est une bouteille PET remplie de plastique...",
-    "watershed-title": "Bassin Versant",
-    "watershed-text": "Un bassin versant est une zone de terre qui draine l'eau...",
-    "ocean-title": "Écobriques Océan",
-    "ocean-text": "Les écobriques océan sont conçues pour les plastiques trouvés sur les plages, les rivières et dans l'océan...",
+    "watershed-title": "Bassins Versants",
+    "watershed-text": "Un bassin versant est une zone de terre où toute l'eau de pluie, de la fonte des neiges ou de la glace converge vers un point unique, généralement une rivière, un lac ou l'océan. Ces bassins forment une limite naturelle qui capte et canalise les précipitations à travers un réseau de rivières, de ruisseaux et d'aquifères souterrains, dirigeant finalement l'eau vers une sortie commune. Les bassins versants jouent un rôle écologique crucial et fournissent de l'eau pour l'usage humain. La santé et la gestion des bassins versants sont vitales pour la vitalité écologique.",
+
+    "an-ecobrick-title": "Écobrique",
+    "an-ecobrick-text": "Une écobrique est une bouteille PET remplie solidement de plastique usagé selon les normes de séquestration du plastique afin de créer un bloc de construction réutilisable. Elle empêche le plastique de se dégrader en toxines et microplastiques, et le transforme en un matériau de construction utile et durable.",
+
+    "ocean-title": "Écobriques Océaniques",
+    "ocean-text": "Les écobriques océaniques sont conçues pour les plastiques trouvés sur les plages, dans les rivières et dans l'océan, où les plastiques ont tendance à être gros, épais, sales et mouillés, et ne conviennent pas à la fabrication d'une écobrique régulière. Une écobrique océanique permet de transformer facilement ces plastiques en un bloc de construction pratique, utile et réutilisable.",
+
     "cigbrick-title": "Cigbricks",
-    "cigbrick-text": "Les Cigbricks sont une nouvelle classe d'écobrique conçue pour transformer l'habitude de fumer...",
+    "cigbrick-text": "Les cigbricks sont fabriqués exclusivement à partir des filtres en acétate (un type de plastique) des mégots de cigarettes. Le papier et la cendre sont retirés des mégots, et le filtre est compacté dans une bouteille PET non coupée.",
+
     "regular-title": "Écobriques Régulières",
-    "regular-text": "Une écobrique régulière est une bouteille non coupée remplie de plastique usagé...",
+    "regular-text": "Une écobrique régulière est une bouteille PET non coupée remplie solidement de plastique usagé à une densité définie (entre 0,33 et 0,7 g/ml) pour créer un bloc de construction réutilisable. Elle est fabriquée selon les normes de séquestration du plastique, assurant que le plastique est sécurisé de manière sûre et incapable de se dégrader en microplastiques.",
+
     "learn-more": "En savoir plus ↗️",
-    "link-note": "Le lien ouvre vers Ecobricks.org",
+    "link-note": "Le lien s'ouvre sur Ecobricks.org",
+
+
 
  // MODULES
 

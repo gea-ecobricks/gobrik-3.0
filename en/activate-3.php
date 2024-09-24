@@ -217,6 +217,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <script>
 $(function() {
     let debounceTimer;
+
+    // Autocomplete for location_full using OpenStreetMap
     $("#location_full").autocomplete({
         source: function(request, response) {
             $("#loading-spinner").show();
@@ -258,7 +260,7 @@ $(function() {
 
             // Show the submit button and the watershed search when location is selected
             showSubmitButton();
-            showWatershedSearch();
+            showWatershedSearch(ui.item.lat, ui.item.lon);
         },
         minLength: 3
     });
@@ -268,48 +270,56 @@ $(function() {
         $('#submit-section').fadeIn(); // Smoothly shows the submit button section
     }
 
-    // Function to show the watershed search field
-    function showWatershedSearch() {
+    // Function to show the watershed search field and automatically search for rivers
+    function showWatershedSearch(lat, lon) {
         $('#watershed-search-section').fadeIn(); // Smoothly shows the watershed search field
+
+        // Automatically fetch rivers using the Overpass API based on selected location
+        fetchRiversFromOverpass(lat, lon);
     }
 
-    // Watershed search function using HydroShare API
-    $('#watershed_search').autocomplete({
-        source: function(request, response) {
-            $("#watershed-loading-spinner").show();
-            clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(() => {
-                $.ajax({
-                    url: "https://www.hydroshare.org/hsapi/resource/", // Example API endpoint (adjust if needed)
-                    dataType: "json",
-                    data: {
-                        q: request.term, // Query parameter for the HydroShare search
-                        format: "json"
-                    },
-                    success: function(data) {
-                        $("#watershed-loading-spinner").hide();
-                        response($.map(data.results, function(item) { // Adjust based on HydroShare response structure
-                            return {
-                                label: item.title, // Assuming the watershed title is in 'title'
-                                value: item.title,
-                                id: item.id // Additional data can be added here if needed
-                            };
-                        }));
-                    },
-                    error: function(xhr, status, error) {
-                        $("#watershed-loading-spinner").hide();
-                        console.error("HydroShare autocomplete error:", error);
-                        response([]);
-                    }
+    // Function to fetch rivers using the Overpass API
+    function fetchRiversFromOverpass(lat, lon) {
+        $("#watershed-loading-spinner").show();
+
+        // Construct Overpass API query to search for waterway features near the selected location
+        const overpassQuery = `
+            [out:json];
+            (
+              node["waterway"="river"](around:5000, ${lat}, ${lon});
+              way["waterway"="river"](around:5000, ${lat}, ${lon});
+              relation["waterway"="river"](around:5000, ${lat}, ${lon});
+            );
+            out body 10;`; // Limit results to 10 rivers
+
+        $.ajax({
+            url: "https://overpass-api.de/api/interpreter",
+            type: "POST",
+            data: { data: overpassQuery },
+            success: function(data) {
+                $("#watershed-loading-spinner").hide();
+
+                // Process Overpass API response to show up to 10 river choices
+                const riverChoices = data.elements.map(item => {
+                    let riverName = item.tags.name || 'Unnamed River';
+                    return {
+                        label: riverName,
+                        value: riverName
+                    };
                 });
-            }, 300);
-        },
-        select: function(event, ui) {
-            console.log('Selected watershed:', ui.item); // Debugging line
-            // Handle selected watershed if needed in the future
-        },
-        minLength: 3
-    });
+
+                // Show results in the autocomplete field for watershed search
+                $("#watershed_search").autocomplete({
+                    source: riverChoices.slice(0, 10), // Show only the first 10 results
+                    minLength: 0 // Allow showing suggestions immediately
+                }).focus(); // Focus on the input to show suggestions
+            },
+            error: function(xhr, status, error) {
+                $("#watershed-loading-spinner").hide();
+                console.error("Overpass API error:", error);
+            }
+        });
+    }
 
     $('#user-info-form').on('submit', function() {
         console.log('Latitude:', $('#lat').val());

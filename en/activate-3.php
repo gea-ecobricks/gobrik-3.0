@@ -305,7 +305,7 @@ $(function () {
         if (map) {
             map.remove();
         }
-        map = L.map('map').setView([lat, lon], 13);
+        map = L.map('map', { preferCanvas: true }).setView([lat, lon], 13);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
@@ -314,6 +314,11 @@ $(function () {
 
         // Add user location marker
         userMarker = L.marker([lat, lon]).addTo(map).bindPopup("Your Location").openPopup();
+
+        // Fix map display issue when loaded in a hidden or resized container
+        setTimeout(() => {
+            map.invalidateSize();
+        }, 200); // Delay to ensure the map fully loads and resizes correctly
 
         // Fetch nearby rivers or watersheds using Overpass API
         fetchNearbyRivers(lat, lon);
@@ -331,8 +336,10 @@ $(function () {
             let uniqueRivers = new Set(); // Set to keep track of unique river names
 
             rivers.forEach((river, index) => {
-                let riverName = river.tags.name || `Unnamed River ${index + 1}`;
-                if (!uniqueRivers.has(riverName)) {
+                let riverName = river.tags.name;
+
+                // Filter out unnamed rivers from the dropdown
+                if (riverName && !uniqueRivers.has(riverName) && !riverName.toLowerCase().includes("unnamed")) {
                     uniqueRivers.add(riverName); // Add river name to the set
 
                     let coordinates = river.geometry.map(point => [point.lat, point.lon]);
@@ -360,6 +367,7 @@ $(function () {
         // Additional submit handling if needed
     });
 });
+
 
 </script>
 

@@ -32,7 +32,34 @@ if ($is_logged_in) {
     $watershed_name = getWatershedName($buwana_conn, $buwana_id, $lang);
     $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
 
+    // Fetch the user's country name
+    $sql_country_name = "SELECT country_name FROM countries_tb WHERE country_id = (SELECT country_id FROM users_tb WHERE buwana_id = ?)";
+    $stmt_country_name = $buwana_conn->prepare($sql_country_name);
+    $user_country_name = '';
 
+    if ($stmt_country_name) {
+        $stmt_country_name->bind_param("s", $buwana_id);
+        $stmt_country_name->execute();
+        $stmt_country_name->bind_result($user_country_name);
+        $stmt_country_name->fetch();
+        $stmt_country_name->close();
+    }
+
+    // Fetch communities based on the user's country
+    $communities = [];
+    $sql_communities = "SELECT com_name FROM tb_communities WHERE com_country = ?";
+    $stmt_communities = $gobrik_conn->prepare($sql_communities);
+
+    if ($stmt_communities) {
+        $stmt_communities->bind_param("s", $user_country_name);
+        $stmt_communities->execute();
+        $result_communities = $stmt_communities->get_result();
+
+        while ($row = $result_communities->fetch_assoc()) {
+            $communities[] = $row['com_name'];
+        }
+        $stmt_communities->close();
+    }
 
     // PART 3: POST ECOBRICK DATA to GOBRIK DATABASE
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -68,6 +95,7 @@ if ($is_logged_in) {
             $sequestration_type = trim($_POST['sequestration_type']);
             $plastic_from = trim($_POST['plastic_from']);
             $brand_name = trim($_POST['brand_name']);
+            $community_selected = trim($_POST['community_select']); // Get the selected community from the form
 
             // Background settings
             $owner = $ecobricker_maker;
@@ -79,26 +107,23 @@ if ($is_logged_in) {
             $last_ownership_change = date("Y-m-d");
             $actual_maker_name = $ecobricker_maker;
 
-              // Determine the location_country from location_full
+            // Determine the location_country from location_full
             $location_full = $user_location_full ?? 'Default Location';
             $location_parts = explode(',', $location_full);
             $location_country = trim(end($location_parts)); // Get the last item and trim whitespace
 
             $location_watershed = $watershed_name;
 
-
-
-
             // Update SQL and binding to match the fields and values
             $sql = "INSERT INTO tb_ecobricks (
-                ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type, plastic_from, location_full, brand_name, owner, status, universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change, actual_maker_name, brik_notes, date_published_ts, location_country, location_watershed
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type, plastic_from, location_full, brand_name, owner, status, universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change, actual_maker_name, brik_notes, date_published_ts, location_country, location_watershed, community
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             if ($stmt = $gobrik_conn->prepare($sql)) {
                 error_log("Statement prepared successfully.");
 
-                $stmt->bind_param("issiisssssssdsdssssss",
-                    $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g, $sequestration_type, $plastic_from, $location_full,$brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts, $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts, $location_country, $location_watershed
+                $stmt->bind_param("issiisssssssdsdsssssss",
+                    $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g, $sequestration_type, $plastic_from, $location_full, $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts, $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts, $location_country, $location_watershed, $community_selected
                 );
                 error_log("Parameters bound successfully.");
 
@@ -128,13 +153,13 @@ if ($is_logged_in) {
         }
     }
 
-
-
 } else {
     // Redirect to login page with the redirect parameter set to the current page
     header('Location: login.php?redirect=' . urlencode($page));
     exit();
 }
+
+
 
 echo '<!DOCTYPE html>
 <html lang="' . $lang . '">

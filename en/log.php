@@ -32,7 +32,21 @@ if ($is_logged_in) {
     $watershed_name = getWatershedName($buwana_conn, $buwana_id, $lang);
     $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
 
+// Fetch communities based on the user's country
+            $communities = [];
+            $sql_communities = "SELECT com_name FROM tb_communities WHERE com_country = ?";
+            $stmt_communities = $gobrik_conn->prepare($sql_communities);
 
+            if ($stmt_communities) {
+                $stmt_communities->bind_param("s", $user_country_name);
+                $stmt_communities->execute();
+                $result_communities = $stmt_communities->get_result();
+
+                while ($row = $result_communities->fetch_assoc()) {
+                    $communities[] = $row['com_name'];
+                }
+                $stmt_communities->close();
+            }
 
     // PART 3: POST ECOBRICK DATA to GOBRIK DATABASE
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -86,21 +100,7 @@ if ($is_logged_in) {
 
             $location_watershed = $watershed_name;
 
-            // Fetch communities based on the user's country
-            $communities = [];
-            $sql_communities = "SELECT com_name FROM tb_communities WHERE com_country = ?";
-            $stmt_communities = $gobrik_conn->prepare($sql_communities);
 
-            if ($stmt_communities) {
-                $stmt_communities->bind_param("s", $user_country_name);
-                $stmt_communities->execute();
-                $result_communities = $stmt_communities->get_result();
-
-                while ($row = $result_communities->fetch_assoc()) {
-                    $communities[] = $row['com_name'];
-                }
-                $stmt_communities->close();
-            }
 
 
             // Update SQL and binding to match the fields and values

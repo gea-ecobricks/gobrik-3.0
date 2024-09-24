@@ -53,10 +53,13 @@ if ($is_logged_in) {
     if ($stmt_communities) {
         $stmt_communities->bind_param("s", $user_country_name);
         $stmt_communities->execute();
-        $result_communities = $stmt_communities->get_result();
 
-        while ($row = $result_communities->fetch_assoc()) {
-            $communities[] = $row['com_name'];
+        // Bind the result to a variable
+        $stmt_communities->bind_result($com_name);
+
+        // Fetch the results
+        while ($stmt_communities->fetch()) {
+            $communities[] = $com_name;
         }
         $stmt_communities->close();
     }

@@ -206,57 +206,65 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 <script>
+$(function() {
+    let debounceTimer;
+    $("#location_full").autocomplete({
+        source: function(request, response) {
+            $("#loading-spinner").show();
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                $.ajax({
+                    url: "https://nominatim.openstreetmap.org/search",
+                    dataType: "json",
+                    headers: {
+                        'User-Agent': 'ecobricks.org'
+                    },
+                    data: {
+                        q: request.term,
+                        format: "json"
+                    },
+                    success: function(data) {
+                        $("#loading-spinner").hide();
+                        response($.map(data, function(item) {
+                            return {
+                                label: item.display_name,
+                                value: item.display_name,
+                                lat: item.lat,
+                                lon: item.lon
+                            };
+                        }));
+                    },
+                    error: function(xhr, status, error) {
+                        $("#loading-spinner").hide();
+                        console.error("Autocomplete error:", error);
+                        response([]);
+                    }
+                });
+            }, 300);
+        },
+        select: function(event, ui) {
+            console.log('Selected location:', ui.item); // Debugging line
+            $('#lat').val(ui.item.lat);
+            $('#lon').val(ui.item.lon);
 
-    $(function() {
-        let debounceTimer;
-        $("#location_full").autocomplete({
-            source: function(request, response) {
-                $("#loading-spinner").show();
-                clearTimeout(debounceTimer);
-                debounceTimer = setTimeout(() => {
-                    $.ajax({
-                        url: "https://nominatim.openstreetmap.org/search",
-                        dataType: "json",
-                        headers: {
-                            'User-Agent': 'ecobricks.org'
-                        },
-                        data: {
-                            q: request.term,
-                            format: "json"
-                        },
-                        success: function(data) {
-                            $("#loading-spinner").hide();
-                            response($.map(data, function(item) {
-                                return {
-                                    label: item.display_name,
-                                    value: item.display_name,
-                                    lat: item.lat,
-                                    lon: item.lon
-                                };
-                            }));
-                        },
-                        error: function(xhr, status, error) {
-                            $("#loading-spinner").hide();
-                            console.error("Autocomplete error:", error);
-                            response([]);
-                        }
-                    });
-                }, 300);
-            },
-            select: function(event, ui) {
-                console.log('Selected location:', ui.item); // Debugging line
-                $('#lat').val(ui.item.lat);
-                $('#lon').val(ui.item.lon);
-            },
-            minLength: 3
-        });
-
-        $('#submit-form').on('submit', function() {
-            console.log('Latitude:', $('#lat').val());
-            console.log('Longitude:', $('#lon').val());
-            // alert('Latitude: ' + $('#lat').val() + ', Longitude: ' + $('#lon').val());
-        });
+            // Show the submit button when a location is selected
+            showSubmitButton();
+        },
+        minLength: 3
     });
+
+    // Function to show the submit button
+    function showSubmitButton() {
+        $('#submit-section').fadeIn(); // Smoothly shows the submit button section
+    }
+
+    $('#user-info-form').on('submit', function() {
+        console.log('Latitude:', $('#lat').val());
+        console.log('Longitude:', $('#lon').val());
+        // Add any additional submit handling if necessary
+    });
+});
+
 </script>
 
 

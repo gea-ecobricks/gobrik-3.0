@@ -143,7 +143,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     <p class="form-caption"><span data-lang-id="012-fun-fact">🤓 Fun fact: </span> <a href="#" onclick="showModalInfo('ecobrick', '<?php echo $lang; ?>')" class="underline-link" data-lang-id="000-Ecobrick">Ecobrick</a><span data-lang-id="012b-is-spelled"> is spelled without a space, capital or hyphen!</span></p>
                     <div>
                         <input type="checkbox" id="terms" name="terms" required checked>
-                        <label for="terms" style="font-size:medium;" class="form-caption" data-lang-id="013-by-registering">By registering today, I agree to the <a href="#" onclick="showModalInfo('terms', '<?php echo $lang; ?>')" class="underline-link">GoBrik Terms of Service</a></label>
+                        <label for="terms" style="font-size:1.05;" class="form-caption" data-lang-id="013-by-registering">By registering today, I agree to the <a href="#" onclick="showModalInfo('terms', '<?php echo $lang; ?>')" class="underline-link">GoBrik Terms of Service</a></label>
                     </div>
                 <!--
                     <div>
@@ -152,17 +152,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     </div>
                 -->
 
-                <div class="form-item">
-                    <label for="location_full" data-lang-id="011-location-full">Where is this ecobrick based?</label><br>
-                    <div class="input-container">
-                        <input type="text" id="location_full" name="location_full" aria-label="Location Full" required style="padding-left:45px;">
-                        <div id="loading-spinner" class="spinner" style="display: none;"></div>
-                    </div>
-                    <p class="form-caption" data-lang-id="011-location-full-caption">Start typing the name of your town or city, and we'll fill in the rest using the open source, non-corporate openstreetmaps API.  Avoid using your exact address for privacy-- just your town, city or country is fine.</p>
 
-                    <!--ERRORS-->
-                    <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
-                </div>
 
                 </div>
 

@@ -182,19 +182,15 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <input type="hidden" id="lat" name="latitude">
     <input type="hidden" id="lon" name="longitude">
 
-    <!-- MAP SECTION -->
-    <div id="map-section" class="form-item" style="display: none;">
-        <label data-lang-id="011-map">Find Your Local Watershed or River</label>
-        <div id="map" style="height: 400px; margin-bottom: 10px;"></div>
-        <p class="form-caption" data-lang-id="011-map-caption">The map will show nearby rivers or watersheds based on your location.</p>
-    </div>
-
-    <!-- DROPDOWN FOR WATERSHEDS -->
-    <div class="form-item" id="watershed-dropdown-section" style="display: none;">
-        <label for="watershed_select" data-lang-id="011-watershed-select">Select Your Nearest River or Watershed</label><br>
-        <select id="watershed_select" name="watershed_select" aria-label="Watershed Select">
-            <option value="">-- Select a River or Watershed --</option>
-        </select>
+    <!-- MAP AND WATERSHED SEARCH SECTION -->
+    <div id="watershed-map-section" style="display: none; margin-top: 20px;">
+        <div id="map" style="height: 400px;"></div>
+        <div class="form-item">
+            <label for="watershed_select" data-lang-id="011-watershed-select">Select Your Local River or Watershed</label><br>
+            <select id="watershed_select" name="watershed_select" aria-label="Watershed Select" style="width: 100%; padding: 10px;">
+                <option value="" disabled selected>Select a river or watershed</option>
+            </select>
+        </div>
     </div>
 
     <!-- SUBMIT SECTION -->
@@ -203,6 +199,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 
 </form>
+
+<!-- Include Leaflet CSS and JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
 
 
 
@@ -220,14 +221,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <script>
 
-
-$(function () {
+$(function() {
     let debounceTimer;
     let map, userMarker;
-    const riversLayer = L.layerGroup();
+    let riverLayerGroup = L.layerGroup();
 
+    // Initialize location search using OpenStreetMap Nominatim API
     $("#location_full").autocomplete({
-        source: function (request, response) {
+        source: function(request, response) {
             $("#loading-spinner").show();
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(() => {
@@ -235,126 +236,102 @@ $(function () {
                     url: "https://nominatim.openstreetmap.org/search",
                     dataType: "json",
                     headers: {
-                        "User-Agent": "ecobricks.org",
+                        'User-Agent': 'ecobricks.org'
                     },
                     data: {
                         q: request.term,
-                        format: "json",
+                        format: "json"
                     },
-                    success: function (data) {
+                    success: function(data) {
                         $("#loading-spinner").hide();
-                        response(
-                            $.map(data, function (item) {
-                                return {
-                                    label: item.display_name,
-                                    value: item.display_name,
-                                    lat: item.lat,
-                                    lon: item.lon,
-                                };
-                            })
-                        );
+                        response($.map(data, function(item) {
+                            return {
+                                label: item.display_name,
+                                value: item.display_name,
+                                lat: item.lat,
+                                lon: item.lon
+                            };
+                        }));
                     },
-                    error: function (xhr, status, error) {
+                    error: function(xhr, status, error) {
                         $("#loading-spinner").hide();
                         console.error("Autocomplete error:", error);
                         response([]);
-                    },
+                    }
                 });
             }, 300);
         },
-        select: function (event, ui) {
-            console.log("Selected location:", ui.item);
-            $("#lat").val(ui.item.lat);
-            $("#lon").val(ui.item.lon);
+        select: function(event, ui) {
+            console.log('Selected location:', ui.item);
+            $('#lat').val(ui.item.lat);
+            $('#lon').val(ui.item.lon);
 
-            // Show the map and watershed search when location is selected
-            showMapSection(ui.item.lat, ui.item.lon);
+            // Show the map and watershed search section when a location is selected
+            initializeMap(ui.item.lat, ui.item.lon);
+            $('#watershed-map-section').fadeIn();
             showSubmitButton();
         },
-        minLength: 3,
+        minLength: 3
     });
-
-    // Function to show the map section
-    function showMapSection(lat, lon) {
-        $("#map-section").fadeIn();
-        $("#watershed-dropdown-section").fadeIn();
-        initializeMap(lat, lon);
-        searchNearbyRivers(lat, lon);
-    }
 
     // Function to show the submit button
     function showSubmitButton() {
-        $("#submit-section").fadeIn();
+        $('#submit-section').fadeIn();
     }
 
-    // Initialize the map
+    // Initialize the Leaflet map centered on the selected location
     function initializeMap(lat, lon) {
-        if (!map) {
-            map = L.map("map").setView([lat, lon], 13);
-            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-                maxZoom: 18,
-                attribution: '© OpenStreetMap contributors',
-            }).addTo(map);
-        } else {
-            map.setView([lat, lon], 13);
+        if (map) {
+            map.remove();
         }
+        map = L.map('map').setView([lat, lon], 13);
 
-        if (userMarker) {
-            userMarker.setLatLng([lat, lon]);
-        } else {
-            userMarker = L.marker([lat, lon]).addTo(map);
-        }
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Add user location marker
+        userMarker = L.marker([lat, lon]).addTo(map).bindPopup("Your Location").openPopup();
+
+        // Fetch nearby rivers or watersheds using Overpass API
+        fetchNearbyRivers(lat, lon);
     }
 
-    // Search for nearby rivers using the Overpass API
-    function searchNearbyRivers(lat, lon) {
-        const overpassUrl = "https://overpass-api.de/api/interpreter";
-        const query = `
-            [out:json];
-            (
-                way["waterway"="river"](around:5000, ${lat}, ${lon});
-                relation["waterway"="river"](around:5000, ${lat}, ${lon});
-            );
-            out center 5;`; // Maximum of 5 results
+    // Function to fetch nearby rivers or watersheds using Overpass API
+    function fetchNearbyRivers(lat, lon) {
+        riverLayerGroup.clearLayers(); // Clear previous rivers
+        $("#watershed_select").empty().append('<option value="" disabled selected>Select a river or watershed</option>');
 
-        $.ajax({
-            url: overpassUrl,
-            method: "POST",
-            data: { data: query },
-            success: function (data) {
-                riversLayer.clearLayers();
-                $("#watershed_select").empty().append('<option value="">-- Select a River or Watershed --</option>');
+        const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];(way["waterway"="river"](around:5000,${lat},${lon});relation["waterway"="river"](around:5000,${lat},${lon}););out geom;`;
 
-                const rivers = data.elements.slice(0, 5); // Take the first 5 results
-                rivers.forEach((river, index) => {
-                    const name = river.tags.name || `River/Wayshed ${index + 1}`;
-                    const latLng = river.type === "way" ? [river.center.lat, river.center.lon] : [river.lat, river.lon];
+        $.get(overpassUrl, function(data) {
+            let rivers = data.elements.slice(0, 5); // Limit to 5 nearest rivers
+            rivers.forEach((river, index) => {
+                let riverName = river.tags.name || `Unnamed River ${index + 1}`;
+                let coordinates = river.geometry.map(point => [point.lat, point.lon]);
 
-                    // Add river to map
-                    const riverMarker = L.circleMarker(latLng, {
-                        radius: 6,
-                        color: "#007bff",
-                    }).addTo(riversLayer);
+                // Add river to the map
+                let riverPolyline = L.polyline(coordinates, { color: 'blue' }).addTo(riverLayerGroup).bindPopup(riverName);
+                riverLayerGroup.addTo(map);
 
-                    riversLayer.addTo(map);
+                // Add river to the select dropdown
+                $("#watershed_select").append(new Option(riverName, riverName));
+            });
 
-                    // Add to dropdown
-                    $("#watershed_select").append(
-                        `<option value="${name}">${name}</option>`
-                    );
-                });
-            },
-            error: function (xhr, status, error) {
-                console.error("Overpass API error:", error);
-            },
+            if (rivers.length === 0) {
+                $("#watershed_select").append('<option value="" disabled>No rivers or watersheds found nearby</option>');
+            }
+        }).fail(function() {
+            console.error("Failed to fetch data from Overpass API.");
+            $("#watershed_select").append('<option value="" disabled>Error fetching rivers</option>');
         });
     }
 
-    // Initialize event listener for form submission
-    $("#user-info-form").on("submit", function () {
-        console.log("Latitude:", $("#lat").val());
-        console.log("Longitude:", $("#lon").val());
-        // Add any additional submit handling if necessary
+    $('#user-info-form').on('submit', function() {
+        console.log('Latitude:', $('#lat').val());
+        console.log('Longitude:', $('#lon').val());
+        // Additional submit handling if needed
     });
 });
 

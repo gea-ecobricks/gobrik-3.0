@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $selected_country = trim(end($location_parts));
 
     // Fetch the country_id from the countries_tb using the extracted country name
-    $sql_country = "SELECT country_id, continent_id FROM countries_tb WHERE country_name = ?";
+    $sql_country = "SELECT country_id, continent_code FROM countries_tb WHERE country_name = ?";
     $stmt_country = $buwana_conn->prepare($sql_country);
 
     if ($stmt_country) {

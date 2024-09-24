@@ -84,7 +84,7 @@ if ($is_logged_in) {
             $actual_maker_name = $ecobricker_maker;
 
               // Determine the location_country from location_full
-            $location_full = $location_full ?? 'Default Location';
+            $location_full = $user_location_full ?? 'Default Location';
             $location_parts = explode(',', $location_full);
             $location_country = trim(end($location_parts)); // Get the last item and trim whitespace
 

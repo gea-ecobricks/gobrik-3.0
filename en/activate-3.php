@@ -12,7 +12,7 @@ if (isLoggedIn()) {
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.69';
+$version = '0.691';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $is_logged_in = false; // Ensure not logged in for this page
 
@@ -221,16 +221,26 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 <script>
-
-$(function() {
+$(function () {
     let debounceTimer;
     let map, userMarker;
     let riverLayerGroup = L.layerGroup();
 
+    // Show pin icon when the input is empty and when it's filled
+    function updatePinIconVisibility() {
+        if ($("#location_full").val().trim() === "" || $("#loading-spinner").is(":hidden")) {
+            $("#location-pin").show();
+        } else {
+            $("#location-pin").hide();
+        }
+    }
+
     // Initialize location search using OpenStreetMap Nominatim API
     $("#location_full").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             $("#loading-spinner").show();
+            $("#location-pin").hide(); // Hide the pin icon when typing starts
+
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(() => {
                 $.ajax({
@@ -243,9 +253,11 @@ $(function() {
                         q: request.term,
                         format: "json"
                     },
-                    success: function(data) {
+                    success: function (data) {
                         $("#loading-spinner").hide();
-                        response($.map(data, function(item) {
+                        updatePinIconVisibility(); // Show the pin when data has loaded
+
+                        response($.map(data, function (item) {
                             return {
                                 label: item.display_name,
                                 value: item.display_name,
@@ -254,15 +266,16 @@ $(function() {
                             };
                         }));
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         $("#loading-spinner").hide();
+                        updatePinIconVisibility(); // Show the pin when an error occurs
                         console.error("Autocomplete error:", error);
                         response([]);
                     }
                 });
             }, 300);
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             console.log('Selected location:', ui.item);
             $('#lat').val(ui.item.lat);
             $('#lon').val(ui.item.lon);
@@ -271,8 +284,15 @@ $(function() {
             initializeMap(ui.item.lat, ui.item.lon);
             $('#watershed-map-section').fadeIn();
             showSubmitButton();
+
+            updatePinIconVisibility(); // Show pin icon after selection
         },
         minLength: 3
+    });
+
+    // Show or hide the pin icon based on input value changes
+    $("#location_full").on("input", function () {
+        updatePinIconVisibility();
     });
 
     // Function to show the submit button
@@ -306,30 +326,35 @@ $(function() {
 
         const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];(way["waterway"="river"](around:5000,${lat},${lon});relation["waterway"="river"](around:5000,${lat},${lon}););out geom;`;
 
-        $.get(overpassUrl, function(data) {
-            let rivers = data.elements.slice(0, 5); // Limit to 5 nearest rivers
+        $.get(overpassUrl, function (data) {
+            let rivers = data.elements;
+            let uniqueRivers = new Set(); // Set to keep track of unique river names
+
             rivers.forEach((river, index) => {
                 let riverName = river.tags.name || `Unnamed River ${index + 1}`;
-                let coordinates = river.geometry.map(point => [point.lat, point.lon]);
+                if (!uniqueRivers.has(riverName)) {
+                    uniqueRivers.add(riverName); // Add river name to the set
 
-                // Add river to the map
-                let riverPolyline = L.polyline(coordinates, { color: 'blue' }).addTo(riverLayerGroup).bindPopup(riverName);
-                riverLayerGroup.addTo(map);
+                    let coordinates = river.geometry.map(point => [point.lat, point.lon]);
+                    // Add river to the map
+                    let riverPolyline = L.polyline(coordinates, { color: 'blue' }).addTo(riverLayerGroup).bindPopup(riverName);
+                    riverLayerGroup.addTo(map);
 
-                // Add river to the select dropdown
-                $("#watershed_select").append(new Option(riverName, riverName));
+                    // Add river to the select dropdown
+                    $("#watershed_select").append(new Option(riverName, riverName));
+                }
             });
 
-            if (rivers.length === 0) {
+            if (uniqueRivers.size === 0) {
                 $("#watershed_select").append('<option value="" disabled>No rivers or watersheds found nearby</option>');
             }
-        }).fail(function() {
+        }).fail(function () {
             console.error("Failed to fetch data from Overpass API.");
             $("#watershed_select").append('<option value="" disabled>Error fetching rivers</option>');
         });
     }
 
-    $('#user-info-form').on('submit', function() {
+    $('#user-info-form').on('submit', function () {
         console.log('Latitude:', $('#lat').val());
         console.log('Longitude:', $('#lon').val());
         // Additional submit handling if needed

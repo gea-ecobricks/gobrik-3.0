@@ -63,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_location_full = $_POST['location_full'];
     $user_lat = $_POST['latitude'];
     $user_lon = $_POST['longitude'];
+    $location_watershed = $_POST['watershed_select']; // Capture the selected watershed
 
     // Extract country from the last term in the location string (after the last comma)
     $location_parts = explode(',', $user_location_full);
@@ -86,11 +87,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($set_country_id) || empty($set_continent_code)) {
         echo '<script>alert("Could not determine your country or continent based on your location. Please refine your location details.");</script>';
     } else {
-        // Update the Buwana user's continent, country using buwana_id
-        $sql_update_buwana = "UPDATE users_tb SET continent_code = ?, country_id = ?, location_full = ?, location_lat = ?, location_long = ? WHERE buwana_id = ?";
+        // Update the Buwana user's continent, country, location, and watershed using buwana_id
+        $sql_update_buwana = "UPDATE users_tb SET continent_code = ?, country_id = ?, location_full = ?, location_lat = ?, location_long = ?, location_watershed = ? WHERE buwana_id = ?";
         $stmt_update_buwana = $buwana_conn->prepare($sql_update_buwana);
         if ($stmt_update_buwana) {
-            $stmt_update_buwana->bind_param('sissdi', $set_continent_code, $set_country_id, $user_location_full, $user_lat, $user_lon, $buwana_id);
+            $stmt_update_buwana->bind_param('sissdsi', $set_continent_code, $set_country_id, $user_location_full, $user_lat, $user_lon, $location_watershed, $buwana_id);
             $stmt_update_buwana->execute();
             $stmt_update_buwana->close();
 
@@ -131,6 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Close the Buwana database connection after all operations are done
 $buwana_conn->close();
 ?>
+
 
 
 

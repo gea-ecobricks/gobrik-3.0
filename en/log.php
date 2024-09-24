@@ -68,9 +68,9 @@ if ($is_logged_in) {
             $sequestration_type = trim($_POST['sequestration_type']);
             $plastic_from = trim($_POST['plastic_from']);
 
-            $community_name = trim($_POST['community_name']);
-            $project_id = (int)trim($_POST['project_id']);
-            $training_id = (int)trim($_POST['training_id']);
+//             $community_name = trim($_POST['community_name']);
+//             $project_id = (int)trim($_POST['project_id']);
+//             $training_id = (int)trim($_POST['training_id']);
             $brand_name = trim($_POST['brand_name']);
 
             // Background settings
@@ -93,14 +93,14 @@ if ($is_logged_in) {
 
             // Update SQL and binding to match the fields and values
             $sql = "INSERT INTO tb_ecobricks (
-                ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type, plastic_from, location_full, community_name, project_id, training_id, brand_name, owner, status, universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change, actual_maker_name, brik_notes, date_published_ts, location_country, location_watershed
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type, plastic_from, location_full, brand_name, owner, status, universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change, actual_maker_name, brik_notes, date_published_ts, location_country, location_watershed
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             if ($stmt = $gobrik_conn->prepare($sql)) {
                 error_log("Statement prepared successfully.");
 
-                $stmt->bind_param("issiisssssiisssdsdssssss",
-                    $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g, $sequestration_type, $plastic_from, $location_full, $community_name, $project_id, $training_id, $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts, $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts, $location_country, $location_watershed
+                $stmt->bind_param("issiisssssssdsdssssss",
+                    $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g, $sequestration_type, $plastic_from, $location_full,$brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts, $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts, $location_country, $location_watershed
                 );
                 error_log("Parameters bound successfully.");
 
@@ -358,47 +358,6 @@ require_once ("../includes/log-inc.php");
                     <div id="plastic-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
                 </div>
 
-
-
-
-<!--- ADVANCED turned off -->
-                <div class="advanced-box" aria-expanded="false" role="region" aria-labelledby="advancedBoxLabel-1" style="display:none;">
-
-                    <div class="advanced-box-header"  id="advancedBoxLabel-1">
-                        <div class="advanced-title" data-lang-id="013-advanced-options">Advanced Options</div>
-                        <div class="advanced-open-icon">+</div>
-                    </div>
-                    <div class="advanced-box-content">
-
-                        <div class="form-item">
-                            <label for="community_name" data-lang-id="012-community-name">Is this ecobrick part of a community initiative?</label><br>
-                            <input type="text" id="community_name" name="community_name" aria-label="Community Name">
-                            <p class="form-caption" data-lang-id="012-community-name-caption">Optional: Provide the name of the community initiative.</p>
-
-
-                            <div id="community-error-long" class="form-field-error" data-lang-id="000-field-too-long-error">Entry is too long.</div>
-                        </div>
-
-                        <div class="form-item">
-                            <label for="project_id" data-lang-id="014-project-id">Is this ecobrick part of a project?</label><br>
-                            <input type="number" id="project_id" name="project_id" aria-label="Project ID">
-                            <p class="form-caption" data-lang-id="014-project-id-caption">Optional: Provide the project ID if this ecobrick is part of a project.</p>
-
-                            <div id="project-error-long" class="form-field-error" data-lang-id="000-field-too-long-error">Entry is too long.</div>
-                        </div>
-
-                        <div class="form-item">
-                            <label for="training_id" data-lang-id="015-training-id">Was this ecobrick made in a training?</label><br>
-                            <input type="number" id="training_id" name="training_id" aria-label="Training ID">
-                            <p class="form-caption" data-lang-id="015-training-id-caption">Optional: Provide the training ID if this ecobrick was made in a training.</p>
-
-                            <div id="training-error-long" class="form-field-error" data-lang-id="000-field-too-long-error">Entry is too long.</div>
-                        </div>
-
-                    </div>
-                </div>
-
-
                 <div data-lang-id="016-submit-button" style="margin:auto;text-align: center;margin-top:30px;">
                     <input type="submit" class="submit-button enabled" value="Next: Density Check" aria-label="Submit Form">
                 </div>
@@ -432,69 +391,6 @@ require_once ("../includes/log-inc.php");
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <script>
-
-
-/*
-    document.addEventListener("DOMContentLoaded", function() {
-        // Initially hide all additional fields using visibility and height
-        const communityField = document.getElementById("community_name").parentNode;
-        const projectField = document.getElementById("project_id").parentNode;
-        const trainingField = document.getElementById("training_id").parentNode;
-
-        communityField.style.visibility = 'hidden';
-        communityField.style.height = '0';
-        projectField.style.visibility = 'hidden';
-        projectField.style.height = '0';
-        trainingField.style.visibility = 'hidden';
-        trainingField.style.height = '0';
-
-        // SHOW HIDE THE ADVANCED BOX
-        function toggleAdvancedBox(event) {
-            // Get the current advanced box based on the clicked header
-            let currentAdvancedBox = event.currentTarget.parentElement;
-
-            // Assuming the element that will have the `aria-expanded` attribute is the header itself
-            let header = currentAdvancedBox.querySelector('.advanced-box-header');
-
-            // Find the content and icon specific to this advanced box
-            let content = currentAdvancedBox.querySelector('.advanced-box-content');
-            let icon = currentAdvancedBox.querySelector('.advanced-open-icon');
-
-            // Check if the content is currently expanded or not
-            let isExpanded = header.getAttribute('aria-expanded') === 'true';
-
-            if (!isExpanded) {
-                // Temporarily set visibility to calculate height
-                communityField.style.visibility = 'visible';
-                communityField.style.height = 'auto';
-                projectField.style.visibility = 'visible';
-                projectField.style.height = 'auto';
-                trainingField.style.visibility = 'visible';
-                trainingField.style.height = 'auto';
-
-                content.style.maxHeight = content.scrollHeight + 'px'; // Set to its full height
-                icon.textContent = '−'; // Switch to minus symbol for an open state
-                header.setAttribute('aria-expanded', 'true'); // Update aria-expanded to true
-            } else {
-                content.style.maxHeight = '0px'; // Collapse it
-                icon.textContent = '+'; // Set to plus symbol
-                header.setAttribute('aria-expanded', 'false'); // Update aria-expanded to false
-
-                communityField.style.visibility = 'hidden';
-                communityField.style.height = '0';
-                projectField.style.visibility = 'hidden';
-                projectField.style.height = '0';
-                trainingField.style.visibility = 'hidden';
-                trainingField.style.height = '0';
-            }
-        }
-
-        // Attach the function to all header div's click events
-        let headers = document.querySelectorAll('.advanced-box-header');
-        headers.forEach(header => {
-            header.addEventListener('click', toggleAdvancedBox);
-        });
-    }); */
 
 
     document.getElementById('submit-form').addEventListener('submit', function(event) {
@@ -540,21 +436,7 @@ require_once ("../includes/log-inc.php");
         var plasticFrom = document.getElementById('plastic_from').value.trim();
         displayError('plastic-error-required', plasticFrom === '');
 
-        // 6. Location Full Validation
-//         var locationFull = document.getElementById('location_full').value.trim();
-//         displayError('location-error-required', locationFull === '');
 
-        // 7. Community Name Validation (just check length)
-//         var communityName = document.getElementById('community_name').value.trim();
-//         displayError('community-error-long', communityName.length > 255);
-//
-//         // 8. Project ID Validation (optional)
-//         var projectId = document.getElementById('project_id').value.trim();
-//         displayError('project-error-long', projectId !== '' && isNaN(parseInt(projectId, 10)));
-//
-//         // 9. Training ID Validation (optional)
-//         var trainingId = document.getElementById('training_id').value.trim();
-//         displayError('training-error-long', trainingId !== '' && isNaN(parseInt(trainingId, 10)));
 
         // 10. Brand Name Validation
         var brandName = document.getElementById('brand_name').value.trim();

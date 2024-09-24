@@ -47,19 +47,16 @@ if ($is_logged_in) {
 
     // Fetch communities based on the user's country
     $communities = [];
-    $sql_communities = "SELECT com_name FROM tb_communities WHERE com_country = ?";
+    $sql_communities = "SELECT com_id, com_name FROM tb_communities WHERE com_country = ?";
     $stmt_communities = $gobrik_conn->prepare($sql_communities);
 
     if ($stmt_communities) {
         $stmt_communities->bind_param("s", $user_country_name);
         $stmt_communities->execute();
+        $stmt_communities->bind_result($com_id, $com_name);
 
-        // Bind the result to a variable
-        $stmt_communities->bind_result($com_name);
-
-        // Fetch the results
         while ($stmt_communities->fetch()) {
-            $communities[] = $com_name;
+            $communities[$com_id] = $com_name; // Store both the com_id and com_name for dropdown
         }
         $stmt_communities->close();
     }
@@ -98,7 +95,7 @@ if ($is_logged_in) {
             $sequestration_type = trim($_POST['sequestration_type']);
             $plastic_from = trim($_POST['plastic_from']);
             $brand_name = trim($_POST['brand_name']);
-            $community_selected = trim($_POST['community_select']); // Get the selected community from the form
+            $community_id = (int)trim($_POST['community_select']); // Get the selected community ID
 
             // Background settings
             $owner = $ecobricker_maker;
@@ -119,14 +116,14 @@ if ($is_logged_in) {
 
             // Update SQL and binding to match the fields and values
             $sql = "INSERT INTO tb_ecobricks (
-                ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type, plastic_from, location_full, brand_name, owner, status, universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change, actual_maker_name, brik_notes, date_published_ts, location_country, location_watershed, community
+                ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type, plastic_from, location_full, brand_name, owner, status, universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change, actual_maker_name, brik_notes, date_published_ts, location_country, location_watershed, community_id
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             if ($stmt = $gobrik_conn->prepare($sql)) {
                 error_log("Statement prepared successfully.");
 
-                $stmt->bind_param("issiisssssssdsdsssssss",
-                    $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g, $sequestration_type, $plastic_from, $location_full, $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts, $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts, $location_country, $location_watershed, $community_selected
+                $stmt->bind_param("issiisssssssdsdsssssi",
+                    $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g, $sequestration_type, $plastic_from, $location_full, $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts, $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts, $location_country, $location_watershed, $community_id
                 );
                 error_log("Parameters bound successfully.");
 
@@ -161,6 +158,7 @@ if ($is_logged_in) {
     header('Location: login.php?redirect=' . urlencode($page));
     exit();
 }
+
 
 
 

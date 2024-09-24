@@ -12,7 +12,7 @@ if (isLoggedIn()) {
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.68';
+$version = '0.69';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $is_logged_in = false; // Ensure not logged in for this page
 
@@ -175,7 +175,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <div class="input-container">
             <input type="text" id="location_full" name="location_full" aria-label="Location Full" required style="padding-left:45px;">
             <div id="loading-spinner" class="spinner" style="display: none;"></div>
-            <div id="location-pin" class="spinner">📍</div>
+            <div id="location-pin" class="pin-icon">📍</div>
         </div>
         <p class="form-caption" data-lang-id="011-location-full-caption">Start typing your local area name, and we'll fill in the rest using the open source, non-corporate OpenStreetMap API.</p>
         <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
@@ -185,7 +185,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <input type="hidden" id="lon" name="longitude">
 
     <!-- MAP AND WATERSHED SEARCH SECTION -->
-    <div class="form-item" id="watershed-map-section" style="display: none; margin-top: 20px;">
+    <div class="form-item" id="watershed-map-section" style="display: none;">
         <div id="map" style="height: 400px;border-radius: 15px;"></div>
             <label for="watershed_select" data-lang-id="011-watershed-select">Select Your Local River or Watershed</label><br>
             <select id="watershed_select" name="watershed_select" aria-label="Watershed Select" style="width: 100%; padding: 10px;">

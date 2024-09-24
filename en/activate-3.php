@@ -279,15 +279,16 @@ $(function() {
             $("#watershed-loading-spinner").show();
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(() => {
-                // Overpass API query to search for rivers and watersheds
+                // Overpass API query to search for watersheds and rivers
                 const overpassQuery = `
-                    [out:json];
+                    [out:json][timeout:25];
                     area[name="${request.term}"]->.searchArea;
                     (
-                        way["waterway"="river"](area.searchArea);
-                        relation["waterway"="river"](area.searchArea);
+                        relation["type"="boundary"]["boundary"="water"][name](area.searchArea);  // Prioritizing watersheds
+                        way["waterway"="river"](area.searchArea);                             // Rivers
+                        relation["waterway"="river"](area.searchArea);                        // River relations
                     );
-                    out body; >; out skel qt;`;
+                    out body 10; >; out skel qt 10;`; // Limiting to 10 results
 
                 $.ajax({
                     url: "https://overpass-api.de/api/interpreter",
@@ -296,13 +297,20 @@ $(function() {
                     success: function(data) {
                         $("#watershed-loading-spinner").hide();
                         const elements = data.elements || [];
-                        response($.map(elements, function(item) {
-                            // Parsing the name or identifier of the river/watershed
+                        // Filtering and limiting results to prioritize watersheds first, then rivers
+                        const watersheds = elements.filter(item => item.tags && item.tags.boundary === "water").slice(0, 5);
+                        const rivers = elements.filter(item => item.tags && item.tags.waterway === "river").slice(0, 5);
+
+                        // Merging watersheds first, then rivers, and showing up to 10 results total
+                        const combinedResults = [...watersheds, ...rivers].slice(0, 10);
+
+                        response($.map(combinedResults, function(item) {
                             let name = item.tags && item.tags.name ? item.tags.name : `ID: ${item.id}`;
+                            let type = item.tags.boundary === "water" ? "Watershed" : "River";
                             return {
-                                label: name,
+                                label: `${type}: ${name}`,
                                 value: name,
-                                id: item.id // Additional data can be added here if needed
+                                id: item.id
                             };
                         }));
                     },
@@ -315,8 +323,8 @@ $(function() {
             }, 300);
         },
         select: function(event, ui) {
-            console.log('Selected watershed:', ui.item); // Debugging line
-            // Handle selected watershed if needed in the future
+            console.log('Selected watershed or river:', ui.item); // Debugging line
+            // Handle selected watershed or river if needed in the future
         },
         minLength: 3
     });
@@ -327,7 +335,6 @@ $(function() {
         // Add any additional submit handling if necessary
     });
 });
-
 
 
 </script>

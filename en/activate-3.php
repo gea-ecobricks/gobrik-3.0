@@ -207,6 +207,22 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <p id="country-caption" class="form-caption" style="margin-bottom:-5px;">Showing all countries in </span><?php echo htmlspecialchars($continent['continent_name']); ?></p>
             </div>
 
+        <!--LOCATION FULL-->
+            <div class="form-item">
+                    <label for="location_full" data-lang-id="011-location-full">Where is this ecobrick based?</label><br>
+                    <div class="input-container">
+                        <input type="text" id="location_full" name="location_full" aria-label="Location Full" required style="padding-left:45px;">
+                        <div id="loading-spinner" class="spinner" style="display: none;"></div>
+                    </div>
+                    <p class="form-caption" data-lang-id="011-location-full-caption">Start typing the name of your town or city, and we'll fill in the rest using the open source, non-corporate openstreetmaps API.  Avoid using your exact address for privacy-- just your town, city or country is fine.</p>
+
+                    <!--ERRORS-->
+                    <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
+                </div>
+
+                <input type="hidden" id="lat" name="latitude">
+                <input type="hidden" id="lon" name="longitude">
+
             <!-- WATERSHED -->
             <div class="form-item" id="watershed-select" style="display:none;">
                 <label for="watershed" data-lang-id="014-your-watershed" style="margin-top:10px;">In what river basin do you live?</label><br>
@@ -398,6 +414,62 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Initialize the function on page load
     window.onload = updateCountryCaption;
+
+
+
+
+
+
+    $(function() {
+        let debounceTimer;
+        $("#location_full").autocomplete({
+            source: function(request, response) {
+                $("#loading-spinner").show();
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    $.ajax({
+                        url: "https://nominatim.openstreetmap.org/search",
+                        dataType: "json",
+                        headers: {
+                            'User-Agent': 'ecobricks.org'
+                        },
+                        data: {
+                            q: request.term,
+                            format: "json"
+                        },
+                        success: function(data) {
+                            $("#loading-spinner").hide();
+                            response($.map(data, function(item) {
+                                return {
+                                    label: item.display_name,
+                                    value: item.display_name,
+                                    lat: item.lat,
+                                    lon: item.lon
+                                };
+                            }));
+                        },
+                        error: function(xhr, status, error) {
+                            $("#loading-spinner").hide();
+                            console.error("Autocomplete error:", error);
+                            response([]);
+                        }
+                    });
+                }, 300);
+            },
+            select: function(event, ui) {
+                console.log('Selected location:', ui.item); // Debugging line
+                $('#lat').val(ui.item.lat);
+                $('#lon').val(ui.item.lon);
+            },
+            minLength: 3
+        });
+
+        $('#submit-form').on('submit', function() {
+            console.log('Latitude:', $('#lat').val());
+            console.log('Longitude:', $('#lon').val());
+            // alert('Latitude: ' + $('#lat').val() + ', Longitude: ' + $('#lon').val());
+        });
+    });
 </script>
 
 

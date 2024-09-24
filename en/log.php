@@ -358,17 +358,7 @@ require_once ("../includes/log-inc.php");
                     <div id="plastic-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
                 </div>
 
-                <div class="form-item">
-                    <label for="location_full" data-lang-id="011-location-full">Where is this ecobrick based?</label><br>
-                    <div class="input-container">
-                        <input type="text" id="location_full" name="location_full" aria-label="Location Full" required style="padding-left:45px;">
-                        <div id="loading-spinner" class="spinner" style="display: none;"></div>
-                    </div>
-                    <p class="form-caption" data-lang-id="011-location-full-caption">Start typing the name of your town or city, and we'll fill in the rest using the open source, non-corporate openstreetmaps API.  Avoid using your exact address for privacy-- just your town, city or country is fine.</p>
 
-                    <!--ERRORS-->
-                    <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
-                </div>
 
 
 <!--- ADVANCED turned off -->
@@ -414,11 +404,8 @@ require_once ("../includes/log-inc.php");
                 </div>
 
                 <input type="hidden" id="location_country" name="location_country">
-                <input type="hidden" id="location_region" name="location_region">
-                <input type="hidden" id="location_city" name="location_city">
-                <input type="hidden" id="location_municipality" name="location_municipality">
-                <input type="hidden" id="lat" name="latitude">
-                <input type="hidden" id="lon" name="longitude">
+                <input type="hidden" id="location_full" name="location_full">
+
 
             </form>
 
@@ -554,8 +541,8 @@ require_once ("../includes/log-inc.php");
         displayError('plastic-error-required', plasticFrom === '');
 
         // 6. Location Full Validation
-        var locationFull = document.getElementById('location_full').value.trim();
-        displayError('location-error-required', locationFull === '');
+//         var locationFull = document.getElementById('location_full').value.trim();
+//         displayError('location-error-required', locationFull === '');
 
         // 7. Community Name Validation (just check length)
 //         var communityName = document.getElementById('community_name').value.trim();
@@ -593,56 +580,6 @@ require_once ("../includes/log-inc.php");
     });
 
 
-    $(function() {
-        let debounceTimer;
-        $("#location_full").autocomplete({
-            source: function(request, response) {
-                $("#loading-spinner").show();
-                clearTimeout(debounceTimer);
-                debounceTimer = setTimeout(() => {
-                    $.ajax({
-                        url: "https://nominatim.openstreetmap.org/search",
-                        dataType: "json",
-                        headers: {
-                            'User-Agent': 'ecobricks.org'
-                        },
-                        data: {
-                            q: request.term,
-                            format: "json"
-                        },
-                        success: function(data) {
-                            $("#loading-spinner").hide();
-                            response($.map(data, function(item) {
-                                return {
-                                    label: item.display_name,
-                                    value: item.display_name,
-                                    lat: item.lat,
-                                    lon: item.lon
-                                };
-                            }));
-                        },
-                        error: function(xhr, status, error) {
-                            $("#loading-spinner").hide();
-                            console.error("Autocomplete error:", error);
-                            response([]);
-                        }
-                    });
-                }, 300);
-            },
-            select: function(event, ui) {
-                console.log('Selected location:', ui.item); // Debugging line
-                $('#lat').val(ui.item.lat);
-                $('#lon').val(ui.item.lon);
-            },
-            minLength: 3
-        });
-
-        $('#submit-form').on('submit', function() {
-            console.log('Latitude:', $('#lat').val());
-            console.log('Longitude:', $('#lon').val());
-            // alert('Latitude: ' + $('#lat').val() + ', Longitude: ' + $('#lon').val());
-        });
-    });
 
 
 </script>

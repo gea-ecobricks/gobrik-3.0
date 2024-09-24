@@ -67,10 +67,6 @@ if ($is_logged_in) {
             $weight_g = (int)trim($_POST['weight_g']);
             $sequestration_type = trim($_POST['sequestration_type']);
             $plastic_from = trim($_POST['plastic_from']);
-
-//             $community_name = trim($_POST['community_name']);
-//             $project_id = (int)trim($_POST['project_id']);
-//             $training_id = (int)trim($_POST['training_id']);
             $brand_name = trim($_POST['brand_name']);
 
             // Background settings
@@ -89,6 +85,22 @@ if ($is_logged_in) {
             $location_country = trim(end($location_parts)); // Get the last item and trim whitespace
 
             $location_watershed = $watershed_name;
+
+            // Fetch communities based on the user's country
+            $communities = [];
+            $sql_communities = "SELECT com_name FROM tb_communities WHERE com_country = ?";
+            $stmt_communities = $gobrik_conn->prepare($sql_communities);
+
+            if ($stmt_communities) {
+                $stmt_communities->bind_param("s", $user_country_name);
+                $stmt_communities->execute();
+                $result_communities = $stmt_communities->get_result();
+
+                while ($row = $result_communities->fetch_assoc()) {
+                    $communities[] = $row['com_name'];
+                }
+                $stmt_communities->close();
+            }
 
 
             // Update SQL and binding to match the fields and values
@@ -356,6 +368,20 @@ require_once ("../includes/log-inc.php");
 
                     <!--ERRORS-->
                     <div id="plastic-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
+                </div>
+
+                 <!-- Community Selection -->
+                <div class="form-item">
+                    <label for="community_select">Select Your Community:</label><br>
+                    <select id="community_select" name="community_select" required>
+                        <option value="" disabled selected>Select a community...</option>
+                        <?php foreach ($communities as $community): ?>
+                            <option value="<?= htmlspecialchars($community, ENT_QUOTES); ?>">
+                                <?= htmlspecialchars($community, ENT_QUOTES); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                    <p class="form-caption">Select your community from the list based on your country.</p>
                 </div>
 
                 <div data-lang-id="016-submit-button" style="margin:auto;text-align: center;margin-top:30px;">

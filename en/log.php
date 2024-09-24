@@ -29,7 +29,8 @@ if ($is_logged_in) {
 
     // Fetch the user's continent icon
     $country_icon = getUserContinent($buwana_conn, $buwana_id);
-    $watershed_name = getWatershedName($buwana_conn, $buwana_id, $lang); // Corrected to include the $lang parameter
+    $watershed_name = getWatershedName($buwana_conn, $buwana_id, $lang);
+    $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
 
 
 
@@ -66,9 +67,7 @@ if ($is_logged_in) {
             $weight_g = (int)trim($_POST['weight_g']);
             $sequestration_type = trim($_POST['sequestration_type']);
             $plastic_from = trim($_POST['plastic_from']);
-            $location_full = $_POST['location_full'] ?? 'Default Location';
-            $latitude = (double)$_POST['latitude'];
-            $longitude = (double)$_POST['longitude'];
+
             $community_name = trim($_POST['community_name']);
             $project_id = (int)trim($_POST['project_id']);
             $training_id = (int)trim($_POST['training_id']);
@@ -85,6 +84,7 @@ if ($is_logged_in) {
             $actual_maker_name = $ecobricker_maker;
 
               // Determine the location_country from location_full
+            $location_full = $location_full ?? 'Default Location';
             $location_parts = explode(',', $location_full);
             $location_country = trim(end($location_parts)); // Get the last item and trim whitespace
 
@@ -93,14 +93,14 @@ if ($is_logged_in) {
 
             // Update SQL and binding to match the fields and values
             $sql = "INSERT INTO tb_ecobricks (
-                ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type, plastic_from, location_full, location_lat, location_long, community_name, project_id, training_id, brand_name, owner, status, universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change, actual_maker_name, brik_notes, date_published_ts, location_country, location_watershed
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type, plastic_from, location_full, community_name, project_id, training_id, brand_name, owner, status, universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change, actual_maker_name, brik_notes, date_published_ts, location_country, location_watershed
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             if ($stmt = $gobrik_conn->prepare($sql)) {
                 error_log("Statement prepared successfully.");
 
-                $stmt->bind_param("issiisssddssiisssdsdssssss",
-                    $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g, $sequestration_type, $plastic_from, $location_full, $latitude, $longitude, $community_name, $project_id, $training_id, $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts, $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts, $location_country, $location_watershed
+                $stmt->bind_param("issiisssssiisssdsdssssss",
+                    $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g, $sequestration_type, $plastic_from, $location_full, $community_name, $project_id, $training_id, $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts, $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts, $location_country, $location_watershed
                 );
                 error_log("Parameters bound successfully.");
 

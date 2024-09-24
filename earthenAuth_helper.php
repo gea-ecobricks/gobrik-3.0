@@ -93,6 +93,30 @@ function getWatershedName($buwana_conn, $buwana_id, $lang) {
     return $watershed_name;
 }
 
+function getUserFullLocation($buwana_conn, $buwana_id) {
+    $location_full = '';
+
+    // Query to get the user's full location from the users_tb table
+    $sql_location = "SELECT location_full FROM users_tb WHERE buwana_id = ?";
+    $stmt_location = $buwana_conn->prepare($sql_location);
+
+    if ($stmt_location) {
+        $stmt_location->bind_param('i', $buwana_id);
+        if ($stmt_location->execute()) {
+            $stmt_location->bind_result($location_full);
+            $stmt_location->fetch();
+            $stmt_location->close();
+        }
+    }
+
+    // If $location_full is still empty or null, set a default value
+    if (empty($location_full)) {
+        $location_full = 'Unknown Location'; // Default value if no valid location is found
+    }
+
+    return $location_full;
+}
+
 
 
 function getUserContinent($buwana_conn, $buwana_id) {

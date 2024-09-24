@@ -165,33 +165,42 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <!-- ACTIVATE 3 FORM -->
 
-        <form id="user-info-form" method="post" action="activate-3.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
+       <form id="user-info-form" method="post" action="activate-3.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
 
+    <!-- LOCATION FULL -->
+    <div class="form-item">
+        <label for="location_full" data-lang-id="011-location-full">What is your local area?</label><br>
+        <div class="input-container">
+            <input type="text" id="location_full" name="location_full" aria-label="Location Full" required style="padding-left:45px;">
+            <div id="loading-spinner" class="spinner" style="display: none;"></div>
+        </div>
+        <p class="form-caption" data-lang-id="011-location-full-caption">Start typing your local area name, and we'll fill in the rest using the open source, non-corporate OpenStreetMap API.</p>
 
+        <!-- ERRORS -->
+        <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
+    </div>
 
-        <!--LOCATION FULL-->
-            <div class="form-item">
-                    <label for="location_full" data-lang-id="011-location-full">What is your local area?</label><br>
-                    <div class="input-container">
-                        <input type="text" id="location_full" name="location_full" aria-label="Location Full" required style="padding-left:45px;">
-                        <div id="loading-spinner" class="spinner" style="display: none;"></div>
-                    </div>
-                    <p class="form-caption" data-lang-id="011-location-full-caption">Start typing your local area name, and we'll fill in the rest using the open source, non-corporate openstreetmaps API.</p>
+    <input type="hidden" id="lat" name="latitude">
+    <input type="hidden" id="lon" name="longitude">
 
-                    <!--ERRORS-->
-                    <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
-                </div>
+    <!-- WATERSHED SEARCH -->
+    <div class="form-item" id="watershed-search-section" style="display: none;">
+        <label for="watershed_search" data-lang-id="011-watershed-search">Find Your Local Watershed</label><br>
+        <div class="input-container">
+            <input type="text" id="watershed_search" name="watershed_search" aria-label="Watershed Search" style="padding-left:45px;">
+            <div id="watershed-loading-spinner" class="spinner" style="display: none;"></div>
+        </div>
+        <p class="form-caption" data-lang-id="011-watershed-caption">Type in your local river or watershed to find official names using the HydroShare API.</p>
+        <div id="watershed-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
+    </div>
 
-                <input type="hidden" id="lat" name="latitude">
-                <input type="hidden" id="lon" name="longitude">
+    <!-- SUBMIT SECTION -->
+    <div id="submit-section" style="text-align:center;margin-top:25px;display:none;" data-lang-id="016-submit-complete-button">
+        <input type="submit" id="submit-button" value="Complete Setup" class="submit-button enabled">
+    </div>
 
+</form>
 
-
-            <div id="submit-section" style="text-align:center;margin-top:25px;display:none;" data-lang-id="016-submit-complete-button">
-                <input type="submit" id="submit-button" value="Complete Setup" class="submit-button enabled">
-            </div>
-
-        </form>
 
     </div>
 </div>
@@ -247,8 +256,9 @@ $(function() {
             $('#lat').val(ui.item.lat);
             $('#lon').val(ui.item.lon);
 
-            // Show the submit button when a location is selected
+            // Show the submit button and the watershed search when location is selected
             showSubmitButton();
+            showWatershedSearch();
         },
         minLength: 3
     });
@@ -258,12 +268,56 @@ $(function() {
         $('#submit-section').fadeIn(); // Smoothly shows the submit button section
     }
 
+    // Function to show the watershed search field
+    function showWatershedSearch() {
+        $('#watershed-search-section').fadeIn(); // Smoothly shows the watershed search field
+    }
+
+    // Watershed search function using HydroShare API
+    $('#watershed_search').autocomplete({
+        source: function(request, response) {
+            $("#watershed-loading-spinner").show();
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                $.ajax({
+                    url: "https://www.hydroshare.org/hsapi/resource/", // Example API endpoint (adjust if needed)
+                    dataType: "json",
+                    data: {
+                        q: request.term, // Query parameter for the HydroShare search
+                        format: "json"
+                    },
+                    success: function(data) {
+                        $("#watershed-loading-spinner").hide();
+                        response($.map(data.results, function(item) { // Adjust based on HydroShare response structure
+                            return {
+                                label: item.title, // Assuming the watershed title is in 'title'
+                                value: item.title,
+                                id: item.id // Additional data can be added here if needed
+                            };
+                        }));
+                    },
+                    error: function(xhr, status, error) {
+                        $("#watershed-loading-spinner").hide();
+                        console.error("HydroShare autocomplete error:", error);
+                        response([]);
+                    }
+                });
+            }, 300);
+        },
+        select: function(event, ui) {
+            console.log('Selected watershed:', ui.item); // Debugging line
+            // Handle selected watershed if needed in the future
+        },
+        minLength: 3
+    });
+
     $('#user-info-form').on('submit', function() {
         console.log('Latitude:', $('#lat').val());
         console.log('Longitude:', $('#lon').val());
         // Add any additional submit handling if necessary
     });
 });
+
 
 </script>
 

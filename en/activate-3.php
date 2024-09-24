@@ -217,8 +217,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <script>
 $(function() {
     let debounceTimer;
-
-    // Autocomplete for location_full using OpenStreetMap
     $("#location_full").autocomplete({
         source: function(request, response) {
             $("#loading-spinner").show();
@@ -260,7 +258,7 @@ $(function() {
 
             // Show the submit button and the watershed search when location is selected
             showSubmitButton();
-            showWatershedSearch(ui.item.lat, ui.item.lon);
+            showWatershedSearch();
         },
         minLength: 3
     });
@@ -270,56 +268,58 @@ $(function() {
         $('#submit-section').fadeIn(); // Smoothly shows the submit button section
     }
 
-    // Function to show the watershed search field and automatically search for rivers
-    function showWatershedSearch(lat, lon) {
+    // Function to show the watershed search field
+    function showWatershedSearch() {
         $('#watershed-search-section').fadeIn(); // Smoothly shows the watershed search field
-
-        // Automatically fetch rivers using the Overpass API based on selected location
-        fetchRiversFromOverpass(lat, lon);
     }
 
-    // Function to fetch rivers using the Overpass API
-    function fetchRiversFromOverpass(lat, lon) {
-        $("#watershed-loading-spinner").show();
+    // Watershed search function using Overpass API
+    $('#watershed_search').autocomplete({
+        source: function(request, response) {
+            $("#watershed-loading-spinner").show();
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                // Overpass API query to search for rivers and watersheds
+                const overpassQuery = `
+                    [out:json];
+                    area[name="${request.term}"]->.searchArea;
+                    (
+                        way["waterway"="river"](area.searchArea);
+                        relation["waterway"="river"](area.searchArea);
+                    );
+                    out body; >; out skel qt;`;
 
-        // Construct Overpass API query to search for waterway features near the selected location
-        const overpassQuery = `
-            [out:json];
-            (
-              node["waterway"="river"](around:5000, ${lat}, ${lon});
-              way["waterway"="river"](around:5000, ${lat}, ${lon});
-              relation["waterway"="river"](around:5000, ${lat}, ${lon});
-            );
-            out body 10;`; // Limit results to 10 rivers
-
-        $.ajax({
-            url: "https://overpass-api.de/api/interpreter",
-            type: "POST",
-            data: { data: overpassQuery },
-            success: function(data) {
-                $("#watershed-loading-spinner").hide();
-
-                // Process Overpass API response to show up to 10 river choices
-                const riverChoices = data.elements.map(item => {
-                    let riverName = item.tags.name || 'Unnamed River';
-                    return {
-                        label: riverName,
-                        value: riverName
-                    };
+                $.ajax({
+                    url: "https://overpass-api.de/api/interpreter",
+                    type: "POST",
+                    data: overpassQuery,
+                    success: function(data) {
+                        $("#watershed-loading-spinner").hide();
+                        const elements = data.elements || [];
+                        response($.map(elements, function(item) {
+                            // Parsing the name or identifier of the river/watershed
+                            let name = item.tags && item.tags.name ? item.tags.name : `ID: ${item.id}`;
+                            return {
+                                label: name,
+                                value: name,
+                                id: item.id // Additional data can be added here if needed
+                            };
+                        }));
+                    },
+                    error: function(xhr, status, error) {
+                        $("#watershed-loading-spinner").hide();
+                        console.error("Overpass API error:", error);
+                        response([]);
+                    }
                 });
-
-                // Show results in the autocomplete field for watershed search
-                $("#watershed_search").autocomplete({
-                    source: riverChoices.slice(0, 10), // Show only the first 10 results
-                    minLength: 0 // Allow showing suggestions immediately
-                }).focus(); // Focus on the input to show suggestions
-            },
-            error: function(xhr, status, error) {
-                $("#watershed-loading-spinner").hide();
-                console.error("Overpass API error:", error);
-            }
-        });
-    }
+            }, 300);
+        },
+        select: function(event, ui) {
+            console.log('Selected watershed:', ui.item); // Debugging line
+            // Handle selected watershed if needed in the future
+        },
+        minLength: 3
+    });
 
     $('#user-info-form').on('submit', function() {
         console.log('Latitude:', $('#lat').val());
@@ -327,6 +327,7 @@ $(function() {
         // Add any additional submit handling if necessary
     });
 });
+
 
 
 </script>

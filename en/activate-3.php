@@ -160,8 +160,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
-            <div id="status-message"><?php echo htmlspecialchars($first_name); ?>, <span data-lang-id="012-status-heading">your password is set! Now let's get you localized.</span></div>
-            <div id="sub-status-message" data-lang-id="013-sub-status-tell" style="font-size:1.3em;padding-top:10px;padding-bottom:10px;">Your new Buwana and GoBrik account is all about local and global ecological action. Please tell us about where you live...</div>
+            <p style="color:green;">✔ <?php echo htmlspecialchars($first_name); ?>, your password is set!</p>
+            <div id="status-message"><span data-lang-id="012-status-heading2"> Now let's get you localized.</span></div>
+            <div id="sub-status-message" data-lang-id="013-sub-status-tell" style="font-size:1.3em;padding-top:10px;padding-bottom:10px;">GoBrik is all about ecological action. Please help us determine your ecological zone:  the water shed or riverbasin where you live.</div>
         </div>
 
         <!-- ACTIVATE 3 FORM -->

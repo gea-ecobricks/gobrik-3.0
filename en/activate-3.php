@@ -186,13 +186,13 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     <!-- MAP AND WATERSHED SEARCH SECTION -->
     <div class="form-item" id="watershed-map-section" style="display: none;">
-        <div id="map" style="height: 400px;border-radius: 15px;"></div>
             <label for="watershed_select" data-lang-id="011-watershed-select">Select Your Local River or Watershed</label><br>
             <select id="watershed_select" name="watershed_select" aria-label="Watershed Select" style="width: 100%; padding: 10px;">
                 <option value="" disabled selected>Select a river or watershed</option>
             </select>
-        </div>
+            <div id="map" style="height: 350px;border-radius: 15px; margin-top:10px;"></div>
     </div>
+
 
     <!-- SUBMIT SECTION -->
     <div id="submit-section" style="text-align:center;margin-top:25px;display:none;" data-lang-id="016-submit-complete-button">

@@ -131,3 +131,133 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Close the Buwana database connection after all operations are done
 $buwana_conn->close();
 ?>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="<?php echo $lang; ?>">
+<head>
+<meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!--
+GoBrik.com site version 3.0
+Developed and made open source by the Global Ecobrick Alliance
+See our git hub repository for the full code and to help out:
+https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
+
+<?php require_once ("../includes/signup-inc.php");?>
+
+<div class="splash-title-block"></div>
+<div id="splash-bar"></div>
+
+<!-- PAGE CONTENT -->
+<div id="top-page-image" class="welcome-casandra top-page-image"></div>
+
+<div id="form-submission-box" class="landing-page-form">
+    <div class="form-container">
+        <div style="text-align:center;width:100%;margin:auto;">
+            <div id="status-message"><?php echo htmlspecialchars($first_name); ?>, <span data-lang-id="012-status-heading">your password is set! Now let's get you localized.</span></div>
+            <div id="sub-status-message" data-lang-id="013-sub-status-tell" style="font-size:1.3em;padding-top:10px;padding-bottom:10px;">Your new Buwana and GoBrik account is all about local and global ecological action. Please tell us about where you live...</div>
+        </div>
+
+        <!-- ACTIVATE 3 FORM -->
+
+        <form id="user-info-form" method="post" action="activate-3.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
+
+
+
+        <!--LOCATION FULL-->
+            <div class="form-item">
+                    <label for="location_full" data-lang-id="011-location-full">What is your local area?</label><br>
+                    <div class="input-container">
+                        <input type="text" id="location_full" name="location_full" aria-label="Location Full" required style="padding-left:45px;">
+                        <div id="loading-spinner" class="spinner" style="display: none;"></div>
+                    </div>
+                    <p class="form-caption" data-lang-id="011-location-full-caption">Start typing your local area name, and we'll fill in the rest using the open source, non-corporate openstreetmaps API.</p>
+
+                    <!--ERRORS-->
+                    <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
+                </div>
+
+                <input type="hidden" id="lat" name="latitude">
+                <input type="hidden" id="lon" name="longitude">
+
+
+
+            <div id="submit-section" style="text-align:center;margin-top:25px;display:none;" data-lang-id="016-submit-complete-button">
+                <input type="submit" id="submit-button" value="Complete Setup" class="submit-button enabled">
+            </div>
+
+        </form>
+
+    </div>
+</div>
+</div>
+<!-- FOOTER STARTS HERE -->
+<?php require_once ("../footer-2024.php"); ?>
+
+
+
+<script>
+
+    $(function() {
+        let debounceTimer;
+        $("#location_full").autocomplete({
+            source: function(request, response) {
+                $("#loading-spinner").show();
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    $.ajax({
+                        url: "https://nominatim.openstreetmap.org/search",
+                        dataType: "json",
+                        headers: {
+                            'User-Agent': 'ecobricks.org'
+                        },
+                        data: {
+                            q: request.term,
+                            format: "json"
+                        },
+                        success: function(data) {
+                            $("#loading-spinner").hide();
+                            response($.map(data, function(item) {
+                                return {
+                                    label: item.display_name,
+                                    value: item.display_name,
+                                    lat: item.lat,
+                                    lon: item.lon
+                                };
+                            }));
+                        },
+                        error: function(xhr, status, error) {
+                            $("#loading-spinner").hide();
+                            console.error("Autocomplete error:", error);
+                            response([]);
+                        }
+                    });
+                }, 300);
+            },
+            select: function(event, ui) {
+                console.log('Selected location:', ui.item); // Debugging line
+                $('#lat').val(ui.item.lat);
+                $('#lon').val(ui.item.lon);
+            },
+            minLength: 3
+        });
+
+        $('#submit-form').on('submit', function() {
+            console.log('Latitude:', $('#lat').val());
+            console.log('Longitude:', $('#lon').val());
+            // alert('Latitude: ' + $('#lat').val() + ', Longitude: ' + $('#lon').val());
+        });
+    });
+</script>
+
+
+
+
+
+</body>
+</html>

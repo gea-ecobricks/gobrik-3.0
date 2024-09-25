@@ -395,19 +395,20 @@ require_once ("../includes/log-inc.php");
                     <div id="plastic-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
                 </div>
 
-                 <!-- Community Selection -->
+                <!-- Community Selection -->
                 <div class="form-item">
                     <label for="community_select">Select Your Community:</label><br>
                     <select id="community_select" name="community_select" required>
                         <option value="" disabled selected>Select a community...</option>
-                        <?php foreach ($communities as $community): ?>
-                            <option value="<?= htmlspecialchars($community, ENT_QUOTES); ?>">
-                                <?= htmlspecialchars($community, ENT_QUOTES); ?>
+                        <?php foreach ($communities as $com_id => $com_name): ?>
+                            <option value="<?= htmlspecialchars($com_id, ENT_QUOTES); ?>">
+                                <?= htmlspecialchars($com_name, ENT_QUOTES); ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
                     <p class="form-caption">Select your community from the list based on your country.</p>
                 </div>
+
 
                 <div data-lang-id="016-submit-button" style="margin:auto;text-align: center;margin-top:30px;">
                     <input type="submit" class="submit-button enabled" value="Next: Density Check" aria-label="Submit Form">

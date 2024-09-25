@@ -271,7 +271,7 @@ echo '<!DOCTYPE html>
                         </div>
                         <label for="selfie_photo_main" data-lang-id="027-label-selfie">Upload an ecobrick selfie:</label><br>
                         <ol style="text-align:left;">
-                            <li data-lang-id="028-selfie-photo-step-1">Be sure your photo is a horizontal landscape</li>
+                            <li data-lang-id="028-selfie-photo-step-1">Be sure your photo is a vertical portrait photo</li>
                             <li data-lang-id="029-selfie-photo-step-2">Be sure your photo shows the serial & weight clearly</li>
                             <li data-lang-id="030-selfie-photo-step-3">Be sure your photo shows your ecobricks bottom color</li>
                             <li data-lang-id="031-selfie-photo-step-4">Be sure your photo shows your ecobricks top</li>

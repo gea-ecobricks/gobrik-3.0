@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.5';
+$version = '0.51';
 $page = 'log-2';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -230,8 +230,8 @@ echo '<!DOCTYPE html>
                     <select id="photo-options" name="photo-options" required>
                         <option value="" disabled selected data-lang-id="015-photo-options-option-1">Select one...</option>
                         <option value="basic" data-lang-id="016-photo-options-option-2">A basic ecobrick photo</option>
-                        <option value="selfie" data-lang-id="017-photo-options-option-3">A selfie photo</option>
-                        <option value="both" data-lang-id="018-photo-options-option-4">A basic photo and a selfie photo</option>
+<!--                        <option value="selfie" data-lang-id="017-photo-options-option-3">A selfie photo</option>
+-->                        <option value="both" data-lang-id="018-photo-options-option-4">A basic photo and a selfie photo</option>
                     </select>
                 </div>
 

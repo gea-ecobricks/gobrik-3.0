@@ -27,12 +27,8 @@ $is_logged_in = isLoggedIn();// Check if the user is logged in using the helper 
     require_once '../gobrikconn_env.php';
     require_once '../buwanaconn_env.php';
 
-    // Fetch the user's continent icon
-    $country_icon = getUserContinent($buwana_conn, $buwana_id);
-    $watershed_name = getWatershedName($buwana_conn, $buwana_id, $lang);
-
-
-    // Fetch the user's first name from the database
+    $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
+    $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
     $first_name = getUserFirstName($buwana_conn, $buwana_id);
 
     // Fetch user details from the GoBrik database

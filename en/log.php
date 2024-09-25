@@ -110,10 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $location_full = $user_location_full ?? 'Default Location';
         $location_watershed = $user_location_watershed;
 
-        // Ensure $country_id is set from the earlier code where it's fetched from users_tb
-        // If $country_id wasn't previously fetched correctly, this line will not resolve that
-        $country_id = $country_id; // If $country_id is already set, this is okay
-
+        // country_id has already been fetched correctly, no need to set it again
         // Update SQL and binding to match the fields and values, including country_id
         $sql = "INSERT INTO tb_ecobricks (
             ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type,
@@ -155,6 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             error_log("Prepare failed: " . $gobrik_conn->error);
             echo "Prepare failed: " . $gobrik_conn->error;
         }
+
 
         if ($gobrik_conn) $gobrik_conn->close();
     } catch (Exception $e) {

@@ -14,7 +14,6 @@ $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 // Initialize user variables
 $first_name = '';
 $buwana_id = '';
-$country_icon = '';
 $watershed_id = '';
 $location_watershed = '';
 $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
@@ -27,12 +26,12 @@ if ($is_logged_in) {
     require_once '../gobrikconn_env.php';
     require_once '../buwanaconn_env.php';
 
-    // Fetch the user's continent icon
+    // Fetch the user's continent icon from Buwana
     $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
     $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
     $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
 
-    // Fetch the user's country name
+    // Fetch the user's country name from Buwana
     $sql_country_name = "SELECT country_name FROM countries_tb WHERE country_id = (SELECT country_id FROM users_tb WHERE buwana_id = ?)";
     $stmt_country_name = $buwana_conn->prepare($sql_country_name);
     $user_country_name = '';
@@ -117,7 +116,7 @@ if ($is_logged_in) {
             // Update SQL and binding to match the fields and values
             $sql = "INSERT INTO tb_ecobricks (
                 ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type, plastic_from, location_full, brand_name, owner, status, universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change, actual_maker_name, brik_notes, date_published_ts, location_country, location_watershed, community_id
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             if ($stmt = $gobrik_conn->prepare($sql)) {
                 error_log("Statement prepared successfully.");

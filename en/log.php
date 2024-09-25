@@ -116,19 +116,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type,
             plastic_from, location_full, brand_name, owner, status, universal_volume_ml, density,
             date_logged_ts, CO2_kg, last_ownership_change, actual_maker_name, brik_notes, date_published_ts,
-            location_country, location_watershed, community_id, country_id
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            location_watershed, community_id, country_id
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         if ($stmt = $gobrik_conn->prepare($sql)) {
             error_log("Statement prepared successfully.");
 
             // Bind parameters including the country_id
             $stmt->bind_param(
-                "issiisssssssdsdssssiii",
+                "issiisssssssdsdsssssii",
                 $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g,
                 $sequestration_type, $plastic_from, $location_full, $brand_name, $owner, $status,
                 $universal_volume_ml, $density, $date_logged_ts, $CO2_kg, $last_ownership_change,
-                $actual_maker_name, $brik_notes, $date_published_ts, $location_country,
+                $actual_maker_name, $brik_notes, $date_published_ts,
                 $location_watershed, $community_id, $country_id
             );
 

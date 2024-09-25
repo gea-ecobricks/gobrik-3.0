@@ -60,7 +60,7 @@ if ($is_logged_in) {
         $stmt_communities->close();
     }
 
- // PART 3: POST ECOBRICK DATA to GOBRIK DATABASE
+  // PART 3: POST ECOBRICK DATA to GOBRIK DATABASE
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Function to set serial number and ecobrick_unique_id
     function setSerialNumber($gobrik_conn) {
@@ -162,6 +162,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         error_log("Error: " . $e->getMessage());
         echo "Error: " . $e->getMessage() . "<br>";
     }
+}
+
+
+
+} else {
+    // Redirect to login page with the redirect parameter set to the current page
+    header('Location: login.php?redirect=' . urlencode($page));
+    exit();
 }
 
 

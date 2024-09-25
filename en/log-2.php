@@ -460,27 +460,26 @@ function showFormModal(message) {
 </script>
 
 <script>
-    // Function to show the density confirmation modal
-    function showDensityConfirmation(density, volume, weight) {
-        const modal = document.getElementById('form-modal-message');
-        const messageContainer = modal.querySelector('.modal-message');
+  // Function to show the density confirmation modal
+function showDensityConfirmation(density, volume, weight) {
+    const modal = document.getElementById('form-modal-message');
+    const messageContainer = modal.querySelector('.modal-message');
 
-        // Hide all buttons with class "x-button"
-        toggleButtonsVisibility(false);
+    // Hide all buttons with class "x-button"
+    toggleButtonsVisibility(false);
 
-        // Generate content for the modal
-        const content = generateModalContent(density, volume, weight, '<?php echo ($lang); ?>'); // For French
+    // Pass the language and ecobrick ID into the generateModalContent function
+    const content = generateModalContent(density, volume, weight, '<?php echo ($lang); ?>', '<?php echo $ecobrick_unique_id; ?>');
 
+    // Update modal content
+    messageContainer.innerHTML = content;
 
-        // Update modal content
-        messageContainer.innerHTML = content;
+    // Show the modal
+    modal.style.display = 'flex';
+}
 
-        // Show the modal
-        modal.style.display = 'flex';
-    }
-
-   // Function to generate modal content based on density
-function generateModalContent(density, volume, weight, lang) {
+// Function to generate modal content based on density
+function generateModalContent(density, volume, weight, lang, ecobrickId) {
     // Determine the translation object based on the selected language
     const translations = lang === 'fr' ? fr_Page_Translations :
                          lang === 'es' ? es_Page_Translations :
@@ -489,15 +488,15 @@ function generateModalContent(density, volume, weight, lang) {
 
     if (density < 0.33) {
         return `
-            <h1>⛔</h1>
-            <h4>${translations.underDensityTitle}</h4>
+            <h1 style="text-align:center;">⛔</h1>
+            <h2 style="text-align:center;">${translations.underDensityTitle}</h2>
             <p>${translations.underDensityMessage.replace('${density}', density)}</p>
-            <a class="preview-btn" href="/what">${translations.geaStandardsLinkText}</a>
+            <a class="preview-btn" href="log.php?retry=${ecobrickId}">${translations.geaStandardsLinkText}</a>
         `;
     } else if (density >= 0.33 && density < 0.36) {
         return `
             <h1 style="text-align:center;">⚠️</h1>
-            <h2 style="text-align:center;">${translations.lowDensityTitle}</h4>
+            <h2 style="text-align:center;">${translations.lowDensityTitle}</h2>
             <p>${translations.lowDensityMessage.replace('${density}', density)}</p>
             <a class="preview-btn" onclick="closeDensityModal()" aria-label="Click to close modal">${translations.nextRegisterSerial}</a>
         `;

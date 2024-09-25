@@ -267,7 +267,7 @@ echo '<!DOCTYPE html>
                 <div class="form-item" id="selfie-photo" style="display: none;">
                     <div style="max-width:500px;margin:auto;">
                         <div style="text-align:center;">
-                            <img src="../svgs/selfie.svg?v=2" style="height:240px;margin-bottom:15px;max-width:95%;">
+                            <img src="../svgs/selfie-vertical.svg?v=2" style="height:240px;margin-bottom:15px;max-width:95%;">
                         </div>
                         <label for="selfie_photo_main" data-lang-id="027-label-selfie">Upload an ecobrick selfie:</label><br>
                         <ol style="text-align:left;">

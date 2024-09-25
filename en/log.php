@@ -28,7 +28,7 @@ if ($is_logged_in) {
     require_once '../buwanaconn_env.php';
 
     // Fetch the user's continent icon
-    $country_icon = getUserContinent($buwana_conn, $buwana_id);
+    $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
     $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
     $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
 

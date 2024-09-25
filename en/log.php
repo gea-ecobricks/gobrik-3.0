@@ -60,7 +60,7 @@ if ($is_logged_in) {
         $stmt_communities->close();
     }
 
-   // PART 3: POST ECOBRICK DATA to GOBRIK DATABASE
+ // PART 3: POST ECOBRICK DATA to GOBRIK DATABASE
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Function to set serial number and ecobrick_unique_id
     function setSerialNumber($gobrik_conn) {
@@ -96,6 +96,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $brand_name = trim($_POST['brand_name']);
         $community_id = (int)trim($_POST['community_select']); // Get the selected community ID
 
+        // Debugging output to check the community_id value
+        error_log("Community ID: " . $community_id);
+
         // Background settings
         $owner = $ecobricker_maker;
         $status = "not ready";
@@ -110,8 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $location_full = $user_location_full ?? 'Default Location';
         $location_watershed = $user_location_watershed;
 
-        // country_id has already been fetched correctly, no need to set it again
-        // Update SQL and binding to match the fields and values, including country_id
+        // Prepare the SQL statement
         $sql = "INSERT INTO tb_ecobricks (
             ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type,
             plastic_from, location_full, brand_name, owner, status, universal_volume_ml, density,
@@ -137,7 +139,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($stmt->execute()) {
                 error_log("Statement executed successfully.");
 
+                // Close the statement after execution
                 $stmt->close();
+
+                // Close the connection
                 $gobrik_conn->close();
 
                 // Redirect to log-2.php with the correct ecobrick_unique_id
@@ -146,26 +151,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 error_log("Error executing statement: " . $stmt->error);
                 echo "Error: " . $stmt->error . "<br>";
             }
-
-            if ($stmt) $stmt->close();
         } else {
             error_log("Prepare failed: " . $gobrik_conn->error);
             echo "Prepare failed: " . $gobrik_conn->error;
         }
 
-
+        // Close the connection only once
         if ($gobrik_conn) $gobrik_conn->close();
     } catch (Exception $e) {
         error_log("Error: " . $e->getMessage());
         echo "Error: " . $e->getMessage() . "<br>";
     }
-}
-
-
-} else {
-    // Redirect to login page with the redirect parameter set to the current page
-    header('Location: login.php?redirect=' . urlencode($page));
-    exit();
 }
 
 

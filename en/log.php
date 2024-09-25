@@ -16,7 +16,7 @@ $first_name = '';
 $buwana_id = '';
 $country_icon = '';
 $watershed_id = '';
-$watershed_name = '';
+$location_watershed = '';
 $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 
 // PART 2: Check if user is logged in and session active
@@ -29,7 +29,7 @@ if ($is_logged_in) {
 
     // Fetch the user's continent icon
     $country_icon = getUserContinent($buwana_conn, $buwana_id);
-    $watershed_name = getWatershedName($buwana_conn, $buwana_id, $lang);
+    $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
     $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
 
     // Fetch the user's country name
@@ -112,7 +112,7 @@ if ($is_logged_in) {
             $location_parts = explode(',', $location_full);
             $location_country = trim(end($location_parts)); // Get the last item and trim whitespace
 
-            $location_watershed = $watershed_name;
+            $location_watershed = $user_watershed_name;
 
             // Update SQL and binding to match the fields and values
             $sql = "INSERT INTO tb_ecobricks (

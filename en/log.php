@@ -112,7 +112,7 @@ if ($is_logged_in) {
             $location_parts = explode(',', $location_full);
             $location_country = trim(end($location_parts)); // Get the last item and trim whitespace
 
-            $location_watershed = $user_watershed_name;
+            $location_watershed = $user_location_watershed;
 
             // Update SQL and binding to match the fields and values
             $sql = "INSERT INTO tb_ecobricks (

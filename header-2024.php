@@ -355,13 +355,13 @@ display: none;
       <div class="menu-page-item" style="display: flex; flex-direction: column; align-items: flex-start; padding-bottom: 46px; cursor:unset;">
         <div style="width:100%; display: flex; align-items: center;">
           <div style="color: var(--text-color); margin-left: 0px;">
-              <span id="continent-icon"><?php echo htmlspecialchars($user_continent_icon); ?> </span> <span><?php echo htmlspecialchars($first_name); ?></span>
+              <span data-lang-id="1000-logged-in-as">Logged in as</span> <span><?php echo htmlspecialchars($first_name); ?></span>
 
           </div>
         </div>
 
         <div class="logged-in-links" style="width:100%; font-size: 0.8em; margin-top: 5px; text-align: left;">
-           <p style="font-size:0.9em; margin:0px;"> <span style="color:green;"><?php echo htmlspecialchars($user_location_watershed); ?></span></p>
+           <p style="font-size:0.9em; margin:0px;"><span id="continent-icon"><?php echo htmlspecialchars($user_continent_icon); ?> </span> <span style="color:green;"><?php echo htmlspecialchars($user_location_watershed); ?></span></p>
            <p style="font-size:0.9em; margin:0px;">⚙️ <a href="profile.php" class="underline-link" data-lang-id="1000-profile-settings">Profile settings</a> |
           🐳 <a href="logout.php?redirect=<?php echo urlencode($page); ?>" class="underline-link" onclick="handleLogout(event)" data-lang-id="1000-log-out">Log out</a></p>
         </div>

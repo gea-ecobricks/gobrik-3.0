@@ -184,7 +184,6 @@ function checkEarthenEmailStatus($email) {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <?php require_once ("../includes/signup-inc.php");?>
-
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
 
@@ -195,7 +194,9 @@ function checkEarthenEmailStatus($email) {
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
             <h2 data-lang-id="001-setup-access-heading">Select Earthen Subscriptions</h2>
-            <p>In order to keep in touch with you <?php echo $first_name; ?>, <span data-lang-id="002-setup-access-heading-a">we've developed some exciting newsletters on our Earthen newsletter platform and can send them to <?php echo $credential_key; ?>.</span></p>
+            <p>In order to keep in touch with you <?php echo $first_name; ?>,
+                <span data-lang-id="002-setup-access-heading-a">we've developed some exciting newsletters on our Earthen newsletter platform and can send them to <?php echo $credential_key; ?>.</span>
+            </p>
             <div id="subscribed" style="display:<?php echo $is_subscribed ? 'block' : 'none'; ?>;">
                 <?php if ($is_subscribed && !empty($earthen_subscriptions)): ?>
                     <p>Looks like you're already subscribed to: <?php echo htmlspecialchars($earthen_subscriptions); ?>!</p>
@@ -205,54 +206,55 @@ function checkEarthenEmailStatus($email) {
             </div>
             <div id="not-subscribed" style="display:<?php echo !$is_subscribed ? 'block' : 'none'; ?>;">You're not yet subscribed</div>
 
-<!-- SIGNUP FORM -->
-<form id="select-earthen-subs" method="post" action="earthen_register.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
-    <div class="subscription-boxes">
-        <div class="subscription-box" data-color="red">
-            <div class="subscription-icon light-red"></div>
-            <div class="subscription-content">
-                <h4>Earthen</h4>
-                <p class="subscription-by">by Ecobricks.org</p>
-                <p>A publication about regenerative living and Earth building.</p>
-                <p class="subscription-language">English</p>
-            </div>
+            <!-- SIGNUP FORM -->
+            <form id="select-earthen-subs" method="post" action="earthen_register.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
+                <div class="subscription-boxes">
+                    <div class="subscription-box" data-color="red">
+                        <div class="subscription-icon light-red"></div>
+                        <div class="subscription-content">
+                            <h4>Earthen</h4>
+                            <p class="subscription-by">by Ecobricks.org</p>
+                            <p>A publication about regenerative living and Earth building.</p>
+                            <p class="subscription-language">English</p>
+                        </div>
+                    </div>
+                    <div class="subscription-box" data-color="yellow">
+                        <div class="subscription-icon light-yellow"></div>
+                        <div class="subscription-content">
+                            <h4>GEA Trainer Newsletter</h4>
+                            <p class="subscription-by">by Global Ecobrick Alliance</p>
+                            <p>Updates and tips for trainers in the Global Ecobrick Alliance.</p>
+                            <p class="subscription-language">English</p>
+                        </div>
+                    </div>
+                    <div class="subscription-box" data-color="blue">
+                        <div class="subscription-icon light-blue"></div>
+                        <div class="subscription-content">
+                            <h4>GEA Trainer Newsletter</h4>
+                            <p class="subscription-by">by Global Ecobrick Alliance</p>
+                            <p>News and tips for GEA trainers in Indonesia.</p>
+                            <p class="subscription-language">Indonesian</p>
+                        </div>
+                    </div>
+                    <div class="subscription-box" data-color="green">
+                        <div class="subscription-icon light-green"></div>
+                        <div class="subscription-content">
+                            <h4>Updates by Russell</h4>
+                            <p class="subscription-by">by Russell Maier</p>
+                            <p>Personal updates and reflections from Russell Maier.</p>
+                            <p class="subscription-language">English</p>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="subscription-box" data-color="yellow">
-            <div class="subscription-icon light-yellow"></div>
-            <div class="subscription-content">
-                <h4>GEA Trainer Newsletter</h4>
-                <p class="subscription-by">by Global Ecobrick Alliance</p>
-                <p>Updates and tips for trainers in the Global Ecobrick Alliance.</p>
-                <p class="subscription-language">English</p>
-            </div>
-        </div>
-        <div class="subscription-box" data-color="blue">
-            <div class="subscription-icon light-blue"></div>
-            <div class="subscription-content">
-                <h4>GEA Trainer Newsletter</h4>
-                <p class="subscription-by">by Global Ecobrick Alliance</p>
-                <p>News and tips for GEA trainers in Indonesia.</p>
-                <p class="subscription-language">Indonesian</p>
-            </div>
-        </div>
-        <div class="subscription-box" data-color="green">
-            <div class="subscription-icon light-green"></div>
-            <div class="subscription-content">
-                <h4>Updates by Russell</h4>
-                <p class="subscription-by">by Russell Maier</p>
-                <p>Personal updates and reflections from Russell Maier.</p>
-                <p class="subscription-language">English</p>
-            </div>
+
+        <div style="font-size: medium; text-align: center; margin: auto; align-self: center; padding-top:40px; padding-bottom:40px; margin-top: 0px;">
+            <p style="font-size:medium;" data-lang-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
         </div>
     </div>
-</form>
+</div>
 
-
-    </div>
-
-    <div style="font-size: medium; text-align: center; margin: auto; align-self: center; padding-top:40px; padding-bottom:40px; margin-top: 0px;">
-        <p style="font-size:medium;" data-lang-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
-    </div>
 
 </div>
 

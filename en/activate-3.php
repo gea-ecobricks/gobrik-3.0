@@ -200,7 +200,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <!-- SUBMIT SECTION -->
     <div id="submit-section" style="text-align:center;margin-top:25px;display:none;" data-lang-id="016X-submit-complete-button">
         <input type="submit" id="submit-button" value="Next ➡️" class="submit-button enabled">
-            <p class="form-caption" style="text-align:center">Can't find your watershed? No worries! We're still working on this functionality</p>
+            <p class="form-caption" style="text-align:center; margin-top: 20px">Can't find your watershed?<br>No worries! You can skip.  We're still working on this feature.</p>
 
     </div>
 

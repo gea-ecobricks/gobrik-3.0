@@ -70,8 +70,22 @@ if ($buwana_id) {
         $response['error'] = 'account_status';
     }
 }
-?>
 
+// Check subscription status
+$is_subscribed = false;
+if (!empty($credential_key)) {
+    ob_start(); // Start output buffering to capture the JSON response
+    checkEarthenEmailStatus($credential_key);
+    $api_response = ob_get_clean(); // Get the output and clean the buffer
+
+    // Parse the API response
+    $response_data = json_decode($api_response, true);
+    if (isset($response_data['status']) && $response_data['status'] === 'success' && $response_data['registered'] === 1) {
+        $is_subscribed = true;
+    }
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="<?php echo $lang; ?>">
@@ -80,227 +94,38 @@ if ($buwana_id) {
 <title>Select Earthen Subscriptions</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!--
-GoBrik.com site version 3.0
-Developed and made open source by the Global Ecobrick Alliance
-See our git hub repository for the full code and to help out:
-https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
-
 <?php require_once ("../includes/signup-inc.php");?>
-
 
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
 
 <!-- PAGE CONTENT -->
-   <div id="top-page-image" class="credentials-banner top-page-image"></div>
+<div id="top-page-image" class="credentials-banner top-page-image"></div>
 
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
-
-            <div style="text-align:center;width:100%;margin:auto;">
-                <h2 data-lang-id="001-setup-access-heading">Select Earthen Subscriptions</h2>
-                <p>In order to keep in touch with you <?php echo $first_name; ?>, <span data-lang-id="002-setup-access-heading-a"> we've developed some exciting newsletters on our Earthen newsletter platform.</span></p>
-            </div>
-
-
-            <!--SIGNUP FORM-->
-            <form id="select-earthen-subs" method="post" action="earthen_register.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
-
-            </form>
-
-
+        <div style="text-align:center;width:100%;margin:auto;">
+            <h2 data-lang-id="001-setup-access-heading">Select Earthen Subscriptions</h2>
+            <p>In order to keep in touch with you <?php echo $first_name; ?>, <span data-lang-id="002-setup-access-heading-a">we've developed some exciting newsletters on our Earthen newsletter platform.</span></p>
+            <p id="subscribed" style="display:<?php echo $is_subscribed ? 'block' : 'none'; ?>;">It looks like you're already subscribed! Nice!</p>
+            <p id="not-subscribed" style="display:<?php echo !$is_subscribed ? 'block' : 'none'; ?>;">You're not yet subscribed</p>
         </div>
 
-<div style="font-size: medium; text-align: center; margin: auto; align-self: center;padding-top:40px;padding-bottom:40px;margin-top: 0px;">
+        <!-- SIGNUP FORM -->
+        <form id="select-earthen-subs" method="post" action="earthen_register.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
+            <!-- Form contents go here -->
+        </form>
+
+    </div>
+
+    <div style="font-size: medium; text-align: center; margin: auto; align-self: center; padding-top:40px; padding-bottom:40px; margin-top: 0px;">
         <p style="font-size:medium;" data-lang-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
     </div>
 
-
-
-
-    </div>
 </div>
 
-    <!--FOOTER STARTS HERE-->
-    <?php require_once ("../footer-2024.php"); ?>
-
-
-<script>
-$(document).ready(function() {
-    // Elements
-    const credentialField = document.getElementById('credential_value');
-    const passwordField = document.getElementById('password_hash');
-    const confirmPasswordField = document.getElementById('confirm_password');
-    const humanCheckField = document.getElementById('human_check');
-    const termsCheckbox = document.getElementById('terms');
-    const submitButton = document.getElementById('submit-button');
-    const confirmPasswordSection = document.getElementById('confirm-password-section');
-    const humanCheckSection = document.getElementById('human-check-section');
-    const submitSection = document.getElementById('submit-section');
-    const setPasswordSection = document.getElementById('set-password');
-    const makerErrorInvalid = document.getElementById('maker-error-invalid');
-    const duplicateEmailError = $('#duplicate-email-error');
-    const duplicateGobrikEmail = $('#duplicate-gobrik-email');
-    const loadingSpinner = $('#loading-spinner');
-
-    // Initially hide all sections except the email field
-    setPasswordSection.style.display = 'none';
-    confirmPasswordSection.style.display = 'none';
-    humanCheckSection.style.display = 'none';
-    submitSection.style.display = 'none';
-
-    function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
-
-    // Live email checking and validation
-    $('#credential_value').on('input blur', function() {
-        const email = $(this).val();
-
-        if (isValidEmail(email)) {
-            loadingSpinner.removeClass('green red').show();
-
-            $.ajax({
-                url: 'check_email.php',
-                type: 'POST',
-                data: { credential_value: email },
-                success: function(response) {
-                    loadingSpinner.hide();
-
-                    try {
-                        var res = JSON.parse(response);
-                    } catch (e) {
-                        console.error("Invalid JSON response", response);
-                        alert("An error occurred while checking the email.");
-                        return;
-                    }
-
-                    // Handle different responses
-                    if (res.success) {
-                        duplicateEmailError.hide();
-                        duplicateGobrikEmail.hide();
-                        loadingSpinner.removeClass('red').addClass('green').show();
-                        setPasswordSection.style.display = 'block';
-                    } else if (res.error === 'duplicate_email') {
-                        duplicateEmailError.show();
-                        duplicateGobrikEmail.hide();
-                        loadingSpinner.removeClass('green').addClass('red').show();
-                        setPasswordSection.style.display = 'none';
-                    } else if (res.error === 'duplicate_gobrik_email') {
-                        duplicateGobrikEmail.show();
-                        duplicateEmailError.hide();
-                        loadingSpinner.removeClass('red').addClass('green').show();
-                        setPasswordSection.style.display = 'none'; // don't allow user to proceed with password setup
-                    } else {
-                        alert("An error occurred: " + res.error);
-                    }
-                },
-                error: function() {
-                    loadingSpinner.hide();
-                    alert('An error occurred while checking the email. Please try again.');
-                }
-            });
-        } else {
-            setPasswordSection.style.display = 'none'; // Hide password section if email is invalid
-        }
-    });
-
-    // Show confirm password field when password length is at least 6 characters
-    passwordField.addEventListener('input', function() {
-        if (passwordField.value.length >= 6) {
-            confirmPasswordSection.style.display = 'block';
-        } else {
-            confirmPasswordSection.style.display = 'none';
-            humanCheckSection.style.display = 'none';
-            submitSection.style.display = 'none';
-        }
-    });
-
-    // Show human check section and submit button when passwords match
-    confirmPasswordField.addEventListener('input', function() {
-        if (passwordField.value === confirmPasswordField.value) {
-            makerErrorInvalid.style.display = 'none';
-            humanCheckSection.style.display = 'block';
-            submitSection.style.display = 'block';
-        } else {
-            makerErrorInvalid.style.display = 'block';
-            humanCheckSection.style.display = 'none';
-            submitSection.style.display = 'none';
-        }
-    });
-
-// Activate submit button when a valid word is typed and terms checkbox is checked
-function updateSubmitButtonState() {
-    const validWords = ['ecobrick', 'ecoladrillo', 'écobrique', 'ecobrique']; // List of accepted words
-    const enteredWord = humanCheckField.value.toLowerCase(); // Get the user's input and convert to lowercase
-
-    // Check if the entered word is in the list of valid words and if the terms checkbox is checked
-    if (validWords.includes(enteredWord) && termsCheckbox.checked) {
-        submitButton.classList.remove('disabled');
-        submitButton.classList.add('enabled');
-        submitButton.disabled = false;
-    } else {
-        submitButton.classList.remove('enabled');
-        submitButton.classList.add('disabled');
-        submitButton.disabled = true;
-    }
-}
-
-
-    humanCheckField.addEventListener('input', updateSubmitButtonState);
-    termsCheckbox.addEventListener('change', updateSubmitButtonState);
-
-    // Form submission
-    $('#password-confirm-form').on('submit', function(e) {
-        e.preventDefault(); // Prevent the form from submitting normally
-        loadingSpinner.removeClass('green red').show();
-
-        $.ajax({
-            url: 'signup_process.php?id=<?php echo htmlspecialchars($buwana_id); ?>',
-            type: 'POST',
-            data: $(this).serialize(), // Serialize the form data
-            success: function(response) {
-                loadingSpinner.hide();
-                try {
-                    var res = JSON.parse(response);
-                } catch (e) {
-                    alert('An error occurred while processing the form.');
-                    return;
-                }
-
-                if (res.success) {
-                    window.location.href = res.redirect || 'confirm-email.php?id=<?php echo htmlspecialchars($buwana_id); ?>';
-                } else if (res.error === 'duplicate_email') {
-                    duplicateEmailError.show();
-                    duplicateGobrikEmail.hide();
-                    loadingSpinner.removeClass('green').addClass('red').show();
-                } else if (res.error === 'duplicate_gobrik_email') {
-                    duplicateGobrikEmail.show();
-                    duplicateEmailError.hide();
-                    loadingSpinner.removeClass('red').addClass('green').show();
-                } else {
-                    alert('An unexpected error occurred. Please try again.');
-                }
-            },
-            error: function() {
-                loadingSpinner.hide();
-                alert('An error occurred while processing the form. Please try again.');
-            }
-        });
-    });
-});
-
-
-/* Control the header position as the page scrolls*/
-
-
-</script>
-
-
-
-
+<!-- FOOTER STARTS HERE -->
+<?php require_once ("../footer-2024.php"); ?>
 
 </body>
 </html>

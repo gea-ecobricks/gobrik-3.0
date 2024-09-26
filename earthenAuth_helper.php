@@ -55,6 +55,7 @@ function getUserFirstName($buwana_conn, $buwana_id) {
 function getWatershedName($buwana_conn, $buwana_id) {
     $watershed_name = '';
 
+
     // Query to get the user's watershed name from users_tb
     $sql_watershed = "SELECT location_watershed FROM users_tb WHERE buwana_id = ?";
     $stmt_watershed = $buwana_conn->prepare($sql_watershed);

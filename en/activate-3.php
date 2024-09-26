@@ -18,7 +18,7 @@ $is_logged_in = false; // Ensure not logged in for this page
 
 // Initialize variables
 $buwana_id = $_GET['id'] ?? null;  // Correctly initializing buwana_id
-$page = 'activate-subscriptions';
+$page = 'activate';
 $first_name = '';
 
 // PART 1: Check if the user is already logged in

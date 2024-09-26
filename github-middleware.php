@@ -1,6 +1,6 @@
 <?php
 // GitHub personal access token stored securely in environment
-define('GITHUB_TOKEN', getenv('GITHUB_TOKEN') ?: ''); // Ensure the token is set correctly
+define('GITHUB_TOKEN', getenv('GITHUB_TOKEN') ?: ''); // token is set
 
 // Owner and repository name
 define('REPO_OWNER', 'gea-ecobricks');

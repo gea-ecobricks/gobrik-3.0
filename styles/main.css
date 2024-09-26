@@ -2339,7 +2339,6 @@ position:relative;
 
 //SUBSCRIPTION STYLES
 
-
 /* Container for subscription boxes */
 .subscription-boxes {
     display: flex;
@@ -2348,37 +2347,39 @@ position:relative;
 }
 
 /* Individual subscription box */
-.subscription-box {
+.sub-box {
     display: flex;
-    flex-direction: row;
-    border: 1px solid grey;
-    border-radius: 8px;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 10px;
     padding: 15px;
     align-items: center;
-    transition: border-color 0.3s;
+    transition: border 0.5s;
     cursor: pointer;
     width: calc(50% - 20px); /* Two columns when screen width is above 1000px */
+    box-sizing: border-box;
 }
 
 /* Icon inside the box */
-.subscription-icon {
+.sub-icon {
     width: 70px;
     height: 70px;
+    background-color: grey;
     border-radius: 4px;
     margin-right: 15px;
 }
 
 /* Content area of the box */
-.subscription-content {
+.sub-content {
+    text-align: left;
     flex: 1;
 }
 
 /* Style for titles, authors, descriptions, and languages */
-.subscription-content h4 {
+.sub-name {
     margin: 0;
 }
 
-.subscription-by {
+.sub-sender-name {
     font-family: 'Mulish', sans-serif;
     font-size: 12px;
     color: grey;
@@ -2386,56 +2387,32 @@ position:relative;
     text-align: left;
 }
 
+.sub-description {
+    margin: 5px 0;
+}
+
 .subscription-language {
     font-family: 'Mulish', sans-serif;
     font-size: 12px;
     color: grey;
     margin: 5px 0;
-    text-align: right;
-}
-
-/* Light colors for the icons */
-.light-red {
-    background-color: #ffcccc;
-}
-
-.light-yellow {
-    background-color: #ffffcc;
-}
-
-.light-blue {
-    background-color: #cceeff;
-}
-
-.light-green {
-    background-color: #ccffcc;
+    text-align: left;
 }
 
 /* Hover effect changes border color */
-.subscription-box:hover {
-    border-color: currentColor;
+.sub-box:hover {
+    border: 2px solid green;
 }
 
 /* When box is selected, change border to strong color */
-.subscription-box.active[data-color="red"] {
-    border-color: red;
-}
-
-.subscription-box.active[data-color="yellow"] {
-    border-color: yellow;
-}
-
-.subscription-box.active[data-color="blue"] {
-    border-color: blue;
-}
-
-.subscription-box.active[data-color="green"] {
-    border-color: green;
+.sub-box.selected {
+    border: 2px solid green;
+    border-color: rgba(0, 128, 0, 1);
 }
 
 /* Responsive behavior: single column for screen widths below 1000px */
 @media (max-width: 1000px) {
-    .subscription-box {
+    .sub-box {
         width: 100%;
     }
 }

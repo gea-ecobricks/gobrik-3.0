@@ -99,13 +99,6 @@ if (!empty($credential_key)) {
 }
 
 
-<?php
-
-// Function to perform base64 URL encoding
-function base64UrlEncode($data) {
-    // Base64 encode the data, then remove padding and replace characters to make it URL-safe
-    return str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($data));
-}
 
 // Function to grab active newsletters from Ghost API and populate the subscription form
 function grabActiveEarthenSubs() {
@@ -198,6 +191,9 @@ function grabActiveEarthenSubs() {
     // Close the cURL session
     curl_close($ch);
 }
+
+// Call the function within your form or wherever you want the boxes to appear
+grabActiveEarthenSubs();
 
 
 

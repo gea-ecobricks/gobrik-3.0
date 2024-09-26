@@ -98,7 +98,16 @@ if (!empty($credential_key)) {
     }
 }
 
-// Function to grab active newsletters from Ghost API
+
+<?php
+
+// Function to perform base64 URL encoding
+function base64UrlEncode($data) {
+    // Base64 encode the data, then remove padding and replace characters to make it URL-safe
+    return str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($data));
+}
+
+// Function to grab active newsletters from Ghost API and populate the subscription form
 function grabActiveEarthenSubs() {
     // Define the API URL for fetching newsletters
     $ghost_api_url = "https://earthen.io/ghost/api/v3/admin/newsletters/";
@@ -152,8 +161,31 @@ function grabActiveEarthenSubs() {
         $response_data = json_decode($response, true);
 
         if ($response_data && isset($response_data['newsletters']) && is_array($response_data['newsletters'])) {
-            // Output the list of active newsletters to the console
-            echo "<script>console.log(" . json_encode($response_data['newsletters']) . ");</script>";
+            // Generate HTML for each newsletter
+            foreach ($response_data['newsletters'] as $newsletter) {
+                // Extract data
+                $name = htmlspecialchars($newsletter['name']);
+                $description = htmlspecialchars($newsletter['description']);
+                $sender_name = htmlspecialchars($newsletter['sender_name']);
+                $language = "English"; // Assuming all are in English; adjust if you have this data in the JSON
+
+                // Define the icon color based on the order (for demonstration)
+                $colors = ['light-red', 'light-yellow', 'light-blue', 'light-green'];
+                $color = $colors[array_rand($colors)];
+
+                // Output the subscription box HTML
+                echo "
+                    <div class=\"sub-box\" data-color=\"{$color}\">
+                        <div class=\"sub-icon {$color}\"></div>
+                        <div class=\"sub-content\">
+                            <h4 class=\"sub-name\">{$name}</h4>
+                            <p class=\"sub-sender-name\">by {$sender_name}</p>
+                            <p class=\"sub-description\">{$description}</p>
+                            <p class=\"subscription-language\">{$language}</p>
+                        </div>
+                    </div>
+                ";
+            }
         } else {
             echo "<script>console.log('No active newsletters found.');</script>";
         }
@@ -166,6 +198,8 @@ function grabActiveEarthenSubs() {
     // Close the cURL session
     curl_close($ch);
 }
+
+
 
 function checkEarthenEmailStatus($email) {
     // Prepare and encode the email address for use in the API URL

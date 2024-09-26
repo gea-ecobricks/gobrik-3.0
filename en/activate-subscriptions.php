@@ -70,12 +70,17 @@ if ($buwana_id) {
         $response['error'] = 'account_status';
     }
 }
+// Function to perform base64 URL encoding
+function base64UrlEncode($data) {
+    // Base64 encode the data, then remove padding and replace characters to make it URL-safe
+    return str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($data));
+}
 
 // Check subscription status
 $is_subscribed = false;
 if (!empty($credential_key)) {
     ob_start(); // Start output buffering to capture the JSON response
-    checkEarthenEmailStatus($credential_key);
+    checkEarthenEmailStatus($credential_key); // Pass credential_key as $email
     $api_response = ob_get_clean(); // Get the output and clean the buffer
 
     // Parse the API response
@@ -85,17 +90,10 @@ if (!empty($credential_key)) {
     }
 }
 
-// Function to perform base64 URL encoding
-function base64UrlEncode($data) {
-    // Base64 encode the data, then remove padding and replace characters to make it URL-safe
-    return str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($data));
-}
-
-
-function checkEarthenEmailStatus($credential_key) {
-    // Prepare and encode the credential key for use in the API URL
-    $credential_encoded = urlencode($credential_key);
-    $ghost_api_url = "https://earthen.io/ghost/api/v3/admin/members/?filter=credential_key:$credential_encoded";
+function checkEarthenEmailStatus($email) {
+    // Prepare and encode the email address for use in the API URL
+    $email_encoded = urlencode($email);
+    $ghost_api_url = "https://earthen.io/ghost/api/v3/admin/members/?filter=email:$email_encoded";
 
     // Split API Key into ID and Secret for JWT generation
     $apiKey = '66db68b5cff59f045598dbc3:5c82d570631831f277b1a9b4e5840703e73a68e948812b2277a0bc11c12c973f';
@@ -150,7 +148,7 @@ function checkEarthenEmailStatus($credential_key) {
         $newsletters = []; // Array to hold newsletter names
 
         if ($response_data && isset($response_data['members']) && is_array($response_data['members']) && count($response_data['members']) > 0) {
-            $registered = 1; // Member with the given credential_key exists
+            $registered = 1; // Member with the given email exists
 
             // Extract newsletter names
             if (isset($response_data['members'][0]['newsletters'])) {

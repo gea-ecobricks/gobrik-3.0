@@ -192,6 +192,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <select id="watershed_select" name="watershed_select" aria-label="Watershed Select" style="width: 100%; padding: 10px;">
                 <option value="" disabled selected>Select a river or watershed</option>
             </select>
+            <p class="caption">💚 River basins provide a new non-polical way to localize our users by ecological region!</p>
             <div id="map" style="height: 350px;border-radius: 15px; margin-top:10px;"></div>
     </div>
 
@@ -200,7 +201,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div id="submit-section" style="text-align:center;margin-top:25px;display:none;" data-lang-id="016X-submit-complete-button">
         <input type="submit" id="submit-button" value="Next" class="submit-button enabled">
     </div>
-    <p>Rivers and their basins provide a new non-polical way to connect our users by ecological region.</p>
+    <p>Can't find your watershed? No worries! We're still working on this functionality</p>
 
 </form>
 

@@ -85,6 +85,13 @@ if (!empty($credential_key)) {
     }
 }
 
+// Function to perform base64 URL encoding
+function base64UrlEncode($data) {
+    // Base64 encode the data, then remove padding and replace characters to make it URL-safe
+    return str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($data));
+}
+
+
 function checkEarthenEmailStatus($credential_key) {
     // Prepare and encode the credential key for use in the API URL
     $credential_encoded = urlencode($credential_key);

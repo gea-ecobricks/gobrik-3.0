@@ -203,9 +203,8 @@ function checkEarthenEmailStatus($email) {
                     <p>It looks like you're already subscribed!</p>
                 <?php endif; ?>
             </div>
-<div id="not-subscribed" style="display:<?php echo !$is_subscribed ? 'block' : 'none'; ?>;">You're not yet subscribed</p>
+            <div id="not-subscribed" style="display:<?php echo !$is_subscribed ? 'block' : 'none'; ?>;">You're not yet subscribed</div>
 
-        </div>
 <!-- SIGNUP FORM -->
 <form id="select-earthen-subs" method="post" action="earthen_register.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
     <div class="subscription-boxes">

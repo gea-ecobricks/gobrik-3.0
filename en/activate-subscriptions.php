@@ -78,6 +78,7 @@ function base64UrlEncode($data) {
 
 // Check subscription status
 $is_subscribed = false;
+$earthen_subscriptions = ''; // To store newsletter names if subscribed
 if (!empty($credential_key)) {
     ob_start(); // Start output buffering to capture the JSON response
     checkEarthenEmailStatus($credential_key); // Pass credential_key as $email
@@ -87,6 +88,8 @@ if (!empty($credential_key)) {
     $response_data = json_decode($api_response, true);
     if (isset($response_data['status']) && $response_data['status'] === 'success' && $response_data['registered'] === 1) {
         $is_subscribed = true;
+        // Join newsletter names with commas
+        $earthen_subscriptions = !empty($response_data['newsletters']) ? implode(', ', $response_data['newsletters']) : '';
     }
 }
 
@@ -193,8 +196,15 @@ function checkEarthenEmailStatus($email) {
         <div style="text-align:center;width:100%;margin:auto;">
             <h2 data-lang-id="001-setup-access-heading">Select Earthen Subscriptions</h2>
             <p>In order to keep in touch with you <?php echo $first_name; ?>, <span data-lang-id="002-setup-access-heading-a">we've developed some exciting newsletters on our Earthen newsletter platform and can send them to <?php echo $credential_key; ?>.</span></p>
-            <p id="subscribed" style="display:<?php echo $is_subscribed ? 'block' : 'none'; ?>;">It looks like you're already subscribed! Nice!</p>
-            <p id="not-subscribed" style="display:<?php echo !$is_subscribed ? 'block' : 'none'; ?>;">You're not yet subscribed</p>
+            <div id="subscribed" style="display:<?php echo $is_subscribed ? 'block' : 'none'; ?>;">
+                <?php if ($is_subscribed && !empty($earthen_subscriptions)): ?>
+                    <p>Looks like you're already subscribed to: <?php echo htmlspecialchars($earthen_subscriptions); ?>!</p>
+                <?php else: ?>
+                    <p>It looks like you're already subscribed!</p>
+                <?php endif; ?>
+            </div>
+<div id="not-subscribed" style="display:<?php echo !$is_subscribed ? 'block' : 'none'; ?>;">You're not yet subscribed</p>
+
         </div>
 
         <!-- SIGNUP FORM -->

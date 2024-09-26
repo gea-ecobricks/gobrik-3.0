@@ -197,7 +197,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
     <!-- SUBMIT SECTION -->
-    <div id="submit-section" style="text-align:center;margin-top:25px;display:none;" data-lang-id="016-submit-complete-button">
+    <div id="submit-section" style="text-align:center;margin-top:25px;display:none;" data-lang-id="016X-submit-complete-button">
         <input type="submit" id="submit-button" value="Next" class="submit-button enabled">
     </div>
     <p>Rivers and their basins provide a new non-polical way to connect our users by ecological region.</p>

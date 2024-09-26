@@ -99,6 +99,7 @@ if (!empty($credential_key)) {
 }
 
 
+<?php
 
 // Function to grab active newsletters from Ghost API and populate the subscription form
 function grabActiveEarthenSubs() {
@@ -157,19 +158,16 @@ function grabActiveEarthenSubs() {
             // Generate HTML for each newsletter
             foreach ($response_data['newsletters'] as $newsletter) {
                 // Extract data
+                $id = htmlspecialchars($newsletter['id']);
                 $name = htmlspecialchars($newsletter['name']);
                 $description = htmlspecialchars($newsletter['description']);
                 $sender_name = htmlspecialchars($newsletter['sender_name']);
                 $language = "English"; // Assuming all are in English; adjust if you have this data in the JSON
 
-                // Define the icon color based on the order (for demonstration)
-                $colors = ['light-red', 'light-yellow', 'light-blue', 'light-green'];
-                $color = $colors[array_rand($colors)];
-
                 // Output the subscription box HTML
                 echo "
-                    <div class=\"sub-box\" data-color=\"{$color}\">
-                        <div class=\"sub-icon {$color}\"></div>
+                    <div id=\"{$id}\" class=\"sub-box\" data-color=\"green\">
+                        <div class=\"sub-icon\"></div>
                         <div class=\"sub-content\">
                             <h4 class=\"sub-name\">{$name}</h4>
                             <p class=\"sub-sender-name\">by {$sender_name}</p>
@@ -191,6 +189,7 @@ function grabActiveEarthenSubs() {
     // Close the cURL session
     curl_close($ch);
 }
+
 
 
 
@@ -315,6 +314,7 @@ function checkEarthenEmailStatus($email) {
                 </div>
             </form>
         </div>
+    </did>
 
         <div style="font-size: medium; text-align: center; margin: auto; align-self: center; padding-top:40px; padding-bottom:40px; margin-top: 0px;">
             <p style="font-size:medium;" data-lang-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>

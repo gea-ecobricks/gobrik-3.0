@@ -119,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $gobrik_conn->close();
 
             // Redirect to the next step
-            header("Location: login.php?status=firsttime&id=" . urlencode($buwana_id));
+            header("Location: activate-subscriptions.php?id=" . urlencode($buwana_id));
             exit();
         } else {
             error_log('Error preparing statement for updating Buwana user: ' . $buwana_conn->error);
@@ -198,8 +198,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     <!-- SUBMIT SECTION -->
     <div id="submit-section" style="text-align:center;margin-top:25px;display:none;" data-lang-id="016-submit-complete-button">
-        <input type="submit" id="submit-button" value="Complete Setup" class="submit-button enabled">
+        <input type="submit" id="submit-button" value="Next" class="submit-button enabled">
     </div>
+    <p>Rivers and their basins provide a new non-polical way to connect our users by ecological region.</p>
 
 </form>
 

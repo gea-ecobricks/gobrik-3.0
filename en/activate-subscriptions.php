@@ -79,7 +79,7 @@ function base64UrlEncode($data) {
 }
 
 // Gather subscription data
-grabActiveEarthenSubs();
+// grabActiveEarthenSubs();
 
 //Check subscription status
 $is_subscribed = false;
@@ -191,9 +191,6 @@ function grabActiveEarthenSubs() {
     // Close the cURL session
     curl_close($ch);
 }
-
-// Call the function within your form or wherever you want the boxes to appear
-grabActiveEarthenSubs();
 
 
 
@@ -312,11 +309,11 @@ function checkEarthenEmailStatus($email) {
 
             <!-- SIGNUP FORM -->
             <form id="select-earthen-subs" method="post" action="earthen_register.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
-    <div class="subscription-boxes">
-        <!-- Subscription boxes will be populated here by the PHP function -->
-        <?php grabActiveEarthenSubs(); ?>
-    </div>
-</form>
+                <div class="subscription-boxes">
+                    <!-- Subscription boxes will be populated here by the PHP function -->
+                    <?php grabActiveEarthenSubs(); ?>
+                </div>
+            </form>
         </div>
 
         <div style="font-size: medium; text-align: center; margin: auto; align-self: center; padding-top:40px; padding-bottom:40px; margin-top: 0px;">

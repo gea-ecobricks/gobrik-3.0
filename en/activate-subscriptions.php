@@ -282,45 +282,11 @@ function checkEarthenEmailStatus($email) {
 
             <!-- SIGNUP FORM -->
             <form id="select-earthen-subs" method="post" action="earthen_register.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
-                <div class="subscription-boxes">
-                    <div class="subscription-box" data-color="red">
-                        <div class="subscription-icon light-red"></div>
-                        <div class="subscription-content">
-                            <h4>Earthen</h4>
-                            <p class="subscription-by">by Ecobricks.org</p>
-                            <p>A publication about regenerative living and Earth building.</p>
-                            <p class="subscription-language">English</p>
-                        </div>
-                    </div>
-                    <div class="subscription-box" data-color="yellow">
-                        <div class="subscription-icon light-yellow"></div>
-                        <div class="subscription-content">
-                            <h4>GEA Trainer Newsletter</h4>
-                            <p class="subscription-by">by Global Ecobrick Alliance</p>
-                            <p>Updates and tips for trainers in the Global Ecobrick Alliance.</p>
-                            <p class="subscription-language">English</p>
-                        </div>
-                    </div>
-                    <div class="subscription-box" data-color="blue">
-                        <div class="subscription-icon light-blue"></div>
-                        <div class="subscription-content">
-                            <h4>GEA Trainer Newsletter</h4>
-                            <p class="subscription-by">by Global Ecobrick Alliance</p>
-                            <p>News and tips for GEA trainers in Indonesia.</p>
-                            <p class="subscription-language">Indonesian</p>
-                        </div>
-                    </div>
-                    <div class="subscription-box" data-color="green">
-                        <div class="subscription-icon light-green"></div>
-                        <div class="subscription-content">
-                            <h4>Updates by Russell</h4>
-                            <p class="subscription-by">by Russell Maier</p>
-                            <p>Personal updates and reflections from Russell Maier.</p>
-                            <p class="subscription-language">English</p>
-                        </div>
-                    </div>
-                </div>
-            </form>
+    <div class="subscription-boxes">
+        <!-- Subscription boxes will be populated here by the PHP function -->
+        <?php grabActiveEarthenSubs(); ?>
+    </div>
+</form>
         </div>
 
         <div style="font-size: medium; text-align: center; margin: auto; align-self: center; padding-top:40px; padding-bottom:40px; margin-top: 0px;">

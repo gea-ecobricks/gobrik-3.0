@@ -178,6 +178,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <p style="font-size:medium;" data-lang-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
     </div>
 
+<?php echo getenv('GITHUB_TOKEN'); ?>
 
 
     </div>

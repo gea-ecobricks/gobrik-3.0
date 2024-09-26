@@ -194,7 +194,7 @@ function checkEarthenEmailStatus($credential_key) {
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
             <h2 data-lang-id="001-setup-access-heading">Select Earthen Subscriptions</h2>
-            <p>In order to keep in touch with you <?php echo $first_name; ?>, <span data-lang-id="002-setup-access-heading-a">we've developed some exciting newsletters on our Earthen newsletter platform.</span></p>
+            <p>In order to keep in touch with you <?php echo $first_name; ?>, <span data-lang-id="002-setup-access-heading-a">we've developed some exciting newsletters on our Earthen newsletter platform and can send them to <?php echo $credential_key; ?>.</span></p>
             <p id="subscribed" style="display:<?php echo $is_subscribed ? 'block' : 'none'; ?>;">It looks like you're already subscribed! Nice!</p>
             <p id="not-subscribed" style="display:<?php echo !$is_subscribed ? 'block' : 'none'; ?>;">You're not yet subscribed</p>
         </div>

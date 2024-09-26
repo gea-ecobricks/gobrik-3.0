@@ -1,4 +1,3 @@
-<?php echo getenv('GITHUB_TOKEN'); ?>
 
 <?php
 

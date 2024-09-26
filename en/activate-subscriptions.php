@@ -99,8 +99,6 @@ if (!empty($credential_key)) {
 }
 
 
-<?php
-
 // Function to grab active newsletters from Ghost API and populate the subscription form
 function grabActiveEarthenSubs() {
     // Define the API URL for fetching newsletters

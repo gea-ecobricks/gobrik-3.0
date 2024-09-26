@@ -1,4 +1,8 @@
+<?php echo getenv('GITHUB_TOKEN'); ?>
+
 <?php
+
+
 // GitHub personal access token stored securely in environment
 define('GITHUB_TOKEN', getenv('GITHUB_TOKEN') ?: ''); // token is set
 

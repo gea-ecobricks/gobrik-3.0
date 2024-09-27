@@ -133,7 +133,7 @@ function subscribeUserToNewsletter($email, $newsletter_id) {
 }
 
 /**
- * Update subscription for an existing user.
+ * Update subscription for an existing user using PATCH.
  */
 function updateSubscribeUser($member_id, $newsletter_id) {
     try {
@@ -156,7 +156,7 @@ function updateSubscribeUser($member_id, $newsletter_id) {
             'Content-Type: application/json'
         ));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH'); // Use PATCH to update
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
 
         $response = curl_exec($ch);
@@ -177,7 +177,7 @@ function updateSubscribeUser($member_id, $newsletter_id) {
 }
 
 /**
- * Update to unsubscribe a user from a specific newsletter.
+ * Update to unsubscribe a user from a specific newsletter using PATCH.
  */
 function updateUnsubscribeUser($member_id, $newsletter_id) {
     try {
@@ -200,7 +200,7 @@ function updateUnsubscribeUser($member_id, $newsletter_id) {
             'Content-Type: application/json'
         ));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH'); // Use PATCH to update
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
 
         $response = curl_exec($ch);
@@ -216,7 +216,7 @@ function updateUnsubscribeUser($member_id, $newsletter_id) {
 
         curl_close($ch);
     } catch (Exception $e) {
-        error_log('Exception occurred while unsubscribing from newsletter: ' . $e->getMessage());
+        error_log('Exception occurred while unsubscribing: ' . $e->getMessage());
     }
 }
 ?>

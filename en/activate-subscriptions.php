@@ -45,7 +45,7 @@ require_once ("../scripts/earthen_subscribe_functions.php");
 
 // Look up user information if buwana_id is provided
 if ($buwana_id) {
-    $gea_status = getGEA_status($buwana_id); //added here
+    $gea_status = getGEA_status($buwana_id);
     $sql_lookup_credential = "SELECT credential_type, credential_key FROM credentials_tb WHERE buwana_id = ?";
     $stmt_lookup_credential = $buwana_conn->prepare($sql_lookup_credential);
     if ($stmt_lookup_credential) {
@@ -91,20 +91,18 @@ if ($buwana_id) {
             error_log("Invalid JSON response from checkEarthenEmailStatus: " . $response);
             echo '<script>console.error("Invalid JSON response from server.");</script>';
         } else {
-            // Embed the JSON data as a JavaScript variable on the page
-            echo '<script>const subscriptionData = ' . json_encode($response_data, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) . ';</script>';
+            // Embed the JSON data safely for JavaScript consumption
+            $subscriptionDataJson = json_encode($response_data, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT);
+        }
 
-            // Check if the user is subscribed based on the response data
-            if (isset($response_data['status']) && $response_data['status'] === 'success' && $response_data['registered'] === 1) {
-                $is_subscribed = true;
-                $earthen_subscriptions = !empty($response_data['members'][0]['newsletters']) ? implode(', ', array_column($response_data['members'][0]['newsletters'], 'name')) : '';
-            }
+        // Check if the user is subscribed based on the response data
+        if (isset($response_data['status']) && $response_data['status'] === 'success' && $response_data['registered'] === 1) {
+            $is_subscribed = true;
+            $earthen_subscriptions = !empty($response_data['members'][0]['newsletters']) ? implode(', ', array_column($response_data['members'][0]['newsletters'], 'name')) : '';
         }
     }
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="<?php echo $lang; ?>">
@@ -112,8 +110,17 @@ if ($buwana_id) {
 <meta charset="UTF-8">
 <title>Select Earthen Subscriptions</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<?php require_once ("../includes/activate-subscriptions-inc.php"); ?>
+</head>
+<body>
 
-<?php require_once ("../includes/activate-subscriptions-inc.php");?>
+<!-- Embed the JSON data for JavaScript processing correctly within the <body> -->
+<?php if (isset($subscriptionDataJson)): ?>
+    <script>
+        const subscriptionData = <?php echo $subscriptionDataJson; ?>;
+    </script>
+<?php endif; ?>
+
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
 
@@ -143,44 +150,20 @@ if ($buwana_id) {
                     <?php grabActiveEarthenSubs(); ?>
                 </div>
 
-            <p class="form-caption" style="text-align:center; margin-top: 20px">Note: these subscriptions are indepedent of GoBrik account notifications that we sometimes need to send.</p>
+                <p class="form-caption" style="text-align:center; margin-top: 20px">Note: these subscriptions are independent of GoBrik account notifications that we sometimes need to send.</p>
 
-            <div id="submit-section" style="text-align:center;margin-top:25px;" data-lang-id="016-complete-button">
-                <input type="submit" id="submit-button" value="Setup Complete!" class="submit-button enabled">
-
-    </div>
+                <div id="submit-section" style="text-align:center;margin-top:25px;" data-lang-id="016-complete-button">
+                    <input type="submit" id="submit-button" value="Setup Complete!" class="submit-button enabled">
+                </div>
             </form>
         </div>
-    </did>
-
-<div style="color: var(--text-color); margin-left: 0px;">
-    <span data-lang-id="1000-logged-in-as">Logged in as</span>
-    <span><?php echo htmlspecialchars($first_name); ?></span>  |
-    <span style="color: var(--subdued);">
-        <?php
-        if ($gea_status !== null) {
-            echo "GEA Status: " . htmlspecialchars($gea_status);
-        } else {
-            $response['error'] = 'gea_status_error';
-            echo "GEA Status: Not available"; // Optional: display an alternative message
-        }
-        ?>
-    </span>
-</div>
-
     </div>
-</div>
-
-
 </div>
 
 <!-- FOOTER STARTS HERE -->
 <?php require_once ("../footer-2024.php"); ?>
 
 <script>
-
-    // subBoxHighlighter.js
-
 document.addEventListener('DOMContentLoaded', function () {
     const subBoxes = document.querySelectorAll('.sub-box');
 
@@ -210,50 +193,8 @@ document.addEventListener('DOMContentLoaded', function () {
             box.style.backgroundColor = 'transparent';
         }
     }
-});
 
-
-// JavaScript function to modify the subscription presentation based on subscription status
-function modifySubscriptionPresentation(subscriptionData) {
-    const { registered, newsletters } = subscriptionData;
-
-    // Map newsletter IDs to the corresponding checkbox IDs
-    const idToCheckboxMap = {
-        '62943b9aad0b695aa46139b0': 'default-newsletter', // Earthen
-        '6621d4f55e227d049e56f404': 'gea-trainers', // GEA Trainer Newsletter (English)
-        '662352b4d27acf008a160ac2': 'gea-trainer-newsletter-indonesian', // Buletin Pelatih Ecobrick (Indonesian)
-        '663b20e9d27acf008a250eb0': 'updates-by-russell' // Ayyew 452
-    };
-
-    // Default newsletter checkbox to preselect if the user is not subscribed to any
-    const defaultNewsletterCheckbox = document.getElementById('default-newsletter');
-
-    // Uncheck all checkboxes initially
-    document.querySelectorAll('.sub-checkbox').forEach((checkbox) => {
-        checkbox.checked = false;
-    });
-
-    // Check if the user is subscribed
-    if (registered === 1) {
-        // Loop through the subscribed newsletters and check the corresponding checkboxes
-        newsletters.forEach(newsletter => {
-            const checkboxId = idToCheckboxMap[newsletter.id]; // Find the corresponding checkbox ID using the newsletter ID
-            const checkbox = document.getElementById(checkboxId);
-            if (checkbox) {
-                checkbox.checked = true;
-            }
-        });
-    } else {
-        // If not subscribed, check the default newsletter (Earthen)
-        if (defaultNewsletterCheckbox) {
-            defaultNewsletterCheckbox.checked = true;
-        }
-    }
-}
-
-// Run the modifySubscriptionPresentation function on page load
-document.addEventListener('DOMContentLoaded', function () {
-    // Ensure subscriptionData is available before calling the function
+    // Modify subscription presentation based on subscription data
     if (typeof subscriptionData !== 'undefined') {
         modifySubscriptionPresentation(subscriptionData);
     } else {
@@ -261,13 +202,42 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+function modifySubscriptionPresentation(subscriptionData) {
+    const { members } = subscriptionData;
+    const user = members[0]; // Assuming you are dealing with the first user
+    const { newsletters } = user;
 
+    const idToCheckboxMap = {
+        '62943b9aad0b695aa46139b0': 'default-newsletter', // Earthen
+        '6621d4f55e227d049e56f404': 'gea-trainers', // GEA Trainer Newsletter (English)
+        '662352b4d27acf008a160ac2': 'gea-trainer-newsletter-indonesian', // Buletin Pelatih Ecobrick (Indonesian)
+        '663b20e9d27acf008a250eb0': 'updates-by-russell' // Ayyew 452
+    };
 
+    const defaultNewsletterCheckbox = document.getElementById('default-newsletter');
 
+    // Uncheck all checkboxes initially
+    document.querySelectorAll('.sub-checkbox').forEach((checkbox) => {
+        checkbox.checked = false;
+    });
+
+    // Check the corresponding checkboxes based on the user's subscriptions
+    newsletters.forEach(newsletter => {
+        const checkboxId = idToCheckboxMap[newsletter.id];
+        const checkbox = document.getElementById(checkboxId);
+        if (checkbox) {
+            checkbox.checked = true;
+        }
+    });
+
+    // If no newsletters are checked, select the default newsletter
+    if (!document.querySelector('.sub-checkbox:checked')) {
+        if (defaultNewsletterCheckbox) {
+            defaultNewsletterCheckbox.checked = true;
+        }
+    }
+}
 </script>
-
-
-
 
 </body>
 </html>

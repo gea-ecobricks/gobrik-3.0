@@ -72,26 +72,30 @@ if ($buwana_id) {
     if ($account_status !== 'name set only') {
         $response['error'] = 'account_status';
     }
+// Check subscription status
+$is_subscribed = false;
+$earthen_subscriptions = ''; // To store newsletter names if subscribed
 
-    //Check subscription status
-    $is_subscribed = false;
-    $earthen_subscriptions = ''; // To store newsletter names if subscribed
-    if (!empty($credential_key)) {
-        ob_start(); // Start output buffering to capture the JSON response
-        checkEarthenEmailStatus($credential_key); // Pass credential_key as $email
+if (!empty($credential_key)) {
+    // Call the function and capture the JSON response
+    $api_response = checkEarthenEmailStatus($credential_key);
 
+    // Parse the API response
+    $response_data = json_decode($api_response, true);
 
-        $api_response = ob_get_clean(); // Get the output and clean the buffer
-
-        // Parse the API response
-        $response_data = json_decode($api_response, true);
-        if (isset($response_data['status']) && $response_data['status'] === 'success' && $response_data['registered'] === 1) {
+    // Check if the response is valid JSON and handle accordingly
+    if (json_last_error() === JSON_ERROR_NONE && isset($response_data['status']) && $response_data['status'] === 'success') {
+        if ($response_data['registered'] === 1) {
             $is_subscribed = true;
             // Join newsletter names with commas
             $earthen_subscriptions = !empty($response_data['newsletters']) ? implode(', ', $response_data['newsletters']) : '';
         }
+    } else {
+        // Handle invalid JSON or other errors
+        echo '<script>console.error("Invalid JSON response or error: ' . htmlspecialchars($response_data['message'] ?? 'Unknown error') . '");</script>';
     }
 }
+
 
 
 ?>

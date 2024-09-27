@@ -54,7 +54,7 @@
     right: 10px;
     width: 22px; /* Slightly increased size */
     height: 22px; /* Slightly increased size */
-    border: 1px solid grey;
+/*     border: 1px solid grey; */
     border-radius: 4px;
     cursor: pointer;
 }

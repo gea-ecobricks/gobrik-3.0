@@ -153,7 +153,12 @@ function grabActiveEarthenSubs() {
  */
 
 
-
+/**
+ * Checks the subscription status of an email with the Ghost API.
+ *
+ * @param string $email The email address to check.
+ * @return string JSON response from the Ghost API.
+ */
 function checkEarthenEmailStatus($email) {
     try {
         // Prepare and encode the email address for use in the API URL
@@ -175,11 +180,17 @@ function checkEarthenEmailStatus($email) {
         $response = curl_exec($ch);
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
+        // Handle cURL errors
         if (curl_errno($ch)) {
-            displayError('Curl error: ' . curl_error($ch));
-            exit();
+            $error_message = 'Curl error: ' . curl_error($ch);
+            curl_close($ch);
+            return json_encode(['status' => 'error', 'message' => $error_message]);
         }
 
+        // Close the cURL session
+        curl_close($ch);
+
+        // Check the HTTP status code
         if ($http_code >= 200 && $http_code < 300) {
             // Successful response, parse the JSON data
             $response_data = json_decode($response, true);
@@ -198,20 +209,20 @@ function checkEarthenEmailStatus($email) {
                     }
                 }
 
-                echo json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is subscribed.', 'newsletters' => $newsletters]);
+                return json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is subscribed.', 'newsletters' => $newsletters]);
             } else {
-                echo json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is not subscribed.']);
+                return json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is not subscribed.']);
             }
         } else {
-            displayError('HTTP status ' . $http_code);
+            // Handle non-2xx HTTP codes
+            return json_encode(['status' => 'error', 'message' => 'HTTP status ' . $http_code]);
         }
-
-        // Close the cURL session
-        curl_close($ch);
     } catch (Exception $e) {
-        displayError('Exception: ' . $e->getMessage());
+        // Handle exceptions
+        return json_encode(['status' => 'error', 'message' => 'Exception: ' . $e->getMessage()]);
     }
 }
+
 
 
 

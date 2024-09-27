@@ -33,6 +33,7 @@ $credential_key = '';
 $first_name = '';
 $account_status = '';
 $country_icon = '';
+$is_subscribed = ''
 
 // Include database connection
 include '../buwanaconn_env.php';
@@ -68,6 +69,23 @@ if ($buwana_id) {
 
     if ($account_status !== 'name set only') {
         $response['error'] = 'account_status';
+    }
+
+    //Check subscription status
+    $is_subscribed = false;
+    $earthen_subscriptions = ''; // To store newsletter names if subscribed
+    if (!empty($credential_key)) {
+        ob_start(); // Start output buffering to capture the JSON response
+        checkEarthenEmailStatus($credential_key); // Pass credential_key as $email
+        $api_response = ob_get_clean(); // Get the output and clean the buffer
+
+        // Parse the API response
+        $response_data = json_decode($api_response, true);
+        if (isset($response_data['status']) && $response_data['status'] === 'success' && $response_data['registered'] === 1) {
+            $is_subscribed = true;
+            // Join newsletter names with commas
+            $earthen_subscriptions = !empty($response_data['newsletters']) ? implode(', ', $response_data['newsletters']) : '';
+        }
     }
 }
 

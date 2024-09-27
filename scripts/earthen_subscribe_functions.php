@@ -153,11 +153,10 @@ function grabActiveEarthenSubs() {
  */
 
 
-
-// Function to check subscription status and ensure it returns clean JSON
+// This PHP function remains unchanged but will output a JSON object containing subscription status and subscribed newsletters.
 function checkEarthenEmailStatus($email) {
     try {
-        // Prepare the API request
+        // Prepare and encode the email address for use in the API URL
         $email_encoded = urlencode($email);
         $ghost_api_url = "https://earthen.io/ghost/api/v3/admin/members/?filter=email:$email_encoded";
         $jwt = createGhostJWT();
@@ -170,32 +169,52 @@ function checkEarthenEmailStatus($email) {
             'Content-Type: application/json'
         ));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        curl_setopt($ch, CURLOPT_HTTPGET, true); // Use GET to fetch data
 
         // Execute the cURL session
         $response = curl_exec($ch);
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-        // Check for cURL errors
         if (curl_errno($ch)) {
-            error_log('Curl error: ' . curl_error($ch)); // Log error
-            return json_encode(['status' => 'error', 'message' => 'Curl error occurred.']); // Return error JSON
+            displayError('Curl error: ' . curl_error($ch));
+            exit();
         }
 
-        // Check if the response is valid based on the HTTP status code
         if ($http_code >= 200 && $http_code < 300) {
-            return $response; // Return the clean JSON response
+            // Successful response, parse the JSON data
+            $response_data = json_decode($response, true);
+
+            // Check if members are found
+            $registered = 0;
+            $newsletters = [];
+
+            if ($response_data && isset($response_data['members']) && is_array($response_data['members']) && count($response_data['members']) > 0) {
+                $registered = 1;
+
+                // Extract newsletter slugs
+                if (isset($response_data['members'][0]['newsletters'])) {
+                    foreach ($response_data['members'][0]['newsletters'] as $newsletter) {
+                        $newsletters[] = $newsletter['slug']; // Use slug to match the IDs in the form
+                    }
+                }
+
+                // Output JSON object with success status and subscribed newsletters
+                echo json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is subscribed.', 'newsletters' => $newsletters]);
+            } else {
+                // Output JSON object indicating user is not subscribed
+                echo json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is not subscribed.']);
+            }
         } else {
-            error_log('HTTP status ' . $http_code . ': ' . $response); // Log error
-            return json_encode(['status' => 'error', 'message' => 'API call failed with HTTP code: ' . $http_code]);
+            displayError('HTTP status ' . $http_code);
         }
 
+        // Close the cURL session
         curl_close($ch);
     } catch (Exception $e) {
-        error_log('Exception: ' . $e->getMessage()); // Log exceptions
-        return json_encode(['status' => 'error', 'message' => 'Exception: ' . $e->getMessage()]);
+        displayError('Exception: ' . $e->getMessage());
     }
 }
+?>
 
 
 

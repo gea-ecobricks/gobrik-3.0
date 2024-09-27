@@ -106,17 +106,18 @@ function grabActiveEarthenSubs() {
 
                         // Output the subscription box HTML
                         echo "
-                            <div id=\"{$id}\" class=\"sub-box\" data-color=\"green\">
+                           <div id=\"{$id}\" class=\"sub-box\" data-color=\"green\">
                                 <input type=\"checkbox\" class=\"sub-checkbox\" id=\"checkbox-{$id}\" name=\"subscriptions[]\" value=\"{$id}\">
                                 <label for=\"checkbox-{$id}\" class=\"checkbox-label\"></label>
-                                <div class=\"sub-icon\"></div>
+                                <div class=\"sub-icon\" style=\"background-image: url('path-to-icons/{$id}-icon.webp');\"></div>
                                 <div class=\"sub-content\">
                                     <h4 class=\"sub-name\">{$name}</h4>
-                                    <p class=\"sub-sender-name\">by {$sender_name}</p>
-                                    <p class=\"sub-description\">{$description}</p>
-                                    <p class=\"subscription-language\">{$language}</p>
+                                    <div class=\"sub-sender-name\">by {$sender_name}</div>
+                                    <div class=\"sub-description\">{$description}</div>
+                                    <div class=\"subscription-language\">{$language}</div>
                                 </div>
                             </div>
+
                         ";
                     }
                 }

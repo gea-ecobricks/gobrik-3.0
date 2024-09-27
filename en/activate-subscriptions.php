@@ -123,24 +123,22 @@ if ($buwana_id) {
             <div id="not-subscribed" style="display:<?php echo !$is_subscribed ? 'block' : 'none'; ?>;">You're not yet subscribed</div>
 
             <!-- SIGNUP FORM -->
-            <form id="select-earthen-subs" method="post" action="earthen_register.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
+            <form id="select-earthen-subs" method="post" action="earthen_register.php?id=<?php echo htmlspecialchars($buwana_id); ?>" style="margin-top:30px;">
                 <div class="subscription-boxes">
                     <!-- Subscription boxes will be populated here by the PHP function -->
                     <?php grabActiveEarthenSubs(); ?>
                 </div>
 
+            <p class="form-caption" style="text-align:center; margin-top: 20px">Note: these subscriptions are indepedent of GoBrik account notifications that we sometimes need to send.</p>
+
             <div id="submit-section" style="text-align:center;margin-top:25px;" data-lang-id="016-complete-button">
                 <input type="submit" id="submit-button" value="Setup Complete!" class="submit-button enabled">
-                <p class="form-caption" style="text-align:center; margin-top: 20px">Note: these subscriptions are indepedent of GoBrik account notifications that we sometimes need to send.</p>
 
     </div>
             </form>
         </div>
     </did>
 
-        <div style="font-size: medium; text-align: center; margin: auto; align-self: center; padding-top:40px; padding-bottom:40px; margin-top: 0px;">
-            <p style="font-size:medium;" data-lang-id="000-already-have-account">Already have an account? <a href="login.php">Login</a></p>
-        </div>
     </div>
 </div>
 

@@ -79,6 +79,27 @@ if ($buwana_id) {
     if (!empty($credential_key)) {
         ob_start(); // Start output buffering to capture the JSON response
 //         checkEarthenEmailStatus($credential_key); // Pass credential_key as $email
+
+        // Call the checkEarthenEmailStatus function with the user's email address
+        $response = checkEarthenEmailStatus($credential_key); // Make sure this function returns JSON data
+
+        // Capture the output of the function and ensure it's JSON
+        ob_start();
+        checkEarthenEmailStatus($credential_key);
+        $api_response = ob_get_clean(); // Capture the output
+
+        // Ensure the output is valid JSON
+        if (json_decode($api_response, true) === null) {
+            echo '<script>console.error("Invalid JSON response from server.");</script>';
+        } else {
+            // Embed the JSON data as a JavaScript variable on the page
+            echo '<script>const subscriptionData = ' . $api_response . ';</script>';
+        }
+
+
+
+
+
         $api_response = ob_get_clean(); // Get the output and clean the buffer
 
         // Parse the API response
@@ -199,8 +220,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 });
-</script>
-<script>
+
+
+
 // JavaScript function to modify the subscription presentation based on subscription status
 function modifySubscriptionPresentation(subscriptionData) {
     const { registered, newsletters } = subscriptionData;
@@ -238,13 +260,24 @@ function modifySubscriptionPresentation(subscriptionData) {
         }
     }
 }
+
+// Run the modifySubscriptionPresentation function on page load
+document.addEventListener('DOMContentLoaded', function () {
+    // Ensure subscriptionData is available before calling the function
+    if (typeof subscriptionData !== 'undefined') {
+        modifySubscriptionPresentation(subscriptionData);
+    } else {
+        console.error('No subscription data found.');
+    }
+});
+
+
+
+
 </script>
 
-<?php
-// PHP function that checks the subscription status and calls the JavaScript function
-checkEarthenEmailStatus($credential_key); // This function outputs JavaScript that calls modifySubscriptionPresentation
-?>
+
+
 
 </body>
 </html>
-

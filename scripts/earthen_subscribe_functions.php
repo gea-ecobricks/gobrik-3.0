@@ -214,7 +214,6 @@ function checkEarthenEmailStatus($email) {
         displayError('Exception: ' . $e->getMessage());
     }
 }
-?>
 
 
 

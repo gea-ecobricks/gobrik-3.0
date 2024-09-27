@@ -151,6 +151,9 @@ function grabActiveEarthenSubs() {
  *
  * @param string $email The email address to check.
  */
+
+
+
 function checkEarthenEmailStatus($email) {
     try {
         // Prepare and encode the email address for use in the API URL
@@ -228,9 +231,6 @@ function checkEarthenEmailStatus($email) {
         displayError('Exception: ' . $e->getMessage());
     }
 }
-
-// Example of calling the function with the email
-checkEarthenEmailStatus($credential_key); // Pass credential_key as $email
 
 
 

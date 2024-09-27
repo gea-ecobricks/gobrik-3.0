@@ -39,6 +39,7 @@ foreach ($to_unsubscribe as $newsletter_id) {
 header('Location: login.php?status=firsttime&id=' . urlencode($buwana_id));
 exit();
 
+
 /**
  * Subscribe the user to a specific newsletter based on the newsletter ID.
  */
@@ -57,6 +58,10 @@ function subscribeUserToNewsletter($email, $newsletter_id) {
             ]
         ];
 
+        // Convert data to JSON and log it for debugging
+        $jsonData = json_encode($data);
+        error_log("Attempting to subscribe user with data: " . $jsonData);
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $ghost_api_url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
@@ -65,13 +70,17 @@ function subscribeUserToNewsletter($email, $newsletter_id) {
         ));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
 
         $response = curl_exec($ch);
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
+        // Log the response and status code for debugging
+        error_log('Subscription API response: ' . $response);
+        error_log('HTTP status code: ' . $http_code);
+
         if (curl_errno($ch) || $http_code >= 400) {
-            error_log('Error subscribing to newsletter: ' . curl_error($ch));
+            error_log('Error subscribing to newsletter: ' . curl_error($ch) . ' - Response: ' . $response);
         }
 
         curl_close($ch);
@@ -99,6 +108,10 @@ function unsubscribeUserFromNewsletter($email, $newsletter_id) {
         $response = curl_exec($ch);
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
+        // Log the response and status code for debugging
+        error_log('Unsubscribe fetch member API response: ' . $response);
+        error_log('HTTP status code: ' . $http_code);
+
         if (curl_errno($ch) || $http_code >= 400) {
             error_log('Error fetching member data: ' . curl_error($ch));
             curl_close($ch);
@@ -119,15 +132,22 @@ function unsubscribeUserFromNewsletter($email, $newsletter_id) {
                 ]
             ];
 
+            $jsonData = json_encode($data);
+            error_log("Attempting to unsubscribe user with data: " . $jsonData);
+
             curl_setopt($ch, CURLOPT_URL, $ghost_api_url . $member_id . '/');
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
 
             $response = curl_exec($ch);
             $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
+            // Log the response and status code for debugging
+            error_log('Unsubscribe API response: ' . $response);
+            error_log('HTTP status code: ' . $http_code);
+
             if (curl_errno($ch) || $http_code >= 400) {
-                error_log('Error unsubscribing from newsletter: ' . curl_error($ch));
+                error_log('Error unsubscribing from newsletter: ' . curl_error($ch) . ' - Response: ' . $response);
             }
         }
 
@@ -136,4 +156,5 @@ function unsubscribeUserFromNewsletter($email, $newsletter_id) {
         error_log('Exception occurred while unsubscribing from newsletter: ' . $e->getMessage());
     }
 }
+
 ?>

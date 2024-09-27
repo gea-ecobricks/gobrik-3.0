@@ -30,6 +30,7 @@ if ($is_logged_in) {
     $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
     $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
     $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
+    $gea_status = getGEA_status($buwana_id);
 
     // Fetch the user's country_id from Buwana
     $country_id = null;

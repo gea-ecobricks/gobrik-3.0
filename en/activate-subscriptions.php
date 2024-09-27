@@ -136,23 +136,26 @@ if (!empty($credential_key)) {
             <div id="not-subscribed" style="display:<?php echo !$is_subscribed ? 'block' : 'none'; ?>;">You're not yet subscribed</div>
 
             <!-- SLECT SUBSCRIPTIONS FORM -->
-           <form id="select-earthen-subs" method="post" action="process_sub_selections.php" style="margin-top:30px;">
-                <!-- Hidden input to pass buwana_id -->
-                <input type="hidden" name="buwana_id" value="<?php echo htmlspecialchars($buwana_id); ?>">
+                   <!-- SIGNUP FORM -->
+        <!-- SIGNUP FORM -->
+        <form id="select-earthen-subs" method="post" action="process_sub_selections.php" style="margin-top:30px;">
+            <input type="hidden" name="subscribed_newsletters" value="<?php echo htmlspecialchars(json_encode($subscribed_newsletters)); ?>">
+            <input type="hidden" name="credential_key" value="<?php echo htmlspecialchars($credential_key); ?>">
+            <input type="hidden" name="buwana_id" value="<?php echo htmlspecialchars($buwana_id); ?>">
 
-                <div class="subscription-boxes">
-                    <!-- Subscription boxes will be populated here by the PHP function -->
-                    <?php grabActiveEarthenSubs(); ?>
-                </div>
+            <div class="subscription-boxes">
+                <!-- Subscription boxes will be populated here by the PHP function -->
+                <?php grabActiveEarthenSubs(); ?>
+            </div>
 
-                <p class="form-caption" style="text-align:center; margin-top: 20px">
-                    Note: these subscriptions are independent of GoBrik account notifications that we sometimes need to send.
-                </p>
+            <p class="form-caption" style="text-align:center; margin-top: 20px">Note: these subscriptions are independent of GoBrik account notifications that we sometimes need to send.</p>
 
-                <div id="submit-section" style="text-align:center;margin-top:25px;" data-lang-id="016-complete-button">
-                    <input type="submit" id="submit-button" value="Setup Complete!" class="submit-button enabled">
-                </div>
-            </form>
+            <div id="submit-section" style="text-align:center;margin-top:25px;" data-lang-id="016-complete-button">
+                <input type="submit" id="submit-button" value="Setup Complete!" class="submit-button enabled">
+            </div>
+        </form>
+
+
 
         </div>
     </did>

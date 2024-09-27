@@ -8,29 +8,10 @@ ini_set('display_errors', 1);
 // Include necessary files and setup JWT creation
 require_once '../scripts/earthen_subscribe_functions.php';
 
-// Get the user's buwana_id from the POST data
+// Get the user's data from the POST request
 $buwana_id = $_POST['buwana_id'] ?? null;
-
-// Initialize user variables
-$credential_key = ''; // This should hold the user's email address
-
-// Include database connection for retrieving the user's email
-include '../buwanaconn_env.php';
-
-// Fetch the user's email based on buwana_id
-if ($buwana_id) {
-    $sql_lookup_credential = "SELECT credential_key FROM credentials_tb WHERE buwana_id = ?";
-    $stmt_lookup_credential = $buwana_conn->prepare($sql_lookup_credential);
-    if ($stmt_lookup_credential) {
-        $stmt_lookup_credential->bind_param("i", $buwana_id);
-        $stmt_lookup_credential->execute();
-        $stmt_lookup_credential->bind_result($credential_key);
-        $stmt_lookup_credential->fetch();
-        $stmt_lookup_credential->close();
-    } else {
-        die('Database error occurred while fetching user credentials.');
-    }
-}
+$credential_key = $_POST['credential_key'] ?? null;
+$subscribed_newsletters = json_decode($_POST['subscribed_newsletters'] ?? '[]', true); // Decode the JSON array of subscribed newsletters
 
 // Ensure we have the user's email
 if (empty($credential_key)) {
@@ -40,12 +21,9 @@ if (empty($credential_key)) {
 // Retrieve selected subscriptions from the form submission
 $selected_subscriptions = $_POST['subscriptions'] ?? [];
 
-// Fetch current subscriptions from the Ghost API
-$current_subscriptions = getCurrentUserSubscriptions($credential_key);
-
 // Determine which newsletters to subscribe to and which to unsubscribe from
-$to_subscribe = array_diff($selected_subscriptions, $current_subscriptions);
-$to_unsubscribe = array_diff($current_subscriptions, $selected_subscriptions);
+$to_subscribe = array_diff($selected_subscriptions, $subscribed_newsletters);
+$to_unsubscribe = array_diff($subscribed_newsletters, $selected_subscriptions);
 
 // Subscribe the user to the selected newsletters
 foreach ($to_subscribe as $newsletter_id) {
@@ -60,25 +38,6 @@ foreach ($to_unsubscribe as $newsletter_id) {
 // Redirect the user to the login page with the required parameters after processing
 header('Location: login.php?status=firsttime&id=' . urlencode($buwana_id));
 exit();
-
-/**
- * Get the current subscriptions of a user based on their email address.
- */
-function getCurrentUserSubscriptions($email) {
-    $subscriptions = [];
-
-    // Call the checkEarthenEmailStatus function to get the user's current subscriptions
-    $response = checkEarthenEmailStatus($email);
-    $response_data = json_decode($response, true);
-
-    if (isset($response_data['status']) && $response_data['status'] === 'success' && $response_data['registered'] === 1) {
-        foreach ($response_data['newsletters'] as $newsletter) {
-            $subscriptions[] = $newsletter['id']; // Collect the newsletter IDs
-        }
-    }
-
-    return $subscriptions;
-}
 
 /**
  * Subscribe the user to a specific newsletter based on the newsletter ID.

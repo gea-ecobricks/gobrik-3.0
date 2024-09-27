@@ -145,8 +145,6 @@ function grabActiveEarthenSubs() {
 }
 
 
-
-// This PHP function remains unchanged but will output a JSON object containing subscription status and subscribed newsletters.
 function checkEarthenEmailStatus($email) {
     try {
         // Prepare and encode the email address for use in the API URL
@@ -177,9 +175,6 @@ function checkEarthenEmailStatus($email) {
             // Successful response, parse the JSON data
             $response_data = json_decode($response, true);
 
-            // Log or print the response data for debugging
-            error_log('Ghost API Response: ' . print_r($response_data, true));
-
             // Check if members are found
             $registered = 0;
             $newsletters = [];
@@ -187,15 +182,13 @@ function checkEarthenEmailStatus($email) {
             if ($response_data && isset($response_data['members']) && is_array($response_data['members']) && count($response_data['members']) > 0) {
                 $registered = 1;
 
-                // Check if newsletters exist and contain the slug
+                // Extract newsletter IDs
                 if (isset($response_data['members'][0]['newsletters']) && is_array($response_data['members'][0]['newsletters'])) {
                     foreach ($response_data['members'][0]['newsletters'] as $newsletter) {
-                        if (isset($newsletter['slug'])) {
-                            $newsletters[] = $newsletter['slug']; // Only push if slug exists
-                        } else {
-                            // Log missing slug error for further debugging
-                            error_log('Missing slug key in newsletter data: ' . print_r($newsletter, true));
-                        }
+                        $newsletters[] = [
+                            'id' => $newsletter['id'],
+                            'name' => $newsletter['name']
+                        ]; // Push the id and name to newsletters
                     }
                 }
 
@@ -215,6 +208,7 @@ function checkEarthenEmailStatus($email) {
         displayError('Exception: ' . $e->getMessage());
     }
 }
+
 
 
 

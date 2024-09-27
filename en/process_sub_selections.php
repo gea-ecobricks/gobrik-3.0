@@ -180,7 +180,7 @@ function unsubscribeUserFromNewsletter($email, $newsletter_id) {
 
         curl_close($ch);
     } catch (Exception $e) {
-        error_log('Exception occurred while unsubscribing from newsletter: ' . $e->getMessage());
+        error_log('Exceptions occurred while unsubscribing from newsletter: ' . $e->getMessage());
     }
 }
 ?>

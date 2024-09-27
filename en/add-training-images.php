@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 ini_set('memory_limit', '256M'); // Increase memory limit
 
-include '../ecobricks_env.php';
+include '../gobrikconn_env.php';
 
 $error_message = '';
 $full_urls = [];

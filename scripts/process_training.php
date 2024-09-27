@@ -2,7 +2,7 @@
 // PART 1 of the code
 // process_training.php
 
-include '../ecobricks_env.php';
+include '../gobrikconn_env.php';
 
 // Knack API settings
 $api_key = "360aa2b0-af19-11e8-bd38-41d9fc3da0cf";

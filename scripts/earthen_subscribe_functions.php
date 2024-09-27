@@ -144,7 +144,13 @@ function grabActiveEarthenSubs() {
     }
 }
 
+<?php
 
+/**
+ * Checks the subscription status of an email with the Ghost API.
+ *
+ * @param string $email The email address to check.
+ */
 function checkEarthenEmailStatus($email) {
     try {
         // Prepare and encode the email address for use in the API URL
@@ -182,21 +188,35 @@ function checkEarthenEmailStatus($email) {
             if ($response_data && isset($response_data['members']) && is_array($response_data['members']) && count($response_data['members']) > 0) {
                 $registered = 1;
 
-                // Extract newsletter IDs
+                // Extract newsletter IDs and names
                 if (isset($response_data['members'][0]['newsletters']) && is_array($response_data['members'][0]['newsletters'])) {
                     foreach ($response_data['members'][0]['newsletters'] as $newsletter) {
                         $newsletters[] = [
                             'id' => $newsletter['id'],
                             'name' => $newsletter['name']
-                        ]; // Push the id and name to newsletters
+                        ];
                     }
                 }
 
-                // Output JSON object with success status and subscribed newsletters
-                echo json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is subscribed.', 'newsletters' => $newsletters]);
+                // Prepare the data to pass to JavaScript
+                $subscriptionData = json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is subscribed.', 'newsletters' => $newsletters]);
+
+                // Output the JavaScript to call the modifySubscriptionPresentation function
+                echo "<script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            modifySubscriptionPresentation($subscriptionData);
+                        });
+                      </script>";
             } else {
-                // Output JSON object indicating user is not subscribed
-                echo json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is not subscribed.']);
+                // Prepare data indicating user is not subscribed
+                $subscriptionData = json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is not subscribed.']);
+
+                // Output the JavaScript to call the modifySubscriptionPresentation function
+                echo "<script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            modifySubscriptionPresentation($subscriptionData);
+                        });
+                      </script>";
             }
         } else {
             displayError('HTTP status ' . $http_code);
@@ -208,6 +228,11 @@ function checkEarthenEmailStatus($email) {
         displayError('Exception: ' . $e->getMessage());
     }
 }
+
+// Example of calling the function with the email
+checkEarthenEmailStatus($credential_key); // Pass credential_key as $email
+
+?>
 
 
 

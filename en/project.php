@@ -15,7 +15,7 @@ ini_set('display_errors', 1);?>
 
 <?php 
 require_once ("../includes/project-inc.php");
-include '../ecobricks_env.php';
+include '../gobrikconn_env.php';
 
 $conn->set_charset("utf8mb4");
 
@@ -87,7 +87,7 @@ if ($result->num_rows > 0) {
 
 				
 				require_once ("../includes/project-inc.php");
-				include '../ecobricks_env.php';
+				include '../gobrikconn_env.php';
 				
 				$projectId = $_GET['project_id'];
 				

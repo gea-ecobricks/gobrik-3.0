@@ -3,7 +3,7 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-include '../ecobricks_env.php';
+include '../gobrikconn_env.php';
 
 if (isset($_GET['id'])) {
     $ecobrick_unique_id = (int)$_GET['id'];

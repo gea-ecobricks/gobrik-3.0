@@ -33,7 +33,7 @@ require_once ("../includes/brikchain-inc.php");
 
 <!-- PAGE CONTENT-->
 
-<?php include '../ecobricks_env.php';?>
+<?php include '../gobrikconn_env.php';?>
 
 <div id="main-content">
 	<div class="row">

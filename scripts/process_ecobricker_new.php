@@ -1,5 +1,5 @@
 <?php
-include '../ecobricks_env.php';
+include '../gobrikconn_env.php';
 $conn->set_charset("utf8mb4");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

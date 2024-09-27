@@ -3,7 +3,7 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-require_once '../ecobricks_env.php';
+require_once '../gobrikconn_env.php';
 $conn->set_charset("utf8mb4");
 
 $project_id = $_GET['project_id'] ?? 0; // Ensure this matches the URL parameter

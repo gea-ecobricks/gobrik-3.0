@@ -1,6 +1,6 @@
 <?php
 // PART 4: Database Update
-include '../ecobricks_env.php';
+include '../gobrikconn_env.php';
 
 $training_id = $_GET['training_id'];
 

@@ -15,7 +15,7 @@ ini_set('display_errors', 1);?>
 
 <?php 
 require_once ("../includes/training-inc.php");
-include '../ecobricks_env.php';
+include '../gobrikconn_env.php';
 
 $conn->set_charset("utf8mb4");
 

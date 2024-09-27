@@ -239,7 +239,7 @@ b {font-weight: 500;}
 				<button onClick="javascript:window.close('','_parent','');">Close & Return</button><br><br>
 
 <!-- The DB connection creator -->
-<?php include '../ecobricks_env.php';?>
+<?php include '../gobrikconn_env.php';?>
 <?php
 
 // Get the contents from the Transaction table as an ordered View, using the transaction id from the URL.

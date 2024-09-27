@@ -2,7 +2,7 @@
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-include '../ecobricks_env.php';
+include '../gobrikconn_env.php';
 
 $error_message = '';
 $full_urls = [];

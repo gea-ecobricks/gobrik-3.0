@@ -2,7 +2,7 @@
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-require_once '../ecobricks_env.php';
+require_once '../gobrikconn_env.php';
 
 $projectId = isset($_GET['project_id']) ? intval($_GET['project_id']) : 0;
 $projectData = null;

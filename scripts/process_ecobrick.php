@@ -66,7 +66,7 @@
         ini_set('display_errors', 1);
         error_reporting(E_ALL);
 
-        include '../ecobricks_env.php';
+        include '../gobrikconn_env.php';
         $conn->set_charset("utf8mb4");
 
         // SQL query to fetch the latest 100 authenticated ecobricks
@@ -128,7 +128,7 @@
         exit;
     }
 
-    include '../ecobricks_env.php';
+    include '../gobrikconn_env.php';
 
     // Knack API settings
     $api_key = "360aa2b0-af19-11e8-bd38-41d9fc3da0cf";

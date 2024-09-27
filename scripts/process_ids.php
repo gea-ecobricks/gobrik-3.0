@@ -43,7 +43,7 @@
 
 
         // PART 2: Go to knack database and get ecobrick to extract maker ID from.
-        include '../ecobricks_env.php';
+        include '../gobrikconn_env.php';
 
         // Knack API settings
         $api_key = "360aa2b0-af19-11e8-bd38-41d9fc3da0cf";

@@ -48,7 +48,7 @@
         ini_set('display_errors', 1);
         error_reporting(E_ALL);
 
-        include '../ecobricks_env.php';
+        include '../gobrikconn_env.php';
         $conn->set_charset("utf8mb4");
 
         $query = "SELECT first_name, buwana_id, location_full_txt,

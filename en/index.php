@@ -94,7 +94,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <!-- FULL ECOBRICK FLOW GALLERY -->
 
-<?php include '../ecobricks_env.php';?>
+<?php include '../gobrikconn_env.php';?>
 
 <div class="featured-content-gallery" style="overflow-x:clip;">
         <div class="feed-live">

@@ -49,7 +49,7 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-include '../ecobricks_env.php';
+include '../gobrikconn_env.php';
 $conn->set_charset("utf8mb4");
 
 // SQL query to fetch the latest 18 authenticated ecobricks whose maker_id is not '000000000000000000000000'
@@ -107,7 +107,7 @@ $result = $conn->query($query);
 // PART 2 of the code
 // Go to knack database and get ecobrick to extract maker ID from.
 
-include '../ecobricks_env.php';
+include '../gobrikconn_env.php';
 
 // Knack API settings
 $api_key = "360aa2b0-af19-11e8-bd38-41d9fc3da0cf";

@@ -78,7 +78,7 @@ if ($buwana_id) {
     $earthen_subscriptions = ''; // To store newsletter names if subscribed
     if (!empty($credential_key)) {
         ob_start(); // Start output buffering to capture the JSON response
-//         checkEarthenEmailStatus($credential_key); // Pass credential_key as $email
+        checkEarthenEmailStatus($credential_key); // Pass credential_key as $email
         $api_response = ob_get_clean(); // Get the output and clean the buffer
 
         // Parse the API response
@@ -242,17 +242,6 @@ function modifySubscriptionPresentation(subscriptionData) {
     }
 }
 
-// Example of how to call modifySubscriptionPresentation with JSON data from PHP
-document.addEventListener('DOMContentLoaded', function () {
-    // Replace this with actual data retrieval from PHP
-    const phpOutput = '<?php checkEarthenEmailStatus($credential_key); ?>';
-
-    // Assuming the PHP outputs directly into a script tag as JSON, parse it to pass to JavaScript
-    const subscriptionData = JSON.parse(phpOutput);
-
-    // Call the JavaScript function with parsed data
-    modifySubscriptionPresentation(subscriptionData);
-});
 
 
 </script>

@@ -199,7 +199,66 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 });
+
+
+
+//prep the check boxes
+
+// JavaScript function to modify the subscription presentation based on subscription status
+function modifySubscriptionPresentation(subscriptionData) {
+    const { registered, newsletters } = subscriptionData;
+
+    // Map slugs to the corresponding checkbox IDs
+    const slugToIdMap = {
+        'earthen': 'default-newsletter',
+        'gea-trainers-en': 'gea-trainers',
+        'gea-trainers-id': 'gea-trainer-newsletter-indonesian',
+        'updates-by-russell': 'updates-by-russell'
+    };
+
+    // Default newsletter checkbox to preselect if the user is not subscribed to any
+    const defaultNewsletterCheckbox = document.getElementById('default-newsletter');
+
+    // Uncheck all checkboxes initially
+    document.querySelectorAll('.sub-checkbox').forEach((checkbox) => {
+        checkbox.checked = false;
+    });
+
+    // Check if the user is subscribed
+    if (registered === 1) {
+        // Loop through the subscribed newsletters and check the corresponding checkboxes
+        newsletters.forEach(slug => {
+            const checkboxId = slugToIdMap[slug]; // Find the corresponding ID
+            const checkbox = document.getElementById(checkboxId);
+            if (checkbox) {
+                checkbox.checked = true;
+            }
+        });
+    } else {
+        // If not subscribed, check the default newsletter (Earthen)
+        if (defaultNewsletterCheckbox) {
+            defaultNewsletterCheckbox.checked = true;
+        }
+    }
+}
+
+// Example of how to call modifySubscriptionPresentation with JSON data from PHP
+document.addEventListener('DOMContentLoaded', function () {
+    // Replace this with actual data retrieval from PHP
+    const phpOutput = '<?php checkEarthenEmailStatus($email); ?>';
+
+    // Assuming the PHP outputs directly into a script tag as JSON, parse it to pass to JavaScript
+    const subscriptionData = JSON.parse(phpOutput);
+
+    // Call the JavaScript function with parsed data
+    modifySubscriptionPresentation(subscriptionData);
+});
+
+
 </script>
+
+
+
 
 </body>
 </html>

@@ -77,17 +77,17 @@
 }
 
 /* Custom images for specific sub-box slugs */
-#earthen .sub-image {
+#default-newsletter .sub-image {
     background: url('../webps/earthen-newsletter-image.webp') no-repeat;
     background-size: cover;
 }
 
-#gea-trainers-en .sub-image {
+#gea-trainers .sub-image {
     background: url('../webps/trainer-newsletter-image.webp') no-repeat;
     background-size: cover;
 }
 
-#gea-trainers-id .sub-image {
+#gea-trainer-newsletter-indonesian .sub-image {
     background: url('../webps/pelatih-newsletter-image.webp') no-repeat;
     background-size: cover;
 }
@@ -126,17 +126,17 @@
 }
 
 /* Custom icons for specific sub-box slugs */
-#earthen .sub-icon {
+#default-newsletter .sub-icon {
     background: url('../icons/earthen-newsletter-icon.webp') no-repeat;
     background-size: contain;
 }
 
-#gea-trainers-en .sub-icon {
+#gea-trainers .sub-icon {
     background: url('../icons/trainer-newsletter-icon.webp') no-repeat;
     background-size: contain;
 }
 
-#gea-trainers-id .sub-icon {
+#gea-trainer-newsletter-indonesian .sub-icon {
     background: url('../icons/pelatih-newsletter-icon.webp') no-repeat;
     background-size: contain;
 }

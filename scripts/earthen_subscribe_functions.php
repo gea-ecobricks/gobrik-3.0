@@ -144,11 +144,9 @@ function grabActiveEarthenSubs() {
     }
 }
 
-/**
- * Checks the subscription status of an email with the Ghost API.
- * 
- * @param string $email The email address to check.
- */
+
+
+// This PHP function remains unchanged but will output a JSON object containing subscription status and subscribed newsletters.
 function checkEarthenEmailStatus($email) {
     try {
         // Prepare and encode the email address for use in the API URL
@@ -186,15 +184,17 @@ function checkEarthenEmailStatus($email) {
             if ($response_data && isset($response_data['members']) && is_array($response_data['members']) && count($response_data['members']) > 0) {
                 $registered = 1;
 
-                // Extract newsletter names
+                // Extract newsletter slugs
                 if (isset($response_data['members'][0]['newsletters'])) {
                     foreach ($response_data['members'][0]['newsletters'] as $newsletter) {
-                        $newsletters[] = $newsletter['name'];
+                        $newsletters[] = $newsletter['slug']; // Use slug to match the IDs in the form
                     }
                 }
 
+                // Output JSON object with success status and subscribed newsletters
                 echo json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is subscribed.', 'newsletters' => $newsletters]);
             } else {
+                // Output JSON object indicating user is not subscribed
                 echo json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is not subscribed.']);
             }
         } else {
@@ -208,4 +208,10 @@ function checkEarthenEmailStatus($email) {
     }
 }
 
+
+
+
 ?>
+
+
+

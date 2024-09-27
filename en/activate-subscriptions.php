@@ -111,6 +111,12 @@ require_once ("../scripts/earthen_subscribe_functions.php");
                     <!-- Subscription boxes will be populated here by the PHP function -->
                     <?php grabActiveEarthenSubs(); ?>
                 </div>
+
+            <div id="submit-section" style="text-align:center;margin-top:25px;display:none;" data-lang-id="016X-submit-complete-button">
+        <input type="submit" id="submit-button" value="Setup Complete!" class="submit-button enabled">
+            <p class="form-caption" style="text-align:center; margin-top: 20px">Note: these subscriptions are indepedent of GoBrik account notifications that we sometimes need to send.</p>
+
+    </div>
             </form>
         </div>
     </did>

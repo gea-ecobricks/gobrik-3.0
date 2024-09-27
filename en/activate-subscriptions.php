@@ -241,17 +241,6 @@ function modifySubscriptionPresentation(subscriptionData) {
     }
 }
 
-// Example of how to call modifySubscriptionPresentation with JSON data from PHP
-document.addEventListener('DOMContentLoaded', function () {
-    // Replace this with actual data retrieval from PHP
-    const phpOutput = '<?php checkEarthenEmailStatus($credential_key); ?>';
-
-    // Assuming the PHP outputs directly into a script tag as JSON, parse it to pass to JavaScript
-    const subscriptionData = JSON.parse(phpOutput);
-
-    // Call the JavaScript function with parsed data
-    modifySubscriptionPresentation(subscriptionData);
-});
 
 
 

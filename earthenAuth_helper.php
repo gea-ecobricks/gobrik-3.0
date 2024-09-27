@@ -1,6 +1,43 @@
 <?php
 
 
+
+/**
+ * Fetch the GEA status of a user from the tb_ecobrickers table using buwana_id.
+ *
+ * @param int $buwana_id The ID of the user.
+ * @return string|null The GEA status of the user or null if not found.
+ */
+
+function getGEA_status($buwana_id) {
+    // Include the database connection if not already included
+    global $buwana_conn; // Use the existing connection variable
+
+    // Prepare the SQL statement to fetch the gea_status
+    $sql = "SELECT gea_status FROM tb_ecobrickers WHERE buwana_id = ?";
+    $stmt = $buwana_conn->prepare($sql);
+
+    // Check if the statement was prepared successfully
+    if ($stmt) {
+        $stmt->bind_param("i", $buwana_id);
+        $stmt->execute();
+        $stmt->bind_result($gea_status);
+        $stmt->fetch();
+        $stmt->close();
+
+        // Return the fetched gea_status
+        return $gea_status;
+    } else {
+        // Log error or handle it appropriately
+        error_log("Database error: " . $buwana_conn->error);
+        return null;
+    }
+}
+
+
+
+
+
 // Function to display alert message in different languages
 function getNoEcobrickAlert($lang) {
     switch ($lang) {

@@ -99,7 +99,7 @@ if ($buwana_id) {
 <title>Select Earthen Subscriptions</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<?php require_once ("../includes/signup-inc.php");?>
+<?php require_once ("../includes/activate-subscriptions-inc.php");?>
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
 

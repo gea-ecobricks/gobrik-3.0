@@ -78,7 +78,8 @@
 
 /* Custom images for specific sub-box IDs */
 #62943b9aad0b695aa46139b0 .sub-image {
-    background-image: url('../webps/earthen-newsletter-image.webp');
+    background: url('../webps/earthen-newsletter-image.webp') no-repeat;
+    background-size: contain;
 }
 
 #6621d4f55e227d049e56f404 .sub-image {
@@ -122,7 +123,8 @@
 
 /* Custom icons for specific sub-box IDs */
 #62943b9aad0b695aa46139b0 .sub-icon {
-    background-image: url('../icons/earthen-newsletter-icon.webp');
+    background: url('../icons/earthen-newsletter-icon.webp') no-repeat;
+    background-size: contain;
 }
 
 #6621d4f55e227d049e56f404 .sub-icon {

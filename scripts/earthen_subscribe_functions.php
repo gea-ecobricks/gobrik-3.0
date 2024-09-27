@@ -69,8 +69,16 @@ function displayError($error_type) {
  * Fetches active newsletters from the Ghost API and displays them as subscription options.
  * Checks if the user is subscribed to any of the newsletters and marks the corresponding checkboxes.
  */
+
+
+/**
+ * Fetches active newsletters from the Ghost API and displays them as subscription options.
+ * Checks if the user is subscribed to any of the newsletters and marks the corresponding checkboxes.
+ * If the user is not subscribed to any, the "Earthen" newsletter will be preselected.
+ */
 function grabActiveEarthenSubs() {
     global $subscribed_newsletters; // Access the global variable to compare with user subscriptions
+    $is_user_subscribed = !empty($subscribed_newsletters); // Determine if the user is subscribed to any newsletters
 
     try {
         // Define the API URL for fetching newsletters
@@ -113,12 +121,15 @@ function grabActiveEarthenSubs() {
                         $sub_language = "English"; // Adjust if data in the JSON specifies a different language
                         $sub_frequency = "1-3 posts a month"; // Hard-coded frequency for demonstration
 
-                        // Check if the user is subscribed to this newsletter
-                        $is_checked = in_array($sub_name, $subscribed_newsletters) ? 'checked' : '';
+                        // Determine if this newsletter should be preselected
+                        $is_checked = in_array($sub_name, $subscribed_newsletters) || (!$is_user_subscribed && $sub_name === 'Earthen') ? 'checked' : '';
+
+                        // Apply the full selection styles if the box is checked
+                        $selected_styles = $is_checked ? 'style="border: 2px solid green; background-color: var(--darker);"' : '';
 
                         // Output the subscription box HTML
                         echo "
-                            <div id=\"{$sub_slug}\" class=\"sub-box\" data-color=\"green\">
+                            <div id=\"{$sub_slug}\" class=\"sub-box\" data-color=\"green\" {$selected_styles}>
                                 <input type=\"checkbox\" class=\"sub-checkbox\" id=\"checkbox-{$sub_slug}\" name=\"subscriptions[]\" value=\"{$sub_id}\" {$is_checked}>
                                 <label for=\"checkbox-{$sub_slug}\" class=\"checkbox-label\"></label>
                                 <div class=\"sub-image\"></div>
@@ -150,6 +161,7 @@ function grabActiveEarthenSubs() {
         displayError('Exception: ' . $e->getMessage());
     }
 }
+
 
 
 

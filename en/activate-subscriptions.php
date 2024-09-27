@@ -33,6 +33,9 @@ $credential_key = '';
 $first_name = '';
 $account_status = '';
 $country_icon = '';
+// Global variable to store the user's subscribed newsletters
+$subscribed_newsletters = [];
+
 
 // Include database connection
 include '../buwanaconn_env.php';
@@ -72,13 +75,10 @@ if ($buwana_id) {
     if ($account_status !== 'name set only') {
         $response['error'] = 'account_status';
     }
-// Check subscription status
-$is_subscribed = false;
-$earthen_subscriptions = ''; // To store newsletter names if subscribed
 
-if (!empty($credential_key)) {
-    // Call the function and capture the JSON response
-    // Check subscription status
+
+
+// Check subscription status
 $is_subscribed = false;
 $earthen_subscriptions = ''; // To store newsletter names if subscribed
 if (!empty($credential_key)) {
@@ -94,33 +94,6 @@ if (!empty($credential_key)) {
             $is_subscribed = true;
             // Join newsletter names with commas for display
             $earthen_subscriptions = implode(', ', $subscribed_newsletters);
-        }
-    } else {
-        // Handle invalid JSON or other errors
-        echo '<script>console.error("Invalid JSON response or error: ' . htmlspecialchars($response_data['message'] ?? 'Unknown error') . '");</script>';
-    }
-}
-
-// Example of using the $subscribed_newsletters variable in another function
-function compareNewsletters($current_newsletters) {
-    global $subscribed_newsletters;
-    // Compare the two lists of newsletters
-    $common_newsletters = array_intersect($current_newsletters, $subscribed_newsletters);
-
-    // Output the comparison results
-    echo '<p>Common Newsletters: ' . implode(', ', $common_newsletters) . '</p>';
-}
-
-
-    // Parse the API response
-    $response_data = json_decode($api_response, true);
-
-    // Check if the response is valid JSON and handle accordingly
-    if (json_last_error() === JSON_ERROR_NONE && isset($response_data['status']) && $response_data['status'] === 'success') {
-        if ($response_data['registered'] === 1) {
-            $is_subscribed = true;
-            // Join newsletter names with commas
-            $earthen_subscriptions = !empty($response_data['newsletters']) ? implode(', ', $response_data['newsletters']) : '';
         }
     } else {
         // Handle invalid JSON or other errors

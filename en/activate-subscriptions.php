@@ -14,8 +14,6 @@ if (isLoggedIn()) {
     exit();
 }
 
-
-
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
@@ -24,7 +22,7 @@ $is_logged_in = false; // Ensure not logged in for this page
 // Set page variables
 $page = 'activate-subscriptions';
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.774';
+$version = '0.773';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $response = ['success' => false];
 $buwana_id = $_GET['id'] ?? null;
@@ -156,29 +154,32 @@ function grabActiveEarthenSubs() {
         $response_data = json_decode($response, true);
 
         if ($response_data && isset($response_data['newsletters']) && is_array($response_data['newsletters'])) {
-            // Generate HTML for each newsletter
+            // Generate HTML for each active newsletter
             foreach ($response_data['newsletters'] as $newsletter) {
-                // Extract data
-                $id = htmlspecialchars($newsletter['id']);
-                $name = htmlspecialchars($newsletter['name']);
-                $description = htmlspecialchars($newsletter['description']);
-                $sender_name = htmlspecialchars($newsletter['sender_name']);
-                $language = "English"; // Assuming all are in English; adjust if you have this data in the JSON
+                // Only display newsletters with status "active"
+                if ($newsletter['status'] === 'active') {
+                    // Extract data
+                    $id = htmlspecialchars($newsletter['id']);
+                    $name = htmlspecialchars($newsletter['name']);
+                    $description = htmlspecialchars($newsletter['description']);
+                    $sender_name = htmlspecialchars($newsletter['sender_name']);
+                    $language = "English"; // Assuming all are in English; adjust if you have this data in the JSON
 
-                // Output the subscription box HTML
-                echo "
-                    <div id=\"{$id}\" class=\"sub-box\" data-color=\"green\">
-                        <input type=\"checkbox\" class=\"sub-checkbox\" id=\"checkbox-{$id}\" name=\"subscriptions[]\" value=\"{$id}\">
-                        <label for=\"checkbox-{$id}\" class=\"checkbox-label\"></label>
-                        <div class=\"sub-icon\"></div>
-                        <div class=\"sub-content\">
-                            <h4 class=\"sub-name\">{$name}</h4>
-                            <p class=\"sub-sender-name\">by {$sender_name}</p>
-                            <p class=\"sub-description\">{$description}</p>
-                            <p class=\"subscription-language\">{$language}</p>
+                    // Output the subscription box HTML
+                    echo "
+                        <div id=\"{$id}\" class=\"sub-box\" data-color=\"green\">
+                            <input type=\"checkbox\" class=\"sub-checkbox\" id=\"checkbox-{$id}\" name=\"subscriptions[]\" value=\"{$id}\">
+                            <label for=\"checkbox-{$id}\" class=\"checkbox-label\"></label>
+                            <div class=\"sub-icon\"></div>
+                            <div class=\"sub-content\">
+                                <h4 class=\"sub-name\">{$name}</h4>
+                                <p class=\"sub-sender-name\">by {$sender_name}</p>
+                                <p class=\"sub-description\">{$description}</p>
+                                <p class=\"subscription-language\">{$language}</p>
+                            </div>
                         </div>
-                    </div>
-                ";
+                    ";
+                }
             }
         } else {
             echo "<script>console.log('No active newsletters found.');</script>";
@@ -194,10 +195,16 @@ function grabActiveEarthenSubs() {
 }
 
 
-// Function to grab active newsletters from Ghost API and populate the subscription form
-function grabActiveEarthenSubs() {
-    // Define the API URL for fetching newsletters
-    $ghost_api_url = "https://earthen.io/ghost/api/v3/admin/newsletters/";
+
+
+
+
+
+
+function checkEarthenEmailStatus($email) {
+    // Prepare and encode the email address for use in the API URL
+    $email_encoded = urlencode($email);
+    $ghost_api_url = "https://earthen.io/ghost/api/v3/admin/members/?filter=email:$email_encoded";
 
     // Split API Key into ID and Secret for JWT generation
     $apiKey = '66db68b5cff59f045598dbc3:5c82d570631831f277b1a9b4e5840703e73a68e948812b2277a0bc11c12c973f';
@@ -239,7 +246,7 @@ function grabActiveEarthenSubs() {
 
     if (curl_errno($ch)) {
         error_log('Curl error: ' . curl_error($ch));
-        echo "<script>console.error('Curl error: " . curl_error($ch) . "');</script>";
+        echo json_encode(['status' => 'error', 'message' => 'Curl error: ' . curl_error($ch)]);
         exit();
     }
 
@@ -247,47 +254,33 @@ function grabActiveEarthenSubs() {
         // Successful response, parse the JSON data
         $response_data = json_decode($response, true);
 
-        if ($response_data && isset($response_data['newsletters']) && is_array($response_data['newsletters'])) {
-            // Generate HTML for each active newsletter
-            foreach ($response_data['newsletters'] as $newsletter) {
-                // Only display newsletters with status "active"
-                if ($newsletter['status'] === 'active') {
-                    // Extract data
-                    $id = htmlspecialchars($newsletter['id']);
-                    $name = htmlspecialchars($newsletter['name']);
-                    $description = htmlspecialchars($newsletter['description']);
-                    $sender_name = htmlspecialchars($newsletter['sender_name']);
-                    $language = "English"; // Assuming all are in English; adjust if you have this data in the JSON
+        // Check if members are found
+        $registered = 0; // Default to not registered
+        $newsletters = []; // Array to hold newsletter names
 
-                    // Output the subscription box HTML
-                    echo "
-                        <div id=\"{$id}\" class=\"sub-box\" data-color=\"green\">
-                            <input type=\"checkbox\" class=\"sub-checkbox\" id=\"checkbox-{$id}\" name=\"subscriptions[]\" value=\"{$id}\">
-                            <label for=\"checkbox-{$id}\" class=\"checkbox-label\"></label>
-                            <div class=\"sub-icon\"></div>
-                            <div class=\"sub-content\">
-                                <h4 class=\"sub-name\">{$name}</h4>
-                                <p class=\"sub-sender-name\">by {$sender_name}</p>
-                                <p class=\"sub-description\">{$description}</p>
-                                <p class=\"subscription-language\">{$language}</p>
-                            </div>
-                        </div>
-                    ";
+        if ($response_data && isset($response_data['members']) && is_array($response_data['members']) && count($response_data['members']) > 0) {
+            $registered = 1; // Member with the given email exists
+
+            // Extract newsletter names
+            if (isset($response_data['members'][0]['newsletters'])) {
+                foreach ($response_data['members'][0]['newsletters'] as $newsletter) {
+                    $newsletters[] = $newsletter['name'];
                 }
             }
+
+            echo json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is subscribed.', 'newsletters' => $newsletters]);
         } else {
-            echo "<script>console.log('No active newsletters found.');</script>";
+            echo json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is not subscribed.']);
         }
     } else {
         // Handle error
         error_log('HTTP status ' . $http_code . ': ' . $response);
-        echo "<script>console.error('API call to Earthen.io failed with HTTP code: " . $http_code . "');</script>";
+        echo json_encode(['status' => 'error', 'message' => 'API call to Earthen.io failed with HTTP code: ' . $http_code]);
     }
 
     // Close the cURL session
     curl_close($ch);
 }
-
 
 ?>
 

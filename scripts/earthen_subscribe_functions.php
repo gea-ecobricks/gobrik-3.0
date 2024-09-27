@@ -177,6 +177,9 @@ function checkEarthenEmailStatus($email) {
             // Successful response, parse the JSON data
             $response_data = json_decode($response, true);
 
+            // Log or print the response data for debugging
+            error_log('Ghost API Response: ' . print_r($response_data, true));
+
             // Check if members are found
             $registered = 0;
             $newsletters = [];
@@ -184,10 +187,15 @@ function checkEarthenEmailStatus($email) {
             if ($response_data && isset($response_data['members']) && is_array($response_data['members']) && count($response_data['members']) > 0) {
                 $registered = 1;
 
-                // Extract newsletter slugs
-                if (isset($response_data['members'][0]['newsletters'])) {
+                // Check if newsletters exist and contain the slug
+                if (isset($response_data['members'][0]['newsletters']) && is_array($response_data['members'][0]['newsletters'])) {
                     foreach ($response_data['members'][0]['newsletters'] as $newsletter) {
-                        $newsletters[] = $newsletter['slug']; // Use slug to match the IDs in the form
+                        if (isset($newsletter['slug'])) {
+                            $newsletters[] = $newsletter['slug']; // Only push if slug exists
+                        } else {
+                            // Log missing slug error for further debugging
+                            error_log('Missing slug key in newsletter data: ' . print_r($newsletter, true));
+                        }
                     }
                 }
 
@@ -207,6 +215,7 @@ function checkEarthenEmailStatus($email) {
         displayError('Exception: ' . $e->getMessage());
     }
 }
+
 
 
 

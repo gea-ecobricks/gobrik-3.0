@@ -144,7 +144,7 @@ function grabActiveEarthenSubs() {
     }
 }
 
-<?php
+
 
 /**
  * Checks the subscription status of an email with the Ghost API.
@@ -232,7 +232,7 @@ function checkEarthenEmailStatus($email) {
 // Example of calling the function with the email
 checkEarthenEmailStatus($credential_key); // Pass credential_key as $email
 
-?>
+
 
 
 

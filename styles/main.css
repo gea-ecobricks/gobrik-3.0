@@ -2333,6 +2333,10 @@ position:relative;
 
 
 
+
+
+
+
 /* Container for subscription boxes */
 .subscription-boxes {
     display: flex;
@@ -2347,12 +2351,12 @@ position:relative;
     border: 1px solid rgba(128, 128, 128, 0.5);
     border-radius: 10px;
     padding: 15px;
-    align-items: flex-start;
     transition: border 0.5s, background-color 0.5s, color 0.5s;
     cursor: pointer;
     width: calc(50% - 20px); /* Two columns when screen width is above 1000px */
     box-sizing: border-box;
     background-color: transparent; /* Default background */
+    align-items: stretch;
 }
 
 /* Checkbox for selection */
@@ -2383,63 +2387,81 @@ position:relative;
     border-color: green;
 }
 
-/* Icon inside the box */
-.sub-icon {
-    width: 70px;
-    height: 70px;
+/* Image covering 25% of the sub-box */
+.sub-image {
+    width: 25%;
+    height: 100%;
     background-size: cover;
     background-position: center;
-    border-radius: 4px;
+    border-radius: 10px 0 0 10px;
     margin-right: 15px;
-    align-self: flex-start;
-}
-
-/* Custom icons for specific sub-box IDs */
-#62943b9aad0b695aa46139b0 .sub-icon {
-    background-image: url('path-to-icons/earthen-newsletter-icon.webp');
-}
-
-#6621d4f55e227d049e56f404 .sub-icon {
-    background-image: url('path-to-icons/gea-trainer-newsletter-icon.webp');
-}
-
-#662352b4d27acf008a160ac2 .sub-icon {
-    background-image: url('path-to-icons/bulletin-pelatih-icon.webp');
-}
-
-#663b20e9d27acf008a250eb0 .sub-icon {
-    background-image: url('path-to-icons/ayyew-452-icon.webp');
 }
 
 /* Content area of the box */
 .sub-content {
-    text-align: left;
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+}
+
+/* Sub-header to group the icon and title */
+.sub-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Icon inside the sub-header */
+.sub-icon {
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+/* Grouping text elements */
+.sub-header-text {
+    display: flex;
+    flex-direction: column;
 }
 
 /* Text styles */
-.sub-name, .sub-sender-name, .sub-description, .subscription-language {
+.sub-name {
+    font-size: 1.3em;
+    font-family: 'Mulish', sans-serif;
+    color: var(--h1);
+    margin: 0;
+}
+
+.sub-sender-name {
+    font-size: 0.9em;
+    font-family: 'Mulish', sans-serif;
+    color: var(--subdued-text);
+    margin-top: 2px;
+}
+
+.sub-description {
+    font-size: 1em;
     font-family: 'Mulish', sans-serif;
     color: var(--text-color);
-    transition: color 0.5s;
+    margin: 10px 0;
 }
 
-.sub-name {
-    margin: 0;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.sub-sender-name, .sub-description, .subscription-language {
-    font-size: 14px;
-    margin: 5px 0;
+.sub-lang {
+    font-size: 0.9em;
+    font-family: 'Mulish', sans-serif;
+    color: grey;
 }
 
 /* Hover effect changes text color */
 .sub-box:hover .sub-name,
 .sub-box:hover .sub-sender-name,
 .sub-box:hover .sub-description,
-.sub-box:hover .subscription-language {
+.sub-box:hover .sub-lang {
     color: var(--h1);
 }
 

@@ -97,27 +97,32 @@ function grabActiveEarthenSubs() {
                 // Generate HTML for each active newsletter
                 foreach ($response_data['newsletters'] as $newsletter) {
                     if ($newsletter['status'] === 'active') {
-                        // Extract data
+                       // Extract data
                         $id = htmlspecialchars($newsletter['id']);
                         $name = htmlspecialchars($newsletter['name']);
                         $description = htmlspecialchars($newsletter['description']);
                         $sender_name = htmlspecialchars($newsletter['sender_name']);
                         $language = "English"; // Adjust if data in the JSON specifies a different language
+                        $frequency = "1-3 posts a month"; // Hard-coded frequency for demonstration
 
                         // Output the subscription box HTML
                         echo "
-                           <div id=\"{$id}\" class=\"sub-box\" data-color=\"green\">
+                            <div id=\"{$id}\" class=\"sub-box\" data-color=\"green\">
                                 <input type=\"checkbox\" class=\"sub-checkbox\" id=\"checkbox-{$id}\" name=\"subscriptions[]\" value=\"{$id}\">
                                 <label for=\"checkbox-{$id}\" class=\"checkbox-label\"></label>
-                                <div class=\"sub-icon\" style=\"background-image: url('path-to-icons/{$id}-icon.webp');\"></div>
+                                <div class=\"sub-image\" style=\"background-image: url('path-to-icons/{$id}-icon.webp');\"></div>
                                 <div class=\"sub-content\">
-                                    <h4 class=\"sub-name\">{$name}</h4>
-                                    <div class=\"sub-sender-name\">by {$sender_name}</div>
+                                    <div class=\"sub-header\">
+                                        <div class=\"sub-icon\" style=\"background-image: url('path-to-icons/{$id}-icon.webp');\"></div>
+                                        <div class=\"sub-header-text\">
+                                            <div class=\"sub-name\">{$name}</div>
+                                            <div class=\"sub-sender-name\">by {$sender_name}</div>
+                                        </div>
+                                    </div>
                                     <div class=\"sub-description\">{$description}</div>
-                                    <div class=\"subscription-language\">{$language}</div>
+                                    <div class=\"sub-lang\">{$language} | {$frequency}</div>
                                 </div>
                             </div>
-
                         ";
                     }
                 }

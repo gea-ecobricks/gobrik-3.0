@@ -25,27 +25,70 @@ $selected_subscriptions = $_POST['subscriptions'] ?? [];
 $to_subscribe = array_diff($selected_subscriptions, $subscribed_newsletters);
 $to_unsubscribe = array_diff($subscribed_newsletters, $selected_subscriptions);
 
-// Subscribe the user to the selected newsletters
-foreach ($to_subscribe as $newsletter_id) {
-    subscribeUserToNewsletter($credential_key, $newsletter_id);
-}
+// Fetch current member data to determine if the user exists
+$existing_member_id = getExistingMemberId($credential_key);
 
-// Unsubscribe the user from newsletters they did not select
-foreach ($to_unsubscribe as $newsletter_id) {
-    unsubscribeUserFromNewsletter($credential_key, $newsletter_id);
+if (!$existing_member_id) {
+    // If no existing member found, subscribe as a new member
+    foreach ($to_subscribe as $newsletter_id) {
+        subscribeUserToNewsletter($credential_key, $newsletter_id);
+    }
+} else {
+    // If the user exists, update their subscription
+    foreach ($to_subscribe as $newsletter_id) {
+        updateSubscribeUser($existing_member_id, $newsletter_id);
+    }
+    // Unsubscribe the user from newsletters they did not select
+    foreach ($to_unsubscribe as $newsletter_id) {
+        updateUnsubscribeUser($existing_member_id, $newsletter_id);
+    }
 }
 
 // Redirect the user to the login page with the required parameters after processing
 header('Location: login.php?status=firsttime&id=' . urlencode($buwana_id));
 exit();
 
+/**
+ * Get the existing member ID based on their email.
+ */
+function getExistingMemberId($email) {
+    try {
+        $ghost_api_url = "https://earthen.io/ghost/api/v5/admin/members/?filter=email:" . urlencode($email);
+        $jwt = createGhostJWT();
+
+        // Fetch current member data
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $ghost_api_url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Authorization: Ghost ' . $jwt,
+            'Content-Type: application/json'
+        ));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        $response = curl_exec($ch);
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $response_data = json_decode($response, true);
+
+        if (curl_errno($ch) || $http_code >= 400) {
+            error_log('Error fetching member data: ' . curl_error($ch) . ' - Response: ' . $response);
+            curl_close($ch);
+            return null;
+        }
+
+        curl_close($ch);
+        return $response_data['members'][0]['id'] ?? null;
+    } catch (Exception $e) {
+        error_log('Exception occurred while fetching member ID: ' . $e->getMessage());
+        return null;
+    }
+}
 
 /**
  * Subscribe the user to a specific newsletter based on the newsletter ID.
  */
 function subscribeUserToNewsletter($email, $newsletter_id) {
     try {
-        $ghost_api_url = "https://earthen.io/ghost/api/v3/admin/members/";
+        $ghost_api_url = "https://earthen.io/ghost/api/v5/admin/members/";
         $jwt = createGhostJWT();
 
         // Prepare subscription data
@@ -90,14 +133,22 @@ function subscribeUserToNewsletter($email, $newsletter_id) {
 }
 
 /**
- * Unsubscribe the user from a specific newsletter based on the newsletter ID.
+ * Update subscription for an existing user.
  */
-function unsubscribeUserFromNewsletter($email, $newsletter_id) {
+function updateSubscribeUser($member_id, $newsletter_id) {
     try {
-        $ghost_api_url = "https://earthen.io/ghost/api/v3/admin/members/?filter=email:" . urlencode($email);
+        $ghost_api_url = "https://earthen.io/ghost/api/v5/admin/members/" . $member_id . '/';
         $jwt = createGhostJWT();
 
-        // Fetch current member data
+        // Prepare updated subscription data
+        $data = [
+            'newsletters' => [['id' => $newsletter_id]]
+        ];
+
+        $jsonData = json_encode($data);
+        error_log("Attempting to update subscription for user: " . $jsonData);
+
+        // Update the member with the new subscription
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $ghost_api_url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
@@ -105,50 +156,62 @@ function unsubscribeUserFromNewsletter($email, $newsletter_id) {
             'Content-Type: application/json'
         ));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+
         $response = curl_exec($ch);
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
         // Log the response and status code for debugging
-        error_log('Unsubscribe fetch member API response: ' . $response);
+        error_log('Update subscription API response: ' . $response);
         error_log('HTTP status code: ' . $http_code);
 
         if (curl_errno($ch) || $http_code >= 400) {
-            error_log('Error fetching member data: ' . curl_error($ch));
-            curl_close($ch);
-            return;
+            error_log('Error updating subscription: ' . curl_error($ch) . ' - Response: ' . $response);
         }
 
-        $response_data = json_decode($response, true);
-        $member_id = $response_data['members'][0]['id'] ?? null;
+        curl_close($ch);
+    } catch (Exception $e) {
+        error_log('Exception occurred while updating subscription: ' . $e->getMessage());
+    }
+}
 
-        if ($member_id) {
-            // Prepare unsubscribe data
-            $data = [
-                'members' => [
-                    [
-                        'id' => $member_id,
-                        'newsletters' => [['id' => $newsletter_id, 'subscribed' => false]]
-                    ]
-                ]
-            ];
+/**
+ * Update to unsubscribe a user from a specific newsletter.
+ */
+function updateUnsubscribeUser($member_id, $newsletter_id) {
+    try {
+        $ghost_api_url = "https://earthen.io/ghost/api/v5/admin/members/" . $member_id . '/';
+        $jwt = createGhostJWT();
 
-            $jsonData = json_encode($data);
-            error_log("Attempting to unsubscribe user with data: " . $jsonData);
+        // Prepare data to unsubscribe from the newsletter
+        $data = [
+            'newsletters' => [['id' => $newsletter_id, 'subscribed' => false]]
+        ];
 
-            curl_setopt($ch, CURLOPT_URL, $ghost_api_url . $member_id . '/');
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+        $jsonData = json_encode($data);
+        error_log("Attempting to update unsubscribe for user: " . $jsonData);
 
-            $response = curl_exec($ch);
-            $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        // Update the member to unsubscribe from the newsletter
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $ghost_api_url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Authorization: Ghost ' . $jwt,
+            'Content-Type: application/json'
+        ));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
 
-            // Log the response and status code for debugging
-            error_log('Unsubscribe API response: ' . $response);
-            error_log('HTTP status code: ' . $http_code);
+        $response = curl_exec($ch);
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-            if (curl_errno($ch) || $http_code >= 400) {
-                error_log('Error unsubscribing from newsletter: ' . curl_error($ch) . ' - Response: ' . $response);
-            }
+        // Log the response and status code for debugging
+        error_log('Unsubscribe API response: ' . $response);
+        error_log('HTTP status code: ' . $http_code);
+
+        if (curl_errno($ch) || $http_code >= 400) {
+            error_log('Error unsubscribing from newsletter: ' . curl_error($ch) . ' - Response: ' . $response);
         }
 
         curl_close($ch);
@@ -156,5 +219,4 @@ function unsubscribeUserFromNewsletter($email, $newsletter_id) {
         error_log('Exception occurred while unsubscribing from newsletter: ' . $e->getMessage());
     }
 }
-
 ?>

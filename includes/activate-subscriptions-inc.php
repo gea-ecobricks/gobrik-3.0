@@ -10,7 +10,6 @@
   padding-bottom: 100px;
     }
 
-
 /* Container for subscription boxes */
 .subscription-boxes {
     display: flex;
@@ -24,13 +23,18 @@
     position: relative;
     border: 1px solid rgba(128, 128, 128, 0.5);
     border-radius: 10px;
-    padding: 15px;
-    transition: border 0.5s, background-color 0.5s, color 0.5s;
+    transition: border 0.5s, background-color 0.5s, filter 0.5s;
     cursor: pointer;
     width: calc(50% - 20px); /* Two columns when screen width is above 1000px */
     box-sizing: border-box;
     background-color: transparent; /* Default background */
     align-items: stretch;
+}
+
+/* Hover effect changes brightness and contrast */
+.sub-box:hover {
+    background-color: var(--lighter);
+    filter: brightness(1.1) contrast(0.95);
 }
 
 /* Checkbox for selection */
@@ -40,7 +44,7 @@
     right: 10px;
     z-index: 2;
     cursor: pointer;
-    opacity: 1; /* Ensure checkbox is visible */
+    transform: scale(1.1); /* Increase checkbox size slightly */
 }
 
 /* Label for the checkbox */
@@ -48,8 +52,8 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    width: 20px;
-    height: 20px;
+    width: 22px; /* Slightly increased size */
+    height: 22px; /* Slightly increased size */
     border: 1px solid grey;
     border-radius: 4px;
     cursor: pointer;
@@ -73,17 +77,17 @@
 }
 
 /* Custom images for specific sub-box slugs */
-#default-newsletter .sub-image {
+#earthen .sub-image {
     background: url('../webps/earthen-newsletter-image.webp') no-repeat;
     background-size: cover;
 }
 
-#gea-trainers .sub-image {
+#gea-trainers-en .sub-image {
     background: url('../webps/trainer-newsletter-image.webp') no-repeat;
     background-size: cover;
 }
 
-#gea-trainer-newsletter-indonesian .sub-image {
+#gea-trainers-id .sub-image {
     background: url('../webps/pelatih-newsletter-image.webp') no-repeat;
     background-size: cover;
 }
@@ -100,6 +104,7 @@
     flex-direction: column;
     justify-content: space-between;
     text-align: left;
+    padding: 15px; /* Added padding here */
 }
 
 /* Sub-header to group the icon and title */
@@ -121,17 +126,17 @@
 }
 
 /* Custom icons for specific sub-box slugs */
-#default-newsletter .sub-icon {
+#earthen .sub-icon {
     background: url('../icons/earthen-newsletter-icon.webp') no-repeat;
     background-size: contain;
 }
 
-#gea-trainers .sub-icon {
+#gea-trainers-en .sub-icon {
     background: url('../icons/trainer-newsletter-icon.webp') no-repeat;
     background-size: contain;
 }
 
-#gea-trainer-newsletter-indonesian .sub-icon {
+#gea-trainers-id .sub-icon {
     background: url('../icons/pelatih-newsletter-icon.webp') no-repeat;
     background-size: contain;
 }
@@ -175,19 +180,6 @@
     color: var(--subdued-text);
 }
 
-/* Hover effect changes text color */
-.sub-box:hover .sub-name,
-.sub-box:hover .sub-sender-name,
-.sub-box:hover .sub-description,
-.sub-box:hover .sub-lang {
-    color: var(--h1);
-}
-
-/* Hover effect changes background color */
-.sub-box:hover {
-    background-color: var(--lighter);
-}
-
 /* When box is selected, set background color */
 .sub-box.selected {
     background-color: var(--darker);
@@ -217,6 +209,7 @@
 .submit-button:hover {
     background-color: darkgreen;
 }
+
 
 //Next
 

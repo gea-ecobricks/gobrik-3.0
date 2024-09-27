@@ -135,8 +135,8 @@ if (!empty($credential_key)) {
             </div>
             <div id="not-subscribed" style="display:<?php echo !$is_subscribed ? 'block' : 'none'; ?>;">You're not yet subscribed</div>
 
-            <!-- SIGNUP FORM -->
-            <form id="select-earthen-subs" method="post" action="earthen_register.php?id=<?php echo htmlspecialchars($buwana_id); ?>" style="margin-top:30px;">
+            <!-- SLECT SUBSCRIPTIONS FORM -->
+            <form id="select-earthen-subs" method="post" action="process_sub_selections.php?id=<?php echo htmlspecialchars($buwana_id); ?>" style="margin-top:30px;">
                 <div class="subscription-boxes">
                     <!-- Subscription boxes will be populated here by the PHP function -->
                     <?php grabActiveEarthenSubs(); ?>

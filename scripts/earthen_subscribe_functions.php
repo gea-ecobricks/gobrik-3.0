@@ -65,7 +65,13 @@ function displayError($error_type) {
  * Grabs active newsletters from the Ghost API and populates the subscription form.
  */
 
+/**
+ * Fetches active newsletters from the Ghost API and displays them as subscription options.
+ * Checks if the user is subscribed to any of the newsletters and marks the corresponding checkboxes.
+ */
 function grabActiveEarthenSubs() {
+    global $subscribed_newsletters; // Access the global variable to compare with user subscriptions
+
     try {
         // Define the API URL for fetching newsletters
         $ghost_api_url = "https://earthen.io/ghost/api/v3/admin/newsletters/";
@@ -98,37 +104,37 @@ function grabActiveEarthenSubs() {
                 // Generate HTML for each active newsletter
                 foreach ($response_data['newsletters'] as $newsletter) {
                     if ($newsletter['status'] === 'active') {
+                        // Extract data
+                        $sub_id = htmlspecialchars($newsletter['id']);
+                        $sub_slug = htmlspecialchars($newsletter['slug']);
+                        $sub_name = htmlspecialchars($newsletter['name']);
+                        $sub_description = htmlspecialchars($newsletter['description']);
+                        $sub_sender_name = htmlspecialchars($newsletter['sender_name']);
+                        $sub_language = "English"; // Adjust if data in the JSON specifies a different language
+                        $sub_frequency = "1-3 posts a month"; // Hard-coded frequency for demonstration
 
+                        // Check if the user is subscribed to this newsletter
+                        $is_checked = in_array($sub_name, $subscribed_newsletters) ? 'checked' : '';
 
-
-                    // Extract data
-                    $sub_id = htmlspecialchars($newsletter['id']);
-                    $sub_slug = htmlspecialchars($newsletter['slug']);
-                    $sub_name = htmlspecialchars($newsletter['name']);
-                    $sub_description = htmlspecialchars($newsletter['description']);
-                    $sub_sender_name = htmlspecialchars($newsletter['sender_name']);
-                    $sub_language = "English"; // Adjust if data in the JSON specifies a different language
-                    $sub_frequency = "1-3 posts a month"; // Hard-coded frequency for demonstration
-
-                    // Output the subscription box HTML
-                    echo "
-                        <div id=\"{$sub_slug}\" class=\"sub-box\" data-color=\"green\">
-                            <input type=\"checkbox\" class=\"sub-checkbox\" id=\"checkbox-{$sub_slug}\" name=\"subscriptions[]\" value=\"{$sub_id}\">
-                            <label for=\"checkbox-{$sub_slug}\" class=\"checkbox-label\"></label>
-                            <div class=\"sub-image\"></div>
-                            <div class=\"sub-content\">
-                                <div class=\"sub-header\">
-                                    <div class=\"sub-icon\"></div>
-                                    <div class=\"sub-header-text\">
-                                        <div class=\"sub-name\">{$sub_name}</div>
-                                        <div class=\"sub-sender-name\">by {$sub_sender_name}</div>
+                        // Output the subscription box HTML
+                        echo "
+                            <div id=\"{$sub_slug}\" class=\"sub-box\" data-color=\"green\">
+                                <input type=\"checkbox\" class=\"sub-checkbox\" id=\"checkbox-{$sub_slug}\" name=\"subscriptions[]\" value=\"{$sub_id}\" {$is_checked}>
+                                <label for=\"checkbox-{$sub_slug}\" class=\"checkbox-label\"></label>
+                                <div class=\"sub-image\"></div>
+                                <div class=\"sub-content\">
+                                    <div class=\"sub-header\">
+                                        <div class=\"sub-icon\"></div>
+                                        <div class=\"sub-header-text\">
+                                            <div class=\"sub-name\">{$sub_name}</div>
+                                            <div class=\"sub-sender-name\">by {$sub_sender_name}</div>
+                                        </div>
                                     </div>
+                                    <div class=\"sub-description\">{$sub_description}</div>
+                                    <div class=\"sub-lang\">{$sub_language} | {$sub_frequency}</div>
                                 </div>
-                                <div class=\"sub-description\">{$sub_description}</div>
-                                <div class=\"sub-lang\">{$sub_language} | {$sub_frequency}</div>
                             </div>
-                        </div>
-                    ";
+                        ";
                     }
                 }
             } else {
@@ -144,6 +150,7 @@ function grabActiveEarthenSubs() {
         displayError('Exception: ' . $e->getMessage());
     }
 }
+
 
 
 

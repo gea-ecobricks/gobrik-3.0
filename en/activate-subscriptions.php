@@ -152,20 +152,6 @@ if (!empty($credential_key)) {
         </div>
     </did>
 
-<div style="color: var(--text-color); margin-left: 0px;">
-    <span data-lang-id="1000-logged-in-as">Logged in as</span>
-    <span><?php echo htmlspecialchars($first_name); ?></span>  |
-    <span style="color: var(--subdued);">
-        <?php
-        if ($gea_status !== null) {
-            echo "GEA Status: " . htmlspecialchars($gea_status);
-        } else {
-            $response['error'] = 'gea_status_error';
-            echo "GEA Status: Not available"; // Optional: display an alternative message
-        }
-        ?>
-    </span>
-</div>
 
     </div>
 </div>

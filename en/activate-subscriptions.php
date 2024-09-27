@@ -34,6 +34,10 @@ $first_name = '';
 $account_status = '';
 $country_icon = '';
 
+// Initialize subscription-related variables
+$is_subscribed = false; // Ensure $is_subscribed is always initialized
+$earthen_subscriptions = ''; // To store newsletter names if subscribed
+
 // Include database connection
 include '../buwanaconn_env.php';
 include '../gobrikconn_env.php';
@@ -41,7 +45,7 @@ require_once ("../scripts/earthen_subscribe_functions.php");
 
 // Look up user information if buwana_id is provided
 if ($buwana_id) {
-    $gea_status = getGEA_status($buwana_id);  //added here
+    $gea_status = getGEA_status($buwana_id); //added here
     $sql_lookup_credential = "SELECT credential_type, credential_key FROM credentials_tb WHERE buwana_id = ?";
     $stmt_lookup_credential = $buwana_conn->prepare($sql_lookup_credential);
     if ($stmt_lookup_credential) {
@@ -73,32 +77,33 @@ if ($buwana_id) {
         $response['error'] = 'account_status';
     }
 
-// Ensure the output is valid JSON
-if (!empty($credential_key)) {
-    // Call the checkEarthenEmailStatus function with the user's email address
-    $response = checkEarthenEmailStatus($credential_key);
+    // Check subscription status if credential_key is available
+    if (!empty($credential_key)) {
+        // Call the checkEarthenEmailStatus function with the user's email address
+        $response = checkEarthenEmailStatus($credential_key);
 
-    // Check and clean the response before embedding
-    $response_data = json_decode($response, true);
+        // Check and clean the response before embedding
+        $response_data = json_decode($response, true);
 
-    if ($response_data === null || json_last_error() !== JSON_ERROR_NONE) {
-        // Log the error for debugging purposes
-        error_log("Invalid JSON response from checkEarthenEmailStatus: " . $response);
-        echo '<script>console.error("Invalid JSON response from server.");</script>';
-    } else {
-        // Safely embed the JSON data as a JavaScript variable on the page
-        echo '<script>const subscriptionData = ' . json_encode($response_data, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) . ';</script>';
+        // Ensure the response is valid JSON
+        if ($response_data === null || json_last_error() !== JSON_ERROR_NONE) {
+            // Log the error for debugging purposes
+            error_log("Invalid JSON response from checkEarthenEmailStatus: " . $response);
+            echo '<script>console.error("Invalid JSON response from server.");</script>';
+        } else {
+            // Embed the JSON data as a JavaScript variable on the page
+            echo '<script>const subscriptionData = ' . json_encode($response_data, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) . ';</script>';
+
+            // Check if the user is subscribed based on the response data
+            if (isset($response_data['status']) && $response_data['status'] === 'success' && $response_data['registered'] === 1) {
+                $is_subscribed = true;
+                $earthen_subscriptions = !empty($response_data['members'][0]['newsletters']) ? implode(', ', array_column($response_data['members'][0]['newsletters'], 'name')) : '';
+            }
+        }
     }
-
-    // Check if the user is subscribed based on the response data
-    if (isset($response_data['status']) && $response_data['status'] === 'success' && $response_data['registered'] === 1) {
-        $is_subscribed = true;
-        $earthen_subscriptions = !empty($response_data['newsletters']) ? implode(', ', $response_data['newsletters']) : '';
-    }
-}
-
 }
 ?>
+
 
 
 <!DOCTYPE html>

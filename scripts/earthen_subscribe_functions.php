@@ -64,6 +64,7 @@ function displayError($error_type) {
 /**
  * Grabs active newsletters from the Ghost API and populates the subscription form.
  */
+
 function grabActiveEarthenSubs() {
     try {
         // Define the API URL for fetching newsletters
@@ -144,13 +145,6 @@ function grabActiveEarthenSubs() {
     }
 }
 
-
-
-/**
- * Checks the subscription status of an email with the Ghost API.
- *
- * @param string $email The email address to check.
- */
 
 
 

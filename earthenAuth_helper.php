@@ -15,7 +15,7 @@ function getGEA_status($buwana_id) {
 
     // Prepare the SQL statement to fetch the gea_status
     $sql = "SELECT gea_status FROM tb_ecobrickers WHERE buwana_id = ?";
-    $stmt = $buwana_conn->prepare($sql);
+    $stmt = $gobrik_conn->prepare($sql);
 
     // Check if the statement was prepared successfully
     if ($stmt) {

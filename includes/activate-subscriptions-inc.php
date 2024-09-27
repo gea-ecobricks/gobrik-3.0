@@ -12,7 +12,6 @@
 
 
 
-
 /* Container for subscription boxes */
 .subscription-boxes {
     display: flex;
@@ -35,36 +34,30 @@
     align-items: stretch;
 }
 
-/* Custom checkbox styling */
+/* Checkbox for selection */
 .sub-checkbox {
     position: absolute;
     top: 10px;
     right: 10px;
     z-index: 2;
     cursor: pointer;
-    width: 20px;
-    height: 20px;
-    -webkit-appearance: none;
-    appearance: none;
-    background-color: #fff;
-    border: 2px solid grey;
-    border-radius: 6px;
-    outline: none;
-    transition: background-color 0.3s, border-color 0.3s;
+    opacity: 1; /* Ensure checkbox is visible */
 }
 
-/* Checkbox label styling for accessibility */
+/* Label for the checkbox */
 .checkbox-label {
     position: absolute;
     top: 10px;
     right: 10px;
     width: 20px;
     height: 20px;
+    border: 1px solid grey;
+    border-radius: 4px;
     cursor: pointer;
 }
 
-/* Style for checked state of checkbox */
-.sub-checkbox:checked {
+/* Style for checked state */
+.sub-checkbox:checked + .checkbox-label {
     background-color: green;
     border-color: green;
 }
@@ -82,19 +75,23 @@
 
 /* Custom images for specific sub-box IDs */
 #newsletter-1 .sub-image {
-    background-image: url('path-to-icons/earthen-newsletter-image.webp');
+    background: url(../webps/earthen-newsletter-image.webp) no-repeat;
+    background-size: contain;
 }
 
 #newsletter-2 .sub-image {
-    background-image: url('path-to-icons/trainer-newsletter-image.webp');
+    background: url(../webps/trainer-newsletter-image.webp) no-repeat;
+    background-size: contain;
 }
 
 #newsletter-3 .sub-image {
-    background-image: url('path-to-icons/pelatih-newsletter-image.webp');
+    background: url(../webps/pelatih-newsletter-image.webp) no-repeat;
+    background-size: contain;
 }
 
 #newsletter-4 .sub-image {
-    background-image: url('path-to-icons/ayyew-newsletter-image.webp');
+    background: url(../webps/ayyew-newsletter-image.webp) no-repeat;
+    background-size: contain;
 }
 
 /* Content area of the box */
@@ -117,7 +114,7 @@
 .sub-icon {
     width: 40px;
     height: 40px;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     background-color: grey; /* Default grey background */
     border-radius: 4px;
@@ -126,19 +123,23 @@
 
 /* Custom icons for specific sub-box IDs */
 #newsletter-1 .sub-icon {
-    background-image: url('path-to-icons/earthen-newsletter-icon.webp');
+    background: url(../icons/earthen-newsletter-icon.webp) no-repeat;
+    background-size: contain;
 }
 
 #newsletter-2 .sub-icon {
-    background-image: url('path-to-icons/trainer-newsletter-icon.webp');
+    background: url(../icons/trainer-newsletter-icon.webp) no-repeat;
+    background-size: contain;
 }
 
 #newsletter-3 .sub-icon {
-    background-image: url('path-to-icons/pelatih-newsletter-icon.webp');
+    background: url(../icons/pelatih-newsletter-icon.webp) no-repeat;
+    background-size: contain;
 }
 
 #newsletter-4 .sub-icon {
-    background-image: url('path-to-icons/ayyew-newsletter-icon.webp');
+    background: url(../icons/ayyew-newsletter-icon.webp) no-repeat;
+    background-size: contain;
 }
 
 /* Grouping text elements */
@@ -217,8 +218,6 @@
 .submit-button:hover {
     background-color: darkgreen;
 }
-
-
 
 
 //Next

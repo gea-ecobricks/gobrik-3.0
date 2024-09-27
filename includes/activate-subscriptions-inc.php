@@ -11,7 +11,6 @@
     }
 
 
-
 /* Container for subscription boxes */
 .subscription-boxes {
     display: flex;
@@ -73,25 +72,25 @@
     margin-right: 15px;
 }
 
-/* Custom images for specific sub-box IDs */
-#newsletter-1 .sub-image {
-    background: url(../webps/earthen-newsletter-image.webp) no-repeat;
-    background-size: contain;
+/* Custom images for specific sub-box slugs */
+#earthen .sub-image {
+    background: url('../webps/earthen-newsletter-image.webp') no-repeat;
+    background-size: cover;
 }
 
-#newsletter-2 .sub-image {
-    background: url(../webps/trainer-newsletter-image.webp) no-repeat;
-    background-size: contain;
+#gea-trainers-en .sub-image {
+    background: url('../webps/trainer-newsletter-image.webp') no-repeat;
+    background-size: cover;
 }
 
-#newsletter-3 .sub-image {
-    background: url(../webps/pelatih-newsletter-image.webp) no-repeat;
-    background-size: contain;
+#gea-trainers-id .sub-image {
+    background: url('../webps/pelatih-newsletter-image.webp') no-repeat;
+    background-size: cover;
 }
 
-#newsletter-4 .sub-image {
-    background: url(../webps/ayyew-newsletter-image.webp) no-repeat;
-    background-size: contain;
+#updates-by-russell .sub-image {
+    background: url('../webps/ayyew-newsletter-image.webp') no-repeat;
+    background-size: cover;
 }
 
 /* Content area of the box */
@@ -121,24 +120,24 @@
     margin-right: 10px;
 }
 
-/* Custom icons for specific sub-box IDs */
-#newsletter-1 .sub-icon {
-    background: url(../icons/earthen-newsletter-icon.webp) no-repeat;
+/* Custom icons for specific sub-box slugs */
+#earthen .sub-icon {
+    background: url('../icons/earthen-newsletter-icon.webp') no-repeat;
     background-size: contain;
 }
 
-#newsletter-2 .sub-icon {
-    background: url(../icons/trainer-newsletter-icon.webp) no-repeat;
+#gea-trainers-en .sub-icon {
+    background: url('../icons/trainer-newsletter-icon.webp') no-repeat;
     background-size: contain;
 }
 
-#newsletter-3 .sub-icon {
-    background: url(../icons/pelatih-newsletter-icon.webp) no-repeat;
+#gea-trainers-id .sub-icon {
+    background: url('../icons/pelatih-newsletter-icon.webp') no-repeat;
     background-size: contain;
 }
 
-#newsletter-4 .sub-icon {
-    background: url(../icons/ayyew-newsletter-icon.webp) no-repeat;
+#updates-by-russell .sub-icon {
+    background: url('../icons/ayyew-newsletter-icon.webp') no-repeat;
     background-size: contain;
 }
 
@@ -218,7 +217,6 @@
 .submit-button:hover {
     background-color: darkgreen;
 }
-
 
 //Next
 

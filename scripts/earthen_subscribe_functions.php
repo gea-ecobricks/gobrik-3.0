@@ -99,8 +99,10 @@ function grabActiveEarthenSubs() {
                     if ($newsletter['status'] === 'active') {
 
 
-                    // Extract data and set sequential numbering for div IDs
-                    $sub_index = 1; // Initialize index for numbering div IDs
+
+                    // Extract data
+                    $sub_id = htmlspecialchars($newsletter['id']);
+                    $sub_slug = htmlspecialchars($newsletter['slug']);
                     $sub_name = htmlspecialchars($newsletter['name']);
                     $sub_description = htmlspecialchars($newsletter['description']);
                     $sub_sender_name = htmlspecialchars($newsletter['sender_name']);
@@ -109,9 +111,9 @@ function grabActiveEarthenSubs() {
 
                     // Output the subscription box HTML
                     echo "
-                        <div id=\"newsletter-{$sub_index}\" class=\"sub-box\" data-color=\"green\">
-                            <input type=\"checkbox\" class=\"sub-checkbox\" id=\"checkbox-{$sub_index}\" name=\"subscriptions[]\" value=\"{$sub_index}\">
-                            <label for=\"checkbox-{$sub_index}\" class=\"checkbox-label\"></label>
+                        <div id=\"{$sub_slug}\" class=\"sub-box\" data-color=\"green\">
+                            <input type=\"checkbox\" class=\"sub-checkbox\" id=\"checkbox-{$sub_slug}\" name=\"subscriptions[]\" value=\"{$sub_id}\">
+                            <label for=\"checkbox-{$sub_slug}\" class=\"checkbox-label\"></label>
                             <div class=\"sub-image\"></div>
                             <div class=\"sub-content\">
                                 <div class=\"sub-header\">
@@ -126,7 +128,6 @@ function grabActiveEarthenSubs() {
                             </div>
                         </div>
                     ";
-                    $sub_index++;
                     }
                 }
             } else {

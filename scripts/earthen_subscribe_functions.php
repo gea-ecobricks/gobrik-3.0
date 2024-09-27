@@ -153,8 +153,9 @@ function grabActiveEarthenSubs() {
  */
 
 
+
 /**
- * Checks the subscription status of an email with the Ghost API.
+ * Checks the subscription status of an email with the Ghost API and logs the response to the console.
  *
  * @param string $email The email address to check.
  * @return string JSON response from the Ghost API.
@@ -184,6 +185,7 @@ function checkEarthenEmailStatus($email) {
         if (curl_errno($ch)) {
             $error_message = 'Curl error: ' . curl_error($ch);
             curl_close($ch);
+            logToConsole(['status' => 'error', 'message' => $error_message]); // Log to console
             return json_encode(['status' => 'error', 'message' => $error_message]);
         }
 
@@ -209,18 +211,36 @@ function checkEarthenEmailStatus($email) {
                     }
                 }
 
-                return json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is subscribed.', 'newsletters' => $newsletters]);
+                $jsonResponse = json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is subscribed.', 'newsletters' => $newsletters]);
+                logToConsole($jsonResponse); // Log the JSON response to the console
+                return $jsonResponse;
             } else {
-                return json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is not subscribed.']);
+                $jsonResponse = json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is not subscribed.']);
+                logToConsole($jsonResponse); // Log the JSON response to the console
+                return $jsonResponse;
             }
         } else {
             // Handle non-2xx HTTP codes
-            return json_encode(['status' => 'error', 'message' => 'HTTP status ' . $http_code]);
+            $errorResponse = json_encode(['status' => 'error', 'message' => 'HTTP status ' . $http_code]);
+            logToConsole($errorResponse); // Log the JSON response to the console
+            return $errorResponse;
         }
     } catch (Exception $e) {
         // Handle exceptions
-        return json_encode(['status' => 'error', 'message' => 'Exception: ' . $e->getMessage()]);
+        $exceptionResponse = json_encode(['status' => 'error', 'message' => 'Exception: ' . $e->getMessage()]);
+        logToConsole($exceptionResponse); // Log the JSON response to the console
+        return $exceptionResponse;
     }
+}
+
+/**
+ * Logs JSON data to the browser's console.
+ *
+ * @param mixed $data The data to log, typically an associative array or JSON string.
+ */
+function logToConsole($data) {
+    $jsonData = is_array($data) ? json_encode($data) : $data;
+    echo "<script>console.log('JSON Response:', " . $jsonData . ");</script>";
 }
 
 

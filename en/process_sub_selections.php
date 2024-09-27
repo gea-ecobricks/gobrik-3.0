@@ -53,7 +53,7 @@ exit();
  */
 function getExistingMemberId($email) {
     try {
-        $ghost_api_url = "https://earthen.io/ghost/api/v5/admin/members/?filter=email:" . urlencode($email);
+        $ghost_api_url = "https://earthen.io/ghost/api/v4/admin/members/?filter=email:" . urlencode($email);
         $jwt = createGhostJWT();
 
         // Fetch current member data
@@ -88,7 +88,7 @@ function getExistingMemberId($email) {
  */
 function subscribeUserToNewsletter($email, $newsletter_id) {
     try {
-        $ghost_api_url = "https://earthen.io/ghost/api/v5/admin/members/";
+        $ghost_api_url = "https://earthen.io/ghost/api/v4/admin/members/";
         $jwt = createGhostJWT();
 
         // Prepare subscription data
@@ -137,7 +137,7 @@ function subscribeUserToNewsletter($email, $newsletter_id) {
  */
 function updateSubscribeUser($member_id, $newsletter_id) {
     try {
-        $ghost_api_url = "https://earthen.io/ghost/api/v5/admin/members/" . $member_id . '/';
+        $ghost_api_url = "https://earthen.io/ghost/api/v4/admin/members/" . $member_id . '/';
         $jwt = createGhostJWT();
 
         // Prepare updated subscription data
@@ -181,7 +181,7 @@ function updateSubscribeUser($member_id, $newsletter_id) {
  */
 function updateUnsubscribeUser($member_id, $newsletter_id) {
     try {
-        $ghost_api_url = "https://earthen.io/ghost/api/v5/admin/members/" . $member_id . '/';
+        $ghost_api_url = "https://earthen.io/ghost/api/v4/admin/members/" . $member_id . '/';
         $jwt = createGhostJWT();
 
         // Prepare data to unsubscribe from the newsletter

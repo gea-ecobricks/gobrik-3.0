@@ -2334,9 +2334,6 @@ position:relative;
 
 
 
-
-
-/* Container for subscription boxes */
 /* Container for subscription boxes */
 .subscription-boxes {
     display: flex;
@@ -2348,7 +2345,7 @@ position:relative;
 .sub-box {
     display: flex;
     position: relative;
-    border: 1px solid var(--subdued-text);
+    border: 1px solid rgba(128, 128, 128, 0.5);
     border-radius: 10px;
     padding: 15px;
     align-items: flex-start;
@@ -2356,7 +2353,7 @@ position:relative;
     cursor: pointer;
     width: calc(50% - 20px); /* Two columns when screen width is above 1000px */
     box-sizing: border-box;
-    background-color: var(--lighter);
+    background-color: transparent; /* Default background */
 }
 
 /* Checkbox for selection */
@@ -2375,25 +2372,16 @@ position:relative;
     right: 10px;
     width: 20px;
     height: 20px;
-    border: 1px solid var(--subdued-text);
+    border: 1px solid grey;
     border-radius: 4px;
     background-color: white;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 /* Style when the checkbox is checked */
 .sub-checkbox:checked + .checkbox-label {
     background-color: green;
     border-color: green;
-}
-
-/* When the checkbox is checked, style the box */
-.sub-checkbox:checked ~ .sub-content {
-    border: 2px solid green;
-    background-color: var(--darker);
 }
 
 /* Icon inside the box */
@@ -2437,10 +2425,14 @@ position:relative;
     text-align: left;
 }
 
-/* Hover effect changes border and background color */
+/* Hover effect changes background color */
 .sub-box:hover {
-    border: 2px solid green;
-    background-color: var(--main-background);
+    background-color: var(--lighter);
+}
+
+/* When box is selected, set background color */
+.sub-box.selected {
+    background-color: var(--darker);
 }
 
 /* Responsive behavior: single column for screen widths below 1000px */

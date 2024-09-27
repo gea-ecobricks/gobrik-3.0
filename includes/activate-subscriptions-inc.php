@@ -13,8 +13,6 @@
 
 
 
-
-/* Container for subscription boxes */
 /* Container for subscription boxes */
 .subscription-boxes {
     display: flex;
@@ -37,30 +35,36 @@
     align-items: stretch;
 }
 
-/* Checkbox for selection */
+/* Custom checkbox styling */
 .sub-checkbox {
     position: absolute;
     top: 10px;
     right: 10px;
     z-index: 2;
     cursor: pointer;
-    opacity: 1; /* Ensure checkbox is visible */
+    width: 20px;
+    height: 20px;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    border: 2px solid grey;
+    border-radius: 6px;
+    outline: none;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
-/* Label for the checkbox */
+/* Checkbox label styling for accessibility */
 .checkbox-label {
     position: absolute;
     top: 10px;
     right: 10px;
     width: 20px;
     height: 20px;
-    border: 1px solid grey;
-    border-radius: 4px;
     cursor: pointer;
 }
 
-/* Style for checked state */
-.sub-checkbox:checked + .checkbox-label {
+/* Style for checked state of checkbox */
+.sub-checkbox:checked {
     background-color: green;
     border-color: green;
 }
@@ -77,21 +81,20 @@
 }
 
 /* Custom images for specific sub-box IDs */
-#62943b9aad0b695aa46139b0 .sub-image {
-    background: url('../webps/earthen-newsletter-image.webp') no-repeat;
-    background-size: contain;
+#newsletter-1 .sub-image {
+    background-image: url('path-to-icons/earthen-newsletter-image.webp');
 }
 
-#6621d4f55e227d049e56f404 .sub-image {
-    background-image: url('../webps/trainer-newsletter-image.webp');
+#newsletter-2 .sub-image {
+    background-image: url('path-to-icons/trainer-newsletter-image.webp');
 }
 
-#662352b4d27acf008a160ac2 .sub-image {
-    background-image: url('../webps/pelatih-newsletter-image.webp');
+#newsletter-3 .sub-image {
+    background-image: url('path-to-icons/pelatih-newsletter-image.webp');
 }
 
-#663b20e9d27acf008a250eb0 .sub-image {
-    background-image: url('../webps/ayyew-newsletter-image.webp');
+#newsletter-4 .sub-image {
+    background-image: url('path-to-icons/ayyew-newsletter-image.webp');
 }
 
 /* Content area of the box */
@@ -122,21 +125,20 @@
 }
 
 /* Custom icons for specific sub-box IDs */
-#62943b9aad0b695aa46139b0 .sub-icon {
-    background: url('../icons/earthen-newsletter-icon.webp') no-repeat;
-    background-size: contain;
+#newsletter-1 .sub-icon {
+    background-image: url('path-to-icons/earthen-newsletter-icon.webp');
 }
 
-#6621d4f55e227d049e56f404 .sub-icon {
-    background-image: url('../icons/trainer-newsletter-icon.webp');
+#newsletter-2 .sub-icon {
+    background-image: url('path-to-icons/trainer-newsletter-icon.webp');
 }
 
-#662352b4d27acf008a160ac2 .sub-icon {
-    background-image: url('../icons/pelatih-newsletter-icon.webp');
+#newsletter-3 .sub-icon {
+    background-image: url('path-to-icons/pelatih-newsletter-icon.webp');
 }
 
-#663b20e9d27acf008a250eb0 .sub-icon {
-    background-image: url('../icons/ayyew-newsletter-icon.webp');
+#newsletter-4 .sub-icon {
+    background-image: url('path-to-icons/ayyew-newsletter-icon.webp');
 }
 
 /* Grouping text elements */

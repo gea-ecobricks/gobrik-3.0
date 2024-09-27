@@ -97,33 +97,37 @@ function grabActiveEarthenSubs() {
                 // Generate HTML for each active newsletter
                 foreach ($response_data['newsletters'] as $newsletter) {
                     if ($newsletter['status'] === 'active') {
-                       // Extract data
-                        $sub_id = htmlspecialchars($newsletter['id']);
-                        $sub_name = htmlspecialchars($newsletter['name']);
-                        $sub_description = htmlspecialchars($newsletter['description']);
-                        $sub_sender_name = htmlspecialchars($newsletter['sender_name']);
-                        $sub_language = "English"; // Adjust if data in the JSON specifies a different language
-                        $sub_frequency = "1-3 posts a month"; // Hard-coded frequency for demonstration
 
-                        // Output the subscription box HTML
-                        echo "
-                            <div id=\"{$sub_id}\" class=\"sub-box\" data-color=\"green\">
-                                <input type=\"checkbox\" class=\"sub-checkbox\" id=\"checkbox-{$sub_id}\" name=\"subscriptions[]\" value=\"{$sub_id}\">
-                                <label for=\"checkbox-{$sub_id}\" class=\"checkbox-label\"></label>
-                                <div class=\"sub-image\"></div>
-                                <div class=\"sub-content\">
-                                    <div class=\"sub-header\">
-                                        <div class=\"sub-icon\"></div>
-                                        <div class=\"sub-header-text\">
-                                            <div class=\"sub-name\">{$sub_name}</div>
-                                            <div class=\"sub-sender-name\">by {$sub_sender_name}</div>
-                                        </div>
+                    // Set a counter for sequential numbering
+                    $newsletter_counter = 1;
+
+                    // Extract data with sequential numbering for IDs
+                    $sub_id = 'newsletter-' . $newsletter_counter++;
+                    $sub_name = htmlspecialchars($newsletter['name']);
+                    $sub_description = htmlspecialchars($newsletter['description']);
+                    $sub_sender_name = htmlspecialchars($newsletter['sender_name']);
+                    $sub_language = "English"; // Adjust if data in the JSON specifies a different language
+                    $sub_frequency = "1-3 posts a month"; // Hard-coded frequency for demonstration
+
+                    // Output the subscription box HTML
+                    echo "
+                        <div id=\"{$sub_id}\" class=\"sub-box\" data-color=\"green\">
+                            <input type=\"checkbox\" class=\"sub-checkbox\" id=\"checkbox-{$sub_id}\" name=\"subscriptions[]\" value=\"{$sub_id}\">
+                            <label for=\"checkbox-{$sub_id}\" class=\"checkbox-label\"></label>
+                            <div class=\"sub-image\"></div>
+                            <div class=\"sub-content\">
+                                <div class=\"sub-header\">
+                                    <div class=\"sub-icon\"></div>
+                                    <div class=\"sub-header-text\">
+                                        <div class=\"sub-name\">{$sub_name}</div>
+                                        <div class=\"sub-sender-name\">by {$sub_sender_name}</div>
                                     </div>
-                                    <div class=\"sub-description\">{$sub_description}</div>
-                                    <div class=\"sub-lang\">{$sub_language} | {$sub_frequency}</div>
                                 </div>
+                                <div class=\"sub-description\">{$sub_description}</div>
+                                <div class=\"sub-lang\">{$sub_language} | {$sub_frequency}</div>
                             </div>
-                        ";
+                        </div>
+                    ";
                     }
                 }
             } else {

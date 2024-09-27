@@ -78,7 +78,7 @@ if ($buwana_id) {
     $earthen_subscriptions = ''; // To store newsletter names if subscribed
     if (!empty($credential_key)) {
         ob_start(); // Start output buffering to capture the JSON response
-//         checkEarthenEmailStatus($credential_key); // Pass credential_key as $email
+        checkEarthenEmailStatus($credential_key); // Pass credential_key as $email
         $api_response = ob_get_clean(); // Get the output and clean the buffer
 
         // Parse the API response
@@ -202,44 +202,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-//prep the check boxes
-// JavaScript function to modify the subscription presentation based on subscription status
-function modifySubscriptionPresentation(subscriptionData) {
-    const { registered, newsletters } = subscriptionData;
-
-    // Map newsletter IDs and names to the corresponding checkbox IDs
-    const idToCheckboxMap = {
-        '62943b9aad0b695aa46139b0': 'default-newsletter', // Earthen
-        '6621d4f55e227d049e56f404': 'gea-trainers', // GEA Trainer Newsletter (English)
-        '662352b4d27acf008a160ac2': 'gea-trainer-newsletter-indonesian', // Buletin Pelatih Ecobrick (Indonesian)
-        '663b20e9d27acf008a250eb0': 'updates-by-russell' // Ayyew 452
-    };
-
-    // Default newsletter checkbox to preselect if the user is not subscribed to any
-    const defaultNewsletterCheckbox = document.getElementById('default-newsletter');
-
-    // Uncheck all checkboxes initially
-    document.querySelectorAll('.sub-checkbox').forEach((checkbox) => {
-        checkbox.checked = false;
-    });
-
-    // Check if the user is subscribed
-    if (registered === 1) {
-        // Loop through the subscribed newsletters and check the corresponding checkboxes
-        newsletters.forEach(newsletter => {
-            const checkboxId = idToCheckboxMap[newsletter.id]; // Find the corresponding checkbox ID
-            const checkbox = document.getElementById(checkboxId);
-            if (checkbox) {
-                checkbox.checked = true;
-            }
-        });
-    } else {
-        // If not subscribed, check the default newsletter (Earthen)
-        if (defaultNewsletterCheckbox) {
-            defaultNewsletterCheckbox.checked = true;
-        }
-    }
-}
 
 
 

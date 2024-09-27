@@ -78,23 +78,22 @@ if ($buwana_id) {
     $earthen_subscriptions = ''; // To store newsletter names if subscribed
     if (!empty($credential_key)) {
         // Call the checkEarthenEmailStatus function with the user's email address
-        ob_start(); // Start output buffering to capture the JSON response
         $response = checkEarthenEmailStatus($credential_key);
-        $api_response = ob_get_clean(); // Capture the output
-
-        // Ensure the output is valid JSON
-        if ($response === false || json_decode($response, true) === null) {
-            echo '<script>console.error("Invalid JSON response from server.");</script>';
-        } else {
-            // Embed the JSON data as a JavaScript variable on the page
-            echo '<script>const subscriptionData = ' . $response . ';</script>';
-        }
 
         // Parse the API response
         $response_data = json_decode($response, true);
+
+        // Ensure the response is valid JSON
+        if ($response_data === null || !isset($response_data['status'])) {
+            echo '<script>console.error("Invalid JSON response from server.");</script>';
+        } else {
+            // Embed the JSON data as a JavaScript variable on the page
+            echo '<script>const subscriptionData = ' . json_encode($response_data) . ';</script>';
+        }
+
+        // Check if the user is subscribed based on the response data
         if (isset($response_data['status']) && $response_data['status'] === 'success' && $response_data['registered'] === 1) {
             $is_subscribed = true;
-            // Join newsletter names with commas
             $earthen_subscriptions = !empty($response_data['newsletters']) ? implode(', ', $response_data['newsletters']) : '';
         }
     }
@@ -207,7 +206,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 });
-
 
 
 // JavaScript function to modify the subscription presentation based on subscription status

@@ -153,10 +153,10 @@ function grabActiveEarthenSubs() {
  */
 
 
-
+// Function to check subscription status and return JSON response only
 function checkEarthenEmailStatus($email) {
     try {
-        // Prepare and encode the email address for use in the API URL
+        // Set up the API URL and headers for the Ghost API request
         $email_encoded = urlencode($email);
         $ghost_api_url = "https://earthen.io/ghost/api/v3/admin/members/?filter=email:$email_encoded";
         $jwt = createGhostJWT();
@@ -169,70 +169,31 @@ function checkEarthenEmailStatus($email) {
             'Content-Type: application/json'
         ));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPGET, true); // Use GET to fetch data
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
 
         // Execute the cURL session
         $response = curl_exec($ch);
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
         if (curl_errno($ch)) {
-            displayError('Curl error: ' . curl_error($ch));
-            exit();
+            error_log('Curl error: ' . curl_error($ch)); // Log error instead of printing
+            return json_encode(['status' => 'error', 'message' => 'Curl error']);
         }
 
         if ($http_code >= 200 && $http_code < 300) {
-            // Successful response, parse the JSON data
-            $response_data = json_decode($response, true);
-
-            // Check if members are found
-            $registered = 0;
-            $newsletters = [];
-
-            if ($response_data && isset($response_data['members']) && is_array($response_data['members']) && count($response_data['members']) > 0) {
-                $registered = 1;
-
-                // Extract newsletter IDs and names
-                if (isset($response_data['members'][0]['newsletters']) && is_array($response_data['members'][0]['newsletters'])) {
-                    foreach ($response_data['members'][0]['newsletters'] as $newsletter) {
-                        $newsletters[] = [
-                            'id' => $newsletter['id'],
-                            'name' => $newsletter['name']
-                        ];
-                    }
-                }
-
-                // Prepare the data to pass to JavaScript
-                $subscriptionData = json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is subscribed.', 'newsletters' => $newsletters]);
-
-                // Output the JavaScript to call the modifySubscriptionPresentation function
-                echo "<script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                            modifySubscriptionPresentation($subscriptionData);
-                        });
-                      </script>";
-            } else {
-                // Prepare data indicating user is not subscribed
-                $subscriptionData = json_encode(['status' => 'success', 'registered' => $registered, 'message' => 'User is not subscribed.']);
-
-                // Output the JavaScript to call the modifySubscriptionPresentation function
-                echo "<script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                            modifySubscriptionPresentation($subscriptionData);
-                        });
-                      </script>";
-            }
+            // Return the JSON response directly if the request is successful
+            return $response;
         } else {
-            displayError('HTTP status ' . $http_code);
+            error_log('HTTP status ' . $http_code . ': ' . $response); // Log error
+            return json_encode(['status' => 'error', 'message' => 'API call failed with HTTP code: ' . $http_code]);
         }
 
-        // Close the cURL session
         curl_close($ch);
     } catch (Exception $e) {
-        displayError('Exception: ' . $e->getMessage());
+        error_log('Exception: ' . $e->getMessage()); // Log exceptions
+        return json_encode(['status' => 'error', 'message' => 'Exception: ' . $e->getMessage()]);
     }
 }
-
-
 
 
 

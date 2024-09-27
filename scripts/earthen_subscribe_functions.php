@@ -153,10 +153,11 @@ function grabActiveEarthenSubs() {
  */
 
 
-// Function to check subscription status and return JSON response only
+
+// Function to check subscription status and ensure it returns clean JSON
 function checkEarthenEmailStatus($email) {
     try {
-        // Set up the API URL and headers for the Ghost API request
+        // Prepare the API request
         $email_encoded = urlencode($email);
         $ghost_api_url = "https://earthen.io/ghost/api/v3/admin/members/?filter=email:$email_encoded";
         $jwt = createGhostJWT();
@@ -175,14 +176,15 @@ function checkEarthenEmailStatus($email) {
         $response = curl_exec($ch);
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
+        // Check for cURL errors
         if (curl_errno($ch)) {
-            error_log('Curl error: ' . curl_error($ch)); // Log error instead of printing
-            return json_encode(['status' => 'error', 'message' => 'Curl error']);
+            error_log('Curl error: ' . curl_error($ch)); // Log error
+            return json_encode(['status' => 'error', 'message' => 'Curl error occurred.']); // Return error JSON
         }
 
+        // Check if the response is valid based on the HTTP status code
         if ($http_code >= 200 && $http_code < 300) {
-            // Return the JSON response directly if the request is successful
-            return $response;
+            return $response; // Return the clean JSON response
         } else {
             error_log('HTTP status ' . $http_code . ': ' . $response); // Log error
             return json_encode(['status' => 'error', 'message' => 'API call failed with HTTP code: ' . $http_code]);

@@ -73,30 +73,30 @@ if ($buwana_id) {
         $response['error'] = 'account_status';
     }
 
-    // Check subscription status
-    $is_subscribed = false;
-    $earthen_subscriptions = ''; // To store newsletter names if subscribed
-    if (!empty($credential_key)) {
-        // Call the checkEarthenEmailStatus function with the user's email address
-        $response = checkEarthenEmailStatus($credential_key);
+// Ensure the output is valid JSON
+if (!empty($credential_key)) {
+    // Call the checkEarthenEmailStatus function with the user's email address
+    $response = checkEarthenEmailStatus($credential_key);
 
-        // Parse the API response
-        $response_data = json_decode($response, true);
+    // Check and clean the response before embedding
+    $response_data = json_decode($response, true);
 
-        // Ensure the response is valid JSON
-        if ($response_data === null || !isset($response_data['status'])) {
-            echo '<script>console.error("Invalid JSON response from server.");</script>';
-        } else {
-            // Embed the JSON data as a JavaScript variable on the page
-            echo '<script>const subscriptionData = ' . json_encode($response_data) . ';</script>';
-        }
-
-        // Check if the user is subscribed based on the response data
-        if (isset($response_data['status']) && $response_data['status'] === 'success' && $response_data['registered'] === 1) {
-            $is_subscribed = true;
-            $earthen_subscriptions = !empty($response_data['newsletters']) ? implode(', ', $response_data['newsletters']) : '';
-        }
+    if ($response_data === null || json_last_error() !== JSON_ERROR_NONE) {
+        // Log the error for debugging purposes
+        error_log("Invalid JSON response from checkEarthenEmailStatus: " . $response);
+        echo '<script>console.error("Invalid JSON response from server.");</script>';
+    } else {
+        // Safely embed the JSON data as a JavaScript variable on the page
+        echo '<script>const subscriptionData = ' . json_encode($response_data, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) . ';</script>';
     }
+
+    // Check if the user is subscribed based on the response data
+    if (isset($response_data['status']) && $response_data['status'] === 'success' && $response_data['registered'] === 1) {
+        $is_subscribed = true;
+        $earthen_subscriptions = !empty($response_data['newsletters']) ? implode(', ', $response_data['newsletters']) : '';
+    }
+}
+
 }
 ?>
 

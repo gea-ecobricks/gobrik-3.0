@@ -22,7 +22,7 @@ $is_logged_in = false; // Ensure not logged in for this page
 // Set page variables
 $page = 'activate-subscriptions';
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.773';
+$version = '0.774';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $response = ['success' => false];
 $buwana_id = $_GET['id'] ?? null;
@@ -33,7 +33,6 @@ $credential_key = '';
 $first_name = '';
 $account_status = '';
 $country_icon = '';
-$is_subscribed = ''
 
 // Include database connection
 include '../buwanaconn_env.php';

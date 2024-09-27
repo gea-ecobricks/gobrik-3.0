@@ -1,12 +1,4 @@
 
-<!--  Set any page specific graphics to preload-->
-
-<!--  Set any page specific graphics to preload
-<link rel="preload" as="image" href="../webps/ecobrick-team-blank.webp" media="(max-width: 699px)">
-<link rel="preload" as="image" href="../svgs/richard-and-team-day.svg">
-<link rel="preload" as="image" href="../svgs/richard-and-team-night.svg">
-<link rel="preload" as="image" href="../webps/biosphere2.webp">
-<link rel="preload" as="image" href="../webps/biosphere-day.webp">-->
 
 <?php require_once ("../meta/$page-$lang.php");?>
 
@@ -23,14 +15,43 @@
 /* Individual subscription box */
 .sub-box {
     display: flex;
+    position: relative;
     border: 1px solid rgba(128, 128, 128, 0.5);
     border-radius: 10px;
     padding: 15px;
-    align-items: center;
+    align-items: flex-start;
     transition: border 0.5s;
     cursor: pointer;
     width: calc(50% - 20px); /* Two columns when screen width is above 1000px */
     box-sizing: border-box;
+}
+
+/* Checkbox for selection */
+.sub-checkbox {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Label for the checkbox to display a custom style */
+.checkbox-label {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid grey;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+}
+
+/* Style when the checkbox is checked */
+.sub-checkbox:checked + .checkbox-label {
+    background-color: green;
+    border-color: green;
 }
 
 /* Icon inside the box */
@@ -40,6 +61,7 @@
     background-color: grey;
     border-radius: 4px;
     margin-right: 15px;
+    align-self: flex-start;
 }
 
 /* Content area of the box */
@@ -91,7 +113,23 @@
     }
 }
 
+/* Submit button at the bottom of the form */
+.submit-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
+.submit-button:hover {
+    background-color: darkgreen;
+}
 
 
 

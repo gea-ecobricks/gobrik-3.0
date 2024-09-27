@@ -22,7 +22,7 @@ $is_logged_in = false; // Ensure not logged in for this page
 // Set page variables
 $page = 'activate-subscriptions';
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.772';
+$version = '0.773';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $response = ['success' => false];
 $buwana_id = $_GET['id'] ?? null;
@@ -99,6 +99,7 @@ if (!empty($credential_key)) {
 }
 
 
+
 // Function to grab active newsletters from Ghost API and populate the subscription form
 function grabActiveEarthenSubs() {
     // Define the API URL for fetching newsletters
@@ -165,6 +166,8 @@ function grabActiveEarthenSubs() {
                 // Output the subscription box HTML
                 echo "
                     <div id=\"{$id}\" class=\"sub-box\" data-color=\"green\">
+                        <input type=\"checkbox\" class=\"sub-checkbox\" id=\"checkbox-{$id}\" name=\"subscriptions[]\" value=\"{$id}\">
+                        <label for=\"checkbox-{$id}\" class=\"checkbox-label\"></label>
                         <div class=\"sub-icon\"></div>
                         <div class=\"sub-content\">
                             <h4 class=\"sub-name\">{$name}</h4>
@@ -187,6 +190,8 @@ function grabActiveEarthenSubs() {
     // Close the cURL session
     curl_close($ch);
 }
+
+
 
 
 

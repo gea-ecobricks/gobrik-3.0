@@ -11,7 +11,7 @@
 
 function getGEA_status($buwana_id) {
     // Include the database connection if not already included
-    global $buwana_conn; // Use the existing connection variable
+    global $gobrik_conn; // Use the existing connection variable
 
     // Prepare the SQL statement to fetch the gea_status
     $sql = "SELECT gea_status FROM tb_ecobrickers WHERE buwana_id = ?";
@@ -29,7 +29,7 @@ function getGEA_status($buwana_id) {
         return $gea_status;
     } else {
         // Log error or handle it appropriately
-        error_log("Database error: " . $buwana_conn->error);
+        error_log("Database error: " . $gobrik_conn->error);
         return null;
     }
 }

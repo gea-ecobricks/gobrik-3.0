@@ -63,8 +63,8 @@ foreach ($to_unsubscribe as $newsletter_id) {
     unsubscribeUserFromNewsletter($credential_key, $newsletter_id);
 }
 
-// Redirect the user to the login page after processing
-header('Location: login.php');
+// Redirect the user to the login page with the required parameters after processing
+header('Location: login.php?status=firsttime&id=' . urlencode($buwana_id));
 exit();
 
 /**
@@ -173,14 +173,5 @@ function unsubscribeUserFromNewsletter($email, $newsletter_id) {
             $response = curl_exec($ch);
             $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-            if (curl_errno($ch) || $http_code >= 400) {
-                error_log('Error unsubscribing from newsletter: ' . curl_error($ch));
-            }
-        }
 
-        curl_close($ch);
-    } catch (Exception $e) {
-        error_log('Exception occurred while unsubscribing from newsletter: ' . $e->getMessage());
-    }
-}
 ?>

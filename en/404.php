@@ -16,7 +16,7 @@ $lang = isset($path_segments[0]) ? $path_segments[0] : 'en'; // Default to Engli
 <?php $version='2.44';?>
 <?php $page='404';?>
 
-<?php require_once ("../includes/404-inc.php");?>
+<?php require_once ("https://beta.gobrik.com/en/includes/404-inc.php");?>
 
 <!--PAGE BANNER-->
 
@@ -57,14 +57,14 @@ $lang = isset($path_segments[0]) ? $path_segments[0] : 'en'; // Default to Engli
 
                         <button type="button" class="module-btn" style="margin-top:20px;" onclick="openSearch()" data-lang-id="009-search-button">🔎 Search Site</button>
                         <br><br>
-                        <a class="module-btn" href="index.php" style="margin-top:50px;" data-lang-id="011-home-button">🏡 Home</a>
+                        <a class="module-btn" href="https://beta.gobrik.com/en/index.php" style="margin-top:50px;" data-lang-id="011-home-button">🏡 Home</a>
 
                     </div>
                 </div>
 
                 <div class="side">
 
-                <?php require_once ("side-modules/spiral-design.php");?>
+                <?php require_once ("https://beta.gobrik.com/en/side-modules/spiral-design.php");?>
 
                 </div>
             </div>
@@ -74,7 +74,7 @@ $lang = isset($path_segments[0]) ? $path_segments[0] : 'en'; // Default to Engli
 
 	<!--FOOTER STARTS HERE-->
 
-	<?php require_once ("../footer-2024.php");?>
+	<?php require_once ("https://beta.gobrik.com/en/footer-2024.php");?>
 
 
 </div>

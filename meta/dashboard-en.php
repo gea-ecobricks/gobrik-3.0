@@ -1,4 +1,4 @@
-<title>Dashboard | GoBrik</title>
+<title>GoBrik | Dashboard</title>
 
 <meta name="keywords" content="login, gobrik, ecobrick app, signup, sign up, sign, up">
 <meta name="description" content="Your home on the GoBrik app">

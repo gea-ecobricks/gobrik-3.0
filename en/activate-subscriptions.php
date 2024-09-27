@@ -36,6 +36,7 @@ $country_icon = '';
 
 // Include database connection
 include '../buwanaconn_env.php';
+require_once ("../scripts/earthen_subscribe_functions.php");
 
 // Look up user information if buwana_id is provided
 if ($buwana_id) {
@@ -88,7 +89,6 @@ if ($buwana_id) {
     }
 }
 
-require_once ("../scripts/earthen_subscribe_functions.php");
 
 ?>
 

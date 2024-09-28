@@ -54,7 +54,7 @@ function createGhostJWT() {
 
 /**
  * Displays an error message within the designated error div on the page.
- * 
+ *
  * @param string $error_type The type of error to display.
  */
 function displayError($error_type) {
@@ -85,7 +85,7 @@ function grabActiveEarthenSubs() {
 
     try {
         // Define the API URL for fetching newsletters
-        $ghost_api_url = "https://earthen.io/ghost/apiadmin/newsletters/";
+        $ghost_api_url = "https://earthen.io/ghost/api/admin/newsletters/";
         $jwt = createGhostJWT();
 
         // Set up the cURL request to the Ghost Admin API
@@ -182,7 +182,7 @@ function checkEarthenEmailStatus($email) {
     try {
         // Prepare and encode the email address for use in the API URL
         $email_encoded = urlencode($email);
-        $ghost_api_url = "https://earthen.io/ghost/apiadmin/members/?filter=email:$email_encoded";
+        $ghost_api_url = "https://earthen.io/ghost/api/admin/members/?filter=email:$email_encoded";
         $jwt = createGhostJWT();
 
         // Set up the cURL request to the Ghost Admin API

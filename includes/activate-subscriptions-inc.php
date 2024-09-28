@@ -8,6 +8,7 @@
        #main {
         height: fit-content !important;
   padding-bottom: 100px;
+    min-height: 100%;
     }
 
 /* Container for subscription boxes */

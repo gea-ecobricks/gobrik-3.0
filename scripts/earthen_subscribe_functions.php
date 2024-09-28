@@ -269,7 +269,7 @@ function logToConsole($data) {
 function updateSubscribeUser($member_id, $newsletter_id) {
     try {
         // Correct URL format using the member ID
-        $ghost_api_url = "https://earthen.io/ghost/api/v4/admin/members/" . $member_id . '/'; // Ensure v4 is used
+        $ghost_api_url = "https://earthen.io/ghost/api/v5.95/admin/members/" . $member_id . '/'; // Ensure v4 is used
         $jwt = createGhostJWT();
 
         // Prepare updated subscription data - ensure the payload matches Ghost's API requirements

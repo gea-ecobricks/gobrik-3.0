@@ -155,7 +155,7 @@ if (!empty($credential_key)) {
            </div>
 
             <div id="submit-section" style="text-align:center;margin-top:25px;" data-lang-id="016-complete-button">
-                <input type="submit" id="submit-button" value="Finish & Login!" class="submit-button enabled">
+                <input type="submit" id="submit-button" value="Finish & Login" class="submit-button enabled">
                 <p>Your account activation process is complete!</p>
             </div>
         </form>
@@ -212,6 +212,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+function enhanceNewsletterInfo() {
+    // Define the newsletters and their corresponding updates
+    const updates = {
+        'gea-trainers': 'English | monthly',
+        'gea-trainer-newsletter-indonesian': 'Bahasa Indonesia | setiap bulan',
+        'updates-by-russell': 'English | monthly',
+        'gobrik-news-updates': 'English | monthly',
+        'default-newsletter': 'English | monthly'
+    };
+
+    // Loop through each update and modify the inner HTML of the matching newsletter divs
+    Object.keys(updates).forEach(newsletter => {
+        const element = document.querySelector(`#${newsletter} .sub-lang`);
+        if (element) {
+            element.innerHTML = updates[newsletter];
+        }
+    });
+}
+
+// Call the function to apply the updates
+enhanceNewsletterInfo();
 
 
 </script>

@@ -116,8 +116,10 @@ function grabActiveEarthenSubs() {
                         $sub_language = "English"; // Adjust if data in the JSON specifies a different language
                         $sub_frequency = "1-3 posts a month"; // Hard-coded frequency for demonstration
 
-                        // Determine if this newsletter should be preselected
-                        $is_checked = in_array($sub_name, $subscribed_newsletters) || (!$is_user_subscribed && $sub_name === 'Earthen') ? 'checked' : '';
+                      // Determine if this newsletter should be preselected
+$is_checked = in_array($sub_name, $subscribed_newsletters) ||
+              (!$is_user_subscribed && in_array($sub_name, ['Earthen', 'gobrik-news-updates'])) ?
+              'checked' : '';
 
                         // Apply the full selection styles if the box is checked
                         $selected_styles = $is_checked ? 'style="border: 2px solid green; background-color: var(--darker);"' : '';

@@ -53,40 +53,9 @@ if (empty($subscribed_newsletters)) {
 header('Location: login.php?status=firsttime&id=' . urlencode($buwana_id));
 exit();
 
-/**
- * Get the existing member ID based on their email.
- */
-function getExistingMemberId($email) {
-    try {
-        $ghost_api_url = "https://earthen.io/ghost/api/v4/admin/members/?filter=email:" . urlencode($email);
-        $jwt = createGhostJWT();
 
-        // Fetch current member data
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $ghost_api_url);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Authorization: Ghost ' . $jwt,
-            'Content-Type: application/json'
-        ));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPGET, true);
-        $response = curl_exec($ch);
-        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $response_data = json_decode($response, true);
 
-        if (curl_errno($ch) || $http_code >= 400) {
-            error_log('Error fetching member data: ' . curl_error($ch) . ' - Response: ' . $response);
-            curl_close($ch);
-            return null;
-        }
 
-        curl_close($ch);
-        return $response_data['members'][0]['id'] ?? null;
-    } catch (Exception $e) {
-        error_log('Exception occurred while fetching member ID: ' . $e->getMessage());
-        return null;
-    }
-}
 
 /**
  * Subscribe the user to a specific newsletter based on the newsletter ID.
@@ -137,17 +106,21 @@ function subscribeUserToNewsletter($email, $newsletter_id) {
     }
 }
 
+
+
 /**
  * Update subscription for an existing user using PATCH.
  */
 function updateSubscribeUser($member_id, $newsletter_id) {
     try {
+        // Ensure the URL is correctly formatted with the member ID
         $ghost_api_url = "https://earthen.io/ghost/api/v4/admin/members/" . $member_id . '/';
         $jwt = createGhostJWT();
 
         // Prepare updated subscription data
+        // This assumes that the member's newsletters need to be fully replaced with the new set of newsletters
         $data = [
-            'newsletters' => [['id' => $newsletter_id]]
+            'newsletters' => [['id' => $newsletter_id]] // Assuming we need to update the specific newsletter
         ];
 
         $jsonData = json_encode($data);
@@ -161,7 +134,7 @@ function updateSubscribeUser($member_id, $newsletter_id) {
             'Content-Type: application/json'
         ));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH'); // Use PATCH to update
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT'); // Changed to PUT because PATCH may not be correctly supported in some versions
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
 
         $response = curl_exec($ch);
@@ -180,6 +153,47 @@ function updateSubscribeUser($member_id, $newsletter_id) {
         error_log('Exception occurred while updating subscription: ' . $e->getMessage());
     }
 }
+
+/**
+ * Get the existing member ID based on their email.
+ */
+function getExistingMemberId($email) {
+    try {
+        $ghost_api_url = "https://earthen.io/ghost/api/v4/admin/members/?filter=email:" . urlencode($email);
+        $jwt = createGhostJWT();
+
+        // Fetch current member data
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $ghost_api_url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Authorization: Ghost ' . $jwt,
+            'Content-Type: application/json'
+        ));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        $response = curl_exec($ch);
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $response_data = json_decode($response, true);
+
+        if (curl_errno($ch) || $http_code >= 400) {
+            error_log('Error fetching member data: ' . curl_error($ch) . ' - Response: ' . $response);
+            curl_close($ch);
+            return null;
+        }
+
+        curl_close($ch);
+        return $response_data['members'][0]['id'] ?? null; // Correctly fetch the member ID
+    } catch (Exception $e) {
+        error_log('Exception occurred while fetching member ID: ' . $e->getMessage());
+        return null;
+    }
+}
+
+
+
+
+
+
 
 /**
  * Update to unsubscribe a user from a specific newsletter using PATCH.

@@ -33,21 +33,13 @@ if (empty($subscribed_newsletters)) {
     }
 } else {
     // If subscribed_newsletters is not empty, use the provided member ID to update subscriptions
-    if ($ghost_member_id) {
-        // Subscribe the user to the selected newsletters
-        foreach ($to_subscribe as $newsletter_id) {
-            updateSubscribeUser($ghost_member_id, $newsletter_id);
-        }
+if ($ghost_member_id) {
+    // Update all selected subscriptions at once
+    updateSubscribeUser($ghost_member_id, $selected_subscriptions);
+} else {
+    error_log('Error: Member ID is missing for updating subscriptions.');
+}
 
-        // Comment out the unsubscribe logic to focus on subscription updates
-        /*
-        foreach ($to_unsubscribe as $newsletter_id) {
-            updateUnsubscribeUser($ghost_member_id, $newsletter_id);
-        }
-        */
-    } else {
-        error_log('Error: Member ID is missing for updating subscriptions.');
-    }
 }
 
 // Redirect the user to the login page with the required parameters after processing

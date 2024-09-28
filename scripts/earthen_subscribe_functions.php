@@ -259,28 +259,30 @@ function logToConsole($data) {
     echo "<script>console.log('JSON Response:', " . $jsonData . ");</script>";
 }
 
-
 /**
- * Update subscription for an existing user using PUT.
+ * Update subscription for an existing user using PUT with all selected newsletters at once.
  */
-function updateSubscribeUser($member_id, $newsletter_id) {
+function updateSubscribeUser($member_id, $newsletter_ids) {
     try {
         // Correct URL format using the member ID
         $ghost_api_url = "https://earthen.io/ghost/api/admin/members/" . $member_id . '/';
         $jwt = createGhostJWT();
 
-        // Prepare updated subscription data
+        // Prepare updated subscription data with all selected newsletters
+        $newsletters = array_map(function($id) {
+            return ['id' => $id, 'subscribed' => true];
+        }, $newsletter_ids);
+
         $data = [
             'members' => [
                 [
-                    'newsletters' => [['id' => $newsletter_id, 'subscribed' => true]]
+                    'newsletters' => $newsletters
                 ]
             ]
         ];
 
         $jsonData = json_encode($data);
-        error_log("Attempting to update subscription for user: " . $jsonData);
-        error_log("Updating subscription with newsletter ID: " . $newsletter_id); // Log the newsletter ID
+        error_log("Attempting to update subscription for user with data: " . $jsonData);
         error_log("Request URL: " . $ghost_api_url);
 
         // Setup cURL for the PUT request to update subscriptions
@@ -314,6 +316,7 @@ function updateSubscribeUser($member_id, $newsletter_id) {
         error_log('Exception occurred while updating subscription: ' . $e->getMessage());
     }
 }
+
 
 
 

@@ -6,7 +6,7 @@
 <STYLE>
 
        #main {
-        height: 100% !important;
+        height: fit-content !important;
   padding-bottom: 100px;
     }
 
@@ -269,9 +269,7 @@ background: url('../icons/gobrik-news-icon.webp') no-repeat;
     }
 
 
-    #main {
-        height: fit-content;
-    }
+
 
 
 .module-btn {

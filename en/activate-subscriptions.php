@@ -124,8 +124,8 @@ if (!empty($credential_key)) {
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
             <h2 data-lang-id="001-setup-access-heading">Get Earthen. Go Greener.</h2>
-            <h4>Last Step <?php echo $first_name; ?></h4>
-            <p>We share GoBrik, Ecobrick and Earthen news by email.  These newsletter help us to share the latest updates from the plastic transition and regenerative movement off the big corporate platforms.  Get our Earthen newsletter and GoBrik notifications sent to <?php echo $credential_key; ?>.</span>
+            <h4 style="color:#748931;">Last Step <?php echo $first_name; ?></h4>
+            <p>We share GoBrik, Ecobrick and Earthen news by email.  Our free newsletter help us to share the latest updates from the plastic transition and regenerative movement off the big corporate platforms.  Paid subscriptions that help support our work are also available later.  Get our Earthen newsletter and GoBrik notifications sent to <?php echo $credential_key; ?>.</span>
             </p>
            <div id="subscribed" style="color:green;display:<?php echo $is_subscribed ? 'block' : 'none'; ?>;">
                 <?php if ($is_subscribed && !empty($earthen_subscriptions)): ?>

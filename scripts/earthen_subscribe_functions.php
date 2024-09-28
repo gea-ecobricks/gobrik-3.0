@@ -374,7 +374,7 @@ function updateUnsubscribeUser($member_id, $newsletter_id) {
 /**
  * Subscribe the user to specific newsletters by creating a new member with selected newsletters.
  */
-function subscribeUserToNewsletter($email, $newsletter_id) {
+function subscribeUserToNewsletter($email, $newsletter_ids) {
     try {
         $ghost_api_url = "https://earthen.io/ghost/api/v4/admin/members/";
         $jwt = createGhostJWT();

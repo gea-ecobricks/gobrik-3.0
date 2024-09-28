@@ -6,7 +6,7 @@
 <STYLE>
 
        #main {
-        height: fit-content !important;
+        height: 100% !important;
   padding-bottom: 100px;
     }
 

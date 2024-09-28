@@ -224,4 +224,29 @@ function updateUnsubscribeUser($member_id, $newsletter_id) {
         error_log('Exception occurred while unsubscribing: ' . $e->getMessage());
     }
 }
+
+function createGhostJWT() {
+    // Replace with your actual Ghost Admin API key
+    $apiKey = 'YOUR_GHOST_ADMIN_API_KEY';
+    list($id, $secret) = explode(':', $apiKey);
+
+    $header = json_encode(['typ' => 'JWT', 'alg' => 'HS256', 'kid' => $id]);
+    $now = time();
+
+    // Correct audience claim for Ghost v4
+    $payload = json_encode([
+        'iat' => $now,
+        'exp' => $now + 300, // Token valid for 5 minutes
+        'aud' => '/v4/admin/' // Ensure this matches the expected audience pattern
+    ]);
+
+    $base64UrlHeader = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($header));
+    $base64UrlPayload = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($payload));
+
+    $signature = hash_hmac('sha256', $base64UrlHeader . '.' . $base64UrlPayload, hex2bin($secret), true);
+    $base64UrlSignature = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($signature));
+
+    return $base64UrlHeader . '.' . $base64UrlPayload . '.' . $base64UrlSignature;
+}
+
 ?>

@@ -5,6 +5,10 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+include '../buwanaconn_env.php'; // Make sure this path and filename are correct
+include '../gobrikconn_env.php'; // Make sure this path and filename are correct
+
+
 // Include necessary files and setup JWT creation
 require_once '../scripts/earthen_subscribe_functions.php';
 

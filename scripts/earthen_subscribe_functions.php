@@ -37,7 +37,7 @@ function createGhostJWT() {
     $payload = json_encode([
         'iat' => $now,
         'exp' => $now + 300, // Token valid for 5 minutes
-        'aud' => '/v3/admin/' // Audience value
+        'aud' => '/v4/admin/' // Audience value
     ]);
 
     // Encode Header and Payload
@@ -85,7 +85,7 @@ function grabActiveEarthenSubs() {
 
     try {
         // Define the API URL for fetching newsletters
-        $ghost_api_url = "https://earthen.io/ghost/api/v3/admin/newsletters/";
+        $ghost_api_url = "https://earthen.io/ghost/api/v4/admin/newsletters/";
         $jwt = createGhostJWT();
 
         // Set up the cURL request to the Ghost Admin API
@@ -182,7 +182,7 @@ function checkEarthenEmailStatus($email) {
     try {
         // Prepare and encode the email address for use in the API URL
         $email_encoded = urlencode($email);
-        $ghost_api_url = "https://earthen.io/ghost/api/v3/admin/members/?filter=email:$email_encoded";
+        $ghost_api_url = "https://earthen.io/ghost/api/v4/admin/members/?filter=email:$email_encoded";
         $jwt = createGhostJWT();
 
         // Set up the cURL request to the Ghost Admin API

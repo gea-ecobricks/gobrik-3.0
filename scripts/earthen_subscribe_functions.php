@@ -37,7 +37,7 @@ function createGhostJWT() {
     $payload = json_encode([
         'iat' => $now,
         'exp' => $now + 300, // Token valid for 5 minutes
-        'aud' => '4.0' // Audience value
+        'aud' => 'admin/' // Audience value
     ]);
 
     // Encode Header and Payload
@@ -377,7 +377,7 @@ function updateUnsubscribeUser($member_id, $newsletter_id) {
 function subscribeUserToNewsletter($email, $newsletter_ids) {
     try {
         $ghost_api_url = "https://earthen.io/ghost/api/v4/admin/members/";
-        $jwt = createGhostJWT();
+        $jwt = createGhostJWTsubscribe();
 
         // Prepare subscription data with all selected newsletters
         $newsletters = array_map(function($id) {
@@ -422,6 +422,41 @@ function subscribeUserToNewsletter($email, $newsletter_ids) {
     } catch (Exception $e) {
         error_log('Exception occurred while subscribing to newsletter: ' . $e->getMessage());
     }
+}
+
+
+
+function createGhostJWTsubscribe() {
+    // Retrieve the API key from the environment variable
+    $apiKey = getenv('EARTHEN_KEY');
+
+    if (!$apiKey) {
+        displayError('API key not set.');
+        exit();
+    }
+
+    // Split the API Key into ID and Secret for JWT generation
+    list($id, $secret) = explode(':', $apiKey);
+
+    // Prepare the header and payload for the JWT
+    $header = json_encode(['typ' => 'JWT', 'alg' => 'HS256', 'kid' => $id]);
+    $now = time();
+    $payload = json_encode([
+        'iat' => $now,
+        'exp' => $now + 300, // Token valid for 5 minutes
+        'aud' => 'admin/4.0' // Audience value
+    ]);
+
+    // Encode Header and Payload
+    $base64UrlHeader = base64UrlEncode($header);
+    $base64UrlPayload = base64UrlEncode($payload);
+
+    // Create the Signature
+    $signature = hash_hmac('sha256', $base64UrlHeader . '.' . $base64UrlPayload, hex2bin($secret), true);
+    $base64UrlSignature = base64UrlEncode($signature);
+
+    // Return the complete JWT token
+    return $base64UrlHeader . '.' . $base64UrlPayload . '.' . $base64UrlSignature;
 }
 
 ?>

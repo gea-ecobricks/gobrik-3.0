@@ -140,10 +140,11 @@ if (!empty($credential_key)) {
                    <!-- SIGNUP FORM -->
         <!-- SIGNUP FORM -->
         <form id="select-earthen-subs" method="post" action="process_sub_selections.php" style="margin-top:30px;">
-            <input type="hidden" name="buwana_id" value="<?php echo htmlspecialchars($buwana_id); ?>">
+             <input type="hidden" name="buwana_id" value="<?php echo htmlspecialchars($buwana_id); ?>">
             <input type="hidden" name="credential_key" value="<?php echo htmlspecialchars($credential_key); ?>">
             <input type="hidden" name="subscribed_newsletters" value="<?php echo htmlspecialchars(json_encode($subscribed_newsletters)); ?>">
             <input type="hidden" name="ghost_member_id" value="<?php echo htmlspecialchars($ghost_member_id); ?>">
+            <input type="hidden" name="first_name" value="<?php echo htmlspecialchars($first_name); ?>"> <!-- Added input for first_name -->
 
             <div class="subscription-boxes">
                 <!-- Subscription boxes will be populated here by the PHP function -->

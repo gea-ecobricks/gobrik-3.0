@@ -425,7 +425,6 @@ function subscribeUserToNewsletter($email, $newsletter_ids) {
 }
 
 
-
 function createGhostJWTsubscribe() {
     // Retrieve the API key from the environment variable
     $apiKey = getenv('EARTHEN_KEY');
@@ -444,7 +443,7 @@ function createGhostJWTsubscribe() {
     $payload = json_encode([
         'iat' => $now,
         'exp' => $now + 300, // Token valid for 5 minutes
-        'aud' => 'admin/4.0' // Audience value
+        'aud' => '/v4/admin/' // Correct Audience value
     ]);
 
     // Encode Header and Payload

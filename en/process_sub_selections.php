@@ -1,4 +1,13 @@
 <?php
+require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
+session_start();
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Include necessary files and setup JWT creation
+require_once '../scripts/earthen_subscribe_functions.php';
+
 // Get the user's data from the POST request
 $buwana_id = $_POST['buwana_id'] ?? null;
 $credential_key = $_POST['credential_key'] ?? null;

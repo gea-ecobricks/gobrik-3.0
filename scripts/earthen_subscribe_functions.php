@@ -262,9 +262,8 @@ function logToConsole($data) {
 
 
 
-
 /**
- * Update subscription for an existing user using PATCH.
+ * Update subscription for an existing user using PUT.
  */
 function updateSubscribeUser($member_id, $newsletter_id) {
     try {
@@ -272,16 +271,20 @@ function updateSubscribeUser($member_id, $newsletter_id) {
         $ghost_api_url = "https://earthen.io/ghost/api/admin/members/" . $member_id . '/'; // Ensure v4 is used
         $jwt = createGhostJWT();
 
-        // Prepare updated subscription data - ensure the payload matches Ghost's API requirements
+        // Prepare updated subscription data as per Ghost API requirements
         $data = [
-            'newsletters' => [['id' => $newsletter_id, 'subscribed' => true]] // 'subscribed' flag ensures subscription
+            'members' => [
+                [
+                    'newsletters' => [['id' => $newsletter_id, 'subscribed' => true]] // Ensure 'subscribed' flag is used
+                ]
+            ]
         ];
 
         $jsonData = json_encode($data);
         error_log("Attempting to update subscription for user: " . $jsonData);
         error_log("Request URL: " . $ghost_api_url); // Log the exact URL being used
 
-        // Setup cURL for the PATCH request to update subscriptions
+        // Setup cURL for the PUT request to update subscriptions
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $ghost_api_url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
@@ -289,7 +292,7 @@ function updateSubscribeUser($member_id, $newsletter_id) {
             'Content-Type: application/json'
         ));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH'); // Use PATCH to update
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT'); // Use PUT to update
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
 
         // Execute the cURL request
@@ -312,6 +315,7 @@ function updateSubscribeUser($member_id, $newsletter_id) {
         error_log('Exception occurred while updating subscription: ' . $e->getMessage());
     }
 }
+
 
 
 

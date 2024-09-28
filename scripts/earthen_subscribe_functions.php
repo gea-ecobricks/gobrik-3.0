@@ -37,7 +37,7 @@ function createGhostJWT() {
     $payload = json_encode([
         'iat' => $now,
         'exp' => $now + 300, // Token valid for 5 minutes
-        'aud' => 'admin/' // Audience value
+        'aud' => '4.0' // Audience value
     ]);
 
     // Encode Header and Payload

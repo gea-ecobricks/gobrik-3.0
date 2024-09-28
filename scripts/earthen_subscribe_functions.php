@@ -118,7 +118,7 @@ function grabActiveEarthenSubs() {
 
                       // Determine if this newsletter should be preselected
 $is_checked = in_array($sub_name, $subscribed_newsletters) ||
-              (!$is_user_subscribed && in_array($sub_name, ['Earthen', 'GoBrik News & Updates'])) ?
+              (!$is_user_subscribed && in_array($sub_name, ['Earthen', 'GoBrik News'])) ?
               'checked' : '';
 
                         // Apply the full selection styles if the box is checked

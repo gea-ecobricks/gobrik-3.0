@@ -149,11 +149,9 @@ if (!empty($credential_key)) {
                 <?php grabActiveEarthenSubs(); ?>
             </div>
 
-            <p class="form-caption" style="text-align:center; margin-top: 20px">Note: these subscriptions are independent of GoBrik account notifications that we sometimes need to send.</p>
-              <div class="form-item" id="notifications-confirm">
-                        <input type="checkbox" id="newsletter" name="newsletter" checked>
-                        <label for="newsletter" style="font-size:1.0;" class="form-caption" data-lang-id="014-i-agree-newsletter">I agree to receive the <a href="#" onclick="showModalInfo('earthen', '<?php echo $lang; ?>')" class="underline-link">Earthen newsletter</a> for app, ecobrick, and earthen updates</label>
-                    </div>
+            <p class="form-caption" style="text-align:center; margin-top: 20px">By completing my registration today, I agree to receive the GoBrik notifications for app, ecobrick, and earthen updates</p>
+
+           </div>
 
             <div id="submit-section" style="text-align:center;margin-top:25px;" data-lang-id="016-complete-button">
                 <input type="submit" id="submit-button" value="Setup Complete!" class="submit-button enabled">

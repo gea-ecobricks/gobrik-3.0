@@ -25,7 +25,7 @@ $selected_subscriptions = $_POST['subscriptions'] ?? [];
 $to_subscribe = array_diff($selected_subscriptions, $subscribed_newsletters);
 $to_unsubscribe = array_diff($subscribed_newsletters, $selected_subscriptions);
 
-// If subscribed_newsletters is empty, we treat this as a new user subscription
+// If subscribed_newsletters is empty, treat this as a new user subscription
 if (empty($subscribed_newsletters)) {
     foreach ($to_subscribe as $newsletter_id) {
         subscribeUserToNewsletter($credential_key, $newsletter_id);
@@ -58,7 +58,7 @@ exit();
  */
 function getExistingMemberId($email) {
     try {
-        $ghost_api_url = "https://earthen.io/ghost/api/admin/members/?filter=email:" . urlencode($email);
+        $ghost_api_url = "https://earthen.io/ghost/api/v4/admin/members/?filter=email:" . urlencode($email);
         $jwt = createGhostJWT();
 
         // Fetch current member data
@@ -93,7 +93,7 @@ function getExistingMemberId($email) {
  */
 function subscribeUserToNewsletter($email, $newsletter_id) {
     try {
-        $ghost_api_url = "https://earthen.io/ghost/api/admin/members/";
+        $ghost_api_url = "https://earthen.io/ghost/api/v4/admin/members/";
         $jwt = createGhostJWT();
 
         // Prepare subscription data
@@ -142,7 +142,7 @@ function subscribeUserToNewsletter($email, $newsletter_id) {
  */
 function updateSubscribeUser($member_id, $newsletter_id) {
     try {
-        $ghost_api_url = "https://earthen.io/ghost/api/admin/members/" . $member_id . '/';
+        $ghost_api_url = "https://earthen.io/ghost/api/v4/admin/members/" . $member_id . '/';
         $jwt = createGhostJWT();
 
         // Prepare updated subscription data
@@ -186,7 +186,7 @@ function updateSubscribeUser($member_id, $newsletter_id) {
  */
 function updateUnsubscribeUser($member_id, $newsletter_id) {
     try {
-        $ghost_api_url = "https://earthen.io/ghost/api/admin/members/" . $member_id . '/';
+        $ghost_api_url = "https://earthen.io/ghost/api/v4/admin/members/" . $member_id . '/';
         $jwt = createGhostJWT();
 
         // Prepare data to unsubscribe from the newsletter
@@ -224,6 +224,4 @@ function updateUnsubscribeUser($member_id, $newsletter_id) {
         error_log('Exception occurred while unsubscribing: ' . $e->getMessage());
     }
 }
-
-
 ?>

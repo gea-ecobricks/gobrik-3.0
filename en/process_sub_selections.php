@@ -24,7 +24,7 @@ $selected_subscriptions = $_POST['subscriptions'] ?? [];
 
 // Determine which newsletters to subscribe to and which to unsubscribe from
 $to_subscribe = array_diff($selected_subscriptions, $subscribed_newsletters);
-$to_unsubscribe = array_diff($subscribed_newsletters, $selected_subscriptions);
+// $to_unsubscribe = array_diff($subscribed_newsletters, $selected_subscriptions); // Commenting out unsubscribe determination
 
 // If subscribed_newsletters is empty, treat this as a new user subscription
 if (empty($subscribed_newsletters)) {
@@ -38,10 +38,13 @@ if (empty($subscribed_newsletters)) {
         foreach ($to_subscribe as $newsletter_id) {
             updateSubscribeUser($ghost_member_id, $newsletter_id);
         }
-        // Unsubscribe the user from newsletters they did not select
+
+        // Comment out the unsubscribe logic to focus on subscription updates
+        /*
         foreach ($to_unsubscribe as $newsletter_id) {
             updateUnsubscribeUser($ghost_member_id, $newsletter_id);
         }
+        */
     } else {
         error_log('Error: Member ID is missing for updating subscriptions.');
     }
@@ -50,12 +53,4 @@ if (empty($subscribed_newsletters)) {
 // Redirect the user to the login page with the required parameters after processing
 header('Location: login.php?status=firsttime&id=' . urlencode($buwana_id));
 exit();
-
-/**
- * Subscribe the user to a specific newsletter based on the newsletter ID.
- */
-
-
-
-
 ?>

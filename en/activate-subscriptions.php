@@ -127,9 +127,9 @@ if (!empty($credential_key)) {
             <h4>Last Step <?php echo $first_name; ?></h4>
             <p>We share GoBrik, Ecobrick and Earthen news by email.  These newsletter help us to share the latest updates from the plastic transition and regenerative movement off the big corporate platforms.  Get our Earthen newsletter and GoBrik notifications sent to <?php echo $credential_key; ?>.</span>
             </p>
-            <div id="subscribed" style="display:<?php echo $is_subscribed ? 'block' : 'none'; ?>; color:green;">
+            <div id="subscribed" style="color:green;display:<?php echo $is_subscribed ? 'block' : 'none'; ?>;">
                 <?php if ($is_subscribed && !empty($earthen_subscriptions)): ?>
-                    <p>Looks like you're already subscribed to: <?php echo htmlspecialchars($earthen_subscriptions); ?>!</p>
+                    <p style="color:green;">Looks like you're already subscribed to: <?php echo htmlspecialchars($earthen_subscriptions); ?>!</p>
                 <?php else: ?>
                     <p>It looks like you're already subscribed!</p>
                 <?php endif; ?>

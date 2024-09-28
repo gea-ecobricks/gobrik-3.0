@@ -313,6 +313,102 @@ function updateSubscribeUser($member_id, $newsletter_id) {
 }
 
 
+
+/**
+ * Update to unsubscribe a user from a specific newsletter using PATCH.
+ */
+function updateUnsubscribeUser($member_id, $newsletter_id) {
+    try {
+        // Construct the API URL with the member ID
+        $ghost_api_url = "https://earthen.io/ghost/api/v4/admin/members/" . $member_id . '/';
+        $jwt = createGhostJWT();
+
+        // Prepare data to unsubscribe from the newsletter
+        $data = [
+            'newsletters' => [['id' => $newsletter_id, 'subscribed' => false]]
+        ]; // Verify this structure matches the API's expected format for unsubscribing
+
+        $jsonData = json_encode($data);
+        error_log("Attempting to update unsubscribe for user: " . $jsonData); // Log the data for debugging
+
+        // Set up the cURL request
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $ghost_api_url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Authorization: Ghost ' . $jwt,
+            'Content-Type: application/json'
+        ));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH'); // Use PATCH to update
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData); // Send the JSON payload
+
+        // Execute the request
+        $response = curl_exec($ch);
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+        // Log the response and HTTP status code
+        error_log('Unsubscribe API response: ' . $response);
+        error_log('HTTP status code: ' . $http_code);
+
+        // Check for cURL errors or non-success HTTP status codes
+        if (curl_errno($ch) || $http_code >= 400) {
+            error_log('Error unsubscribing from newsletter: ' . curl_error($ch) . ' - Response: ' . $response);
+        }
+
+        // Close the cURL session
+        curl_close($ch);
+    } catch (Exception $e) {
+        error_log('Exception occurred while unsubscribing: ' . $e->getMessage());
+    }
+}
+
+
+
+function subscribeUserToNewsletter($email, $newsletter_id) {
+    try {
+        $ghost_api_url = "https://earthen.io/ghost/api/v4/admin/members/";
+        $jwt = createGhostJWT();
+
+        // Prepare subscription data
+        $data = [
+            'members' => [
+                [
+                    'email' => $email,
+                    'newsletters' => [['id' => $newsletter_id]]
+                ]
+            ]
+        ];
+
+        // Convert data to JSON and log it for debugging
+        $jsonData = json_encode($data);
+        error_log("Attempting to subscribe user with data: " . $jsonData);
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $ghost_api_url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Authorization: Ghost ' . $jwt,
+            'Content-Type: application/json'
+        ));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+
+        $response = curl_exec($ch);
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+        // Log the response and status code for debugging
+        error_log('Subscription API response: ' . $response);
+        error_log('HTTP status code: ' . $http_code);
+
+        if (curl_errno($ch) || $http_code >= 400) {
+            error_log('Error subscribing to newsletter: ' . curl_error($ch) . ' - Response: ' . $response);
+        }
+
+        curl_close($ch);
+    } catch (Exception $e) {
+        error_log('Exception occurred while subscribing to newsletter: ' . $e->getMessage());
+    }
+}
 ?>
 
 

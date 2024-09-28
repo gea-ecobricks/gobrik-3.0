@@ -25,22 +25,27 @@ $selected_subscriptions = $_POST['subscriptions'] ?? [];
 $to_subscribe = array_diff($selected_subscriptions, $subscribed_newsletters);
 $to_unsubscribe = array_diff($subscribed_newsletters, $selected_subscriptions);
 
-// Fetch current member data to determine if the user exists
-$existing_member_id = getExistingMemberId($credential_key);
-
-if (!$existing_member_id) {
-    // If no existing member found, subscribe as a new member
+// If subscribed_newsletters is empty, we treat this as a new user subscription
+if (empty($subscribed_newsletters)) {
     foreach ($to_subscribe as $newsletter_id) {
         subscribeUserToNewsletter($credential_key, $newsletter_id);
     }
 } else {
-    // If the user exists, update their subscription
-    foreach ($to_subscribe as $newsletter_id) {
-        updateSubscribeUser($existing_member_id, $newsletter_id);
-    }
-    // Unsubscribe the user from newsletters they did not select
-    foreach ($to_unsubscribe as $newsletter_id) {
-        updateUnsubscribeUser($existing_member_id, $newsletter_id);
+    // If subscribed_newsletters is not empty, update the existing user
+    // Fetch existing member ID to confirm user presence before updating
+    $existing_member_id = getExistingMemberId($credential_key);
+
+    if ($existing_member_id) {
+        // Subscribe the user to the selected newsletters
+        foreach ($to_subscribe as $newsletter_id) {
+            updateSubscribeUser($existing_member_id, $newsletter_id);
+        }
+        // Unsubscribe the user from newsletters they did not select
+        foreach ($to_unsubscribe as $newsletter_id) {
+            updateUnsubscribeUser($existing_member_id, $newsletter_id);
+        }
+    } else {
+        error_log('Error: Existing member ID could not be retrieved for updating subscriptions.');
     }
 }
 

@@ -126,7 +126,7 @@
 }
 
 
-#gobrik-news .sub-icon {
+#gobrik-news-updates .sub-icon {
 
 background: url('../icons/gobrik-news-icon.webp') no-repeat;
     background-size: contain;

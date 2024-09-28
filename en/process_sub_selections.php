@@ -30,7 +30,7 @@ $to_subscribe = array_diff($selected_subscriptions, $subscribed_newsletters);
 if (empty($subscribed_newsletters)) {
     // Call the function once with all the newsletter IDs in the array
     subscribeUserToNewsletter($credential_key, $to_subscribe);
-}
+
 
 } else {
     // If subscribed_newsletters is not empty, use the provided member ID to update subscriptions

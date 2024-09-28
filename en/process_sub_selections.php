@@ -28,9 +28,10 @@ $to_subscribe = array_diff($selected_subscriptions, $subscribed_newsletters);
 
 // If subscribed_newsletters is empty, treat this as a new user subscription
 if (empty($subscribed_newsletters)) {
-    foreach ($to_subscribe as $newsletter_id) {
-        subscribeUserToNewsletter($credential_key, $newsletter_id);
-    }
+    // Call the function once with all the newsletter IDs in the array
+    subscribeUserToNewsletter($credential_key, $to_subscribe);
+}
+
 } else {
     // If subscribed_newsletters is not empty, use the provided member ID to update subscriptions
 if ($ghost_member_id) {

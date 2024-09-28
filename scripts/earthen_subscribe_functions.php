@@ -175,7 +175,7 @@ function checkEarthenEmailStatus($email) {
     try {
         // Prepare and encode the email address for use in the API URL
         $email_encoded = urlencode($email);
-        $ghost_api_url = "https://earthen.io/ghost/api/v4/admin/members/?filter=email:$email_encoded";
+        $ghost_api_url = "https://earthen.io/ghost/api/admin/members/?filter=email:$email_encoded";
         $jwt = createGhostJWT();
 
         // Set up the cURL request to the Ghost Admin API

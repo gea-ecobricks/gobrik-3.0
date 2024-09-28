@@ -127,15 +127,14 @@ if (!empty($credential_key)) {
             <h4>Last Step <?php echo $first_name; ?></h4>
             <p>We share GoBrik, Ecobrick and Earthen news by email.  These newsletter help us to share the latest updates from the plastic transition and regenerative movement off the big corporate platforms.  Get our Earthen newsletter and GoBrik notifications sent to <?php echo $credential_key; ?>.</span>
             </p>
-            <div id="subscribed" style="color:green;display:<?php echo $is_subscribed ? 'block' : 'none'; ?>;">
+           <div id="subscribed" style="color:green;display:<?php echo $is_subscribed ? 'block' : 'none'; ?>;">
                 <?php if ($is_subscribed && !empty($earthen_subscriptions)): ?>
-                    <p style="color:green;font-size:1em;">Nice. It looks like you're already subscribed to: <?php echo htmlspecialchars($earthen_subscriptions); ?>. You can choose to add or remove your subscriptions here...</p>
-                <?php else: ?>
-                    <p>It looks like you're already subscribed!</p>
+                    <p style="color:green;font-size:1em;">Nice 👍. It looks like you're already subscribed to: <?php echo htmlspecialchars($earthen_subscriptions); ?>. You can choose to add or remove your subscriptions here...</p>
                 <?php endif; ?>
             </div>
-            <div id="not-subscribed" style="display:<?php echo !$is_subscribed ? 'block' : 'none'; ?>;">You're not yet subscribed</div>
+            <div id="not-subscribed" style="color:grey;display:<?php echo !$is_subscribed ? 'block' : 'none'; ?>;">You're not yet subscribed</div>
             <div id="earthen-server-error" class="form-field-error"></div>
+
 
             <!-- SLECT SUBSCRIPTIONS FORM -->
                    <!-- SIGNUP FORM -->

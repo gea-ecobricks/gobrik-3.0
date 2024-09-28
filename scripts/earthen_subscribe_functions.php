@@ -260,7 +260,6 @@ function logToConsole($data) {
 }
 
 
-
 /**
  * Update subscription for an existing user using PUT.
  */

@@ -123,11 +123,11 @@ if (!empty($credential_key)) {
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="001-setup-access-heading">Select Earthen Subscriptions</h2>
-            <p>In order to keep in touch with you <?php echo $first_name; ?>,
-                <span data-lang-id="002-setup-access-heading-a">we've developed some exciting newsletters on our Earthen newsletter platform and can send them to <?php echo $credential_key; ?>.</span>
+            <h2 data-lang-id="001-setup-access-heading">Get Earthen. Go Greener.</h2>
+            <h4>Last Step <?php echo $first_name; ?></h4>
+            <p>We share GoBrik, Ecobrick and Earthen news by email.  These newsletter help us to share the latest updates from the plastic transition and regenerative movement off the big corporate platforms.  Get our Earthen newsletter and GoBrik notifications sent to <?php echo $credential_key; ?>.</span>
             </p>
-            <div id="subscribed" style="display:<?php echo $is_subscribed ? 'block' : 'none'; ?>;">
+            <div id="subscribed" style="display:<?php echo $is_subscribed ? 'block' : 'none'; ?>; color:green;">
                 <?php if ($is_subscribed && !empty($earthen_subscriptions)): ?>
                     <p>Looks like you're already subscribed to: <?php echo htmlspecialchars($earthen_subscriptions); ?>!</p>
                 <?php else: ?>

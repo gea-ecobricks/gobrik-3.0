@@ -97,6 +97,12 @@
     background-size: cover;
 }
 
+#gobrik-news-updates .sub-image {
+    background: url('../webps/gobrik-newsletter-image.webp') no-repeat;
+    background-size: cover;
+}
+
+
 /* Content area of the box */
 .sub-content {
     flex: 1;

@@ -151,8 +151,7 @@ if (!empty($credential_key)) {
                 <?php grabActiveEarthenSubs(); ?>
             </div>
 
-            <p class="form-caption" style="text-align:center; margin-top: 20px">By completing my registration today, I agree to receive the GoBrik notifications for app, ecobrick, and earthen updates</p>
-
+            <p class="form-caption" style="text-align:center; margin-top: 20px">Earthen newsletters and GoBrik are sent according to our non-profit, privacy <a href="#" onclick="showModalInfo('terms', '<?php echo $lang; ?>')" class="underline-link"> Terms of Service</a>.</p>
            </div>
 
             <div id="submit-section" style="text-align:center;margin-top:25px;" data-lang-id="016-complete-button">

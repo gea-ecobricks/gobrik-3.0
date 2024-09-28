@@ -129,7 +129,7 @@ if (!empty($credential_key)) {
             </p>
             <div id="subscribed" style="color:green;display:<?php echo $is_subscribed ? 'block' : 'none'; ?>;">
                 <?php if ($is_subscribed && !empty($earthen_subscriptions)): ?>
-                    <p style="color:green;">Looks like you're already subscribed to: <?php echo htmlspecialchars($earthen_subscriptions); ?>!</p>
+                    <p style="color:green;font-size:1em;">Nice. It looks like you're already subscribed to: <?php echo htmlspecialchars($earthen_subscriptions); ?>. You can choose to add or remove your subscriptions here...</p>
                 <?php else: ?>
                     <p>It looks like you're already subscribed!</p>
                 <?php endif; ?>

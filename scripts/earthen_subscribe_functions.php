@@ -371,18 +371,24 @@ function updateUnsubscribeUser($member_id, $newsletter_id) {
 }
 
 
-
-function subscribeUserToNewsletter($email, $newsletter_id) {
+/**
+ * Subscribe the user to specific newsletters by creating a new member with selected newsletters.
+ */
+function subscribeUserToNewsletter($email, $newsletter_ids) {
     try {
         $ghost_api_url = "https://earthen.io/ghost/api/v4/admin/members/";
         $jwt = createGhostJWT();
 
-        // Prepare subscription data
+        // Prepare subscription data with all selected newsletters
+        $newsletters = array_map(function($id) {
+            return ['id' => $id];
+        }, $newsletter_ids);
+
         $data = [
             'members' => [
                 [
                     'email' => $email,
-                    'newsletters' => [['id' => $newsletter_id]]
+                    'newsletters' => $newsletters
                 ]
             ]
         ];
@@ -417,6 +423,7 @@ function subscribeUserToNewsletter($email, $newsletter_id) {
         error_log('Exception occurred while subscribing to newsletter: ' . $e->getMessage());
     }
 }
+
 ?>
 
 

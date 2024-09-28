@@ -125,6 +125,12 @@
     margin-right: 10px;
 }
 
+
+#gobrik-news .sub-icon {
+
+background: url('../icons/gobrik-news-icon.webp') no-repeat;
+    background-size: contain;
+}
 /* Custom icons for specific sub-box slugs */
 #default-newsletter .sub-icon {
     background: url('../icons/earthen-newsletter-icon.webp') no-repeat;

@@ -134,6 +134,7 @@ if (!empty($credential_key)) {
                 <?php endif; ?>
             </div>
             <div id="not-subscribed" style="display:<?php echo !$is_subscribed ? 'block' : 'none'; ?>;">You're not yet subscribed</div>
+            <div id="earthen-server-error" class="error-message"></div>
 
             <!-- SLECT SUBSCRIPTIONS FORM -->
                    <!-- SIGNUP FORM -->
@@ -149,6 +150,10 @@ if (!empty($credential_key)) {
             </div>
 
             <p class="form-caption" style="text-align:center; margin-top: 20px">Note: these subscriptions are independent of GoBrik account notifications that we sometimes need to send.</p>
+              <div>
+                        <input type="checkbox" id="newsletter" name="newsletter" checked>
+                        <label for="newsletter" style="font-size:1.0;" class="form-caption" data-lang-id="014-i-agree-newsletter">I agree to receive the <a href="#" onclick="showModalInfo('earthen', '<?php echo $lang; ?>')" class="underline-link">Earthen newsletter</a> for app, ecobrick, and earthen updates</label>
+                    </div>
 
             <div id="submit-section" style="text-align:center;margin-top:25px;" data-lang-id="016-complete-button">
                 <input type="submit" id="submit-button" value="Setup Complete!" class="submit-button enabled">

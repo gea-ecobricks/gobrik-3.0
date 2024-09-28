@@ -16,6 +16,9 @@ function base64UrlEncode($data) {
  * @return string JWT token.
  * @throws Exception if the API key is not found or invalid.
  */
+
+
+
 function createGhostJWT() {
     // Retrieve the API key from the environment variable
     $apiKey = getenv('EARTHEN_KEY');
@@ -34,7 +37,7 @@ function createGhostJWT() {
     $payload = json_encode([
         'iat' => $now,
         'exp' => $now + 300, // Token valid for 5 minutes
-        'aud' => '/v3/admin/' // Audience value
+        'aud' => '/v4/admin/' // Audience value
     ]);
 
     // Encode Header and Payload

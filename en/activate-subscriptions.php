@@ -26,6 +26,7 @@ $version = '0.777';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $response = ['success' => false];
 $buwana_id = $_GET['id'] ?? null;
+$ghost_member_id = '';
 
 // Initialize user variables
 $credential_type = '';

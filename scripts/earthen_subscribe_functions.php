@@ -263,14 +263,13 @@ function logToConsole($data) {
 
 
 
-
 /**
  * Update subscription for an existing user using PATCH.
  */
 function updateSubscribeUser($member_id, $newsletter_id) {
     try {
         // Correct URL format using the member ID
-        $ghost_api_url = "https://earthen.io/ghost/api/admin/members/" . $member_id . '/';
+        $ghost_api_url = "https://earthen.io/ghost/api/v4/admin/members/" . $member_id . '/'; // Ensure v4 is used
         $jwt = createGhostJWT();
 
         // Prepare updated subscription data - ensure the payload matches Ghost's API requirements
@@ -280,6 +279,7 @@ function updateSubscribeUser($member_id, $newsletter_id) {
 
         $jsonData = json_encode($data);
         error_log("Attempting to update subscription for user: " . $jsonData);
+        error_log("Request URL: " . $ghost_api_url); // Log the exact URL being used
 
         // Setup cURL for the PATCH request to update subscriptions
         $ch = curl_init();
@@ -296,9 +296,10 @@ function updateSubscribeUser($member_id, $newsletter_id) {
         $response = curl_exec($ch);
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-        // Log the response and status code for debugging
+        // Log the response, status code, and URL for debugging
         error_log('Update subscription API response: ' . $response);
         error_log('HTTP status code: ' . $http_code);
+        error_log('Full URL used: ' . $ghost_api_url); // Log the URL again after the request
 
         // Handle potential errors
         if (curl_errno($ch) || $http_code >= 400) {

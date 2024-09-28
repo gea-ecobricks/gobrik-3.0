@@ -262,6 +262,57 @@ function logToConsole($data) {
 
 
 
+
+
+/**
+ * Update subscription for an existing user using PATCH.
+ */
+function updateSubscribeUser($member_id, $newsletter_id) {
+    try {
+        // Correct URL format using the member ID
+        $ghost_api_url = "https://earthen.io/ghost/api/admin/members/" . $member_id . '/';
+        $jwt = createGhostJWT();
+
+        // Prepare updated subscription data - ensure the payload matches Ghost's API requirements
+        $data = [
+            'newsletters' => [['id' => $newsletter_id, 'subscribed' => true]] // 'subscribed' flag ensures subscription
+        ];
+
+        $jsonData = json_encode($data);
+        error_log("Attempting to update subscription for user: " . $jsonData);
+
+        // Setup cURL for the PATCH request to update subscriptions
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $ghost_api_url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Authorization: Ghost ' . $jwt,
+            'Content-Type: application/json'
+        ));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH'); // Use PATCH to update
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+
+        // Execute the cURL request
+        $response = curl_exec($ch);
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+        // Log the response and status code for debugging
+        error_log('Update subscription API response: ' . $response);
+        error_log('HTTP status code: ' . $http_code);
+
+        // Handle potential errors
+        if (curl_errno($ch) || $http_code >= 400) {
+            error_log('Error updating subscription: ' . curl_error($ch) . ' - Response: ' . $response);
+        }
+
+        // Close cURL session
+        curl_close($ch);
+    } catch (Exception $e) {
+        error_log('Exception occurred while updating subscription: ' . $e->getMessage());
+    }
+}
+
+
 ?>
 
 

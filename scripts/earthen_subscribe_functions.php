@@ -64,21 +64,13 @@ function displayError($error_type) {
     </script>";
 }
 
-/**
- * Grabs active newsletters from the Ghost API and populates the subscription form.
- */
-
-/**
- * Fetches active newsletters from the Ghost API and displays them as subscription options.
- * Checks if the user is subscribed to any of the newsletters and marks the corresponding checkboxes.
- */
-
 
 /**
  * Fetches active newsletters from the Ghost API and displays them as subscription options.
  * Checks if the user is subscribed to any of the newsletters and marks the corresponding checkboxes.
  * If the user is not subscribed to any, the "Earthen" newsletter will be preselected.
  */
+
 function grabActiveEarthenSubs() {
     global $subscribed_newsletters; // Access the global variable to compare with user subscriptions
     $is_user_subscribed = !empty($subscribed_newsletters); // Determine if the user is subscribed to any newsletters
@@ -164,6 +156,7 @@ function grabActiveEarthenSubs() {
         displayError('Exception: ' . $e->getMessage());
     }
 }
+
 
 
 

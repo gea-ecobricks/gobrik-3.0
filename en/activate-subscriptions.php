@@ -37,7 +37,6 @@ $country_icon = '';
 // Global variable to store the user's subscribed newsletters
 $subscribed_newsletters = [];
 
-
 // Include database connection
 include '../buwanaconn_env.php';
 include '../gobrikconn_env.php';
@@ -45,7 +44,7 @@ require_once ("../scripts/earthen_subscribe_functions.php");
 
 // Look up user information if buwana_id is provided
 if ($buwana_id) {
-    $gea_status = getGEA_status($buwana_id);  //added here
+    $gea_status = getGEA_status($buwana_id);
     $sql_lookup_credential = "SELECT credential_type, credential_key FROM credentials_tb WHERE buwana_id = ?";
     $stmt_lookup_credential = $buwana_conn->prepare($sql_lookup_credential);
     if ($stmt_lookup_credential) {
@@ -77,8 +76,6 @@ if ($buwana_id) {
         $response['error'] = 'account_status';
     }
 
-
-
 // Check subscription status
 $is_subscribed = false;
 $earthen_subscriptions = ''; // To store newsletter names if subscribed
@@ -103,6 +100,10 @@ if (!empty($credential_key)) {
 }
 
 }
+
+// Debugging output to ensure variables are correctly set
+echo '<script>console.log("Subscribed Newsletters: ", ' . json_encode($subscribed_newsletters) . ');</script>';
+echo '<script>console.log("Ghost Member ID: ", "' . htmlspecialchars($ghost_member_id) . '");</script>';
 
 ?>
 
@@ -137,38 +138,29 @@ if (!empty($credential_key)) {
             <div id="not-subscribed" style="display:<?php echo !$is_subscribed ? 'block' : 'none'; ?>;">You're not yet subscribed</div>
             <div id="earthen-server-error" class="form-field-error"></div>
 
-            <!-- SLECT SUBSCRIPTIONS FORM -->
-                   <!-- SIGNUP FORM -->
-        <!-- SIGNUP FORM -->
-        <form id="select-earthen-subs" method="post" action="process_sub_selections.php" style="margin-top:30px;">
-            <input type="hidden" name="buwana_id" value="<?php echo htmlspecialchars($buwana_id); ?>">
-            <input type="hidden" name="credential_key" value="<?php echo htmlspecialchars($credential_key); ?>">
-            <input type="hidden" name="subscribed_newsletters" value="<?php echo htmlspecialchars(json_encode($subscribed_newsletters)); ?>">
-            <input type="hidden" name="ghost_member_id" value="<?php echo htmlspecialchars($ghost_member_id); ?>">
+            <!-- SELECT SUBSCRIPTIONS FORM -->
+            <form id="select-earthen-subs" method="post" action="process_sub_selections.php" style="margin-top:30px;">
+                <input type="hidden" name="buwana_id" value="<?php echo htmlspecialchars($buwana_id); ?>">
+                <input type="hidden" name="credential_key" value="<?php echo htmlspecialchars($credential_key); ?>">
+                <input type="hidden" name="subscribed_newsletters" value="<?php echo htmlspecialchars(json_encode($subscribed_newsletters)); ?>">
+                <input type="hidden" name="ghost_member_id" value="<?php echo htmlspecialchars($ghost_member_id); ?>">
 
-            <div class="subscription-boxes">
-                <!-- Subscription boxes will be populated here by the PHP function -->
-                <?php grabActiveEarthenSubs(); ?>
-            </div>
+                <div class="subscription-boxes">
+                    <!-- Subscription boxes will be populated here by the PHP function -->
+                    <?php grabActiveEarthenSubs(); ?>
+                </div>
 
-            <p class="form-caption" style="text-align:center; margin-top: 20px">By completing my registration today, I agree to receive the GoBrik notifications for app, ecobrick, and earthen updates</p>
-
-           </div>
+                <p class="form-caption" style="text-align:center; margin-top: 20px">By completing my registration today, I agree to receive the GoBrik notifications for app, ecobrick, and earthen updates</p>
+            </form>
 
             <div id="submit-section" style="text-align:center;margin-top:25px;" data-lang-id="016-complete-button">
                 <input type="submit" id="submit-button" value="Setup Complete!" class="submit-button enabled">
             </div>
-        </form>
-
-
-
         </div>
     </did>
 
-
     </div>
 </div>
-
 
 </div>
 
@@ -176,9 +168,6 @@ if (!empty($credential_key)) {
 <?php require_once ("../footer-2024.php"); ?>
 
 <script>
-
-    // subBoxHighlighter.js
-
 document.addEventListener('DOMContentLoaded', function () {
     const subBoxes = document.querySelectorAll('.sub-box');
 
@@ -209,15 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 });
-
-
-
-
-
 </script>
-
-
-
 
 </body>
 </html>

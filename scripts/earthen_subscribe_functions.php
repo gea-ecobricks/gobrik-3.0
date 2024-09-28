@@ -261,28 +261,28 @@ function logToConsole($data) {
 
 
 
-
 /**
  * Update subscription for an existing user using PUT.
  */
 function updateSubscribeUser($member_id, $newsletter_id) {
     try {
         // Correct URL format using the member ID
-        $ghost_api_url = "https://earthen.io/ghost/api/admin/members/" . $member_id . '/'; // Ensure v4 is used
+        $ghost_api_url = "https://earthen.io/ghost/api/admin/members/" . $member_id . '/';
         $jwt = createGhostJWT();
 
-        // Prepare updated subscription data as per Ghost API requirements
+        // Prepare updated subscription data
         $data = [
             'members' => [
                 [
-                    'newsletters' => [['id' => $newsletter_id, 'subscribed' => true]] // Ensure 'subscribed' flag is used
+                    'newsletters' => [['id' => $newsletter_id, 'subscribed' => true]]
                 ]
             ]
         ];
 
         $jsonData = json_encode($data);
         error_log("Attempting to update subscription for user: " . $jsonData);
-        error_log("Request URL: " . $ghost_api_url); // Log the exact URL being used
+        error_log("Updating subscription with newsletter ID: " . $newsletter_id); // Log the newsletter ID
+        error_log("Request URL: " . $ghost_api_url);
 
         // Setup cURL for the PUT request to update subscriptions
         $ch = curl_init();
@@ -299,10 +299,10 @@ function updateSubscribeUser($member_id, $newsletter_id) {
         $response = curl_exec($ch);
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-        // Log the response, status code, and URL for debugging
+        // Log the response and status code for debugging
         error_log('Update subscription API response: ' . $response);
         error_log('HTTP status code: ' . $http_code);
-        error_log('Full URL used: ' . $ghost_api_url); // Log the URL again after the request
+        error_log('Full URL used: ' . $ghost_api_url);
 
         // Handle potential errors
         if (curl_errno($ch) || $http_code >= 400) {
@@ -315,6 +315,7 @@ function updateSubscribeUser($member_id, $newsletter_id) {
         error_log('Exception occurred while updating subscription: ' . $e->getMessage());
     }
 }
+
 
 
 

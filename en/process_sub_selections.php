@@ -12,6 +12,7 @@ require_once '../scripts/earthen_subscribe_functions.php';
 $buwana_id = $_POST['buwana_id'] ?? null;
 $credential_key = $_POST['credential_key'] ?? null;
 $subscribed_newsletters = json_decode($_POST['subscribed_newsletters'] ?? '[]', true); // Decode the JSON array of subscribed newsletters
+$ghost_member_id = $_POST['ghost_member_id'] ?? null; // Get the member ID directly from POST
 
 // Ensure we have the user's email
 if (empty($credential_key)) {
@@ -31,31 +32,24 @@ if (empty($subscribed_newsletters)) {
         subscribeUserToNewsletter($credential_key, $newsletter_id);
     }
 } else {
-    // If subscribed_newsletters is not empty, update the existing user
-    // Fetch existing member ID to confirm user presence before updating
-    $existing_member_id = getExistingMemberId($credential_key);
-
-    if ($existing_member_id) {
+    // If subscribed_newsletters is not empty, use the provided member ID to update subscriptions
+    if ($ghost_member_id) {
         // Subscribe the user to the selected newsletters
         foreach ($to_subscribe as $newsletter_id) {
-            updateSubscribeUser($existing_member_id, $newsletter_id);
+            updateSubscribeUser($ghost_member_id, $newsletter_id);
         }
         // Unsubscribe the user from newsletters they did not select
         foreach ($to_unsubscribe as $newsletter_id) {
-            updateUnsubscribeUser($existing_member_id, $newsletter_id);
+            updateUnsubscribeUser($ghost_member_id, $newsletter_id);
         }
     } else {
-        error_log('Error: Existing member ID could not be retrieved for updating subscriptions.');
+        error_log('Error: Member ID is missing for updating subscriptions.');
     }
 }
 
 // Redirect the user to the login page with the required parameters after processing
 header('Location: login.php?status=firsttime&id=' . urlencode($buwana_id));
 exit();
-
-
-
-
 
 /**
  * Subscribe the user to a specific newsletter based on the newsletter ID.
@@ -106,7 +100,6 @@ function subscribeUserToNewsletter($email, $newsletter_id) {
     }
 }
 
-
 /**
  * Update subscription for an existing user using PATCH.
  */
@@ -154,47 +147,6 @@ function updateSubscribeUser($member_id, $newsletter_id) {
         error_log('Exception occurred while updating subscription: ' . $e->getMessage());
     }
 }
-
-/**
- * Fetch existing member ID based on their email.
- */
-function getExistingMemberId($email) {
-    try {
-        // Correct Ghost API endpoint to fetch member information
-        $ghost_api_url = "https://earthen.io/ghost/api/v4/admin/members/?filter=email:" . urlencode($email);
-        $jwt = createGhostJWT();
-
-        // Fetch current member data
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $ghost_api_url);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Authorization: Ghost ' . $jwt,
-            'Content-Type: application/json'
-        ));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPGET, true);
-        $response = curl_exec($ch);
-        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $response_data = json_decode($response, true);
-
-        // Log any errors encountered
-        if (curl_errno($ch) || $http_code >= 400) {
-            error_log('Error fetching member data: ' . curl_error($ch) . ' - Response: ' . $response);
-            curl_close($ch);
-            return null;
-        }
-
-        // Close cURL session
-        curl_close($ch);
-
-        // Extract the member ID from the response
-        return $response_data['members'][0]['id'] ?? null;
-    } catch (Exception $e) {
-        error_log('Exception occurred while fetching member ID: ' . $e->getMessage());
-        return null;
-    }
-}
-
 
 /**
  * Update to unsubscribe a user from a specific newsletter using PATCH.

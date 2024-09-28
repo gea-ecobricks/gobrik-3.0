@@ -177,12 +177,12 @@ function grabActiveEarthenSubs() {
  * @return string JSON response from the Ghost API.
  */
 function checkEarthenEmailStatus($email) {
-    global $subscribed_newsletters; // Access the global variable to store newsletter names
+    global $subscribed_newsletters, $ghost_member_id; // Access global variables to store newsletter names and member ID
 
     try {
         // Prepare and encode the email address for use in the API URL
         $email_encoded = urlencode($email);
-        $ghost_api_url = "https://earthen.io/ghost/api/admin/members/?filter=email:$email_encoded";
+        $ghost_api_url = "https://earthen.io/ghost/api/v4/admin/members/?filter=email:$email_encoded";
         $jwt = createGhostJWT();
 
         // Set up the cURL request to the Ghost Admin API
@@ -222,6 +222,9 @@ function checkEarthenEmailStatus($email) {
             if ($response_data && isset($response_data['members']) && is_array($response_data['members']) && count($response_data['members']) > 0) {
                 $registered = 1;
 
+                // Save the member ID to the global variable
+                $ghost_member_id = $response_data['members'][0]['id'] ?? null;
+
                 // Extract newsletter names and store them in the global variable
                 if (isset($response_data['members'][0]['newsletters'])) {
                     foreach ($response_data['members'][0]['newsletters'] as $newsletter) {
@@ -251,6 +254,7 @@ function checkEarthenEmailStatus($email) {
         return $exceptionResponse;
     }
 }
+
 
 /**
  * Logs JSON data to the browser's console.

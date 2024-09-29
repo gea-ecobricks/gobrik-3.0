@@ -20,6 +20,7 @@ $is_logged_in = false; // Ensure not logged in for this page
 $buwana_id = $_GET['id'] ?? null;  // Correctly initializing buwana_id
 $page = 'activate';
 $first_name = '';
+$pre_community = '';  // Ensure pre_community is initialized
 
 // PART 1: Check if the user is already logged in
 if (isset($_SESSION['buwana_id'])) {
@@ -58,7 +59,34 @@ if (empty($first_name)) {
     $first_name = 'User'; // Fallback if first name is not set
 }
 
-// PART 4: Handle form submission
+// PART 4: Fetch Ecobricker's community from GoBrik database
+require_once("../gobrikconn_env.php");
+
+$sql_ecobricker_community = "SELECT community FROM tb_ecobrickers WHERE buwana_id = ?";
+$stmt_ecobricker_community = $gobrik_conn->prepare($sql_ecobricker_community);
+
+if ($stmt_ecobricker_community) {
+    $stmt_ecobricker_community->bind_param('i', $buwana_id);
+    $stmt_ecobricker_community->execute();
+    $stmt_ecobricker_community->bind_result($pre_community);
+    $stmt_ecobricker_community->fetch();
+    $stmt_ecobricker_community->close();
+} else {
+    die('Error preparing statement for fetching ecobricker community: ' . $gobrik_conn->error);
+}
+
+// PART 5: Fetch all communities from the communities_tb table in Buwana database
+$communities = [];
+$sql_communities = "SELECT com_name FROM communities_tb";
+$result_communities = $buwana_conn->query($sql_communities);
+
+if ($result_communities && $result_communities->num_rows > 0) {
+    while ($row = $result_communities->fetch_assoc()) {
+        $communities[] = $row['com_name'];
+    }
+}
+
+// PART 6: Handle form submission (if needed)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_location_full = $_POST['location_full'];
     $user_lat = $_POST['latitude'];
@@ -95,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt_update_buwana->execute();
             $stmt_update_buwana->close();
 
-            // PART 5: Open GoBrik connection and update tb_ecobrickers to set buwana_activated to 1
+            // PART 7: Open GoBrik connection and update tb_ecobrickers to set buwana_activated to 1
             require_once("../gobrikconn_env.php");
 
             $sql_update_gobrik = "UPDATE tb_ecobrickers SET buwana_activated = 1 WHERE buwana_id = ?";
@@ -129,9 +157,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Close the Buwana database connection after all operations are done
+// Close the Buwana and GoBrik database connections
 $buwana_conn->close();
+$gobrik_conn->close();
 ?>
+
 
 
 
@@ -169,7 +199,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <!-- ACTIVATE 3 FORM -->
 
-       <form id="user-info-form" method="post" action="activate-3.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
+      <form id="user-info-form" method="post" action="activate-3.php?id=<?php echo htmlspecialchars($buwana_id); ?>">
 
     <!-- LOCATION FULL -->
     <div class="form-item">
@@ -188,23 +218,38 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     <!-- MAP AND WATERSHED SEARCH SECTION -->
     <div class="form-item" id="watershed-map-section" style="display: none;">
-            <label for="watershed_select" data-lang-id="011-watershed-select">Select Your Local River or Watershed</label><br>
-            <select id="watershed_select" name="watershed_select" aria-label="Watershed Select" style="width: 100%; padding: 10px;">
-                <option value="" disabled selected>Select a river or watershed</option>
-            </select>
-            <p class="form-caption">💚 River basins provide a new non-polical way to localize our users by ecological region!</p>
-            <div id="map" style="height: 350px;border-radius: 15px; margin-top:10px;"></div>
+        <label for="watershed_select" data-lang-id="011-watershed-select">Select Your Local River or Watershed</label><br>
+        <select id="watershed_select" name="watershed_select" aria-label="Watershed Select" style="width: 100%; padding: 10px;">
+            <option value="" disabled selected>Select a river or watershed</option>
+        </select>
+        <p class="form-caption">💚 River basins provide a new non-political way to localize our users by ecological region!</p>
+        <div id="map" style="height: 350px; border-radius: 15px; margin-top: 10px;"></div>
     </div>
 
+    <!-- COMMUNITY FIELD -->
+    <div class="form-item">
+        <label for="community_name" data-lang-id="012-community-name">Enter Your Community</label><br>
+        <input type="text" id="community_name" name="community_name" aria-label="Community Name" list="community_list"
+               placeholder="Type your community" style="width: 100%; padding: 10px;"
+               value="<?php echo htmlspecialchars($pre_community); ?>">
+        <datalist id="community_list">
+            <?php foreach ($communities as $community) : ?>
+                <option value="<?php echo htmlspecialchars($community); ?>" <?php echo ($community === $pre_community) ? 'selected' : ''; ?>>
+                    <?php echo htmlspecialchars($community); ?>
+                </option>
+            <?php endforeach; ?>
+        </datalist>
+        <p class="form-caption" data-lang-id="012-community-caption">Enter the name of your community, neighborhood, or town.</p>
+    </div>
 
     <!-- SUBMIT SECTION -->
-    <div id="submit-section" style="text-align:center;margin-top:25px;display:none;" data-lang-id="016X-submit-complete-button">
+    <div id="submit-section" style="text-align: center; margin-top: 25px; display: none;" data-lang-id="016X-submit-complete-button">
         <input type="submit" id="submit-button" value="Next ➡️" class="submit-button enabled">
-            <p class="form-caption" style="text-align:center; margin-top: 20px">Can't find your watershed?<br>No worries! You can skip.  We're still working on this feature.</p>
-
+        <p class="form-caption" style="text-align: center; margin-top: 20px;">Can't find your watershed?<br>No worries! You can skip. We're still working on this feature.</p>
     </div>
 
 </form>
+
 
 <!-- Include Leaflet CSS and JS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />

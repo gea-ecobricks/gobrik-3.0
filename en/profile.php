@@ -166,9 +166,14 @@ echo '<!DOCTYPE html>
 <meta charset="UTF-8">
 ';
 ?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
 <?php require_once("../includes/profile-inc.php"); ?>
+
+
 
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
@@ -301,7 +306,6 @@ echo '<!DOCTYPE html>
 <input type="hidden" id="lat" name="latitude">
 <input type="hidden" id="lon" name="longitude">
 
-<!-- Map and Watershed Search Section -->
 <!-- Location Watershed -->
 <div class="form-item">
     <label for="location_watershed" data-lang-id="011-watershed-location">Your local river:</label><br>
@@ -604,13 +608,6 @@ document.getElementById('manage-subscription-button').addEventListener('click', 
 
 
 </script>
-
-<script>
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
 <script>

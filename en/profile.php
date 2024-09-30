@@ -244,23 +244,24 @@ echo '<!DOCTYPE html>
 <div class="form-item">
     <label for="community_id" data-lang-id="025-community">Your community:</label>
     <select name="community_id" id="community_id">
-    <option value="" data-lang-id="026-select-community">Select Community</option>
-    <?php foreach ($communities as $community): ?>
-        <option value="<?php echo $community['com_id']; ?>" <?php if ($community['com_id'] == $community_id) echo 'selected'; ?>>
-            <?php echo htmlspecialchars($community['com_name']); ?>
-        </option>
-    <?php endforeach; ?>
-        <p class="form-caption" data-lang-id="011-location-full-caption">Your GoBrik community (migrated from GoBrik 2.0, soon you'll be able to add new communities)</p>
-
-</select>
-
+        <option value="" data-lang-id="026-select-community">Select Community</option>
+        <?php foreach ($communities as $community): ?>
+            <option value="<?php echo $community['com_id']; ?>" <?php if ($community['com_id'] == $community_id) echo 'selected'; ?>>
+                <?php echo htmlspecialchars($community['com_name']); ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+    <p class="form-caption" data-lang-id="011-location-full-caption">Your GoBrik community (migrated from GoBrik 2.0, soon you'll be able to add new communities)</p>
 </div>
 
+
+<!-- Location Full -->
 <!-- Location Full -->
 <div class="form-item">
     <label for="location_full" data-lang-id="011-location-full">Your local area:</label><br>
     <div class="input-container">
-        <input type="text" id="location_full" name="location_full" aria-label="Location Full" required style="padding-left:45px;">
+        <input type="text" id="location_full" name="location_full" aria-label="Location Full"
+               value="<?php echo $location_full; ?>" required style="padding-left:45px;">
         <div id="loading-spinner" class="spinner" style="display: none;"></div>
         <div id="location-pin" class="pin-icon">📍</div>
     </div>
@@ -268,19 +269,20 @@ echo '<!DOCTYPE html>
     <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
 </div>
 
+
 <!-- Hidden latitude and longitude fields -->
 <input type="hidden" id="lat" name="latitude">
 <input type="hidden" id="lon" name="longitude">
 
 <!-- Map and Watershed Search Section -->
-<div class="form-item" id="watershed-map-section" style="display: none; margin-top:20px;">
-    <label for="watershed_select" data-lang-id="011-watershed-select">Your local river:</label><br>
-    <select id="watershed_select" name="watershed_select" aria-label="Watershed Select" style="width: 100%; padding: 10px;">
-        <option value="" disabled selected>Select river...</option>
-    </select>
+<!-- Location Watershed -->
+<div class="form-item">
+    <label for="location_watershed" data-lang-id="011-watershed-location">Your local river:</label><br>
+    <input type="text" id="location_watershed" name="location_watershed"
+           value="<?php echo $location_watershed; ?>" aria-label="Location Watershed" style="width: 100%; padding: 10px;">
     <p class="form-caption">💚 Rivers and their basins provide a great non-political way to localize our users by ecological region!</p>
-    <div id="map" style="height: 350px; border-radius: 15px; margin-top: 10px;"></div>
 </div>
+
 
 <!-- Preferred Language -->
 <div class="form-item">

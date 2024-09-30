@@ -100,9 +100,10 @@ if ($result_languages && $result_languages->num_rows > 0) {
         }
     }
 
-    // Fetch communities based on the user's country_id
+
+// Fetch communities based on the user's country_id
 $communities = [];
-$sql_communities = "SELECT com_id, com_name FROM tb_communities WHERE country_id = ?";
+$sql_communities = "SELECT com_id, com_name FROM communities_tb WHERE country_id = ?";
 
 if ($stmt_communities = $gobrik_conn->prepare($sql_communities)) {
     $stmt_communities->bind_param("i", $country_id); // Bind the fetched country_id
@@ -114,9 +115,35 @@ if ($stmt_communities = $gobrik_conn->prepare($sql_communities)) {
     }
     $stmt_communities->close();
 } else {
-    // Error handling if query fails to prepare
     error_log("Error preparing statement for fetching communities: " . $gobrik_conn->error);
 }
+
+// Check if the user's current community is in the list
+$community_exists = false;
+foreach ($communities as $community) {
+    if ($community['com_id'] == $community_id) {
+        $community_exists = true;
+        break;
+    }
+}
+
+// If the user's current community is not in the list, fetch it and add it
+if (!$community_exists && !empty($community_id)) {
+    $sql_user_community = "SELECT com_id, com_name FROM communities_tb WHERE com_id = ?";
+    if ($stmt_user_community = $gobrik_conn->prepare($sql_user_community)) {
+        $stmt_user_community->bind_param("i", $community_id); // Bind the community_id
+        $stmt_user_community->execute();
+        $stmt_user_community->bind_result($com_id, $com_name);
+        if ($stmt_user_community->fetch()) {
+            // Add the user's community to the list
+            $communities[] = ['com_id' => $com_id, 'com_name' => $com_name];
+        }
+        $stmt_user_community->close();
+    } else {
+        error_log("Error preparing statement for fetching user's community: " . $gobrik_conn->error);
+    }
+}
+
 
 
 
@@ -255,7 +282,7 @@ echo '<!DOCTYPE html>
 </div>
 
 
-<!-- Location Full -->
+
 <!-- Location Full -->
 <div class="form-item">
     <label for="location_full" data-lang-id="011-location-full">Your local area:</label><br>

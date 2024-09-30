@@ -49,11 +49,6 @@ if ($is_logged_in) {
         die('Error preparing statement for fetching user info: ' . $buwana_conn->error);
     }
 
-    // Ensure variables are sanitized and available for the form
-    $watershed_location = htmlspecialchars($watershed_location ?? '');
-    $location_full = htmlspecialchars($location_full ?? '');
-    $community_id = htmlspecialchars($community_id ?? '');
-}
 
 
 

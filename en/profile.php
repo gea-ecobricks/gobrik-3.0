@@ -29,10 +29,10 @@ if ($is_logged_in) {
     require_once '../gobrikconn_env.php';
     require_once '../buwanaconn_env.php';
 
-    // Fetch user information including community_id, watershed_location, and location_full
+    // Fetch user information including community_id, location_watershed, and location_full
     $sql_user_info = "SELECT full_name, first_name, last_name, email, country_id, languages_id, birth_date,
                       created_at, last_login, brikcoin_balance, role, account_status, notes,
-                      terms_of_service, continent_code, watershed_location, location_full, community_id
+                      terms_of_service, continent_code, location_watershed, location_full, community_id
                       FROM users_tb WHERE buwana_id = ?";
     $stmt_user_info = $buwana_conn->prepare($sql_user_info);
 
@@ -41,7 +41,7 @@ if ($is_logged_in) {
         $stmt_user_info->execute();
         $stmt_user_info->bind_result($full_name, $first_name, $last_name, $email, $country_id, $languages_id,
                                      $birth_date, $created_at, $last_login, $brikcoin_balance, $role, $account_status,
-                                     $notes, $terms_of_service, $continent_code, $watershed_location,
+                                     $notes, $terms_of_service, $continent_code, $location_watershed,
                                      $location_full, $community_id);
         $stmt_user_info->fetch();
         $stmt_user_info->close();

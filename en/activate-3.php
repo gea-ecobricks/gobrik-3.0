@@ -92,6 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_lat = $_POST['latitude'];
     $user_lon = $_POST['longitude'];
     $location_watershed = $_POST['watershed_select']; // Capture the selected watershed
+    $selected_community_name = $_POST['community_name']; // Get the selected community name from the form
 
     // Extract country from the last term in the location string (after the last comma)
     $location_parts = explode(',', $user_location_full);
@@ -111,15 +112,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die('Error preparing statement for fetching country info: ' . $buwana_conn->error);
     }
 
-    // Check if the country was found in the database
-    if (empty($set_country_id) || empty($set_continent_code)) {
-        echo '<script>alert("Could not determine your country or continent based on your location. Please refine your location details.");</script>';
+    // Fetch the community_id from communities_tb using the selected community name
+    $sql_community = "SELECT com_id FROM communities_tb WHERE com_name = ?";
+    $stmt_community = $buwana_conn->prepare($sql_community);
+
+    if ($stmt_community) {
+        $stmt_community->bind_param('s', $selected_community_name);
+        $stmt_community->execute();
+        $stmt_community->bind_result($community_id);
+        $stmt_community->fetch();
+        $stmt_community->close();
     } else {
-        // Update the Buwana user's continent, country, location, and watershed using buwana_id
-        $sql_update_buwana = "UPDATE users_tb SET continent_code = ?, country_id = ?, location_full = ?, location_lat = ?, location_long = ?, location_watershed = ? WHERE buwana_id = ?";
+        die('Error preparing statement for fetching community info: ' . $buwana_conn->error);
+    }
+
+    // Check if the country and community were found in the database
+    if (empty($set_country_id) || empty($set_continent_code) || empty($community_id)) {
+        echo '<script>alert("Could not determine your country, continent, or community based on your location or community selection. Please refine your details.");</script>';
+    } else {
+        // Update the Buwana user's continent, country, location, watershed, and community using buwana_id
+        $sql_update_buwana = "UPDATE users_tb SET continent_code = ?, country_id = ?, location_full = ?, location_lat = ?, location_long = ?, location_watershed = ?, community_id = ? WHERE buwana_id = ?";
         $stmt_update_buwana = $buwana_conn->prepare($sql_update_buwana);
         if ($stmt_update_buwana) {
-            $stmt_update_buwana->bind_param('sissdsi', $set_continent_code, $set_country_id, $user_location_full, $user_lat, $user_lon, $location_watershed, $buwana_id);
+            $stmt_update_buwana->bind_param('sissdsii', $set_continent_code, $set_country_id, $user_location_full, $user_lat, $user_lon, $location_watershed, $community_id, $buwana_id);
             $stmt_update_buwana->execute();
             $stmt_update_buwana->close();
 
@@ -156,13 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-
-// Close the Buwana and GoBrik database connections
-$buwana_conn->close();
-$gobrik_conn->close();
 ?>
-
-
 
 
 
@@ -217,7 +226,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <input type="hidden" id="lon" name="longitude">
 
     <!-- MAP AND WATERSHED SEARCH SECTION -->
-    <div class="form-item" id="watershed-map-section" style="display: none;">
+    <div class="form-item" id="watershed-map-section" style="display: none; margin-top:34px;">
         <label for="watershed_select" data-lang-id="011-watershed-select">Select Your Local River or Watershed</label><br>
         <select id="watershed_select" name="watershed_select" aria-label="Watershed Select" style="width: 100%; padding: 10px;">
             <option value="" disabled selected>Select a river or watershed</option>

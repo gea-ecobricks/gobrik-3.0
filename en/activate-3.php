@@ -228,7 +228,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     <!-- COMMUNITY FIELD -->
     <div class="form-item">
-        <label for="community_name" data-lang-id="012-community-name">Enter Your Community</label><br>
+        <label for="community_name" data-lang-id="012-community-name">Select and confirm your GoBrik community:</label><br>
         <input type="text" id="community_name" name="community_name" aria-label="Community Name" list="community_list"
                placeholder="Type your community" style="width: 100%; padding: 10px;"
                value="<?php echo htmlspecialchars($pre_community); ?>">
@@ -239,7 +239,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 </option>
             <?php endforeach; ?>
         </datalist>
-        <p class="form-caption" data-lang-id="012-community-caption">Enter the name of your community, neighborhood, or town.</p>
+        <p class="form-caption" data-lang-id="012-community-caption">These are communities setup in GoBrik 2.0.  Soon you'll be able to add a new community!</p>
     </div>
 
     <!-- SUBMIT SECTION -->

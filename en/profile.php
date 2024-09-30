@@ -286,11 +286,9 @@ echo '<!DOCTYPE html>
     <p class="form-caption" data-lang-id="011-location-full-caption">Your GoBrik community (migrated from GoBrik 2.0, soon you'll be able to add new communities)</p>
 </div>
 
-
-
 <!-- Location Full -->
 <div class="form-item">
-    <label for="location_full" data-lang-id="011-location-full">Your local area:</label><br>
+    <label for="location_full" data-lang-id="011X-location-full">Your local area:</label><br>
     <div class="input-container">
         <input type="text" id="location_full" name="location_full" aria-label="Location Full"
                value="<?php echo $location_full; ?>" required style="padding-left:45px;">
@@ -301,16 +299,15 @@ echo '<!DOCTYPE html>
     <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
 </div>
 
-
 <!-- Hidden latitude and longitude fields -->
 <input type="hidden" id="lat" name="latitude">
 <input type="hidden" id="lon" name="longitude">
 
 <!-- Location Watershed -->
 <div class="form-item">
-    <label for="location_watershed" data-lang-id="011-watershed-location">Your local river:</label><br>
+    <label for="location_watershed" data-lang-id="011X-watershed-location">Your local river:</label><br>
     <input type="text" id="location_watershed" name="location_watershed"
-           value="<?php echo $location_watershed; ?>" aria-label="Location Watershed" style="width: 100%; padding: 10px;">
+           value="<?php echo $location_watershed; ?>" aria-label="Location Watershed" style="width: 100%; padding: 10px;" disabled>
     <p class="form-caption">💚 Rivers and their basins provide a great non-political way to localize our users by ecological region!</p>
 </div>
 

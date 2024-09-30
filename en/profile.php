@@ -173,8 +173,7 @@ echo '<!DOCTYPE html>
 
 
 
-
-   <!-- First Name -->
+<!-- First Name -->
 <div class="form-item">
     <label for="first_name" data-lang-id="012-first-name">First Name:</label>
     <input type="text" name="first_name" id="first_name" value="<?php echo htmlspecialchars($first_name); ?>" required>

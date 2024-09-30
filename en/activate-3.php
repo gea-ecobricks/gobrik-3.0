@@ -226,7 +226,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <input type="hidden" id="lon" name="longitude">
 
     <!-- MAP AND WATERSHED SEARCH SECTION -->
-    <div class="form-item" id="watershed-map-section" style="display: none; margin-top:34px;">
+    <div class="form-item" id="watershed-map-section" style="display: none; margin-top:20px;">
         <label for="watershed_select" data-lang-id="011-watershed-select">Select Your Local River or Watershed</label><br>
         <select id="watershed_select" name="watershed_select" aria-label="Watershed Select" style="width: 100%; padding: 10px;">
             <option value="" disabled selected>Select a river or watershed</option>
@@ -236,7 +236,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 
     <!-- COMMUNITY FIELD -->
-    <div class="form-item" id="community-section" style="display: none;">
+    <div class="form-item" id="community-section" style="display: none; margin-top:30px;">
         <label for="community_name" data-lang-id="012-community-name">Select and confirm your GoBrik community:</label><br>
         <input type="text" id="community_name" name="community_name" aria-label="Community Name" list="community_list"
                placeholder="Type your community" style="width: 100%; padding: 10px;"
@@ -254,7 +254,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <!-- SUBMIT SECTION -->
     <div id="submit-section" style="text-align: center; margin-top: 25px; display: none;" data-lang-id="016X-submit-complete-button">
         <input type="submit" id="submit-button" value="Next ➡️" class="submit-button enabled">
-        <p class="form-caption" style="text-align: center; margin-top: 20px;">Can't find your watershed?<br>No worries! You can skip. We're still working on this feature.</p>
+        <!--
+        <p class="form-caption" style="text-align: center; margin-top: 20px;">Can't find your watershed?<br>No worries! You can skip. We're still working on this feature.</p>-->
     </div>
 
 </form>

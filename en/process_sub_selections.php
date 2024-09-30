@@ -66,11 +66,13 @@ if ($buwana_id) {
         $stmt_select_ecobricker->fetch();
         $stmt_select_ecobricker->close();
 
-        // Determine gea_status value
+        // Check if the gea_status field is empty
         if (empty($gea_status)) {
-            $gea_status = 'Gobriker';
-        } else {
+            // If empty, update gea_status to "Ecobricker"
             $gea_status = 'Ecobricker';
+        } else {
+            // If not empty, leave it unchanged (keep the current value)
+            // No changes are made to gea_status in this case.
         }
 
         $update_ecobricker_query = "UPDATE tb_ecobrickers SET gea_status = ?, earthen_registered = 1, account_notes = CONCAT(IFNULL(account_notes, ''), ' registered and subscribed, no login') WHERE buwana_id = ?";

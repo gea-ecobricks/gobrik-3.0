@@ -558,7 +558,7 @@ document.addEventListener("DOMContentLoaded", function () {
             firsttime: {
                 en: {
                     main: "Your Buwana Account is Created! 🎉",
-                    sub: `Now${firstName ? ' ' + firstName : ''}, please login again with your new account credentials.`
+                    sub: `And your Earthen subscriptions are confirmed.  Now${firstName ? ' ' + firstName : ''}, please login again with your new account credentials.`
                 },
                 fr: {
                     main: "Votre compte Buwana est créé ! 🎉",

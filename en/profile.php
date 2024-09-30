@@ -169,86 +169,115 @@ echo '<!DOCTYPE html>
 
             <div class="right-column" style="flex: 1 1 50%; padding: 10px;">
                 <!-- Editable Fields -->
-               <form method="post" action="update_profile.php">
-    <!-- First Name -->
-    <div class="form-item">
-        <label for="first_name" data-lang-id="012-first-name">First Name:</label>
-        <input type="text" name="first_name" id="first_name" value="<?php echo htmlspecialchars($first_name); ?>" required>
-    </div>
 
-    <!-- Last Name -->
-    <div class="form-item">
-        <label for="last_name" data-lang-id="013-last-name">Last Name:</label>
-        <input type="text" name="last_name" id="last_name" value="<?php echo htmlspecialchars($last_name); ?>" required>
-    </div>
 
-    <!-- Email -->
-    <div class="form-item">
-        <label for="email" data-lang-id="014-email">Email:</label>
-        <input type="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
-    </div>
 
-    <!-- Continent -->
-    <div class="form-item">
-        <label for="continent_code" data-lang-id="021-continent">Continent:</label>
-        <select name="continent_code" id="continent_code">
-            <option value="" data-lang-id="022-select-continent">Select Continent</option>
-            <?php foreach ($continents as $continent): ?>
-                <option value="<?php echo $continent['continent_code']; ?>" <?php if ($continent['continent_code'] == $continent_code) echo 'selected'; ?>>
-                    <?php echo htmlspecialchars($continent['continent_name_en']); ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </div>
 
-    <!-- Country -->
-    <div class="form-item">
-        <label for="country_id" data-lang-id="015-country">Country:</label>
-        <select name="country_id" id="country_id">
-            <option value="" data-lang-id="016-select-country">Select Country</option>
-            <?php foreach ($countries as $country): ?>
-                <option value="<?php echo $country['country_id']; ?>" <?php if ($country['country_id'] == $country_id) echo 'selected'; ?>>
-                    <?php echo htmlspecialchars($country['country_name']); ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </div>
 
-    <!-- Watershed -->
-    <div class="form-item">
-        <label for="watershed_id" data-lang-id="023-watershed">Watershed:</label>
-        <select name="watershed_id" id="watershed_id">
-            <option value="" data-lang-id="024-select-watershed">Select Watershed</option>
-            <?php foreach ($watersheds as $watershed): ?>
-                <option value="<?php echo $watershed['watershed_id']; ?>" <?php if ($watershed['watershed_id'] == $watershed_id) echo 'selected'; ?>>
-                    <?php echo htmlspecialchars($watershed['watershed_name']); ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </div>
+   <!-- First Name -->
+<div class="form-item">
+    <label for="first_name" data-lang-id="012-first-name">First Name:</label>
+    <input type="text" name="first_name" id="first_name" value="<?php echo htmlspecialchars($first_name); ?>" required>
+</div>
 
-    <!-- Preferred Language -->
- <div class="form-item">
+<!-- Last Name -->
+<div class="form-item">
+    <label for="last_name" data-lang-id="013-last-name">Last Name:</label>
+    <input type="text" name="last_name" id="last_name" value="<?php echo htmlspecialchars($last_name); ?>" required>
+</div>
+
+<!-- Email -->
+<div class="form-item">
+    <label for="email" data-lang-id="014-email">Email:</label>
+    <input type="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
+</div>
+
+<!-- Continent -->
+<div class="form-item">
+    <label for="continent_code" data-lang-id="021-continent">Continent:</label>
+    <select name="continent_code" id="continent_code">
+        <option value="" data-lang-id="022-select-continent">Select Continent</option>
+        <?php foreach ($continents as $continent): ?>
+            <option value="<?php echo $continent['continent_code']; ?>" <?php if ($continent['continent_code'] == $continent_code) echo 'selected'; ?>>
+                <?php echo htmlspecialchars($continent['continent_name_en']); ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</div>
+
+<!-- Country -->
+<div class="form-item">
+    <label for="country_id" data-lang-id="015-country">Country:</label>
+    <select name="country_id" id="country_id">
+        <option value="" data-lang-id="016-select-country">Select Country</option>
+        <?php foreach ($countries as $country): ?>
+            <option value="<?php echo $country['country_id']; ?>" <?php if ($country['country_id'] == $country_id) echo 'selected'; ?>>
+                <?php echo htmlspecialchars($country['country_name']); ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</div>
+
+<!-- Community -->
+<div class="form-item">
+    <label for="community_id" data-lang-id="025-community">Community:</label>
+    <select name="community_id" id="community_id">
+        <option value="" data-lang-id="026-select-community">Select Community</option>
+        <?php foreach ($communities as $community): ?>
+            <option value="<?php echo $community['community_id']; ?>" <?php if ($community['community_id'] == $community_id) echo 'selected'; ?>>
+                <?php echo htmlspecialchars($community['community_name']); ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</div>
+
+<!-- Location Full -->
+<div class="form-item">
+    <label for="location_full" data-lang-id="011-location-full">What is your local area?</label><br>
+    <div class="input-container">
+        <input type="text" id="location_full" name="location_full" aria-label="Location Full" required style="padding-left:45px;">
+        <div id="loading-spinner" class="spinner" style="display: none;"></div>
+        <div id="location-pin" class="pin-icon">📍</div>
+    </div>
+    <p class="form-caption" data-lang-id="011-location-full-caption">Start typing your local area name, and we'll fill in the rest using the open source, non-corporate OpenStreetMap API.</p>
+    <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
+</div>
+
+<!-- Hidden latitude and longitude fields -->
+<input type="hidden" id="lat" name="latitude">
+<input type="hidden" id="lon" name="longitude">
+
+<!-- Map and Watershed Search Section -->
+<div class="form-item" id="watershed-map-section" style="display: none; margin-top:20px;">
+    <label for="watershed_select" data-lang-id="011-watershed-select">What is your watershed? Please select the river or stream closest to you:</label><br>
+    <select id="watershed_select" name="watershed_select" aria-label="Watershed Select" style="width: 100%; padding: 10px;">
+        <option value="" disabled selected>Select river...</option>
+    </select>
+    <p class="form-caption">💚 Rivers and their basins provide a great non-political way to localize our users by ecological region!</p>
+    <div id="map" style="height: 350px; border-radius: 15px; margin-top: 10px;"></div>
+</div>
+
+<!-- Preferred Language -->
+<div class="form-item">
     <label for="language_id" data-lang-id="017-preferred-language">Preferred Language:</label>
     <select name="language_id" id="language_id">
         <option value="" data-lang-id="018-select-language">Select Language</option>
         <?php foreach ($languages as $language): ?>
             <option value="<?php echo htmlspecialchars($language['language_id']); ?>" <?php if ($language['language_id'] == $languages_id) echo 'selected'; ?>>
                 <?php
-                // Display the language name based on the user's selected language ($lang)
                 switch (strtolower($lang)) {
                     case 'id':
-                        echo htmlspecialchars($language['language_name_id']); // Indonesian
+                        echo htmlspecialchars($language['language_name_id']);
                         break;
                     case 'fr':
-                        echo htmlspecialchars($language['language_name_fr']); // French
+                        echo htmlspecialchars($language['language_name_fr']);
                         break;
                     case 'es':
-                        echo htmlspecialchars($language['language_name_es']); // Spanish
+                        echo htmlspecialchars($language['language_name_es']);
                         break;
                     case 'en':
                     default:
-                        echo htmlspecialchars($language['language_name_en']); // Default to English
+                        echo htmlspecialchars($language['language_name_en']);
                         break;
                 }
                 ?>
@@ -257,20 +286,21 @@ echo '<!DOCTYPE html>
     </select>
 </div>
 
+<!-- Birth Date -->
+<div class="form-item">
+    <label for="birth_date" data-lang-id="019-birth-date">Birth Date:</label>
+    <input type="date" name="birth_date" id="birth_date" value="<?php echo htmlspecialchars($birth_date); ?>">
+</div>
 
-
-
-    <!-- Birth Date -->
-    <div class="form-item">
-        <label for="birth_date" data-lang-id="019-birth-date">Birth Date:</label>
-        <input type="date" name="birth_date" id="birth_date" value="<?php echo htmlspecialchars($birth_date); ?>">
-    </div>
-
-    <!-- Save and Update Button -->
-    <div style="margin:auto;text-align: center;margin-top:30px;">
-        <button type="submit" class="submit-button enabled" aria-label="Save and update" data-lang-id="020-submit-button">Save and Update</button>
-    </div>
+<!-- Save and Update Button -->
+<div style="margin:auto;text-align: center;margin-top:30px;">
+    <button type="submit" class="submit-button enabled" aria-label="Save and update" data-lang-id="020-submit-button">Save and Update</button>
+</div>
 </form>
+
+
+
+
 
 
         </div>
@@ -308,6 +338,9 @@ echo '<!DOCTYPE html>
     <button type="button" onclick="confirmDeletion('<?php echo htmlspecialchars($buwana_id); ?>', '<?php echo htmlspecialchars($lang); ?>')" class="submit-button delete" aria-label="Delete Account" data-lang-id="030-delete-my-account-button">Delete My Account</button>
 
 </form>
+
+
+
 </div>
 
 
@@ -514,6 +547,166 @@ document.getElementById('manage-subscription-button').addEventListener('click', 
     window.open('https://earthen.io', '_blank');
 });
 
+
+
+</script>
+
+<script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+<script>
+$(function () {
+    let debounceTimer;
+    let map, userMarker;
+    let riverLayerGroup = L.layerGroup();
+
+    // Show pin icon when the input is empty and when it's filled
+    function updatePinIconVisibility() {
+        if ($("#location_full").val().trim() === "" || $("#loading-spinner").is(":hidden")) {
+            $("#location-pin").show();
+        } else {
+            $("#location-pin").hide();
+        }
+    }
+
+    // Initialize location search using OpenStreetMap Nominatim API
+    $("#location_full").autocomplete({
+        source: function (request, response) {
+            $("#loading-spinner").show();
+            $("#location-pin").hide(); // Hide the pin icon when typing starts
+
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                $.ajax({
+                    url: "https://nominatim.openstreetmap.org/search",
+                    dataType: "json",
+                    headers: {
+                        'User-Agent': 'ecobricks.org'
+                    },
+                    data: {
+                        q: request.term,
+                        format: "json"
+                    },
+                    success: function (data) {
+                        $("#loading-spinner").hide();
+                        updatePinIconVisibility(); // Show the pin when data has loaded
+
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.display_name,
+                                value: item.display_name,
+                                lat: item.lat,
+                                lon: item.lon
+                            };
+                        }));
+                    },
+                    error: function (xhr, status, error) {
+                        $("#loading-spinner").hide();
+                        updatePinIconVisibility(); // Show the pin when an error occurs
+                        console.error("Autocomplete error:", error);
+                        response([]);
+                    }
+                });
+            }, 300);
+        },
+        select: function (event, ui) {
+            console.log('Selected location:', ui.item);
+            $('#lat').val(ui.item.lat);
+            $('#lon').val(ui.item.lon);
+
+            // Show the map and watershed search section when a location is selected
+            initializeMap(ui.item.lat, ui.item.lon);
+            $('#watershed-map-section').fadeIn();
+            $('#community-section').fadeIn();
+            showSubmitButton();
+
+            updatePinIconVisibility(); // Show pin icon after selection
+        },
+        minLength: 3
+    });
+
+    // Show or hide the pin icon based on input value changes
+    $("#location_full").on("input", function () {
+        updatePinIconVisibility();
+    });
+
+    // Function to show the submit button
+    function showSubmitButton() {
+        $('#submit-section').fadeIn();
+    }
+
+    // Initialize the Leaflet map centered on the selected location
+    function initializeMap(lat, lon) {
+        if (map) {
+            map.remove();
+        }
+        map = L.map('map', { preferCanvas: true }).setView([lat, lon], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Add user location marker
+        userMarker = L.marker([lat, lon]).addTo(map).bindPopup("Your Location").openPopup();
+
+        // Fix map display issue when loaded in a hidden or resized container
+        setTimeout(() => {
+            map.invalidateSize();
+        }, 200); // Delay to ensure the map fully loads and resizes correctly
+
+        // Fetch nearby rivers or watersheds using Overpass API
+        fetchNearbyRivers(lat, lon);
+    }
+
+    // Function to fetch nearby rivers or watersheds using Overpass API
+    function fetchNearbyRivers(lat, lon) {
+        riverLayerGroup.clearLayers(); // Clear previous rivers
+        $("#watershed_select").empty().append('<option value="" disabled selected>Select a river or watershed</option>');
+
+        const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];(way["waterway"="river"](around:5000,${lat},${lon});relation["waterway"="river"](around:5000,${lat},${lon}););out geom;`;
+
+        $.get(overpassUrl, function (data) {
+            let rivers = data.elements;
+            let uniqueRivers = new Set(); // Set to keep track of unique river names
+
+            rivers.forEach((river, index) => {
+                let riverName = river.tags.name;
+
+                // Filter out unnamed rivers from the dropdown
+                if (riverName && !uniqueRivers.has(riverName) && !riverName.toLowerCase().includes("unnamed")) {
+                    uniqueRivers.add(riverName); // Add river name to the set
+
+                    let coordinates = river.geometry.map(point => [point.lat, point.lon]);
+                    // Add river to the map
+                    let riverPolyline = L.polyline(coordinates, { color: 'blue' }).addTo(riverLayerGroup).bindPopup(riverName);
+                    riverLayerGroup.addTo(map);
+
+                    // Add river to the select dropdown
+                    $("#watershed_select").append(new Option(riverName, riverName));
+                }
+            });
+
+            if (uniqueRivers.size === 0) {
+                $("#watershed_select").append('<option value="" disabled>No rivers or watersheds found nearby</option>');
+            }
+        }).fail(function () {
+            console.error("Failed to fetch data from Overpass API.");
+            $("#watershed_select").append('<option value="" disabled>Error fetching rivers</option>');
+        });
+    }
+
+    $('#user-info-form').on('submit', function () {
+        console.log('Latitude:', $('#lat').val());
+        console.log('Longitude:', $('#lon').val());
+        // Additional submit handling if needed
+    });
+});
 
 
 </script>

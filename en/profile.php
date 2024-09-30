@@ -96,6 +96,20 @@ if ($result_languages && $result_languages->num_rows > 0) {
         }
     }
 
+    // Fetching communities from the buwana database
+    $query = "SELECT community_id, community_name FROM communities_tb";
+    $result = mysqli_query($connection, $query);
+
+    $communities = [];
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $communities[] = $row;
+        }
+    } else {
+        // Handle query failure
+        echo "Error fetching communities: " . mysqli_error($connection);
+    }
+
 
 
     // Close the database connections

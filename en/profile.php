@@ -29,23 +29,32 @@ if ($is_logged_in) {
     require_once '../gobrikconn_env.php';
     require_once '../buwanaconn_env.php';
 
-    // Fetch user information using buwana_id from the Buwana database
-    $country_icon = getUserContinent($buwana_conn, $buwana_id);
-    $watershed_name = getWatershedName($buwana_conn, $buwana_id, $lang); // Corrected to include the $lang parameter
-
-    // Fetch Full user information including watershed_id using buwana_id from the Buwana database
-    $sql_user_info = "SELECT full_name, first_name, last_name, email, country_id, languages_id, birth_date, created_at, last_login, brikcoin_balance, role, account_status, notes, terms_of_service, continent_code, watershed_id FROM users_tb WHERE buwana_id = ?";
+    // Fetch user information including community_id, watershed_location, and location_full
+    $sql_user_info = "SELECT full_name, first_name, last_name, email, country_id, languages_id, birth_date,
+                      created_at, last_login, brikcoin_balance, role, account_status, notes,
+                      terms_of_service, continent_code, watershed_location, location_full, community_id
+                      FROM users_tb WHERE buwana_id = ?";
     $stmt_user_info = $buwana_conn->prepare($sql_user_info);
 
     if ($stmt_user_info) {
         $stmt_user_info->bind_param('i', $buwana_id);
         $stmt_user_info->execute();
-        $stmt_user_info->bind_result($full_name, $first_name, $last_name, $email, $country_id, $languages_id, $birth_date, $created_at, $last_login, $brikcoin_balance, $role, $account_status, $notes, $terms_of_service, $continent_code, $watershed_id);
+        $stmt_user_info->bind_result($full_name, $first_name, $last_name, $email, $country_id, $languages_id,
+                                     $birth_date, $created_at, $last_login, $brikcoin_balance, $role, $account_status,
+                                     $notes, $terms_of_service, $continent_code, $watershed_location,
+                                     $location_full, $community_id);
         $stmt_user_info->fetch();
         $stmt_user_info->close();
     } else {
         die('Error preparing statement for fetching user info: ' . $buwana_conn->error);
     }
+
+    // Ensure variables are sanitized and available for the form
+    $watershed_location = htmlspecialchars($watershed_location ?? '');
+    $location_full = htmlspecialchars($location_full ?? '');
+    $community_id = htmlspecialchars($community_id ?? '');
+}
+
 
 
 // Fetch active languages from Buwana database
@@ -238,7 +247,7 @@ echo '<!DOCTYPE html>
 
 <!-- Community -->
 <div class="form-item">
-    <label for="community_id" data-lang-id="025-community">Community:</label>
+    <label for="community_id" data-lang-id="025-community">Your community:</label>
     <select name="community_id" id="community_id">
     <option value="" data-lang-id="026-select-community">Select Community</option>
     <?php foreach ($communities as $community): ?>
@@ -246,22 +255,21 @@ echo '<!DOCTYPE html>
             <?php echo htmlspecialchars($community['com_name']); ?>
         </option>
     <?php endforeach; ?>
+        <p class="form-caption" data-lang-id="011-location-full-caption">Your GoBrik community (migrated from GoBrik 2.0, soon you'll be able to add new communities)</p>
+
 </select>
 
 </div>
 
-
-
-
 <!-- Location Full -->
 <div class="form-item">
-    <label for="location_full" data-lang-id="011-location-full">What is your local area?</label><br>
+    <label for="location_full" data-lang-id="011-location-full">Your local area:</label><br>
     <div class="input-container">
         <input type="text" id="location_full" name="location_full" aria-label="Location Full" required style="padding-left:45px;">
         <div id="loading-spinner" class="spinner" style="display: none;"></div>
         <div id="location-pin" class="pin-icon">📍</div>
     </div>
-    <p class="form-caption" data-lang-id="011-location-full-caption">Start typing your local area name, and we'll fill in the rest using the open source, non-corporate OpenStreetMap API.</p>
+    <p class="form-caption" data-lang-id="011-location-full-caption">To edit, start typing your local area name, and we'll fill in the rest using the open source, non-corporate OpenStreetMap API.</p>
     <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
 </div>
 
@@ -271,7 +279,7 @@ echo '<!DOCTYPE html>
 
 <!-- Map and Watershed Search Section -->
 <div class="form-item" id="watershed-map-section" style="display: none; margin-top:20px;">
-    <label for="watershed_select" data-lang-id="011-watershed-select">What is your watershed? Please select the river or stream closest to you:</label><br>
+    <label for="watershed_select" data-lang-id="011-watershed-select">Your local river:</label><br>
     <select id="watershed_select" name="watershed_select" aria-label="Watershed Select" style="width: 100%; padding: 10px;">
         <option value="" disabled selected>Select river...</option>
     </select>

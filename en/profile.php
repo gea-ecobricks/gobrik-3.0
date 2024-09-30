@@ -166,9 +166,7 @@ echo '<!DOCTYPE html>
 <meta charset="UTF-8">
 ';
 ?>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 
 
 <?php require_once("../includes/profile-inc.php"); ?>
@@ -762,6 +760,8 @@ $(function () {
         // Additional submit handling if needed
     });
 });
+
+console.log($("#location_full").length); // Should log "1" if element exists
 
 </script>
 

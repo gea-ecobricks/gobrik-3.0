@@ -227,7 +227,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 
     <!-- COMMUNITY FIELD -->
-    <div class="form-item">
+    <div class="form-item" id="community-section" style="display: none;">
         <label for="community_name" data-lang-id="012-community-name">Select and confirm your GoBrik community:</label><br>
         <input type="text" id="community_name" name="community_name" aria-label="Community Name" list="community_list"
                placeholder="Type your community" style="width: 100%; padding: 10px;"
@@ -332,6 +332,7 @@ $(function () {
             // Show the map and watershed search section when a location is selected
             initializeMap(ui.item.lat, ui.item.lon);
             $('#watershed-map-section').fadeIn();
+            $('#community-section').fadeIn();
             showSubmitButton();
 
             updatePinIconVisibility(); // Show pin icon after selection

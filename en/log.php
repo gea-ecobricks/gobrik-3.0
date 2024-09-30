@@ -46,6 +46,7 @@ if ($is_logged_in) {
     }
 
     // Fetch communities based on the user's country_id
+
     $communities = [];
     $sql_communities = "SELECT com_id, com_name FROM tb_communities WHERE country_id = ?";
     $stmt_communities = $gobrik_conn->prepare($sql_communities);

@@ -96,6 +96,7 @@ if ($result_languages && $result_languages->num_rows > 0) {
         }
     }
 
+    $communities = [];
     // Fetching communities from the buwana database
     $query = "SELECT community_id, community_name FROM communities_tb";
     $result = mysqli_query($connection, $query);

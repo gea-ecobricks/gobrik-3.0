@@ -96,20 +96,24 @@ if ($result_languages && $result_languages->num_rows > 0) {
         }
     }
 
-    $communities = [];
-    // Fetching communities from the buwana database
-    $query = "SELECT community_id, community_name FROM communities_tb";
-    $result = mysqli_query($connection, $query);
+    // Fetch communities based on the user's country_id
+$communities = [];
+$sql_communities = "SELECT com_id, com_name FROM tb_communities WHERE country_id = ?";
 
-    $communities = [];
-    if ($result) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            $communities[] = $row;
-        }
-    } else {
-        // Handle query failure
-        echo "Error fetching communities: " . mysqli_error($connection);
+if ($stmt_communities = $gobrik_conn->prepare($sql_communities)) {
+    $stmt_communities->bind_param("i", $country_id); // Bind the fetched country_id
+    $stmt_communities->execute();
+    $stmt_communities->bind_result($com_id, $com_name);
+
+    while ($stmt_communities->fetch()) {
+        $communities[] = ['com_id' => $com_id, 'com_name' => $com_name]; // Store both id and name in an associative array
     }
+    $stmt_communities->close();
+} else {
+    // Error handling if query fails to prepare
+    error_log("Error preparing statement for fetching communities: " . $gobrik_conn->error);
+}
+
 
 
 
@@ -236,14 +240,18 @@ echo '<!DOCTYPE html>
 <div class="form-item">
     <label for="community_id" data-lang-id="025-community">Community:</label>
     <select name="community_id" id="community_id">
-        <option value="" data-lang-id="026-select-community">Select Community</option>
-        <?php foreach ($communities as $community): ?>
-            <option value="<?php echo $community['community_id']; ?>" <?php if ($community['community_id'] == $community_id) echo 'selected'; ?>>
-                <?php echo htmlspecialchars($community['community_name']); ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
+    <option value="" data-lang-id="026-select-community">Select Community</option>
+    <?php foreach ($communities as $community): ?>
+        <option value="<?php echo $community['com_id']; ?>" <?php if ($community['com_id'] == $community_id) echo 'selected'; ?>>
+            <?php echo htmlspecialchars($community['com_name']); ?>
+        </option>
+    <?php endforeach; ?>
+</select>
+
 </div>
+
+
+
 
 <!-- Location Full -->
 <div class="form-item">

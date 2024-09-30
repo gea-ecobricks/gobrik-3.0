@@ -227,11 +227,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     <!-- MAP AND WATERSHED SEARCH SECTION -->
     <div class="form-item" id="watershed-map-section" style="display: none; margin-top:20px;">
-        <label for="watershed_select" data-lang-id="011-watershed-select">Select Your Local River or Watershed</label><br>
+        <label for="watershed_select" data-lang-id="011-watershed-select">What is your watershed?  Please select the river or stream closest to you:</label><br>
         <select id="watershed_select" name="watershed_select" aria-label="Watershed Select" style="width: 100%; padding: 10px;">
-            <option value="" disabled selected>Select a river or watershed</option>
+            <option value="" disabled selected>Select river...</option>
         </select>
-        <p class="form-caption">💚 River basins provide a new non-political way to localize our users by ecological region!</p>
+        <p class="form-caption">💚 Rivers and their basins provide a great non-political way to localize our users by ecological region!</p>
         <div id="map" style="height: 350px; border-radius: 15px; margin-top: 10px;"></div>
     </div>
 
@@ -248,7 +248,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 </option>
             <?php endforeach; ?>
         </datalist>
-        <p class="form-caption" data-lang-id="012-community-caption">These are communities setup in GoBrik 2.0.  Soon you'll be able to add a new community!</p>
+        <p class="form-caption" data-lang-id="012-community-caption">Start typing to see and select a community.  Only GoBrik 2.0 currently available.  Soon you'll be able to add a new community!</p>
     </div>
 
     <!-- SUBMIT SECTION -->

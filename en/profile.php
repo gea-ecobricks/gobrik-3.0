@@ -619,6 +619,9 @@ $(function () {
     let map, userMarker;
     let riverLayerGroup = L.layerGroup();
 
+    // Disable the watershed field initially
+    $('#location_watershed').prop('disabled', true);
+
     // Show pin icon when the input is empty and when it's filled
     function updatePinIconVisibility() {
         if ($("#location_full").val().trim() === "" || $("#loading-spinner").is(":hidden")) {
@@ -679,7 +682,11 @@ $(function () {
             $('#community-section').fadeIn();
             showSubmitButton();
 
-            updatePinIconVisibility(); // Show pin icon after selection
+            // Enable the location_watershed field
+            $('#location_watershed').prop('disabled', false);
+
+            // Fetch and populate nearby rivers
+            fetchNearbyRivers(ui.item.lat, ui.item.lon);
         },
         minLength: 3
     });
@@ -714,8 +721,8 @@ $(function () {
             map.invalidateSize();
         }, 200); // Delay to ensure the map fully loads and resizes correctly
 
-        // Fetch nearby rivers or watersheds using Overpass API
-        fetchNearbyRivers(lat, lon);
+        // Clear previous rivers on map
+        riverLayerGroup.clearLayers();
     }
 
     // Function to fetch nearby rivers or watersheds using Overpass API
@@ -761,7 +768,6 @@ $(function () {
         // Additional submit handling if needed
     });
 });
-
 
 </script>
 

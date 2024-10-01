@@ -605,6 +605,7 @@ document.getElementById('manage-subscription-button').addEventListener('click', 
 </script>
 
 
+
 <script>
 $(function () {
     let debounceTimer;
@@ -760,8 +761,6 @@ $(function () {
         // Additional submit handling if needed
     });
 });
-
-console.log($("#location_full").length); // Should log "1" if element exists
 
 </script>
 

@@ -33,11 +33,11 @@ $latitude = trim($_POST['latitude']); // Sanitize latitude
 $longitude = trim($_POST['longitude']); // Sanitize longitude
 $location_watershed = trim($_POST['location_watershed']); // Sanitize location_watershed
 
-// Update the user's profile in the Buwana database
+// Update the user's profile in the Buwana database (updated latitude and longitude fields)
 $sql_update = "UPDATE users_tb
                SET first_name = ?, last_name = ?, country_id = ?, languages_id = ?, birth_date = ?,
                    continent_code = ?, watershed_id = ?, community_id = ?, location_full = ?,
-                   latitude = ?, longitude = ?, location_watershed = ?
+                   location_lat = ?, location_long = ?, location_watershed = ?
                WHERE buwana_id = ?";
 
 $stmt_update = $buwana_conn->prepare($sql_update);

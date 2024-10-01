@@ -36,7 +36,7 @@ if ($is_logged_in) {
     $user_community_name = getCommunityName($buwana_conn, $buwana_id);
 
     // Fetch user information including community_id, location_watershed, location_full, latitude, and longitude
-    $sql_user_info = "SELECT full_name, first_name, last_name, email, country_id, languages_id, birth_date,
+    $sql_user_info = "SELECT full_name, first_name, last_name, email, country_id, language_id, birth_date,
                       created_at, last_login, brikcoin_balance, role, account_status, notes,
                       terms_of_service, continent_code, location_watershed, location_full, community_id,
                       location_lat, location_long
@@ -46,7 +46,7 @@ if ($is_logged_in) {
     if ($stmt_user_info) {
         $stmt_user_info->bind_param('i', $buwana_id);
         $stmt_user_info->execute();
-        $stmt_user_info->bind_result($full_name, $first_name, $last_name, $email, $country_id, $languages_id,
+        $stmt_user_info->bind_result($full_name, $first_name, $last_name, $email, $country_id, $language_id,
                                      $birth_date, $created_at, $last_login, $brikcoin_balance, $role, $account_status,
                                      $notes, $terms_of_service, $continent_code, $location_watershed,
                                      $location_full, $community_id, $latitude, $longitude);
@@ -309,7 +309,7 @@ echo '<!DOCTYPE html>
         <select name="language_id" id="language_id">
             <option value="" data-lang-id="018-select-language">Select Language</option>
             <?php foreach ($languages as $language): ?>
-                <option value="<?php echo htmlspecialchars($language['language_id']); ?>" <?php if ($language['language_id'] == $languages_id) echo 'selected'; ?>>
+                <option value="<?php echo htmlspecialchars($language['language_id']); ?>" <?php if ($language['language_id'] == $language_id) echo 'selected'; ?>>
                     <?php
                     switch (strtolower($lang)) {
                         case 'id':

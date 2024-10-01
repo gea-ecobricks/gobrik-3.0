@@ -124,15 +124,15 @@ if (!empty($credential_key)) {
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
             <h2 data-lang-id="001-select-subs">Select Earthen Subscriptions</h2>
-            <h4 style="color:#748931;" data-lang-id="002-sub-subtitle">We share GoBrik, Ecobrick and Earthen news by email.</h4>
-            <p data-lang-id="">Get our free Earthen newsletter and GoBrik notifications sent to <?php echo $credential_key; ?>.  Later you can upgrade to a paid subscription to support the movement.</span>
+            <h4 style="color:#748931;" data-lang-id="002-sub-subtitle">We share news and notifications by email.</h4>
+            <p><span  data-lang-id="003-get-your">Get our free Earthen newsletter and GoBrik notifications sent to </span><?php echo $credential_key; ?>.<span data-lang-id="004-later-upgrade">  Later you can upgrade to a paid subscription to support the movement.</span>
             </p>
            <div id="subscribed" style="color:green;display:<?php echo $is_subscribed ? 'block' : 'none'; ?>;">
                 <?php if ($is_subscribed && !empty($earthen_subscriptions)): ?>
-                    <p style="color:green;font-size:1em;">👍 Nice! You're already subscribed to: <?php echo htmlspecialchars($earthen_subscriptions); ?>. Choose to add or remove subscriptions below:</p>
+                    <p style="color:green;font-size:1em;">👍 <span data-lang-id="005-nice">Nice! You're already subscribed to:</span> <?php echo htmlspecialchars($earthen_subscriptions); ?>.<span data-lang-id="006-choose"> Choose to add or remove subscriptions below:</span></p>
                 <?php endif; ?>
             </div>
-            <div id="not-subscribed" style="color:grey;display:<?php echo !$is_subscribed ? 'block' : 'none'; ?>;">You're not yet subscribed to any Earthen newsletters yet.  All are free with upgrade options later.  Please select:</div>
+            <div id="not-subscribed" style="color:grey;display:<?php echo !$is_subscribed ? 'block' : 'none'; ?>;" data-lang-id="007-not-subscribed">You're not yet subscribed to any Earthen newsletters yet.  All are free with upgrade options later.  Please select:</div>
             <div id="earthen-server-error" class="form-field-error"></div>
 
 
@@ -151,13 +151,14 @@ if (!empty($credential_key)) {
                 <!-- Subscription boxes will be populated here by the PHP function -->
                 <?php grabActiveEarthenSubs(); ?>
             </div>
+<p data-lang-id="008-that-is-it">That's it.  Your Buwana account activation process is complete!  Now you can wrap up and login...</p>
 
-            <p class="form-caption" style="text-align:center; margin-top: 20px">Earthen newsletters and GoBrik are sent according to our non-profit, privacy <a href="#" onclick="showModalInfo('terms', '<?php echo $lang; ?>')" class="underline-link"> Terms of Service</a>.</p>
            </div>
 
             <div id="submit-section" style="text-align:center;margin-top:25px;" data-lang-id="016-complete-button">
                 <input type="submit" id="submit-button" value="Finish & Login" class="submit-button enabled">
-                <p>Your account activation process is complete!</p>
+
+                 <p class="form-caption" style="text-align:center; margin-top: 20px;" data-lang-id="009-terms">Earthen newsletters and GoBrik are sent according to our non-profit, privacy <a href="#" onclick="showModalInfo('terms', '<?php echo $lang; ?>')" class="underline-link"> Terms of Service</a>.</p>
             </div>
         </form>
 

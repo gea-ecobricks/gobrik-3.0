@@ -35,8 +35,8 @@ $continent_code = trim($_POST['continent_code']); // Sanitize continent_code
 $watershed_id = (int)$_POST['watershed_id']; // Sanitize watershed_id
 $community_id = (int)$_POST['community_id']; // Sanitize community_id
 $location_full = trim($_POST['location_full']); // Sanitize location_full
-$latitude = trim($_POST['latitude']); // Sanitize latitude
-$longitude = trim($_POST['longitude']); // Sanitize longitude
+$latitude = (float)$_POST['latitude']; // Sanitize latitude
+$longitude = (float)$_POST['longitude']; // Sanitize longitude
 $location_watershed = trim($_POST['location_watershed']); // Sanitize location_watershed
 
 // Debugging: Log the data being received and sanitized (optional)
@@ -52,11 +52,21 @@ $sql_update = "UPDATE users_tb
 $stmt_update = $buwana_conn->prepare($sql_update);
 
 if ($stmt_update) {
-    // Bind parameters
-    $stmt_update->bind_param('ssisssissssss',
-        $first_name, $last_name, $country_id, $language_id, $birth_date,
-        $continent_code, $watershed_id, $community_id, $location_full,
-        $latitude, $longitude, $location_watershed, $buwana_id
+    // Bind parameters with correct data types
+    $stmt_update->bind_param('ssisssisssddi',
+        $first_name,      // string
+        $last_name,       // string
+        $country_id,      // integer
+        $language_id,     // string
+        $birth_date,      // string
+        $continent_code,  // string
+        $watershed_id,    // integer
+        $community_id,    // integer
+        $location_full,   // string
+        $latitude,        // decimal (float)
+        $longitude,       // decimal (float)
+        $location_watershed,  // string
+        $buwana_id        // integer
     );
 
     // Execute the statement

@@ -253,7 +253,7 @@ echo '<!DOCTYPE html>
     </select>
 </div>
 
-<!-- Community -->
+    <!-- Community -->
 <div class="form-item">
     <label for="community_id" data-lang-id="025-community">Your community:</label>
     <select name="community_id" id="community_id">
@@ -266,6 +266,7 @@ echo '<!DOCTYPE html>
     </select>
     <p class="form-caption" data-lang-id="011-location-full-caption">Your GoBrik community (migrated from GoBrik 2.0, soon you'll be able to add new communities)</p>
 </div>
+
 
 <!-- Location Full -->
 <div class="form-item">

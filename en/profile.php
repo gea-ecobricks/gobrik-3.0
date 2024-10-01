@@ -615,7 +615,6 @@ document.getElementById('manage-subscription-button').addEventListener('click', 
 
 
 <script>
-
 $(function () {
     let debounceTimer;
 
@@ -675,8 +674,8 @@ $(function () {
             $('#lat').val(ui.item.lat);
             $('#lon').val(ui.item.lon);
 
-            // Enable the location_watershed field
-            $('#location_watershed').prop('disabled', false);
+            // Enable and clear the location_watershed field
+            $('#location_watershed').prop('disabled', false).val('').empty().append('<option value="" disabled selected>Searching for nearest rivers...</option>');
 
             // Fetch and populate nearby rivers
             fetchNearbyRivers(ui.item.lat, ui.item.lon);
@@ -689,7 +688,7 @@ $(function () {
     // Fetch nearby rivers using Overpass API and populate the dropdown
     function fetchNearbyRivers(lat, lon) {
         // Clear previous river options
-        $("#location_watershed").empty().append('<option value="" disabled selected>Select the nearest river...</option>');
+        $("#location_watershed").empty().append('<option value="" disabled selected>Searching for nearest rivers...</option>');
 
         const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];(way["waterway"="river"](around:5000,${lat},${lon});relation["waterway"="river"](around:5000,${lat},${lon}););out geom;`;
 
@@ -710,15 +709,14 @@ $(function () {
 
             // If no rivers are found, add a default option
             if (uniqueRivers.size === 0) {
-                $("#location_watershed").append('<option value="" disabled>No rivers found nearby</option>');
+                $("#location_watershed").empty().append('<option value="" disabled>No rivers found nearby</option>');
             }
         }).fail(function () {
             console.error("Failed to fetch rivers from Overpass API.");
-            $("#location_watershed").append('<option value="" disabled>Error fetching rivers</option>');
+            $("#location_watershed").empty().append('<option value="" disabled>Error fetching rivers</option>');
         });
     }
 });
-
 
 </script>
 

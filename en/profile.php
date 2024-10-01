@@ -169,6 +169,7 @@ echo '<!DOCTYPE html>
             <div id="status-message"><?php echo htmlspecialchars($first_name); ?>'s <span data-lang-id="001-profile-settings-title">Profile Settings</span></div>
             <div id="sub-status-message" data-lang-id="002-review-update-message">Review and update your Buwana account profile here:</div>
             <div id="update-status" style="font-size:1.3em; color:green;padding:10px;margin-top:10px;"></div>
+            <div id="update-error" style="font-size:1.3em; color:red;padding:10px;margin-top:10px;"></div>
         </div>
 
         <div id="buwana-account" style="background:var(--lighter); padding:10px; border-radius:12px; display:flex; flex-wrap: wrap;">
@@ -416,7 +417,7 @@ document.addEventListener('DOMContentLoaded', function () {
             updateStatusDiv.innerHTML = "👍 Your user profile was updated!";
             scrollToTop();
         } else if (status === 'failed') {
-            updateStatusDiv.innerHTML = "🤔 Something went wrong with the update: " + message;
+            updateStatusDiv.innerHTML = "🤔 Huh... something went wrong with the update: " + message;
             scrollToTop();
         } else {
             updateStatusDiv.innerHTML = "❓ Unexpected status: " + status;

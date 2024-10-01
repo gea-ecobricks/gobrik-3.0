@@ -15,7 +15,6 @@ $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $first_name = '';
 $buwana_id = '';
 $country_icon = '';
-$watershed_id = '';
 $watershed_name = '';
 $continent_name = ''; // Initialize continent name variable
 $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
@@ -97,18 +96,6 @@ if ($result_languages && $result_languages->num_rows > 0) {
             $continents[] = $row;
         }
     }
-
-
-    // Fetch watersheds from the Buwana database
-    $watersheds = [];
-    $sql_watersheds = "SELECT watershed_id, watershed_name FROM watersheds_tb ORDER BY watershed_name";
-    $result_watersheds = $buwana_conn->query($sql_watersheds);
-    if ($result_watersheds && $result_watersheds->num_rows > 0) {
-        while ($row = $result_watersheds->fetch_assoc()) {
-            $watersheds[] = $row;
-        }
-    }
-
 
 
 $sql_communities = "SELECT com_id, com_name FROM communities_tb WHERE country_id = ?";
@@ -583,110 +570,76 @@ document.getElementById('manage-subscription-button').addEventListener('click', 
 
 
 <script>
-$(function () {
-    let debounceTimer;
 
-    // Show pin icon when the input is empty and when it's filled
-    function updatePinIconVisibility() {
-        if ($("#location_full").val().trim() === "" || $("#loading-spinner").is(":hidden")) {
-            $("#location-pin").show();
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Function to handle the update status (success)
+    function handleSuccessMessage(status) {
+        const updateStatusDiv = document.getElementById('update-status');
+        const updateErrorDiv = document.getElementById('update-error');
+
+        // Clear any previous error messages
+        updateErrorDiv.innerHTML = "";
+
+        if (status === 'succeeded') {
+            updateStatusDiv.innerHTML = "👍 Your user profile was updated!";
+            scrollToTop();
         } else {
-            $("#location-pin").hide();
+            updateStatusDiv.innerHTML = "❓ Unexpected status: " + status;
+            scrollToTop();
         }
     }
 
-    // Initialize location search using OpenStreetMap Nominatim API
-    $("#location_full").autocomplete({
-        source: function (request, response) {
-            $("#loading-spinner").show();
-            $("#location-pin").hide(); // Hide the pin icon when typing starts
+    // Function to handle the update error (failure)
+    function handleErrorMessage(message) {
+        const updateStatusDiv = document.getElementById('update-status');
+        const updateErrorDiv = document.getElementById('update-error');
 
-            clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(() => {
-                $.ajax({
-                    url: "https://nominatim.openstreetmap.org/search",
-                    dataType: "json",
-                    headers: {
-                        'User-Agent': 'ecobricks.org'
-                    },
-                    data: {
-                        q: request.term,
-                        format: "json"
-                    },
-                    success: function (data) {
-                        $("#loading-spinner").hide();
-                        updatePinIconVisibility(); // Show the pin when data has loaded
+        // Clear any previous success messages
+        updateStatusDiv.innerHTML = "";
 
-                        response($.map(data, function (item) {
-                            return {
-                                label: item.display_name,
-                                value: item.display_name,
-                                lat: item.lat,
-                                lon: item.lon
-                            };
-                        }));
-                    },
-                    error: function (xhr, status, error) {
-                        $("#loading-spinner").hide();
-                        updatePinIconVisibility(); // Show the pin when an error occurs
-                        console.error("Autocomplete error:", error);
-                        response([]);
-                    }
-                });
-            }, 300);
-        },
-        select: function (event, ui) {
-            // Set the selected location in the input field
-            $('#location_full').val(ui.item.value);
-            // Set latitude and longitude
-            $('#lat').val(ui.item.lat);
-            $('#lon').val(ui.item.lon);
+        updateErrorDiv.innerHTML = "🤔 Something went wrong with the update: " + message;
+        scrollToTop();
+    }
 
-            // Enable and clear the location_watershed field
-            $('#location_watershed').prop('disabled', false).val('').empty().append('<option value="" disabled selected>Searching for nearest rivers...</option>');
+    // Function to smoothly scroll to the top of the page
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-            // Fetch and populate nearby rivers using the fetchNearbyRivers function
-            fetchNearbyRivers(ui.item.lat, ui.item.lon);
+    // Handle the form submission using AJAX
+    document.querySelector('form').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent default form submission
 
-            return false; // Prevent default behavior
-        },
-        minLength: 3
+        const formData = new FormData(this);
+
+        fetch('profile_update_process.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json()) // Parse JSON response
+        .then(data => {
+            if (data.status === 'succeeded') {
+                handleSuccessMessage('succeeded');
+            } else {
+                const errorMessage = data.message || 'Unknown error occurred.';
+                handleErrorMessage(errorMessage);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            handleErrorMessage('Error submitting the form: ' + error.message);
+        });
     });
 
-    // Function to fetch nearby rivers or watersheds using Overpass API
-    function fetchNearbyRivers(lat, lon) {
-        // Clear previous river options and add a default message while searching
-        $("#location_watershed").empty().append('<option value="" disabled selected>Searching for nearest rivers...</option>');
-
-        // Overpass API URL to find rivers around the selected location (within 5000 meters)
-        const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];(way["waterway"="river"](around:5000,${lat},${lon});relation["waterway"="river"](around:5000,${lat},${lon}););out geom;`;
-
-        $.get(overpassUrl, function (data) {
-            let rivers = data.elements;
-            let uniqueRivers = new Set(); // Set to keep track of unique river names
-
-            // Iterate through the rivers data and add the first five unique rivers
-            rivers.forEach((river) => {
-                let riverName = river.tags.name;
-
-                // Ensure the river has a name and is not a duplicate
-                if (riverName && !uniqueRivers.has(riverName) && !riverName.toLowerCase().includes("unnamed") && uniqueRivers.size < 5) {
-                    uniqueRivers.add(riverName);
-                    // Add river to the dropdown
-                    $("#location_watershed").append(new Option(riverName, riverName));
-                }
-            });
-
-            // If no rivers are found, add a default message
-            if (uniqueRivers.size === 0) {
-                $("#location_watershed").empty().append('<option value="" disabled>No rivers found nearby</option>');
-            }
-        }).fail(function () {
-            console.error("Failed to fetch data from Overpass API.");
-            $("#location_watershed").empty().append('<option value="" disabled>Error fetching rivers</option>');
-        });
+    // Check for status message from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const status = urlParams.get('status');
+    if (status === 'succeeded') {
+        handleSuccessMessage(status);
     }
 });
+
 
 
 

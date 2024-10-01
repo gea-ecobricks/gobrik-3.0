@@ -677,7 +677,7 @@ $(function () {
             // Enable and clear the location_watershed field
             $('#location_watershed').prop('disabled', false).val('').empty().append('<option value="" disabled selected>Searching for nearest rivers...</option>');
 
-            // Fetch and populate nearby rivers
+            // Fetch and populate nearby rivers using the fetchNearbyRivers function
             fetchNearbyRivers(ui.item.lat, ui.item.lon);
 
             return false; // Prevent default behavior
@@ -685,11 +685,12 @@ $(function () {
         minLength: 3
     });
 
-    // Fetch nearby rivers using Overpass API and populate the dropdown
+    // Function to fetch nearby rivers or watersheds using Overpass API
     function fetchNearbyRivers(lat, lon) {
-        // Clear previous river options
+        // Clear previous river options and add a default message while searching
         $("#location_watershed").empty().append('<option value="" disabled selected>Searching for nearest rivers...</option>');
 
+        // Overpass API URL to find rivers around the selected location (within 5000 meters)
         const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];(way["waterway"="river"](around:5000,${lat},${lon});relation["waterway"="river"](around:5000,${lat},${lon}););out geom;`;
 
         $.get(overpassUrl, function (data) {
@@ -701,22 +702,25 @@ $(function () {
                 let riverName = river.tags.name;
 
                 // Ensure the river has a name and is not a duplicate
-                if (riverName && !uniqueRivers.has(riverName) && uniqueRivers.size < 5) {
+                if (riverName && !uniqueRivers.has(riverName) && !riverName.toLowerCase().includes("unnamed") && uniqueRivers.size < 5) {
                     uniqueRivers.add(riverName);
+                    // Add river to the dropdown
                     $("#location_watershed").append(new Option(riverName, riverName));
                 }
             });
 
-            // If no rivers are found, add a default option
+            // If no rivers are found, add a default message
             if (uniqueRivers.size === 0) {
                 $("#location_watershed").empty().append('<option value="" disabled>No rivers found nearby</option>');
             }
         }).fail(function () {
-            console.error("Failed to fetch rivers from Overpass API.");
+            console.error("Failed to fetch data from Overpass API.");
             $("#location_watershed").empty().append('<option value="" disabled>Error fetching rivers</option>');
         });
     }
 });
+
+
 
 </script>
 

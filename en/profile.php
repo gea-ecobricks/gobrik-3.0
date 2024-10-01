@@ -401,7 +401,6 @@ echo '<!DOCTYPE html>
 <script>
 
 /*  MAIN USER PROFILE FORM  */
-
 document.addEventListener('DOMContentLoaded', function () {
     // Function to handle the update status
     function catchUpdateReport(status) {
@@ -427,11 +426,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const formData = new FormData(this);
 
-        fetch('update_profile.php', {
+        fetch('profile_update_process.php', {
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())
+        .then(response => response.json()) // Parse JSON response
         .then(data => {
             if (data.status) {
                 catchUpdateReport(data.status);
@@ -452,33 +451,6 @@ document.addEventListener('DOMContentLoaded', function () {
         catchUpdateReport(status);
     }
 });
-function confirmDeletion(buwana_id, lang) {
-    // Determine the appropriate language object based on the current language setting
-    let translations;
-    switch (lang) {
-        case 'fr':
-            translations = fr_Page_Translations;
-            break;
-        case 'es':
-            translations = es_Page_Translations;
-            break;
-        case 'id':
-            translations = id_Page_Translations;
-            break;
-        default:
-            translations = en_Page_Translations; // Default to English if no match is found
-    }
-
-    // Display confirmation messages based on the selected language
-    if (confirm(translations["confirmDeletion1"])) {
-        if (confirm(translations["confirmDeletion2"])) {
-            // Append the buwana_id to the form action URL
-            var form = document.getElementById('delete-account-form');
-            form.action = 'double_delete_account.php?id=' + encodeURIComponent(buwana_id);
-            form.submit();
-        }
-    }
-}
 
 
 

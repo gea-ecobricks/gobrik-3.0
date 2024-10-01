@@ -297,8 +297,8 @@ echo '<!DOCTYPE html>
     </div>
 
     <!-- Hidden latitude and longitude fields -->
-    <input type="hidden" id="lat" name="latitude" value="<?php echo htmlspecialchars($latitude); ?>">
-    <input type="hidden" id="lon" name="longitude" value="<?php echo htmlspecialchars($longitude); ?>">
+    <input  id="lat" name="latitude" value="<?php echo htmlspecialchars($latitude); ?>">
+    <input  id="lon" name="longitude" value="<?php echo htmlspecialchars($longitude); ?>">
 
     <!-- Location Watershed -->
     <div class="form-item">

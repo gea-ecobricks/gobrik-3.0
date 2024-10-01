@@ -186,7 +186,7 @@ echo '<!DOCTYPE html>
                 </div>
                 <div class="form-item">
                     <p data-lang-id="007-brikcoin-balance"><strong>Brikcoin Balance:</strong></p>
-                    <p><?php echo htmlspecialchars(number_format($brikcoin_balance, 1)); ?>
+                    <p><?php echo htmlspecialchars(number_format($brikcoin_balance, 1)); ?> ß
 </p>
                 </div>
                 <div class="form-item">
@@ -462,7 +462,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 </script>
 
-<!--Earthe DB check-->
 
 <script>
 
@@ -652,8 +651,85 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+</script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    let debounceTimer;
 
+    // Show pin icon when the input is empty or filled
+    function updatePinIconVisibility() {
+        if (document.getElementById("location_full").value.trim() === "" || document.getElementById("loading-spinner").style.display === "none") {
+            document.getElementById("location-pin").style.display = "inline";
+        } else {
+            document.getElementById("location-pin").style.display = "none";
+        }
+    }
+
+    // Initialize location search using OpenStreetMap Nominatim API
+    document.getElementById("location_full").addEventListener("input", function () {
+        const input = this.value;
+
+        if (input.length < 3) {
+            return; // Wait until the user types at least 3 characters
+        }
+
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(function () {
+            document.getElementById("loading-spinner").style.display = "inline"; // Show spinner
+            document.getElementById("location-pin").style.display = "none"; // Hide pin icon when typing
+
+            fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(input)}&format=json&addressdetails=1&limit=5`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("loading-spinner").style.display = "none"; // Hide spinner
+                    updatePinIconVisibility(); // Update the pin visibility based on the input field's state
+
+                    // Process the results
+                    let suggestions = data.map(item => {
+                        return {
+                            label: item.display_name,
+                            lat: item.lat,
+                            lon: item.lon
+                        };
+                    });
+
+                    // Create a dropdown or suggestions display (depends on how you want to display results)
+                    displaySuggestions(suggestions);
+                })
+                .catch(error => {
+                    console.error("Error fetching location data:", error);
+                    document.getElementById("loading-spinner").style.display = "none"; // Hide spinner on error
+                    updatePinIconVisibility();
+                });
+        }, 300); // Debounce to avoid excessive API requests
+    });
+
+    // Example function to display suggestions (customize based on how you want to display results)
+    function displaySuggestions(suggestions) {
+        const suggestionBox = document.createElement('div');
+        suggestionBox.classList.add('suggestion-box');
+
+        suggestions.forEach(suggestion => {
+            const suggestionItem = document.createElement('div');
+            suggestionItem.classList.add('suggestion-item');
+            suggestionItem.textContent = suggestion.label;
+
+            // Set the latitude and longitude when a suggestion is clicked
+            suggestionItem.addEventListener('click', function () {
+                document.getElementById("location_full").value = suggestion.label;
+                document.getElementById("lat").value = suggestion.lat;
+                document.getElementById("lon").value = suggestion.lon;
+                suggestionBox.innerHTML = ''; // Clear suggestions after selection
+            });
+
+            suggestionBox.appendChild(suggestionItem);
+        });
+
+        // Append suggestions to the DOM (replace this with where you want to display them)
+        document.querySelector('.input-container').appendChild(suggestionBox);
+    }
+});
 
 </script>
 

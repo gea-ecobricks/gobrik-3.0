@@ -19,7 +19,6 @@ $watershed_id = '';
 $watershed_name = '';
 $continent_name = ''; // Initialize continent name variable
 $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
-$user_community_name = '';
 
 
 // Check if user is logged in and session active
@@ -35,7 +34,7 @@ if ($is_logged_in) {
     $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
     $first_name = getUserFirstName($buwana_conn, $buwana_id);
     $gea_status = getGEA_status($buwana_id);
-    $community_name = getCommunityName($buwana_conn, $buwana_id);
+    $user_community_name = getCommunityName($buwana_conn, $buwana_id);
 
     // Fetch user information including community_id, location_watershed, and location_full
     $sql_user_info = "SELECT full_name, first_name, last_name, email, country_id, languages_id, birth_date,

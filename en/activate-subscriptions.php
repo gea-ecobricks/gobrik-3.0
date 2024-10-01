@@ -151,7 +151,9 @@ if (!empty($credential_key)) {
                 <!-- Subscription boxes will be populated here by the PHP function -->
                 <?php grabActiveEarthenSubs(); ?>
             </div>
-<p data-lang-id="008-that-is-it">That's it.  Your Buwana account activation process is complete!  Now you can wrap up and login...</p>
+<hr style="margin-top:30px; margin-bottom:14px;">
+<h2 data-lang-id="008-that-is-it">That's it!</h2>
+<p data-lang-id="008b-your-activation-complete">Your Buwana account activation process is complete!  Now you can wrap up and login...</p>
 
            </div>
 

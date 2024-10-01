@@ -297,8 +297,8 @@ echo '<!DOCTYPE html>
     </div>
 
     <!-- Hidden latitude and longitude fields -->
-    <input  id="lat" name="latitude" value="<?php echo htmlspecialchars($latitude); ?>">
-    <input  id="lon" name="longitude" value="<?php echo htmlspecialchars($longitude); ?>">
+    <input type="hidden" id="lat" name="latitude" value="<?php echo htmlspecialchars($latitude); ?>">
+    <input type="hidden" id="lon" name="longitude" value="<?php echo htmlspecialchars($longitude); ?>">
 
     <!-- Location Watershed -->
     <div class="form-item">
@@ -407,8 +407,6 @@ echo '<!DOCTYPE html>
 <?php require_once("../footer-2024.php"); ?>
 
 <script>
-
-/*  MAIN USER PROFILE FORM  */
 document.addEventListener('DOMContentLoaded', function () {
     // Function to handle the update status
     function catchUpdateReport(status) {
@@ -419,6 +417,9 @@ document.addEventListener('DOMContentLoaded', function () {
             scrollToTop();
         } else if (status === 'failed') {
             updateStatusDiv.innerHTML = "🤔 Something went wrong with the update.";
+            scrollToTop();
+        } else {
+            updateStatusDiv.innerHTML = "❓ Unexpected status: " + status;
             scrollToTop();
         }
     }
@@ -438,11 +439,17 @@ document.addEventListener('DOMContentLoaded', function () {
             method: 'POST',
             body: formData
         })
-        .then(response => response.json()) // Parse JSON response
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok: ' + response.statusText);
+            }
+            return response.json();
+        })
         .then(data => {
-            if (data.status) {
+            if (data && data.status) {
                 catchUpdateReport(data.status);
             } else {
+                console.error('Unexpected response format:', data);
                 catchUpdateReport('failed');
             }
         })

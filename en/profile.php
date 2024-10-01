@@ -186,7 +186,8 @@ echo '<!DOCTYPE html>
                 </div>
                 <div class="form-item">
                     <p data-lang-id="007-brikcoin-balance"><strong>Brikcoin Balance:</strong></p>
-                    <p><?php echo htmlspecialchars($brikcoin_balance); ?></p>
+                    <p><?php echo htmlspecialchars(number_format($brikcoin_balance, 1)); ?>
+</p>
                 </div>
                 <div class="form-item">
                     <p data-lang-id="008-roles"><strong>Role(s):</strong></p>
@@ -292,7 +293,7 @@ echo '<!DOCTYPE html>
     <div class="form-item">
         <label for="location_watershed" data-lang-id="011X-watershed-location">Your local river:</label><br>
         <input type="text" id="location_watershed" name="location_watershed"
-               value="<?php echo $location_watershed; ?>" aria-label="Location Watershed" style="width: 100%; padding: 10px;" >disabled
+               value="<?php echo $location_watershed; ?>" aria-label="Location Watershed" style="width: 100%; padding: 10px;" >
         <p class="form-caption">💚 Rivers and their basins provide a great non-political way to localize our users by ecological region!</p>
     </div>
 
@@ -558,10 +559,15 @@ function unsubscribe() {
     }
 }
 
+// Retrieve buwana_id dynamically (e.g., from a hidden field or data attribute)
+const buwana_id = document.getElementById('buwana-id-input').value || 'default_id';
+
 // Event listener for the manage subscription button
 document.getElementById('manage-subscription-button').addEventListener('click', function() {
-    window.open('https://earthen.io', '_blank');
+    const url = 'activate-subscriptions.php?id=' + encodeURIComponent(buwana_id) + '&type=update';
+    window.open(url, '_blank'); // Open the generated URL in a new tab
 });
+
 
 
 

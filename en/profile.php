@@ -203,18 +203,19 @@ echo '<!DOCTYPE html>
                 <div class="form-item">
                     <p data-lang-id="011-agreed-terms"><strong>Agreed to Terms of Service:</strong> <?php echo $terms_of_service ? 'Yes' : 'No'; ?></p>
                 </div>
-            <div class="form-item">
-                    <p data-lang-id="011a-latitude"><strong>Latitude:</strong> <?php echo htmlspecialchars($latitude); ?></p>
-                </div>
-            <div class="form-item">
-                    <p data-lang-id="011b-longitude"><strong>Latitude:</strong> <?php echo htmlspecialchars($longitude); ?></p>
-                </div>
+                <div class="form-item">
+                        <p data-lang-id="011a-latitude"><strong>Latitude:</strong> <?php echo htmlspecialchars($latitude); ?></p>
+                    </div>
+                <div class="form-item">
+                        <p data-lang-id="011b-longitude"><strong>Latitude:</strong> <?php echo htmlspecialchars($longitude); ?></p>
+                    </div>
+                <div class="form-item">
+                        <p data-lang-id="011b-longitude"><strong>Buwana ID:</strong> <?php echo htmlspecialchars($buwana_id); ?></p>
+                    </div>
+
             </div>
 
-        <div class="form-item">
-                    <p data-lang-id="011b-longitude"><strong>Buwana ID:</strong> <?php echo htmlspecialchars($buwana_id); ?></p>
-                </div>
-            </div>
+
 
             <div class="right-column" style="flex: 1 1 50%; padding: 10px;">
                 <!-- Editable Fields -->

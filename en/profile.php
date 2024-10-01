@@ -40,7 +40,7 @@ if ($is_logged_in) {
     $sql_user_info = "SELECT full_name, first_name, last_name, email, country_id, languages_id, birth_date,
                       created_at, last_login, brikcoin_balance, role, account_status, notes,
                       terms_of_service, continent_code, location_watershed, location_full, community_id,
-                      latitude, longitude
+                      location_lat, location_long
                       FROM users_tb WHERE buwana_id = ?";
     $stmt_user_info = $buwana_conn->prepare($sql_user_info);
 

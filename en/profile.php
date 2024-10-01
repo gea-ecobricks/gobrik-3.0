@@ -737,7 +737,7 @@ $(function () {
         minLength: 3
     });
 
-    // SECTION 2: Searching for the user's river in the location_watershed field
+   // SECTION 2: Searching for rivers using Overpass API in location_watershed field
     // Show river pin icon when the input is empty and when it's filled
     function updateRiverPinIconVisibility() {
         if ($("#location_watershed").val().trim() === "" || $("#loading-spinner-watershed").is(":hidden")) {
@@ -747,7 +747,7 @@ $(function () {
         }
     }
 
-    // Initialize river search using OpenStreetMap Nominatim API for rivers
+    // Initialize river search using the Overpass API for rivers
     $("#location_watershed").autocomplete({
         source: function (request, response) {
             $("#loading-spinner-watershed").show();
@@ -755,41 +755,46 @@ $(function () {
 
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(() => {
-                $.ajax({
-                    url: "https://nominatim.openstreetmap.org/search",
-                    dataType: "json",
-                    headers: {
-                        'User-Agent': 'ecobricks.org'
-                    },
-                    data: {
-                        q: request.term,
-                        format: "json",
-                        featuretype: "river" // Specific to rivers
-                    },
-                    success: function (data) {
-                        $("#loading-spinner-watershed").hide();
-                        updateRiverPinIconVisibility(); // Show the pin when data has loaded
+                // Overpass API query to search for rivers by name
+                const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];way["waterway"="river"]["name"~"${request.term}",i];out body;`;
 
-                        response($.map(data, function (item) {
+                $.get(overpassUrl, function (data) {
+                    $("#loading-spinner-watershed").hide();
+                    updateRiverPinIconVisibility(); // Show the pin when data has loaded
+
+                    let rivers = data.elements;
+                    let uniqueRivers = new Set();
+
+                    // Iterate through the rivers and create an autocomplete suggestion list
+                    response($.map(rivers, function (river) {
+                        let riverName = river.tags.name;
+
+                        // Ensure the river has a name and is not a duplicate
+                        if (riverName && !uniqueRivers.has(riverName)) {
+                            uniqueRivers.add(riverName);
                             return {
-                                label: item.display_name,
-                                value: item.display_name
+                                label: riverName,
+                                value: riverName
                             };
-                        }));
-                    },
-                    error: function (xhr, status, error) {
-                        $("#loading-spinner-watershed").hide();
-                        updateRiverPinIconVisibility(); // Show the pin when an error occurs
-                        console.error("Autocomplete error:", error);
-                        response([]);
+                        }
+                    }));
+
+                    // If no rivers are found
+                    if (uniqueRivers.size === 0) {
+                        response([{ label: "No rivers found", value: "" }]);
                     }
+                }).fail(function () {
+                    $("#loading-spinner-watershed").hide();
+                    updateRiverPinIconVisibility(); // Show the pin when an error occurs
+                    console.error("Failed to fetch data from Overpass API.");
+                    response([{ label: "Error fetching rivers", value: "" }]);
                 });
-            }, 300);
+            }, 300); // Debounce timeout
         },
         minLength: 3
     });
 
-    // Function to fetch nearby rivers or watersheds using Overpass API
+    // Function to fetch nearby rivers or watersheds using Overpass API (for location_full selection)
     function fetchNearbyRivers(lat, lon) {
         // Clear previous river options and add a default message while searching
         $("#location_watershed").empty().append('<option value="" disabled selected>Searching for nearest rivers...</option>');

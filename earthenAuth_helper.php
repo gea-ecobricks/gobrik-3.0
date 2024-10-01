@@ -131,7 +131,7 @@ function getCommunityName($buwana_conn, $buwana_id) {
 
             // Step 2: Use the retrieved community_id to get the com_name from communities_table
             if (!empty($community_id)) {
-                $sql_community_name = "SELECT com_name FROM communities_table WHERE community_id = ?";
+                $sql_community_name = "SELECT com_name FROM communities_tb WHERE community_id = ?";
                 $stmt_community_name = $buwana_conn->prepare($sql_community_name);
 
                 if ($stmt_community_name) {

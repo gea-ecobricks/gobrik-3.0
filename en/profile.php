@@ -292,7 +292,7 @@ echo '<!DOCTYPE html>
     <div class="form-item">
         <label for="location_watershed" data-lang-id="011X-watershed-location">Your local river:</label><br>
         <input type="text" id="location_watershed" name="location_watershed"
-               value="<?php echo $location_watershed; ?>" aria-label="Location Watershed" style="width: 100%; padding: 10px;" disabled>
+               value="<?php echo $location_watershed; ?>" aria-label="Location Watershed" style="width: 100%; padding: 10px;" >disabled
         <p class="form-caption">💚 Rivers and their basins provide a great non-political way to localize our users by ecological region!</p>
     </div>
 

@@ -211,6 +211,11 @@ echo '<!DOCTYPE html>
                 </div>
             </div>
 
+        <div class="form-item">
+                    <p data-lang-id="011b-longitude"><strong>Buwana ID:</strong> <?php echo htmlspecialchars($buwana_id); ?></p>
+                </div>
+            </div>
+
             <div class="right-column" style="flex: 1 1 50%; padding: 10px;">
                 <!-- Editable Fields -->
 
@@ -560,7 +565,7 @@ function unsubscribe() {
 }
 
 // Retrieve buwana_id dynamically (e.g., from a hidden field or data attribute)
-const buwana_id = document.getElementById('buwana-id-input').value || 'default_id';
+const buwana_id = <?php echo json_encode($buwana_id); ?>;
 
 // Event listener for the manage subscription button
 document.getElementById('manage-subscription-button').addEventListener('click', function() {

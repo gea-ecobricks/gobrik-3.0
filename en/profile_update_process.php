@@ -15,7 +15,7 @@ if (!isset($_SESSION['buwana_id'])) {
 
 $buwana_id = $_SESSION['buwana_id'];
 
-// Check if all required fields are present (removed 'watershed_id')
+// Check if all required fields are present
 $required_fields = ['first_name', 'last_name', 'country_id', 'language_id', 'birth_date', 'continent_code', 'community_id', 'location_full', 'latitude', 'longitude', 'location_watershed'];
 
 foreach ($required_fields as $field) {
@@ -29,19 +29,19 @@ foreach ($required_fields as $field) {
 $first_name = trim($_POST['first_name']);
 $last_name = trim($_POST['last_name']);
 $country_id = (int)$_POST['country_id'];
-$language_id = trim($_POST['language_id']); // Treat language_id as a string
+$language_id = trim($_POST['language_id']);
 $birth_date = $_POST['birth_date'];
-$continent_code = trim($_POST['continent_code']); // Sanitize continent_code
-$community_id = (int)$_POST['community_id']; // Sanitize community_id
-$location_full = trim($_POST['location_full']); // Sanitize location_full
-$latitude = (float)$_POST['latitude']; // Sanitize latitude
-$longitude = (float)$_POST['longitude']; // Sanitize longitude
-$location_watershed = trim($_POST['location_watershed']); // Sanitize location_watershed
+$continent_code = trim($_POST['continent_code']);
+$community_id = (int)$_POST['community_id'];
+$location_full = trim($_POST['location_full']);
+$latitude = (float)$_POST['latitude'];
+$longitude = (float)$_POST['longitude'];
+$location_watershed = trim($_POST['location_watershed']);
 
 // Debugging: Log the data being received and sanitized (optional)
 error_log("Updating user: buwana_id=$buwana_id, first_name=$first_name, last_name=$last_name, country_id=$country_id, language_id=$language_id, birth_date=$birth_date, continent_code=$continent_code, community_id=$community_id, location_full=$location_full, latitude=$latitude, longitude=$longitude, location_watershed=$location_watershed");
 
-// Update the user's profile in the Buwana database (updated latitude and longitude fields)
+// Update the user's profile in the Buwana database
 $sql_update = "UPDATE users_tb
                SET first_name = ?, last_name = ?, country_id = ?, languages_id = ?, birth_date = ?,
                    continent_code = ?, community_id = ?, location_full = ?,
@@ -51,8 +51,8 @@ $sql_update = "UPDATE users_tb
 $stmt_update = $buwana_conn->prepare($sql_update);
 
 if ($stmt_update) {
-    // Bind parameters with correct data types (removed watershed_id)
-    $stmt_update->bind_param('ssisssissddi',
+    // Bind parameters with correct data types (updated location_watershed to string)
+    $stmt_update->bind_param('ssisssisssdi',
         $first_name,      // string
         $last_name,       // string
         $country_id,      // integer
@@ -63,7 +63,7 @@ if ($stmt_update) {
         $location_full,   // string
         $latitude,        // decimal (float)
         $longitude,       // decimal (float)
-        $location_watershed,  // string
+        $location_watershed,  // string (corrected)
         $buwana_id        // integer
     );
 
@@ -86,4 +86,3 @@ if ($stmt_update) {
 $buwana_conn->close();
 exit();
 ?>
-

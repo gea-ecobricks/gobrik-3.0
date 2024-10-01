@@ -31,6 +31,7 @@ $is_logged_in = isLoggedIn();// Check if the user is logged in using the helper 
     $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
     $first_name = getUserFirstName($buwana_conn, $buwana_id);
     $gea_status = getGEA_status($buwana_id);
+    $community_name = getCommunityName($buwana_id);
 
     // Fetch user details from the GoBrik database
     $sql_lookup_user = "SELECT first_name, ecobricks_made, location_full_txt, maker_id FROM tb_ecobrickers WHERE buwana_id = ?";

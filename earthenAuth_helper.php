@@ -89,6 +89,7 @@ function getUserFirstName($buwana_conn, $buwana_id) {
     return $first_name;
 }
 
+
 function getWatershedName($buwana_conn, $buwana_id) {
     $watershed_name = '';
 
@@ -112,6 +113,46 @@ function getWatershedName($buwana_conn, $buwana_id) {
     }
 
     return $watershed_name;
+}
+
+
+function getCommunityName($buwana_conn, $buwana_id) {
+    $community_name = '';
+
+    // Step 1: Query to get the user's community_id from users_tb
+    $sql_community_id = "SELECT community_id FROM users_tb WHERE buwana_id = ?";
+    $stmt_community_id = $buwana_conn->prepare($sql_community_id);
+
+    if ($stmt_community_id) {
+        $stmt_community_id->bind_param('s', $buwana_id); // Assuming buwana_id is a string
+        if ($stmt_community_id->execute()) {
+            $stmt_community_id->bind_result($community_id);
+            $stmt_community_id->fetch();
+            $stmt_community_id->close();
+
+            // Step 2: Use the retrieved community_id to get the com_name from communities_table
+            if (!empty($community_id)) {
+                $sql_community_name = "SELECT com_name FROM communities_table WHERE community_id = ?";
+                $stmt_community_name = $buwana_conn->prepare($sql_community_name);
+
+                if ($stmt_community_name) {
+                    $stmt_community_name->bind_param('i', $community_id); // Assuming community_id is an integer
+                    if ($stmt_community_name->execute()) {
+                        $stmt_community_name->bind_result($community_name);
+                        $stmt_community_name->fetch();
+                        $stmt_community_name->close();
+                    }
+                }
+            }
+        }
+    }
+
+    // If $community_name is still empty or null, set a default value
+    if (empty($community_name)) {
+        $community_name = 'Unknown Community'; // Default value if no valid community name is found
+    }
+
+    return $community_name;
 }
 
 

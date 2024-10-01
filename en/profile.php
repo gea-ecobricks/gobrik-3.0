@@ -19,7 +19,13 @@ $watershed_id = '';
 $watershed_name = '';
 $continent_name = ''; // Initialize continent name variable
 $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
+$community_name = '';
 
+  $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
+    $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
+    $first_name = getUserFirstName($buwana_conn, $buwana_id);
+    $gea_status = getGEA_status($buwana_id);
+    $community_name = getCommunityName($buwana_id);
 
 // Check if user is logged in and session active
 if ($is_logged_in) {
@@ -608,14 +614,8 @@ document.getElementById('manage-subscription-button').addEventListener('click', 
 
 <script>
 
-
 $(function () {
     let debounceTimer;
-    let map, userMarker;
-    let riverLayerGroup = L.layerGroup();
-
-    // Disable the watershed field initially
-    $('#location_watershed').prop('disabled', true);
 
     // Show pin icon when the input is empty and when it's filled
     function updatePinIconVisibility() {
@@ -628,110 +628,66 @@ $(function () {
 
     // Initialize location search using OpenStreetMap Nominatim API
     $("#location_full").autocomplete({
-    source: function (request, response) {
-        $("#loading-spinner").show();
-        $("#location-pin").hide(); // Hide the pin icon when typing starts
+        source: function (request, response) {
+            $("#loading-spinner").show();
+            $("#location-pin").hide(); // Hide the pin icon when typing starts
 
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => {
-            $.ajax({
-                url: "https://nominatim.openstreetmap.org/search",
-                dataType: "json",
-                headers: {
-                    'User-Agent': 'ecobricks.org'
-                },
-                data: {
-                    q: request.term,
-                    format: "json"
-                },
-                success: function (data) {
-                    $("#loading-spinner").hide();
-                    updatePinIconVisibility(); // Show the pin when data has loaded
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                $.ajax({
+                    url: "https://nominatim.openstreetmap.org/search",
+                    dataType: "json",
+                    headers: {
+                        'User-Agent': 'ecobricks.org'
+                    },
+                    data: {
+                        q: request.term,
+                        format: "json"
+                    },
+                    success: function (data) {
+                        $("#loading-spinner").hide();
+                        updatePinIconVisibility(); // Show the pin when data has loaded
 
-                    response($.map(data, function (item) {
-                        return {
-                            label: item.display_name,
-                            value: item.display_name,  // Ensure the display_name is set as value
-                            lat: item.lat,
-                            lon: item.lon
-                        };
-                    }));
-                },
-                error: function (xhr, status, error) {
-                    $("#loading-spinner").hide();
-                    updatePinIconVisibility(); // Show the pin when an error occurs
-                    console.error("Autocomplete error:", error);
-                    response([]);
-                }
-            });
-        }, 300);
-    },
-    select: function (event, ui) {
-        console.log('Selected location:', ui.item);
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.display_name,
+                                value: item.display_name,
+                                lat: item.lat,
+                                lon: item.lon
+                            };
+                        }));
+                    },
+                    error: function (xhr, status, error) {
+                        $("#loading-spinner").hide();
+                        updatePinIconVisibility(); // Show the pin when an error occurs
+                        console.error("Autocomplete error:", error);
+                        response([]);
+                    }
+                });
+            }, 300);
+        },
+        select: function (event, ui) {
+            // Set the selected location in the input field
+            $('#location_full').val(ui.item.value);
+            // Set latitude and longitude
+            $('#lat').val(ui.item.lat);
+            $('#lon').val(ui.item.lon);
 
-        // Set the selected value in the input field
-        $('#location_full').val(ui.item.value);
+            // Enable the location_watershed field
+            $('#location_watershed').prop('disabled', false);
 
-        // Update hidden fields with latitude and longitude
-        $('#lat').val(ui.item.lat);
-        $('#lon').val(ui.item.lon);
+            // Fetch and populate nearby rivers
+            fetchNearbyRivers(ui.item.lat, ui.item.lon);
 
-        // Show the map and watershed search section when a location is selected
-        initializeMap(ui.item.lat, ui.item.lon);
-        $('#watershed-map-section').fadeIn();
-        $('#community-section').fadeIn();
-        showSubmitButton();
-
-        // Enable the location_watershed field
-        $('#location_watershed').prop('disabled', false);
-
-        // Fetch and populate nearby rivers
-        fetchNearbyRivers(ui.item.lat, ui.item.lon);
-
-        return false; // Prevent the default behavior (which replaces the input value)
-    },
-    minLength: 3
-});
-
-
-    // Show or hide the pin icon based on input value changes
-    $("#location_full").on("input", function () {
-        updatePinIconVisibility();
+            return false; // Prevent default behavior
+        },
+        minLength: 3
     });
 
-    // Function to show the submit button
-    function showSubmitButton() {
-        $('#submit-section').fadeIn();
-    }
-
-    // Initialize the Leaflet map centered on the selected location
-    function initializeMap(lat, lon) {
-        if (map) {
-            map.remove();
-        }
-        map = L.map('map', { preferCanvas: true }).setView([lat, lon], 13);
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
-
-        // Add user location marker
-        userMarker = L.marker([lat, lon]).addTo(map).bindPopup("Your Location").openPopup();
-
-        // Fix map display issue when loaded in a hidden or resized container
-        setTimeout(() => {
-            map.invalidateSize();
-        }, 200); // Delay to ensure the map fully loads and resizes correctly
-
-        // Clear previous rivers on map
-        riverLayerGroup.clearLayers();
-    }
-
-    // Function to fetch nearby rivers or watersheds using Overpass API
+    // Fetch nearby rivers using Overpass API and populate the dropdown
     function fetchNearbyRivers(lat, lon) {
-        riverLayerGroup.clearLayers(); // Clear previous rivers
-        $("#watershed_select").empty().append('<option value="" disabled selected>Select a river or watershed</option>');
+        // Clear previous river options
+        $("#location_watershed").empty().append('<option value="" disabled selected>Select the nearest river...</option>');
 
         const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];(way["waterway"="river"](around:5000,${lat},${lon});relation["waterway"="river"](around:5000,${lat},${lon}););out geom;`;
 
@@ -739,38 +695,28 @@ $(function () {
             let rivers = data.elements;
             let uniqueRivers = new Set(); // Set to keep track of unique river names
 
-            rivers.forEach((river, index) => {
+            // Iterate through the rivers data and add the first five unique rivers
+            rivers.forEach((river) => {
                 let riverName = river.tags.name;
 
-                // Filter out unnamed rivers from the dropdown
-                if (riverName && !uniqueRivers.has(riverName) && !riverName.toLowerCase().includes("unnamed")) {
-                    uniqueRivers.add(riverName); // Add river name to the set
-
-                    let coordinates = river.geometry.map(point => [point.lat, point.lon]);
-                    // Add river to the map
-                    let riverPolyline = L.polyline(coordinates, { color: 'blue' }).addTo(riverLayerGroup).bindPopup(riverName);
-                    riverLayerGroup.addTo(map);
-
-                    // Add river to the select dropdown
-                    $("#watershed_select").append(new Option(riverName, riverName));
+                // Ensure the river has a name and is not a duplicate
+                if (riverName && !uniqueRivers.has(riverName) && uniqueRivers.size < 5) {
+                    uniqueRivers.add(riverName);
+                    $("#location_watershed").append(new Option(riverName, riverName));
                 }
             });
 
+            // If no rivers are found, add a default option
             if (uniqueRivers.size === 0) {
-                $("#watershed_select").append('<option value="" disabled>No rivers or watersheds found nearby</option>');
+                $("#location_watershed").append('<option value="" disabled>No rivers found nearby</option>');
             }
         }).fail(function () {
-            console.error("Failed to fetch data from Overpass API.");
-            $("#watershed_select").append('<option value="" disabled>Error fetching rivers</option>');
+            console.error("Failed to fetch rivers from Overpass API.");
+            $("#location_watershed").append('<option value="" disabled>Error fetching rivers</option>');
         });
     }
-
-    $('#user-info-form').on('submit', function () {
-        console.log('Latitude:', $('#lat').val());
-        console.log('Longitude:', $('#lon').val());
-        // Additional submit handling if needed
-    });
 });
+
 
 </script>
 

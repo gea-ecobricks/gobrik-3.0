@@ -409,14 +409,14 @@ echo '<!DOCTYPE html>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     // Function to handle the update status
-    function catchUpdateReport(status) {
+    function catchUpdateReport(status, message = '') {
         const updateStatusDiv = document.getElementById('update-status');
 
         if (status === 'succeeded') {
             updateStatusDiv.innerHTML = "👍 Your user profile was updated!";
             scrollToTop();
         } else if (status === 'failed') {
-            updateStatusDiv.innerHTML = "🤔 Something went wrong with the update.";
+            updateStatusDiv.innerHTML = "🤔 Something went wrong with the update: " + message;
             scrollToTop();
         } else {
             updateStatusDiv.innerHTML = "❓ Unexpected status: " + status;
@@ -439,23 +439,18 @@ document.addEventListener('DOMContentLoaded', function () {
             method: 'POST',
             body: formData
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok: ' + response.statusText);
-            }
-            return response.json();
-        })
+        .then(response => response.json()) // Parse JSON response
         .then(data => {
-            if (data && data.status) {
-                catchUpdateReport(data.status);
+            if (data.status === 'succeeded') {
+                catchUpdateReport('succeeded');
             } else {
-                console.error('Unexpected response format:', data);
-                catchUpdateReport('failed');
+                const errorMessage = data.message || 'Unknown error occurred.';
+                catchUpdateReport('failed', errorMessage);
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            catchUpdateReport('failed');
+            catchUpdateReport('failed', 'Error submitting the form: ' + error.message);
         });
     });
 
@@ -466,6 +461,7 @@ document.addEventListener('DOMContentLoaded', function () {
         catchUpdateReport(status);
     }
 });
+
 
 
 

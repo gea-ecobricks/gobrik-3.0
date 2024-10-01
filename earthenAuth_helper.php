@@ -118,6 +118,8 @@ function getWatershedName($buwana_conn, $buwana_id) {
 
 function getCommunityName($buwana_conn, $buwana_id) {
 
+$user_community_name = '';
+
     // Step 1: Query to get the user's community_id from users_tb
     $sql_community_id = "SELECT community_id FROM users_tb WHERE buwana_id = ?";
     $stmt_community_id = $buwana_conn->prepare($sql_community_id);

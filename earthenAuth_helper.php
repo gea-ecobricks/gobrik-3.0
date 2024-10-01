@@ -117,7 +117,6 @@ function getWatershedName($buwana_conn, $buwana_id) {
 
 
 function getCommunityName($buwana_conn, $buwana_id) {
-    $community_name = '';
 
     // Step 1: Query to get the user's community_id from users_tb
     $sql_community_id = "SELECT community_id FROM users_tb WHERE buwana_id = ?";
@@ -148,11 +147,11 @@ function getCommunityName($buwana_conn, $buwana_id) {
     }
 
     // If $community_name is still empty or null, set a default value
-    if (empty($community_name)) {
-        $community_name = 'Unknown Community'; // Default value if no valid community name is found
+    if (empty($user_community_name)) {
+        $user_community_name = 'Unknown Community'; // Default value if no valid community name is found
     }
 
-    return $community_name;
+    return $user_community_name;
 }
 
 

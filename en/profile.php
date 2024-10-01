@@ -19,7 +19,7 @@ $watershed_id = '';
 $watershed_name = '';
 $continent_name = ''; // Initialize continent name variable
 $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
-$community_name = '';
+$user_community_name = '';
 
 
 // Check if user is logged in and session active

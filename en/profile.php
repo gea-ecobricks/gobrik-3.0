@@ -36,10 +36,11 @@ if ($is_logged_in) {
     $gea_status = getGEA_status($buwana_id);
     $user_community_name = getCommunityName($buwana_conn, $buwana_id);
 
-    // Fetch user information including community_id, location_watershed, and location_full
+    // Fetch user information including community_id, location_watershed, location_full, latitude, and longitude
     $sql_user_info = "SELECT full_name, first_name, last_name, email, country_id, languages_id, birth_date,
                       created_at, last_login, brikcoin_balance, role, account_status, notes,
-                      terms_of_service, continent_code, location_watershed, location_full, community_id
+                      terms_of_service, continent_code, location_watershed, location_full, community_id,
+                      latitude, longitude
                       FROM users_tb WHERE buwana_id = ?";
     $stmt_user_info = $buwana_conn->prepare($sql_user_info);
 
@@ -49,12 +50,13 @@ if ($is_logged_in) {
         $stmt_user_info->bind_result($full_name, $first_name, $last_name, $email, $country_id, $languages_id,
                                      $birth_date, $created_at, $last_login, $brikcoin_balance, $role, $account_status,
                                      $notes, $terms_of_service, $continent_code, $location_watershed,
-                                     $location_full, $community_id);
+                                     $location_full, $community_id, $latitude, $longitude);
         $stmt_user_info->fetch();
         $stmt_user_info->close();
     } else {
         die('Error preparing statement for fetching user info: ' . $buwana_conn->error);
     }
+
 
 
 
@@ -180,7 +182,7 @@ echo '<!DOCTYPE html>
 
             <!-- Email -->
                 <div class="form-item">
-                    <p data-lang-id="005-account-created-at"><strong>Email:</strong></p>
+                    <p data-lang-id="005-email"><strong>Email:</strong></p>
                     <p><?php echo htmlspecialchars($email); ?></p>
                     <!--<label for="email" data-lang-id="014-email">Email:</label>
                     <input type="email" value="<?php echo htmlspecialchars($email); ?>" readonly disabled>
@@ -211,6 +213,12 @@ echo '<!DOCTYPE html>
                 </div>
                 <div class="form-item">
                     <p data-lang-id="011-agreed-terms"><strong>Agreed to Terms of Service:</strong> <?php echo $terms_of_service ? 'Yes' : 'No'; ?></p>
+                </div>
+            <div class="form-item">
+                    <p data-lang-id="011a-latitude"><strong>Latitude:</strong> <?php echo htmlspecialchars($latitude); ?></p>
+                </div>
+            <div class="form-item">
+                    <p data-lang-id="011b-longitude"><strong>Latitude:</strong> <?php echo htmlspecialchars($longitude); ?></p>
                 </div>
             </div>
 

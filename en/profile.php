@@ -112,7 +112,7 @@ if ($result_languages && $result_languages->num_rows > 0) {
 $sql_communities = "SELECT com_id, com_name FROM communities_tb WHERE country_id = ?";
 
 // Prepare and execute the query to get all communities for the user's country
-if ($stmt_communities = $gobrik_conn->prepare($sql_communities)) {
+if ($stmt_communities = $buwana_conn_conn->prepare($sql_communities)) {
     $stmt_communities->bind_param("i", $country_id); // Bind the country_id
     if ($stmt_communities->execute()) {
         $stmt_communities->bind_result($com_id, $com_name);
@@ -126,7 +126,7 @@ if ($stmt_communities = $gobrik_conn->prepare($sql_communities)) {
     }
     $stmt_communities->close();
 } else {
-    error_log("Error preparing statement for fetching communities: " . $gobrik_conn->error);
+    error_log("Error preparing statement for fetching communities: " . $buwana_conn->error);
 }
 
 

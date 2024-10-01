@@ -2094,7 +2094,7 @@ input[type="date"] {
 
 
 
-input[type="text"], input[type="name"], input[type="credential"],  input[type="password"], input[type="number"], input[type="email"] {
+input[type="text"], input[type="name"], input[type="credential"],  input[type="password"], input[type="number"], input[type="email"], input[type="date" {
   width: 100%;
   padding: 8px 10px;
   margin: 4px 0;

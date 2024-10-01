@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.39';
+$version = '0.391';
 $page = 'profile';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -291,17 +291,26 @@ echo '<!DOCTYPE html>
         <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
     </div>
 
-    <!-- Hidden latitude and longitude fields -->
-    <input type="hidden" id="lat" name="latitude" value="<?php echo htmlspecialchars($latitude); ?>">
-    <input type="hidden" id="lon" name="longitude" value="<?php echo htmlspecialchars($longitude); ?>">
+
 
     <!-- Location Watershed -->
     <div class="form-item">
-        <label for="location_watershed" data-lang-id="011X-watershed-location">Your local river:</label><br>
-        <input type="text" id="location_watershed" name="location_watershed"
+        <label for="location_watershed" data-lang-id="011-watershed-location">Your local river:</label><br>
+        <div class="input-container">
+            <input type="text" id="location_watershed" name="location_watershed"
                value="<?php echo $location_watershed; ?>" aria-label="Location Watershed" style="width: 100%; padding: 10px;" >
+            <div id="loading-spinner-watershed" class="spinner" style="display: none;"></div>
+            <div id="watershed-pin" class="pin-icon">💦</div>
+        </div>
+        <p class="form-caption" data-lang-id="011-location-full-caption">To edit, start typing your local river name, and we'll help you find it...</p>
         <p class="form-caption">💚 Rivers and their basins provide a great non-political way to localize our users by ecological region!</p>
+        <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
     </div>
+
+<!-- Hidden latitude and longitude fields -->
+    <input type="hidden" id="lat" name="latitude" value="<?php echo htmlspecialchars($latitude); ?>">
+    <input type="hidden" id="lon" name="longitude" value="<?php echo htmlspecialchars($longitude); ?>">
+
 
     <!-- Preferred Language -->
     <div class="form-item">
@@ -655,12 +664,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <script>
 
-    /* FETCH RIVERS  */
+    // FETCH RIVERS
 
-
-  $(function () {
+$(function () {
     let debounceTimer;
 
+    // SECTION 1: Searching for the user's local area
     // Show pin icon when the input is empty and when it's filled
     function updatePinIconVisibility() {
         if ($("#location_full").val().trim() === "" || $("#loading-spinner").is(":hidden")) {
@@ -724,6 +733,58 @@ document.addEventListener('DOMContentLoaded', function () {
             fetchNearbyRivers(ui.item.lat, ui.item.lon);
 
             return false; // Prevent default behavior
+        },
+        minLength: 3
+    });
+
+    // SECTION 2: Searching for the user's river in the location_watershed field
+    // Show river pin icon when the input is empty and when it's filled
+    function updateRiverPinIconVisibility() {
+        if ($("#location_watershed").val().trim() === "" || $("#loading-spinner-watershed").is(":hidden")) {
+            $("#watershed-pin").show();
+        } else {
+            $("#watershed-pin").hide();
+        }
+    }
+
+    // Initialize river search using OpenStreetMap Nominatim API for rivers
+    $("#location_watershed").autocomplete({
+        source: function (request, response) {
+            $("#loading-spinner-watershed").show();
+            $("#watershed-pin").hide(); // Hide the river pin icon when typing starts
+
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                $.ajax({
+                    url: "https://nominatim.openstreetmap.org/search",
+                    dataType: "json",
+                    headers: {
+                        'User-Agent': 'ecobricks.org'
+                    },
+                    data: {
+                        q: request.term,
+                        format: "json",
+                        featuretype: "river" // Specific to rivers
+                    },
+                    success: function (data) {
+                        $("#loading-spinner-watershed").hide();
+                        updateRiverPinIconVisibility(); // Show the pin when data has loaded
+
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.display_name,
+                                value: item.display_name
+                            };
+                        }));
+                    },
+                    error: function (xhr, status, error) {
+                        $("#loading-spinner-watershed").hide();
+                        updateRiverPinIconVisibility(); // Show the pin when an error occurs
+                        console.error("Autocomplete error:", error);
+                        response([]);
+                    }
+                });
+            }, 300);
         },
         minLength: 3
     });

@@ -29,7 +29,7 @@ foreach ($required_fields as $field) {
 $first_name = trim($_POST['first_name']);
 $last_name = trim($_POST['last_name']);
 $country_id = (int)$_POST['country_id'];
-$language_id = trim($_POST['language_id']);
+$language_id = trim($_POST['language_id']);  // Updated to use language_id
 $birth_date = $_POST['birth_date'];
 $continent_code = trim($_POST['continent_code']);
 $community_id = (int)$_POST['community_id'];
@@ -43,7 +43,7 @@ error_log("Updating user: buwana_id=$buwana_id, first_name=$first_name, last_nam
 
 // Update the user's profile in the Buwana database
 $sql_update = "UPDATE users_tb
-               SET first_name = ?, last_name = ?, country_id = ?, languages_id = ?, birth_date = ?,
+               SET first_name = ?, last_name = ?, country_id = ?, language_id = ?, birth_date = ?,
                    continent_code = ?, community_id = ?, location_full = ?,
                    location_lat = ?, location_long = ?, location_watershed = ?
                WHERE buwana_id = ?";
@@ -51,19 +51,19 @@ $sql_update = "UPDATE users_tb
 $stmt_update = $buwana_conn->prepare($sql_update);
 
 if ($stmt_update) {
-    // Bind parameters with correct data types (updated location_watershed to string)
-    $stmt_update->bind_param('ssisssisssdi',
+    // Bind parameters with correct data types (updated to language_id)
+    $stmt_update->bind_param('ssisssisddsi',
         $first_name,      // string
         $last_name,       // string
         $country_id,      // integer
-        $language_id,     // string
+        $language_id,     // string (updated to language_id)
         $birth_date,      // string
         $continent_code,  // string
         $community_id,    // integer
         $location_full,   // string
         $latitude,        // decimal (float)
         $longitude,       // decimal (float)
-        $location_watershed,  // string (corrected)
+        $location_watershed,  // string
         $buwana_id        // integer
     );
 

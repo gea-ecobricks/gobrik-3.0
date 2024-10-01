@@ -607,6 +607,8 @@ document.getElementById('manage-subscription-button').addEventListener('click', 
 
 
 <script>
+
+
 $(function () {
     let debounceTimer;
     let map, userMarker;
@@ -626,63 +628,71 @@ $(function () {
 
     // Initialize location search using OpenStreetMap Nominatim API
     $("#location_full").autocomplete({
-        source: function (request, response) {
-            $("#loading-spinner").show();
-            $("#location-pin").hide(); // Hide the pin icon when typing starts
+    source: function (request, response) {
+        $("#loading-spinner").show();
+        $("#location-pin").hide(); // Hide the pin icon when typing starts
 
-            clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(() => {
-                $.ajax({
-                    url: "https://nominatim.openstreetmap.org/search",
-                    dataType: "json",
-                    headers: {
-                        'User-Agent': 'ecobricks.org'
-                    },
-                    data: {
-                        q: request.term,
-                        format: "json"
-                    },
-                    success: function (data) {
-                        $("#loading-spinner").hide();
-                        updatePinIconVisibility(); // Show the pin when data has loaded
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            $.ajax({
+                url: "https://nominatim.openstreetmap.org/search",
+                dataType: "json",
+                headers: {
+                    'User-Agent': 'ecobricks.org'
+                },
+                data: {
+                    q: request.term,
+                    format: "json"
+                },
+                success: function (data) {
+                    $("#loading-spinner").hide();
+                    updatePinIconVisibility(); // Show the pin when data has loaded
 
-                        response($.map(data, function (item) {
-                            return {
-                                label: item.display_name,
-                                value: item.display_name,
-                                lat: item.lat,
-                                lon: item.lon
-                            };
-                        }));
-                    },
-                    error: function (xhr, status, error) {
-                        $("#loading-spinner").hide();
-                        updatePinIconVisibility(); // Show the pin when an error occurs
-                        console.error("Autocomplete error:", error);
-                        response([]);
-                    }
-                });
-            }, 300);
-        },
-        select: function (event, ui) {
-            console.log('Selected location:', ui.item);
-            $('#lat').val(ui.item.lat);
-            $('#lon').val(ui.item.lon);
+                    response($.map(data, function (item) {
+                        return {
+                            label: item.display_name,
+                            value: item.display_name,  // Ensure the display_name is set as value
+                            lat: item.lat,
+                            lon: item.lon
+                        };
+                    }));
+                },
+                error: function (xhr, status, error) {
+                    $("#loading-spinner").hide();
+                    updatePinIconVisibility(); // Show the pin when an error occurs
+                    console.error("Autocomplete error:", error);
+                    response([]);
+                }
+            });
+        }, 300);
+    },
+    select: function (event, ui) {
+        console.log('Selected location:', ui.item);
 
-            // Show the map and watershed search section when a location is selected
-            initializeMap(ui.item.lat, ui.item.lon);
-            $('#watershed-map-section').fadeIn();
-            $('#community-section').fadeIn();
-            showSubmitButton();
+        // Set the selected value in the input field
+        $('#location_full').val(ui.item.value);
 
-            // Enable the location_watershed field
-            $('#location_watershed').prop('disabled', false);
+        // Update hidden fields with latitude and longitude
+        $('#lat').val(ui.item.lat);
+        $('#lon').val(ui.item.lon);
 
-            // Fetch and populate nearby rivers
-            fetchNearbyRivers(ui.item.lat, ui.item.lon);
-        },
-        minLength: 3
-    });
+        // Show the map and watershed search section when a location is selected
+        initializeMap(ui.item.lat, ui.item.lon);
+        $('#watershed-map-section').fadeIn();
+        $('#community-section').fadeIn();
+        showSubmitButton();
+
+        // Enable the location_watershed field
+        $('#location_watershed').prop('disabled', false);
+
+        // Fetch and populate nearby rivers
+        fetchNearbyRivers(ui.item.lat, ui.item.lon);
+
+        return false; // Prevent the default behavior (which replaces the input value)
+    },
+    minLength: 3
+});
+
 
     // Show or hide the pin icon based on input value changes
     $("#location_full").on("input", function () {

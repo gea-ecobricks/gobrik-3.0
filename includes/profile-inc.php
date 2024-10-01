@@ -19,27 +19,6 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 <STYLE>
 
-select: function (event, ui) {
-    event.preventDefault(); // Prevent any default behavior like form submission
-
-    console.log('Selected location:', ui.item);
-    $('#lat').val(ui.item.lat);
-    $('#lon').val(ui.item.lon);
-
-    // Additional actions on selecting location
-    initializeMap(ui.item.lat, ui.item.lon);
-    $('#watershed-map-section').fadeIn();
-    $('#community-section').fadeIn();
-    showSubmitButton();
-
-    // Enable the location_watershed field
-    $('#location_watershed').prop('disabled', false);
-
-    // Fetch and populate nearby rivers
-    fetchNearbyRivers(ui.item.lat, ui.item.lon);
-}
-
-
 
 
     #main {

@@ -107,6 +107,8 @@ if ($result_languages && $result_languages->num_rows > 0) {
         }
     }
 
+
+
 $sql_communities = "SELECT com_id, com_name FROM communities_tb WHERE country_id = ?";
 
 // Prepare and execute the query to get all communities for the user's country
@@ -253,19 +255,36 @@ echo '<!DOCTYPE html>
     </select>
 </div>
 
-    <!-- Community -->
+  <!-- Community -->
 <div class="form-item">
     <label for="community_id" data-lang-id="025-community">Your community:</label>
     <select name="community_id" id="community_id">
         <option value="" data-lang-id="026-select-community">Select Community</option>
+
+        <?php
+            // Log the user's community_id once
+            error_log("User's community_id: " . $community_id);
+        ?>
+
         <?php foreach ($communities as $community): ?>
-            <option value="<?php echo $community['com_id']; ?>" <?php if ($community['com_id'] == $community_id) echo 'selected'; ?>>
+            <?php
+                // Check if the current community matches the user's community
+                if ($community['com_id'] === $community_id) {
+                    // Log the com_name if there's a match
+                    error_log("Matching community found: " . $community['com_name']);
+                }
+
+                // Check if this is the selected community
+                $selected = ($community['com_id'] === $community_id) ? 'selected' : '';
+            ?>
+            <option value="<?php echo htmlspecialchars($community['com_id']); ?>" <?php echo $selected; ?>>
                 <?php echo htmlspecialchars($community['com_name']); ?>
             </option>
         <?php endforeach; ?>
     </select>
     <p class="form-caption" data-lang-id="011-location-full-caption">Your GoBrik community (migrated from GoBrik 2.0, soon you'll be able to add new communities)</p>
 </div>
+
 
 
 <!-- Location Full -->

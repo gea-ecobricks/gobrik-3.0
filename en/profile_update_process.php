@@ -14,7 +14,7 @@ if (!isset($_SESSION['buwana_id'])) {
 $buwana_id = $_SESSION['buwana_id'];
 
 // Check if all required fields are present
-if (!isset($_POST['first_name'], $_POST['last_name'], $_POST['country_id'], $_POST['language_id'], $_POST['birth_date'], $_POST['continent_code'], $_POST['watershed_id'])) {
+if (!isset($_POST['first_name'], $_POST['last_name'], $_POST['country_id'], $_POST['language_id'], $_POST['birth_date'], $_POST['continent_code'], $_POST['watershed_id'], $_POST['community_id'], $_POST['location_full'], $_POST['latitude'], $_POST['longitude'], $_POST['location_watershed'])) {
     echo json_encode(['status' => 'failed', 'message' => 'Missing required fields.']);
     exit();
 }
@@ -27,14 +27,28 @@ $language_id = trim($_POST['language_id']); // Treat language_id as a string
 $birth_date = $_POST['birth_date'];
 $continent_code = trim($_POST['continent_code']); // Sanitize continent_code
 $watershed_id = (int)$_POST['watershed_id']; // Sanitize watershed_id
+$community_id = (int)$_POST['community_id']; // Sanitize community_id
+$location_full = trim($_POST['location_full']); // Sanitize location_full
+$latitude = trim($_POST['latitude']); // Sanitize latitude
+$longitude = trim($_POST['longitude']); // Sanitize longitude
+$location_watershed = trim($_POST['location_watershed']); // Sanitize location_watershed
 
 // Update the user's profile in the Buwana database
-$sql_update = "UPDATE users_tb SET first_name = ?, last_name = ?, country_id = ?, languages_id = ?, birth_date = ?, continent_code = ?, watershed_id = ? WHERE buwana_id = ?";
+$sql_update = "UPDATE users_tb
+               SET first_name = ?, last_name = ?, country_id = ?, languages_id = ?, birth_date = ?,
+                   continent_code = ?, watershed_id = ?, community_id = ?, location_full = ?,
+                   latitude = ?, longitude = ?, location_watershed = ?
+               WHERE buwana_id = ?";
+
 $stmt_update = $buwana_conn->prepare($sql_update);
 
 if ($stmt_update) {
     // Bind parameters
-    $stmt_update->bind_param('ssisssii', $first_name, $last_name, $country_id, $language_id, $birth_date, $continent_code, $watershed_id, $buwana_id);
+    $stmt_update->bind_param('ssisssissssss',
+        $first_name, $last_name, $country_id, $language_id, $birth_date,
+        $continent_code, $watershed_id, $community_id, $location_full,
+        $latitude, $longitude, $location_watershed, $buwana_id
+    );
 
     // Execute the statement
     if ($stmt_update->execute()) {

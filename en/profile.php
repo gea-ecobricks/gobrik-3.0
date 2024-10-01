@@ -177,6 +177,15 @@ echo '<!DOCTYPE html>
                     <p data-lang-id="004-full-name"><strong>Full Name:</strong></p>
                     <h3> <?php echo htmlspecialchars($full_name); ?></h3>
                 </div>
+
+            <!-- Email -->
+                <div class="form-item">
+                    <p data-lang-id="005-account-created-at"><strong>Email:</strong></p>
+                    <p><?php echo htmlspecialchars($email); ?></p>
+                    <!--<label for="email" data-lang-id="014-email">Email:</label>
+                    <input type="email" value="<?php echo htmlspecialchars($email); ?>" readonly disabled>
+                -->
+                </div>
                 <div class="form-item">
                     <p data-lang-id="005-account-created-at"><strong>Account Created At:</strong></p>
                     <p><?php echo htmlspecialchars($created_at); ?></p>
@@ -210,149 +219,129 @@ echo '<!DOCTYPE html>
 
 
 
+<!-- Profile Update Form -->
+<form action="profile_update_process.php" method="POST">
 
-<!-- First Name -->
-<div class="form-item">
-    <label for="first_name" data-lang-id="012-first-name">First Name:</label>
-    <input type="text" name="first_name" id="first_name" value="<?php echo htmlspecialchars($first_name); ?>" required>
-</div>
-
-<!-- Last Name -->
-<div class="form-item">
-    <label for="last_name" data-lang-id="013-last-name">Last Name:</label>
-    <input type="text" name="last_name" id="last_name" value="<?php echo htmlspecialchars($last_name); ?>" required>
-</div>
-
-<!-- Email -->
-<div class="form-item">
-    <label for="email" data-lang-id="014-email">Email:</label>
-    <input type="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
-</div>
-
-<!-- Continent -->
-<div class="form-item">
-    <label for="continent_code" data-lang-id="021-continent">Continent:</label>
-    <select name="continent_code" id="continent_code">
-        <option value="" data-lang-id="022-select-continent">Select Continent</option>
-        <?php foreach ($continents as $continent): ?>
-            <option value="<?php echo $continent['continent_code']; ?>" <?php if ($continent['continent_code'] == $continent_code) echo 'selected'; ?>>
-                <?php echo htmlspecialchars($continent['continent_name_en']); ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
-</div>
-
-<!-- Country -->
-<div class="form-item">
-    <label for="country_id" data-lang-id="015-country">Country:</label>
-    <select name="country_id" id="country_id">
-        <option value="" data-lang-id="016-select-country">Select Country</option>
-        <?php foreach ($countries as $country): ?>
-            <option value="<?php echo $country['country_id']; ?>" <?php if ($country['country_id'] == $country_id) echo 'selected'; ?>>
-                <?php echo htmlspecialchars($country['country_name']); ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
-</div>
-
-  <!-- Community -->
-<div class="form-item">
-    <label for="community_id" data-lang-id="025-community">Your community:</label>
-    <select name="community_id" id="community_id">
-        <option value="" data-lang-id="026-select-community">Select Community</option>
-
-        <?php
-            // Log the user's community_id once
-            error_log("User's community_id: " . $community_id);
-        ?>
-
-        <?php foreach ($communities as $community): ?>
-            <?php
-                // Check if the current community matches the user's community
-                if ($community['com_id'] === $community_id) {
-                    // Log the com_name if there's a match
-                    error_log("Matching community found: " . $community['com_name']);
-                }
-
-                // Check if this is the selected community
-                $selected = ($community['com_id'] === $community_id) ? 'selected' : '';
-            ?>
-            <option value="<?php echo htmlspecialchars($community['com_id']); ?>" <?php echo $selected; ?>>
-                <?php echo htmlspecialchars($community['com_name']); ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
-    <p class="form-caption" data-lang-id="011-location-full-caption">Your GoBrik community (migrated from GoBrik 2.0, soon you'll be able to add new communities)</p>
-</div>
-
-
-
-<!-- Location Full -->
-<div class="form-item">
-    <label for="location_full" data-lang-id="011X-location-full">Your local area:</label><br>
-    <div class="input-container">
-        <input type="text" id="location_full" name="location_full" aria-label="Location Full"
-               value="<?php echo $location_full; ?>" required style="padding-left:45px;">
-        <div id="loading-spinner" class="spinner" style="display: none;"></div>
-        <div id="location-pin" class="pin-icon">📍</div>
+    <!-- First Name -->
+    <div class="form-item">
+        <label for="first_name" data-lang-id="012-first-name">First Name:</label>
+        <input type="text" name="first_name" id="first_name" value="<?php echo htmlspecialchars($first_name); ?>" required>
     </div>
-    <p class="form-caption" data-lang-id="011-location-full-caption">To edit, start typing your local area name, and we'll fill in the rest using the open source, non-corporate OpenStreetMap API.</p>
-    <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
-</div>
 
-<!-- Hidden latitude and longitude fields -->
-<input type="hidden" id="lat" name="latitude">
-<input type="hidden" id="lon" name="longitude">
+    <!-- Last Name -->
+    <div class="form-item">
+        <label for="last_name" data-lang-id="013-last-name">Last Name:</label>
+        <input type="text" name="last_name" id="last_name" value="<?php echo htmlspecialchars($last_name); ?>" required>
+    </div>
 
-<!-- Location Watershed -->
-<div class="form-item">
-    <label for="location_watershed" data-lang-id="011X-watershed-location">Your local river:</label><br>
-    <input type="text" id="location_watershed" name="location_watershed"
-           value="<?php echo $location_watershed; ?>" aria-label="Location Watershed" style="width: 100%; padding: 10px;" disabled>
-    <p class="form-caption">💚 Rivers and their basins provide a great non-political way to localize our users by ecological region!</p>
-</div>
+    <!-- Continent -->
+    <div class="form-item">
+        <label for="continent_code" data-lang-id="021-continent">Continent:</label>
+        <select name="continent_code" id="continent_code">
+            <option value="" data-lang-id="022-select-continent">Select Continent</option>
+            <?php foreach ($continents as $continent): ?>
+                <option value="<?php echo $continent['continent_code']; ?>" <?php if ($continent['continent_code'] == $continent_code) echo 'selected'; ?>>
+                    <?php echo htmlspecialchars($continent['continent_name_en']); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
 
+    <!-- Country -->
+    <div class="form-item">
+        <label for="country_id" data-lang-id="015-country">Country:</label>
+        <select name="country_id" id="country_id">
+            <option value="" data-lang-id="016-select-country">Select Country</option>
+            <?php foreach ($countries as $country): ?>
+                <option value="<?php echo $country['country_id']; ?>" <?php if ($country['country_id'] == $country_id) echo 'selected'; ?>>
+                    <?php echo htmlspecialchars($country['country_name']); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
 
-<!-- Preferred Language -->
-<div class="form-item">
-    <label for="language_id" data-lang-id="017-preferred-language">Preferred Language:</label>
-    <select name="language_id" id="language_id">
-        <option value="" data-lang-id="018-select-language">Select Language</option>
-        <?php foreach ($languages as $language): ?>
-            <option value="<?php echo htmlspecialchars($language['language_id']); ?>" <?php if ($language['language_id'] == $languages_id) echo 'selected'; ?>>
-                <?php
-                switch (strtolower($lang)) {
-                    case 'id':
-                        echo htmlspecialchars($language['language_name_id']);
-                        break;
-                    case 'fr':
-                        echo htmlspecialchars($language['language_name_fr']);
-                        break;
-                    case 'es':
-                        echo htmlspecialchars($language['language_name_es']);
-                        break;
-                    case 'en':
-                    default:
-                        echo htmlspecialchars($language['language_name_en']);
-                        break;
-                }
-                ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
-</div>
+    <!-- Community -->
+    <div class="form-item">
+        <label for="community_id" data-lang-id="025-community">Your community:</label>
+        <select name="community_id" id="community_id">
+            <option value="" data-lang-id="026-select-community">Select Community</option>
 
-<!-- Birth Date -->
-<div class="form-item">
-    <label for="birth_date" data-lang-id="019-birth-date">Birth Date:</label>
-    <input type="date" name="birth_date" id="birth_date" value="<?php echo htmlspecialchars($birth_date); ?>">
-</div>
+            <?php foreach ($communities as $community): ?>
+                <option value="<?php echo htmlspecialchars($community['com_id']); ?>" <?php if ($community['com_id'] == $community_id) echo 'selected'; ?>>
+                    <?php echo htmlspecialchars($community['com_name']); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+        <p class="form-caption" data-lang-id="011-location-full-caption">Your GoBrik community (migrated from GoBrik 2.0, soon you'll be able to add new communities)</p>
+    </div>
 
-<!-- Save and Update Button -->
-<div style="margin:auto;text-align: center;margin-top:30px;">
-    <button type="submit" class="submit-button enabled" aria-label="Save and update" data-lang-id="020-submit-button">Save and Update</button>
-</div>
+    <!-- Location Full -->
+    <div class="form-item">
+        <label for="location_full" data-lang-id="011X-location-full">Your local area:</label><br>
+        <div class="input-container">
+            <input type="text" id="location_full" name="location_full" aria-label="Location Full"
+                   value="<?php echo $location_full; ?>" required style="padding-left:45px;">
+            <div id="loading-spinner" class="spinner" style="display: none;"></div>
+            <div id="location-pin" class="pin-icon">📍</div>
+        </div>
+        <p class="form-caption" data-lang-id="011-location-full-caption">To edit, start typing your local area name, and we'll fill in the rest using the open source, non-corporate OpenStreetMap API.</p>
+        <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
+    </div>
+
+    <!-- Hidden latitude and longitude fields -->
+    <input type="hidden" id="lat" name="latitude" value="<?php echo htmlspecialchars($latitude); ?>">
+    <input type="hidden" id="lon" name="longitude" value="<?php echo htmlspecialchars($longitude); ?>">
+
+    <!-- Location Watershed -->
+    <div class="form-item">
+        <label for="location_watershed" data-lang-id="011X-watershed-location">Your local river:</label><br>
+        <input type="text" id="location_watershed" name="location_watershed"
+               value="<?php echo $location_watershed; ?>" aria-label="Location Watershed" style="width: 100%; padding: 10px;" disabled>
+        <p class="form-caption">💚 Rivers and their basins provide a great non-political way to localize our users by ecological region!</p>
+    </div>
+
+    <!-- Preferred Language -->
+    <div class="form-item">
+        <label for="language_id" data-lang-id="017-preferred-language">Preferred Language:</label>
+        <select name="language_id" id="language_id">
+            <option value="" data-lang-id="018-select-language">Select Language</option>
+            <?php foreach ($languages as $language): ?>
+                <option value="<?php echo htmlspecialchars($language['language_id']); ?>" <?php if ($language['language_id'] == $languages_id) echo 'selected'; ?>>
+                    <?php
+                    switch (strtolower($lang)) {
+                        case 'id':
+                            echo htmlspecialchars($language['language_name_id']);
+                            break;
+                        case 'fr':
+                            echo htmlspecialchars($language['language_name_fr']);
+                            break;
+                        case 'es':
+                            echo htmlspecialchars($language['language_name_es']);
+                            break;
+                        case 'en':
+                        default:
+                            echo htmlspecialchars($language['language_name_en']);
+                            break;
+                    }
+                    ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+
+    <!-- Birth Date -->
+    <div class="form-item">
+        <label for="birth_date" data-lang-id="019-birth-date">Birth Date:</label>
+        <input type="date" name="birth_date" id="birth_date" value="<?php echo htmlspecialchars($birth_date); ?>">
+    </div>
+
+    <!-- Save and Update Button -->
+    <div style="margin:auto;text-align: center;margin-top:30px;">
+        <button type="submit" class="submit-button enabled" aria-label="Save and update" data-lang-id="020-submit-button">Save and Update</button>
+    </div>
+
 </form>
+
 
 
 

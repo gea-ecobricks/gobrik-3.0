@@ -654,82 +654,115 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+
+    /* FETCH RIVERS  */
+
+
+  $(function () {
     let debounceTimer;
 
-    // Show pin icon when the input is empty or filled
+    // Show pin icon when the input is empty and when it's filled
     function updatePinIconVisibility() {
-        if (document.getElementById("location_full").value.trim() === "" || document.getElementById("loading-spinner").style.display === "none") {
-            document.getElementById("location-pin").style.display = "inline";
+        if ($("#location_full").val().trim() === "" || $("#loading-spinner").is(":hidden")) {
+            $("#location-pin").show();
         } else {
-            document.getElementById("location-pin").style.display = "none";
+            $("#location-pin").hide();
         }
     }
 
     // Initialize location search using OpenStreetMap Nominatim API
-    document.getElementById("location_full").addEventListener("input", function () {
-        const input = this.value;
+    $("#location_full").autocomplete({
+        source: function (request, response) {
+            $("#loading-spinner").show();
+            $("#location-pin").hide(); // Hide the pin icon when typing starts
 
-        if (input.length < 3) {
-            return; // Wait until the user types at least 3 characters
-        }
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                $.ajax({
+                    url: "https://nominatim.openstreetmap.org/search",
+                    dataType: "json",
+                    headers: {
+                        'User-Agent': 'ecobricks.org'
+                    },
+                    data: {
+                        q: request.term,
+                        format: "json"
+                    },
+                    success: function (data) {
+                        $("#loading-spinner").hide();
+                        updatePinIconVisibility(); // Show the pin when data has loaded
 
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(function () {
-            document.getElementById("loading-spinner").style.display = "inline"; // Show spinner
-            document.getElementById("location-pin").style.display = "none"; // Hide pin icon when typing
-
-            fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(input)}&format=json&addressdetails=1&limit=5`)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById("loading-spinner").style.display = "none"; // Hide spinner
-                    updatePinIconVisibility(); // Update the pin visibility based on the input field's state
-
-                    // Process the results
-                    let suggestions = data.map(item => {
-                        return {
-                            label: item.display_name,
-                            lat: item.lat,
-                            lon: item.lon
-                        };
-                    });
-
-                    // Create a dropdown or suggestions display (depends on how you want to display results)
-                    displaySuggestions(suggestions);
-                })
-                .catch(error => {
-                    console.error("Error fetching location data:", error);
-                    document.getElementById("loading-spinner").style.display = "none"; // Hide spinner on error
-                    updatePinIconVisibility();
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.display_name,
+                                value: item.display_name,
+                                lat: item.lat,
+                                lon: item.lon
+                            };
+                        }));
+                    },
+                    error: function (xhr, status, error) {
+                        $("#loading-spinner").hide();
+                        updatePinIconVisibility(); // Show the pin when an error occurs
+                        console.error("Autocomplete error:", error);
+                        response([]);
+                    }
                 });
-        }, 300); // Debounce to avoid excessive API requests
+            }, 300);
+        },
+        select: function (event, ui) {
+            // Set the selected location in the input field
+            $('#location_full').val(ui.item.value);
+            // Set latitude and longitude
+            $('#lat').val(ui.item.lat);
+            $('#lon').val(ui.item.lon);
+
+            // Enable and clear the location_watershed field
+            $('#location_watershed').prop('disabled', false).val('').empty().append('<option value="" disabled selected>Searching for nearest rivers...</option>');
+
+            // Fetch and populate nearby rivers using the fetchNearbyRivers function
+            fetchNearbyRivers(ui.item.lat, ui.item.lon);
+
+            return false; // Prevent default behavior
+        },
+        minLength: 3
     });
 
-    // Example function to display suggestions (customize based on how you want to display results)
-    function displaySuggestions(suggestions) {
-        const suggestionBox = document.createElement('div');
-        suggestionBox.classList.add('suggestion-box');
+    // Function to fetch nearby rivers or watersheds using Overpass API
+    function fetchNearbyRivers(lat, lon) {
+        // Clear previous river options and add a default message while searching
+        $("#location_watershed").empty().append('<option value="" disabled selected>Searching for nearest rivers...</option>');
 
-        suggestions.forEach(suggestion => {
-            const suggestionItem = document.createElement('div');
-            suggestionItem.classList.add('suggestion-item');
-            suggestionItem.textContent = suggestion.label;
+        // Overpass API URL to find rivers around the selected location (within 5000 meters)
+        const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];(way["waterway"="river"](around:5000,${lat},${lon});relation["waterway"="river"](around:5000,${lat},${lon}););out geom;`;
 
-            // Set the latitude and longitude when a suggestion is clicked
-            suggestionItem.addEventListener('click', function () {
-                document.getElementById("location_full").value = suggestion.label;
-                document.getElementById("lat").value = suggestion.lat;
-                document.getElementById("lon").value = suggestion.lon;
-                suggestionBox.innerHTML = ''; // Clear suggestions after selection
+        $.get(overpassUrl, function (data) {
+            let rivers = data.elements;
+            let uniqueRivers = new Set(); // Set to keep track of unique river names
+
+            // Iterate through the rivers data and add the first five unique rivers
+            rivers.forEach((river) => {
+                let riverName = river.tags.name;
+
+                // Ensure the river has a name and is not a duplicate
+                if (riverName && !uniqueRivers.has(riverName) && !riverName.toLowerCase().includes("unnamed") && uniqueRivers.size < 5) {
+                    uniqueRivers.add(riverName);
+                    // Add river to the dropdown
+                    $("#location_watershed").append(new Option(riverName, riverName));
+                }
             });
 
-            suggestionBox.appendChild(suggestionItem);
+            // If no rivers are found, add a default message
+            if (uniqueRivers.size === 0) {
+                $("#location_watershed").empty().append('<option value="" disabled>No rivers found nearby</option>');
+            }
+        }).fail(function () {
+            console.error("Failed to fetch data from Overpass API.");
+            $("#location_watershed").empty().append('<option value="" disabled>Error fetching rivers</option>');
         });
-
-        // Append suggestions to the DOM (replace this with where you want to display them)
-        document.querySelector('.input-container').appendChild(suggestionBox);
     }
 });
+
 
 </script>
 

@@ -300,7 +300,7 @@ echo '<!DOCTYPE html>
     <label for="location_watershed" data-lang-id="011-watershed-location">Your local river:</label><br>
     <div class="input-container">
         <input type="text" id="location_watershed" name="location_watershed"
-               value="<?php echo $location_watershed; ?>" aria-label="Location Watershed" style="width: 100%; padding: 10px;" >
+               value="<?php echo $location_watershed; ?>" aria-label="Location Watershed" style="padding-left:45px;" >
         <div id="loading-spinner-watershed" class="spinner" style="display: none;"></div>
         <div id="watershed-pin" class="pin-icon">💧</div>
     </div>

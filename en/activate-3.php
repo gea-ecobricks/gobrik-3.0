@@ -227,12 +227,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     <!-- MAP AND WATERSHED SEARCH SECTION -->
     <div class="form-item" id="watershed-map-section" style="display: none; margin-top:20px;">
-        <label for="watershed_select" data-lang-id="011-watershed-select">What is your watershed?  Please select the river or stream closest to you:</label><br>
+        <label for="watershed_select" data-lang-id="011-watershed-select">What is your watershed?  Please select the river/stream closest to you:</label><br>
         <select id="watershed_select" name="watershed_select" aria-label="Watershed Select" style="width: 100%; padding: 10px;">
-            <option value="" disabled selected>Select river...</option>
+            <option value="" disabled selected>👉 Select river/stream...</option>
         </select>
-        <div id="map" style="height: 350px; border-radius: 15px; margin-top: 10px;"></div>
-        <p class="form-caption">💚 Rivers and their basins provide a great non-political way to localize our users by ecological region!  The map shows rivers and streams around you.  Choose the best option in the drop down menu.</p>
+        <div id="map" style="height: 350px; border-radius: 15px; margin-top: 15px;"></div>
+        <p class="form-caption" data-lang-id="012-river-basics">ℹ️ <a href="#" onclick="showModalInfo('waterbasins', '<?php echo $lang; ?>')" class="underline-link">Waterbasins</a> provide a great non-political way to localize our users by ecological region!  The map shows rivers and streams around you.  Choose the best option in the drop down menu.</p>
 
     </div>
 

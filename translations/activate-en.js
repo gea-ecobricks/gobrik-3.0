@@ -54,11 +54,11 @@ const en_Page_Translations = {
     "012-go-back-new-email": "Go back to enter a different email address.",
 
     // activate-3.php
-    "011-location-full": "What is your local area?",
-    "011b-select-river": "Select river/stream...",
+   "011-your-local-area": "What is your local area?",
   "011-location-full-caption": "Start typing your local area name, and we'll fill in the rest using the open source, non-corporate OpenStreetMap API.",
   "000-field-required-error": "This field is required.",
   "011-watershed-select": "What is your watershed?  Please select the river/stream closest to you:",
+  "011b-select-river": "👉 Select river/stream...",
   "012-river-basics": "ℹ️ <a href=\"#\" onclick=\"showModalInfo('watershed', '<?php echo $lang; ?>')\" class=\"underline-link\">Waterbasins</a> provide a great non-political way to localize our users by ecological region!  The map shows rivers and streams around you.  Choose the best option in the drop down menu.",
   "012-community-name": "Select and confirm your GoBrik community:",
   "012-community-caption": "Start typing to see and select a community.  Only GoBrik 2.0 currently available.  Soon you'll be able to add a new community!",

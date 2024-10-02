@@ -12,7 +12,7 @@ if (isLoggedIn()) {
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.694';
+$version = '0.695';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $is_logged_in = false; // Ensure not logged in for this page
 
@@ -201,9 +201,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
-            <p style="color:green;">✔ <?php echo htmlspecialchars($first_name); ?>, your password is set!</p>
+            <p style="color:green;">✔ <?php echo htmlspecialchars($first_name); ?>,<span data-lang-id="001-password-set" your password is set!</p>
             <div id="status-message"><span data-lang-id="012-status-heading2"> Now let's get you localized.</span></div>
-            <div id="sub-status-message" data-lang-id="013-sub-status-tell" style="font-size:1.3em;padding-top:10px;padding-bottom:10px;">GoBrik is all about ecological action. Please help us determine your ecological zone:  the water shed or riverbasin where you live.</div>
+            <div id="sub-status-message" data-lang-id="013-sub-ecozone" style="font-size:1.3em;padding-top:10px;padding-bottom:10px;">GoBrik is all about ecological action. Please help us determine your ecological zone:  the water shed or riverbasin where you live.</div>
         </div>
 
         <!-- ACTIVATE 3 FORM -->
@@ -212,7 +212,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     <!-- LOCATION FULL -->
     <div class="form-item">
-        <label for="location_full" data-lang-id="011-location-full">What is your local area?</label><br>
+        <label for="location_full" data-lang-id="011-your-local-area">What is your local area?</label><br>
         <div class="input-container">
             <input type="text" id="location_full" name="location_full" aria-label="Location Full" required style="padding-left:45px;">
             <div id="loading-spinner" class="spinner" style="display: none;"></div>

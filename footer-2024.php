@@ -407,7 +407,7 @@ function showModalInfo(type, lang) {
         case 'watershed':
             content = `
                 <div style="width:100%;text-align:center;">
-                    <h1>💦</h2>
+                    <h1>💧</h1>
                 </div>
                     <div>{translations['watershed-title']}</div>
                 <div class="preview-text">${translations['watershed-text']}</div>

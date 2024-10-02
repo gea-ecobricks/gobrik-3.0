@@ -278,7 +278,7 @@ echo '<!DOCTYPE html>
         <p class="form-caption" data-lang-id="011-location-full-caption">Your GoBrik community (migrated from GoBrik 2.0, soon you'll be able to add new communities)</p>
     </div>
 
-    <!-- Hidden latitude and longitude fields -->
+  <!-- Hidden latitude and longitude fields -->
 <input type="hidden" id="lat" name="latitude">
 <input type="hidden" id="lon" name="longitude">
 
@@ -302,10 +302,11 @@ echo '<!DOCTYPE html>
         <input type="text" id="location_watershed" name="location_watershed"
                value="<?php echo $location_watershed; ?>" aria-label="Location Watershed" style="width: 100%; padding: 10px;" >
         <div id="loading-spinner-watershed" class="spinner" style="display: none;"></div>
-        <div id="watershed-pin" class="pin-icon">💦</div>
+        <div id="watershed-pin" class="pin-icon">💧</div>
     </div>
     <p class="form-caption">💚 Rivers and their basins provide a great non-political way to localize our users by ecological region!</p>
 </div>
+
 
 
 
@@ -662,8 +663,9 @@ document.addEventListener('DOMContentLoaded', function () {
 <script>
 $(function () {
     let debounceTimer;
+    let riverLayerGroup = L.layerGroup();
 
-    // SECTION 1: Searching for the user's local area
+    // Show pin icon when the input is empty and when it's filled
     function updatePinIconVisibility() {
         if ($("#location_full").val().trim() === "" || $("#loading-spinner").is(":hidden")) {
             $("#location-pin").show();
@@ -713,23 +715,21 @@ $(function () {
             }, 300);
         },
         select: function (event, ui) {
-            // Set the selected location in the input field
-            $('#location_full').val(ui.item.value);
-            // Set latitude and longitude
+            console.log('Selected location:', ui.item);
             $('#lat').val(ui.item.lat);
             $('#lon').val(ui.item.lon);
-
-            // Enable the location_watershed field but do not populate yet
-            $('#location_watershed').prop('disabled', false);
-
-            return false; // Prevent default behavior
+            updatePinIconVisibility(); // Show pin icon after selection
         },
         minLength: 3
     });
 
-    // SECTION 2: Fetch nearby rivers when the user focuses on the location_watershed field
+    // Show or hide the pin icon based on input value changes
+    $("#location_full").on("input", function () {
+        updatePinIconVisibility();
+    });
+
+    // Fetch nearby rivers when user focuses on the "location_watershed" input field
     $("#location_watershed").on('focus', function () {
-        // Get latitude and longitude from the previously selected location
         const lat = $('#lat').val();
         const lon = $('#lon').val();
 
@@ -739,14 +739,18 @@ $(function () {
             return;
         }
 
-        // Show loading spinner for the watershed
+        // Show loading spinner for the watershed field
         $("#loading-spinner-watershed").show();
         $("#watershed-pin").hide(); // Hide the river pin icon when searching
 
-        // Call Overpass API to find rivers around the selected location
+        // Fetch nearby rivers using Overpass API
+        fetchNearbyRivers(lat, lon);
+    });
+
+    // Function to fetch nearby rivers using Overpass API
+    function fetchNearbyRivers(lat, lon) {
         const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];(way["waterway"="river"](around:5000,${lat},${lon});relation["waterway"="river"](around:5000,${lat},${lon}););out body;`;
 
-        // Fetch nearby rivers using Overpass API
         $.get(overpassUrl, function (data) {
             $("#loading-spinner-watershed").hide();
             $("#watershed-pin").show();
@@ -776,6 +780,12 @@ $(function () {
             console.error("Failed to fetch data from Overpass API.");
             $('#location_watershed').append('<option value="" disabled>Error fetching rivers</option>');
         });
+    }
+
+    $('#user-info-form').on('submit', function () {
+        console.log('Latitude:', $('#lat').val());
+        console.log('Longitude:', $('#lon').val());
+        // Additional submit handling if needed
     });
 });
 

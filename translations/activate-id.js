@@ -52,22 +52,14 @@ const id_Page_Translations = {
     "012-go-back-new-email": "Kembali untuk memasukkan alamat email yang berbeda.",
 
     // Activate-3.php
-    "012-status-heading": "kata sandi Anda telah diatur! Sekarang mari kita tentukan lokasi Anda.",
-    "013-sub-status-tell": "Akun Buwana dan GoBrik baru Anda berfokus pada aksi ekologi lokal dan global. Tolong beri tahu kami di mana Anda tinggal...",
-    "014-your-continent": "Di benua mana Anda tinggal?",
-    "015-continent-place-holder": "Pilih benua Anda...",
-    "014-your-country": "Di negara mana Anda tinggal?",
-    "015-country-place-holder": "Pilih negara tempat tinggal Anda...",
-    "014-your-watershed": "Di daerah aliran sungai mana Anda tinggal?",
-    "015-watershed-place-holder": "Pilih daerah aliran sungai Anda...",
-    "016-dont-know": "Saya tidak yakin",
-    "016-dont-know-alt": "Tidak terdaftar",
-    "018-what-is-watershed": "Hampir semua orang tinggal di salah satu dari 200 daerah aliran sungai utama di Bumi. Lihat apakah Anda dapat menemukan milik Anda! Pelajari lebih lanjut tentang ",
-    "019-watershed": "daerah aliran sungai",
-    "016-submit-complete-button": '<input type="submit" id="submit-button" value="Selesaikan Pengaturan" class="submit-button enabled"><p style="font-size:smaller;">Tidak menemukan daerah aliran sungai Anda? Jangan khawatir! Kami masih bekerja untuk menambahkannya.</p>',
 
-        "015-continents-caption": "Benua adalah tempat bioma, ekosistem utama Bumi, mendapatkan keanekaragaman dan vitalitas spesies mereka yang unik.",
-    "0016-select-country-placeholder": "Pilih negara tempat tinggal Anda...",
-
+ "011-location-full": "Apa nama daerah lokal Anda?",
+  "011-location-full-caption": "Mulailah mengetik nama daerah lokal Anda, dan kami akan melengkapi sisanya menggunakan API OpenStreetMap yang bersumber terbuka dan non-korporat.",
+  "000-field-required-error": "Kolom ini wajib diisi.",
+  "011-watershed-select": "Apa daerah aliran sungai Anda? Silakan pilih sungai/stream terdekat dengan Anda:",
+  "012-river-basics": "ℹ️ <a href=\"#\" onclick=\"showModalInfo('watershed', '<?php echo $lang; ?>')\" class=\"underline-link\">Daerah aliran sungai</a> memberikan cara yang bagus tanpa melibatkan politik untuk melokalisasi pengguna kami berdasarkan wilayah ekologis! Peta menunjukkan sungai dan aliran air di sekitar Anda. Pilih opsi terbaik di menu dropdown.",
+  "012-community-name": "Pilih dan konfirmasi komunitas GoBrik Anda:",
+  "012-community-caption": "Mulailah mengetik untuk melihat dan memilih komunitas. Saat ini hanya GoBrik 2.0 yang tersedia. Segera Anda dapat menambahkan komunitas baru!",
+  "016-next-button": "<input type=\"submit\" id=\"submit-button\" value=\"Berikutnya ➡️\" class=\"submit-button enabled\">"
 };
 

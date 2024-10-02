@@ -54,22 +54,15 @@ const en_Page_Translations = {
     "012-go-back-new-email": "Go back to enter a different email address.",
 
     // activate-3.php
-    "012-status-heading": "your password is set! Now let's get you localized.",
-    "013-sub-status-tell": "Your new Buwana and GoBrik account is all about local and global ecological action. Please tell us about where you live...",
-    "014-your-continent": "On what continent do you live?",
-    "015-continent-place-holder": "Select your continent...",
-    "014-your-country": "In what country do you reside?",
-    "015-country-place-holder": "Select your country of residence...",
-    "014-your-watershed": "In what river basin do you live?",
-    "015-watershed-place-holder": "Select your river basin...",
-    "016-dont-know": "I am not sure",
-    "016-dont-know-alt": "Not listed",
-    "018-what-is-watershed": "Almost everyone lives in one of Earth's 200 main watersheds. See if you can locate yours! Learn more about ",
-    "019-watershed": "watersheds",
-    "016-submit-complete-button": '<input type="submit" id="submit-button" value="Complete Setup" class="submit-button enabled"><p style="font-size:smaller;">Can\'t find your watershed? No worries! We\'re still working on adding them.</p>',
+    "011-location-full": "What is your local area?",
+  "011-location-full-caption": "Start typing your local area name, and we'll fill in the rest using the open source, non-corporate OpenStreetMap API.",
+  "000-field-required-error": "This field is required.",
+  "011-watershed-select": "What is your watershed?  Please select the river/stream closest to you:",
+  "012-river-basics": "ℹ️ <a href=\"#\" onclick=\"showModalInfo('watershed', '<?php echo $lang; ?>')\" class=\"underline-link\">Waterbasins</a> provide a great non-political way to localize our users by ecological region!  The map shows rivers and streams around you.  Choose the best option in the drop down menu.",
+  "012-community-name": "Select and confirm your GoBrik community:",
+  "012-community-caption": "Start typing to see and select a community.  Only GoBrik 2.0 currently available.  Soon you'll be able to add a new community!",
+  "016-next-button": "<input type=\"submit\" id=\"submit-button\" value=\"Next ➡️\" class=\"submit-button enabled\">"
 
-    "015-continents-caption": "Continents are where biomes, Earth's major ecosystems, get their unique diversity and vitality of species.",
-    "0016-select-country-placeholder": "Select your country of residence..."
 };
 
 

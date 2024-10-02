@@ -51,22 +51,17 @@ const es_Page_Translations = {
     "012-go-back-new-email": "Regresar para ingresar una dirección de correo electrónico diferente.",
 
     // Activate-3.php
-    "012-status-heading": "¡tu contraseña está configurada! Ahora vamos a localizarte.",
-    "013-sub-status-tell": "Tu nueva cuenta de Buwana y GoBrik trata sobre la acción ecológica local y global. Por favor, cuéntanos dónde vives...",
-    "014-your-continent": "¿En qué continente vives?",
-    "015-continent-place-holder": "Seleccione su continente...",
-    "014-your-country": "¿En qué país resides?",
-    "015-country-place-holder": "Seleccione su país de residencia...",
-    "014-your-watershed": "¿En qué cuenca hidrográfica vives?",
-    "015-watershed-place-holder": "Seleccione su cuenca hidrográfica...",
-    "016-dont-know": "No estoy seguro",
-    "016-dont-know-alt": "No listado",
-    "018-what-is-watershed": "Casi todos viven en una de las 200 principales cuencas hidrográficas de la Tierra. ¡Vea si puede localizar la suya! Aprende más sobre ",
-    "019-watershed": "cuencas hidrográficas",
-    "016-submit-complete-button": '<input type="submit" id="submit-button" value="Completar configuración" class="submit-button enabled"><p style="font-size:smaller;">¿No puedes encontrar tu cuenca hidrográfica? ¡No te preocupes! Todavía estamos trabajando en agregarlas.</p>',
-
-        "015-continents-caption": "Los continentes son donde los biomas, los principales ecosistemas de la Tierra, obtienen su diversidad y vitalidad únicas de especies.",
-    "0016-select-country-placeholder": "Seleccione su país de residencia...",
+  // activate-3.php
+"001-password-set": "Tu contraseña está configurada.",
+"011-your-local-area": "¿Cuál es tu área local?",
+"011-location-full-caption": "Comienza a escribir el nombre de tu área local y completaremos el resto utilizando la API OpenStreetMap de código abierto y no corporativa.",
+"000-field-required-error": "Este campo es obligatorio.",
+"011-watershed-select": "¿Cuál es tu cuenca hidrográfica? Selecciona el río/arroyo más cercano a ti:",
+"011b-select-river": "👉 Selecciona río/arroyo...",
+"012-river-basics": "ℹ️ <a href=\"#\" onclick=\"showModalInfo('watershed', '<?php echo $lang; ?>')\" class=\"underline-link\">Las cuencas hidrográficas</a> proporcionan una excelente manera no política de localizar a nuestros usuarios por región ecológica. El mapa muestra ríos y arroyos a tu alrededor. Elige la mejor opción en el menú desplegable.",
+"012-community-name": "Selecciona y confirma tu comunidad de GoBrik:",
+"012-community-caption": "Comienza a escribir para ver y seleccionar una comunidad. Actualmente, solo GoBrik 2.0 está disponible. ¡Pronto podrás agregar una nueva comunidad!",
+"016-next-button": "<input type=\"submit\" id=\"submit-button\" value=\"Siguiente ➡️\" class=\"submit-button enabled\">"
 
 };
 

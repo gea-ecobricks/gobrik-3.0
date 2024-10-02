@@ -51,22 +51,16 @@ const fr_Page_Translations = {
     "012-go-back-new-email": "Retournez pour entrer une autre adresse e-mail.",
 
     // Activate-3.php
-    "012-status-heading": "votre mot de passe est défini ! Passons maintenant à votre localisation.",
-    "013-sub-status-tell": "Votre nouveau compte Buwana et GoBrik concerne l'action écologique locale et globale. Veuillez nous indiquer où vous vivez...",
-    "014-your-continent": "Sur quel continent vivez-vous ?",
-    "015-continent-place-holder": "Sélectionnez votre continent...",
-    "014-your-country": "Dans quel pays résidez-vous ?",
-    "015-country-place-holder": "Sélectionnez votre pays de résidence...",
-    "014-your-watershed": "Dans quel bassin fluvial vivez-vous ?",
-    "015-watershed-place-holder": "Sélectionnez votre bassin fluvial...",
-    "016-dont-know": "Je ne sais pas",
-    "016-dont-know-alt": "Non répertorié",
-    "018-what-is-watershed": "Presque tout le monde vit dans l'un des 200 principaux bassins versants de la Terre. Voyez si vous pouvez trouver le vôtre ! En savoir plus sur ",
-    "019-watershed": "les bassins versants",
-    "016-submit-complete-button": '<input type="submit" id="submit-button" value="Terminer l\'installation" class="submit-button enabled"><p style="font-size:smaller;">Vous ne trouvez pas votre bassin versant ? Pas de soucis ! Nous travaillons encore à les ajouter.</p>',
-
-    "015-continents-caption": "Les continents sont là où les biomes, les principaux écosystèmes de la Terre, obtiennent leur diversité unique et leur vitalité des espèces.",
-    "0016-select-country-placeholder": "Sélectionnez votre pays de résidence..."
+"001-password-set": "Votre mot de passe est défini.",
+"011-your-local-area": "Quelle est votre zone locale ?",
+"011-location-full-caption": "Commencez à taper le nom de votre zone locale, et nous compléterons le reste en utilisant l'API OpenStreetMap open source et non corporative.",
+"000-field-required-error": "Ce champ est obligatoire.",
+"011-watershed-select": "Quelle est votre bassin versant ? Veuillez sélectionner la rivière/le cours d'eau le plus proche de vous :",
+"011b-select-river": "👉 Sélectionner rivière/cours d'eau...",
+"012-river-basics": "ℹ️ <a href=\"#\" onclick=\"showModalInfo('watershed', '<?php echo $lang; ?>')\" class=\"underline-link\">Les bassins versants</a> offrent un excellent moyen non politique de localiser nos utilisateurs par région écologique ! La carte montre les rivières et cours d'eau autour de vous. Choisissez la meilleure option dans le menu déroulant.",
+"012-community-name": "Sélectionnez et confirmez votre communauté GoBrik :",
+"012-community-caption": "Commencez à taper pour voir et sélectionner une communauté. Seule GoBrik 2.0 est actuellement disponible. Bientôt, vous pourrez ajouter une nouvelle communauté !",
+"016-next-button": "<input type=\"submit\" id=\"submit-button\" value=\"Suivant ➡️\" class=\"submit-button enabled\">"
 
 
 

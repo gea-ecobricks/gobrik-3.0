@@ -428,8 +428,9 @@ require_once ("../includes/log-inc.php");
                             <label for="community_select">Select Your Community:</label><br>
                             <input type="text" id="community_select" name="community_select"
                                    value="<?= htmlspecialchars($current_community_name, ENT_QUOTES); ?>"
-                                   placeholder="Start typing your community..." required>
+                                   placeholder="Start typing your community..." required style="padding-left:45px;">
                             <div id="community-suggestions" class="suggestions-box"></div>
+                            <div id="location-pin" class="pin-icon">📌</div>
                             <p class="form-caption">Select your community from the list based on your current or updated community name.</p>
                         </div>
 
@@ -670,49 +671,51 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     //community functions
+$(document).ready(function() {
+    const communitySelect = $('#community_select');
 
-    document.addEventListener('DOMContentLoaded', function() {
-    const communitySelect = document.getElementById('community_select');
-
-    // Add an event listener to trigger AJAX search when user types in the community field
-    communitySelect.addEventListener('input', function() {
-        const query = this.value;
+    // Trigger AJAX search when user types in the community field
+    communitySelect.on('input', function() {
+        const query = $(this).val();
 
         // If the user has typed at least 3 characters, trigger the AJAX search
         if (query.length >= 3) {
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', '../api/search_communities.php', true);  // Assume you have a separate PHP file for searching
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    const response = JSON.parse(xhr.responseText);
-                    // Handle response, for example, show a list of matching communities
-                    showCommunitySuggestions(response);
+            $.ajax({
+                type: 'POST',
+                url: '../api/search_communities.php',
+                data: { query: query },
+                success: function(response) {
+                    const communities = JSON.parse(response);
+                    showCommunitySuggestions(communities);
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error: ' + status + ': ' + error);
                 }
-            };
-
-            xhr.send('query=' + encodeURIComponent(query));
+            });
         }
     });
 
-    // Function to display the community suggestions
+    // Function to display the community suggestions in a dropdown
     function showCommunitySuggestions(communities) {
         // Clear previous suggestions
-        const suggestionsBox = document.getElementById('community-suggestions');
-        suggestionsBox.innerHTML = '';
+        communitySelect.find('option:not(:first)').remove();  // Keep only the default option
 
+        // Add each community as an option in the select menu
         communities.forEach(function(community) {
-            const suggestionItem = document.createElement('div');
-            suggestionItem.textContent = community.com_name;
-            suggestionItem.addEventListener('click', function() {
-                communitySelect.value = community.com_name;
-                suggestionsBox.innerHTML = '';  // Clear suggestions once a community is selected
-            });
-            suggestionsBox.appendChild(suggestionItem);
+            $('<option>', {
+                value: community.com_name,
+                text: community.com_name
+            }).appendTo(communitySelect);
         });
     }
+
+    // Pre-set the user's current community if available
+    const currentCommunityName = "<?= htmlspecialchars($current_community_name, ENT_QUOTES); ?>";
+    if (currentCommunityName) {
+        communitySelect.val(currentCommunityName);
+    }
 });
+
 
 
 </script>

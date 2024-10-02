@@ -671,50 +671,53 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     //community functions
-$(document).ready(function() {
-    const communitySelect = $('#community_select');
+document.addEventListener('DOMContentLoaded', function() {
+    const communitySelect = document.getElementById('community_select');
 
-    // Trigger AJAX search when user types in the community field
-    communitySelect.on('input', function() {
-        const query = $(this).val();
+    // Log the current community name for debugging
+    console.log('Current community pre-set value:', communitySelect.value);
+
+    // Add an event listener to trigger AJAX search when user types in the community field
+    communitySelect.addEventListener('input', function() {
+        const query = this.value;
 
         // If the user has typed at least 3 characters, trigger the AJAX search
-        if (query.length >= 4) {
-            $.ajax({
-                type: 'POST',
-                url: '../api/search_communities.php',
-                data: { query: query },
-                success: function(response) {
-                    const communities = JSON.parse(response);
-                    showCommunitySuggestions(communities);
-                },
-                error: function(xhr, status, error) {
-                    console.error('AJAX Error: ' + status + ': ' + error);
+        if (query.length >= 3) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '../api/search_communities.php', true);  // Assume you have a separate PHP file for searching
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    // Handle response, for example, show a list of matching communities
+                    showCommunitySuggestions(response);
                 }
-            });
+            };
+
+            xhr.send('query=' + encodeURIComponent(query));
         }
     });
 
-    // Function to display the community suggestions in a dropdown
+    // Function to display the community suggestions
     function showCommunitySuggestions(communities) {
         // Clear previous suggestions
-        communitySelect.find('option:not(:first)').remove();  // Keep only the default option
+        const suggestionsBox = document.getElementById('community-suggestions');
+        suggestionsBox.innerHTML = '';
 
-        // Add each community as an option in the select menu
         communities.forEach(function(community) {
-            $('<option>', {
-                value: community.com_name,
-                text: community.com_name
-            }).appendTo(communitySelect);
+            const suggestionItem = document.createElement('div');
+            suggestionItem.textContent = community.com_name;
+            suggestionItem.classList.add('suggestion-item'); // Add class for styling
+            suggestionItem.addEventListener('click', function() {
+                communitySelect.value = community.com_name;
+                suggestionsBox.innerHTML = '';  // Clear suggestions once a community is selected
+            });
+            suggestionsBox.appendChild(suggestionItem);
         });
     }
-
-    // Pre-set the user's current community if available
-    const currentCommunityName = "<?= htmlspecialchars($current_community_name, ENT_QUOTES); ?>";
-    if (currentCommunityName) {
-        communitySelect.val(currentCommunityName);
-    }
 });
+
 
 
 

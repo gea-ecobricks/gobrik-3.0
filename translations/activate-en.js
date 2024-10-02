@@ -54,7 +54,7 @@ const en_Page_Translations = {
     "012-go-back-new-email": "Go back to enter a different email address.",
 
     // activate-3.php
-    "001-password-set": "your password is set."
+    "001-password-set": "your password is set.",
    "011-your-local-area": "What is your local area?",
   "011-location-full-caption": "Start typing your local area name, and we'll fill in the rest using the open source, non-corporate OpenStreetMap API.",
   "000-field-required-error": "This field is required.",

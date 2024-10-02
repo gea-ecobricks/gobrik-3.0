@@ -18,60 +18,14 @@ if ($is_logged_in) {
     require_once '../gobrikconn_env.php';
     require_once '../buwanaconn_env.php';
 
-    // Fetch the user's continent icon from Buwana
+    // Fetch the user's location data
     $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
     $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
     $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
     $gea_status = getGEA_status($buwana_id);
-
-    // Fetch the user's country_id from Buwana
-    $country_id = null;
-    $sql_country_id = "SELECT country_id FROM users_tb WHERE buwana_id = ?";
-    $stmt_country_id = $buwana_conn->prepare($sql_country_id);
-
-    if ($stmt_country_id) {
-        $stmt_country_id->bind_param("s", $buwana_id);
-        $stmt_country_id->execute();
-        $stmt_country_id->bind_result($country_id);
-        $stmt_country_id->fetch();
-        $stmt_country_id->close();
-    }
+    $user_community_name = getCommunityName($buwana_conn, $buwana_id);
 
 
-
-
-
-// Fetch the user's current community_id, location_full, and location_watershed from users_tb
-$current_community_id = null;
-$current_community_name = null;  // To store the current community name
-$location_full = null;
-$location_watershed = null;
-
-// Fetch community_id, location_full, and location_watershed from users_tb
-$sql_user_info = "SELECT community_id, location_full, location_watershed FROM users_tb WHERE buwana_id = ?";
-$stmt_user_info = $buwana_conn->prepare($sql_user_info);
-
-if ($stmt_user_info) {
-    $stmt_user_info->bind_param("i", $buwana_id); // Assuming you have $buwana_id in session or defined
-    $stmt_user_info->execute();
-    $stmt_user_info->bind_result($current_community_id, $location_full, $location_watershed);
-    $stmt_user_info->fetch();
-    $stmt_user_info->close();
-}
-
-// Fetch the current community name based on the community_id
-if ($current_community_id) {
-    $sql_community_name = "SELECT com_name FROM tb_communities WHERE com_id = ?";
-    $stmt_community_name = $gobrik_conn->prepare($sql_community_name);
-
-    if ($stmt_community_name) {
-        $stmt_community_name->bind_param("i", $current_community_id);
-        $stmt_community_name->execute();
-        $stmt_community_name->bind_result($current_community_name);
-        $stmt_community_name->fetch();
-        $stmt_community_name->close();
-    }
-}
 
 
 
@@ -424,46 +378,42 @@ require_once ("../includes/log-inc.php");
 
                         <p>Whenever you log an ecobrick it is tagged with your own Buwana account localization.  You can edit these defaults here:</p>>
 
-                       <div class="form-item">
-                            <label for="community_select">Select Your Community:</label><br>
-                            <input type="text" id="community_select" name="community_select"
-                                   value="<?= htmlspecialchars($current_community_name, ENT_QUOTES); ?>"
-                                   placeholder="Start typing your community..." required style="padding-left:45px;">
-                            <div id="community-suggestions" class="suggestions-box"></div>
-                            <div id="community-pin" class="pin-icon">📌</div>
-                            <p class="form-caption">Select your community from the list based on your current or updated community name.</p>
-                        </div>
-
-
+                     <div class="form-item">
+                        <label for="community_select">Select Your Community:</label><br>
+                        <input type="text" id="community_select" name="community_select"
+                               value="<?= htmlspecialchars($user_community_name, ENT_QUOTES); ?>"
+                               placeholder="Start typing your community..." required style="padding-left:45px;">
+                        <div id="community-suggestions" class="suggestions-box"></div>
+                        <div id="community-pin" class="pin-icon">📌</div>
+                        <p class="form-caption">Select your community from the list based on your current or updated community name.</p>
+                    </div>
 
                     <div class="form-item">
                         <label for="location_full" data-lang-id="011-location-full">Where is this ecobrick based?</label><br>
                         <div class="input-container">
                             <input type="text" id="location_full" name="location_full"
-                                   value="<?= htmlspecialchars($location_full, ENT_QUOTES); ?>"
+                                   value="<?= htmlspecialchars($user_location_full, ENT_QUOTES); ?>"
                                    aria-label="Location Full" required style="padding-left:45px;">
                             <div id="loading-spinner" class="spinner" style="display: none;"></div>
                             <div id="location-pin" class="pin-icon">📍</div>
                         </div>
                         <p class="form-caption" data-lang-id="011-location-full-caption">Start typing the name of your town or city, and we'll fill in the rest using the open source, non-corporate openstreetmaps API. Avoid using your exact address for privacy-- just your town, city or country is fine.</p>
-
-                        <!--ERRORS-->
                         <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
                     </div>
-
 
                     <!-- Location Watershed -->
                     <div class="form-item">
                         <label for="location_watershed" data-lang-id="011-watershed-location">Your local river:</label><br>
                         <div class="input-container">
                             <input type="text" id="location_watershed" name="location_watershed"
-                                   value="<?= htmlspecialchars($location_watershed, ENT_QUOTES); ?>"
+                                   value="<?= htmlspecialchars($user_location_watershed, ENT_QUOTES); ?>"
                                    aria-label="Location Watershed" style="padding-left:45px;">
                             <div id="loading-spinner-watershed" class="spinner" style="display: none;"></div>
                             <div id="watershed-pin" class="pin-icon">💧</div>
                         </div>
                         <p class="form-caption">💚 Rivers and their basins provide a great non-political way to localize our users by ecological region!</p>
                     </div>
+
 
 
                     <!--<div class="form-item">

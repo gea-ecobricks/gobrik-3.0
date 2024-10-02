@@ -420,7 +420,7 @@ require_once ("../includes/log-inc.php");
                         <div class="advanced-title" data-lang-id="013-advanced-options">Edit Localization</div>
                         <div class="advanced-open-icon">+</div>
                     </div>
-                    <div class="advanced-box-content">
+                    <div class="advanced-box-content" style="display:none;">
 
                         <p>Whenever you log an ecobrick it is tagged with your own Buwana account localization.  You can edit these defaults here:</p>>
 

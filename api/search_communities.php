@@ -5,7 +5,7 @@ if (isset($_POST['query'])) {
     $query = '%' . trim($_POST['query']) . '%';  // Search with wildcards
 
     // Prepare the SQL query to search for communities by name
-    $sql_search = "SELECT com_id, com_name FROM tb_communities WHERE com_name LIKE ?";
+    $sql_search = "SELECT com_id, com_name FROM communities_tb WHERE com_name LIKE ?";
     $stmt_search = $buwana_conn->prepare($sql_search);
 
     if ($stmt_search) {

@@ -16,6 +16,13 @@
 
 <STYLE>
 
+
+       #main {
+        height: fit-content !important;
+        padding-bottom: 100px;
+        min-height: 1700px;
+    }
+
   .code-boxes {
         display: flex;
         justify-content: center;

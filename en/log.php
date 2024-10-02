@@ -47,20 +47,35 @@ if ($is_logged_in) {
 
     // Fetch communities based on the user's country_id
 
-    $communities = [];
-    $sql_communities = "SELECT com_id, com_name FROM tb_communities WHERE country_id = ?";
-    $stmt_communities = $gobrik_conn->prepare($sql_communities);
+  // Fetch the user's current community_id from users_tb
+$current_community_id = null;
+$sql_user_community = "SELECT community_id FROM users_tb WHERE buwana_id = ?";
+$stmt_user_community = $buwana_conn->prepare($sql_user_community);
 
-    if ($stmt_communities) {
-        $stmt_communities->bind_param("i", $country_id); // Bind the fetched country_id
-        $stmt_communities->execute();
-        $stmt_communities->bind_result($com_id, $com_name);
+if ($stmt_user_community) {
+    $stmt_user_community->bind_param("i", $buwana_id); // Assuming you have $buwana_id in session or defined
+    $stmt_user_community->execute();
+    $stmt_user_community->bind_result($current_community_id);
+    $stmt_user_community->fetch();
+    $stmt_user_community->close();
+}
 
-        while ($stmt_communities->fetch()) {
-            $communities[$com_id] = $com_name; // Store both the com_id and com_name for dropdown
-        }
-        $stmt_communities->close();
+// Fetch communities based on the user's country_id
+$communities = [];
+$sql_communities = "SELECT com_id, com_name FROM tb_communities WHERE country_id = ?";
+$stmt_communities = $gobrik_conn->prepare($sql_communities);
+
+if ($stmt_communities) {
+    $stmt_communities->bind_param("i", $country_id); // Bind the fetched country_id
+    $stmt_communities->execute();
+    $stmt_communities->bind_result($com_id, $com_name);
+
+    while ($stmt_communities->fetch()) {
+        $communities[$com_id] = $com_name; // Store both the com_id and com_name for dropdown
     }
+    $stmt_communities->close();
+}
+
 
   // PART 3: POST ECOBRICK DATA to GOBRIK DATABASE
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -397,19 +412,53 @@ require_once ("../includes/log-inc.php");
                     <div id="plastic-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
                 </div>
 
-                <!-- Community Selection -->
-                <div class="form-item">
-                    <label for="community_select">Select Your Community:</label><br>
-                    <select id="community_select" name="community_select" required>
-                        <option value="" disabled selected>Select a community...</option>
-                        <?php foreach ($communities as $com_id => $com_name): ?>
-                            <option value="<?= htmlspecialchars($com_id, ENT_QUOTES); ?>">
-                                <?= htmlspecialchars($com_name, ENT_QUOTES); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                    <p class="form-caption">Select your community from the list based on your country.</p>
+
+
+                <div class="advanced-box" aria-expanded="false" role="region" aria-labelledby="advancedBoxLabel-1">
+                    <div class="advanced-box-header"  id="advancedBoxLabel-1">
+                        <div class="advanced-title" data-lang-id="013-advanced-options">Advanced Options</div>
+                        <div class="advanced-open-icon">+</div>
+                    </div>
+                    <div class="advanced-box-content">
+
+                       <div class="form-item">
+                            <label for="community_select">Select Your Community:</label><br>
+                            <select id="community_select" name="community_select" required>
+                                <option value="" disabled selected>Select a community...</option>
+                                <?php foreach ($communities as $com_id => $com_name): ?>
+                                    <option value="<?= htmlspecialchars($com_id, ENT_QUOTES); ?>"
+                                        <?php if ($com_id == $current_community_id) echo 'selected'; ?>>
+                                        <?= htmlspecialchars($com_name, ENT_QUOTES); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                            <p class="form-caption">Select your community from the list based on your country.</p>
+                        </div>
+
+
+                        <div class="form-item">
+                            <label for="project_id" data-lang-id="014-project-id">Is this ecobrick part of a project?</label><br>
+                            <input type="number" id="project_id" name="project_id" aria-label="Project ID">
+                            <p class="form-caption" data-lang-id="014-project-id-caption">Optional: Provide the project ID if this ecobrick is part of a project.</p>
+
+                            <!--ERRORS-->
+                            <div id="project-error-long" class="form-field-error" data-lang-id="000-field-too-long-error">Entry is too long.</div>
+                        </div>
+
+                        <div class="form-item">
+                            <label for="training_id" data-lang-id="015-training-id">Was this ecobrick made in a training?</label><br>
+                            <input type="number" id="training_id" name="training_id" aria-label="Training ID">
+                            <p class="form-caption" data-lang-id="015-training-id-caption">Optional: Provide the training ID if this ecobrick was made in a training.</p>
+
+                            <!--ERRORS-->
+                            <div id="training-error-long" class="form-field-error" data-lang-id="000-field-too-long-error">Entry is too long.</div>
+                        </div>
+
+                    </div>
                 </div>
+
+
+
 
 
                 <div data-lang-id="016-submit-button" style="margin:auto;text-align: center;margin-top:30px;">

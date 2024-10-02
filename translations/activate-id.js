@@ -54,6 +54,7 @@ const id_Page_Translations = {
     // Activate-3.php
 
  "011-location-full": "Apa nama daerah lokal Anda?",
+ "011b-select-river": "Pilih sungai...",
   "011-location-full-caption": "Mulailah mengetik nama daerah lokal Anda, dan kami akan melengkapi sisanya menggunakan API OpenStreetMap yang bersumber terbuka dan non-korporat.",
   "000-field-required-error": "Kolom ini wajib diisi.",
   "011-watershed-select": "Apa daerah aliran sungai Anda? Silakan pilih sungai/stream terdekat dengan Anda:",

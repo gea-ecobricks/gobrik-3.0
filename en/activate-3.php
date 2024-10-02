@@ -12,7 +12,7 @@ if (isLoggedIn()) {
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.693';
+$version = '0.694';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $is_logged_in = false; // Ensure not logged in for this page
 
@@ -229,15 +229,15 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-item" id="watershed-map-section" style="display: none; margin-top:20px;">
         <label for="watershed_select" data-lang-id="011-watershed-select">What is your watershed?  Please select the river/stream closest to you:</label><br>
         <select id="watershed_select" name="watershed_select" aria-label="Watershed Select" style="width: 100%; padding: 10px;">
-            <option value="" disabled selected>👉 Select river/stream...</option>
+            <option value="" disabled selected data-lang-id="011b-select-river">👉 Select river/stream...</option>
         </select>
-        <div id="map" style="height: 350px; border-radius: 15px; margin-top: 15px;"></div>
-        <p class="form-caption" data-lang-id="012-river-basics">ℹ️ <a href="#" onclick="showModalInfo('watershed', '<?php echo $lang; ?>')" class="underline-link">Waterbasins</a> provide a great non-political way to localize our users by ecological region!  The map shows rivers and streams around you.  Choose the best option in the drop down menu.</p>
+        <div id="map" style="height: 350px; border-radius: 0px 0px 12px 12px; margin-top: 8px;"></div>
+        <p class="form-caption" data-lang-id="012-river-basics" style="margin-top:10px;">ℹ️ <a href="#" onclick="showModalInfo('watershed', '<?php echo $lang; ?>')" class="underline-link">Waterbasins</a> provide a great non-political way to localize our users by ecological region!  The map shows rivers and streams around you.  Choose the best option in the drop down menu.</p>
 
     </div>
 
     <!-- COMMUNITY FIELD -->
-    <div class="form-item" id="community-section" style="display: none; margin-top:30px;">
+    <div class="form-item" id="community-section" style="display: none; margin-top:20px;">
         <label for="community_name" data-lang-id="012-community-name">Select and confirm your GoBrik community:</label><br>
         <input type="text" id="community_name" name="community_name" aria-label="Community Name" list="community_list"
                placeholder="Type your community" style="width: 100%; padding: 10px;"

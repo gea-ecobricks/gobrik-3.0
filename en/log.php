@@ -46,18 +46,18 @@ if ($is_logged_in) {
     }
 
     // Fetch communities based on the user's country_id
-
-  // Fetch the user's current community_id from users_tb
+// Fetch the user's current community_id and location_full from users_tb
 $current_community_id = null;
-$sql_user_community = "SELECT community_id FROM users_tb WHERE buwana_id = ?";
-$stmt_user_community = $buwana_conn->prepare($sql_user_community);
+$location_full = null;
+$sql_user_info = "SELECT community_id, location_full FROM users_tb WHERE buwana_id = ?";
+$stmt_user_info = $buwana_conn->prepare($sql_user_info);
 
-if ($stmt_user_community) {
-    $stmt_user_community->bind_param("i", $buwana_id); // Assuming you have $buwana_id in session or defined
-    $stmt_user_community->execute();
-    $stmt_user_community->bind_result($current_community_id);
-    $stmt_user_community->fetch();
-    $stmt_user_community->close();
+if ($stmt_user_info) {
+    $stmt_user_info->bind_param("i", $buwana_id); // Assuming you have $buwana_id in session or defined
+    $stmt_user_info->execute();
+    $stmt_user_info->bind_result($current_community_id, $location_full);
+    $stmt_user_info->fetch();
+    $stmt_user_info->close();
 }
 
 // Fetch communities based on the user's country_id
@@ -75,6 +75,7 @@ if ($stmt_communities) {
     }
     $stmt_communities->close();
 }
+
 
 
   // PART 3: POST ECOBRICK DATA to GOBRIK DATABASE
@@ -435,6 +436,21 @@ require_once ("../includes/log-inc.php");
                             <p class="form-caption">Select your community from the list based on your country.</p>
                         </div>
 
+                    <div class="form-item">
+                        <label for="location_full" data-lang-id="011-location-full">Where is this ecobrick based?</label><br>
+                        <div class="input-container">
+                            <input type="text" id="location_full" name="location_full"
+                                   value="<?= htmlspecialchars($location_full, ENT_QUOTES); ?>"
+                                   aria-label="Location Full" required style="padding-left:45px;">
+                            <div id="loading-spinner" class="spinner" style="display: none;"></div>
+                        </div>
+                        <p class="form-caption" data-lang-id="011-location-full-caption">Start typing the name of your town or city, and we'll fill in the rest using the open source, non-corporate openstreetmaps API. Avoid using your exact address for privacy-- just your town, city or country is fine.</p>
+
+                        <!--ERRORS-->
+                        <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
+                    </div>
+
+
 
                         <div class="form-item">
                             <label for="project_id" data-lang-id="014-project-id">Is this ecobrick part of a project?</label><br>
@@ -494,6 +510,70 @@ require_once ("../includes/log-inc.php");
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <script>
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Initially hide all additional fields using visibility and height
+        const communityField = document.getElementById("community_name").parentNode;
+        const projectField = document.getElementById("project_id").parentNode;
+        const trainingField = document.getElementById("training_id").parentNode;
+
+        communityField.style.visibility = 'hidden';
+        communityField.style.height = '0';
+        projectField.style.visibility = 'hidden';
+        projectField.style.height = '0';
+        trainingField.style.visibility = 'hidden';
+        trainingField.style.height = '0';
+
+        // SHOW HIDE THE ADVANCED BOX
+        function toggleAdvancedBox(event) {
+            // Get the current advanced box based on the clicked header
+            let currentAdvancedBox = event.currentTarget.parentElement;
+
+            // Assuming the element that will have the `aria-expanded` attribute is the header itself
+            let header = currentAdvancedBox.querySelector('.advanced-box-header');
+
+            // Find the content and icon specific to this advanced box
+            let content = currentAdvancedBox.querySelector('.advanced-box-content');
+            let icon = currentAdvancedBox.querySelector('.advanced-open-icon');
+
+            // Check if the content is currently expanded or not
+            let isExpanded = header.getAttribute('aria-expanded') === 'true';
+
+            if (!isExpanded) {
+                // Temporarily set visibility to calculate height
+                communityField.style.visibility = 'visible';
+                communityField.style.height = 'auto';
+                projectField.style.visibility = 'visible';
+                projectField.style.height = 'auto';
+                trainingField.style.visibility = 'visible';
+                trainingField.style.height = 'auto';
+
+                content.style.maxHeight = content.scrollHeight + 'px'; // Set to its full height
+                icon.textContent = '−'; // Switch to minus symbol for an open state
+                header.setAttribute('aria-expanded', 'true'); // Update aria-expanded to true
+            } else {
+                content.style.maxHeight = '0px'; // Collapse it
+                icon.textContent = '+'; // Set to plus symbol
+                header.setAttribute('aria-expanded', 'false'); // Update aria-expanded to false
+
+                communityField.style.visibility = 'hidden';
+                communityField.style.height = '0';
+                projectField.style.visibility = 'hidden';
+                projectField.style.height = '0';
+                trainingField.style.visibility = 'hidden';
+                trainingField.style.height = '0';
+            }
+        }
+
+        // Attach the function to all header div's click events
+        let headers = document.querySelectorAll('.advanced-box-header');
+        headers.forEach(header => {
+            header.addEventListener('click', toggleAdvancedBox);
+        });
+    });
+
+
 
 
     document.getElementById('submit-form').addEventListener('submit', function(event) {
@@ -566,6 +646,56 @@ require_once ("../includes/log-inc.php");
 
 
 
+    $(function() {
+        let debounceTimer;
+        $("#location_full").autocomplete({
+            source: function(request, response) {
+                $("#loading-spinner").show();
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    $.ajax({
+                        url: "https://nominatim.openstreetmap.org/search",
+                        dataType: "json",
+                        headers: {
+                            'User-Agent': 'ecobricks.org'
+                        },
+                        data: {
+                            q: request.term,
+                            format: "json"
+                        },
+                        success: function(data) {
+                            $("#loading-spinner").hide();
+                            response($.map(data, function(item) {
+                                return {
+                                    label: item.display_name,
+                                    value: item.display_name,
+                                    lat: item.lat,
+                                    lon: item.lon
+                                };
+                            }));
+                        },
+                        error: function(xhr, status, error) {
+                            $("#loading-spinner").hide();
+                            console.error("Autocomplete error:", error);
+                            response([]);
+                        }
+                    });
+                }, 300);
+            },
+            select: function(event, ui) {
+                console.log('Selected location:', ui.item); // Debugging line
+                $('#lat').val(ui.item.lat);
+                $('#lon').val(ui.item.lon);
+            },
+            minLength: 3
+        });
+
+        $('#submit-form').on('submit', function() {
+            console.log('Latitude:', $('#lat').val());
+            console.log('Longitude:', $('#lon').val());
+            // alert('Latitude: ' + $('#lat').val() + ', Longitude: ' + $('#lon').val());
+        });
+    });
 
 </script>
 

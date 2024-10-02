@@ -663,14 +663,10 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 <script>
-
-    // FETCH RIVERS
-
 $(function () {
     let debounceTimer;
 
     // SECTION 1: Searching for the user's local area
-    // Show pin icon when the input is empty and when it's filled
     function updatePinIconVisibility() {
         if ($("#location_full").val().trim() === "" || $("#loading-spinner").is(":hidden")) {
             $("#location-pin").show();
@@ -726,108 +722,66 @@ $(function () {
             $('#lat').val(ui.item.lat);
             $('#lon').val(ui.item.lon);
 
-            // Enable and clear the location_watershed field
-            $('#location_watershed').prop('disabled', false).val('').empty().append('<option value="" disabled selected>Searching for nearest rivers...</option>');
-
-            // Fetch and populate nearby rivers using the fetchNearbyRivers function
-            fetchNearbyRivers(ui.item.lat, ui.item.lon);
+            // Enable the location_watershed field but do not populate yet
+            $('#location_watershed').prop('disabled', false);
 
             return false; // Prevent default behavior
         },
         minLength: 3
     });
 
-   // SECTION 2: Searching for rivers using Overpass API in location_watershed field
-    // Show river pin icon when the input is empty and when it's filled
-    function updateRiverPinIconVisibility() {
-        if ($("#location_watershed").val().trim() === "" || $("#loading-spinner-watershed").is(":hidden")) {
-            $("#watershed-pin").show();
-        } else {
-            $("#watershed-pin").hide();
+    // SECTION 2: Fetch nearby rivers when the user focuses on the location_watershed field
+    $("#location_watershed").on('focus', function () {
+        // Get latitude and longitude from the previously selected location
+        const lat = $('#lat').val();
+        const lon = $('#lon').val();
+
+        // Check if latitude and longitude are available
+        if (!lat || !lon) {
+            console.error('No location selected to find nearby rivers.');
+            return;
         }
-    }
 
-    // Initialize river search using the Overpass API for rivers
-    $("#location_watershed").autocomplete({
-        source: function (request, response) {
-            $("#loading-spinner-watershed").show();
-            $("#watershed-pin").hide(); // Hide the river pin icon when typing starts
+        // Show loading spinner for the watershed
+        $("#loading-spinner-watershed").show();
+        $("#watershed-pin").hide(); // Hide the river pin icon when searching
 
-            clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(() => {
-                // Overpass API query to search for rivers by name
-                const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];way["waterway"="river"]["name"~"${request.term}",i];out body;`;
+        // Call Overpass API to find rivers around the selected location
+        const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];(way["waterway"="river"](around:5000,${lat},${lon});relation["waterway"="river"](around:5000,${lat},${lon}););out body;`;
 
-                $.get(overpassUrl, function (data) {
-                    $("#loading-spinner-watershed").hide();
-                    updateRiverPinIconVisibility(); // Show the pin when data has loaded
-
-                    let rivers = data.elements;
-                    let uniqueRivers = new Set();
-
-                    // Iterate through the rivers and create an autocomplete suggestion list
-                    response($.map(rivers, function (river) {
-                        let riverName = river.tags.name;
-
-                        // Ensure the river has a name and is not a duplicate
-                        if (riverName && !uniqueRivers.has(riverName)) {
-                            uniqueRivers.add(riverName);
-                            return {
-                                label: riverName,
-                                value: riverName
-                            };
-                        }
-                    }));
-
-                    // If no rivers are found
-                    if (uniqueRivers.size === 0) {
-                        response([{ label: "No rivers found", value: "" }]);
-                    }
-                }).fail(function () {
-                    $("#loading-spinner-watershed").hide();
-                    updateRiverPinIconVisibility(); // Show the pin when an error occurs
-                    console.error("Failed to fetch data from Overpass API.");
-                    response([{ label: "Error fetching rivers", value: "" }]);
-                });
-            }, 300); // Debounce timeout
-        },
-        minLength: 3
-    });
-
-    // Function to fetch nearby rivers or watersheds using Overpass API (for location_full selection)
-    function fetchNearbyRivers(lat, lon) {
-        // Clear previous river options and add a default message while searching
-        $("#location_watershed").empty().append('<option value="" disabled selected>Searching for nearest rivers...</option>');
-
-        // Overpass API URL to find rivers around the selected location (within 5000 meters)
-        const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];(way["waterway"="river"](around:5000,${lat},${lon});relation["waterway"="river"](around:5000,${lat},${lon}););out geom;`;
-
+        // Fetch nearby rivers using Overpass API
         $.get(overpassUrl, function (data) {
-            let rivers = data.elements;
-            let uniqueRivers = new Set(); // Set to keep track of unique river names
+            $("#loading-spinner-watershed").hide();
+            $("#watershed-pin").show();
 
-            // Iterate through the rivers data and add the first five unique rivers
-            rivers.forEach((river) => {
+            let rivers = data.elements;
+            let uniqueRivers = new Set();
+
+            // Clear previous options and add a default message
+            $('#location_watershed').empty().append('<option value="" disabled selected>Select your nearest river</option>');
+
+            // Iterate through rivers and add up to 5 unique names to the dropdown
+            rivers.forEach(function (river) {
                 let riverName = river.tags.name;
 
-                // Ensure the river has a name and is not a duplicate
                 if (riverName && !uniqueRivers.has(riverName) && !riverName.toLowerCase().includes("unnamed") && uniqueRivers.size < 5) {
                     uniqueRivers.add(riverName);
-                    // Add river to the dropdown
-                    $("#location_watershed").append(new Option(riverName, riverName));
+                    $('#location_watershed').append(new Option(riverName, riverName));
                 }
             });
 
-            // If no rivers are found, add a default message
+            // If no rivers are found, show a message in the dropdown
             if (uniqueRivers.size === 0) {
-                $("#location_watershed").empty().append('<option value="" disabled>No rivers found nearby</option>');
+                $('#location_watershed').append('<option value="" disabled>No rivers found nearby</option>');
             }
         }).fail(function () {
+            $("#loading-spinner-watershed").hide();
             console.error("Failed to fetch data from Overpass API.");
-            $("#location_watershed").empty().append('<option value="" disabled>Error fetching rivers</option>');
+            $('#location_watershed').append('<option value="" disabled>Error fetching rivers</option>');
         });
-    }
+    });
 });
+
 
 
 </script>

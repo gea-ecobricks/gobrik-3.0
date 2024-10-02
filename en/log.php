@@ -37,11 +37,17 @@ if ($is_logged_in) {
         $stmt_country_id->close();
     }
 
-    // Fetch communities based on the user's country_id
+
+
+
+
 // Fetch the user's current community_id, location_full, and location_watershed from users_tb
 $current_community_id = null;
+$current_community_name = null;  // To store the current community name
 $location_full = null;
 $location_watershed = null;
+
+// Fetch community_id, location_full, and location_watershed from users_tb
 $sql_user_info = "SELECT community_id, location_full, location_watershed FROM users_tb WHERE buwana_id = ?";
 $stmt_user_info = $buwana_conn->prepare($sql_user_info);
 
@@ -53,21 +59,21 @@ if ($stmt_user_info) {
     $stmt_user_info->close();
 }
 
-// Fetch communities based on the user's country_id
-$communities = [];
-$sql_communities = "SELECT com_id, com_name FROM tb_communities WHERE country_id = ?";
-$stmt_communities = $gobrik_conn->prepare($sql_communities);
+// Fetch the current community name based on the community_id
+if ($current_community_id) {
+    $sql_community_name = "SELECT com_name FROM tb_communities WHERE com_id = ?";
+    $stmt_community_name = $gobrik_conn->prepare($sql_community_name);
 
-if ($stmt_communities) {
-    $stmt_communities->bind_param("i", $country_id); // Bind the fetched country_id
-    $stmt_communities->execute();
-    $stmt_communities->bind_result($com_id, $com_name);
-
-    while ($stmt_communities->fetch()) {
-        $communities[$com_id] = $com_name; // Store both the com_id and com_name for dropdown
+    if ($stmt_community_name) {
+        $stmt_community_name->bind_param("i", $current_community_id);
+        $stmt_community_name->execute();
+        $stmt_community_name->bind_result($current_community_name);
+        $stmt_community_name->fetch();
+        $stmt_community_name->close();
     }
-    $stmt_communities->close();
 }
+
+
 
 
 
@@ -420,17 +426,12 @@ require_once ("../includes/log-inc.php");
 
                        <div class="form-item">
                             <label for="community_select">Select Your Community:</label><br>
-                            <select id="community_select" name="community_select" required>
-                                <option value="" disabled selected>Select a community...</option>
-                                <?php foreach ($communities as $com_id => $com_name): ?>
-                                    <option value="<?= htmlspecialchars($com_id, ENT_QUOTES); ?>"
-                                        <?php if ($com_id == $current_community_id) echo 'selected'; ?>>
-                                        <?= htmlspecialchars($com_name, ENT_QUOTES); ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                            <p class="form-caption">Select your community from the list based on your country.</p>
+                            <input type="text" id="community_select" name="community_select"
+                                   value="<?= htmlspecialchars($current_community_name, ENT_QUOTES); ?>"
+                                   placeholder="Start typing your community..." required>
+                            <p class="form-caption">Select your community from the list based on your current or updated community name.</p>
                         </div>
+
 
                     <div class="form-item">
                         <label for="location_full" data-lang-id="011-location-full">Where is this ecobrick based?</label><br>
@@ -439,6 +440,7 @@ require_once ("../includes/log-inc.php");
                                    value="<?= htmlspecialchars($location_full, ENT_QUOTES); ?>"
                                    aria-label="Location Full" required style="padding-left:45px;">
                             <div id="loading-spinner" class="spinner" style="display: none;"></div>
+                            <div id="location-pin" class="pin-icon">📍</div>
                         </div>
                         <p class="form-caption" data-lang-id="011-location-full-caption">Start typing the name of your town or city, and we'll fill in the rest using the open source, non-corporate openstreetmaps API. Avoid using your exact address for privacy-- just your town, city or country is fine.</p>
 
@@ -662,6 +664,54 @@ document.addEventListener('DOMContentLoaded', function () {
             // alert('Latitude: ' + $('#lat').val() + ', Longitude: ' + $('#lon').val());
         });
     });
+
+
+
+    //community functions
+
+    document.addEventListener('DOMContentLoaded', function() {
+    const communitySelect = document.getElementById('community_select');
+
+    // Add an event listener to trigger AJAX search when user types in the community field
+    communitySelect.addEventListener('input', function() {
+        const query = this.value;
+
+        // If the user has typed at least 3 characters, trigger the AJAX search
+        if (query.length >= 3) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '../scripts/search_communities.php', true);  // Assume you have a separate PHP file for searching
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    // Handle response, for example, show a list of matching communities
+                    showCommunitySuggestions(response);
+                }
+            };
+
+            xhr.send('query=' + encodeURIComponent(query));
+        }
+    });
+
+    // Function to display the community suggestions
+    function showCommunitySuggestions(communities) {
+        // Clear previous suggestions
+        const suggestionsBox = document.getElementById('community-suggestions');
+        suggestionsBox.innerHTML = '';
+
+        communities.forEach(function(community) {
+            const suggestionItem = document.createElement('div');
+            suggestionItem.textContent = community.com_name;
+            suggestionItem.addEventListener('click', function() {
+                communitySelect.value = community.com_name;
+                suggestionsBox.innerHTML = '';  // Clear suggestions once a community is selected
+            });
+            suggestionsBox.appendChild(suggestionItem);
+        });
+    }
+});
+
 
 </script>
 

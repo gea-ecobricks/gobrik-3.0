@@ -409,7 +409,7 @@ function showModalInfo(type, lang) {
                 <div style="width:100%;text-align:center;">
                     <h1>💦</h2>
                 </div>
-                    >{translations['watershed-title']}</div>
+                    <div>{translations['watershed-title']}</div>
                 <div class="preview-text">${translations['watershed-text']}</div>
             `;
             break;

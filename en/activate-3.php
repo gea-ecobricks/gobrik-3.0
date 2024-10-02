@@ -201,7 +201,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
-            <p style="color:green;">✔ <?php echo htmlspecialchars($first_name); ?>,<span data-lang-id="001-password-set" your password is set!</p>
+            <p style="color:green;">✔ <?php echo htmlspecialchars($first_name); ?>,<span data-lang-id="001-password-set"> your password is set!</p>
             <div id="status-message"><span data-lang-id="012-status-heading2"> Now let's get you localized.</span></div>
             <div id="sub-status-message" data-lang-id="013-sub-ecozone" style="font-size:1.3em;padding-top:10px;padding-bottom:10px;">GoBrik is all about ecological action. Please help us determine your ecological zone:  the water shed or riverbasin where you live.</div>
         </div>

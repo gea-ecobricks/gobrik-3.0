@@ -279,8 +279,8 @@ echo '<!DOCTYPE html>
     </div>
 
   <!-- Hidden latitude and longitude fields -->
-<input type="hidden" id="lat" name="latitude">
-<input type="hidden" id="lon" name="longitude">
+<input  id="lat" name="latitude">
+<input  id="lon" name="longitude">
 
 <!-- Location Full -->
 <div class="form-item">

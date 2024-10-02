@@ -661,9 +661,10 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 <script>
-$(function () {
+
+
+         $(function () {
     let debounceTimer;
-    let riverLayerGroup = L.layerGroup();
 
     // Show pin icon when the input is empty and when it's filled
     function updatePinIconVisibility() {
@@ -716,8 +717,13 @@ $(function () {
         },
         select: function (event, ui) {
             console.log('Selected location:', ui.item);
-            $('#lat').val(ui.item.lat);
-            $('#lon').val(ui.item.lon);
+            $('#lat').val(ui.item.lat);  // Store latitude in hidden field
+            $('#lon').val(ui.item.lon);  // Store longitude in hidden field
+
+            // Log latitude and longitude for debugging
+            console.log('Latitude:', ui.item.lat);
+            console.log('Longitude:', ui.item.lon);
+
             updatePinIconVisibility(); // Show pin icon after selection
         },
         minLength: 3
@@ -728,15 +734,19 @@ $(function () {
         updatePinIconVisibility();
     });
 
-    // Fetch nearby rivers when user focuses on the "location_watershed" input field
+    // Fetch nearby rivers when the user focuses on the "location_watershed" input field
     $("#location_watershed").on('focus', function () {
-        const lat = $('#lat').val();
-        const lon = $('#lon').val();
+        const lat = $('#lat').val();  // Fetch latitude from hidden field
+        const lon = $('#lon').val();  // Fetch longitude from hidden field
+
+        // Log lat and lon values for debugging
+        console.log("Lat value on focus:", lat);
+        console.log("Lon value on focus:", lon);
 
         // Check if latitude and longitude are available
         if (!lat || !lon) {
             console.error('No location selected to find nearby rivers.');
-            return;
+            return;  // Exit if no lat/lon available
         }
 
         // Show loading spinner for the watershed field
@@ -781,14 +791,7 @@ $(function () {
             $('#location_watershed').append('<option value="" disabled>Error fetching rivers</option>');
         });
     }
-
-    $('#user-info-form').on('submit', function () {
-        console.log('Latitude:', $('#lat').val());
-        console.log('Longitude:', $('#lon').val());
-        // Additional submit handling if needed
-    });
 });
-
 
 
 </script>

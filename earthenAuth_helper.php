@@ -156,6 +156,17 @@ function getCommunityName($buwana_conn, $buwana_id) {
     return $community_name; // Return the correct variable
 }
 
+startSecureSession();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+
+// Initialize user variables
+$first_name = '';
+$buwana_id = '';
+$watershed_id = '';
+$location_watershed = '';
+$is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 
 
 

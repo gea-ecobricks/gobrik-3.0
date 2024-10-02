@@ -1,24 +1,20 @@
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
-startSecureSession();
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.392';
 $page = 'profile';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
-// Initialize user variables
-$first_name = '';
-$buwana_id = '';
-$country_icon = '';
-$watershed_name = '';
-$continent_name = ''; // Initialize continent name variable
-$is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
-
+// // Initialize user variables
+// $first_name = '';
+// $buwana_id = '';
+// $country_icon = '';
+// $watershed_name = '';
+// $continent_name = ''; // Initialize continent name variable
+// $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
+//
 
 // Check if user is logged in and session active
 if ($is_logged_in) {
@@ -29,7 +25,7 @@ if ($is_logged_in) {
     require_once '../buwanaconn_env.php';
 
 
-  $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
+    $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
     $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
     $first_name = getUserFirstName($buwana_conn, $buwana_id);
     $gea_status = getGEA_status($buwana_id);
@@ -55,9 +51,6 @@ if ($is_logged_in) {
     } else {
         die('Error preparing statement for fetching user info: ' . $buwana_conn->error);
     }
-
-
-
 
 
 // Fetch active languages from Buwana database

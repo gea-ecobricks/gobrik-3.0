@@ -1774,14 +1774,7 @@ color: red;
     }
 
 
-        .advanced-box-content {
-    padding: 2px 15px 15px 15px;
-    max-height: 0;  /* Initially set to 0 */
-    overflow: hidden;  /* Hide any overflowing content */
-    transition: max-height 0.5s ease-in-out;  /* Transition effect */
-	font-size:smaller;
-	margin-top:-10px;
-}
+
 
 
 .dropdown {
@@ -2330,11 +2323,25 @@ position:relative;
 }
 
 
+//ADVANCED BOX
+/* Initially hide content using max-height */
 .advanced-box[aria-expanded="false"] .advanced-box-content {
-    display: none;
+    max-height: 0;  /* Set max height to 0 to hide the content */
+    overflow: hidden;  /* Hide overflow */
+    transition: max-height 0.5s ease-in-out;  /* Smooth transition */
 }
 
+/* When the box is open, allow it to expand */
+.advanced-box[aria-expanded="true"] .advanced-box-content {
+    max-height: 500px;  /* Set a large enough height to show the content */
+    overflow: visible;
+    transition: max-height 0.5s ease-in-out;
+}
 
-
+.advanced-box-content {
+    padding: 2px 15px 15px 15px;
+    font-size: smaller;
+    margin-top: -10px;
+}
 
 

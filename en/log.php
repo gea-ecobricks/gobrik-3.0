@@ -430,7 +430,7 @@ require_once ("../includes/log-inc.php");
                                    value="<?= htmlspecialchars($current_community_name, ENT_QUOTES); ?>"
                                    placeholder="Start typing your community..." required style="padding-left:45px;">
                             <div id="community-suggestions" class="suggestions-box"></div>
-                            <div id="location-pin" class="pin-icon">📌</div>
+                            <div id="community-pin" class="pin-icon">📌</div>
                             <p class="form-caption">Select your community from the list based on your current or updated community name.</p>
                         </div>
 
@@ -679,7 +679,7 @@ $(document).ready(function() {
         const query = $(this).val();
 
         // If the user has typed at least 3 characters, trigger the AJAX search
-        if (query.length >= 3) {
+        if (query.length >= 4) {
             $.ajax({
                 type: 'POST',
                 url: '../api/search_communities.php',

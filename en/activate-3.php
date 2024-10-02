@@ -232,7 +232,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <option value="" disabled selected>👉 Select river/stream...</option>
         </select>
         <div id="map" style="height: 350px; border-radius: 15px; margin-top: 15px;"></div>
-        <p class="form-caption" data-lang-id="012-river-basics">ℹ️ <a href="#" onclick="showModalInfo('waterbasins', '<?php echo $lang; ?>')" class="underline-link">Waterbasins</a> provide a great non-political way to localize our users by ecological region!  The map shows rivers and streams around you.  Choose the best option in the drop down menu.</p>
+        <p class="form-caption" data-lang-id="012-river-basics">ℹ️ <a href="#" onclick="showModalInfo('watershed', '<?php echo $lang; ?>')" class="underline-link">Waterbasins</a> provide a great non-political way to localize our users by ecological region!  The map shows rivers and streams around you.  Choose the best option in the drop down menu.</p>
 
     </div>
 

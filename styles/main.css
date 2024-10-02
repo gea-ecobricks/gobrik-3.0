@@ -2330,7 +2330,9 @@ position:relative;
 }
 
 
-
+.advanced-box[aria-expanded="false"] .advanced-box-content {
+    display: none;
+}
 
 
 

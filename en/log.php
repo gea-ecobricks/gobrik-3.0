@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 // PART 1: Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.54';
+$version = '0.541';
 $page = 'log';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -46,16 +46,17 @@ if ($is_logged_in) {
     }
 
     // Fetch communities based on the user's country_id
-// Fetch the user's current community_id and location_full from users_tb
+// Fetch the user's current community_id, location_full, and location_watershed from users_tb
 $current_community_id = null;
 $location_full = null;
-$sql_user_info = "SELECT community_id, location_full FROM users_tb WHERE buwana_id = ?";
+$location_watershed = null;
+$sql_user_info = "SELECT community_id, location_full, location_watershed FROM users_tb WHERE buwana_id = ?";
 $stmt_user_info = $buwana_conn->prepare($sql_user_info);
 
 if ($stmt_user_info) {
     $stmt_user_info->bind_param("i", $buwana_id); // Assuming you have $buwana_id in session or defined
     $stmt_user_info->execute();
-    $stmt_user_info->bind_result($current_community_id, $location_full);
+    $stmt_user_info->bind_result($current_community_id, $location_full, $location_watershed);
     $stmt_user_info->fetch();
     $stmt_user_info->close();
 }
@@ -75,6 +76,7 @@ if ($stmt_communities) {
     }
     $stmt_communities->close();
 }
+
 
 
 
@@ -415,12 +417,14 @@ require_once ("../includes/log-inc.php");
 
 
 
-                <div class="advanced-box" aria-expanded="false" role="region" aria-labelledby="advancedBoxLabel-1">
+                <div id="localize-box" class="advanced-box" aria-expanded="false" role="region" aria-labelledby="advancedBoxLabel-1">
                     <div class="advanced-box-header"  id="advancedBoxLabel-1">
-                        <div class="advanced-title" data-lang-id="013-advanced-options">Advanced Options</div>
+                        <div class="advanced-title" data-lang-id="013-advanced-options">Edit Localization</div>
                         <div class="advanced-open-icon">+</div>
                     </div>
                     <div class="advanced-box-content">
+
+                        <p>Whenever you log an ecobrick it is tagged with your own Buwana account localization.  You can edit these defaults here:</p>>
 
                        <div class="form-item">
                             <label for="community_select">Select Your Community:</label><br>
@@ -451,13 +455,24 @@ require_once ("../includes/log-inc.php");
                     </div>
 
 
+                    <!-- Location Watershed -->
+                    <div class="form-item">
+                        <label for="location_watershed" data-lang-id="011-watershed-location">Your local river:</label><br>
+                        <div class="input-container">
+                            <input type="text" id="location_watershed" name="location_watershed"
+                                   value="<?= htmlspecialchars($location_watershed, ENT_QUOTES); ?>"
+                                   aria-label="Location Watershed" style="padding-left:45px;">
+                            <div id="loading-spinner-watershed" class="spinner" style="display: none;"></div>
+                            <div id="watershed-pin" class="pin-icon">💧</div>
+                        </div>
+                        <p class="form-caption">💚 Rivers and their basins provide a great non-political way to localize our users by ecological region!</p>
+                    </div>
 
-                        <div class="form-item">
+
+                    <!--<div class="form-item">
                             <label for="project_id" data-lang-id="014-project-id">Is this ecobrick part of a project?</label><br>
                             <input type="number" id="project_id" name="project_id" aria-label="Project ID">
                             <p class="form-caption" data-lang-id="014-project-id-caption">Optional: Provide the project ID if this ecobrick is part of a project.</p>
-
-                            <!--ERRORS-->
                             <div id="project-error-long" class="form-field-error" data-lang-id="000-field-too-long-error">Entry is too long.</div>
                         </div>
 
@@ -465,10 +480,9 @@ require_once ("../includes/log-inc.php");
                             <label for="training_id" data-lang-id="015-training-id">Was this ecobrick made in a training?</label><br>
                             <input type="number" id="training_id" name="training_id" aria-label="Training ID">
                             <p class="form-caption" data-lang-id="015-training-id-caption">Optional: Provide the training ID if this ecobrick was made in a training.</p>
-
-                            <!--ERRORS-->
                             <div id="training-error-long" class="form-field-error" data-lang-id="000-field-too-long-error">Entry is too long.</div>
-                        </div>
+                        </div>-->
+
 
                     </div>
                 </div>
@@ -510,68 +524,28 @@ require_once ("../includes/log-inc.php");
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const localizeBox = document.getElementById('localize-box');
+    const advancedBoxHeader = document.querySelector('.advanced-box-header');
+    const advancedBoxContent = document.querySelector('.advanced-box-content');
+    const advancedOpenIcon = document.querySelector('.advanced-open-icon');
 
+    advancedBoxHeader.addEventListener('click', function () {
+        // Toggle aria-expanded attribute
+        const isExpanded = localizeBox.getAttribute('aria-expanded') === 'true';
+        localizeBox.setAttribute('aria-expanded', !isExpanded);
 
-    document.addEventListener("DOMContentLoaded", function() {
-        // Initially hide all additional fields using visibility and height
-        const communityField = document.getElementById("community_name").parentNode;
-        const projectField = document.getElementById("project_id").parentNode;
-        const trainingField = document.getElementById("training_id").parentNode;
-
-        communityField.style.visibility = 'hidden';
-        communityField.style.height = '0';
-        projectField.style.visibility = 'hidden';
-        projectField.style.height = '0';
-        trainingField.style.visibility = 'hidden';
-        trainingField.style.height = '0';
-
-        // SHOW HIDE THE ADVANCED BOX
-        function toggleAdvancedBox(event) {
-            // Get the current advanced box based on the clicked header
-            let currentAdvancedBox = event.currentTarget.parentElement;
-
-            // Assuming the element that will have the `aria-expanded` attribute is the header itself
-            let header = currentAdvancedBox.querySelector('.advanced-box-header');
-
-            // Find the content and icon specific to this advanced box
-            let content = currentAdvancedBox.querySelector('.advanced-box-content');
-            let icon = currentAdvancedBox.querySelector('.advanced-open-icon');
-
-            // Check if the content is currently expanded or not
-            let isExpanded = header.getAttribute('aria-expanded') === 'true';
-
-            if (!isExpanded) {
-                // Temporarily set visibility to calculate height
-                communityField.style.visibility = 'visible';
-                communityField.style.height = 'auto';
-                projectField.style.visibility = 'visible';
-                projectField.style.height = 'auto';
-                trainingField.style.visibility = 'visible';
-                trainingField.style.height = 'auto';
-
-                content.style.maxHeight = content.scrollHeight + 'px'; // Set to its full height
-                icon.textContent = '−'; // Switch to minus symbol for an open state
-                header.setAttribute('aria-expanded', 'true'); // Update aria-expanded to true
-            } else {
-                content.style.maxHeight = '0px'; // Collapse it
-                icon.textContent = '+'; // Set to plus symbol
-                header.setAttribute('aria-expanded', 'false'); // Update aria-expanded to false
-
-                communityField.style.visibility = 'hidden';
-                communityField.style.height = '0';
-                projectField.style.visibility = 'hidden';
-                projectField.style.height = '0';
-                trainingField.style.visibility = 'hidden';
-                trainingField.style.height = '0';
-            }
+        // Toggle visibility of advanced-box-content
+        if (isExpanded) {
+            advancedBoxContent.style.display = 'none';  // Collapse content
+            advancedOpenIcon.textContent = '+';  // Change icon to plus
+        } else {
+            advancedBoxContent.style.display = 'block';  // Expand content
+            advancedOpenIcon.textContent = '-';  // Change icon to minus
         }
-
-        // Attach the function to all header div's click events
-        let headers = document.querySelectorAll('.advanced-box-header');
-        headers.forEach(header => {
-            header.addEventListener('click', toggleAdvancedBox);
-        });
     });
+});
+
 
 
 

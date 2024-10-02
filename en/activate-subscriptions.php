@@ -159,10 +159,8 @@ if (!empty($credential_key)) {
 
            </div>
 
-            <div id="submit-section" style="text-align:center;margin-top:25px;" data-lang-id="016-complete-button">
+            <div id="submit-section" style="text-align:center;margin-top:25px;" data-lang-id="016x-complete-button">
                 <input type="submit" id="submit-button" value="Finish & Login" class="submit-button enabled">
-
-
             </div>
         </form>
 

@@ -392,6 +392,10 @@ require_once ("../includes/log-inc.php");
 
                         <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
                     </div>
+                <?php
+echo "<script>console.log('Location full value:', '". htmlspecialchars($user_location_full, ENT_QUOTES) . "');</script>";
+?>
+
 
                     <!-- Hidden latitude and longitude fields -->
                     <input type="hidden" id="lat" name="latitude" value="<?= htmlspecialchars($user_location_lat, ENT_QUOTES); ?>">
@@ -468,7 +472,17 @@ require_once ("../includes/log-inc.php");
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+
+
 <script>
+
+    document.querySelector('form').addEventListener('submit', function() {
+    const locationFullInput = document.getElementById('location_full');
+    console.log('Location Full before submit:', locationFullInput.value);
+});
+
+
+
 document.addEventListener('DOMContentLoaded', function () {
     const localizeBox = document.getElementById('localize-box');
     const advancedBoxHeader = document.querySelector('.advanced-box-header');

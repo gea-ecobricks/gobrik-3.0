@@ -416,9 +416,10 @@ require_once ("../includes/log-inc.php");
                         <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
                     </div>
 
-                     <!-- Hidden latitude and longitude fields -->
-                    <input  id="lat" name="latitude">
-                    <input  id="lon" name="longitude">
+                    <!-- Hidden latitude and longitude fields -->
+<input type="hidden" id="lat" name="latitude" value="<?= htmlspecialchars($lat, ENT_QUOTES); ?>">
+<input type="hidden" id="lon" name="longitude" value="<?= htmlspecialchars($lon, ENT_QUOTES); ?>">
+
 
                     <!-- Location Watershed -->
                     <div class="form-item">

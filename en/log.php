@@ -39,11 +39,7 @@ if ($is_logged_in) {
         error_log("Error fetching location data: " . $buwana_conn->error);
     }
 
-    // Check if retry parameter is set in the URL
-    if (isset($_GET['retry'])) {
-        $ecobrick_unique_id = (int)$_GET['retry'];
-
-        // Call the retryEcobrick function to populate the form with ecobrick data
+// Call the retryEcobrick function to populate the form with ecobrick data
         retryEcobrick($gobrik_conn, $ecobrick_unique_id);
         }
 
@@ -86,6 +82,12 @@ if ($is_logged_in) {
                     error_log("Error preparing retryEcobrick statement: " . $gobrik_conn->error);
                 }
             }
+
+    // Check if retry parameter is set in the URL
+    if (isset($_GET['retry'])) {
+        $ecobrick_unique_id = (int)$_GET['retry'];
+
+
 
 
     // PART 3: POST ECOBRICK DATA to GOBRIK DATABASE

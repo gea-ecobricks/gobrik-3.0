@@ -698,7 +698,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 //Watershed
-
 document.addEventListener('DOMContentLoaded', function() {
     const watershedInput = document.getElementById('location_watershed');
     const watershedSuggestions = document.getElementById('watershed-suggestions');
@@ -706,22 +705,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const lonInput = document.getElementById('lon');  // Hidden field for longitude
 
     // Function to fetch nearby rivers or watersheds using the Overpass API
- function fetchNearbyRivers(query, lat, lon) {
-    const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];(way["waterway"="river"](around:5000,${lat},${lon});relation["waterway"="river"](around:5000,${lat},${lon}););out tags;`;
+    function fetchNearbyRivers(lat, lon) {
+        const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];(way["waterway"="river"](around:5000,${lat},${lon});relation["waterway"="river"](around:5000,${lat},${lon}););out tags;`;
 
-    fetch(overpassUrl)
-        .then(response => response.json())
-        .then(data => {
-            console.log('Overpass API data:', data);  // Log raw response
-            const rivers = data.elements.filter(el => el.tags && el.tags.name && el.tags.name.toLowerCase().includes(query.toLowerCase()));
-            displayRiverSuggestions(rivers);
-        })
-        .catch(error => {
-            console.error('Error fetching river data:', error);
-            watershedSuggestions.innerHTML = '<div>No rivers found</div>';
-        });
-}
-
+        fetch(overpassUrl)
+            .then(response => response.json())
+            .then(data => {
+                console.log('Overpass API data:', data);  // Log raw response
+                const rivers = data.elements.filter(el => el.tags && el.tags.name);
+                const uniqueRivers = getUniqueRivers(rivers).slice(0, 5);  // Limit to 5 closest rivers
+                displayRiverSuggestions(uniqueRivers);
+            })
+            .catch(error => {
+                console.error('Error fetching river data:', error);
+                watershedSuggestions.innerHTML = '<div>No rivers found</div>';
+            });
+    }
 
     // Function to display river suggestions in the dropdown
     function displayRiverSuggestions(rivers) {
@@ -743,6 +742,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Function to filter out unique river names (prevent duplicates)
+    function getUniqueRivers(rivers) {
+        const uniqueNames = new Set();
+        return rivers.filter(river => {
+            if (!uniqueNames.has(river.tags.name)) {
+                uniqueNames.add(river.tags.name);
+                return true;
+            }
+            return false;
+        });
+    }
+
     // Event listener for focusing on the location_watershed input
     watershedInput.addEventListener('focus', function() {
         const lat = latInput.value;
@@ -753,27 +764,12 @@ document.addEventListener('DOMContentLoaded', function() {
             watershedSuggestions.innerHTML = '<div>Error: No location data</div>';
             return;
         }
-    });
 
-    // Event listener for typing in the location_watershed input
-    watershedInput.addEventListener('input', function() {
-        const query = this.value;
-
-        if (query.length >= 3) {  // Only search when 3 or more characters are entered
-            const lat = latInput.value;
-            const lon = lonInput.value;
-
-            if (lat && lon) {
-                fetchNearbyRivers(query, lat, lon);
-            } else {
-                console.error('Latitude and longitude are required to fetch nearby rivers.');
-                watershedSuggestions.innerHTML = '<div>Error: No location data</div>';
-            }
-        } else {
-            watershedSuggestions.innerHTML = '';  // Clear suggestions if query is too short
-        }
+        // Fetch rivers when the user focuses on the watershed input
+        fetchNearbyRivers(lat, lon);
     });
 });
+
 
 
 </script>

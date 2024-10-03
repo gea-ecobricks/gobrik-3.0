@@ -138,7 +138,7 @@ if ($is_logged_in) {
             error_log("Sequestration: $sequestration_type, Plastic From: $plastic_from, Location: $location_full, Lat: $location_lat, Long: $location_long");
             error_log("Brand Name: $brand_name, Watershed: $location_watershed, Community ID: $community_id, Country ID: $country_id");
 
-            // Background settings
+            // Background set variables
             $owner = $ecobricker_maker;
             $status = "not ready";
             $universal_volume_ml = $volume_ml;
@@ -147,6 +147,17 @@ if ($is_logged_in) {
             $CO2_kg = ($weight_g * 6.1) / 1000;
             $last_ownership_change = date("Y-m-d");
             $actual_maker_name = $ecobricker_maker;
+
+             // Log the background variables
+            error_log("Background variables: ");
+            error_log("Owner: $owner, Status: $status, Universal Volume: $universal_volume_ml ml, Density: $density g/ml");
+            error_log("Date Logged: $date_logged_ts, CO2 Sequestration: $CO2_kg kg, Last Ownership Change: $last_ownership_change");
+            error_log("Actual Maker Name: $actual_maker_name, Brik Notes: $brik_notes, Date Published: $date_published_ts");
+
+        } catch (Exception $e) {
+            error_log("Error: " . $e->getMessage());
+            echo "Error: " . $e->getMessage();
+        }
 
             // Prepare the SQL statement
             $sql = "INSERT INTO tb_ecobricks (

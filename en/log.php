@@ -379,7 +379,7 @@ require_once ("../includes/log-inc.php");
                         <p>Whenever you log an ecobrick it is tagged with your own Buwana account localization.  You can edit these defaults here:</p>>
 
                      <div class="form-item">
-                        <label for="community_select">Select Your Community:</label><br>
+                        <label for="community_select">Community:</label><br>
                         <div class="input-container">
                             <input type="text" id="community_select" name="community_select"
                                    value="<?= htmlspecialchars($user_community_name, ENT_QUOTES); ?>"
@@ -387,13 +387,10 @@ require_once ("../includes/log-inc.php");
                             <div id="community-pin" class="pin-icon">📌</div>
                         </div>
                         <div id="community-suggestions" class="suggestions-box"></div>
-
-
-                        <p class="form-caption">Select your community from the list based on your current or updated community name.</p>
                     </div>
 
                     <div class="form-item">
-                        <label for="location_full" data-lang-id="011-location-full">Where is this ecobrick based?</label><br>
+                        <label for="location_full" data-lang-id="011-location-full">Location:</label><br>
                         <div class="input-container">
                             <input type="text" id="location_full" name="location_full"
                                    value="<?= htmlspecialchars($user_location_full, ENT_QUOTES); ?>"
@@ -401,13 +398,13 @@ require_once ("../includes/log-inc.php");
                             <div id="loading-spinner" class="spinner" style="display: none;"></div>
                             <div id="location-pin" class="pin-icon">📍</div>
                         </div>
-                        <p class="form-caption" data-lang-id="011-location-full-caption">Start typing the name of your town or city, and we'll fill in the rest using the open source, non-corporate openstreetmaps API. Avoid using your exact address for privacy-- just your town, city or country is fine.</p>
+                        <p class="form-caption" data-lang-id="011-location-full-caption">Locations from the open source, non-corporate openstreetmaps API.</p>
                         <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
                     </div>
 
                     <!-- Location Watershed -->
                     <div class="form-item">
-                        <label for="location_watershed" data-lang-id="011-watershed-location">Your local river:</label><br>
+                        <label for="location_watershed" data-lang-id="011-watershed-location">Watershed:</label><br>
                         <div class="input-container">
                             <input type="text" id="location_watershed" name="location_watershed"
                                    value="<?= htmlspecialchars($user_location_watershed, ENT_QUOTES); ?>"
@@ -415,7 +412,7 @@ require_once ("../includes/log-inc.php");
                             <div id="loading-spinner-watershed" class="spinner" style="display: none;"></div>
                             <div id="watershed-pin" class="pin-icon">💧</div>
                         </div>
-                        <p class="form-caption">💚 Rivers and their basins provide a great non-political way to localize our users by ecological region!</p>
+
                     </div>
 
 

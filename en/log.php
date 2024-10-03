@@ -75,7 +75,7 @@ if ($is_logged_in) {
             $location_lat = (float)trim($_POST['latitude']);
             $location_long = (float)trim($_POST['longitude']);
             $location_watershed = trim($_POST['location_watershed']);
-            $country_id = 1;  // Fetch or use a default for testing (make sure to replace this with the correct value)
+            $country_id = 1;  // For simplicity, setting it to a default value
 
             // Background settings
             $owner = $ecobricker_maker;
@@ -96,7 +96,7 @@ if ($is_logged_in) {
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             if ($stmt = $gobrik_conn->prepare($sql)) {
-                // Bind parameters including the country_id
+                // Bind parameters
                 $stmt->bind_param(
                     "issiisssddsssdsdsssssii",
                     $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g,
@@ -112,12 +112,15 @@ if ($is_logged_in) {
                     $gobrik_conn->close();
                     echo "<script>window.location.href = 'log-2.php?id=" . $serial_no . "';</script>";
                 } else {
+                    error_log("Error executing statement: " . $stmt->error);
                     echo "Error executing statement: " . $stmt->error;
                 }
             } else {
+                error_log("Prepare failed: " . $gobrik_conn->error);
                 echo "Prepare failed: " . $gobrik_conn->error;
             }
         } catch (Exception $e) {
+            error_log("Error: " . $e->getMessage());
             echo "Error: " . $e->getMessage();
         }
     }
@@ -125,6 +128,8 @@ if ($is_logged_in) {
     header('Location: login.php?redirect=' . urlencode($page));
     exit();
 }
+
+
 
 
 

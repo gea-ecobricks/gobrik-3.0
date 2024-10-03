@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     } else {
         echo json_encode(['error' => 'Invalid action specified.']);
     }
-}
+
 
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['path'])) {
     // Default GET operation to fetch file or repo structure

@@ -617,6 +617,7 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             select: function(event, ui) {
                 console.log('Selected location:', ui.item); // Debugging line
+                $('#location_full').val(ui.item.value);
                 $('#lat').val(ui.item.lat);
                 $('#lon').val(ui.item.lon);
             },

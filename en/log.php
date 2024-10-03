@@ -13,7 +13,7 @@ startSecureSession(); // Start a secure session with regeneration to prevent ses
 // Function to fetch ecobrick data for retry
 function retryEcobrick($gobrik_conn, $ecobrick_unique_id) {
     // Fetch the ecobrick data from the database
-    $sql = "SELECT ecobricker_maker, volume_ml, weight_g, sequestration_type, plastic_from, brand_name, community_id, location_full, location_lat, location_long, location_watershed FROM tb_ecobricks WHERE ecobrick_unique_id = ?";
+    $sql = "SELECT ecobricker_maker, volume_ml, weight_g, sequestration_type, plastic_from, brand_name, community_id, location_full, location_lat, location_long, location_watershed, country_id FROM tb_ecobricks WHERE ecobrick_unique_id = ?";
     $stmt = $gobrik_conn->prepare($sql);
 
     if ($stmt) {
@@ -21,9 +21,13 @@ function retryEcobrick($gobrik_conn, $ecobrick_unique_id) {
         $stmt->execute();
 
         // Bind the results to variables
-        $stmt->bind_result($ecobricker_maker, $volume_ml, $weight_g, $sequestration_type, $plastic_from, $brand_name, $community_id, $location_full, $location_lat, $location_long, $location_watershed);
+        $stmt->bind_result(
+            $ecobricker_maker, $volume_ml, $weight_g, $sequestration_type, $plastic_from,
+            $brand_name, $community_id, $location_full, $location_lat, $location_long,
+            $location_watershed, $country_id
+        );
 
-        // Fetch the data
+        // Fetch the data and populate the form fields
         if ($stmt->fetch()) {
             // Output JavaScript to populate the form
             echo "<script>
@@ -39,6 +43,7 @@ function retryEcobrick($gobrik_conn, $ecobrick_unique_id) {
                     document.getElementById('lat').value = '" . htmlspecialchars($location_lat, ENT_QUOTES) . "';
                     document.getElementById('lon').value = '" . htmlspecialchars($location_long, ENT_QUOTES) . "';
                     document.getElementById('location_watershed').value = '" . htmlspecialchars($location_watershed, ENT_QUOTES) . "';
+                    document.getElementById('country_id').value = '" . htmlspecialchars($country_id, ENT_QUOTES) . "';
                 });
             </script>";
         } else {
@@ -50,6 +55,7 @@ function retryEcobrick($gobrik_conn, $ecobrick_unique_id) {
         error_log("Error preparing retryEcobrick statement: " . $gobrik_conn->error);
     }
 }
+
 
 
 // Function to generate a new serial number
@@ -105,7 +111,7 @@ if ($is_logged_in) {
     // PART 3: POST ECOBRICK DATA to GOBRIK DATABASE
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         try {
-            // Set serial number and ecobrick ID
+
             $ids = setSerialNumber($gobrik_conn);
             $ecobrick_unique_id = $ids['ecobrick_unique_id'];
             $serial_no = $ids['serial_no'];
@@ -124,7 +130,7 @@ if ($is_logged_in) {
             $location_lat = (float)trim($_POST['latitude']);
             $location_long = (float)trim($_POST['longitude']);
             $location_watershed = trim($_POST['location_watershed']);
-            $country_id = 1;  // Placeholder value
+            $country_id = 11
 
             // Log the data being passed
             error_log("Values being inserted into tb_ecobricks: ");
@@ -444,15 +450,13 @@ require_once ("../includes/log-inc.php");
 
                         <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
                     </div>
-                <?php
-echo "<script>console.log('Location full value:', '". htmlspecialchars($user_location_full, ENT_QUOTES) . "');</script>";
-?>
+
 
 
                     <!-- Hidden latitude and longitude fields -->
                     <input type="hidden" id="lat" name="latitude" value="<?= htmlspecialchars($user_location_lat, ENT_QUOTES); ?>">
                     <input type="hidden" id="lon" name="longitude" value="<?= htmlspecialchars($user_location_long, ENT_QUOTES); ?>">
-
+                    <input type="hidden" id="country_id" name="country_id">
                     <!-- Location Watershed -->
                     <div class="form-item">
                         <label for="location_watershed" data-lang-id="011-watershed-location">Watershed:</label><br>
@@ -470,19 +474,6 @@ echo "<script>console.log('Location full value:', '". htmlspecialchars($user_loc
 
 
 
-                    <!--<div class="form-item">
-                            <label for="project_id" data-lang-id="014-project-id">Is this ecobrick part of a project?</label><br>
-                            <input type="number" id="project_id" name="project_id" aria-label="Project ID">
-                            <p class="form-caption" data-lang-id="014-project-id-caption">Optional: Provide the project ID if this ecobrick is part of a project.</p>
-                            <div id="project-error-long" class="form-field-error" data-lang-id="000-field-too-long-error">Entry is too long.</div>
-                        </div>
-
-                        <div class="form-item">
-                            <label for="training_id" data-lang-id="015-training-id">Was this ecobrick made in a training?</label><br>
-                            <input type="number" id="training_id" name="training_id" aria-label="Training ID">
-                            <p class="form-caption" data-lang-id="015-training-id-caption">Optional: Provide the training ID if this ecobrick was made in a training.</p>
-                            <div id="training-error-long" class="form-field-error" data-lang-id="000-field-too-long-error">Entry is too long.</div>
-                        </div>-->
 
 
                     </div>
@@ -496,14 +487,29 @@ echo "<script>console.log('Location full value:', '". htmlspecialchars($user_loc
                     <input type="submit" class="submit-button enabled" value="Next: Density Check" aria-label="Submit Form">
                 </div>
 
-                <input type="hidden" id="location_country" name="location_country">
-                <input type="hidden" id="location_full" name="location_full">
+
+
 
 
             </form>
 
 
             <!--END OF FORM-->
+
+
+                    <!--<div class="form-item">
+                            <label for="project_id" data-lang-id="014-project-id">Is this ecobrick part of a project?</label><br>
+                            <input type="number" id="project_id" name="project_id" aria-label="Project ID">
+                            <p class="form-caption" data-lang-id="014-project-id-caption">Optional: Provide the project ID if this ecobrick is part of a project.</p>
+                            <div id="project-error-long" class="form-field-error" data-lang-id="000-field-too-long-error">Entry is too long.</div>
+                        </div>
+
+                        <div class="form-item">
+                            <label for="training_id" data-lang-id="015-training-id">Was this ecobrick made in a training?</label><br>
+                            <input type="number" id="training_id" name="training_id" aria-label="Training ID">
+                            <p class="form-caption" data-lang-id="015-training-id-caption">Optional: Provide the training ID if this ecobrick was made in a training.</p>
+                            <div id="training-error-long" class="form-field-error" data-lang-id="000-field-too-long-error">Entry is too long.</div>
+                        </div>-->
 
         </div>
 

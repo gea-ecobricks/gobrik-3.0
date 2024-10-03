@@ -390,7 +390,7 @@ require_once ("../includes/log-inc.php");
                     </div>
 
                     <div class="form-item">
-                        <label for="location_full" data-lang-id="011-location-full">Location:</label><br>
+                        <label for="location_full" data-lang-id="011-location">Location:</label><br>
                         <div class="input-container">
                             <input type="text" id="location_full" name="location_full"
                                    value="<?= htmlspecialchars($user_location_full, ENT_QUOTES); ?>"
@@ -398,7 +398,7 @@ require_once ("../includes/log-inc.php");
                             <div id="loading-spinner" class="spinner" style="display: none;"></div>
                             <div id="location-pin" class="pin-icon">📍</div>
                         </div>
-                        <p class="form-caption" data-lang-id="011-location-full-caption">Locations from the open source, non-corporate openstreetmaps API.</p>
+
                         <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
                     </div>
 

@@ -706,20 +706,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const lonInput = document.getElementById('lon');  // Hidden field for longitude
 
     // Function to fetch nearby rivers or watersheds using the Overpass API
-    function fetchNearbyRivers(query, lat, lon) {
-        const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];(way["waterway"="river"](around:5000,${lat},${lon});relation["waterway"="river"](around:5000,${lat},${lon}););out tags;`;
+ function fetchNearbyRivers(query, lat, lon) {
+    const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];(way["waterway"="river"](around:5000,${lat},${lon});relation["waterway"="river"](around:5000,${lat},${lon}););out tags;`;
 
-        fetch(overpassUrl)
-            .then(response => response.json())
-            .then(data => {
-                const rivers = data.elements.filter(el => el.tags && el.tags.name && el.tags.name.toLowerCase().includes(query.toLowerCase()));
-                displayRiverSuggestions(rivers);
-            })
-            .catch(error => {
-                console.error('Error fetching river data:', error);
-                watershedSuggestions.innerHTML = '<div>No rivers found</div>';
-            });
-    }
+    fetch(overpassUrl)
+        .then(response => response.json())
+        .then(data => {
+            console.log('Overpass API data:', data);  // Log raw response
+            const rivers = data.elements.filter(el => el.tags && el.tags.name && el.tags.name.toLowerCase().includes(query.toLowerCase()));
+            displayRiverSuggestions(rivers);
+        })
+        .catch(error => {
+            console.error('Error fetching river data:', error);
+            watershedSuggestions.innerHTML = '<div>No rivers found</div>';
+        });
+}
+
 
     // Function to display river suggestions in the dropdown
     function displayRiverSuggestions(rivers) {

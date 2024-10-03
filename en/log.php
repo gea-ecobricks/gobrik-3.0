@@ -632,6 +632,188 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+    $(function() {
+        let debounceTimer;
+        $("#location_full").autocomplete({
+            source: function(request, response) {
+                $("#loading-spinner").show();
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    $.ajax({
+                        url: "https://nominatim.openstreetmap.org/search",
+                        dataType: "json",
+                        headers: {
+                            'User-Agent': 'ecobricks.org'
+                        },
+                        data: {
+                            q: request.term,
+                            format: "json"
+                        },
+                        success: function(data) {
+                            $("#loading-spinner").hide();
+                            response($.map(data, function(item) {
+                                return {
+                                    label: item.display_name,
+                                    value: item.display_name,
+                                    lat: item.lat,
+                                    lon: item.lon
+                                };
+                            }));
+                        },
+                        error: function(xhr, status, error) {
+                            $("#loading-spinner").hide();
+                            console.error("Autocomplete error:", error);
+                            response([]);
+                        }
+                    });
+                }, 300);
+            },
+            select: function(event, ui) {
+                console.log('Selected location:', ui.item); // Debugging line
+                $('#location_full').val(ui.item.value);
+                $('#lat').val(ui.item.lat);
+                $('#lon').val(ui.item.lon);
+            },
+            minLength: 3
+        });
+
+        $('#submit-form').on('submit', function() {
+            console.log('Latitude:', $('#lat').val());
+            console.log('Longitude:', $('#lon').val());
+            // alert('Latitude: ' + $('#lat').val() + ', Longitude: ' + $('#lon').val());
+        });
+    });
+
+
+
+
+
+
+
+
+
+    //community functions
+document.addEventListener('DOMContentLoaded', function() {
+    const communitySelect = document.getElementById('community_select');
+
+    // Log the current community name for debugging
+    console.log('Current community pre-set value:', communitySelect.value);
+
+    // Add an event listener to trigger AJAX search when user types in the community field
+    communitySelect.addEventListener('input', function() {
+        const query = this.value;
+
+        // If the user has typed at least 3 characters, trigger the AJAX search
+        if (query.length >= 3) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '../api/search_communities.php', true);  // Assume you have a separate PHP file for searching
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    // Handle response, for example, show a list of matching communities
+                    showCommunitySuggestions(response);
+                }
+            };
+
+            xhr.send('query=' + encodeURIComponent(query));
+        }
+    });
+
+    // Function to display the community suggestions
+    function showCommunitySuggestions(communities) {
+        // Clear previous suggestions
+        const suggestionsBox = document.getElementById('community-suggestions');
+        suggestionsBox.innerHTML = '';
+
+        communities.forEach(function(community) {
+            const suggestionItem = document.createElement('div');
+            suggestionItem.textContent = community.com_name;
+            suggestionItem.classList.add('suggestion-item'); // Add class for styling
+            suggestionItem.addEventListener('click', function() {
+                communitySelect.value = community.com_name;
+                suggestionsBox.innerHTML = '';  // Clear suggestions once a community is selected
+            });
+            suggestionsBox.appendChild(suggestionItem);
+        });
+    }
+});
+
+
+//Watershed
+document.addEventListener('DOMContentLoaded', function() {
+    const watershedInput = document.getElementById('location_watershed');
+    const watershedSuggestions = document.getElementById('watershed-suggestions');
+    const latInput = document.getElementById('lat');  // Hidden field for latitude
+    const lonInput = document.getElementById('lon');  // Hidden field for longitude
+
+    // Function to fetch nearby rivers or watersheds using the Overpass API
+    function fetchNearbyRivers(lat, lon) {
+        const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];(way["waterway"="river"](around:5000,${lat},${lon});relation["waterway"="river"](around:5000,${lat},${lon}););out tags;`;
+
+        fetch(overpassUrl)
+            .then(response => response.json())
+            .then(data => {
+                console.log('Overpass API data:', data);  // Log raw response
+                const rivers = data.elements.filter(el => el.tags && el.tags.name);
+                const uniqueRivers = getUniqueRivers(rivers).slice(0, 5);  // Limit to 5 closest rivers
+                displayRiverSuggestions(uniqueRivers);
+            })
+            .catch(error => {
+                console.error('Error fetching river data:', error);
+                watershedSuggestions.innerHTML = '<div>No rivers found</div>';
+            });
+    }
+
+    // Function to display river suggestions in the dropdown
+    function displayRiverSuggestions(rivers) {
+        watershedSuggestions.innerHTML = '';  // Clear any previous suggestions
+
+        if (rivers.length === 0) {
+            watershedSuggestions.innerHTML = '<div class="suggestion-item">No rivers found</div>';
+        } else {
+            rivers.forEach(river => {
+                const suggestionItem = document.createElement('div');
+                suggestionItem.textContent = river.tags.name;
+                suggestionItem.classList.add('suggestion-item');
+                suggestionItem.addEventListener('click', function() {
+                    watershedInput.value = river.tags.name;
+                    watershedSuggestions.innerHTML = '';  // Clear suggestions once a selection is made
+                });
+                watershedSuggestions.appendChild(suggestionItem);
+            });
+        }
+    }
+
+    // Function to filter out unique river names (prevent duplicates)
+    function getUniqueRivers(rivers) {
+        const uniqueNames = new Set();
+        return rivers.filter(river => {
+            if (!uniqueNames.has(river.tags.name)) {
+                uniqueNames.add(river.tags.name);
+                return true;
+            }
+            return false;
+        });
+    }
+
+    // Event listener for focusing on the location_watershed input
+    watershedInput.addEventListener('focus', function() {
+        const lat = latInput.value;
+        const lon = lonInput.value;
+
+        if (!lat || !lon) {
+            console.error('Latitude and longitude are required to fetch nearby rivers.');
+            watershedSuggestions.innerHTML = '<div>Error: No location data</div>';
+            return;
+        }
+
+        // Fetch rivers when the user focuses on the watershed input
+        fetchNearbyRivers(lat, lon);
+    });
+});
+
 
 
 </script>

@@ -9,26 +9,31 @@
  * @return string|null The GEA status of the user or null if not found.
  */
 
-
- // Function to fetch ecobrick data for retry
+// Function to fetch ecobrick data for retry
 function retryEcobrick($gobrik_conn, $ecobrick_unique_id) {
-    // Fetch the ecobrick data from the database
-    $sql = "SELECT ecobricker_maker, volume_ml, weight_g, sequestration_type, plastic_from, brand_name, community_id, location_full, bottom_colour, location_lat, location_long, location_watershed, country_id FROM tb_ecobricks WHERE ecobrick_unique_id = ?";
+    // Fetch the ecobrick data from the database, including the status
+    $sql = "SELECT ecobricker_maker, volume_ml, weight_g, sequestration_type, plastic_from, brand_name, community_id, location_full, bottom_colour, location_lat, location_long, location_watershed, country_id, status FROM tb_ecobricks WHERE ecobrick_unique_id = ?";
     $stmt = $gobrik_conn->prepare($sql);
 
     if ($stmt) {
         $stmt->bind_param("i", $ecobrick_unique_id);
         $stmt->execute();
 
-        // Bind the results to variables
+        // Bind the results to variables, including status
         $stmt->bind_result(
             $ecobricker_maker, $volume_ml, $weight_g, $sequestration_type, $plastic_from,
             $brand_name, $community_id, $location_full, $bottom_colour, $location_lat, $location_long,
-            $location_watershed, $country_id
+            $location_watershed, $country_id, $status
         );
 
-        // Fetch the data and populate the form fields
+        // Fetch the data and check the status
         if ($stmt->fetch()) {
+            // If status is not "not ready", exit the function
+            if ($status !== "not ready") {
+                echo "<script>console.log('Ecobrick is not in a not-ready state. Retry function skipped.');</script>";
+                return;  // Quit the function early if status isn't "not ready"
+            }
+
             // Output JavaScript to populate the form
             echo "<script>
                 document.addEventListener('DOMContentLoaded', function() {
@@ -40,11 +45,20 @@ function retryEcobrick($gobrik_conn, $ecobrick_unique_id) {
                     document.getElementById('brand_name').value = '" . htmlspecialchars($brand_name, ENT_QUOTES) . "';
                     document.getElementById('community_select').value = '" . htmlspecialchars($community_id, ENT_QUOTES) . "';
                     document.getElementById('location_full').value = '" . htmlspecialchars($location_full, ENT_QUOTES) . "';
-                    document.getElementById('bottom_colour').value = '" . htmlspecialchars($bottom_colour, ENT_QUOTES) . "';
                     document.getElementById('lat').value = '" . htmlspecialchars($location_lat, ENT_QUOTES) . "';
                     document.getElementById('lon').value = '" . htmlspecialchars($location_long, ENT_QUOTES) . "';
                     document.getElementById('location_watershed').value = '" . htmlspecialchars($location_watershed, ENT_QUOTES) . "';
                     document.getElementById('country_id').value = '" . htmlspecialchars($country_id, ENT_QUOTES) . "';
+
+                    // Set the selected option for the bottom_colour dropdown
+                    const bottomColorSelect = document.getElementById('bottom_color');
+                    const options = bottomColorSelect.options;
+                    for (let i = 0; i < options.length; i++) {
+                        if (options[i].value === '" . htmlspecialchars($bottom_colour, ENT_QUOTES) . "') {
+                            options[i].selected = true;
+                            break;
+                        }
+                    }
                 });
             </script>";
         } else {
@@ -56,6 +70,7 @@ function retryEcobrick($gobrik_conn, $ecobrick_unique_id) {
         error_log("Error preparing retryEcobrick statement: " . $gobrik_conn->error);
     }
 }
+
 
 
 

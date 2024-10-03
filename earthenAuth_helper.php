@@ -13,7 +13,7 @@
  // Function to fetch ecobrick data for retry
 function retryEcobrick($gobrik_conn, $ecobrick_unique_id) {
     // Fetch the ecobrick data from the database
-    $sql = "SELECT ecobricker_maker, volume_ml, weight_g, sequestration_type, plastic_from, brand_name, community_id, location_full, location_lat, location_long, location_watershed, country_id FROM tb_ecobricks WHERE ecobrick_unique_id = ?";
+    $sql = "SELECT ecobricker_maker, volume_ml, weight_g, sequestration_type, plastic_from, brand_name, community_id, location_full, bottom_colour, location_lat, location_long, location_watershed, country_id FROM tb_ecobricks WHERE ecobrick_unique_id = ?";
     $stmt = $gobrik_conn->prepare($sql);
 
     if ($stmt) {
@@ -23,7 +23,7 @@ function retryEcobrick($gobrik_conn, $ecobrick_unique_id) {
         // Bind the results to variables
         $stmt->bind_result(
             $ecobricker_maker, $volume_ml, $weight_g, $sequestration_type, $plastic_from,
-            $brand_name, $community_id, $location_full, $location_lat, $location_long,
+            $brand_name, $community_id, $location_full, $bottom_colour, $location_lat, $location_long,
             $location_watershed, $country_id
         );
 
@@ -40,6 +40,7 @@ function retryEcobrick($gobrik_conn, $ecobrick_unique_id) {
                     document.getElementById('brand_name').value = '" . htmlspecialchars($brand_name, ENT_QUOTES) . "';
                     document.getElementById('community_select').value = '" . htmlspecialchars($community_id, ENT_QUOTES) . "';
                     document.getElementById('location_full').value = '" . htmlspecialchars($location_full, ENT_QUOTES) . "';
+                    document.getElementById('bottom_colour').value = '" . htmlspecialchars($bottom_colour, ENT_QUOTES) . "';
                     document.getElementById('lat').value = '" . htmlspecialchars($location_lat, ENT_QUOTES) . "';
                     document.getElementById('lon').value = '" . htmlspecialchars($location_long, ENT_QUOTES) . "';
                     document.getElementById('location_watershed').value = '" . htmlspecialchars($location_watershed, ENT_QUOTES) . "';

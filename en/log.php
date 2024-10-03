@@ -380,11 +380,13 @@ require_once ("../includes/log-inc.php");
 
                      <div class="form-item">
                         <label for="community_select">Select Your Community:</label><br>
-                        <input type="text" id="community_select" name="community_select"
-                               value="<?= htmlspecialchars($user_community_name, ENT_QUOTES); ?>"
-                               placeholder="Start typing your community..." required style="padding-left:45px;">
-                        <div id="community-pin" class="pin-icon">📌</div>
-                        <div id="community-suggestions" class="suggestions-box"></div>
+                        <div class="input-container">
+                            <input type="text" id="community_select" name="community_select"
+                                   value="<?= htmlspecialchars($user_community_name, ENT_QUOTES); ?>"
+                                   placeholder="Start typing your community..." required style="padding-left:45px;">
+                            <div id="community-pin" class="pin-icon">📌</div>
+                            <div id="community-suggestions" class="suggestions-box"></div>
+                        </div>
 
                         <p class="form-caption">Select your community from the list based on your current or updated community name.</p>
                     </div>

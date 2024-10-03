@@ -13,7 +13,7 @@
 
 /* Suggestions box container */
 #community-suggestions {
-    background-color: var(--background-main); /* White background for suggestions */
+    background-color: var(--main-background); /* White background for suggestions */
     width: calc(100% - 30px); /* Make the suggestions box the same width as the input */
     max-height: 150px; /* Limit the height */
     overflow-y: auto; /* Allow scrolling if suggestions exceed max height */

@@ -245,45 +245,6 @@ function getUserContinent($buwana_conn, $buwana_id) {
 
 
 
-function retryEcobrick($gobrik_conn, $ecobrick_unique_id) {
-    // Fetch the ecobrick data from the database
-    $sql = "SELECT * FROM tb_ecobricks WHERE ecobrick_unique_id = ?";
-    $stmt = $gobrik_conn->prepare($sql);
-
-    if ($stmt) {
-        $stmt->bind_param("i", $ecobrick_unique_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        // If the ecobrick is found, fetch the data
-        if ($result->num_rows > 0) {
-            $ecobrick_data = $result->fetch_assoc();
-
-            // Output JavaScript to populate the form
-            echo "<script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    document.getElementById('ecobricker_maker').value = '" . htmlspecialchars($ecobrick_data['ecobricker_maker'], ENT_QUOTES) . "';
-                    document.getElementById('volume_ml').value = '" . htmlspecialchars($ecobrick_data['volume_ml'], ENT_QUOTES) . "';
-                    document.getElementById('weight_g').value = '" . htmlspecialchars($ecobrick_data['weight_g'], ENT_QUOTES) . "';
-                    document.getElementById('sequestration_type').value = '" . htmlspecialchars($ecobrick_data['sequestration_type'], ENT_QUOTES) . "';
-                    document.getElementById('plastic_from').value = '" . htmlspecialchars($ecobrick_data['plastic_from'], ENT_QUOTES) . "';
-                    document.getElementById('brand_name').value = '" . htmlspecialchars($ecobrick_data['brand_name'], ENT_QUOTES) . "';
-                    document.getElementById('community_select').value = '" . htmlspecialchars($ecobrick_data['community_id'], ENT_QUOTES) . "';
-                    document.getElementById('location_full').value = '" . htmlspecialchars($ecobrick_data['location_full'], ENT_QUOTES) . "';
-                    document.getElementById('lat').value = '" . htmlspecialchars($ecobrick_data['location_lat'], ENT_QUOTES) . "';
-                    document.getElementById('lon').value = '" . htmlspecialchars($ecobrick_data['location_long'], ENT_QUOTES) . "';
-                    document.getElementById('location_watershed').value = '" . htmlspecialchars($ecobrick_data['location_watershed'], ENT_QUOTES) . "';
-                });
-            </script>";
-        } else {
-            echo "<script>console.log('No ecobrick found with this unique ID');</script>";
-        }
-
-        $stmt->close();
-    } else {
-        error_log("Error preparing retryEcobrick statement: " . $gobrik_conn->error);
-    }
-}
 
 
 ?>

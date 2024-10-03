@@ -40,7 +40,7 @@ if ($is_logged_in) {
 
     // Check if retry parameter is set in the URL and call retry function
     if (isset($_GET['retry'])) {
-        $ecobrick_unique_id = (int)$_GET['retry'];
+        $ecobrick_unique_id = isset($_GET['retry']) ? (int)$_GET['retry'] : null; // Check if retry is passed
         retryEcobrick($gobrik_conn, $ecobrick_unique_id);
     }
 
@@ -48,7 +48,10 @@ if ($is_logged_in) {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         try {
 
-            $ids = setSerialNumber($gobrik_conn);
+
+            $ids = setSerialNumber($ecobrick_unique_id, $gobrik_conn); // Pass ecobrick_unique_id if available
+
+
             $ecobrick_unique_id = $ids['ecobrick_unique_id'];
             $serial_no = $ids['serial_no'];
             $brik_notes = "Directly logged on beta.GoBrik.com";

@@ -74,11 +74,20 @@ function retryEcobrick($gobrik_conn, $ecobrick_unique_id) {
 
 
 
+// Function to generate or return a serial number
+function setSerialNumber($ecobrick_unique_id = null, $gobrik_conn) {
+    // If the ecobrick_unique_id is provided, use it directly
+    if (!is_null($ecobrick_unique_id) && !empty($ecobrick_unique_id)) {
+        return [
+            'ecobrick_unique_id' => $ecobrick_unique_id,
+            'serial_no' => $ecobrick_unique_id // In this case, use the same ID for serial_no
+        ];
+    }
 
-// Function to generate a new serial number
-function setSerialNumber($gobrik_conn) {
+    // If no ecobrick_unique_id, generate a new one from the database
     $query = "SELECT MAX(ecobrick_unique_id) as max_unique_id FROM tb_ecobricks";
     $result = $gobrik_conn->query($query);
+
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         return [
@@ -89,6 +98,7 @@ function setSerialNumber($gobrik_conn) {
         throw new Exception('No records found in the database.');
     }
 }
+
 
 
 

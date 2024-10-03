@@ -7,8 +7,7 @@
 
     #main {
         height: fit-content !important;
-  padding-bottom: 100px;
-
+        padding-bottom: 100px;
     }
 
 

@@ -154,10 +154,7 @@ if ($is_logged_in) {
             error_log("Date Logged: $date_logged_ts, CO2 Sequestration: $CO2_kg kg, Last Ownership Change: $last_ownership_change");
             error_log("Actual Maker Name: $actual_maker_name, Brik Notes: $brik_notes, Date Published: $date_published_ts");
 
-        } catch (Exception $e) {
-            error_log("Error: " . $e->getMessage());
-            echo "Error: " . $e->getMessage();
-        }
+
 
             // Prepare the SQL statement
             $sql = "INSERT INTO tb_ecobricks (

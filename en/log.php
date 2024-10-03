@@ -1,10 +1,12 @@
 <?php
+
+require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
+
 // PART 1: Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.542';
 $page = 'log';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
-require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
 startSecureSession(); // Start a secure session with regeneration to prevent session fixation
 
@@ -36,6 +38,15 @@ if ($is_logged_in) {
     } else {
         error_log("Error fetching location data: " . $buwana_conn->error);
     }
+
+    // Check if retry parameter is set in the URL
+    if (isset($_GET['retry'])) {
+        $ecobrick_unique_id = (int)$_GET['retry'];
+
+        // Call the retryEcobrick function to populate the form with ecobrick data
+        retryEcobrick($gobrik_conn, $ecobrick_unique_id);
+}
+
 
     // PART 3: POST ECOBRICK DATA to GOBRIK DATABASE
     if ($_SERVER["REQUEST_METHOD"] == "POST") {

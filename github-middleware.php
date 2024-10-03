@@ -58,24 +58,30 @@ function githubPushChange($filePath, $content, $commitMessage) {
     }
 }
 
-// Endpoint to handle GitHub operations
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
-    // Fetching the action type from the request
+    if (empty(GITHUB_TOKEN)) {
+        die(json_encode(['error' => 'GitHub token is missing or invalid.']));
+    }
+
     $action = $_POST['action'];
 
     if ($action === 'update') {
-        // Expecting file path, new content, and commit message in the request
-        $filePath = $_POST['path'] ?? '';
+        $filePath = urlencode($_POST['path'] ?? '');
         $content = $_POST['content'] ?? '';
         $commitMessage = $_POST['message'] ?? 'Updated file via GDE';
+
+        if (empty($filePath) || empty($content)) {
+            die(json_encode(['error' => 'File path and content are required.']));
+        }
 
         $updateResult = githubPushChange($filePath, $content, $commitMessage);
         header('Content-Type: application/json');
         echo json_encode($updateResult);
     } else {
-        // Handle other actions or default
         echo json_encode(['error' => 'Invalid action specified.']);
     }
+}
+
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['path'])) {
     // Default GET operation to fetch file or repo structure
     $path = $_GET['path'];

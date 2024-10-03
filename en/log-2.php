@@ -1,25 +1,15 @@
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
-startSecureSession(); // Start a secure session with regeneration to prevent session fixation
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.51';
 $page = 'log-2';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
-// Initialize user variables
-$first_name = '';
-$buwana_id = '';
-$country_icon = '';
-$watershed_id = '';
-$watershed_name = '';
-$is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
+startSecureSession(); // Start a secure session with regeneration to prevent session fixation
 
-// Check if user is logged in and session active
+// PART 2: Check if user is logged in and session active
 if ($is_logged_in) {
     $buwana_id = $_SESSION['buwana_id'] ?? ''; // Retrieve buwana_id from session
 
@@ -27,11 +17,12 @@ if ($is_logged_in) {
     require_once '../gobrikconn_env.php';
     require_once '../buwanaconn_env.php';
 
-    // Fetch the user's continent icon
+    // Fetch the user's location data
     $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
     $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
-    // Fetch the user's first name from the database
-    $first_name = getUserFirstName($buwana_conn, $buwana_id);
+    $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
+    $gea_status = getGEA_status($buwana_id);
+    $user_community_name = getCommunityName($buwana_conn, $buwana_id);
 
     $error_message = '';
     $full_urls = [];

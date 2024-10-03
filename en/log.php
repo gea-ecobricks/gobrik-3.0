@@ -8,8 +8,6 @@ require_once '../earthenAuth_helper.php'; // Include the authentication helper f
 
 startSecureSession(); // Start a secure session with regeneration to prevent session fixation
 
-
-
 // PART 2: Check if user is logged in and session active
 if ($is_logged_in) {
     $buwana_id = $_SESSION['buwana_id'] ?? ''; // Retrieve buwana_id from session
@@ -46,10 +44,9 @@ if ($is_logged_in) {
             $result = $gobrik_conn->query($query);
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
-                $max_unique_id = $row['max_unique_id'];
                 return [
-                    'ecobrick_unique_id' => $max_unique_id + 1,
-                    'serial_no' => $max_unique_id + 1
+                    'ecobrick_unique_id' => $row['max_unique_id'] + 1,
+                    'serial_no' => $row['max_unique_id'] + 1
                 ];
             } else {
                 throw new Exception('No records found in the database.');
@@ -76,7 +73,13 @@ if ($is_logged_in) {
             $location_lat = (float)trim($_POST['latitude']);
             $location_long = (float)trim($_POST['longitude']);
             $location_watershed = trim($_POST['location_watershed']);
-            $country_id = 1;  // For simplicity, setting it to a default value
+            $country_id = 1;  // Placeholder value
+
+            // Log the data being passed
+            error_log("Values being inserted into tb_ecobricks: ");
+            error_log("Unique ID: $ecobrick_unique_id, Serial No: $serial_no, Maker: $ecobricker_maker, Volume: $volume_ml, Weight: $weight_g");
+            error_log("Sequestration: $sequestration_type, Plastic From: $plastic_from, Location: $location_full, Lat: $location_lat, Long: $location_long");
+            error_log("Brand Name: $brand_name, Watershed: $location_watershed, Community ID: $community_id, Country ID: $country_id");
 
             // Background settings
             $owner = $ecobricker_maker;
@@ -109,6 +112,7 @@ if ($is_logged_in) {
 
                 // Execute the statement
                 if ($stmt->execute()) {
+                    error_log("Statement executed successfully.");
                     $stmt->close();
                     $gobrik_conn->close();
                     echo "<script>window.location.href = 'log-2.php?id=" . $serial_no . "';</script>";

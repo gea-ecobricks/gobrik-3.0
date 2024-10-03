@@ -133,10 +133,6 @@ if ($is_logged_in) {
 
 
 
-
-
-
-
 echo '<!DOCTYPE html>
 <html lang="' . $lang . '">
 <head>

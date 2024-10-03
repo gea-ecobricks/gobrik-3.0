@@ -45,8 +45,7 @@ if ($stmt_location) {
 
 
 
-
-  // PART 3: POST ECOBRICK DATA to GOBRIK DATABASE
+// PART 3: POST ECOBRICK DATA to GOBRIK DATABASE
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Function to set serial number and ecobrick_unique_id
     function setSerialNumber($gobrik_conn) {
@@ -81,9 +80,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $plastic_from = trim($_POST['plastic_from']);
         $brand_name = trim($_POST['brand_name']);
         $community_id = (int)trim($_POST['community_select']); // Get the selected community ID
+        $location_full = trim($_POST['location_full']); // Get the full location from the form
+        $location_lat = (float)trim($_POST['latitude']); // Get latitude from the form
+        $location_long = (float)trim($_POST['longitude']); // Get longitude from the form
+        $location_watershed = trim($_POST['location_watershed']); // Get the watershed location
 
-        // Debugging output to check the community_id value
+        // Debugging output to check the community_id and location values
         error_log("Community ID: " . $community_id);
+        error_log("Location Full: " . $location_full);
+        error_log("Latitude: " . $location_lat);
+        error_log("Longitude: " . $location_long);
 
         // Background settings
         $owner = $ecobricker_maker;
@@ -95,28 +101,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $last_ownership_change = date("Y-m-d");
         $actual_maker_name = $ecobricker_maker;
 
-        // Location and watershed details
-        $location_full = $user_location_full ?? 'Default Location';
-        $location_watershed = $user_location_watershed;
-
         // Prepare the SQL statement
         $sql = "INSERT INTO tb_ecobricks (
             ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type,
-            plastic_from, location_full, brand_name, owner, status, universal_volume_ml, density,
-            date_logged_ts, CO2_kg, last_ownership_change, actual_maker_name, brik_notes, date_published_ts,
-            location_watershed, community_id, country_id
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            plastic_from, location_full, location_lat, location_long, brand_name, owner, status,
+            universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change,
+            actual_maker_name, brik_notes, date_published_ts, location_watershed, community_id, country_id
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         if ($stmt = $gobrik_conn->prepare($sql)) {
             error_log("Statement prepared successfully.");
 
             // Bind parameters including the country_id
             $stmt->bind_param(
-                "issiisssssssdsdsssssii",
+                "issiisssddsssdsdsssssii",
                 $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g,
-                $sequestration_type, $plastic_from, $location_full, $brand_name, $owner, $status,
-                $universal_volume_ml, $density, $date_logged_ts, $CO2_kg, $last_ownership_change,
-                $actual_maker_name, $brik_notes, $date_published_ts,
+                $sequestration_type, $plastic_from, $location_full, $location_lat, $location_long,
+                $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts,
+                $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts,
                 $location_watershed, $community_id, $country_id
             );
 
@@ -148,15 +150,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         error_log("Error: " . $e->getMessage());
         echo "Error: " . $e->getMessage() . "<br>";
     }
-}
-
-
-
 } else {
     // Redirect to login page with the redirect parameter set to the current page
     header('Location: login.php?redirect=' . urlencode($page));
     exit();
 }
+
 
 
 
@@ -416,10 +415,9 @@ require_once ("../includes/log-inc.php");
                         <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
                     </div>
 
-<!-- Hidden latitude and longitude fields -->
-<input id="lat" name="latitude" value="<?= htmlspecialchars($user_location_lat, ENT_QUOTES); ?>">
-<input id="lon" name="longitude" value="<?= htmlspecialchars($user_location_long, ENT_QUOTES); ?>">
-
+                    <!-- Hidden latitude and longitude fields -->
+                    <input type="hidden" id="lat" name="latitude" value="<?= htmlspecialchars($user_location_lat, ENT_QUOTES); ?>">
+                    <input type="hidden" id="lon" name="longitude" value="<?= htmlspecialchars($user_location_long, ENT_QUOTES); ?>">
 
                     <!-- Location Watershed -->
                     <div class="form-item">

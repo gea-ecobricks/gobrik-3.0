@@ -35,7 +35,15 @@
     background-color: var(--button-2-1); /* Light gray background on hover */
 }
 
-
+.suggestions-box {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    width: 100%;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 1000;
+}
 
 
 .dropdown {

@@ -371,7 +371,7 @@ require_once ("../includes/log-inc.php");
 
                 <div id="localize-box" class="advanced-box" aria-expanded="false" role="region" aria-labelledby="advancedBoxLabel-1">
                     <div class="advanced-box-header"  id="advancedBoxLabel-1">
-                        <div class="advanced-title" data-lang-id="013-advanced-options">Edit Localization</div>
+                        <div class="advanced-title" data-lang-id="013-advanced-options">⚙️ Location</div>
                         <div class="advanced-open-icon">+</div>
                     </div>
                     <div class="advanced-box-content" style="display:none;">
@@ -402,6 +402,10 @@ require_once ("../includes/log-inc.php");
                         <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
                     </div>
 
+                     <!-- Hidden latitude and longitude fields -->
+                    <input  id="lat" name="latitude">
+                    <input  id="lon" name="longitude">
+
                     <!-- Location Watershed -->
                     <div class="form-item">
                         <label for="location_watershed" data-lang-id="011-watershed-location">Watershed:</label><br>
@@ -412,8 +416,10 @@ require_once ("../includes/log-inc.php");
                             <div id="loading-spinner-watershed" class="spinner" style="display: none;"></div>
                             <div id="watershed-pin" class="pin-icon">💧</div>
                         </div>
-
+                        <!-- Dropdown for suggestions -->
+                        <div id="watershed-suggestions" class="suggestions-box"></div>
                     </div>
+
 
 
 
@@ -621,6 +627,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+
+
+
+
+
+
     //community functions
 document.addEventListener('DOMContentLoaded', function() {
     const communitySelect = document.getElementById('community_select');
@@ -670,6 +682,81 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+//Watershed
+
+document.addEventListener('DOMContentLoaded', function() {
+    const watershedInput = document.getElementById('location_watershed');
+    const watershedSuggestions = document.getElementById('watershed-suggestions');
+    const latInput = document.getElementById('lat');  // Hidden field for latitude
+    const lonInput = document.getElementById('lon');  // Hidden field for longitude
+
+    // Function to fetch nearby rivers or watersheds using the Overpass API
+    function fetchNearbyRivers(query, lat, lon) {
+        const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];(way["waterway"="river"](around:5000,${lat},${lon});relation["waterway"="river"](around:5000,${lat},${lon}););out tags;`;
+
+        fetch(overpassUrl)
+            .then(response => response.json())
+            .then(data => {
+                const rivers = data.elements.filter(el => el.tags && el.tags.name && el.tags.name.toLowerCase().includes(query.toLowerCase()));
+                displayRiverSuggestions(rivers);
+            })
+            .catch(error => {
+                console.error('Error fetching river data:', error);
+                watershedSuggestions.innerHTML = '<div>No rivers found</div>';
+            });
+    }
+
+    // Function to display river suggestions in the dropdown
+    function displayRiverSuggestions(rivers) {
+        watershedSuggestions.innerHTML = '';  // Clear any previous suggestions
+
+        if (rivers.length === 0) {
+            watershedSuggestions.innerHTML = '<div>No rivers found</div>';
+        } else {
+            rivers.forEach(river => {
+                const suggestionItem = document.createElement('div');
+                suggestionItem.textContent = river.tags.name;
+                suggestionItem.classList.add('suggestion-item');
+                suggestionItem.addEventListener('click', function() {
+                    watershedInput.value = river.tags.name;
+                    watershedSuggestions.innerHTML = '';  // Clear suggestions once a selection is made
+                });
+                watershedSuggestions.appendChild(suggestionItem);
+            });
+        }
+    }
+
+    // Event listener for focusing on the location_watershed input
+    watershedInput.addEventListener('focus', function() {
+        const lat = latInput.value;
+        const lon = lonInput.value;
+
+        if (!lat || !lon) {
+            console.error('Latitude and longitude are required to fetch nearby rivers.');
+            watershedSuggestions.innerHTML = '<div>Error: No location data</div>';
+            return;
+        }
+    });
+
+    // Event listener for typing in the location_watershed input
+    watershedInput.addEventListener('input', function() {
+        const query = this.value;
+
+        if (query.length >= 3) {  // Only search when 3 or more characters are entered
+            const lat = latInput.value;
+            const lon = lonInput.value;
+
+            if (lat && lon) {
+                fetchNearbyRivers(query, lat, lon);
+            } else {
+                console.error('Latitude and longitude are required to fetch nearby rivers.');
+                watershedSuggestions.innerHTML = '<div>Error: No location data</div>';
+            }
+        } else {
+            watershedSuggestions.innerHTML = '';  // Clear suggestions if query is too short
+        }
+    });
+});
 
 
 </script>

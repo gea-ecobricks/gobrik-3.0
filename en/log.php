@@ -726,7 +726,7 @@ document.addEventListener('DOMContentLoaded', function() {
         watershedSuggestions.innerHTML = '';  // Clear any previous suggestions
 
         if (rivers.length === 0) {
-            watershedSuggestions.innerHTML = '<div>No rivers found</div>';
+            watershedSuggestions.innerHTML = '<div class="suggestion-item">No rivers found</div>';
         } else {
             rivers.forEach(river => {
                 const suggestionItem = document.createElement('div');

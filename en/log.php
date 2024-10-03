@@ -41,10 +41,6 @@ if ($stmt_location) {
 }
 
 
-
-
-
-
 // PART 3: POST ECOBRICK DATA to GOBRIK DATABASE
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Function to set serial number and ecobrick_unique_id
@@ -157,8 +153,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 
+?>
 
 
+<?php
 
 echo '<!DOCTYPE html>
 <html lang="' . $lang . '">

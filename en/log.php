@@ -152,7 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit();
 }
 
-
+}
 
 
 
@@ -216,7 +216,7 @@ echo '<!DOCTYPE html>
     if ($buwana_conn) $buwana_conn->close();
 
 require_once ("../includes/log-inc.php");
-}
+
 ?>
 
 

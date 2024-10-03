@@ -40,7 +40,7 @@ if ($stmt_location) {
     error_log("Error fetching location data: " . $buwana_conn->error);
 }
 
-}
+
 // PART 3: POST ECOBRICK DATA to GOBRIK DATABASE
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Function to set serial number and ecobrick_unique_id
@@ -216,6 +216,7 @@ echo '<!DOCTYPE html>
     if ($buwana_conn) $buwana_conn->close();
 
 require_once ("../includes/log-inc.php");
+}
 ?>
 
 

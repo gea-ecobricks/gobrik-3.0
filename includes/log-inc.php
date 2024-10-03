@@ -35,14 +35,14 @@
     background-color: var(--button-2-1); /* Light gray background on hover */
 }
 
-.suggestions-box {
-/*     position: absolute; */
-/*     background-color: white; */
-/*     border: 1px solid #ccc; */
-    width: 100%;
-    max-height: 150px;
-    overflow-y: auto;
-    z-index: 1000;
+#watershed-suggestions {
+    background-color: var(--main-background); /* White background for suggestions */
+    width: calc(100% - 30px); /* Make the suggestions box the same width as the input */
+    max-height: 150px; /* Limit the height */
+    overflow-y: auto; /* Allow scrolling if suggestions exceed max height */
+    z-index: 1000; /* Ensure the dropdown is above other elements */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for the dropdown */
+    margin-top: -3px;
 }
 
 

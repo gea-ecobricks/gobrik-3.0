@@ -98,7 +98,7 @@ if ($is_logged_in) {
             if ($stmt = $gobrik_conn->prepare($sql)) {
                 // Bind parameters
                 $stmt->bind_param(
-                    "issiisssddsssdsdsssssii",
+                    "issiisssddsssiisisssssii",
                     $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g,
                     $sequestration_type, $plastic_from, $location_full, $location_lat, $location_long,
                     $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts,

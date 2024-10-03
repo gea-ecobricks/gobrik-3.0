@@ -127,6 +127,7 @@ if ($is_logged_in) {
             $brand_name = trim($_POST['brand_name']);
             $community_id = (int)trim($_POST['community_select']);
             $location_full = trim($_POST['location_full']);
+            $bottom_colour = trim($_POST['bottom_colour']);
             $location_lat = (float)trim($_POST['latitude']);
             $location_long = (float)trim($_POST['longitude']);
             $location_watershed = trim($_POST['location_watershed']);
@@ -135,7 +136,7 @@ if ($is_logged_in) {
             // Log the data being passed
             error_log("Values being inserted into tb_ecobricks: ");
             error_log("Unique ID: $ecobrick_unique_id, Serial No: $serial_no, Maker: $ecobricker_maker, Volume: $volume_ml, Weight: $weight_g");
-            error_log("Sequestration: $sequestration_type, Plastic From: $plastic_from, Location: $location_full, Lat: $location_lat, Long: $location_long");
+            error_log("Sequestration: $sequestration_type, Plastic From: $plastic_from, Location: $location_full, Bottom colour: $bottom_colour, Lat: $location_lat, Long: $location_long");
             error_log("Brand Name: $brand_name, Watershed: $location_watershed, Community ID: $community_id, Country ID: $country_id");
 
             // Background set variables
@@ -159,17 +160,17 @@ if ($is_logged_in) {
             // Prepare the SQL statement
             $sql = "INSERT INTO tb_ecobricks (
                 ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type,
-                plastic_from, location_full, location_lat, location_long, brand_name, owner, status,
+                plastic_from, location_full, bottom_colour, location_lat, location_long, brand_name, owner, status,
                 universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change,
                 actual_maker_name, brik_notes, date_published_ts, location_watershed, community_id, country_id
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             if ($stmt = $gobrik_conn->prepare($sql)) {
                 // Bind parameters
                 $stmt->bind_param(
-                    "issiisssddsssiisisssssii",
+                    "issiissssddsssiisisssssii",
                     $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g,
-                    $sequestration_type, $plastic_from, $location_full, $location_lat, $location_long,
+                    $sequestration_type, $plastic_from, $location_full, $bottom_colour, $location_lat, $location_long,
                     $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts,
                     $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts,
                     $location_watershed, $community_id, $country_id
@@ -361,8 +362,8 @@ require_once ("../includes/log-inc.php");
 
 
                 <div class="form-item">
-                    <label for="bottom_color" data-lang-id="008-bottom-color">Bottom color of the Ecobrick:</label><br>
-                    <select id="bottom_color" name="bottom_color" aria-label="Bottom Color" required>
+                    <label for="bottom_colour" data-lang-id="008-bottom-color">Bottom color of the Ecobrick:</label><br>
+                    <select id="bottom_colour" name="bottom_colour" aria-label="Bottom Color" required>
                         <option value="" disabled selected data-lang-id="009-select-bottom-color">Select bottom color...</option>
                         <option value="No deliberate color set" data-lang-id="010-no-color-set">No deliberate color set</option>
                         <option value="clear" data-lang-id="011-clear">Clear</option>

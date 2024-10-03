@@ -36,9 +36,9 @@
 }
 
 .suggestions-box {
-    position: absolute;
-    background-color: white;
-    border: 1px solid #ccc;
+/*     position: absolute; */
+/*     background-color: white; */
+/*     border: 1px solid #ccc; */
     width: 100%;
     max-height: 150px;
     overflow-y: auto;

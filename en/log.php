@@ -417,8 +417,8 @@ require_once ("../includes/log-inc.php");
                     </div>
 
                     <!-- Hidden latitude and longitude fields -->
-<input type="hidden" id="lat" name="latitude" value="<?= htmlspecialchars($lat, ENT_QUOTES); ?>">
-<input type="hidden" id="lon" name="longitude" value="<?= htmlspecialchars($lon, ENT_QUOTES); ?>">
+<input id="lat" name="latitude" value="<?= htmlspecialchars($lat, ENT_QUOTES); ?>">
+<input  id="lon" name="longitude" value="<?= htmlspecialchars($lon, ENT_QUOTES); ?>">
 
 
                     <!-- Location Watershed -->

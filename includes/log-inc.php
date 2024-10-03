@@ -13,7 +13,6 @@
 
 /* Suggestions box container */
 #community-suggestions {
-    position: absolute; /* Ensures the dropdown appears right under the input field */
     background-color: white; /* White background for suggestions */
     border: 1px solid #ccc; /* Light border around the suggestions */
     width: calc(100% - 30px); /* Make the suggestions box the same width as the input */
@@ -21,19 +20,20 @@
     overflow-y: auto; /* Allow scrolling if suggestions exceed max height */
     z-index: 1000; /* Ensure the dropdown is above other elements */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for the dropdown */
+    margin-top: -3px;
 }
 
 /* Individual suggestion items */
 .suggestion-item {
     padding: 10px;
     cursor: pointer;
-    font-size: 14px;
-    color: black; /* Black text color */
-    background-color: white; /* White background for individual items */
+    font-size: 1em;
+    color: var(--text-color);
+    background-color: var(--background-main); /* White background for individual items */
 }
 
 .suggestion-item:hover {
-    background-color: #f0f0f0; /* Light gray background on hover */
+    background-color: var(--button-2-1); /* Light gray background on hover */
 }
 
 

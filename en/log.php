@@ -18,13 +18,27 @@ if ($is_logged_in) {
     require_once '../gobrikconn_env.php';
     require_once '../buwanaconn_env.php';
 
-    // Fetch the user's location data
-    $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
-    $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
-    $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
-    $gea_status = getGEA_status($buwana_id);
-    $user_community_name = getCommunityName($buwana_conn, $buwana_id);
+// Fetch the user's location data
+$user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
+$user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
+$user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
+$gea_status = getGEA_status($buwana_id);
+$user_community_name = getCommunityName($buwana_conn, $buwana_id);
 
+// Fetch location latitude and longitude from users_tb
+$sql_location = "SELECT location_lat, location_long FROM users_tb WHERE buwana_id = ?";
+$stmt_location = $buwana_conn->prepare($sql_location);
+
+if ($stmt_location) {
+    $stmt_location->bind_param("i", $buwana_id); // Assuming $buwana_id is the user ID
+    $stmt_location->execute();
+    $stmt_location->bind_result($user_location_lat, $user_location_long); // Store the lat and long in variables
+    $stmt_location->fetch();
+    $stmt_location->close();
+} else {
+    // Handle error in case query preparation fails
+    error_log("Error fetching location data: " . $buwana_conn->error);
+}
 
 
 

@@ -87,14 +87,14 @@ if ($is_logged_in) {
             $actual_maker_name = $ecobricker_maker;
 
             // Prepare the SQL statement
-            $sql = "INSERT INTO tb_ecobricks (
-                ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type,
-                plastic_from, location_full, location_lat, location_long, brand_name, owner, status,
-                universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change,
-                actual_maker_name, brik_notes, date_published_ts, location_watershed, community_id, country_id
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            // Prepare the SQL statement
+                $sql = "INSERT INTO tb_ecobricks (
+                    ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type,
+                    plastic_from, location_full, location_lat, location_long, brand_name, owner, status,
+                    universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change,
+                    actual_maker_name, brik_notes, date_published_ts, location_watershed, community_id, country_id
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-            if ($stmt = $gobrik_conn->prepare($sql)) {
                 // Bind parameters including the country_id
                 $stmt->bind_param(
                     "issiisssddsssdsdsssssii",
@@ -104,6 +104,7 @@ if ($is_logged_in) {
                     $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts,
                     $location_watershed, $community_id, $country_id
                 );
+
 
                 if ($stmt->execute()) {
                     $stmt->close();

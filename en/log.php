@@ -130,7 +130,7 @@ if ($is_logged_in) {
             $location_lat = (float)trim($_POST['latitude']);
             $location_long = (float)trim($_POST['longitude']);
             $location_watershed = trim($_POST['location_watershed']);
-            $country_id = 11
+            $country_id = 11;
 
             // Log the data being passed
             error_log("Values being inserted into tb_ecobricks: ");

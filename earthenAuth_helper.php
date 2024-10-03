@@ -51,11 +51,11 @@ function retryEcobrick($gobrik_conn, $ecobrick_unique_id) {
                     document.getElementById('country_id').value = '" . htmlspecialchars($country_id, ENT_QUOTES) . "';
 
                     // Set the selected option for the bottom_colour dropdown
-                    const bottomColorSelect = document.getElementById('bottom_color');
-                    const options = bottomColorSelect.options;
-                    for (let i = 0; i < options.length; i++) {
-                        if (options[i].value === '" . htmlspecialchars($bottom_colour, ENT_QUOTES) . "') {
-                            options[i].selected = true;
+                    const bottomColorSelect = document.getElementById('bottom_colour');
+                    const bottomColorValue = '" . htmlspecialchars($bottom_colour, ENT_QUOTES) . "';
+                    for (let i = 0; i < bottomColorSelect.options.length; i++) {
+                        if (bottomColorSelect.options[i].value === bottomColorValue) {
+                            bottomColorSelect.options[i].selected = true;
                             break;
                         }
                     }
@@ -70,6 +70,7 @@ function retryEcobrick($gobrik_conn, $ecobrick_unique_id) {
         error_log("Error preparing retryEcobrick statement: " . $gobrik_conn->error);
     }
 }
+
 
 
 

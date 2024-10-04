@@ -10,7 +10,7 @@ $serialNo = $_GET['serial_no'];
 // Refered to  https://www.w3schools.com/php/php_mysql_select_where.asp1
 $sql = "SELECT * FROM tb_ecobricks WHERE serial_no = " . $serialNo;
 
-$result = $conn->query($sql);
+$result = $gobrik_conn->query($sql);
 if ($result->num_rows > 0) {
 
     //  echo "<h1> Use Serial Number from URL => " . $serialNo ."</h1>"; Output data of each row
@@ -53,6 +53,6 @@ if ($result->num_rows > 0) {
     echo '<title>No Ecobrick Found | GoBrik.com</title>';
     echo '<meta name="description" content="No data found for this ecobrick serial number.  Most likely this is because the brikchain data is still in migration."> ';
 }
-$conn->close();
+$gobrik_conn->close();
 
 ?>

@@ -10,7 +10,7 @@ $serialNo = $_GET['serial_no'];
 // Refered to  https://www.w3schools.com/php/php_mysql_select_where.asp1
 $sql = "SELECT * FROM tb_ecobricks WHERE serial_no = " . $serialNo;
 
-$result = $conn->query($sql);
+$result = $gobrik_conn->query($sql);
 if ($result->num_rows > 0) {
 
     //  echo "<h1> Use Serial Number from URL => " . $serialNo ."</h1>"; Output data of each row
@@ -54,6 +54,6 @@ if ($result->num_rows > 0) {
     echo '<title>No se encontró ningún ecoladrillo | GoBrik.com</title>';
     echo '<meta name="description" content="No se encontraron datos para este número de serie de ecoladrillo. Lo más probable es que esto se deba a que los datos de brikchain todavía están en proceso de migración."> ';
 }
-$conn->close();
+$gobrik_conn->close();
 
 ?>

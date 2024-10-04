@@ -376,6 +376,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //ROTATE Photo
 
+
 // Function to send rotation request to the PHP function
 function rotateEcobrickPhoto(photoId, rotationDegrees, photoUrl) {
     // Create an AJAX request to send the rotation degrees to the server
@@ -396,7 +397,49 @@ function rotateEcobrickPhoto(photoId, rotationDegrees, photoUrl) {
     xhr.send(params);
 }
 
-// Example function when user clicks on the check button to confirm rotation
+// Function to adjust the height of the container after the image rotates
+function adjustContainerHeight(photo, container) {
+    var currentRotation = parseInt(photo.getAttribute('data-rotation')) || 0;
+
+    if (currentRotation % 180 !== 0) {
+        var newHeight = photo.width;
+        container.style.height = newHeight + 'px';
+    } else {
+        container.style.height = 'auto';
+    }
+}
+
+// Function to handle the rotate button clicks
+document.querySelectorAll('.rotate-button').forEach(function(button) {
+    button.addEventListener('click', function() {
+        var photoContainer = this.closest('.photo-container');
+        var photo = photoContainer.querySelector('.rotatable-photo');
+        var confirmButton = photoContainer.querySelector('.confirm-rotate-button');
+
+        // Get the current rotation from data attribute
+        var currentRotation = parseInt(photo.getAttribute('data-rotation')) || 0;
+        var direction = this.getAttribute('data-direction');
+
+        // Rotate the image based on the direction
+        if (direction === 'left') {
+            currentRotation = (currentRotation - 90) % 360;
+        } else if (direction === 'right') {
+            currentRotation = (currentRotation + 90) % 360;
+        }
+
+        // Apply the rotation and update the data-rotation attribute
+        photo.style.transform = 'rotate(' + currentRotation + 'deg)';
+        photo.setAttribute('data-rotation', currentRotation);
+
+        // Show the confirm button
+        confirmButton.style.display = 'block';
+
+        // Adjust the container height based on the new image rotation
+        adjustContainerHeight(photo, photoContainer);
+    });
+});
+
+// Handle the confirmation button click to send the rotation to the server
 document.querySelectorAll('.confirm-rotate-button').forEach(function(button) {
     button.addEventListener('click', function() {
         var photoContainer = this.closest('.photo-container');
@@ -405,10 +448,11 @@ document.querySelectorAll('.confirm-rotate-button').forEach(function(button) {
         var photoUrl = photo.src; // The URL of the photo
 
         // Trigger the PHP function to rotate the actual photo
-        var photoId = photo.getAttribute('id');
+        var photoId = photo.getAttribute('id'); // Assuming the photo ID corresponds to the ecobrick ID or serial_no
         rotateEcobrickPhoto(photoId, currentRotation, photoUrl);
     });
 });
+
 
 
 

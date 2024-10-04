@@ -26,7 +26,7 @@ if (isLoggedIn()) {
 //     $buwana_conn->close();  // Close the database connection
 } else {
 
-//     exit();
+    exit();
 }
 
 // Determine if the user is logged in for dynamic content handling later
@@ -45,8 +45,29 @@ require_once '../gobrikconn_env.php';
 // Get the contents from the Ecobrick table as an ordered View, using the serial_no from the URL
 $serialNo = $_GET['serial_no'];
 
-$sql = "SELECT * FROM tb_ecobricks WHERE serial_no = '" . $serialNo . "'";
-$result = $gobrik_conn->query($sql);
+$sql = "SELECT * FROM tb_ecobricks WHERE serial_no = ?";
+$stmt = $gobrik_conn->prepare($sql);
+
+if ($stmt) {
+    $stmt->bind_param("s", $serialNo);  // 's' indicates a string parameter
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        while($array = $result->fetch_assoc()) {
+            // Process results here
+        }
+    } else {
+        // No rows found
+        echo "No ecobrick found with that serial number.";
+    }
+
+    $stmt->close();
+} else {
+    // Query preparation failed
+    echo "Failed to prepare the SQL statement: " . $gobrik_conn->error;
+}
+
 
 if ($result->num_rows > 0) {
     while($array = $result->fetch_assoc()) {

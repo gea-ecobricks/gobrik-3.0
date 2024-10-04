@@ -1,20 +1,16 @@
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
-session_start(); // Start the session for managing CSRF token and session-related checks
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.763';
+$version = '0.764';
 $page = 'login';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 // Initialize user variables
 $first_name = '';
 $buwana_id = '';
-$country_icon = '';
 $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 
 // Check if user is logged in and session active

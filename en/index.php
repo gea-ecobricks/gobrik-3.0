@@ -1,35 +1,29 @@
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
-session_start(); // Start the session for managing CSRF token and session-related checks
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.423';
 $page = 'index';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
-// Initialize user variables
-$first_name = '';
-$buwana_id = '';
-$country_icon = '';
-
 // Check if the user is logged in
 if (isLoggedIn()) {
     $buwana_id = $_SESSION['buwana_id'];
     require_once '../buwanaconn_env.php'; // Include the Buwana database connection
 
-    // Fetch user's first name
-    $first_name = getUserFirstName($buwana_conn, $buwana_id);
-    $country_icon = getUserContinent($buwana_conn, $buwana_id);
+    // Fetch the user's location data
+    $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
+    $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
+    $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
+    $gea_status = getGEA_status($buwana_id);
+    $user_community_name = getCommunityName($buwana_conn, $buwana_id);
 
     $buwana_conn->close();  // Close the database connection
 }
 
-// Determine if the user is logged in for dynamic content handling later
-$is_logged_in = isset($buwana_id) && !empty($first_name);
+// // Determine if the user is logged in for dynamic content handling later
+// $is_logged_in = isset($buwana_id) && !empty($first_name);
 
 echo '<!DOCTYPE html>
 <html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">

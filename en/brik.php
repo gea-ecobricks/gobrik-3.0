@@ -203,6 +203,7 @@ if ($result->num_rows > 0) {
                 </div>
                 <div class="side">';
 }
+}
 
 $gobrik_conn->close();
 ?>

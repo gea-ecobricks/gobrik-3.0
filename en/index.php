@@ -10,7 +10,9 @@ $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 // Check if the user is logged in
 if (isLoggedIn()) {
     $buwana_id = $_SESSION['buwana_id'];
-    require_once '../buwanaconn_env.php'; // Include the Buwana database connection
+        // Include database connection
+    require_once '../gobrikconn_env.php';
+    require_once '../buwanaconn_env.php';
 
     // Fetch the user's location data
     $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
@@ -20,6 +22,9 @@ if (isLoggedIn()) {
     $user_community_name = getCommunityName($buwana_conn, $buwana_id);
 
     $buwana_conn->close();  // Close the database connection
+} else {
+
+    exit();
 }
 
 // // Determine if the user is logged in for dynamic content handling later

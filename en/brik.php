@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
 // Set page variables
@@ -11,7 +14,7 @@ $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper
 // Check if the user is logged in
 if (isLoggedIn()) {
     $buwana_id = $_SESSION['buwana_id'];
-        // Include database connection
+    // Include database connection
     require_once '../gobrikconn_env.php';
     require_once '../buwanaconn_env.php';
 
@@ -21,16 +24,10 @@ if (isLoggedIn()) {
     $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
     $gea_status = getGEA_status($buwana_id);
     $user_community_name = getCommunityName($buwana_conn, $buwana_id);
-    //GET FIRST NAME!
 
-//     $buwana_conn->close();  // Close the database connection
 } else {
-
-    exit();
+    exit("You need to be logged in to view this page.");
 }
-
-// Determine if the user is logged in for dynamic content handling later
-// $is_logged_in = isset($buwana_id) && !empty($first_name);
 
 echo '<!DOCTYPE html>
 <html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">
@@ -56,39 +53,23 @@ if ($stmt) {
     if ($result->num_rows > 0) {
         while($array = $result->fetch_assoc()) {
             // Process results here
-        }
-    } else {
-        // No rows found
-        echo "No ecobrick found with that serial number.";
-    }
+            $status = strtolower($array["status"]);
+            $isAuthenticated = ($status === "authenticated");
 
-    $stmt->close();
-} else {
-    // Query preparation failed
-    echo "Failed to prepare the SQL statement: " . $gobrik_conn->error;
-}
-
-
-if ($result->num_rows > 0) {
-    while($array = $result->fetch_assoc()) {
-        // Check the status of the ecobrick
-        $status = strtolower($array["status"]);
-        $isAuthenticated = ($status === "authenticated");
-
-        // If the ecobrick is authenticated, use the existing display
-        if ($isAuthenticated) {
-            echo '
-            <div class="splash-content-block">
-                <div class="splash-box">
-                    <div class="splash-heading"><span data-lang-id="001-splash-title">Ecobrick</span> ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . '</div>
-                    <div class="splash-sub">' . htmlspecialchars($array["weight_g"], ENT_QUOTES, 'UTF-8') . '&#8202;g <span data-lang-id="002-splash-subtitle">of plastic has been secured out of the biosphere in</span> ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . '</div>
+            // If the ecobrick is authenticated, use the existing display
+            if ($isAuthenticated) {
+                echo '
+                <div class="splash-content-block">
+                    <div class="splash-box">
+                        <div class="splash-heading"><span data-lang-id="001-splash-title">Ecobrick</span> ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . '</div>
+                        <div class="splash-sub">' . htmlspecialchars($array["weight_g"], ENT_QUOTES, 'UTF-8') . '&#8202;g <span data-lang-id="002-splash-subtitle">of plastic has been secured out of the biosphere in</span> ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . '</div>
+                    </div>
+                    <div class="splash-image">
+                        <a href="javascript:void(0);" onclick="viewGalleryImage(\'' . htmlspecialchars($array["ecobrick_full_photo_url"], ENT_QUOTES, 'UTF-8') . '\', \'Ecobrick ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and logged on ' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . '\')"><img src="../' . htmlspecialchars($array["ecobrick_full_photo_url"], ENT_QUOTES, 'UTF-8') . '" alt="Ecobrick ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and logged on ' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . '" title="Ecobrick Serial ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and authenticated on ' . htmlspecialchars($array["last_validation_ts"], ENT_QUOTES, 'UTF-8') . '"></a>
+                    </div>
                 </div>
-                <div class="splash-image">
-                    <a href="javascript:void(0);" onclick="viewGalleryImage(\'' . htmlspecialchars($array["ecobrick_full_photo_url"], ENT_QUOTES, 'UTF-8') . '\', \'Ecobrick ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and logged on ' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . '\')"><img src="../' . htmlspecialchars($array["ecobrick_full_photo_url"], ENT_QUOTES, 'UTF-8') . '" alt="Ecobrick ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and logged on ' . htmlspecialchars($array["date_logged_ts"], ENT_QUOTES, 'UTF-8') . '" title="Ecobrick Serial ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . ' was made in ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . ' and authenticated on ' . htmlspecialchars($array["last_validation_ts"], ENT_QUOTES, 'UTF-8') . '"></a>
-                </div>
-            </div>
-            <div id="splash-bar"></div>';
-        } else {
+                <div id="splash-bar"></div>';
+            } else {
 
             // NON AUTHENTICATED ECOBRICKS
             echo '

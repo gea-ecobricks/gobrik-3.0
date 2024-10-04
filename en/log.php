@@ -47,11 +47,7 @@ if ($is_logged_in) {
     // PART 3: POST ECOBRICK DATA to GOBRIK DATABASE
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         try {
-
-
             $ids = setSerialNumber($ecobrick_unique_id, $gobrik_conn); // Pass ecobrick_unique_id if available
-
-
             $ecobrick_unique_id = $ids['ecobrick_unique_id'];
             $serial_no = $ids['serial_no'];
             $brik_notes = "Directly logged on beta.GoBrik.com";
@@ -107,7 +103,7 @@ if ($is_logged_in) {
             if ($stmt = $gobrik_conn->prepare($sql)) {
                 // Bind parameters
                 $stmt->bind_param(
-                    "issiissssddsssiisisssssii",
+                    "issiissssddsssidsisssssii",
                     $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g,
                     $sequestration_type, $plastic_from, $location_full, $bottom_colour, $location_lat, $location_long,
                     $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts,

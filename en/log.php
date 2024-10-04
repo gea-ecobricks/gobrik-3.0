@@ -388,7 +388,7 @@ require_once ("../includes/log-inc.php");
                     </div>
                     <div class="advanced-box-content" style="display:none;">
 
-                        <p>Whenever you log an ecobrick it is tagged with your own Buwana account localization.  You can edit these defaults here:</p>>
+                    <p data-lang-id="111-localization-explanation">Whenever you log an ecobrick it is tagged with your own Buwana account localization.  You can edit these defaults here:</p>
 
                      <div class="form-item">
                         <label for="community_select">Community:</label><br>

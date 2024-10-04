@@ -305,6 +305,56 @@ function deleteTraining($trainingId, $conn) {
 
 
 
+// Function to rotate an image by the specified degrees and save it back
+function rotateEcobrickPhoto($sourcePath, $rotationDegrees, $targetPath = null) {
+    // Get image details
+    list($width, $height, $type) = getimagesize($sourcePath);
+
+    // Load the source image based on its type
+    switch ($type) {
+        case IMAGETYPE_JPEG:
+            $sourceImage = imagecreatefromjpeg($sourcePath);
+            break;
+        case IMAGETYPE_PNG:
+            $sourceImage = imagecreatefrompng($sourcePath);
+            break;
+        case IMAGETYPE_WEBP:
+            $sourceImage = imagecreatefromwebp($sourcePath);
+            break;
+        default:
+            return false; // Unsupported image type
+    }
+
+    // Rotate the image using the given degrees
+    $rotatedImage = imagerotate($sourceImage, -$rotationDegrees, 0); // Negative for clockwise rotation to match CSS
+
+    // If no target path is provided, overwrite the original
+    if ($targetPath === null) {
+        $targetPath = $sourcePath;
+    }
+
+    // Save the rotated image back in its original format
+    switch ($type) {
+        case IMAGETYPE_JPEG:
+            imagejpeg($rotatedImage, $targetPath, 90); // 90 is JPEG quality
+            break;
+        case IMAGETYPE_PNG:
+            imagepng($rotatedImage, $targetPath);
+            break;
+        case IMAGETYPE_WEBP:
+            imagewebp($rotatedImage, $targetPath);
+            break;
+    }
+
+    // Free memory
+    imagedestroy($sourceImage);
+    imagedestroy($rotatedImage);
+
+    return true; // Indicate success
+}
+
+
+
 
 
 ?>

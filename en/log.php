@@ -95,12 +95,11 @@ if ($is_logged_in) {
             } else {
                 // Insert a new record
                 $sql = "INSERT INTO tb_ecobricks (
-                    ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type,
+                ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type,
                 plastic_from, location_full, bottom_colour, location_lat, location_long, brand_name, owner, status,
                 universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change,
                 actual_maker_name, brik_notes, date_published_ts, location_watershed, community_id, country_id
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                error_log("Inserting new ecobrick record.");
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             }
 
             if ($stmt = $gobrik_conn->prepare($sql)) {

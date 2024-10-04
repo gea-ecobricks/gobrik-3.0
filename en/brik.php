@@ -7,12 +7,13 @@ $version = '0.766';
 $page = 'brik';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
+require_once '../gobrikconn_env.php';
 
 // Check if the user is logged in
 if (isLoggedIn()) {
     $buwana_id = $_SESSION['buwana_id'];
     // Include database connection
-    require_once '../gobrikconn_env.php';
+
     require_once '../buwanaconn_env.php';
 
     // Fetch the user's location data
@@ -24,7 +25,7 @@ if (isLoggedIn()) {
 }
 
 // Determine if the user is logged in for dynamic content handling later
-$is_logged_in = isset($buwana_id) && !empty($first_name);
+// $is_logged_in = isset($buwana_id) && !empty($first_name);
 
 echo '<!DOCTYPE html>
 <html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">

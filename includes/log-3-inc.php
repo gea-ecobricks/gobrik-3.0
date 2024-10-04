@@ -12,7 +12,6 @@
     }
 
 
-
 /* Ensure the parent container can resize and show content that expands */
 #upload-success-message {
     position: relative;
@@ -22,20 +21,25 @@
 
 .photo-container {
     position: relative;
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     overflow: visible; /* Make sure the container grows with the rotated image */
     margin: 0 auto;
     text-align: center;
+    background: var(--lighter);
+    width: 100%;  /* Adjust as needed */
+    height: auto; /* Adjust as needed */
 }
 
 .rotatable-photo {
-    display: block;
     max-width: 100%; /* Ensure image does not exceed the container width */
+    height: auto;
     transition: transform 0.3s ease; /* Smooth transition for the rotation */
+    display: block;
 }
 
-
-
+/* Rotate Controls */
 .rotate-controls {
     position: absolute;
     bottom: 10px;
@@ -46,37 +50,32 @@
     justify-content: center;
 }
 
-.rotate-button {
+/* Rotate and Confirm Buttons */
+.rotate-button, .confirm-button {
     font-size: 1.1em;
     color: var(--text-color);
     background-color: grey;
     border-radius: 50%;
-    padding: 10px;
+    width: 40px;    /* Define fixed width to ensure circle shape */
+    height: 40px;   /* Define fixed height to ensure circle shape */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 0 5px;
     cursor: pointer;
     opacity: 0.6;
-    transition: opacity 0.2s;
+    transition: opacity 0.2s, background-color 0.2s;
 }
 
-.rotate-button:hover {
+.rotate-button:hover, .confirm-button:hover {
     opacity: 1;
 }
 
-.confirm-button {
-    font-size: 1.1em;
-    color: green;
-    background-color: grey;
-    border-radius: 50%;
-    padding: 10px;
-    margin: 0 5px;
-    cursor: pointer;
-    opacity: 0.6;
-    transition: opacity 0.2s;
+/* Ensure the button text stays centered */
+.rotate-button > span, .confirm-button > span {
+    line-height: 1;
 }
 
-.confirm-button:hover {
-    opacity: 1;
-}
 
 
 

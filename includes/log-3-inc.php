@@ -12,6 +12,59 @@
     }
 
 
+.photo-container {
+    position: relative;
+    display: inline-block;
+}
+
+.rotate-controls {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rotate-button {
+    font-size: 1.1em;
+    color: var(--text-color);
+    background-color: grey;
+    border-radius: 50%;
+    padding: 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.rotate-button:hover {
+    opacity: 1;
+}
+
+.confirm-button {
+    font-size: 1.1em;
+    color: green;
+    background-color: grey;
+    border-radius: 50%;
+    padding: 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.confirm-button:hover {
+    opacity: 1;
+}
+
+
+
+
+
+
+
         .advanced-box-content {
     padding: 2px 15px 15px 15px;
     max-height: 0;  /* Initially set to 0 */

@@ -125,19 +125,40 @@ echo '<!DOCTYPE html>
 <div id="form-submission-box" style="margin-top:83px;">
     <div class="form-container" style="padding-top:75px;">
         <div class="splash-form-content-block" style="text-align:center; display:flex;flex-flow:column;">
-            <div id="upload-success-message">
-                <?php if (!empty($ecobrick_full_photo_url) && $ecobrick_full_photo_url !== 'url missing'): ?>
-                    <div class="photo-container">
-                        <img src="<?php echo htmlspecialchars($ecobrick_full_photo_url); ?>" alt="Basic Ecobrick Photo" style="width:500px; max-width:95%" title="Basic ecobrick photo - full">
-                    </div>
-                <?php endif; ?>
-                <?php if ($selfie_photo_url): ?>
-                    <div class="photo-container">
-                        <img src="<?php echo htmlspecialchars($selfie_photo_url); ?>" alt="Ecobrick Selfie Photo" title="Ecobrick selfie photo" style="max-width:500px;">
-                    </div>
-                <?php endif; ?>
 
-            </div>
+
+
+            <div id="upload-success-message">
+            <!-- Ecobrick Full Photo -->
+            <?php if (!empty($ecobrick_full_photo_url) && $ecobrick_full_photo_url !== 'url missing'): ?>
+                <div class="photo-container" id="basic-ecobrick-photo">
+                    <img src="<?php echo htmlspecialchars($ecobrick_full_photo_url); ?>" alt="Basic Ecobrick Photo" style="width:500px; max-width:95%" class="rotatable-photo" id="ecobrick-photo-<?php echo $serial_no; ?>" data-rotation="0">
+
+                    <!-- Rotate buttons for the full ecobrick photo -->
+                    <div class="rotate-controls">
+                        <button class="rotate-button rotate-left" data-direction="left" data-photo="ecobrick-photo-<?php echo $serial_no; ?>">⭯</button>
+                        <button class="confirm-button" id="confirm-rotation-<?php echo $serial_no; ?>" style="display:none;">🗸</button>
+                        <button class="rotate-button rotate-right" data-direction="right" data-photo="ecobrick-photo-<?php echo $serial_no; ?>">⭮</button>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <!-- Selfie Photo -->
+            <?php if ($selfie_photo_url): ?>
+                <div class="photo-container" id="selfie-ecobrick-photo">
+                    <img src="<?php echo htmlspecialchars($selfie_photo_url); ?>" alt="Ecobrick Selfie Photo" style="max-width:500px;" class="rotatable-photo" id="selfie-photo-<?php echo $serial_no; ?>" data-rotation="0">
+
+                    <!-- Rotate buttons for the selfie photo -->
+                    <div class="rotate-controls">
+                        <button class="rotate-button rotate-left" data-direction="left" data-photo="selfie-photo-<?php echo $serial_no; ?>">⭯</button>
+                        <button class="confirm-button" id="confirm-rotation-selfie-<?php echo $serial_no; ?>" style="display:none;">🗸</button>
+                        <button class="rotate-button rotate-right" data-direction="right" data-photo="selfie-photo-<?php echo $serial_no; ?>">⭮</button>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+
+
 
             <h2 id="ecobrick-logged-title"><span data-lang-id="000-Ecobrick">Ecobrick</span> <?php echo $serial_no; ?> <span data-lang-id="001-form-title"> is logged! </span>🎉</h2>
 
@@ -351,6 +372,42 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+
+//ROTATE Photo
+
+document.querySelectorAll('.rotate-button').forEach(function(button) {
+    button.addEventListener('click', function() {
+        var photoContainer = this.closest('.photo-container');
+        var photo = photoContainer.querySelector('.rotatable-photo');
+        var confirmButton = photoContainer.querySelector('.confirm-button');
+
+        // Get the current rotation from data attribute
+        var currentRotation = parseInt(photo.getAttribute('data-rotation')) || 0;
+        var direction = this.getAttribute('data-direction');
+
+        // Rotate the image based on the direction
+        if (direction === 'left') {
+            currentRotation = (currentRotation - 90) % 360;
+        } else if (direction === 'right') {
+            currentRotation = (currentRotation + 90) % 360;
+        }
+
+        // Apply the rotation and update the data-rotation attribute
+        photo.style.transform = 'rotate(' + currentRotation + 'deg)';
+        photo.setAttribute('data-rotation', currentRotation);
+
+        // Show the confirm button
+        confirmButton.style.display = 'block';
+    });
+});
+
+// Handle the confirmation button click
+document.querySelectorAll('.confirm-button').forEach(function(button) {
+    button.addEventListener('click', function() {
+        alert("Would you like to rotate your photo?");
+        // Additional logic to handle photo source rotation can be added here.
+    });
+});
 
 
 </script>

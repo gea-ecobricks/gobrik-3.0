@@ -12,10 +12,29 @@
     }
 
 
+
+/* Ensure the parent container can resize and show content that expands */
+#upload-success-message {
+    position: relative;
+    overflow: visible; /* Allows content to grow beyond its bounds */
+    transition: height 0.3s ease; /* Smooth transition for height change */
+}
+
 .photo-container {
     position: relative;
-    display: inline-block;
+    display: block;
+    overflow: visible; /* Make sure the container grows with the rotated image */
+    margin: 0 auto;
+    text-align: center;
 }
+
+.rotatable-photo {
+    display: block;
+    max-width: 100%; /* Ensure image does not exceed the container width */
+    transition: transform 0.3s ease; /* Smooth transition for the rotation */
+}
+
+
 
 .rotate-controls {
     position: absolute;

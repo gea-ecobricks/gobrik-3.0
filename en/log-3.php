@@ -375,6 +375,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //ROTATE Photo
 
+
+// Function to adjust the height of the container after the image rotates
+function adjustContainerHeight(photo, container) {
+    var currentRotation = parseInt(photo.getAttribute('data-rotation')) || 0;
+
+    if (currentRotation % 180 !== 0) {
+        // Swap width and height when rotated 90 or 270 degrees
+        var newHeight = photo.width; // When rotated 90 degrees, width becomes the new height
+        container.style.height = newHeight + 'px';
+    } else {
+        // Set height to the original image height
+        container.style.height = 'auto'; // Let the container adjust to the image's default height
+    }
+}
+
+// Apply the function when rotating the image
 document.querySelectorAll('.rotate-button').forEach(function(button) {
     button.addEventListener('click', function() {
         var photoContainer = this.closest('.photo-container');
@@ -398,16 +414,13 @@ document.querySelectorAll('.rotate-button').forEach(function(button) {
 
         // Show the confirm button
         confirmButton.style.display = 'block';
+
+        // Adjust the container height based on the new image rotation
+        adjustContainerHeight(photo, photoContainer);
     });
 });
 
-// Handle the confirmation button click
-document.querySelectorAll('.confirm-button').forEach(function(button) {
-    button.addEventListener('click', function() {
-        alert("Would you like to rotate your photo?");
-        // Additional logic to handle photo source rotation can be added here.
-    });
-});
+
 
 
 </script>

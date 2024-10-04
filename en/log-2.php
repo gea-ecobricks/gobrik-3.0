@@ -284,7 +284,7 @@ echo '<!DOCTYPE html>
     </div>
 
 <div style="margin: auto; margin-bottom:100px; margin-top: 50px; text-align:center;">
-            <a href="#" onclick="goBack()" aria-label="Go back to re-enter data" class="back-link" data-lang-id="015-go-back-link">↩ Back to Step 1</a>
+            <a href="href="log.php?retry=<?php echo $ecobrick_unique_id; ?>" aria-label="Go back to re-enter data" class="back-link" data-lang-id="015-go-back-link">↩ Back to Step 1</a>
         </div>
 
 </div>

@@ -44,6 +44,7 @@ if ($is_logged_in) {
         $ecobrick_unique_id = isset($_GET['retry']) ? (int)$_GET['retry'] : null; // Check if retry is passed
         retryEcobrick($gobrik_conn, $ecobrick_unique_id);
     }
+
     // PART 3: POST ECOBRICK DATA to GOBRIK DATABASE
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         try {
@@ -69,7 +70,10 @@ if ($is_logged_in) {
             $country_id = 11;
 
             // Log the data being passed
-            error_log("Values being processed: Unique ID: $ecobrick_unique_id, Serial No: $serial_no");
+            error_log("Values being inserted into tb_ecobricks: ");
+            error_log("Unique ID: $ecobrick_unique_id, Serial No: $serial_no, Maker: $ecobricker_maker, Volume: $volume_ml, Weight: $weight_g");
+            error_log("Sequestration: $sequestration_type, Plastic From: $plastic_from, Location: $location_full, Bottom colour: $bottom_colour, Lat: $location_lat, Long: $location_long");
+            error_log("Brand Name: $brand_name, Watershed: $location_watershed, Community ID: $community_id, Country ID: $country_id");
 
             // Background set variables
             $owner = $ecobricker_maker;
@@ -80,6 +84,13 @@ if ($is_logged_in) {
             $CO2_kg = ($weight_g * 6.1) / 1000;
             $last_ownership_change = date("Y-m-d");
             $actual_maker_name = $ecobricker_maker;
+
+             // Log the background variables
+            error_log("Background variables: ");
+            error_log("Owner: $owner, Status: $status, Universal Volume: $universal_volume_ml ml, Density: $density g/ml");
+            error_log("Date Logged: $date_logged_ts, CO2 Sequestration: $CO2_kg kg, Last Ownership Change: $last_ownership_change");
+            error_log("Actual Maker Name: $actual_maker_name, Brik Notes: $brik_notes, Date Published: $date_published_ts");
+
 
             // Check if retrying, then UPDATE the record, otherwise INSERT a new one
             if (isset($ecobrick_unique_id) && $ecobrick_unique_id > 0) {

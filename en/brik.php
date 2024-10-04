@@ -23,10 +23,10 @@ if (isLoggedIn()) {
     $user_community_name = getCommunityName($buwana_conn, $buwana_id);
     //GET FIRST NAME!
 
-    $buwana_conn->close();  // Close the database connection
+//     $buwana_conn->close();  // Close the database connection
 } else {
 
-    exit();
+//     exit();
 }
 
 // Determine if the user is logged in for dynamic content handling later

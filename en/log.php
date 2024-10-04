@@ -117,13 +117,13 @@ if ($is_logged_in) {
                 if (isset($ecobrick_unique_id) && $ecobrick_unique_id > 0) {
                     // Bind parameters for UPDATE
                     $stmt->bind_param(
-    "ssiissssddsssidsisssssi",  // Adjusted to match the columns in the SET clause
-    $ecobricker_maker, $volume_ml, $weight_g, $sequestration_type,
-    $plastic_from, $location_full, $bottom_colour, $location_lat, $location_long,
-    $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts,
-    $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts,
-    $location_watershed, $community_id, $country_id, $ecobrick_unique_id  // The last one is the WHERE clause identifier
-);
+                        "siissssddsssidsisssssiii",  // Adjusted to match the columns in the SET clause
+                        $ecobricker_maker, $volume_ml, $weight_g, $sequestration_type,
+                        $plastic_from, $location_full, $bottom_colour, $location_lat, $location_long,
+                        $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts,
+                        $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts,
+                        $location_watershed, $community_id, $country_id, $ecobrick_unique_id  // The last one is the WHERE clause identifier
+                    );
 
                 } else {
                     // Bind parameters for INSERT

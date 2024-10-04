@@ -22,6 +22,7 @@ if ($is_logged_in) {
     $gea_status = getGEA_status($buwana_id);
     $user_community_name = getCommunityName($buwana_conn, $buwana_id);
 }
+} else {
 
 echo '<!DOCTYPE html>
 <html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">

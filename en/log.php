@@ -345,7 +345,6 @@ require_once ("../includes/log-inc.php");
                         <option value="cigbrick beige" data-lang-id="026-cigbrick-beige">Cigbrick beige</option>
                     </select>
                     <p class="form-caption" data-lang-id="008-bottom-color-caption">Please select the bottom color of the ecobrick.</p>
-
                     <!--ERRORS-->
                     <div id="color-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
                 </div>
@@ -516,75 +515,76 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+document.getElementById('submit-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting until validation is complete
+    var isValid = true; // Flag to determine if the form should be submitted
 
-
-    document.getElementById('submit-form').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the form from submitting until validation is complete
-        var isValid = true; // Flag to determine if the form should be submitted
-
-        // Helper function to display error messages
-        function displayError(elementId, showError) {
-            var errorDiv = document.getElementById(elementId);
-            if (showError) {
-                errorDiv.style.display = 'block'; // Show the error message
-                isValid = false; // Set form validity flag
-            } else {
-                errorDiv.style.display = 'none'; // Hide the error message
-            }
-        }
-
-        // Helper function to check for invalid characters
-        function hasInvalidChars(value) {
-            const invalidChars = /[\'\"><]/; // Regex for invalid characters
-            return invalidChars.test(value);
-        }
-
-        // 1. Ecobricker Maker Validation
-        var ecobrickerMaker = document.getElementById('ecobricker_maker').value.trim();
-        displayError('maker-error-required', ecobrickerMaker === '');
-        displayError('maker-error-long', ecobrickerMaker.length > 255);
-        displayError('maker-error-invalid', hasInvalidChars(ecobrickerMaker));
-
-        // 2. Volume (ml) Validation
-        var volumeML = parseInt(document.getElementById('volume_ml').value, 10);
-        displayError('volume-error-required', isNaN(volumeML) || volumeML < 1);
-
-        // 3. Weight (g) Validation
-        var weightG = parseInt(document.getElementById('weight_g').value, 10);
-        displayError('weight-error-required', isNaN(weightG) || weightG < 1);
-
-        // 4. Sequestration Type Validation
-        var sequestrationType = document.getElementById('sequestration_type').value.trim();
-        displayError('type-error-required', sequestrationType === '');
-
-        // 5. Plastic From Validation
-        var plasticFrom = document.getElementById('plastic_from').value.trim();
-        displayError('plastic-error-required', plasticFrom === '');
-
-
-
-        // 10. Brand Name Validation
-        var brandName = document.getElementById('brand_name').value.trim();
-        displayError('brand-name-error-required', brandName === '');
-        displayError('brand-name-error-long', brandName.length > 100);
-        displayError('brand-name-error-invalid', hasInvalidChars(brandName));
-
-        // If all validations pass, submit the form
-        if (isValid) {
-            this.submit();
+    // Helper function to display error messages
+    function displayError(elementId, showError) {
+        var errorDiv = document.getElementById(elementId);
+        if (showError) {
+            errorDiv.style.display = 'block'; // Show the error message
+            isValid = false; // Set form validity flag
         } else {
-            // Scroll to the first error message and center it in the viewport
-            var firstError = document.querySelector('.form-field-error[style="display: block;"]');
-            if (firstError) {
-                firstError.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
-                // Optionally, find the related input and focus it
-                var relatedInput = firstError.closest('.form-item').querySelector('input, select, textarea');
-                if (relatedInput) {
-                    relatedInput.focus();
-                }
+            errorDiv.style.display = 'none'; // Hide the error message
+        }
+    }
+
+    // Helper function to check for invalid characters
+    function hasInvalidChars(value) {
+        const invalidChars = /[\'\"><]/; // Regex for invalid characters
+        return invalidChars.test(value);
+    }
+
+    // 1. Ecobricker Maker Validation
+    var ecobrickerMaker = document.getElementById('ecobricker_maker').value.trim();
+    displayError('maker-error-required', ecobrickerMaker === '');
+    displayError('maker-error-long', ecobrickerMaker.length > 255);
+    displayError('maker-error-invalid', hasInvalidChars(ecobrickerMaker));
+
+    // 2. Volume (ml) Validation
+    var volumeML = parseInt(document.getElementById('volume_ml').value, 10);
+    displayError('volume-error-required', isNaN(volumeML) || volumeML < 1);
+
+    // 3. Weight (g) Validation
+    var weightG = parseInt(document.getElementById('weight_g').value, 10);
+    displayError('weight-error-required', isNaN(weightG) || weightG < 1);
+
+    // 4. Sequestration Type Validation
+    var sequestrationType = document.getElementById('sequestration_type').value.trim();
+    displayError('type-error-required', sequestrationType === '');
+
+    // 5. Plastic From Validation
+    var plasticFrom = document.getElementById('plastic_from').value.trim();
+    displayError('plastic-error-required', plasticFrom === '');
+
+    // 6. Bottom Color Validation
+    var bottomColour = document.getElementById('bottom_colour').value;
+    displayError('color-error-required', bottomColour === '');
+
+    // 7. Brand Name Validation
+    var brandName = document.getElementById('brand_name').value.trim();
+    displayError('brand-name-error-required', brandName === '');
+    displayError('brand-name-error-long', brandName.length > 100);
+    displayError('brand-name-error-invalid', hasInvalidChars(brandName));
+
+    // If all validations pass, submit the form
+    if (isValid) {
+        this.submit();
+    } else {
+        // Scroll to the first error message and center it in the viewport
+        var firstError = document.querySelector('.form-field-error[style="display: block;"]');
+        if (firstError) {
+            firstError.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+            // Optionally, find the related input and focus it
+            var relatedInput = firstError.closest('.form-item').querySelector('input, select, textarea');
+            if (relatedInput) {
+                relatedInput.focus();
             }
         }
-    });
+    }
+});
+
 
 
 

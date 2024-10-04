@@ -274,20 +274,19 @@ echo '<!DOCTYPE html>
                 </div>
 
                 <div style="display:flex;flex-flow:row;width:100%;justify-content:center;" data-lang-id="037-Xsubmit-upload-button">
-    <button id="upload-progress-button" aria-label="Submit photos for upload">⬆️ Upload Photos</button>
-</div>
+                    <button id="upload-progress-button" aria-label="Submit photos for upload">⬆️ Upload Photos</button>
+                </div>
 
+                </form>
+            </div>
 
-            </form>
+         </div>
+
+        <div style="margin: auto; margin-bottom:100px; margin-top: 50px; text-align:center;">
+            <a href="log.php?retry=<?php echo $ecobrick_unique_id; ?>" aria-label="Go back to re-enter data" class="back-link" data-lang-id="015-go-back-link">↩ Back to Step 1</a>
         </div>
 
     </div>
-
-<div style="margin: auto; margin-bottom:100px; margin-top: 50px; text-align:center;">
-            <a href="href="log.php?retry=<?php echo $ecobrick_unique_id; ?>" aria-label="Go back to re-enter data" class="back-link" data-lang-id="015-go-back-link">↩ Back to Step 1</a>
-        </div>
-
-</div>
 
 </div>
 

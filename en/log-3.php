@@ -376,7 +376,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //ROTATE Photo
 
-
 // Function to send rotation request to the PHP function
 function rotateEcobrickPhoto(photoId, rotationDegrees, photoUrl) {
     // Create an AJAX request to send the rotation degrees to the server
@@ -388,8 +387,19 @@ function rotateEcobrickPhoto(photoId, rotationDegrees, photoUrl) {
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            console.log("Rotation request response: " + xhr.responseText);
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                // If the server response indicates success
+                if (xhr.responseText.trim() === "Image rotated successfully.") {
+                    alert("Your image has been rotated and saved.");
+                } else {
+                    // If there's an error message from the server
+                    alert("Something went wrong saving your rotation. This feature is still in beta and we're working on it. Error: " + xhr.responseText);
+                }
+            } else {
+                // If there was an error with the request
+                alert("Something went wrong saving your rotation. This feature is still in beta and we're working on it. Error: " + xhr.status);
+            }
         }
     };
 
@@ -452,6 +462,7 @@ document.querySelectorAll('.confirm-rotate-button').forEach(function(button) {
         rotateEcobrickPhoto(photoId, currentRotation, photoUrl);
     });
 });
+
 
 
 

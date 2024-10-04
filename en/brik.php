@@ -83,9 +83,7 @@ if ($stmt) {
                 </div>
             </div>
             <div id="splash-bar"></div>';
-        }
 
-        // Continue with the rest of the page content as it is
         echo '
         <div id="main-content">
             <div class="row">

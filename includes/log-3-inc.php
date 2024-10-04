@@ -6,12 +6,7 @@
 <STYLE>
 
 
-    #main {
-        height: fit-content !important;
-  padding-bottom: 100px;
-    }
-
-/* Ensure the parent container can resize and show content that expands */
+ /* Ensure the parent container can resize and show content that expands */
 #upload-success-message {
     position: relative;
     overflow: visible; /* Allows content to grow beyond its bounds */
@@ -27,7 +22,6 @@
     margin: 0 auto;
     text-align: center;
     background: var(--lighter);
-    padding: 10px; /* Added padding */
     width: 100%;  /* Adjust as needed */
     height: auto; /* Adjust as needed */
 }
@@ -43,43 +37,11 @@
 .rotate-controls {
     position: absolute;
     bottom: 10px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between; /* Adjusted for corner positioning */
-    align-items: center;
-    padding: 0 10px; /* Prevents buttons from hugging the edge */
-}
-
-/* Left rotate button (⭯) */
-.rotate-button.rotate-left {
-    position: absolute;
-    left: 10px; /* Stick to the left edge */
-}
-
-/* Right rotate button (⭮) */
-.rotate-button.rotate-right {
-    position: absolute;
-    right: 10px; /* Stick to the right edge */
-}
-
-/* Confirm (check) button (🗸) now called confirm-rotate-button */
-.confirm-rotate-button {
-    position: absolute;
-    bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-    width: 40px;    /* Define fixed width to ensure circle shape */
-    height: 40px;   /* Define fixed height to ensure circle shape */
-    font-size: 1.1em;
-    color: green;
-    background-color: grey;
-    border-radius: 50%; /* Make it circular */
     display: flex;
-    justify-content: center;
     align-items: center;
-    cursor: pointer;
-    opacity: 0.6;
-    transition: opacity 0.2s, background-color 0.2s;
+    justify-content: center;
 }
 
 /* Rotate and Confirm Buttons */

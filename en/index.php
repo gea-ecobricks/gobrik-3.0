@@ -20,6 +20,7 @@ if (isLoggedIn()) {
     $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
     $gea_status = getGEA_status($buwana_id);
     $user_community_name = getCommunityName($buwana_conn, $buwana_id);
+    //GET FIRST NAME!
 
     $buwana_conn->close();  // Close the database connection
 } else {

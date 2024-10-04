@@ -41,7 +41,6 @@ if ($is_logged_in) {
     // Check if retry parameter is set in the URL and call retry function
     if (isset($_GET['retry'])) {
         $ecobrick_unique_id = isset($_GET['retry']) ? (int)$_GET['retry'] : null; // Check if retry is passed
-        retryEcobrick($gobrik_conn, $ecobrick_unique_id);
     }
 
     // PART 3: POST ECOBRICK DATA to GOBRIK DATABASE
@@ -69,10 +68,7 @@ if ($is_logged_in) {
             $country_id = 11;
 
             // Log the data being passed
-            error_log("Values being inserted into tb_ecobricks: ");
-            error_log("Unique ID: $ecobrick_unique_id, Serial No: $serial_no, Maker: $ecobricker_maker, Volume: $volume_ml, Weight: $weight_g");
-            error_log("Sequestration: $sequestration_type, Plastic From: $plastic_from, Location: $location_full, Bottom colour: $bottom_colour, Lat: $location_lat, Long: $location_long");
-            error_log("Brand Name: $brand_name, Watershed: $location_watershed, Community ID: $community_id, Country ID: $country_id");
+            error_log("Values being processed: Unique ID: $ecobrick_unique_id, Serial No: $serial_no");
 
             // Background set variables
             $owner = $ecobricker_maker;
@@ -84,32 +80,48 @@ if ($is_logged_in) {
             $last_ownership_change = date("Y-m-d");
             $actual_maker_name = $ecobricker_maker;
 
-             // Log the background variables
-            error_log("Background variables: ");
-            error_log("Owner: $owner, Status: $status, Universal Volume: $universal_volume_ml ml, Density: $density g/ml");
-            error_log("Date Logged: $date_logged_ts, CO2 Sequestration: $CO2_kg kg, Last Ownership Change: $last_ownership_change");
-            error_log("Actual Maker Name: $actual_maker_name, Brik Notes: $brik_notes, Date Published: $date_published_ts");
-
-
-
-            // Prepare the SQL statement
-            $sql = "INSERT INTO tb_ecobricks (
-                ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type,
-                plastic_from, location_full, bottom_colour, location_lat, location_long, brand_name, owner, status,
-                universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change,
-                actual_maker_name, brik_notes, date_published_ts, location_watershed, community_id, country_id
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            // Check if retrying, then UPDATE the record, otherwise INSERT a new one
+            if (isset($ecobrick_unique_id) && $ecobrick_unique_id > 0) {
+                // Update existing record
+                $sql = "UPDATE tb_ecobricks
+                        SET ecobricker_maker = ?, volume_ml = ?, weight_g = ?, sequestration_type = ?,
+                        plastic_from = ?, location_full = ?, bottom_colour = ?, location_lat = ?, location_long = ?,
+                        brand_name = ?, owner = ?, status = ?, universal_volume_ml = ?, density = ?,
+                        date_logged_ts = ?, CO2_kg = ?, last_ownership_change = ?, actual_maker_name = ?,
+                        brik_notes = ?, date_published_ts = ?, location_watershed = ?, community_id = ?, country_id = ?
+                        WHERE ecobrick_unique_id = ?";
+                error_log("Updating existing ecobrick record with ID: $ecobrick_unique_id");
+            } else {
+                // Insert a new record
+                $sql = "INSERT INTO tb_ecobricks (
+                    ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type,
+                    plastic_from, location_full, bottom_colour, location_lat, location_long, brand_name, owner, status,
+                    universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change,
+                    actual_maker_name, brik_notes, date_published_ts, location_watershed, community_id, country_id
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                error_log("Inserting new ecobrick record.");
+            }
 
             if ($stmt = $gobrik_conn->prepare($sql)) {
-                // Bind parameters
-                $stmt->bind_param(
-                    "issiissssddsssidsisssssii",
-                    $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g,
-                    $sequestration_type, $plastic_from, $location_full, $bottom_colour, $location_lat, $location_long,
-                    $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts,
-                    $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts,
-                    $location_watershed, $community_id, $country_id
-                );
+                if (isset($ecobrick_unique_id) && $ecobrick_unique_id > 0) {
+                    // Bind parameters for UPDATE
+                    $stmt->bind_param(
+                        "ssiissssddsssidsissssii", $ecobricker_maker, $volume_ml, $weight_g, $sequestration_type,
+                        $plastic_from, $location_full, $bottom_colour, $location_lat, $location_long,
+                        $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts,
+                        $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts,
+                        $location_watershed, $community_id, $country_id, $ecobrick_unique_id
+                    );
+                } else {
+                    // Bind parameters for INSERT
+                    $stmt->bind_param(
+                        "issiissssddsssidsisssssii", $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g,
+                        $sequestration_type, $plastic_from, $location_full, $bottom_colour, $location_lat, $location_long,
+                        $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts,
+                        $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts,
+                        $location_watershed, $community_id, $country_id
+                    );
+                }
 
                 // Execute the statement
                 if ($stmt->execute()) {
@@ -134,6 +146,7 @@ if ($is_logged_in) {
     header('Location: login.php?redirect=' . urlencode($page));
     exit();
 }
+
 
 
 

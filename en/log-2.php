@@ -111,9 +111,7 @@ if ($is_logged_in) {
         if (!empty($db_fields) && empty($error_message)) {
             // Add 'status' to the fields being updated
             $fields_for_update = implode(", ", array_map(function($field) { return "{$field} = ?"; }, $db_fields));
-            $fields_for_update .= ", status = ?"; // Add the status field
-
-            // Add the status value to the parameters
+            $fields_for_update .= ", status = ?";
             array_push($db_values, "step 2 complete");
             $db_types .= "s";
 
@@ -153,7 +151,7 @@ if ($is_logged_in) {
 
     echo "<script>var density = $density, volume = '$universal_volume_ml', weight = '$weight_g';</script>";
 } else {
-    // Redirect to login page with the redirect parameter set to the current page
+    // Redirect to login page with the redirect parameter if the user is not logged in
     header('Location: login.php?redirect=' . urlencode($page));
     exit();
 }
@@ -165,14 +163,7 @@ echo '<!DOCTYPE html>
 ';
 ?>
 
-
-
-
-
-
-   <?php require_once ("../includes/log-2-inc.php");?>
-
-
+<?php require_once ("../includes/log-2-inc.php");?>
 
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>

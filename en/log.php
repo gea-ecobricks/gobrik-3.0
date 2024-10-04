@@ -375,6 +375,12 @@ require_once ("../includes/log-inc.php");
 
 
 
+
+            <div data-lang-id="016-submit-button" style="margin:auto;text-align: center;margin-top:30px;">
+                <input type="submit" class="submit-button enabled" value="Next: Density Check" aria-label="Submit Form">
+            </div>
+
+            <!--LOCALIZE BOX-->
                 <div id="localize-box" class="advanced-box" aria-expanded="false" role="region" aria-labelledby="advancedBoxLabel-1">
                     <div class="advanced-box-header"  id="advancedBoxLabel-1">
                         <div class="advanced-title" data-lang-id="013-advanced-options">⚙️ Location</div>
@@ -408,12 +414,6 @@ require_once ("../includes/log-inc.php");
                         <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
                     </div>
 
-
-
-                    <!-- Hidden latitude and longitude fields -->
-                    <input type="hidden" id="lat" name="latitude" value="<?= htmlspecialchars($user_location_lat, ENT_QUOTES); ?>">
-                    <input type="hidden" id="lon" name="longitude" value="<?= htmlspecialchars($user_location_long, ENT_QUOTES); ?>">
-                    <input type="hidden" id="country_id" name="country_id">
                     <!-- Location Watershed -->
                     <div class="form-item">
                         <label for="location_watershed" data-lang-id="011-watershed-location">Watershed:</label><br>
@@ -427,28 +427,14 @@ require_once ("../includes/log-inc.php");
                         <!-- Dropdown for suggestions -->
                         <div id="watershed-suggestions" class="suggestions-box"></div>
                     </div>
-
-
-
-
-
-
-                    </div>
+                    <!-- Hidden latitude and longitude fields -->
+                    <input type="hidden" id="lat" name="latitude" value="<?= htmlspecialchars($user_location_lat, ENT_QUOTES); ?>">
+                    <input type="hidden" id="lon" name="longitude" value="<?= htmlspecialchars($user_location_long, ENT_QUOTES); ?>">
+                    <input type="hidden" id="country_id" name="country_id">
                 </div>
+            </div>
 
-
-
-
-
-                <div data-lang-id="016-submit-button" style="margin:auto;text-align: center;margin-top:30px;">
-                    <input type="submit" class="submit-button enabled" value="Next: Density Check" aria-label="Submit Form">
-                </div>
-
-
-
-
-
-            </form>
+        </form>
 
 
             <!--END OF FORM-->

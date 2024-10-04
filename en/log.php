@@ -113,7 +113,10 @@ if ($is_logged_in) {
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             }
 
-            $stmt->bind_param(
+            if ($stmt = $gobrik_conn->prepare($sql)) {
+                if (isset($ecobrick_unique_id) && $ecobrick_unique_id > 0) {
+                    // Bind parameters for UPDATE
+                    $stmt->bind_param(
     "ssiissssddsssidsisssssi",  // Adjusted to match the columns in the SET clause
     $ecobricker_maker, $volume_ml, $weight_g, $sequestration_type,
     $plastic_from, $location_full, $bottom_colour, $location_lat, $location_long,

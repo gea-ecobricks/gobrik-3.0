@@ -1,31 +1,26 @@
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
-startSecureSession();
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.766';
 $page = 'brik';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
-
-// Initialize user variables
-$first_name = '';
-$buwana_id = '';
-$country_icon = '';
 $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 
 // Check if the user is logged in
 if (isLoggedIn()) {
     $buwana_id = $_SESSION['buwana_id'];
-    require_once '../buwanaconn_env.php'; // Include the Buwana database connection
+    // Include database connection
+    require_once '../gobrikconn_env.php';
+    require_once '../buwanaconn_env.php';
 
-    // Fetch the user's continent icon
-    $country_icon = getUserContinent($buwana_conn, $buwana_id);
-    $watershed_name = getWatershedName($buwana_conn, $buwana_id, $lang);
-    $buwana_conn->close();  // Close the database connection
+    // Fetch the user's location data
+    $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
+    $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
+    $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
+    $gea_status = getGEA_status($buwana_id);
+    $user_community_name = getCommunityName($buwana_conn, $buwana_id);
 }
 
 // Determine if the user is logged in for dynamic content handling later

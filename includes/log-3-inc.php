@@ -12,23 +12,17 @@
     }
 
 
-/* Ensure the parent container can resize and show content that expands */
-#upload-success-message {
-    position: relative;
-    overflow: visible; /* Allows content to grow beyond its bounds */
-    transition: height 0.3s ease; /* Smooth transition for height change */
-}
 
 .photo-container {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: visible; /* Make sure the container grows with the rotated image */
+    overflow: visible;
     margin: 0 auto;
     text-align: center;
     background: var(--lighter);
-    width: 100%;  /* Adjust as needed */
+    width: 100%; /* Adjust as needed */
     height: auto; /* Adjust as needed */
 }
 
@@ -43,14 +37,45 @@
 .rotate-controls {
     position: absolute;
     bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 100%;
     display: flex;
+    justify-content: space-between; /* Space out the left and right buttons */
     align-items: center;
-    justify-content: center;
+    padding: 0 10px; /* Add some padding to prevent buttons from hugging the edge */
 }
 
-/* Rotate and Confirm Buttons */
+/* Left rotate button (⭯) */
+.rotate-button.rotate-left {
+    position: absolute;
+    left: 10px; /* Stick to the left edge */
+}
+
+/* Right rotate button (⭮) */
+.rotate-button.rotate-right {
+    position: absolute;
+    right: 10px; /* Stick to the right edge */
+}
+
+/* Confirm (check) button (🗸) */
+.confirm-button {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%); /* Center the check button */
+    width: 40px;    /* Define fixed width to ensure circle shape */
+    height: 40px;   /* Define fixed height to ensure circle shape */
+    font-size: 1.1em;
+    color: green;
+    background-color: grey;
+    border-radius: 50%; /* Make it circular */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s, background-color 0.2s;
+}
+
 .rotate-button, .confirm-button {
     font-size: 1.1em;
     color: var(--text-color);
@@ -69,11 +94,6 @@
 
 .rotate-button:hover, .confirm-button:hover {
     opacity: 1;
-}
-
-/* Ensure the button text stays centered */
-.rotate-button > span, .confirm-button > span {
-    line-height: 1;
 }
 
 

@@ -1,7 +1,6 @@
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
-
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.763';

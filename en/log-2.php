@@ -23,6 +23,7 @@ if ($is_logged_in) {
     $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
     $gea_status = getGEA_status($buwana_id);
     $user_community_name = getCommunityName($buwana_conn, $buwana_id);
+    $ecobrick_unique_id = '';
 
     $error_message = '';
     $full_urls = [];

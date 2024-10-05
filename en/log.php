@@ -51,6 +51,7 @@ if ($is_logged_in) {
             $ids = setSerialNumber($gobrik_conn, $ecobrick_unique_id); // Pass ecobrick_unique_id if available
             $ecobrick_unique_id = $ids['ecobrick_unique_id'];
             $serial_no = $ids['serial_no'];
+            error_log("Inserting ecobrick with ID: $ecobrick_unique_id, Serial No: $serial_no");
             $brik_notes = "Directly logged on beta.GoBrik.com";
             $date_published_ts = date("Y-m-d H:i:s");
 

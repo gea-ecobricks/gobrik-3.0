@@ -64,9 +64,6 @@ if ($stmt) {
         if ($isAuthenticated) {
             echo '
 
-            // If the ecobrick is authenticated, show this splash top
-            if ($isAuthenticated) {
-                echo '
                 <div class="splash-content-block">
                     <div class="splash-box">
                         <div class="splash-heading"><span data-lang-id="001-splash-title">Ecobrick</span> ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . '</div>

@@ -4,6 +4,8 @@ ini_set('display_errors', 1);
 
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
+    require_once '../gobrikconn_env.php';
+    require_once '../buwanaconn_env.php';
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.766';
@@ -14,10 +16,6 @@ $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper
 // Check if the user is logged in
 if (isLoggedIn()) {
     $buwana_id = $_SESSION['buwana_id'];
-    // Include database connection
-    require_once '../gobrikconn_env.php';
-    require_once '../buwanaconn_env.php';
-
     // Fetch the user's location data
     $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
     $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
@@ -37,7 +35,6 @@ echo '<!DOCTYPE html>
 <body>';
 
 require_once ("../includes/brik-inc.php");
-require_once '../gobrikconn_env.php';
 
 // Get the contents from the Ecobrick table as an ordered View, using the serial_no from the URL
 $serialNo = $_GET['serial_no'];

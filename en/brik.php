@@ -49,8 +49,14 @@ if ($stmt) {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        $array = $result->fetch_assoc();  // Fetch the row data into an associative array
+    while($array = $result->fetch_assoc()) {
+        // Check the status of the ecobrick
+        $status = strtolower($array["status"]);
+        $isAuthenticated = ($status === "authenticated");
 
+        // If the ecobrick is authenticated, use the existing display
+        if ($isAuthenticated) {
+            echo '
         // Now you can output the HTML with the data
         echo '<div class="splash-content-block">
                 <div class="splash-box">

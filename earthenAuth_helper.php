@@ -179,8 +179,6 @@ function getUserFirstName($buwana_conn, $buwana_id) {
 
 function getWatershedName($buwana_conn, $buwana_id) {
     $watershed_name = '';
-
-
     // Query to get the user's watershed name from users_tb
     $sql_watershed = "SELECT location_watershed FROM users_tb WHERE buwana_id = ?";
     $stmt_watershed = $buwana_conn->prepare($sql_watershed);
@@ -202,6 +200,28 @@ function getWatershedName($buwana_conn, $buwana_id) {
     return $watershed_name;
 }
 
+
+
+function getFirstName($buwana_conn, $buwana_id) {
+    $first_name = '';
+    // Query to get the user's watershed name from users_tb
+    $sql_firstName = "SELECT first_name FROM users_tb WHERE buwana_id = ?";
+    $stmt_firstName = $buwana_conn->prepare($sql_firstName);
+
+    if ($stmt_firstName) {
+        $stmt_firstName->bind_param('s', $buwana_id); // Assuming buwana_id is a string
+        if ($stmt_firstName->execute()) {
+            $stmt_firstName->bind_result($watershed_name);
+            $stmt_firstName->fetch();
+            $stmt_firstName->close();
+        }
+    }
+    // If $watershed_name is still empty or null, set a default value
+    if (empty($first_name)) {
+        $first_name = '👤'; // Default value if no valid watershed name is found
+    }
+    return $first_name;
+}
 
 
 function getCommunityName($buwana_conn, $buwana_id) {

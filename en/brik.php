@@ -57,8 +57,7 @@ if ($stmt) {
         // If the ecobrick is authenticated, use the existing display
         if ($isAuthenticated) {
             echo '
-        // Now you can output the HTML with the data
-        echo '<div class="splash-content-block">
+        '<div class="splash-content-block">
                 <div class="splash-box">
                     <div class="splash-heading"><span data-lang-id="001-splash-title">Ecobrick</span> ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . '</div>
                     <div class="splash-sub">' . htmlspecialchars($array["weight_g"], ENT_QUOTES, 'UTF-8') . '&#8202;g <span data-lang-id="002-splash-subtitle">of plastic has been secured out of the biosphere in</span> ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . '</div>

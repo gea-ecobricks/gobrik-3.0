@@ -223,7 +223,7 @@ if ($stmt) {
                 </div>
                 <div class="side">';
                     }
-}
+
 
 $gobrik_conn->close();
 ?>

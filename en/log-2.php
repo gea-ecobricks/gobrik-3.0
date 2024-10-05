@@ -33,7 +33,6 @@ if ($is_logged_in) {
 
     if (isset($_GET['id'])) {
         $ecobrick_unique_id = (int)$_GET['id'];
-            error_log("Ecobrick ID retrieved from GET: " . $ecobrick_unique_id);
 
         // Check if the ecobrick has already been processed
         $status_check_stmt = $gobrik_conn->prepare("SELECT status FROM tb_ecobricks WHERE ecobrick_unique_id = ?");
@@ -52,17 +51,21 @@ if ($is_logged_in) {
             exit();
         }
 
-        // Fetch the ecobrick details from the database if it has not been processed
-        if ($stmt = $gobrik_conn->prepare("SELECT universal_volume_ml, serial_no, density, weight_g FROM tb_ecobricks WHERE ecobrick_unique_id = ?")) {
-            $stmt->bind_param("i", $ecobrick_unique_id);
-            $stmt->execute();
-            $stmt->bind_result($universal_volume_ml, $serial_no, $density, $weight_g);
-            $stmt->fetch();
-            $stmt->close();
-        } else {
-            echo "Error preparing statement: " . $gobrik_conn->error;
-        }
+     // Fetch the ecobrick details from the database if it has not been processed
+    if ($stmt = $gobrik_conn->prepare("SELECT universal_volume_ml, serial_no, density, weight_g FROM tb_ecobricks WHERE ecobrick_unique_id = ?")) {
+        $stmt->bind_param("i", $ecobrick_unique_id);
+        $stmt->execute();
+        $stmt->bind_result($universal_volume_ml, $serial_no, $density, $weight_g);
+        $stmt->fetch();
+
+        // Log the serial number to the error log
+        error_log("Ecobrick Serial Number retrieved: " . $serial_no);
+
+        $stmt->close();
+    } else {
+        echo "Error preparing statement: " . $gobrik_conn->error;
     }
+
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ecobrick_unique_id'])) {
         $ecobrick_unique_id = (int)$_POST['ecobrick_unique_id'];

@@ -3,7 +3,9 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
-
+// Include database connection
+    require_once '../gobrikconn_env.php';  // Include connection file
+    require_once '../buwanaconn_env.php';
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.766';
@@ -14,9 +16,7 @@ $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper
 // Check if the user is logged in
 if (isLoggedIn()) {
     $buwana_id = $_SESSION['buwana_id'];
-    // Include database connection
-    require_once '../gobrikconn_env.php';  // Include connection file
-    require_once '../buwanaconn_env.php';
+
 
     // Fetch the user's location data
     $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);

@@ -355,7 +355,7 @@ display: none;
       <div class="menu-page-item" style="display: flex; flex-direction: column; align-items: flex-start; padding-bottom: 46px; cursor:unset;">
         <div style="width:100%; display: flex; align-items: center;">
           <div style="color: var(--text-color); margin-left: 0px;">
-              <span data-lang-id="1000-logged-user">Logged in as</span>
+              <span data-lang-id="1000-logged-user"></span>
               <span><?php echo htmlspecialchars($first_name); ?></span>
               <span style="color: var(--subdued);">
                 <?php

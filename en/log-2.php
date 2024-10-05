@@ -50,6 +50,7 @@ if ($is_logged_in) {
             </script>";
             exit();
         }
+    require_once '../gobrikconn_env.php';
 
      // Fetch the ecobrick details from the database if it has not been processed
 if ($stmt = $gobrik_conn->prepare("SELECT universal_volume_ml, serial_no, density, weight_g FROM tb_ecobricks WHERE ecobrick_unique_id = ?")) {

@@ -27,7 +27,6 @@ if (isLoggedIn()) {
     $buwana_conn->close();  // Close the database connection
 } else {
 
-    exit();
 }
 
 // // Determine if the user is logged in for dynamic content handling later

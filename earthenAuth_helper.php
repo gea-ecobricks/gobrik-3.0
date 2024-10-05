@@ -75,29 +75,29 @@ function retryEcobrick($gobrik_conn, $ecobrick_unique_id) {
 
 // Deprecated: Required parameter $gobrik_conn follows optional parameter $ecobrick_unique_id in /home/ecobricks/repositories/gobrik-3-0-2/earthenAuth_helper.php on line 78
 // Function to generate or return a serial number
-// function setSerialNumber($ecobrick_unique_id = null, $gobrik_conn) {
-//     // If the ecobrick_unique_id is provided, use it directly
-//     if (!is_null($ecobrick_unique_id) && !empty($ecobrick_unique_id)) {
-//         return [
-//             'ecobrick_unique_id' => $ecobrick_unique_id,
-//             'serial_no' => $ecobrick_unique_id // In this case, use the same ID for serial_no
-//         ];
-//     }
-//
-//     // If no ecobrick_unique_id, generate a new one from the database
-//     $query = "SELECT MAX(ecobrick_unique_id) as max_unique_id FROM tb_ecobricks";
-//     $result = $gobrik_conn->query($query);
-//
-//     if ($result->num_rows > 0) {
-//         $row = $result->fetch_assoc();
-//         return [
-//             'ecobrick_unique_id' => $row['max_unique_id'] + 1,
-//             'serial_no' => $row['max_unique_id'] + 1
-//         ];
-//     } else {
-//         throw new Exception('No records found in the database.');
-//     }
-// }
+function setSerialNumber($gobrik_conn, $ecobrick_unique_id = null) {
+    // If the ecobrick_unique_id is provided, use it directly
+    if (!is_null($ecobrick_unique_id) && !empty($ecobrick_unique_id)) {
+        return [
+            'ecobrick_unique_id' => $ecobrick_unique_id,
+            'serial_no' => $ecobrick_unique_id // In this case, use the same ID for serial_no
+        ];
+    }
+
+    // If no ecobrick_unique_id, generate a new one from the database
+    $query = "SELECT MAX(ecobrick_unique_id) as max_unique_id FROM tb_ecobricks";
+    $result = $gobrik_conn->query($query);
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return [
+            'ecobrick_unique_id' => $row['max_unique_id'] + 1,
+            'serial_no' => $row['max_unique_id'] + 1
+        ];
+    } else {
+        throw new Exception('No records found in the database.');
+    }
+}
 
 
 

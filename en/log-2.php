@@ -32,15 +32,26 @@ if ($is_logged_in) {
     $thumbnail_file_sizes = [];
 
     if (isset($_GET['id'])) {
-        $ecobrick_unique_id = (int)$_GET['id'];
+    $ecobrick_unique_id = (int)$_GET['id'];
 
-        // Check if the ecobrick has already been processed
-        $status_check_stmt = $gobrik_conn->prepare("SELECT status FROM tb_ecobricks WHERE ecobrick_unique_id = ?");
+    // Log the ecobrick_unique_id to ensure it's retrieved correctly
+    error_log("Ecobrick ID retrieved: " . $ecobrick_unique_id);
+
+    // Check if the ecobrick has already been processed
+    $status_check_stmt = $gobrik_conn->prepare("SELECT status FROM tb_ecobricks WHERE ecobrick_unique_id = ?");
+    if ($status_check_stmt) {
         $status_check_stmt->bind_param("i", $ecobrick_unique_id);
         $status_check_stmt->execute();
         $status_check_stmt->bind_result($status);
         $status_check_stmt->fetch();
         $status_check_stmt->close();
+
+        // Log the status for debugging
+        if (isset($status)) {
+            error_log("Ecobrick status retrieved: " . $status);
+        } else {
+            error_log("No status found for ecobrick_unique_id: " . $ecobrick_unique_id);
+        }
 
         // If status is 'step 2 complete', show an alert and redirect
         if ($status === "step 2 complete") {
@@ -50,23 +61,30 @@ if ($is_logged_in) {
             </script>";
             exit();
         }
-    require_once '../gobrikconn_env.php';
+    } else {
+        error_log("Error preparing status check statement: " . $gobrik_conn->error);
+    }
 
-     // Fetch the ecobrick details from the database if it has not been processed
-if ($stmt = $gobrik_conn->prepare("SELECT universal_volume_ml, serial_no, density, weight_g FROM tb_ecobricks WHERE ecobrick_unique_id = ?")) {
-    $stmt->bind_param("i", $ecobrick_unique_id);
-    $stmt->execute();
-    $stmt->bind_result($universal_volume_ml, $serial_no, $density, $weight_g);
-    $stmt->fetch();
+    // Fetch the ecobrick details from the database if it has not been processed
+    if ($stmt = $gobrik_conn->prepare("SELECT universal_volume_ml, serial_no, density, weight_g FROM tb_ecobricks WHERE ecobrick_unique_id = ?")) {
+        $stmt->bind_param("i", $ecobrick_unique_id);
+        $stmt->execute();
+        $stmt->bind_result($universal_volume_ml, $serial_no, $density, $weight_g);
+        $stmt->fetch();
 
-    // Log the serial number to the error log
-    error_log("Ecobrick Serial Number retrieved: " . $serial_no);
+        // Log the serial number to the error log
+        if (isset($serial_no)) {
+            error_log("Ecobrick Serial Number retrieved: " . $serial_no);
+        } else {
+            error_log("Failed to retrieve ecobrick details for ecobrick_unique_id: " . $ecobrick_unique_id);
+        }
 
-    $stmt->close();
-} else {
-    echo "Error preparing statement: " . $gobrik_conn->error;
+        $stmt->close();
+    } else {
+        error_log("Error preparing ecobrick details statement: " . $gobrik_conn->error);
+    }
 }
-}
+
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ecobrick_unique_id'])) {
         $ecobrick_unique_id = (int)$_POST['ecobrick_unique_id'];

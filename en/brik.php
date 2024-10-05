@@ -35,6 +35,7 @@ echo '<!DOCTYPE html>
 require_once ("../includes/brik-inc.php");
 
 // Get the contents from the Ecobrick table as an ordered View, using the serial_no from the URL
+// Get the contents from the Ecobrick table as an ordered View, using the serial_no from the URL
 $serialNo = $_GET['serial_no'];
 
 $sql = "SELECT serial_no, weight_g, location_full, ecobrick_full_photo_url, date_logged_ts, last_validation_ts, status, vision, owner, volume_ml, sequestration_type, density, CO2_kg, brand_name, bottom_colour, plastic_from, community_name, location_city, location_region, location_country, validator_1, validator_2, validator_3, validation_score_avg, catalyst, final_validation_score, weight_authenticated_kg FROM tb_ecobricks WHERE serial_no = ?";
@@ -49,15 +50,15 @@ if ($stmt) {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-    while($array = $result->fetch_assoc()) {
-        // Check the status of the ecobrick
-        $status = strtolower($array["status"]);
-        $isAuthenticated = ($status === "authenticated");
+        while ($array = $result->fetch_assoc()) {
+            // Check the status of the ecobrick
+            $status = strtolower($array["status"]);
+            $isAuthenticated = ($status === "authenticated");
 
-        // If the ecobrick is authenticated, use the existing display
-        if ($isAuthenticated) {
-            echo '
-        '<div class="splash-content-block">
+            // If the ecobrick is authenticated, use the existing display
+            if ($isAuthenticated) {
+                echo '
+        <div class="splash-content-block">
                 <div class="splash-box">
                     <div class="splash-heading"><span data-lang-id="001-splash-title">Ecobrick</span> ' . htmlspecialchars($array["serial_no"], ENT_QUOTES, 'UTF-8') . '</div>
                     <div class="splash-sub">' . htmlspecialchars($array["weight_g"], ENT_QUOTES, 'UTF-8') . '&#8202;g <span data-lang-id="002-splash-subtitle">of plastic has been secured out of the biosphere in</span> ' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . '</div>

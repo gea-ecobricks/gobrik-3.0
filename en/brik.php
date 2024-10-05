@@ -11,21 +11,21 @@ $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.766';
 $page = 'brik';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
-$is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
+// $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 
 // Check if the user is logged in
-if (isLoggedIn()) {
-    $buwana_id = $_SESSION['buwana_id'];
-    // Fetch the user's location data
-    $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
-    $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
-    $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
-    $gea_status = getGEA_status($buwana_id);
-    $user_community_name = getCommunityName($buwana_conn, $buwana_id);
-
-} else {
-//nothing keep going
-}
+// if (isLoggedIn()) {
+//     $buwana_id = $_SESSION['buwana_id'];
+//     // Fetch the user's location data
+//     $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
+//     $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
+//     $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
+//     $gea_status = getGEA_status($buwana_id);
+//     $user_community_name = getCommunityName($buwana_conn, $buwana_id);
+//
+// } else {
+// //nothing keep going
+// }
 
 echo '<!DOCTYPE html>
 <html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">

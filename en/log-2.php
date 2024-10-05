@@ -31,19 +31,25 @@ if ($is_logged_in) {
     $main_file_sizes = [];
     $thumbnail_file_sizes = [];
 
-    if (isset($_GET['id'])) {
+    if (isset($_GET['id']) && !empty($_GET['id'])) {
     $ecobrick_unique_id = (int)$_GET['id'];
-    echo "The Ecobrick Unique ID from URL: " . $ecobrick_unique_id;
+
+    // Log the ecobrick ID to error_log
+    error_log("Ecobrick ID retrieved from GET: " . $ecobrick_unique_id);
+
+    // Check if the ecobrick has already been processed
+    $status_check_stmt = $gobrik_conn->prepare("SELECT status FROM tb_ecobricks WHERE ecobrick_unique_id = ?");
+    $status_check_stmt->bind_param("i", $ecobrick_unique_id);
+    $status_check_stmt->execute();
+    $status_check_stmt->bind_result($status);
+    $status_check_stmt->fetch();
+    $status_check_stmt->close();
+
+} else {
+    // If ID is not set or is empty, log an error
+    error_log("Ecobrick ID is not set or empty in GET request");
 }
 
-
-        // Check if the ecobrick has already been processed
-        $status_check_stmt = $gobrik_conn->prepare("SELECT status FROM tb_ecobricks WHERE ecobrick_unique_id = ?");
-        $status_check_stmt->bind_param("i", $ecobrick_unique_id);
-        $status_check_stmt->execute();
-        $status_check_stmt->bind_result($status);
-        $status_check_stmt->fetch();
-        $status_check_stmt->close();
 
         // If status is 'step 2 complete', show an alert and redirect
         if ($status === "step 2 complete") {

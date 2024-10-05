@@ -53,6 +53,5 @@ if ($result->num_rows > 0) {
     echo '<title>No Ecobrick Found | GoBrik.com</title>';
     echo '<meta name="description" content="No data found for this ecobrick serial number.  Most likely this is because the brikchain data is still in migration."> ';
 }
-$gobrik_conn->close();
 
 ?>

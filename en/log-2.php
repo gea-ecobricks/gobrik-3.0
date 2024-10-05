@@ -33,6 +33,7 @@ if ($is_logged_in) {
 
     if (isset($_GET['id'])) {
         $ecobrick_unique_id = (int)$_GET['id'];
+            error_log("Ecobrick ID retrieved from GET: " . $ecobrick_unique_id);
 
         // Check if the ecobrick has already been processed
         $status_check_stmt = $gobrik_conn->prepare("SELECT status FROM tb_ecobricks WHERE ecobrick_unique_id = ?");

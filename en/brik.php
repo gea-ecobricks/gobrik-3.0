@@ -26,7 +26,7 @@ if (isLoggedIn()) {
     $user_community_name = getCommunityName($buwana_conn, $buwana_id);
 
 } else {
-    exit("You need to be logged in to view this page.");
+//nothing keep going
 }
 
 echo '<!DOCTYPE html>
@@ -56,7 +56,7 @@ if ($stmt) {
             $status = strtolower($array["status"]);
             $isAuthenticated = ($status === "authenticated");
 
-            // If the ecobrick is authenticated, use the existing display
+            // If the ecobrick is authenticated, show this splash top
             if ($isAuthenticated) {
                 echo '
                 <div class="splash-content-block">
@@ -83,27 +83,29 @@ if ($stmt) {
                 </div>
             </div>
             <div id="splash-bar"></div>';
+        }
 
+        // Continue with the rest of the page content as it is
         echo '
         <div id="main-content">
             <div class="row">
                 <div class="main">
                     <div class="row-details">';
 
+        //VISION
         // Trim the vision value and check if it is set and not blank
         if (isset($array["vision"])) {
             $visionText = trim($array["vision"]);
-
             // Check if the trimmed value is not empty or a single space
             if ($visionText !== '' && $visionText !== ' ') {
                 // Remove any existing quotation marks from the vision value
                 $cleanedVisionText = str_replace('"', '', $visionText);
-
                 // Display the cleaned value wrapped in quotation marks
                 echo '<p><div class="vision-quote" style="margin-top:25px;"> "' . $cleanedVisionText . '" </div></p>';
             }
         }
 
+        //EXPLANATION
         echo '<div class="lead-page-paragraph">
                 <p><b>' . htmlspecialchars($array["owner"], ENT_QUOTES, 'UTF-8') . ' <span data-lang-id="110">has ecobricked </span> ' . htmlspecialchars($array["weight_g"], ENT_QUOTES, 'UTF-8') . '&#8202;g<span data-lang-id="111"> of community plastic in </span>' . htmlspecialchars($array["location_full"], ENT_QUOTES, 'UTF-8') . '<span data-lang-id="112"> using a </span>' . htmlspecialchars($array["volume_ml"], ENT_QUOTES, 'UTF-8') . 'ml <span data-lang-id="113"> bottle to make a </span>' . htmlspecialchars($array["sequestration_type"], ENT_QUOTES, 'UTF-8') . '.</b></p>
             </div>
@@ -115,14 +117,16 @@ if ($stmt) {
                 </div>
             </div>';
 
+        //IF THERE's A SELFIE IT GOES HERE
+
         if (isset($array["selfie_photo_url"]) && $array["selfie_photo_url"] != '') {
             echo '<div class="side-details">
                     <img src="' . htmlspecialchars($array["selfie_photo_url"], ENT_QUOTES, 'UTF-8') . '" width="100%">
                   </div>';
         }
 
-    echo '
-
+        //DATA CHUNK
+            echo '
 			    </div>
 			    <div id="data-chunk">
 				<div class="ecobrick-data">
@@ -158,6 +162,8 @@ if ($stmt) {
 
 ';
 
+        //BOTTOM EXPLANATION
+
         echo '</div>
 			</div>
             <br><hr><br>
@@ -169,8 +175,9 @@ if ($stmt) {
                 <p><a class="action-btn-blue" href="brikchain.php" data-lang-id="154">🔎 Browse the Brikchain</a></p>
                 <p style="font-size: 0.85em; margin-top:20px;" data-lang-id="155">The live chain of transactions and ecobricks.</p>
             </div>
-        </div>';
+        </div>';  //main closes
 
+        //SIDE BAR for non-authenticated
         echo '<div class="side">
             <div class="side-module-desktop-mobile">
                 <img src="../pngs/authenticated-ecobrick.png" width="90%" alt="Following the Earths example through eco bricking">
@@ -197,7 +204,7 @@ if ($stmt) {
                 <div class="main">
                     <br><br>
                     <div class="ecobrick-data">
-                        <p data-lang-id="152x">🚧 The data for ecobrick ' . htmlspecialchars($serialNo, ENT_QUOTES, 'UTF-8') . ' has not yet been migrated to the blockchain. This could be because of transfer delay. Normally publishing occurs within 30 seconds of authentication. If more than 24hrs has passed, an error has occurred or this ecobrick was not authenticated.</p>
+                        <p data-lang-id="152x"> The data for ecobrick ' . htmlspecialchars($serialNo, ENT_QUOTES, 'UTF-8') . ' has not yet been migrated to the blockchain. This could be because of transfer delay. Normally publishing occurs within 30 seconds of authentication. If more than 24hrs has passed, an error has occurred or this ecobrick was not authenticated.</p>
                     </div>
                     <br><br><br><br>
                     <div class="page-paragraph">
@@ -210,6 +217,7 @@ if ($stmt) {
                     </div>
                 </div>
                 <div class="side">';
+                    }
 }
 
 $gobrik_conn->close();

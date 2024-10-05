@@ -4,28 +4,30 @@ ini_set('display_errors', 1);
 
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
-    require_once '../gobrikconn_env.php';
-    require_once '../buwanaconn_env.php';
 // Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.766';
 $page = 'brik';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
-// $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
+$is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 
 // Check if the user is logged in
-// if (isLoggedIn()) {
-//     $buwana_id = $_SESSION['buwana_id'];
-//     // Fetch the user's location data
-//     $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
-//     $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
-//     $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
-//     $gea_status = getGEA_status($buwana_id);
-//     $user_community_name = getCommunityName($buwana_conn, $buwana_id);
-//
-// } else {
-// //nothing keep going
-// }
+if (isLoggedIn()) {
+    $buwana_id = $_SESSION['buwana_id'];
+    // Include database connection
+    require_once '../gobrikconn_env.php';  // Include connection file
+    require_once '../buwanaconn_env.php';
+
+    // Fetch the user's location data
+    $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
+    $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
+    $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
+    $gea_status = getGEA_status($buwana_id);
+    $user_community_name = getCommunityName($buwana_conn, $buwana_id);
+
+} else {
+    exit("You need to be logged in to view this page.");
+}
 
 echo '<!DOCTYPE html>
 <html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">
@@ -39,19 +41,28 @@ require_once ("../includes/brik-inc.php");
 // Get the contents from the Ecobrick table as an ordered View, using the serial_no from the URL
 $serialNo = $_GET['serial_no'];
 
-$sql = "SELECT * FROM tb_ecobricks WHERE serial_no = ?";
+$sql = "SELECT serial_no, weight_g, location_full, ecobrick_full_photo_url, date_logged_ts, last_validation_ts, status FROM tb_ecobricks WHERE serial_no = ?";
 $stmt = $gobrik_conn->prepare($sql);
 
 if ($stmt) {
-    $stmt->bind_param("s", $serialNo);  // 's' indicates a string parameter
+    // Bind the serial_no as a string
+    $stmt->bind_param("s", $serialNo);
     $stmt->execute();
-    $result = $stmt->get_result();
 
-    if ($result->num_rows > 0) {
-        while($array = $result->fetch_assoc()) {
-            // Process results here
-            $status = strtolower($array["status"]);
-            $isAuthenticated = ($status === "authenticated");
+    // Bind result variables
+    $stmt->bind_result($serial_no, $weight_g, $location_full, $ecobrick_full_photo_url, $date_logged_ts, $last_validation_ts, $status);
+
+    // Fetch the results
+    $hasResults = false;
+    while ($stmt->fetch()) {
+        $hasResults = true;
+        // Process the results
+        $status = strtolower($status);
+        $isAuthenticated = ($status === "authenticated");
+
+        // If the ecobrick is authenticated, use the existing display
+        if ($isAuthenticated) {
+            echo '
 
             // If the ecobrick is authenticated, show this splash top
             if ($isAuthenticated) {

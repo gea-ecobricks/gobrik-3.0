@@ -35,10 +35,9 @@ echo '<!DOCTYPE html>
 require_once ("../includes/brik-inc.php");
 
 // Get the contents from the Ecobrick table as an ordered View, using the serial_no from the URL
-// Get the contents from the Ecobrick table as an ordered View, using the serial_no from the URL
 $serialNo = $_GET['serial_no'];
 
-$sql = "SELECT serial_no, weight_g, location_full, ecobrick_full_photo_url, date_logged_ts, last_validation_ts, status, vision, owner, volume_ml, sequestration_type, density, CO2_kg, brand_name, bottom_colour, plastic_from, community_name, location_city, location_region, location_country, validator_1, validator_2, validator_3, validation_score_avg, catalyst, final_validation_score, weight_authenticated_kg FROM tb_ecobricks WHERE serial_no = ?";
+$sql = "SELECT serial_no, weight_g, location_full, ecobrick_full_photo_url, date_logged_ts, last_validation_ts, status FROM tb_ecobricks WHERE serial_no = ?";
 $stmt = $gobrik_conn->prepare($sql);
 
 if ($stmt) {
@@ -46,11 +45,14 @@ if ($stmt) {
     $stmt->bind_param("s", $serialNo);
     $stmt->execute();
 
-    // Use fetch_assoc to retrieve the row as an associative array
-    $result = $stmt->get_result();
+    // Store the result
+    $stmt->store_result();
 
-    if ($result->num_rows > 0) {
-        while ($array = $result->fetch_assoc()) {
+    // Bind the result variables
+    $stmt->bind_result($serial_no, $weight_g, $location_full, $ecobrick_full_photo_url, $date_logged_ts, $last_validation_ts, $status);
+
+    // Fetch the results
+    while ($stmt->fetch()) {
             // Check the status of the ecobrick
             $status = strtolower($array["status"]);
             $isAuthenticated = ($status === "authenticated");

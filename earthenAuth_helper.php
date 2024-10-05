@@ -1,13 +1,7 @@
 <?php
 
-
-
-/**
- * Fetch the GEA status of a user from the tb_ecobrickers table using buwana_id.
- *
- * @param int $buwana_id The ID of the user.
- * @return string|null The GEA status of the user or null if not found.
- */
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 // Function to fetch ecobrick data for retry
 function retryEcobrick($gobrik_conn, $ecobrick_unique_id) {

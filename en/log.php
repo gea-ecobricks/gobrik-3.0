@@ -140,7 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } finally {
         $gobrik_conn->close(); // Close the connection
     }
-}
+
 
 
 

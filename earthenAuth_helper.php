@@ -67,8 +67,6 @@ function retryEcobrick($gobrik_conn, $ecobrick_unique_id) {
 }
 
 
-
-// Deprecated: Required parameter $gobrik_conn follows optional parameter $ecobrick_unique_id in /home/ecobricks/repositories/gobrik-3-0-2/earthenAuth_helper.php on line 78
 // Function to generate or return a serial number
 function setSerialNumber($gobrik_conn, $ecobrick_unique_id = null) {
     // If the ecobrick_unique_id is provided, use it directly
@@ -83,7 +81,7 @@ function setSerialNumber($gobrik_conn, $ecobrick_unique_id = null) {
     $query = "SELECT MAX(ecobrick_unique_id) as max_unique_id FROM tb_ecobricks";
     $result = $gobrik_conn->query($query);
 
-    if ($result->num_rows > 0) {
+    if ($result && $result->num_rows > 0) {
         $row = $result->fetch_assoc();
         return [
             'ecobrick_unique_id' => $row['max_unique_id'] + 1,
@@ -93,6 +91,7 @@ function setSerialNumber($gobrik_conn, $ecobrick_unique_id = null) {
         throw new Exception('No records found in the database.');
     }
 }
+
 
 
 

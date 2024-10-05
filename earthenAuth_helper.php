@@ -73,7 +73,7 @@ function retryEcobrick($gobrik_conn, $ecobrick_unique_id) {
 
 
 
-
+// Deprecated: Required parameter $gobrik_conn follows optional parameter $ecobrick_unique_id in /home/ecobricks/repositories/gobrik-3-0-2/earthenAuth_helper.php on line 78
 // Function to generate or return a serial number
 function setSerialNumber($ecobrick_unique_id = null, $gobrik_conn) {
     // If the ecobrick_unique_id is provided, use it directly

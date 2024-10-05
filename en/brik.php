@@ -26,7 +26,7 @@ if (isLoggedIn()) {
     $user_community_name = getCommunityName($buwana_conn, $buwana_id);
 
 } else {
-    exit("You need to be logged in to view this page.");
+
 }
 
 echo '<!DOCTYPE html>

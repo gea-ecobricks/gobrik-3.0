@@ -166,7 +166,7 @@ if ($stmt) {
 $gobrik_conn->close();  // Close the database connection
 ?>
 
-
+</div>
 <div class="side-module-desktop-mobile">
     <img src="../webps/aes-400px.webp" width="80%" alt="For-Earth Enterprise through eco bricking">
     <h5 data-lang-id="100-side-aes-text">The weight of the plastic inside an authenticated ecobrick is what we call Authenticated Ecobricked Plastic (AES plastic) for short.</h5><br>

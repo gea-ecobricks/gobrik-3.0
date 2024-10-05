@@ -32,7 +32,10 @@ if ($is_logged_in) {
     $thumbnail_file_sizes = [];
 
     if (isset($_GET['id'])) {
-        $ecobrick_unique_id = (int)$_GET['id'];
+    $ecobrick_unique_id = (int)$_GET['id'];
+    echo "The Ecobrick Unique ID from URL: " . $ecobrick_unique_id;
+}
+
 
         // Check if the ecobrick has already been processed
         $status_check_stmt = $gobrik_conn->prepare("SELECT status FROM tb_ecobricks WHERE ecobrick_unique_id = ?");

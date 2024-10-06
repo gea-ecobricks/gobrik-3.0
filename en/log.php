@@ -152,6 +152,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         // Execute the statement
                         if ($stmt->execute()) {
+                        error_log("SQL query: $sql");
+
                             error_log("Statement executed successfully. Affected rows: " . $stmt->affected_rows);
                             if ($stmt->affected_rows > 0) {
                                 error_log("New ecobrick record inserted successfully.");

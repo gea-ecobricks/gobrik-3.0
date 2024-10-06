@@ -49,8 +49,8 @@ if ($is_logged_in) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         $ids = '555555'; // Pass ecobrick_unique_id if available
-        $ecobrick_unique_id = $ids['ecobrick_unique_id'];
-        $serial_no = $ids['serial_no'];
+        $ecobrick_unique_id = '555555';
+        $serial_no = '555555';
         error_log("Inserting ecobrick with ID: $ecobrick_unique_id, Serial No: $serial_no");
         $brik_notes = "Directly logged on beta.GoBrik.com";
         $date_published_ts = date("Y-m-d H:i:s");

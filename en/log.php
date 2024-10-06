@@ -61,7 +61,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sequestration_type = trim($_POST['sequestration_type']);
         $plastic_from = trim($_POST['plastic_from']);
         $brand_name = trim($_POST['brand_name']);
-        $community_id = (int)trim($_POST['community_select']);
         $location_full = trim($_POST['location_full']);
         $bottom_colour = trim($_POST['bottom_colour']);
         $location_lat = (float)trim($_POST['latitude']);
@@ -88,11 +87,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt_country->close();
         }
 
-        // Log form data
-        error_log("Values being inserted into tb_ecobricks: ");
-        error_log("Unique ID: $ecobrick_unique_id, Serial No: $serial_no, Maker: $ecobricker_maker, Volume: $volume_ml, Weight: $weight_g");
-        error_log("Sequestration: $sequestration_type, Plastic From: $plastic_from, Location: $location_full, Bottom colour: $bottom_colour, Lat: $location_lat, Long: $location_long");
-        error_log("Brand Name: $brand_name, Watershed: $location_watershed, Community ID: $community_id, Country ID: $country_id");
+                // Retrieve the community name from the POST data
+            $community_name = trim($_POST['community_select']);
+
+            // Now, lookup the community ID based on the name provided
+            $sql_community = "SELECT community_id FROM communities_tb WHERE community_name = ?";
+            $stmt_community = $gobrik_conn->prepare($sql_community);
+
+            if ($stmt_community) {
+                $stmt_community->bind_param("s", $community_name);
+                $stmt_community->execute();
+                $stmt_community->bind_result($community_id);
+                $stmt_community->fetch();
+                $stmt_community->close();
+
+                // Check if we got a valid community_id
+                if (!empty($community_id)) {
+                    error_log("Community ID found: $community_id for community name: $community_name");
+                } else {
+                    error_log("No community found for the name: $community_name");
+                    // Handle the case where the community is not found
+                }
+            } else {
+                error_log("Error preparing community SQL: " . $gobrik_conn->error);
+            }
+
+
 
         // Background set variables
         $owner = $ecobricker_maker;
@@ -107,6 +127,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $date_published_ts = date("Y-m-d H:i:s");
 
         // Log background variables
+                // Log form data
+        error_log("Values being inserted into tb_ecobricks: ");
+        error_log("Unique ID: $ecobrick_unique_id, Serial No: $serial_no, Maker: $ecobricker_maker, Volume: $volume_ml, Weight: $weight_g");
+        error_log("Sequestration: $sequestration_type, Plastic From: $plastic_from, Location: $location_full, Bottom colour: $bottom_colour, Lat: $location_lat, Long: $location_long");
+        error_log("Brand Name: $brand_name, Watershed: $location_watershed, Community ID: $community_id, Country ID: $country_id");
+
         error_log("Owner: $owner, Status: $status, Universal Volume: $universal_volume_ml ml, Density: $density g/ml");
         error_log("Date Logged: $date_logged_ts, CO2 Sequestration: $CO2_kg kg, Last Ownership Change: $last_ownership_change");
         error_log("Actual Maker Name: $actual_maker_name, Brik Notes: $brik_notes, Date Published: $date_published_ts");

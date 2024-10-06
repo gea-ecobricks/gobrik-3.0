@@ -48,9 +48,9 @@ if ($is_logged_in) {
     // PART 3: POST ECOBRICK DATA to GOBRIK DATABASE
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
-        $ids = '555555'; // Pass ecobrick_unique_id if available
-        $ecobrick_unique_id = '555555';
-        $serial_no = '555555';
+        $ids = setSerialNumber($gobrik_conn, $ecobrick_unique_id); // Pass ecobrick_unique_id if available
+        $ecobrick_unique_id = $ids['ecobrick_unique_id'];
+        $serial_no = $ids['serial_no'];
         error_log("Inserting ecobrick with ID: $ecobrick_unique_id, Serial No: $serial_no");
         $brik_notes = "Directly logged on beta.GoBrik.com";
         $date_published_ts = date("Y-m-d H:i:s");
@@ -129,23 +129,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             }
                         } else {
                             // Insert a new record
-                            $sql = "INSERT INTO tb_ecobricks (
-                                        ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type,
-                                        plastic_from, location_full, bottom_colour, location_lat, location_long, brand_name, owner, status,
-                                        universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change,
-                                        actual_maker_name, brik_notes, date_published_ts, location_watershed, community_id, country_id
-                                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                              // Prepare the SQL statement
+            $sql = "INSERT INTO tb_ecobricks (
+                ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type,
+                plastic_from, location_full, location_lat, location_long, brand_name, owner, status,
+                universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change,
+                actual_maker_name, brik_notes, date_published_ts, location_watershed, community_id, country_id
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-                            if ($stmt = $gobrik_conn->prepare($sql)) {
-                                // Bind parameters for INSERT (25 variables)
-                                $stmt->bind_param(
-                                    "issiissssddsssidsisssssii",
-                                    $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g,
-                                    $sequestration_type, $plastic_from, $location_full, $bottom_colour, $location_lat, $location_long,
-                                    $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts,
-                                    $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts,
-                                    $location_watershed, $community_id, $country_id
-                                );
+            if ($stmt = $gobrik_conn->prepare($sql)) {
+                // Bind parameters including the country_id
+                $stmt->bind_param(
+                    "issiisssddsssdsdsssssii",
+                    $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g,
+                    $sequestration_type, $plastic_from, $location_full, $location_lat, $location_long,
+                    $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts,
+                    $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts,
+                    $location_watershed, $community_id, $country_id
+                );
                             }
                         }
 

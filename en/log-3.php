@@ -377,10 +377,10 @@ document.addEventListener('DOMContentLoaded', function () {
 //ROTATE Photo
 
 // Function to send rotation request to the PHP function
+// Function to send rotation request to the PHP function
 function rotateEcobrickPhoto(photoId, rotationDegrees, photoUrl) {
-    // Create an AJAX request to send the rotation degrees to the server
     var xhr = new XMLHttpRequest();
-    var url = "rotate_photo.php"; // A PHP file that will handle the photo rotation
+    var url = "rotate_photo.php"; // The PHP file that will handle the photo rotation
     var params = "photo_url=" + encodeURIComponent(photoUrl) + "&rotation=" + rotationDegrees;
 
     xhr.open("POST", url, true);
@@ -389,16 +389,18 @@ function rotateEcobrickPhoto(photoId, rotationDegrees, photoUrl) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
-                // If the server response indicates success
+                console.log("Server response: " + xhr.responseText);
+
                 if (xhr.responseText.trim() === "Image rotated successfully.") {
                     alert("Your image has been rotated and saved.");
+                    console.log("Image rotation successful for photo ID: " + photoId);
                 } else {
-                    // If there's an error message from the server
                     alert("Something went wrong saving your rotation. This feature is still in beta and we're working on it. Error: " + xhr.responseText);
+                    console.error("Rotation error: " + xhr.responseText);
                 }
             } else {
-                // If there was an error with the request
-                alert("Something went wrong saving your rotation. This feature is still in beta and we're working on it. Error: " + xhr.status);
+                alert("An error occurred during the request. Status: " + xhr.status);
+                console.error("XHR error: Status " + xhr.status);
             }
         }
     };
@@ -406,6 +408,7 @@ function rotateEcobrickPhoto(photoId, rotationDegrees, photoUrl) {
     // Send the rotation degrees to the server
     xhr.send(params);
 }
+
 
 // Function to adjust the height of the container after the image rotates
 function adjustContainerHeight(photo, container) {

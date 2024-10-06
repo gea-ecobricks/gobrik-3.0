@@ -1,11 +1,17 @@
 <?php
 
 
-
 // Function to rotate an image by the specified degrees and save it back
 function rotateEcobrickPhoto($sourcePath, $rotationDegrees, $targetPath = null) {
+    // Log the start of the process
+    error_log("Starting photo rotation for file: $sourcePath. Rotation degrees: $rotationDegrees");
+
     // Get image details
     list($width, $height, $type) = getimagesize($sourcePath);
+    if (!$width || !$height || !$type) {
+        error_log("Failed to get image details for file: $sourcePath");
+        return false; // Exit if unable to get image details
+    }
 
     // Load the source image based on its type
     switch ($type) {
@@ -19,11 +25,21 @@ function rotateEcobrickPhoto($sourcePath, $rotationDegrees, $targetPath = null) 
             $sourceImage = imagecreatefromwebp($sourcePath);
             break;
         default:
+            error_log("Unsupported image type for file: $sourcePath");
             return false; // Unsupported image type
     }
 
+    if (!$sourceImage) {
+        error_log("Failed to create image resource for file: $sourcePath");
+        return false; // Failed to load the image
+    }
+
     // Rotate the image using the given degrees
-    $rotatedImage = imagerotate($sourceImage, -$rotationDegrees, 0); // Negative for clockwise rotation to match CSS
+    $rotatedImage = imagerotate($sourceImage, -$rotationDegrees, 0); // Negative for clockwise rotation
+    if (!$rotatedImage) {
+        error_log("Failed to rotate image for file: $sourcePath");
+        return false; // Exit if rotation fails
+    }
 
     // If no target path is provided, overwrite the original
     if ($targetPath === null) {
@@ -33,14 +49,21 @@ function rotateEcobrickPhoto($sourcePath, $rotationDegrees, $targetPath = null) 
     // Save the rotated image back in its original format
     switch ($type) {
         case IMAGETYPE_JPEG:
-            imagejpeg($rotatedImage, $targetPath, 90); // 90 is JPEG quality
+            $success = imagejpeg($rotatedImage, $targetPath, 90); // 90 is JPEG quality
             break;
         case IMAGETYPE_PNG:
-            imagepng($rotatedImage, $targetPath);
+            $success = imagepng($rotatedImage, $targetPath);
             break;
         case IMAGETYPE_WEBP:
-            imagewebp($rotatedImage, $targetPath);
+            $success = imagewebp($rotatedImage, $targetPath);
             break;
+    }
+
+    if ($success) {
+        error_log("Image successfully rotated and saved to: $targetPath");
+    } else {
+        error_log("Failed to save rotated image to: $targetPath");
+        return false; // Exit if saving fails
     }
 
     // Free memory
@@ -53,24 +76,23 @@ function rotateEcobrickPhoto($sourcePath, $rotationDegrees, $targetPath = null) 
 
 
 
-// Check if the request is POST and required parameters are present
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['photo_url']) && isset($_POST['rotation'])) {
-    $photoUrl = $_POST['photo_url'];
-    $rotationDegrees = intval($_POST['rotation']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $photoUrl = $_POST['photo_url'] ?? '';
+    $rotationDegrees = $_POST['rotation'] ?? 0;
 
-    // Ensure that the degrees are within valid range (multiples of 90)
-    if ($rotationDegrees % 90 !== 0) {
-        echo "Invalid rotation degrees.";
-        exit;
-    }
-
-    // Construct the actual file path from the URL
-    $photoPath = $_SERVER['DOCUMENT_ROOT'] . parse_url($photoUrl, PHP_URL_PATH);
-
-    // Call the rotate function
-    if (rotateEcobrickPhoto($photoPath, $rotationDegrees)) {
-        echo "Image rotated successfully.";
+    if (!empty($photoUrl) && $rotationDegrees) {
+        // Try rotating the photo
+        if (rotateEcobrickPhoto($photoUrl, $rotationDegrees)) {
+            echo "Image rotated successfully.";
+        } else {
+            echo "Failed to rotate the image.";
+            error_log("Failed to rotate image at: " . $photoUrl);
+        }
     } else {
-        echo "Failed to rotate image.";
+        echo "Invalid request data.";
+        error_log("Invalid rotation request: photo_url or rotation degrees missing.");
     }
+} else {
+    echo "Invalid request method.";
+    error_log("Invalid request method for photo rotation.");
 }

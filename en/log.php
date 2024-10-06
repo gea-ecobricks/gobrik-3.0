@@ -213,9 +213,9 @@ if ($is_logged_in) {
                     error_log("No MySQL warnings or warnings query failed.");
                 }
             }
-        } else {
-            error_log("Error executing statement: " . $stmt->error);
-            echo "Error executing statement: " . $stmt->error;
+        } catch (Exception $e) {
+            error_log("Error: " . $e->getMessage());
+            echo "Error: " . $e->getMessage();
         }
     }
 } else {

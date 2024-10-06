@@ -885,10 +885,13 @@ function saveEcobrickDefaults() {
     }
 }
 
+
+
 // Function to restore default ecobrick form data
 function restoreEcobrickDefaults() {
     const defaults = JSON.parse(localStorage.getItem('ecobrickDefaults'));
     if (defaults) {
+        // Populate form fields with saved defaults
         document.getElementById('ecobricker_maker').value = defaults.ecobrickerMaker || '';
         document.getElementById('volume_ml').value = defaults.volume || '';
         document.getElementById('weight_g').value = defaults.weight || '';
@@ -899,18 +902,35 @@ function restoreEcobrickDefaults() {
         document.getElementById('community_select').value = defaults.community || '';
         document.getElementById('location_full').value = defaults.locationFull || '';
         document.getElementById('location_watershed').value = defaults.watershed || '';
+
+        // Show the "Defaults loaded" message
+        document.getElementById('defaults-loaded').style.display = 'block';
         console.log('Ecobrick defaults restored.');
     }
 }
 
-// Call restoreEcobrickDefaults when the page loads
+// Function to check if "retry" parameter is present in the URL
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+// Call restoreEcobrickDefaults only if the "retry" parameter is not set
 window.onload = function() {
-    restoreEcobrickDefaults();
+    const retryParam = getQueryParam('retry');
+    if (!retryParam) {
+        restoreEcobrickDefaults();
+    }
 };
 
 // Hook saveEcobrickDefaults function to form submission
-document.getElementById('submit-form').addEventListener('submit', saveEcobrickDefaults);
-
+document.getElementById('submit-form').addEventListener('submit', function(event) {
+    // Only save defaults if the retry parameter is not in the URL
+    const retryParam = getQueryParam('retry');
+    if (!retryParam) {
+        saveEcobrickDefaults();
+    }
+});
 
 </script>
 

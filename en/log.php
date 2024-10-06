@@ -213,11 +213,16 @@ if ($is_logged_in) {
                     error_log("No MySQL warnings or warnings query failed.");
                 }
             }
-        } catch (Exception $e) {
+        } else {
+            error_log("Error executing statement: " . $stmt->error);
+            echo "Error executing statement: " . $stmt->error;
+        }
+            } catch (Exception $e) {
             error_log("Error: " . $e->getMessage());
             echo "Error: " . $e->getMessage();
         }
     }
+
 } else {
     header('Location: login.php?redirect=' . urlencode($page));
     exit();

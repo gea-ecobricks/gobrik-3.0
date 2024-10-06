@@ -186,44 +186,42 @@ if ($is_logged_in) {
 
            // Prepare the SQL statement for inserting or updating
             if (isset($sql)) { // Ensure $sql is set properly
-                $stmt = $gobrik_conn->prepare($sql);
+    $stmt = $gobrik_conn->prepare($sql);
 
-            if ($stmt === false) {
-                // Log and output the error if prepare() fails
-                error_log("Error preparing statement: " . $gobrik_conn->error);
-                echo "Error preparing statement: " . $gobrik_conn->error;
+    if ($stmt === false) {
+        // Log and output the error if prepare() fails
+        error_log("Error preparing statement: " . $gobrik_conn->error);
+        echo "Error preparing statement: " . $gobrik_conn->error;
+    } else {
+        // Bind parameters and execute the statement
+        if ($stmt->execute()) {
+            error_log("SQL query: $sql");
+            error_log("Statement executed successfully. Affected rows: " . $stmt->affected_rows);
+            if ($stmt->affected_rows > 0) {
+                error_log("New ecobrick record inserted successfully.");
+                $stmt->close();
+                $gobrik_conn->close();
+                echo "<script>window.location.href = 'log-2.php?id=" . $serial_no . "';</script>";
             } else {
-                // Bind parameters and execute the statement
-                if ($stmt->execute()) {
-                    error_log("SQL query: $sql");
-                    error_log("Statement executed successfully. Affected rows: " . $stmt->affected_rows);
-                    if ($stmt->affected_rows > 0) {
-                        error_log("New ecobrick record inserted successfully.");
-                        $stmt->close();
-                        $gobrik_conn->close();
-                        echo "<script>window.location.href = 'log-2.php?id=" . $serial_no . "';</script>";
-                    } else {
-                        error_log("Insert/Update executed but no rows were affected.");
-                        $warnings = $gobrik_conn->query("SHOW WARNINGS");
-                        if ($warnings) {
-                            while ($warning = $warnings->fetch_assoc()) {
-                                error_log("MySQL Warning: " . print_r($warning, true));
-                            }
-                        } else {
-                            error_log("No MySQL warnings or warnings query failed.");
-                        }
+                error_log("Insert/Update executed but no rows were affected.");
+                $warnings = $gobrik_conn->query("SHOW WARNINGS");
+                if ($warnings) {
+                    while ($warning = $warnings->fetch_assoc()) {
+                        error_log("MySQL Warning: " . print_r($warning, true));
                     }
-                    } else {
-                        error_log("Error executing statement: " . $stmt->error);
-                        echo "Error executing statement: " . $stmt->error;
-                    }
-                 }
+                } else {
+                    error_log("No MySQL warnings or warnings query failed.");
+                }
             }
-
         } else {
-            header('Location: login.php?redirect=' . urlencode($page));
-            exit();
+            error_log("Error executing statement: " . $stmt->error);
+            echo "Error executing statement: " . $stmt->error;
         }
+    }
+} else {
+    header('Location: login.php?redirect=' . urlencode($page));
+    exit();
+}
 
 
 

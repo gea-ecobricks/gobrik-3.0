@@ -376,6 +376,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //ROTATE Photo
 
+//ROTATE Photo
+
 // Function to send rotation request to the PHP function
 function rotateEcobrickPhoto(photoUrl, rotationDegrees, photoId) {
     // Create an AJAX request to send the rotation degrees to the server
@@ -393,10 +395,6 @@ function rotateEcobrickPhoto(photoUrl, rotationDegrees, photoId) {
                 if (xhr.responseText.trim() === "Image rotated successfully.") {
                     alert("Your image has been rotated and saved.");
                     console.log("Image rotation successful for: " + photoUrl);
-
-                    // Optionally reload the image to reflect changes without refreshing the page
-                    var imageElement = document.getElementById(photoId);
-                    imageElement.src = imageElement.src + "?t=" + new Date().getTime(); // Add timestamp to force reload
                 } else {
                     alert("Something went wrong saving your rotation. Error: " + xhr.responseText);
                 }
@@ -409,6 +407,7 @@ function rotateEcobrickPhoto(photoUrl, rotationDegrees, photoId) {
     // Send the rotation degrees to the server
     xhr.send(params);
 }
+
 
 // Function to adjust the height of the container after the image rotates
 function adjustContainerHeight(photo, container) {

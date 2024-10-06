@@ -378,8 +378,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //ROTATE Photo
 
+//ROTATE Photo
+
 // Function to send rotation request to the PHP function
-function rotateEcobrickPhoto(photoUrl, rotationDegrees, photoId) {
+function rotateEcobrickPhoto(photoUrl, rotationDegrees, photoId, totalRotationDegrees) {
     // Create an AJAX request to send the rotation degrees to the server
     var xhr = new XMLHttpRequest();
     var url = "rotate_photo.php"; // PHP file that handles the photo rotation
@@ -393,7 +395,7 @@ function rotateEcobrickPhoto(photoUrl, rotationDegrees, photoId) {
             if (xhr.status == 200) {
                 console.log("Server response: " + xhr.responseText);
                 if (xhr.responseText.trim() === "Image rotated successfully.") {
-                    alert("Your image has been rotated and saved.");
+                    alert("Your photo has been rotated " + totalRotationDegrees + " degrees clockwise and saved to the server.");
                     console.log("Image rotation successful for: " + photoUrl);
                 } else {
                     alert("Something went wrong saving your rotation. Error: " + xhr.responseText);
@@ -407,7 +409,6 @@ function rotateEcobrickPhoto(photoUrl, rotationDegrees, photoId) {
     // Send the rotation degrees to the server
     xhr.send(params);
 }
-
 
 // Function to adjust the height of the container after the image rotates
 function adjustContainerHeight(photo, container) {
@@ -459,12 +460,14 @@ document.querySelectorAll('.confirm-rotate-button').forEach(function(button) {
         var currentRotation = parseInt(photo.getAttribute('data-rotation')) || 0;
         var photoUrl = this.previousElementSibling.getAttribute('data-photo-url'); // Get the original photo URL from the rotate button
 
+        // Calculate total clockwise rotation (normalize it to 0-360)
+        var totalRotationDegrees = (currentRotation + 360) % 360;
+
         // Trigger the PHP function to rotate the actual photo
         var photoId = photo.getAttribute('id'); // Assuming the photo ID corresponds to the ecobrick ID or serial_no
-        rotateEcobrickPhoto(photoUrl, currentRotation, photoId);
+        rotateEcobrickPhoto(photoUrl, currentRotation, photoId, totalRotationDegrees);
     });
 });
-
 
 
 

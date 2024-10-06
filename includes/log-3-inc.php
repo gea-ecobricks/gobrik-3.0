@@ -63,8 +63,11 @@
 
 .rotate-button:hover, .confirm-rotate-button:hover {
     opacity: 1;
+    background-color: green;
+    color:white;
 }
 
+.confirm-rotate-button:hover {
 /* Ensure the button text stays centered */
 .rotate-button > span, .confirm-rotate-button > span {
     line-height: 1;

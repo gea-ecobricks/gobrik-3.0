@@ -75,7 +75,6 @@ function rotateEcobrickPhoto($sourcePath, $rotationDegrees, $targetPath = null) 
 
 
 
-require_once 'path_to_your_image_rotation_function.php'; // Include the PHP function for rotating images
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $photoUrl = $_POST['photo_url'] ?? '';

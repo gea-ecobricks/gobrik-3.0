@@ -179,9 +179,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         } else {
                             error_log("Insert statement executed but no rows were affected. Check if the data already exists or if there is another issue.");
                             // Log potential MySQL warnings
-                            $warnings = $gobrik_conn->query("SHOW WARNINGS")->fetch_all();
-                            error_log("MySQL Warnings: " . print_r($warnings, true));
-                            echo "Insert statement executed but no rows were affected.";
+                            // Log potential MySQL warnings
+                            $warnings = $gobrik_conn->query("SHOW WARNINGS");
+                            if ($warnings) {
+                                while ($warning = $warnings->fetch_assoc()) {
+                                    error_log("MySQL Warning: " . print_r($warning, true));
+                                }
+                            } else {
+                                error_log("No MySQL warnings or warnings query failed.");
+                            }
                         }
                     } else {
                         error_log("Error executing statement: " . $stmt->error);

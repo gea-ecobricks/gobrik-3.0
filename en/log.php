@@ -457,9 +457,16 @@ require_once ("../includes/log-inc.php");
 
 
 
+
+
             <div data-lang-id="016-submit-button" style="margin:auto;text-align: center;margin-top:30px;">
                 <input type="submit" class="submit-button enabled" value="Next: Density Check" aria-label="Submit Form">
             </div>
+        <div style="margin:auto;text-align: center;margin-top:10px;">
+    <input type="checkbox" id="save-defaults-checkbox" name="save_defaults">
+    <label for="save-defaults-checkbox">Save this as my default ecobrick settings.</label>
+</div>
+
 
             <!--LOCALIZE BOX-->
                 <div id="localize-box" class="advanced-box" aria-expanded="false" role="region" aria-labelledby="advancedBoxLabel-1">
@@ -839,6 +846,69 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+
+
+//Defaults scripts
+
+// Function to save default ecobrick form data
+function saveEcobrickDefaults() {
+    // Check if the checkbox is checked
+    if (document.getElementById('save-defaults-checkbox').checked) {
+        // Save form data to localStorage
+        const ecobrickerMaker = document.getElementById('ecobricker_maker').value;
+        const volume = document.getElementById('volume_ml').value;
+        const weight = document.getElementById('weight_g').value;
+        const brandName = document.getElementById('brand_name').value;
+        const bottomColor = document.getElementById('bottom_colour').value;
+        const sequestrationType = document.getElementById('sequestration_type').value;
+        const plasticFrom = document.getElementById('plastic_from').value;
+        const community = document.getElementById('community_select').value;
+        const locationFull = document.getElementById('location_full').value;
+        const watershed = document.getElementById('location_watershed').value;
+
+        const defaults = {
+            ecobrickerMaker,
+            volume,
+            weight,
+            brandName,
+            bottomColor,
+            sequestrationType,
+            plasticFrom,
+            community,
+            locationFull,
+            watershed
+        };
+
+        localStorage.setItem('ecobrickDefaults', JSON.stringify(defaults));
+        console.log('Ecobrick defaults saved.');
+    }
+}
+
+// Function to restore default ecobrick form data
+function restoreEcobrickDefaults() {
+    const defaults = JSON.parse(localStorage.getItem('ecobrickDefaults'));
+    if (defaults) {
+        document.getElementById('ecobricker_maker').value = defaults.ecobrickerMaker || '';
+        document.getElementById('volume_ml').value = defaults.volume || '';
+        document.getElementById('weight_g').value = defaults.weight || '';
+        document.getElementById('brand_name').value = defaults.brandName || '';
+        document.getElementById('bottom_colour').value = defaults.bottomColor || '';
+        document.getElementById('sequestration_type').value = defaults.sequestrationType || '';
+        document.getElementById('plastic_from').value = defaults.plasticFrom || '';
+        document.getElementById('community_select').value = defaults.community || '';
+        document.getElementById('location_full').value = defaults.locationFull || '';
+        document.getElementById('location_watershed').value = defaults.watershed || '';
+        console.log('Ecobrick defaults restored.');
+    }
+}
+
+// Call restoreEcobrickDefaults when the page loads
+window.onload = function() {
+    restoreEcobrickDefaults();
+};
+
+// Hook saveEcobrickDefaults function to form submission
+document.getElementById('submit-form').addEventListener('submit', saveEcobrickDefaults);
 
 
 </script>

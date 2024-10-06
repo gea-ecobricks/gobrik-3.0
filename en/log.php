@@ -221,6 +221,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         error_log("Error: " . $e->getMessage());
         echo "Error: " . $e->getMessage();
     }
+}
 } else {
     header('Location: login.php?redirect=' . urlencode($page));
     exit();

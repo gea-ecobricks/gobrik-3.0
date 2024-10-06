@@ -73,6 +73,15 @@ const en_Page_Translations = {
 
     "016-submit-button": '<input type="submit" class="submit-button enabled" value="Next: Density Check" aria-label="Submit Form">',
 
+  '030-save-as-default': 'Save this as my default ecobrick settings.',
+  '031-location-tags': '⚙️ Location',
+  '032-community-tag': 'Community:',
+  '032-watershed-tag': 'Watershed:',
+  '033-location-tag': 'Location:',
+  '035-your-defaults-loaded': 'Your Defaults have been loaded. 🫡',
+  '111-localization-explanation': 'When you log an ecobrick it is tagged with your own Buwana account localization.  You can edit these defaults here:',
+
+
 
 //Modals for density check
 

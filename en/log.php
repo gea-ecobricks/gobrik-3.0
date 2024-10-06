@@ -3,7 +3,7 @@ require_once '../earthenAuth_helper.php'; // Include the authentication helper f
 
 // PART 1: Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.542';
+$version = '0.543';
 $page = 'log';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -314,6 +314,7 @@ require_once ("../includes/log-inc.php");
             <p style="color:red;font-weight:500;" data-lang-id="002-log-warning">Important: Beta testers do not actually log and serialize an ecobrick.  All ecobricks logged at this stage will be deleted once we launch. Use generic data and photos.</p>
             <h3 data-lang-id="002-log-subheading">Record your ecobrick to the brikchain for projects, posterity and posting!</h3>
         </div>
+        <div id="defaults-loaded" style="display:none;font-family:'Mulish',sans-serif; font-size:1.2em;color:green;" data-lang-id="035-your-defaults-loaded">Your Defaults have been loaded. 🫡</div>
             <!--LOG FORM-->
 
             <form id="submit-form" method="post" action="" enctype="multipart/form-data" novalidate>
@@ -464,14 +465,14 @@ require_once ("../includes/log-inc.php");
             </div>
         <div style="margin:auto;text-align: center;margin-top:10px;">
     <input type="checkbox" id="save-defaults-checkbox" name="save_defaults">
-    <label for="save-defaults-checkbox" class="form-caption">Save this as my default ecobrick settings.</label>
+    <label for="save-defaults-checkbox" class="form-caption" data-lang-id="030-save-as-default">Save this as my default ecobrick settings.</label>
 </div>
 
 
             <!--LOCALIZE BOX-->
                 <div id="localize-box" class="advanced-box" aria-expanded="false" role="region" aria-labelledby="advancedBoxLabel-1">
                     <div class="advanced-box-header"  id="advancedBoxLabel-1">
-                        <div class="advanced-title" data-lang-id="013-advanced-options">⚙️ Location</div>
+                        <div class="advanced-title" data-lang-id="031-location-tags">⚙️ Location</div>
                         <div class="advanced-open-icon">+</div>
                     </div>
                     <div class="advanced-box-content" style="display:none;">
@@ -479,7 +480,7 @@ require_once ("../includes/log-inc.php");
                     <p data-lang-id="111-localization-explanation">When you log an ecobrick it is tagged with your own Buwana account localization.  You can edit these defaults here:</p>
 
                      <div class="form-item">
-                        <label for="community_select">Community:</label><br>
+                        <label for="community_select" data-lang-id="032-community-tag">Community:</label><br>
                         <div class="input-container">
                             <input type="text" id="community_select" name="community_select"
                                    value="<?= htmlspecialchars($user_community_name, ENT_QUOTES); ?>"
@@ -490,7 +491,7 @@ require_once ("../includes/log-inc.php");
                     </div>
 
                     <div class="form-item">
-                        <label for="location_full" data-lang-id="011-location">Location:</label><br>
+                        <label for="location_full" data-lang-id="033-location-tag">Location:</label><br>
                         <div class="input-container">
                             <input type="text" id="location_full" name="location_full"
                                    value="<?= htmlspecialchars($user_location_full, ENT_QUOTES); ?>"
@@ -504,7 +505,7 @@ require_once ("../includes/log-inc.php");
 
                     <!-- Location Watershed -->
                     <div class="form-item">
-                        <label for="location_watershed" data-lang-id="011-watershed-location">Watershed:</label><br>
+                        <label for="location_watershed" data-lang-id="032-watershed-tag">Watershed:</label><br>
                         <div class="input-container">
                             <input type="text" id="location_watershed" name="location_watershed"
                                    value="<?= htmlspecialchars($user_location_watershed, ENT_QUOTES); ?>"

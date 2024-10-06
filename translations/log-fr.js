@@ -70,6 +70,17 @@ const fr_Page_Translations = {
     "023-forest": "Forêt",
     "024-field": "Champ",
 
+
+  '030-save-as-default': 'Enregistrer ceci comme mes paramètres d’écobrique par défaut.',
+  '031-location-tags': '⚙️ Emplacement',
+  '032-community-tag': 'Communauté:',
+  '032-watershed-tag': 'Bassin versant:',
+  '033-location-tag': 'Emplacement:',
+  '035-your-defaults-loaded': 'Vos paramètres par défaut ont été chargés. 🫡',
+  '111-localization-explanation': 'Lorsque vous enregistrez une écobrique, elle est associée à la localisation de votre compte Buwana. Vous pouvez modifier ces paramètres par défaut ici:',
+
+
+
     "016-submit-button": '<input type="submit" class="submit-button enabled" value="Suivant: Vérification" aria-label="Envoyer le Formulaire">',
 
 //Modals for density check

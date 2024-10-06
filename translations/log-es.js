@@ -72,6 +72,14 @@ const es_Page_Translations = {
 
     "016-submit-button": '<input type="submit" class="submit-button enabled" value="Siguiente: Verificación de Densidad" aria-label="Enviar Formulario">',
 
+  '030-save-as-default': 'Guardar esto como mis configuraciones predeterminadas de ecoladrillo.',
+  '031-location-tags': '⚙️ Ubicación',
+  '032-community-tag': 'Comunidad:',
+  '032-watershed-tag': 'Cuenca:',
+  '033-location-tag': 'Ubicación:',
+  '035-your-defaults-loaded': 'Se han cargado tus configuraciones predeterminadas. 🫡',
+  '111-localization-explanation': 'Cuando registras un ecoladrillo, se etiqueta con la localización de tu cuenta Buwana. Puedes editar estos valores predeterminados aquí:',
+
 //Modals for density check
 
     "underDensityTitle": 'Baja Densidad',

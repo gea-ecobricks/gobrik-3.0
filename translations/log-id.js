@@ -71,6 +71,16 @@ const id_Page_Translations = {
     "023-forest": "Hutan",
     "024-field": "Ladang",
 
+
+  '030-save-as-default': 'Simpan ini sebagai pengaturan ecobrick default saya.',
+  '031-location-tags': '⚙️ Lokasi',
+  '032-community-tag': 'Komunitas:',
+  '032-watershed-tag': 'Daerah Aliran Sungai:',
+  '033-location-tag': 'Lokasi:',
+  '035-your-defaults-loaded': 'Pengaturan default Anda telah dimuat. 🫡',
+  '111-localization-explanation': 'Saat Anda mencatat ecobrick, itu diberi tag dengan lokalisasi akun Buwana Anda. Anda dapat mengedit pengaturan default ini di sini:',
+
+
     "016-submit-button": '<input type="submit" class="submit-button enabled" value="Berikutnya: Periksa Kepadatan" aria-label="Kirim Formulir">',
 
 //Modals for density check

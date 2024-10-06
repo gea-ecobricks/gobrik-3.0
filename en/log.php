@@ -114,7 +114,6 @@ if ($stmt_community) {
     error_log("Error preparing community SQL: " . $gobrik_conn->error);
 }
 
-// Now, you can safely use $community_id in your insert or update statements.
 
 
 
@@ -192,7 +191,16 @@ if ($stmt_community) {
             }
         }
 
-        // Execute the statement
+       // Prepare the SQL statement for inserting or updating
+if (isset($sql)) { // Ensure $sql is set properly
+    $stmt = $gobrik_conn->prepare($sql);
+
+    if ($stmt === false) {
+        // Log and output the error if prepare() fails
+        error_log("Error preparing statement: " . $gobrik_conn->error);
+        echo "Error preparing statement: " . $gobrik_conn->error;
+    } else {
+        // Bind parameters and execute the statement
         if ($stmt->execute()) {
             error_log("SQL query: $sql");
             error_log("Statement executed successfully. Affected rows: " . $stmt->affected_rows);
@@ -216,12 +224,9 @@ if ($stmt_community) {
             error_log("Error executing statement: " . $stmt->error);
             echo "Error executing statement: " . $stmt->error;
         }
-
-        } catch (Exception $e) {
-            error_log("Error: " . $e->getMessage());
-            echo "Error: " . $e->getMessage();
-        }
     }
+}
+
 } else {
     header('Location: login.php?redirect=' . urlencode($page));
     exit();

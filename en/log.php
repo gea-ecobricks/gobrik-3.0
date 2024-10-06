@@ -464,7 +464,7 @@ require_once ("../includes/log-inc.php");
             </div>
         <div style="margin:auto;text-align: center;margin-top:10px;">
     <input type="checkbox" id="save-defaults-checkbox" name="save_defaults">
-    <label for="save-defaults-checkbox">Save this as my default ecobrick settings.</label>
+    <label for="save-defaults-checkbox" class="form-caption">Save this as my default ecobrick settings.</label>
 </div>
 
 

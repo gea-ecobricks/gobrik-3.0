@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sequestration_type = trim($_POST['sequestration_type']);
         $plastic_from = trim($_POST['plastic_from']);
         $brand_name = trim($_POST['brand_name']);
-        $community_id = 11;//(int)trim($_POST['community_select']);
+        $community_id = (int)trim($_POST['community_select']);
         $location_full = trim($_POST['location_full']);
         $bottom_colour = trim($_POST['bottom_colour']);
         $location_lat = (float)trim($_POST['latitude']);
@@ -93,81 +93,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         error_log("Actual Maker Name: $actual_maker_name, Brik Notes: $brik_notes, Date Published: $date_published_ts");
 
         // Check if an ecobrick with the same ID already exists
-                    $check_sql = "SELECT COUNT(*) FROM tb_ecobricks WHERE ecobrick_unique_id = ?";
-                    $check_stmt = $gobrik_conn->prepare($check_sql);
-                    $check_stmt->bind_param("i", $ecobrick_unique_id);
-                    $check_stmt->execute();
-                    $check_stmt->bind_result($existing_count);
-                    $check_stmt->fetch();
-                    $check_stmt->close();
+        $check_sql = "SELECT COUNT(*) FROM tb_ecobricks WHERE ecobrick_unique_id = ?";
+        $check_stmt = $gobrik_conn->prepare($check_sql);
+        $check_stmt->bind_param("i", $ecobrick_unique_id);
+        $check_stmt->execute();
+        $check_stmt->bind_result($existing_count);
+        $check_stmt->fetch();
+        $check_stmt->close();
 
-                    if ($existing_count > 0) {
-                        error_log("An ecobrick with ecobrick_unique_id $ecobrick_unique_id already exists.");
-                        echo "An ecobrick with this unique ID already exists.";
-                    } else {
-                        // Prepare the SQL statement for inserting or updating
-                        if (isset($ecobrick_unique_id) && $ecobrick_unique_id > 0) {
-                            // Update existing record
-                            $sql = "UPDATE tb_ecobricks
-                                    SET ecobricker_maker = ?, volume_ml = ?, weight_g = ?, sequestration_type = ?,
-                                    plastic_from = ?, location_full = ?, bottom_colour = ?, location_lat = ?, location_long = ?,
-                                    brand_name = ?, owner = ?, status = ?, universal_volume_ml = ?, density = ?,
-                                    date_logged_ts = ?, CO2_kg = ?, last_ownership_change = ?, actual_maker_name = ?,
-                                    brik_notes = ?, date_published_ts = ?, location_watershed = ?, community_id = ?, country_id = ?
-                                    WHERE ecobrick_unique_id = ?";
+        if ($existing_count > 0) {
+            error_log("An ecobrick with ecobrick_unique_id $ecobrick_unique_id already exists.");
+            echo "An ecobrick with this unique ID already exists.";
+        } else {
+            // Prepare the SQL statement for inserting or updating
+            if (isset($ecobrick_unique_id) && $ecobrick_unique_id > 0) {
+                // Update existing record
+                $sql = "UPDATE tb_ecobricks
+                SET ecobricker_maker = ?, volume_ml = ?, weight_g = ?, sequestration_type = ?,
+                plastic_from = ?, location_full = ?, bottom_colour = ?, location_lat = ?, location_long = ?,
+                brand_name = ?, owner = ?, status = ?, universal_volume_ml = ?, density = ?,
+                date_logged_ts = ?, CO2_kg = ?, last_ownership_change = ?, actual_maker_name = ?,
+                brik_notes = ?, date_published_ts = ?, location_watershed = ?, community_id = ?, country_id = ?
+                WHERE ecobrick_unique_id = ?";
+            } else {
+                // Insert a new record
+                $sql = "INSERT INTO tb_ecobricks (
+                    ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type,
+                    plastic_from, location_full, bottom_colour, location_lat, location_long, brand_name, owner, status,
+                    universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change,
+                    actual_maker_name, brik_notes, date_published_ts, location_watershed, community_id, country_id
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            }
 
-                            if ($stmt = $gobrik_conn->prepare($sql)) {
-                                // Bind parameters for UPDATE (23 variables + WHERE clause)
-                                $stmt->bind_param(
-                                    "siissssddsssidsisssssiii",
-                                    $ecobricker_maker, $volume_ml, $weight_g, $sequestration_type,
-                                    $plastic_from, $location_full, $bottom_colour, $location_lat, $location_long,
-                                    $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts,
-                                    $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts,
-                                    $location_watershed, $community_id, $country_id, $ecobrick_unique_id  // The last one is the WHERE clause identifier
-                                );
-                            }
-                        } else {
-                            // Insert a new record
-                              // Prepare the SQL statement
-            $sql = "INSERT INTO tb_ecobricks (
-                ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type,
-                plastic_from, location_full, location_lat, location_long, brand_name, owner, status,
-                universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change,
-                actual_maker_name, brik_notes, date_published_ts, location_watershed, community_id, country_id
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-            if ($stmt = $gobrik_conn->prepare($sql)) {
-                // Bind parameters including the country_id
-                $stmt->bind_param(
-                    "issiisssddsssdsdsssssii",
-                    $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g,
-                    $sequestration_type, $plastic_from, $location_full, $location_lat, $location_long,
-                    $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts,
-                    $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts,
-                    $location_watershed, $community_id, $country_id
-                );
-                            }
-                        }
-
-                        // Execute the statement
-                        if ($stmt->execute()) {
-                        error_log("SQL query: $sql");
-
-                            error_log("Statement executed successfully. Affected rows: " . $stmt->affected_rows);
-                            if ($stmt->affected_rows > 0) {
-                                error_log("New ecobrick record inserted successfully.");
-                                $stmt->close();
-                                $gobrik_conn->close();
-                                echo "<script>window.location.href = 'log-2.php?id=" . $serial_no . "';</script>";
-                            } else {
-                                error_log("Insert/Update executed but no rows were affected.");
-                            }
-                        } else {
-                            error_log("Error executing statement: " . $stmt->error);
-                            echo "Error executing statement: " . $stmt->error;
-                        }
-                    }
+            // Execute the statement
+                if ($stmt = $gobrik_conn->prepare($sql)) {
+                    // Bind parameters for INSERT
+                    $stmt->bind_param(
+                        "issiissssddsssidsisssssii",
+                        $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g,
+                        $sequestration_type, $plastic_from, $location_full, $bottom_colour, $location_lat, $location_long,
+                        $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts,
+                        $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts,
+                        $location_watershed, $community_id, $country_id
+                    );
 
                     if ($stmt->execute()) {
                         // Log affected rows and success message
@@ -182,21 +150,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         } else {
                             error_log("Insert statement executed but no rows were affected. Check if the data already exists or if there is another issue.");
                             // Log potential MySQL warnings
-                            // Log potential MySQL warnings
-                            $warnings = $gobrik_conn->query("SHOW WARNINGS");
-                            if ($warnings) {
-                                while ($warning = $warnings->fetch_assoc()) {
-                                    error_log("MySQL Warning: " . print_r($warning, true));
-                                }
-                            } else {
-                                error_log("No MySQL warnings or warnings query failed.");
-                            }
+                            $warnings = $gobrik_conn->query("SHOW WARNINGS")->fetch_all();
+                            error_log("MySQL Warnings: " . print_r($warnings, true));
+                            echo "Insert statement executed but no rows were affected.";
                         }
                     } else {
                         error_log("Error executing statement: " . $stmt->error);
                         echo "Error executing statement: " . $stmt->error;
                     }
-
+                } else {
+                    error_log("Prepare failed: " . $gobrik_conn->error);
+                    echo "Prepare failed: " . $gobrik_conn->error;
+                }
+            }
         } catch (Exception $e) {
             error_log("Error: " . $e->getMessage());
             echo "Error: " . $e->getMessage();

@@ -67,10 +67,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $location_long = (float)trim($_POST['longitude']);
         $location_watershed = trim($_POST['location_watershed']);
 
-        // Extract country name from location_full (e.g., "Ottawa, Ontario, Canada")
+
+
+        // Background set variables
+        $owner = $ecobricker_maker;
+        $status = "not ready";
+        $universal_volume_ml = $volume_ml;
+        $density = $weight_g / $volume_ml;
+        $date_logged_ts = date("Y-m-d H:i:s");
+        $CO2_kg = ($weight_g * 6.1) / 1000;
+        $last_ownership_change = date("Y-m-d");
+        $actual_maker_name = $ecobricker_maker;
+        $brik_notes = "Directly logged on beta.GoBrik.com";
+        $date_published_ts = date("Y-m-d H:i:s");
+
+         // Extract country name from location_full (e.g., "Ottawa, Ontario, Canada")
         $location_parts = explode(',', $location_full);
         $country_name = trim(end($location_parts)); // Get the last part, which is the country name
-
         // Query the database to get the country_id based on the country_name
         $country_id = null; // Default if no match is found
         $country_sql = "SELECT country_id FROM countries_tb WHERE country_name = ?";
@@ -88,49 +101,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         $community_id = null; // Initialize community_id with null or a default value
+        // Retrieve the community name from the POST data
+        $community_name = trim($_POST['community_select']);
 
-// Retrieve the community name from the POST data
-$community_name = trim($_POST['community_select']);
+        // Now, lookup the community ID based on the name provided
+        $sql_community = "SELECT com_id FROM communities_tb WHERE com_name = ?";
+        $stmt_community = $gobrik_conn->prepare($sql_community);
 
-// Now, lookup the community ID based on the name provided
-$sql_community = "SELECT com_id FROM communities_tb WHERE com_name = ?";
-$stmt_community = $gobrik_conn->prepare($sql_community);
+        if ($stmt_community) {
+            $stmt_community->bind_param("s", $community_name);
+            $stmt_community->execute();
+            $stmt_community->bind_result($community_id);
+            $stmt_community->fetch();
+            $stmt_community->close();
 
-if ($stmt_community) {
-    $stmt_community->bind_param("s", $community_name);
-    $stmt_community->execute();
-    $stmt_community->bind_result($community_id);
-    $stmt_community->fetch();
-    $stmt_community->close();
+            // Check if we got a valid community_id
+            if (!empty($community_id)) {
+                error_log("Community ID found: $community_id for community name: $community_name");
+            } else {
+                error_log("No community found for the name: $community_name");
+                $community_id = 0; // Optionally set it to a default value like 0 or handle the error accordingly
+            }
+        } else {
+            error_log("Error preparing community SQL: " . $gobrik_conn->error);
+        }
 
-    // Check if we got a valid community_id
-    if (!empty($community_id)) {
-        error_log("Community ID found: $community_id for community name: $community_name");
-    } else {
-        error_log("No community found for the name: $community_name");
-        $community_id = 0; // Optionally set it to a default value like 0 or handle the error accordingly
-    }
-} else {
-    error_log("Error preparing community SQL: " . $gobrik_conn->error);
-}
-
-
-
-
-        // Background set variables
-        $owner = $ecobricker_maker;
-        $status = "not ready";
-        $universal_volume_ml = $volume_ml;
-        $density = $weight_g / $volume_ml;
-        $date_logged_ts = date("Y-m-d H:i:s");
-        $CO2_kg = ($weight_g * 6.1) / 1000;
-        $last_ownership_change = date("Y-m-d");
-        $actual_maker_name = $ecobricker_maker;
-        $brik_notes = "Directly logged on beta.GoBrik.com";
-        $date_published_ts = date("Y-m-d H:i:s");
-
-        // Log background variables
-                // Log form data
+        // Log form data
         error_log("Values being inserted into tb_ecobricks: ");
         error_log("Unique ID: $ecobrick_unique_id, Serial No: $serial_no, Maker: $ecobricker_maker, Volume: $volume_ml, Weight: $weight_g");
         error_log("Sequestration: $sequestration_type, Plastic From: $plastic_from, Location: $location_full, Bottom colour: $bottom_colour, Lat: $location_lat, Long: $location_long");
@@ -225,7 +221,7 @@ if (isset($sql)) { // Ensure $sql is set properly
             echo "Error executing statement: " . $stmt->error;
         }
     }
-
+}
 
 } else {
     header('Location: login.php?redirect=' . urlencode($page));

@@ -48,7 +48,7 @@ if ($is_logged_in) {
     // PART 3: POST ECOBRICK DATA to GOBRIK DATABASE
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
-        $ids = setSerialNumber($gobrik_conn, $ecobrick_unique_id); // Pass ecobrick_unique_id if available
+        $ids = '555555'; // Pass ecobrick_unique_id if available
         $ecobrick_unique_id = $ids['ecobrick_unique_id'];
         $serial_no = $ids['serial_no'];
         error_log("Inserting ecobrick with ID: $ecobrick_unique_id, Serial No: $serial_no");

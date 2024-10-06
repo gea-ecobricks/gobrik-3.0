@@ -375,24 +375,13 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 //ROTATE Photo
+//ROTATE Photo
 
 // Function to send rotation request to the PHP function
 function rotateEcobrickPhoto(photoUrl, rotationDegrees, photoId, totalRotationDegrees) {
     // Create an AJAX request to send the rotation degrees to the server
     var xhr = new XMLHttpRequest();
     var url = "rotate_photo.php"; // PHP file that handles the photo rotation
-
-    // Extract any versioning information from the URL (e.g., ?v=1)
-    var versionMatch = photoUrl.match(/(\?v=)(\d+)/);
-    var currentVersion = versionMatch ? parseInt(versionMatch[2]) : 1; // Default version is 1 if not found
-    var newVersion = currentVersion + 1; // Increment the version number
-
-    // Update the photo URL with the new version
-    var newPhotoUrl = photoUrl.replace(/(\?v=)(\d+)/, `$1${newVersion}`);
-    if (!versionMatch) {
-        newPhotoUrl = photoUrl + "?v=2"; // If there's no version in the URL, start at v=2
-    }
-
     var params = "photo_url=" + encodeURIComponent(photoUrl) + "&rotation=" + rotationDegrees;
 
     xhr.open("POST", url, true);
@@ -406,12 +395,8 @@ function rotateEcobrickPhoto(photoUrl, rotationDegrees, photoId, totalRotationDe
                     alert("Your photo has been rotated " + totalRotationDegrees + " degrees clockwise and saved to the server.");
                     console.log("Image rotation successful for: " + photoUrl);
 
-                    // Refresh the image with the updated version number to force a reload
-                    var imageElement = document.getElementById(photoId);
-                    imageElement.src = newPhotoUrl;
-                    imageElement.setAttribute('data-version', newVersion); // Optionally track the version in the DOM
-
                     // Reset the rotation to zero after confirmation
+                    var imageElement = document.getElementById(photoId);
                     imageElement.style.transform = 'rotate(0deg)';
                     imageElement.setAttribute('data-rotation', 0); // Reset the rotation data attribute
                 } else {
@@ -485,8 +470,6 @@ document.querySelectorAll('.confirm-rotate-button').forEach(function(button) {
         rotateEcobrickPhoto(photoUrl, currentRotation, photoId, totalRotationDegrees);
     });
 });
-
-
 
 
 

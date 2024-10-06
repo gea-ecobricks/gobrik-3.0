@@ -75,24 +75,23 @@ function rotateEcobrickPhoto($sourcePath, $rotationDegrees, $targetPath = null) 
 
 
 
+require_once 'path_to_your_image_rotation_function.php'; // Include the PHP function for rotating images
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $photoUrl = $_POST['photo_url'] ?? '';
     $rotationDegrees = $_POST['rotation'] ?? 0;
 
     if (!empty($photoUrl) && $rotationDegrees) {
-        // Try rotating the photo
+        // Try rotating the photo using the server path
         if (rotateEcobrickPhoto($photoUrl, $rotationDegrees)) {
             echo "Image rotated successfully.";
         } else {
             echo "Failed to rotate the image.";
-            error_log("Failed to rotate image at: " . $photoUrl);
         }
     } else {
         echo "Invalid request data.";
-        error_log("Invalid rotation request: photo_url or rotation degrees missing.");
     }
 } else {
     echo "Invalid request method.";
-    error_log("Invalid request method for photo rotation.");
 }
+?>

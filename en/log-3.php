@@ -129,34 +129,35 @@ echo '<!DOCTYPE html>
 
 
             <div id="upload-success-message">
-            <!-- Ecobrick Full Photo -->
-            <?php if (!empty($ecobrick_full_photo_url) && $ecobrick_full_photo_url !== 'url missing'): ?>
-                <div class="photo-container" id="basic-ecobrick-photo">
-                    <img src="<?php echo htmlspecialchars($ecobrick_full_photo_url); ?>" alt="Basic Ecobrick Photo" style="width:500px; max-width:95%" class="rotatable-photo" id="ecobrick-photo-<?php echo $serial_no; ?>" data-rotation="0">
+    <!-- Ecobrick Full Photo -->
+    <?php if (!empty($ecobrick_full_photo_url) && $ecobrick_full_photo_url !== 'url missing'): ?>
+        <div class="photo-container" id="basic-ecobrick-photo">
+            <img src="<?php echo htmlspecialchars($ecobrick_full_photo_url); ?>" alt="Basic Ecobrick Photo" style="width:500px; max-width:95%" class="rotatable-photo" id="ecobrick-photo-<?php echo $serial_no; ?>" data-rotation="0">
 
-                    <!-- Rotate buttons for the full ecobrick photo -->
-                    <div class="rotate-controls">
-                        <button class="rotate-button rotate-left" data-direction="left" data-photo="ecobrick-photo-<?php echo $serial_no; ?>">⭯</button>
-                        <button class="confirm-rotate-button" id="confirm-rotation-<?php echo $serial_no; ?>" style="display:none;">🗸</button>
-                        <button class="rotate-button rotate-right" data-direction="right" data-photo="ecobrick-photo-<?php echo $serial_no; ?>">⭮</button>
-                    </div>
-                </div>
-            <?php endif; ?>
-
-            <!-- Selfie Photo -->
-            <?php if ($selfie_photo_url): ?>
-                <div class="photo-container" id="selfie-ecobrick-photo">
-                    <img src="<?php echo htmlspecialchars($selfie_photo_url); ?>" alt="Ecobrick Selfie Photo" style="max-width:500px;" class="rotatable-photo" id="selfie-photo-<?php echo $serial_no; ?>" data-rotation="0">
-
-                    <!-- Rotate buttons for the selfie photo -->
-                    <div class="rotate-controls">
-                        <button class="rotate-button rotate-left" data-direction="left" data-photo="selfie-photo-<?php echo $serial_no; ?>">⭯</button>
-                        <button class="confirm-rotate-button" id="confirm-rotation-selfie-<?php echo $serial_no; ?>" style="display:none;">🗸</button>
-                        <button class="rotate-button rotate-right" data-direction="right" data-photo="selfie-photo-<?php echo $serial_no; ?>">⭮</button>
-                    </div>
-                </div>
-            <?php endif; ?>
+            <!-- Rotate buttons for the full ecobrick photo -->
+            <div class="rotate-controls">
+                <button class="rotate-button rotate-left" data-direction="left" data-photo-url="<?php echo htmlspecialchars($ecobrick_full_photo_url); ?>" data-photo-id="ecobrick-photo-<?php echo $serial_no; ?>">⭯</button>
+                <button class="confirm-rotate-button" id="confirm-rotation-<?php echo $serial_no; ?>" style="display:none;">🗸</button>
+                <button class="rotate-button rotate-right" data-direction="right" data-photo-url="<?php echo htmlspecialchars($ecobrick_full_photo_url); ?>" data-photo-id="ecobrick-photo-<?php echo $serial_no; ?>">⭮</button>
+            </div>
         </div>
+    <?php endif; ?>
+
+    <!-- Selfie Photo -->
+    <?php if ($selfie_photo_url): ?>
+        <div class="photo-container" id="selfie-ecobrick-photo">
+            <img src="<?php echo htmlspecialchars($selfie_photo_url); ?>" alt="Ecobrick Selfie Photo" style="max-width:500px;" class="rotatable-photo" id="selfie-photo-<?php echo $serial_no; ?>" data-rotation="0">
+
+            <!-- Rotate buttons for the selfie photo -->
+            <div class="rotate-controls">
+                <button class="rotate-button rotate-left" data-direction="left" data-photo-url="<?php echo htmlspecialchars($selfie_photo_url); ?>" data-photo-id="selfie-photo-<?php echo $serial_no; ?>">⭯</button>
+                <button class="confirm-rotate-button" id="confirm-rotation-selfie-<?php echo $serial_no; ?>" style="display:none;">🗸</button>
+                <button class="rotate-button rotate-right" data-direction="right" data-photo-url="<?php echo htmlspecialchars($selfie_photo_url); ?>" data-photo-id="selfie-photo-<?php echo $serial_no; ?>">⭮</button>
+            </div>
+        </div>
+    <?php endif; ?>
+</div>
+
 
 
 
@@ -373,14 +374,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-
 //ROTATE Photo
 
 // Function to send rotation request to the PHP function
-// Function to send rotation request to the PHP function
-function rotateEcobrickPhoto(photoId, rotationDegrees, photoUrl) {
+function rotateEcobrickPhoto(photoUrl, rotationDegrees, photoId) {
+    // Create an AJAX request to send the rotation degrees to the server
     var xhr = new XMLHttpRequest();
-    var url = "rotate_photo.php"; // The PHP file that will handle the photo rotation
+    var url = "rotate_photo.php"; // PHP file that handles the photo rotation
     var params = "photo_url=" + encodeURIComponent(photoUrl) + "&rotation=" + rotationDegrees;
 
     xhr.open("POST", url, true);
@@ -390,17 +390,18 @@ function rotateEcobrickPhoto(photoId, rotationDegrees, photoUrl) {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
                 console.log("Server response: " + xhr.responseText);
-
                 if (xhr.responseText.trim() === "Image rotated successfully.") {
                     alert("Your image has been rotated and saved.");
-                    console.log("Image rotation successful for photo ID: " + photoId);
+                    console.log("Image rotation successful for: " + photoUrl);
+
+                    // Optionally reload the image to reflect changes without refreshing the page
+                    var imageElement = document.getElementById(photoId);
+                    imageElement.src = imageElement.src + "?t=" + new Date().getTime(); // Add timestamp to force reload
                 } else {
-                    alert("Something went wrong saving your rotation. This feature is still in beta and we're working on it. Error: " + xhr.responseText);
-                    console.error("Rotation error: " + xhr.responseText);
+                    alert("Something went wrong saving your rotation. Error: " + xhr.responseText);
                 }
             } else {
-                alert("An error occurred during the request. Status: " + xhr.status);
-                console.error("XHR error: Status " + xhr.status);
+                alert("An error occurred. Status: " + xhr.status);
             }
         }
     };
@@ -408,7 +409,6 @@ function rotateEcobrickPhoto(photoId, rotationDegrees, photoUrl) {
     // Send the rotation degrees to the server
     xhr.send(params);
 }
-
 
 // Function to adjust the height of the container after the image rotates
 function adjustContainerHeight(photo, container) {
@@ -458,11 +458,11 @@ document.querySelectorAll('.confirm-rotate-button').forEach(function(button) {
         var photoContainer = this.closest('.photo-container');
         var photo = photoContainer.querySelector('.rotatable-photo');
         var currentRotation = parseInt(photo.getAttribute('data-rotation')) || 0;
-        var photoUrl = photo.src; // The URL of the photo
+        var photoUrl = this.previousElementSibling.getAttribute('data-photo-url'); // Get the original photo URL from the rotate button
 
         // Trigger the PHP function to rotate the actual photo
         var photoId = photo.getAttribute('id'); // Assuming the photo ID corresponds to the ecobrick ID or serial_no
-        rotateEcobrickPhoto(photoId, currentRotation, photoUrl);
+        rotateEcobrickPhoto(photoUrl, currentRotation, photoId);
     });
 });
 

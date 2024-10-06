@@ -87,31 +87,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt_country->close();
         }
 
-               // Retrieve the community name from the POST data
-        $community_name = trim($_POST['community_select']);
+        $community_id = null; // Initialize community_id with null or a default value
 
-        // Now, lookup the community ID based on the name provided
-        $sql_community = "SELECT com_id FROM communities_tb WHERE com_name = ?";
-        $stmt_community = $gobrik_conn->prepare($sql_community);
+// Retrieve the community name from the POST data
+$community_name = trim($_POST['community_select']);
 
-        if ($stmt_community) {
-            $stmt_community->bind_param("s", $community_name);
-            $stmt_community->execute();
-            $stmt_community->bind_result($community_id);
-            $stmt_community->fetch();
-            $stmt_community->close();
+// Now, lookup the community ID based on the name provided
+$sql_community = "SELECT com_id FROM communities_tb WHERE com_name = ?";
+$stmt_community = $gobrik_conn->prepare($sql_community);
 
-            // Check if we got a valid community_id
-            if (!empty($community_id)) {
-                error_log("Community ID found: $community_id for community name: $community_name");
-            } else {
-                error_log("No community found for the name: $community_name");
-                // Handle the case where the community is not found
-                $community_id = null; // or handle this as needed
-            }
-        } else {
-            error_log("Error preparing community SQL: " . $gobrik_conn->error);
-        }
+if ($stmt_community) {
+    $stmt_community->bind_param("s", $community_name);
+    $stmt_community->execute();
+    $stmt_community->bind_result($community_id);
+    $stmt_community->fetch();
+    $stmt_community->close();
+
+    // Check if we got a valid community_id
+    if (!empty($community_id)) {
+        error_log("Community ID found: $community_id for community name: $community_name");
+    } else {
+        error_log("No community found for the name: $community_name");
+        $community_id = 0; // Optionally set it to a default value like 0 or handle the error accordingly
+    }
+} else {
+    error_log("Error preparing community SQL: " . $gobrik_conn->error);
+}
+
+// Now, you can safely use $community_id in your insert or update statements.
+
 
 
         // Background set variables

@@ -187,11 +187,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         error_log("Error executing statement: " . $stmt->error);
                         echo "Error executing statement: " . $stmt->error;
                     }
-                } else {
-                    error_log("Prepare failed: " . $gobrik_conn->error);
-                    echo "Prepare failed: " . $gobrik_conn->error;
-                }
-            }
+
         } catch (Exception $e) {
             error_log("Error: " . $e->getMessage());
             echo "Error: " . $e->getMessage();

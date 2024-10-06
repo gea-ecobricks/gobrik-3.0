@@ -24,6 +24,7 @@ if ($is_logged_in) {
     $gea_status = getGEA_status($buwana_id);
     $user_community_name = getCommunityName($buwana_conn, $buwana_id);
     $ecobrick_unique_id = '0';
+    $first_name = getFirstName($buwana_conn, $buwana_id);
 
     // Fetch location latitude and longitude from users_tb
     $sql_location = "SELECT location_lat, location_long FROM users_tb WHERE buwana_id = ?";

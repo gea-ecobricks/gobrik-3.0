@@ -155,7 +155,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($stmt = $gobrik_conn->prepare($sql)) {
                 // Bind parameters for UPDATE (23 variables + WHERE clause)
                 $stmt->bind_param(
-                    "siissssddsssidsisssssiii",
+                    "siissssddsssidsdsssssiii",
                     $ecobricker_maker, $volume_ml, $weight_g, $sequestration_type,
                     $plastic_from, $location_full, $bottom_colour, $location_lat, $location_long,
                     $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts,
@@ -174,7 +174,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($stmt = $gobrik_conn->prepare($sql)) {
                     // Bind parameters for INSERT
                     $stmt->bind_param(
-                        "issiissssddsssidsisssssii",
+                        "issiissssddsssidsdsssssii",
                         $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g,
                         $sequestration_type, $plastic_from, $location_full, $bottom_colour, $location_lat, $location_long,
                         $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts,

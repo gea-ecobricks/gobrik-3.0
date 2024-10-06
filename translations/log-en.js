@@ -78,7 +78,7 @@ const en_Page_Translations = {
   '032-community-tag': 'Community:',
   '032-watershed-tag': 'Watershed:',
   '033-location-tag': 'Location:',
-  '035-your-defaults-loaded': 'Your Defaults have been loaded. 🫡',
+  '035-your-defaults-loaded': 'Your ecobrick defaults have been loaded. 🫡',
   '111-localization-explanation': 'When you log an ecobrick it is tagged with your own Buwana account localization.  You can edit these defaults here:',
 
 

@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $country_name = trim(end($location_parts)); // Get the last part, which is the country name
 
         // Query the database to get the country_id based on the country_name
-        $country_id = 0; // Default if no match is found
+        $country_id = null; // Default if no match is found
         $country_sql = "SELECT country_id FROM countries_tb WHERE country_name = ?";
         if ($stmt_country = $gobrik_conn->prepare($country_sql)) {
             $stmt_country->bind_param('s', $country_name);
@@ -87,31 +87,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt_country->close();
         }
 
-                // Retrieve the community name from the POST data
-            $community_name = trim($_POST['community_select']);
+               // Retrieve the community name from the POST data
+        $community_name = trim($_POST['community_select']);
 
-            // Now, lookup the community ID based on the name provided
-            $sql_community = "SELECT community_id FROM communities_tb WHERE community_name = ?";
-            $stmt_community = $gobrik_conn->prepare($sql_community);
+        // Now, lookup the community ID based on the name provided
+        $sql_community = "SELECT com_id FROM communities_tb WHERE com_name = ?";
+        $stmt_community = $gobrik_conn->prepare($sql_community);
 
-            if ($stmt_community) {
-                $stmt_community->bind_param("s", $community_name);
-                $stmt_community->execute();
-                $stmt_community->bind_result($community_id);
-                $stmt_community->fetch();
-                $stmt_community->close();
+        if ($stmt_community) {
+            $stmt_community->bind_param("s", $community_name);
+            $stmt_community->execute();
+            $stmt_community->bind_result($community_id);
+            $stmt_community->fetch();
+            $stmt_community->close();
 
-                // Check if we got a valid community_id
-                if (!empty($community_id)) {
-                    error_log("Community ID found: $community_id for community name: $community_name");
-                } else {
-                    error_log("No community found for the name: $community_name");
-                    // Handle the case where the community is not found
-                }
+            // Check if we got a valid community_id
+            if (!empty($community_id)) {
+                error_log("Community ID found: $community_id for community name: $community_name");
             } else {
-                error_log("Error preparing community SQL: " . $gobrik_conn->error);
+                error_log("No community found for the name: $community_name");
+                // Handle the case where the community is not found
+                $community_id = null; // or handle this as needed
             }
-
+        } else {
+            error_log("Error preparing community SQL: " . $gobrik_conn->error);
+        }
 
 
         // Background set variables

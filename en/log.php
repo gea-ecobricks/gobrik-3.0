@@ -127,7 +127,19 @@ if ($is_logged_in) {
                     );
 
                 } else {
-                    // Check if an ecobrick with the same ID already exists
+                    // Bind parameters for INSERT
+                    $stmt->bind_param(
+                    "issiissssddsssidsisssssii",
+                    $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g,
+                    $sequestration_type, $plastic_from, $location_full, $bottom_colour, $location_lat, $location_long,
+                    $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts,
+                    $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts,
+                    $location_watershed, $community_id, $country_id
+                );
+                }
+
+                // Execute the statement
+            // Check if an ecobrick with the same ID already exists
 $check_sql = "SELECT COUNT(*) FROM tb_ecobricks WHERE ecobrick_unique_id = ?";
 $check_stmt = $gobrik_conn->prepare($check_sql);
 $check_stmt->bind_param("i", $ecobrick_unique_id);
@@ -178,7 +190,7 @@ if ($existing_count > 0) {
         error_log("Prepare failed: " . $gobrik_conn->error);
         echo "Prepare failed: " . $gobrik_conn->error;
     }
-}
+
         } catch (Exception $e) {
             error_log("Error: " . $e->getMessage());
             echo "Error: " . $e->getMessage();

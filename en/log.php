@@ -225,7 +225,7 @@ if (isset($sql)) { // Ensure $sql is set properly
             echo "Error executing statement: " . $stmt->error;
         }
     }
-}
+
 
 } else {
     header('Location: login.php?redirect=' . urlencode($page));

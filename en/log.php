@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sequestration_type = trim($_POST['sequestration_type']);
         $plastic_from = trim($_POST['plastic_from']);
         $brand_name = trim($_POST['brand_name']);
-        $community_id = '111';//(int)trim($_POST['community_select']);
+        $community_id = 11;//(int)trim($_POST['community_select']);
         $location_full = trim($_POST['location_full']);
         $bottom_colour = trim($_POST['bottom_colour']);
         $location_lat = (float)trim($_POST['latitude']);

@@ -18,19 +18,9 @@ const id_Page_Translations = {
     "0002-activate-explantion-2": "Sebagai gantinya, kami telah memigrasi semua data kami ke server mandiri yang independen. GoBrik 3.0 baru kami sekarang 100% sumber terbuka dan sepenuhnya berfokus pada akuntabilitas ekologis. Kami juga telah mengembangkan sistem login Buwana kami sendiri sebagai alternatif untuk login Google dan Apple. Untuk bergabung dengan kami di GoBrik yang diregenerasi dengan ",
     "0002-activate-explantion-3": " harap luangkan waktu sebentar untuk meningkatkan ke akun Buwana.",
 
-    // Activate 2
-    "001-set-your-pass": "Atur Kata Sandi Baru Anda",
-    "002-to-get-going": " Untuk memulai dengan akun yang ditingkatkan, silakan atur kata sandi baru...",
-    "007-set-your-pass": "Atur kata sandi Anda:",
-    "008-password-advice": "🔑 Kata sandi Anda harus memiliki setidaknya 6 karakter.",
-    "009-confirm-pass": "Konfirmasi Kata Sandi Anda:",
-    "010-pass-error-no-match": "👉 Kata sandi tidak cocok.",
-    "013-by-registering": "Dengan mendaftar hari ini, saya setuju dengan &lt;a href=&quot;#&quot; onclick=&quot;showModalInfo(&#39;terms&#39;)&quot; class=&quot;underline-link&quot;&gt;Ketentuan Layanan GoBrik&lt;/a&gt;",
-    "014-i-agree-newsletter": "Tolong kirimkan saya &lt;a href=&quot;#&quot; onclick=&quot;showModalInfo(&#39;earthen&#39;, &#39;id&#39;)&quot; class=&quot;underline-link&quot;&gt;newsletter Earthen&lt;/a&gt; untuk pembaruan aplikasi, ecobrick, dan earthen",
-    "015-confirm-pass-button": "&lt;input type=&quot;submit&quot; id=&quot;submit-button&quot; value=&quot;Konfirmasi Kata Sandi&quot; class=&quot;submit-button disabled&quot;&gt;",
 
     // Confirm email
-    "0003-activate-button": "&lt;input type=&quot;submit&quot; id=&quot;submit-button&quot; value=&quot;🍃 Tingkatkan Akun!&quot; class=&quot;submit-button activate&quot;&gt;",
+    "0003-activate-button": '<input type="submit" id="submit-button" value="🍃 Tingkatkan Akun!" class="submit-button activate">',
     "0004-buwana-accounts": "Akun Buwana dirancang dengan mempertimbangkan ekologi, keamanan, dan privasi. Segera, Anda dapat masuk ke aplikasi regeneratif hebat lainnya dengan cara yang sama seperti Anda masuk ke GoBrik!",
     "0005-new-terms": "Syarat dan Ketentuan Baru Buwana &amp; GoBrik",
     "0005-regen-blog": "Mengapa? Baca posting blog kami &#39;Regenerasi Besar GoBrik&#39;.",
@@ -50,6 +40,17 @@ const id_Page_Translations = {
     "010-email-no-longer": "Apakah Anda tidak lagi menggunakan alamat email ini?&lt;br&gt;Jika tidak, Anda perlu &lt;a href=&quot;signup.php&quot;&gt;membuat akun baru&lt;/a&gt; atau hubungi tim kami di support@gobrik.com.",
     "011-change-email": "Ingin mengganti email Anda?",
     "012-go-back-new-email": "Kembali untuk memasukkan alamat email yang berbeda.",
+
+ // Activate 2
+    "001-set-your-pass": "Atur Kata Sandi Baru Anda",
+    "002-to-get-going": " Untuk memulai dengan akun yang ditingkatkan, silakan atur kata sandi baru...",
+    "007-set-your-pass": "Atur kata sandi Anda:",
+    "008-password-advice": "🔑 Kata sandi Anda harus memiliki setidaknya 6 karakter.",
+    "009-confirm-pass": "Konfirmasi Kata Sandi Anda:",
+    "010-pass-error-no-match": "👉 Kata sandi tidak cocok.",
+    "013-by-registering": "Dengan mendaftar hari ini, saya setuju dengan &lt;a href=&quot;#&quot; onclick=&quot;showModalInfo(&#39;terms&#39;)&quot; class=&quot;underline-link&quot;&gt;Ketentuan Layanan GoBrik&lt;/a&gt;",
+    "014-i-agree-newsletter": "Tolong kirimkan saya &lt;a href=&quot;#&quot; onclick=&quot;showModalInfo(&#39;earthen&#39;, &#39;id&#39;)&quot; class=&quot;underline-link&quot;&gt;newsletter Earthen&lt;/a&gt; untuk pembaruan aplikasi, ecobrick, dan earthen",
+    "015-confirm-pass-button": "&lt;input type=&quot;submit&quot; id=&quot;submit-button&quot; value=&quot;Konfirmasi Kata Sandi&quot; class=&quot;submit-button disabled&quot;&gt;",
 
     // Activate-3.php
 

@@ -58,7 +58,7 @@ const en_Page_Translations = {
    "011-your-local-area": "What is your local area?",
   "011-location-full-caption": "Start typing your local area name, and we'll fill in the rest using the open source, non-corporate OpenStreetMap API.",
   "000-field-required-error": "This field is required.",
-  '011-watershed-select': 'What is your watershed?  To what river/stream does your local water flow?',
+  '011-watershed-select': 'To what river/stream watershed does your local water flow?',
   '011b-select-river': '👉 Select river/stream...',
   '011c-unknown': "I don't know",
   '011d-unseen': "I don't see my local river/stream",

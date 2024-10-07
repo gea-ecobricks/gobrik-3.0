@@ -229,7 +229,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     <!-- MAP AND WATERSHED SEARCH SECTION -->
     <div class="form-item" id="watershed-map-section" style="display: none; margin-top:20px;">
-        <label for="watershed_select" data-lang-id="011-watershed-select">What is your watershed?  To what river/stream does your local water flow?</label><br>
+        <label for="watershed_select" data-lang-id="011-watershed-select">To what river/stream watershed does your local water flow?</label><br>
         <select id="watershed_select" name="watershed_select" aria-label="Watershed Select" style="width: 100%; padding: 10px;">
             <option value="" disabled selected data-lang-id="011b-select-river">👉 Select river/stream...</option>
             <option value="watershed unknown" data-lang-id="011c-unknown">I don't know</option>

@@ -1,20 +1,22 @@
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// Set up page variables
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$version = '0.38';
+$page = 'signup';
+$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+
+$is_logged_in = false; // Ensure not logged in for this page
 
 // Check if the user is logged in
 if (isLoggedIn()) {
-    header('Location: dashboard.php'); // Redirect to dashboard if the user is logged in
+    echo "<script>
+        alert('Looks like you already have an account and are logged in! Let\'s take you to your dashboard.');
+        window.location.href = 'dashboard.php';
+    </script>";
     exit();
 }
-
-// Set page variables
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.695';
-$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
-$is_logged_in = false; // Ensure not logged in for this page
 
 // Initialize variables
 $buwana_id = $_GET['id'] ?? null;  // Correctly initializing buwana_id
@@ -227,12 +229,15 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     <!-- MAP AND WATERSHED SEARCH SECTION -->
     <div class="form-item" id="watershed-map-section" style="display: none; margin-top:20px;">
-        <label for="watershed_select" data-lang-id="011-watershed-select">What is your watershed?  Please select the river/stream closest to you:</label><br>
+        <label for="watershed_select" data-lang-id="011-watershed-select">What is your watershed?  To what river/stream does your local water flow?</label><br>
         <select id="watershed_select" name="watershed_select" aria-label="Watershed Select" style="width: 100%; padding: 10px;">
             <option value="" disabled selected data-lang-id="011b-select-river">👉 Select river/stream...</option>
+            <option value="watershed unknown" data-lang-id="011c-unknown">I don't know</option>
+            <option value="watershed unseen" data-lang-id="011d-unseen">I don't see my local river/stream</option>
+            <option value="no watershed" data-lang-id="011e-no-watershed">No watershed</option>
         </select>
         <div id="map" style="height: 350px; border-radius: 0px 0px 12px 12px; margin-top: 8px;"></div>
-        <p class="form-caption" data-lang-id="012-river-basics" style="margin-top:10px;">ℹ️ <a href="#" onclick="showModalInfo('watershed', '<?php echo $lang; ?>')" class="underline-link">Waterbasins</a> provide a great non-political way to localize our users by ecological region!  The map shows rivers and streams around you.  Choose the best option in the drop down menu.</p>
+        <p class="form-caption" data-lang-id="012-river-basics" style="margin-top:10px;">ℹ️ <a href="#" onclick="showModalInfo('watershed', '<?php echo $lang; ?>')" class="underline-link">Watersheds</a> provide a great non-political way to localize our users by ecological region!  The map shows rivers and streams around you.  Choose the one to which your water flows.</p>
 
     </div>
 

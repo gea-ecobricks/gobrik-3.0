@@ -251,20 +251,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Define feedback messages in different languages
     const messages = {
         en: {
-            confirmed: "Code confirmed!",
-            incorrect: "Code incorrect. Try again."
+            confirmed: "👍 Code confirmed!",
+            incorrect: "😕 Code incorrect. Try again."
         },
         fr: {
-            confirmed: "Code confirmé!",
-            incorrect: "Code incorrect. Réessayez."
+            confirmed: "👍 Code confirmé!",
+            incorrect: "😕 Code incorrect. Réessayez."
         },
         es: {
-            confirmed: "Código confirmado!",
+            confirmed: "👍 Código confirmado!",
             incorrect: "Código incorrecto. Inténtalo de nuevo."
         },
         id: {
-            confirmed: "Kode dikonfirmasi!",
-            incorrect: "Kode salah. Coba lagi."
+            confirmed: "👍 Kode dikonfirmasi!",
+            incorrect: "😕 Kode salah. Coba lagi."
         }
     };
 

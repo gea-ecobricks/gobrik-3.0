@@ -171,7 +171,7 @@ echo '<!DOCTYPE html>
 
                 <textarea name="vision_message" id="vision_message" rows="4" maxlength="255" placeholder="Your vision for this ecobrick and its future..."></textarea>
                 <p class="form-caption" style="margin-top: -30px;text-align: right;margin-right: 10px;
-  margin-bottom: 15px;"><span id="character-counter">256</span> <span data-lang-id="024-char-remaining">characters remaining<span></p>
+  margin-bottom: 15px;"><span id="character-counter">256</span> <span data-lang-id="024X-char-remaining"><span></p>
 
                 <input type="hidden" name="ecobrick_unique_id" value="<?php echo htmlspecialchars($ecobrick_unique_id); ?>">
 

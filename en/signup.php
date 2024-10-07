@@ -1,9 +1,15 @@
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
-session_start();
+// Set page variables
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// Set up page variables
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$version = '0.38';
+$page = 'dashboard';
+$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+
+$is_logged_in = false; // Ensure not logged in for this page
+
 
 // Check if the user is logged in
 if (isLoggedIn()) {
@@ -13,14 +19,6 @@ if (isLoggedIn()) {
     </script>";
     exit();
 }
-
-// Set page variables
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.61';
-$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
-$is_logged_in = false; // Ensure not logged in for this page
-$page = 'signup';
-
 
 // Echo the HTML structure
 echo '<!DOCTYPE html>

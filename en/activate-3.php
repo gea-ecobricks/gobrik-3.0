@@ -290,7 +290,9 @@ $(function () {
     let map, userMarker;
     let riverLayerGroup = L.layerGroup();
 
-    // Show pin icon when the input is empty and when it's filled
+    // --- SECTION 1: Show/hide pin icon based on input value and loading state ---
+    // This function manages the visibility of the location pin based on whether
+    // the input field is empty or loading
     function updatePinIconVisibility() {
         if ($("#location_full").val().trim() === "" || $("#loading-spinner").is(":hidden")) {
             $("#location-pin").show();
@@ -299,7 +301,9 @@ $(function () {
         }
     }
 
-    // Initialize location search using OpenStreetMap Nominatim API
+    // --- SECTION 2: Initialize autocomplete for location search using OpenStreetMap Nominatim API ---
+    // This section uses jQuery UI Autocomplete to fetch location suggestions from the OpenStreetMap Nominatim API.
+    // It debounces the search query and sends a request to the API, returning location results.
     $("#location_full").autocomplete({
         source: function (request, response) {
             $("#loading-spinner").show();
@@ -321,6 +325,7 @@ $(function () {
                         $("#loading-spinner").hide();
                         updatePinIconVisibility(); // Show the pin when data has loaded
 
+                        // Map the returned data to an array of display_name, lat, and lon
                         response($.map(data, function (item) {
                             return {
                                 label: item.display_name,
@@ -340,27 +345,29 @@ $(function () {
             }, 300);
         },
         select: function (event, ui) {
+            // When a location is selected, the lat/lon values are populated and
+            // the map/watershed sections are displayed.
             console.log('Selected location:', ui.item);
             $('#lat').val(ui.item.lat);
             $('#lon').val(ui.item.lon);
 
-            // Show the map and watershed search section when a location is selected
-            initializeMap(ui.item.lat, ui.item.lon);
-            $('#watershed-map-section').fadeIn();
-            $('#community-section').fadeIn();
-            showSubmitButton();
+            initializeMap(ui.item.lat, ui.item.lon); // Initialize the map
+            $('#watershed-map-section').fadeIn(); // Show the watershed map section
+            $('#community-section').fadeIn(); // Show the community section
+            showSubmitButton(); // Display the submit button
 
             updatePinIconVisibility(); // Show pin icon after selection
         },
         minLength: 3
     });
 
-    // Show or hide the pin icon based on input value changes
+    // Update pin icon visibility when the user types in the location input field
     $("#location_full").on("input", function () {
         updatePinIconVisibility();
     });
 
-    // Function to show the submit button
+    // --- SECTION 3: Show the submit button and set the height of the main div ---
+    // This function fades in the submit button and adjusts the height of the `#main` div
     function showSubmitButton() {
         $('#submit-section').fadeIn();
 
@@ -368,10 +375,12 @@ $(function () {
         $('#main').css('height', '1500px');
     }
 
-    // Initialize the Leaflet map centered on the selected location
+    // --- SECTION 4: Initialize the map using Leaflet and display user location ---
+    // This section initializes a Leaflet map, centered on the selected latitude and longitude.
+    // It also adds a marker for the user's selected location and loads nearby rivers.
     function initializeMap(lat, lon) {
         if (map) {
-            map.remove();
+            map.remove(); // Remove the previous map instance if it exists
         }
         map = L.map('map', { preferCanvas: true }).setView([lat, lon], 13);
 
@@ -380,51 +389,55 @@ $(function () {
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
 
-        // Add user location marker
+        // Add a marker to the map to show the user's selected location
         userMarker = L.marker([lat, lon]).addTo(map).bindPopup("Your Location").openPopup();
 
-        // Fix map display issue when loaded in a hidden or resized container
+        // Fix map display issue if loaded in a hidden or resized container
         setTimeout(() => {
-            map.invalidateSize();
-        }, 200); // Delay to ensure the map fully loads and resizes correctly
+            map.invalidateSize(); // Ensure the map resizes correctly
+        }, 200);
 
-        // Fetch nearby rivers or watersheds using Overpass API
+        // Fetch nearby rivers using Overpass API
         fetchNearbyRivers(lat, lon);
     }
 
-    // Function to fetch nearby rivers or watersheds using Overpass API
+    // --- SECTION 5: Fetch nearby rivers/watersheds from the Overpass API ---
+    // This function sends a request to the Overpass API to fetch rivers or watersheds
+    // near the selected location, and populates the watershed dropdown with the results.
     function fetchNearbyRivers(lat, lon) {
-        riverLayerGroup.clearLayers(); // Clear previous rivers
+        riverLayerGroup.clearLayers(); // Clear previous rivers from the map
         $("#watershed_select").empty().append('<option value="" disabled selected>Select a river or watershed</option>');
 
         const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];(way["waterway"="river"](around:5000,${lat},${lon});relation["waterway"="river"](around:5000,${lat},${lon}););out geom;`;
 
         $.get(overpassUrl, function (data) {
             let rivers = data.elements;
-            let uniqueRivers = new Set(); // Set to keep track of unique river names
+            let uniqueRivers = new Set(); // Set to store unique river names
 
             rivers.forEach((river, index) => {
                 let riverName = river.tags.name;
 
-                // Filter out unnamed rivers from the dropdown
+                // Only add named rivers that aren't "unnamed" to the dropdown and the map
                 if (riverName && !uniqueRivers.has(riverName) && !riverName.toLowerCase().includes("unnamed")) {
-                    uniqueRivers.add(riverName); // Add river name to the set
+                    uniqueRivers.add(riverName); // Track unique river names
 
                     let coordinates = river.geometry.map(point => [point.lat, point.lon]);
-                    // Add river to the map
+                    // Draw the river polyline on the map
                     let riverPolyline = L.polyline(coordinates, { color: 'blue' }).addTo(riverLayerGroup).bindPopup(riverName);
                     riverLayerGroup.addTo(map);
 
-                    // Add river to the select dropdown
+                    // Add river to the watershed dropdown
                     $("#watershed_select").append(new Option(riverName, riverName));
                 }
             });
 
+            // If no rivers are found, show a message in the dropdown
             if (uniqueRivers.size === 0) {
                 $("#watershed_select").append('<option value="" disabled>No rivers or watersheds found nearby</option>');
             }
 
-            // Add the additional options every time the dropdown is populated
+            // --- Add the additional fixed options to the watershed dropdown ---
+            // These options are added every time the dropdown is populated
             $("#watershed_select").append(
                 $('<option>', {
                     value: "watershed unknown",
@@ -446,19 +459,21 @@ $(function () {
                     'data-lang-id': "011e-no-watershed"
                 })
             );
-
         }).fail(function () {
             console.error("Failed to fetch data from Overpass API.");
             $("#watershed_select").append('<option value="" disabled>Error fetching rivers</option>');
         });
     }
 
+    // --- SECTION 6: Form submission handling ---
+    // This section logs the latitude and longitude when the form is submitted.
     $('#user-info-form').on('submit', function () {
         console.log('Latitude:', $('#lat').val());
         console.log('Longitude:', $('#lon').val());
         // Additional submit handling if needed
     });
 });
+
 
 
 

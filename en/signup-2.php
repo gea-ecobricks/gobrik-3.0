@@ -118,8 +118,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     <div class="input-container">
                         <input type="text" id="credential_value" name="credential_value" required style="padding-left:45px;" aria-label="your email">
                         <div id="loading-spinner" class="spinner" style="display: none;"></div>
-                        <div id="credential-pin" class="pin-icon">⚪</div>
-                    </div>
+<!--                        <div id="credential-pin" class="pin-icon">⚪</div>
+-->                    </div>
                 <p class="form-caption" data-lang-id="006-email-sub-caption">💌 This is the way we will contact you to confirm your account</p>
                 </div>
 

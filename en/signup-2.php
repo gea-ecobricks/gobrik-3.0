@@ -1,9 +1,13 @@
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
-session_start();
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// Set up page variables
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$version = '0.38';
+$page = 'signup';
+$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+
+$is_logged_in = false; // Ensure not logged in for this page
 
 // Check if the user is logged in
 if (isLoggedIn()) {
@@ -114,6 +118,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     <div class="input-container">
                         <input type="text" id="credential_value" name="credential_value" required style="padding-left:45px;" aria-label="your email">
                         <div id="loading-spinner" class="spinner" style="display: none;"></div>
+                        <div id="community-pin" class="pin-icon">✉️</div>
                     </div>
                 <p class="form-caption" data-lang-id="006-email-sub-caption">💌 This is the way we will contact you to confirm your account</p>
                 </div>
@@ -140,10 +145,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <div class="form-item" id="human-check-section" style="display: none;">
                     <label for="human_check" data-lang-id="011-prove-human">Please prove you are human by typing the word "ecobrick" below:</label><br>
                     <input type="text" id="human_check" name="human_check" required>
-                    <p class="form-caption"><span data-lang-id="012-fun-fact">🤓 Fun fact: </span> <a href="#" onclick="showModalInfo('ecobrick', '<?php echo $lang; ?>')" class="underline-link" data-lang-id="000-Ecobrick">Ecobrick</a><span data-lang-id="012b-is-spelled"> is spelled without a space, capital or hyphen!</span></p>
+                    <p class="form-caption"><span data-lang-id="012-fun-fact">🤓 Fun fact: </span> <a href="#" onclick="showModalInfo('ecobrick', '<?php echo $lang; ?>')" class="underline-link" data-lang-id="000-ecobrick">ecobrick</a><span data-lang-id="012b-is-spelled"> is spelled without a space, capital or hyphen!</span></p>
                     <div>
                         <input type="checkbox" id="terms" name="terms" required checked>
-                        <label for="terms" style="font-size:1.05;" class="form-caption" data-lang-id="013-by-registering">By registering today, I agree to the <a href="#" onclick="showModalInfo('terms', '<?php echo $lang; ?>')" class="underline-link">GoBrik Terms of Service</a></label>
+                        <label for="terms" style="font-size:1.05em;" class="form-caption" data-lang-id="013-by-registering">By registering today, I agree to the <a href="#" onclick="showModalInfo('terms', '<?php echo $lang; ?>')" class="underline-link">GoBrik Terms of Service</a></label>
                     </div>
                 <!--
                     <div>

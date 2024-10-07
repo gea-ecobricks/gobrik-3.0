@@ -1,36 +1,28 @@
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
-session_start();
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// Set up page variables
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$version = '0.38';
+$page = 'activate';
+$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+
+$is_logged_in = false; // Ensure not logged in for this page
+
 
 // Check if the user is logged in
 if (isLoggedIn()) {
     echo "<script>
-        alert('Looks you're already logged in! Let\'s take you to your dashboard.');
+        alert('Looks like you already have an account and are logged in! Let\'s take you to your dashboard.');
         window.location.href = 'dashboard.php';
     </script>";
     exit();
 }
 
-// Set page variables
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
-$is_logged_in = false; // Ensure not logged in for this page
-
-// Set page variables
-$page = 'activate';
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.769';
-$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $response = ['success' => false];
 $ecobricker_id = $_GET['id'] ?? null;
-
 $first_name = '';
 $email_addr = '';
-
-
 
 // PART 2: Check if ecobricker_id is passed in the URL
 if (is_null($ecobricker_id)) {

@@ -232,9 +232,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <label for="watershed_select" data-lang-id="011-watershed-select">To what river/stream watershed does your local water flow?</label><br>
         <select id="watershed_select" name="watershed_select" aria-label="Watershed Select" style="width: 100%; padding: 10px;">
             <option value="" disabled selected data-lang-id="011b-select-river">👉 Select river/stream...</option>
-            <option value="watershed unknown" data-lang-id="011c-unknown">I don't know</option>
-            <option value="watershed unseen" data-lang-id="011d-unseen">I don't see my local river/stream</option>
-            <option value="no watershed" data-lang-id="011e-no-watershed">No watershed</option>
+
         </select>
         <div id="map" style="height: 350px; border-radius: 0px 0px 12px 12px; margin-top: 8px;"></div>
         <p class="form-caption" data-lang-id="012-river-basics" style="margin-top:10px;">ℹ️ <a href="#" onclick="showModalInfo('watershed', '<?php echo $lang; ?>')" class="underline-link">Watersheds</a> provide a great non-political way to localize our users by ecological region!  The map shows rivers and streams around you.  Choose the one to which your water flows.</p>
@@ -285,6 +283,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 <script>
+
+//FUnctions to access the openstreetmaps api and to populate the local area field and watershed field.
+
 $(function () {
     let debounceTimer;
     let map, userMarker;
@@ -363,6 +364,9 @@ $(function () {
     // Function to show the submit button
     function showSubmitButton() {
         $('#submit-section').fadeIn();
+
+        // Set the height of the main div to 1500px when the submit button is shown
+        $('#main').css('height', '1500px');
     }
 
     // Initialize the Leaflet map centered on the selected location
@@ -420,6 +424,11 @@ $(function () {
             if (uniqueRivers.size === 0) {
                 $("#watershed_select").append('<option value="" disabled>No rivers or watersheds found nearby</option>');
             }
+
+            // Add the additional options every time the dropdown is populated
+            $("#watershed_select").append(new Option("I don't know", "watershed unknown", false, false).setAttribute("data-lang-id", "011c-unknown"));
+            $("#watershed_select").append(new Option("I don't see my local river/stream", "watershed unseen", false, false).setAttribute("data-lang-id", "011d-unseen"));
+            $("#watershed_select").append(new Option("No watershed", "no watershed", false, false).setAttribute("data-lang-id", "011e-no-watershed"));
         }).fail(function () {
             console.error("Failed to fetch data from Overpass API.");
             $("#watershed_select").append('<option value="" disabled>Error fetching rivers</option>');
@@ -432,6 +441,7 @@ $(function () {
         // Additional submit handling if needed
     });
 });
+
 
 
 </script>

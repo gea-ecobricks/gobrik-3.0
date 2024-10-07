@@ -409,12 +409,12 @@ $(function () {
         fetchNearbyRivers(lat, lon);
     }
 
-    // --- SECTION 6: Fetching Nearby Rivers using Overpass API ---
+   // --- SECTION 6: Fetching Nearby Rivers using Overpass API ---
 
     // Function to fetch nearby rivers and watersheds using the Overpass API
     function fetchNearbyRivers(lat, lon) {
         riverLayerGroup.clearLayers(); // Clear any previously displayed rivers
-        $("#watershed_select").empty().append('<option value="" disabled selected>Select a river or watershed</option>');
+        $("#watershed_select").empty().append(`<option value="" disabled selected>${Page_Translations['011b-select-river']}</option>`);
 
         // Overpass API query to search for rivers around the selected location (within a 5km radius)
         const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];(way["waterway"="river"](around:5000,${lat},${lon});relation["waterway"="river"](around:5000,${lat},${lon}););out geom;`;
@@ -443,28 +443,28 @@ $(function () {
 
             if (uniqueRivers.size === 0) {
                 // Show message if no rivers or watersheds are found nearby
-                $("#watershed_select").append('<option value="" disabled>No rivers or watersheds found nearby</option>');
+                $("#watershed_select").append(`<option value="" disabled>${Page_Translations['011d-unseen']}</option>`);
             }
 
-            // Add additional watershed options to the dropdown every time it is populated
+            // Add the additional watershed options every time the dropdown is populated
             $("#watershed_select").append(
                 $('<option>', {
                     value: "watershed unknown",
-                    text: "I don't know",
+                    text: Page_Translations['011c-unknown'],
                     'data-lang-id': "011c-unknown"
                 })
             );
             $("#watershed_select").append(
                 $('<option>', {
                     value: "watershed unseen",
-                    text: "I don't see my local river/stream",
+                    text: Page_Translations['011d-unseen'],
                     'data-lang-id': "011d-unseen"
                 })
             );
             $("#watershed_select").append(
                 $('<option>', {
                     value: "no watershed",
-                    text: "No watershed",
+                    text: Page_Translations['011e-no-watershed'],
                     'data-lang-id': "011e-no-watershed"
                 })
             );
@@ -472,9 +472,10 @@ $(function () {
         }).fail(function () {
             // Handle any errors that occur during the API request
             console.error("Failed to fetch data from Overpass API.");
-            $("#watershed_select").append('<option value="" disabled>Error fetching rivers</option>');
+            $("#watershed_select").append(`<option value="" disabled>${Page_Translations['000-field-required-error']}</option>`);
         });
     }
+
 
     // --- SECTION 7: Form Submission Handling ---
 

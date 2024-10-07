@@ -139,7 +139,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     <p class="form-caption"><span data-lang-id="012-fun-fact">🤓 Fun fact: </span> <a href="#" onclick="showModalInfo('ecobrick', '<?php echo $lang; ?>')" class="underline-link" data-lang-id="000-ecobrick">ecobrick</a><span data-lang-id="012b-is-spelled"> is spelled without a space, capital or hyphen!</span></p>
                     <div>
                         <input type="checkbox" id="terms" name="terms" required checked>
-                        <label for="terms" style="font-size:1.05em;" class="form-caption" data-lang-id="013-by-registering">By registering today, I agree to the <a href="#" onclick="showModalInfo('terms', '<?php echo $lang; ?>')" class="underline-link">GoBrik Terms of Service</a></label>
+                        <label for="terms" class="form-caption" data-lang-id="013-by-registering">By registering today, I agree to the <a href="#" onclick="showModalInfo('terms', '<?php echo $lang; ?>')" class="underline-link">GoBrik Terms of Service</a></label>
                     </div>
                 <!--
                     <div>

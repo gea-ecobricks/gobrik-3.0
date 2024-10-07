@@ -2,28 +2,24 @@
 //signup-2.php sends new users here.
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// Set up page variables
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$version = '0.38';
+$page = 'activate';
+$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
+$is_logged_in = false; // Ensure not logged in for this page
 // Check if the user is logged in
 if (isLoggedIn()) {
     header('Location: dashboard.php'); // Redirect to dashboard if the user is logged in
     exit();
 }
 
-// Set page variables
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.769';
-$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
-// set $is_logged_in to false for this page
-$is_logged_in = false;
-
 // Initialize user variables
 $ecobricker_id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 $first_name = '';
 $email_addr = '';
 $code_sent = false;
-$page = 'activate';
 $static_code = 'AYYEW'; // The static code for now
 $generated_code = ''; // New generated code
 $country_icon = '';

@@ -51,14 +51,43 @@ const es_Page_Translations = {
     "012-go-back-new-email": "Regresar para ingresar una dirección de correo electrónico diferente.",
 
     // Activate-3.php
-  // activate-3.php
+
 "001-password-set": "Tu contraseña está configurada.",
 "011-your-local-area": "¿Cuál es tu área local?",
 "011-location-full-caption": "Comienza a escribir el nombre de tu área local y completaremos el resto utilizando la API OpenStreetMap de código abierto y no corporativa.",
 "000-field-required-error": "Este campo es obligatorio.",
-"011-watershed-select": "¿Cuál es tu cuenca hidrográfica? Selecciona el río/arroyo más cercano a ti:",
-"011b-select-river": "👉 Selecciona río/arroyo...",
-"012-river-basics": "ℹ️ <a href=\"#\" onclick=\"showModalInfo('watershed', '<?php echo $lang; ?>')\" class=\"underline-link\">Las cuencas hidrográficas</a> proporcionan una excelente manera no política de localizar a nuestros usuarios por región ecológica. El mapa muestra ríos y arroyos a tu alrededor. Elige la mejor opción en el menú desplegable.",
+'011-watershed-select': '¿Cuál es tu cuenca? ¿A qué río o arroyo fluye tu agua local?',
+  '011b-select-river': '👉 Selecciona río/arroyo...',
+  '011c-unknown': 'No lo sé',
+  '011d-unseen': 'No veo mi río/arroyo local',
+  '011e-no-watershed': 'Sin cuenca',
+  '012-river-basics': 'ℹ️ <a href="#" onclick="showModalInfo(\'watershed\', \'<?php echo $lang; ?>\')" class="underline-link">Las cuencas</a> proporcionan una excelente forma no política de localizar a nuestros usuarios por región ecológica. El mapa muestra los ríos y arroyos cercanos a ti. Elige el río hacia el que fluye tu agua.',
+};
+
+French (fr)
+
+javascript
+
+const fr_Page_Translations = {
+  '011-watershed-select': 'Quelle est votre bassin versant ? Vers quel fleuve/rivière coule votre eau locale ?',
+  '011b-select-river': '👉 Sélectionnez rivière/fleuve...',
+  '011c-unknown': 'Je ne sais pas',
+  '011d-unseen': 'Je ne vois pas ma rivière/fleuve locale',
+  '011e-no-watershed': 'Pas de bassin versant',
+  '012-river-basics': 'ℹ️ <a href="#" onclick="showModalInfo(\'watershed\', \'<?php echo $lang; ?>\')" class="underline-link">Les bassins versants</a> offrent un excellent moyen non politique de localiser nos utilisateurs par région écologique. La carte montre les rivières et fleuves autour de vous. Choisissez celui vers lequel coule votre eau.',
+};
+
+Indonesian (id)
+
+javascript
+
+const id_Page_Translations = {
+  '011-watershed-select': 'Apa daerah aliran sungai (DAS) Anda? Ke sungai/air mana air lokal Anda mengalir?',
+  '011b-select-river': '👉 Pilih sungai/aliran air...',
+  '011c-unknown': 'Saya tidak tahu',
+  '011d-unseen': 'Saya tidak melihat sungai/aliran air lokal saya',
+  '011e-no-watershed': 'Tidak ada daerah aliran sungai',
+  '012-river-basics': 'ℹ️ <a href="#" onclick="showModalInfo(\'watershed\', \'<?php echo $lang; ?>\')" class="underline-link">Daerah Aliran Sungai</a> memberikan cara ekologis yang bagus untuk melokalkan pengguna berdasarkan wilayah. Peta menunjukkan sungai dan aliran air di sekitar Anda. Pilih yang menuju aliran air Anda.',
 "012-community-name": "Selecciona y confirma tu comunidad de GoBrik:",
 "012-community-caption": "Comienza a escribir para ver y seleccionar una comunidad. Actualmente, solo GoBrik 2.0 está disponible. ¡Pronto podrás agregar una nueva comunidad!",
 "016-next-button": "<input type=\"submit\" id=\"submit-button\" value=\"Siguiente ➡️\" class=\"submit-button enabled\">"

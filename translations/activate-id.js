@@ -59,10 +59,14 @@ const id_Page_Translations = {
   "011-your-local-area": "Apa nama daerah lokal Anda?",
   "011-location-full-caption": "Mulailah mengetik nama daerah lokal Anda, dan kami akan melengkapi sisanya menggunakan API OpenStreetMap yang bersumber terbuka dan non-korporat.",
   "000-field-required-error": "Kolom ini wajib diisi.",
-  "011-watershed-select": "Apa daerah aliran sungai Anda? Silakan pilih sungai/stream terdekat dengan Anda:",
-  "011b-select-river": "👉 Pilih sungai/stream...",
-  "012-river-basics": "ℹ️ <a href=\"#\" onclick=\"showModalInfo('watershed', '<?php echo $lang; ?>')\" class=\"underline-link\">Daerah aliran sungai</a> memberikan cara yang bagus tanpa melibatkan politik untuk melokalisasi pengguna kami berdasarkan wilayah ekologis! Peta menunjukkan sungai dan aliran air di sekitar Anda. Pilih opsi terbaik di menu dropdown.",
-  "012-community-name": "Pilih dan konfirmasi komunitas GoBrik Anda:",
+   '011-watershed-select': 'Apa daerah aliran sungai (DAS) Anda? Ke sungai/air mana air lokal Anda mengalir?',
+  '011b-select-river': '👉 Pilih sungai/aliran air...',
+  '011c-unknown': 'Saya tidak tahu',
+  '011d-unseen': 'Saya tidak melihat sungai/aliran air lokal saya',
+  '011e-no-watershed': 'Tidak ada daerah aliran sungai',
+  '012-river-basics': 'ℹ️ <a href="#" onclick="showModalInfo(\'watershed\', \'<?php echo $lang; ?>\')" class="underline-link">Daerah Aliran Sungai</a> memberikan cara ekologis yang bagus untuk melokalkan pengguna berdasarkan wilayah. Peta menunjukkan sungai dan aliran air di sekitar Anda. Pilih yang menuju aliran air Anda.',
+
+   "012-community-name": "Pilih dan konfirmasi komunitas GoBrik Anda:",
   "012-community-caption": "Mulailah mengetik untuk melihat dan memilih komunitas. Saat ini hanya GoBrik 2.0 yang tersedia. Segera Anda dapat menambahkan komunitas baru!",
   "016-next-button": "<input type=\"submit\" id=\"submit-button\" value=\"Berikutnya ➡️\" class=\"submit-button enabled\">"
 

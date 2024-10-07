@@ -1,10 +1,9 @@
 <?php
-<?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.39';
+$version = '0.392';
 $page = 'activate';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -21,7 +20,6 @@ if (isLoggedIn()) {
 
 // PART 1: Setup
 $ecobricker_id = $_GET['id'] ?? null;
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $first_name = '';
 $last_name = '';
 $full_name = '';
@@ -32,17 +30,13 @@ $birth_date = '';
 $terms_of_service = 1;
 $earthen_newsletter_join = 1;
 
-// // Redirect if user is already logged in
-// if (isset($_SESSION['buwana_id'])) {
-//     header("Location: dashboard.php");
-//     exit();
-// }
+
 
 // PART 2: Database Connections
 require_once '../gobrikconn_env.php';
 require_once '../buwanaconn_env.php';
 
-// Helper function to redirect with error messages
+// Redirect give various scenarios. Helper function to redirect with messages
 function redirect_with_message($url, $message) {
     $_SESSION['error_message'] = $message;
     header("Location: $url");

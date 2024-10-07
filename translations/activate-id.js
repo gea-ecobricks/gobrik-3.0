@@ -48,9 +48,9 @@ const id_Page_Translations = {
     "008-password-advice": "🔑 Kata sandi Anda harus memiliki setidaknya 6 karakter.",
     "009-confirm-pass": "Konfirmasi Kata Sandi Anda:",
     "010-pass-error-no-match": "👉 Kata sandi tidak cocok.",
-    "013-by-registering": "Dengan mendaftar hari ini, saya setuju dengan &lt;a href=&quot;#&quot; onclick=&quot;showModalInfo(&#39;terms&#39;)&quot; class=&quot;underline-link&quot;&gt;Ketentuan Layanan GoBrik&lt;/a&gt;",
-    "014-i-agree-newsletter": "Tolong kirimkan saya &lt;a href=&quot;#&quot; onclick=&quot;showModalInfo(&#39;earthen&#39;, &#39;id&#39;)&quot; class=&quot;underline-link&quot;&gt;newsletter Earthen&lt;/a&gt; untuk pembaruan aplikasi, ecobrick, dan earthen",
-    "015-confirm-pass-button": '<input type="submit" id="submit-button" value="Konfirmasi Kata Sandi" class="submit-button disabled">',
+    "013-by-registering": "Dengan mendaftar hari ini, saya setuju dengan <a href=\"#\" onclick=\"showModalInfo('terms')\" class=\"underline-link\">Ketentuan Layanan GoBrik</a>",
+"014-i-agree-newsletter": "Tolong kirimkan saya <a href=\"#\" onclick=\"showModalInfo('earthen', 'id')\" class=\"underline-link\">newsletter Earthen</a> untuk pembaruan aplikasi, ecobrick, dan earthen",
+  "015-confirm-pass-button": '<input type="submit" id="submit-button" value="Konfirmasi Kata Sandi" class="submit-button disabled">',
 
     // Activate-3.php
 

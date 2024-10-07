@@ -203,7 +203,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
-            <p style="color:green;">✔ <?php echo htmlspecialchars($first_name); ?>,<span data-lang-id="001-password-set"> your password is set!</p>
+            <p style="color:green;">✔ <?php echo htmlspecialchars($first_name); ?>, <span data-lang-id="001-password-set"> your password is set!</p>
             <div id="status-message"><span data-lang-id="012-status-heading2"> Now let's get you localized.</span></div>
             <div id="sub-status-message" data-lang-id="013-sub-ecozone" style="font-size:1.3em;padding-top:10px;padding-bottom:10px;">GoBrik is all about ecological action. Please help us determine your ecological zone:  the water shed or riverbasin where you live.</div>
         </div>
@@ -283,14 +283,15 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 <script>
-
-//FUnctions to access the openstreetmaps api and to populate the local area field and watershed field.
 $(function () {
     let debounceTimer;
     let map, userMarker;
     let riverLayerGroup = L.layerGroup();
 
-    // Show pin icon when the input is empty and when it's filled
+    // --- SECTION 1: Location Pin Icon Visibility ---
+
+    // Function to toggle the visibility of the pin icon
+    // Shows the pin when input is empty or if loading spinner is hidden
     function updatePinIconVisibility() {
         if ($("#location_full").val().trim() === "" || $("#loading-spinner").is(":hidden")) {
             $("#location-pin").show();
@@ -299,12 +300,16 @@ $(function () {
         }
     }
 
-    // Initialize location search using OpenStreetMap Nominatim API
+    // --- SECTION 2: Location Search using OpenStreetMap Nominatim API ---
+
+    // This initializes the location search input with autocomplete functionality
+    // It uses the Nominatim API to fetch location suggestions and update the map when a location is selected
     $("#location_full").autocomplete({
         source: function (request, response) {
-            $("#loading-spinner").show();
-            $("#location-pin").hide(); // Hide the pin icon when typing starts
+            $("#loading-spinner").show(); // Show loading spinner while searching
+            $("#location-pin").hide(); // Hide pin icon while typing
 
+            // Debounce to prevent too many requests
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(() => {
                 $.ajax({
@@ -314,13 +319,14 @@ $(function () {
                         'User-Agent': 'ecobricks.org'
                     },
                     data: {
-                        q: request.term,
+                        q: request.term, // Term entered by the user
                         format: "json"
                     },
                     success: function (data) {
-                        $("#loading-spinner").hide();
-                        updatePinIconVisibility(); // Show the pin when data has loaded
+                        $("#loading-spinner").hide(); // Hide spinner after results
+                        updatePinIconVisibility(); // Show pin when results are loaded
 
+                        // Process and map the data for the autocomplete dropdown
                         response($.map(data, function (item) {
                             return {
                                 label: item.display_name,
@@ -330,101 +336,117 @@ $(function () {
                             };
                         }));
                     },
-                    error: function (xhr, status, error) {
-                        $("#loading-spinner").hide();
-                        updatePinIconVisibility(); // Show the pin when an error occurs
-                        console.error("Autocomplete error:", error);
-                        response([]);
+                    error: function () {
+                        $("#loading-spinner").hide(); // Hide spinner on error
+                        updatePinIconVisibility(); // Show pin on error
+                        response([]); // Return no results
                     }
                 });
-            }, 300);
+            }, 300); // Delay of 300ms before making the API request
         },
+        // Event triggered when a location is selected from the dropdown
         select: function (event, ui) {
             console.log('Selected location:', ui.item);
             $('#lat').val(ui.item.lat);
             $('#lon').val(ui.item.lon);
 
-            // Show the map and watershed search section when a location is selected
+            // Initialize the map with the selected location's coordinates
             initializeMap(ui.item.lat, ui.item.lon);
+
+            // Show the watershed map and community sections
             $('#watershed-map-section').fadeIn();
             $('#community-section').fadeIn();
             showSubmitButton();
 
             updatePinIconVisibility(); // Show pin icon after selection
         },
-        minLength: 3
+        minLength: 3 // Minimum number of characters required to trigger search
     });
 
-    // Show or hide the pin icon based on input value changes
+    // --- SECTION 3: Pin Visibility During Input ---
+
+    // Listen for input changes to update the pin icon visibility in real-time
     $("#location_full").on("input", function () {
         updatePinIconVisibility();
     });
 
-    // Function to show the submit button
-    function showSubmitButton() {
-        $('#submit-section').fadeIn();
+    // --- SECTION 4: Submit Button and Page Layout ---
 
-        // Set the height of the main div to 1500px when the submit button is shown
+    // Function to display the submit button and adjust the height of the main container
+    function showSubmitButton() {
+        $('#submit-section').fadeIn(); // Show the submit section
+
+        // Set the height of the main div to 1500px to accommodate the map and other content
         $('#main').css('height', '1500px');
     }
 
-    // Initialize the Leaflet map centered on the selected location
+    // --- SECTION 5: Map Initialization using Leaflet ---
+
+    // Function to initialize the map with Leaflet, centered on the selected location
     function initializeMap(lat, lon) {
         if (map) {
-            map.remove();
+            map.remove(); // Remove existing map if any
         }
+
+        // Create a new map centered on the selected coordinates
         map = L.map('map', { preferCanvas: true }).setView([lat, lon], 13);
 
+        // Load OpenStreetMap tiles for the map
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
 
-        // Add user location marker
+        // Add a marker at the user's location
         userMarker = L.marker([lat, lon]).addTo(map).bindPopup("Your Location").openPopup();
 
-        // Fix map display issue when loaded in a hidden or resized container
+        // Fix map display issues when loaded in hidden or resized containers
         setTimeout(() => {
-            map.invalidateSize();
-        }, 200); // Delay to ensure the map fully loads and resizes correctly
+            map.invalidateSize(); // Adjust the map size after rendering
+        }, 200);
 
-        // Fetch nearby rivers or watersheds using Overpass API
+        // Fetch and display nearby rivers or watersheds on the map
         fetchNearbyRivers(lat, lon);
     }
 
-    // Function to fetch nearby rivers or watersheds using Overpass API
+    // --- SECTION 6: Fetching Nearby Rivers using Overpass API ---
+
+    // Function to fetch nearby rivers and watersheds using the Overpass API
     function fetchNearbyRivers(lat, lon) {
-        riverLayerGroup.clearLayers(); // Clear previous rivers
+        riverLayerGroup.clearLayers(); // Clear any previously displayed rivers
         $("#watershed_select").empty().append('<option value="" disabled selected>Select a river or watershed</option>');
 
+        // Overpass API query to search for rivers around the selected location (within a 5km radius)
         const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];(way["waterway"="river"](around:5000,${lat},${lon});relation["waterway"="river"](around:5000,${lat},${lon}););out geom;`;
 
         $.get(overpassUrl, function (data) {
             let rivers = data.elements;
             let uniqueRivers = new Set(); // Set to keep track of unique river names
 
-            rivers.forEach((river, index) => {
+            // Loop through fetched river data
+            rivers.forEach((river) => {
                 let riverName = river.tags.name;
 
-                // Filter out unnamed rivers from the dropdown
+                // Only display rivers with names and filter out unnamed rivers
                 if (riverName && !uniqueRivers.has(riverName) && !riverName.toLowerCase().includes("unnamed")) {
-                    uniqueRivers.add(riverName); // Add river name to the set
+                    uniqueRivers.add(riverName); // Add river name to the unique set
 
+                    // Get the coordinates of the river and add it to the map
                     let coordinates = river.geometry.map(point => [point.lat, point.lon]);
-                    // Add river to the map
                     let riverPolyline = L.polyline(coordinates, { color: 'blue' }).addTo(riverLayerGroup).bindPopup(riverName);
-                    riverLayerGroup.addTo(map);
+                    riverLayerGroup.addTo(map); // Add to the map layer
 
-                    // Add river to the select dropdown
+                    // Add river name to the dropdown menu
                     $("#watershed_select").append(new Option(riverName, riverName));
                 }
             });
 
             if (uniqueRivers.size === 0) {
+                // Show message if no rivers or watersheds are found nearby
                 $("#watershed_select").append('<option value="" disabled>No rivers or watersheds found nearby</option>');
             }
 
-            // Add the additional options every time the dropdown is populated
+            // Add additional watershed options to the dropdown every time it is populated
             $("#watershed_select").append(
                 $('<option>', {
                     value: "watershed unknown",
@@ -448,15 +470,20 @@ $(function () {
             );
 
         }).fail(function () {
+            // Handle any errors that occur during the API request
             console.error("Failed to fetch data from Overpass API.");
             $("#watershed_select").append('<option value="" disabled>Error fetching rivers</option>');
         });
     }
 
+    // --- SECTION 7: Form Submission Handling ---
+
+    // Event handler for the form submission
     $('#user-info-form').on('submit', function () {
+        // Log the latitude and longitude when the form is submitted
         console.log('Latitude:', $('#lat').val());
         console.log('Longitude:', $('#lon').val());
-        // Additional submit handling if needed
+        // Additional submit handling logic can be added here if needed
     });
 });
 

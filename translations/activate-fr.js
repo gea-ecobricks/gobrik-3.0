@@ -51,7 +51,7 @@ const fr_Page_Translations = {
     "012-go-back-new-email": "Retournez pour entrer une autre adresse e-mail.",
 
     // Activate-3.php
-"001-password-set": "Votre mot de passe est défini.",
+"001-password-set": "votre mot de passe est défini.",
 "011-your-local-area": "Quelle est votre zone locale ?",
 "011-location-full-caption": "Commencez à taper le nom de votre zone locale, et nous compléterons le reste en utilisant l'API OpenStreetMap open source et non corporative.",
 "000-field-required-error": "Ce champ est obligatoire.",

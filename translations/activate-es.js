@@ -54,7 +54,7 @@ const es_Page_Translations = {
 
     // Activate-3.php
 
-"001-password-set": "Tu contraseña está configurada.",
+"001-password-set": "tu contraseña está configurada.",
 "011-your-local-area": "¿Cuál es tu área local?",
 "011-location-full-caption": "Comienza a escribir el nombre de tu área local y completaremos el resto utilizando la API OpenStreetMap de código abierto y no corporativa.",
 "000-field-required-error": "Este campo es obligatorio.",

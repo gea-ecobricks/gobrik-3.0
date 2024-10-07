@@ -50,7 +50,7 @@ const id_Page_Translations = {
     "010-pass-error-no-match": "👉 Kata sandi tidak cocok.",
     "013-by-registering": "Dengan mendaftar hari ini, saya setuju dengan &lt;a href=&quot;#&quot; onclick=&quot;showModalInfo(&#39;terms&#39;)&quot; class=&quot;underline-link&quot;&gt;Ketentuan Layanan GoBrik&lt;/a&gt;",
     "014-i-agree-newsletter": "Tolong kirimkan saya &lt;a href=&quot;#&quot; onclick=&quot;showModalInfo(&#39;earthen&#39;, &#39;id&#39;)&quot; class=&quot;underline-link&quot;&gt;newsletter Earthen&lt;/a&gt; untuk pembaruan aplikasi, ecobrick, dan earthen",
-    "015-confirm-pass-button": "&lt;input type=&quot;submit&quot; id=&quot;submit-button&quot; value=&quot;Konfirmasi Kata Sandi&quot; class=&quot;submit-button disabled&quot;&gt;",
+    "015-confirm-pass-button": '<input type="submit" id="submit-button" value="Konfirmasi Kata Sandi" class="submit-button disabled">',
 
     // Activate-3.php
 

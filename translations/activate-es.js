@@ -35,7 +35,8 @@ const es_Page_Translations = {
     "010-pass-error-no-match": "👉 Las contraseñas no coinciden.",
     "013-by-registering": "Al registrarme hoy, acepto los &lt;a href=&quot;#&quot; onclick=&quot;showModalInfo(&#39;terms&#39;, &#39;es&#39;)&quot; class=&quot;underline-link&quot;&gt;Términos de Servicio de GoBrik&lt;/a&gt;",
     "014-i-agree-newsletter": "Por favor, envíame el &lt;a href=&quot;#&quot; onclick=&quot;showModalInfo(&#39;earthen&#39;)&quot; class=&quot;underline-link&quot;&gt;boletín de Earthen&lt;/a&gt; para actualizaciones de la aplicación, ecoladrillos y proyectos en tierra",
-    "015-confirm-pass-button": "&lt;input type=&quot;submit&quot; id=&quot;submit-button&quot; value=&quot;Confirmar Contraseña&quot; class=&quot;submit-button disabled&quot;&gt;",
+
+    "015-confirm-pass-button": '<input type="submit" id="submit-button" value="Confirmar Contraseña" class="submit-button disabled">',
 
     // Confirm email
     "001-alright": "Bien",

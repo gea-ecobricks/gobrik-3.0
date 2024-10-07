@@ -1,9 +1,14 @@
 <?php
+<?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
-session_start();
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// Set up page variables
+$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
+$version = '0.39';
+$page = 'activate';
+$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+
+$is_logged_in = false; // Ensure not logged in for this page
 
 // Check if the user is logged in
 if (isLoggedIn()) {
@@ -14,18 +19,9 @@ if (isLoggedIn()) {
     exit();
 }
 
-// Set page variables
-$lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
-$is_logged_in = false; // Ensure not logged in for this page
-
-
-
 // PART 1: Setup
 $ecobricker_id = $_GET['id'] ?? null;
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.491';
-$page = 'activate';
 $first_name = '';
 $last_name = '';
 $full_name = '';

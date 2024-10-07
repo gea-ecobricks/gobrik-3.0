@@ -404,66 +404,66 @@ $(function () {
     // --- SECTION 5: Fetch nearby rivers/watersheds from the Overpass API ---
     // This function sends a request to the Overpass API to fetch rivers or watersheds
     // near the selected location, and populates the watershed dropdown with the results.
-    function fetchNearbyRivers(lat, lon) {
-        riverLayerGroup.clearLayers(); // Clear previous rivers from the map
-        $("#watershed_select").empty().append('<option value="" disabled selected>Select a river or watershed</option>');
+function fetchNearbyRivers(lat, lon) {
+    riverLayerGroup.clearLayers(); // Clear previous rivers from the map
+    $("#watershed_select").empty().append('<option value="" disabled selected>Select a river or watershed</option>');
 
-        const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];(way["waterway"="river"](around:5000,${lat},${lon});relation["waterway"="river"](around:5000,${lat},${lon}););out geom;`;
+    const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];(way["waterway"="river"](around:5000,${lat},${lon});relation["waterway"="river"](around:5000,${lat},${lon}););out geom;`;
 
-        $.get(overpassUrl, function (data) {
-            let rivers = data.elements;
-            let uniqueRivers = new Set(); // Set to store unique river names
+    $.get(overpassUrl, function (data) {
+        let rivers = data.elements;
+        let uniqueRivers = new Set(); // Set to store unique river names
 
-            rivers.forEach((river, index) => {
-                let riverName = river.tags.name;
+        rivers.forEach((river, index) => {
+            let riverName = river.tags.name;
 
-                // Only add named rivers that aren't "unnamed" to the dropdown and the map
-                if (riverName && !uniqueRivers.has(riverName) && !riverName.toLowerCase().includes("unnamed")) {
-                    uniqueRivers.add(riverName); // Track unique river names
+            // Only add named rivers that aren't "unnamed" to the dropdown and the map
+            if (riverName && !uniqueRivers.has(riverName) && !riverName.toLowerCase().includes("unnamed")) {
+                uniqueRivers.add(riverName); // Track unique river names
 
-                    let coordinates = river.geometry.map(point => [point.lat, point.lon]);
-                    // Draw the river polyline on the map
-                    let riverPolyline = L.polyline(coordinates, { color: 'blue' }).addTo(riverLayerGroup).bindPopup(riverName);
-                    riverLayerGroup.addTo(map);
+                let coordinates = river.geometry.map(point => [point.lat, point.lon]);
+                // Draw the river polyline on the map
+                let riverPolyline = L.polyline(coordinates, { color: 'blue' }).addTo(riverLayerGroup).bindPopup(riverName);
+                riverLayerGroup.addTo(map);
 
-                    // Add river to the watershed dropdown
-                    $("#watershed_select").append(new Option(riverName, riverName));
-                }
-            });
-
-            // If no rivers are found, show a message in the dropdown
-            if (uniqueRivers.size === 0) {
-                $("#watershed_select").append('<option value="" disabled>No rivers or watersheds found nearby</option>');
+                // Add river to the watershed dropdown
+                $("#watershed_select").append(new Option(riverName, riverName));
             }
-
-            // --- Add the additional fixed options to the watershed dropdown ---
-            // These options are added every time the dropdown is populated
-            $("#watershed_select").append(
-                $('<option>', {
-                    value: "watershed unknown",
-                    text: "I don't know",
-                    'data-lang-id': "011c-unknown"
-                })
-            );
-            $("#watershed_select").append(
-                $('<option>', {
-                    value: "watershed unseen",
-                    text: "I don't see my local river/stream",
-                    'data-lang-id': "011d-unseen"
-                })
-            );
-            $("#watershed_select").append(
-                $('<option>', {
-                    value: "no watershed",
-                    text: "No watershed",
-                    'data-lang-id': "011e-no-watershed"
-                })
-            );
-        }).fail(function () {
-            console.error("Failed to fetch data from Overpass API.");
-            $("#watershed_select").append('<option value="" disabled>Error fetching rivers</option>');
         });
-    }
+
+        if (uniqueRivers.size === 0) {
+            $("#watershed_select").append('<option value="" disabled>No rivers or watersheds found nearby</option>');
+        }
+
+        // --- Add the additional fixed options using language translation variables ---
+        // Use the language-specific variables to populate the option text
+        $("#watershed_select").append(
+            $('<option>', {
+                value: "watershed unknown",
+                text: languageTranslations['011c-unknown'], // Using translation variable for "I don't know"
+                'data-lang-id': "011c-unknown"
+            })
+        );
+        $("#watershed_select").append(
+            $('<option>', {
+                value: "watershed unseen",
+                text: languageTranslations['011d-unseen'], // Using translation variable for "I don't see my local river/stream"
+                'data-lang-id': "011d-unseen"
+            })
+        );
+        $("#watershed_select").append(
+            $('<option>', {
+                value: "no watershed",
+                text: languageTranslations['011e-no-watershed'], // Using translation variable for "No watershed"
+                'data-lang-id': "011e-no-watershed"
+            })
+        );
+    }).fail(function () {
+        console.error("Failed to fetch data from Overpass API.");
+        $("#watershed_select").append('<option value="" disabled>Error fetching rivers</option>');
+    });
+}
+
 
     // --- SECTION 6: Form submission handling ---
     // This section logs the latitude and longitude when the form is submitted.

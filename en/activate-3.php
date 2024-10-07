@@ -285,7 +285,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <script>
 
 //FUnctions to access the openstreetmaps api and to populate the local area field and watershed field.
-
 $(function () {
     let debounceTimer;
     let map, userMarker;
@@ -426,9 +425,28 @@ $(function () {
             }
 
             // Add the additional options every time the dropdown is populated
-            $("#watershed_select").append(new Option("I don't know", "watershed unknown", false, false).setAttribute("data-lang-id", "011c-unknown"));
-            $("#watershed_select").append(new Option("I don't see my local river/stream", "watershed unseen", false, false).setAttribute("data-lang-id", "011d-unseen"));
-            $("#watershed_select").append(new Option("No watershed", "no watershed", false, false).setAttribute("data-lang-id", "011e-no-watershed"));
+            $("#watershed_select").append(
+                $('<option>', {
+                    value: "watershed unknown",
+                    text: "I don't know",
+                    'data-lang-id': "011c-unknown"
+                })
+            );
+            $("#watershed_select").append(
+                $('<option>', {
+                    value: "watershed unseen",
+                    text: "I don't see my local river/stream",
+                    'data-lang-id': "011d-unseen"
+                })
+            );
+            $("#watershed_select").append(
+                $('<option>', {
+                    value: "no watershed",
+                    text: "No watershed",
+                    'data-lang-id': "011e-no-watershed"
+                })
+            );
+
         }).fail(function () {
             console.error("Failed to fetch data from Overpass API.");
             $("#watershed_select").append('<option value="" disabled>Error fetching rivers</option>');

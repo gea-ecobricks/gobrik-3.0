@@ -1,22 +1,30 @@
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
-// Set up page variables
+// PART 1: Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.4';
-$page = 'activate-subscriptions';
+$version = '0.543';
+$page = 'log';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
-$is_logged_in = false; // Ensure not logged in for this page
+startSecureSession(); // Start a secure session with regeneration to prevent session fixation
 
-// Check if the user is logged in
-if (isLoggedIn()) {
-    echo "<script>
-        alert('Looks like you already have an account and are logged in! Let\'s take you to your dashboard.');
-        window.location.href = 'dashboard.php';
-    </script>";
-    exit();
-}
+// PART 2: Check if user is logged in and session active
+if ($is_logged_in) {
+    $buwana_id = $_SESSION['buwana_id'] ?? ''; // Retrieve buwana_id from session
+
+    // Include database connection
+    require_once '../gobrikconn_env.php';
+    require_once '../buwanaconn_env.php';
+
+    // Fetch the user's location data
+    $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
+    $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
+    $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
+    $gea_status = getGEA_status($buwana_id);
+    $user_community_name = getCommunityName($buwana_conn, $buwana_id);
+    $ecobrick_unique_id = '0';
+    $first_name = getFirstName($buwana_conn, $buwana_id);
 
 $response = ['success' => false];
 $buwana_id = $_GET['id'] ?? null;
@@ -25,9 +33,8 @@ $ghost_member_id = '';
 // Initialize user variables
 $credential_type = '';
 $credential_key = '';
-$first_name = '';
 $account_status = '';
-$country_icon = '';
+
 // Global variable to store the user's subscribed newsletters
 $subscribed_newsletters = [];
 

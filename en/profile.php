@@ -292,6 +292,8 @@ echo '<!DOCTYPE html>
 
 <hr>
 
+<h4>⚙️ Local area</h4>
+
     <!-- Continent-->
 
     <div class="form-item">
@@ -415,7 +417,7 @@ echo '<!DOCTYPE html>
 
     <!-- Save and Update Button -->
     <div style="margin:auto;text-align: center;margin-top:30px;">
-        <button type="submit" class="submit-button enabled" aria-label="Save and update" data-lang-id="020-submit-button">Save and Update</button>
+        <button type="submit" class="submit-button enabled" aria-label="Save and update" data-lang-id="020-submit-button">💾 Save and Update</button>
     </div>
 
 </form>
@@ -644,7 +646,7 @@ const buwana_id = <?php echo json_encode($buwana_id); ?>;
 
 // Event listener for the manage subscription button
 document.getElementById('manage-subscription-button').addEventListener('click', function() {
-    const url = 'activate-subscriptions.php?id=' + encodeURIComponent(buwana_id) + '&type=update';
+    const url = 'manage-subscriptions.php?id=' + encodeURIComponent(buwana_id) + '&type=update';
     window.open(url, '_blank'); // Open the generated URL in a new tab
 });
 

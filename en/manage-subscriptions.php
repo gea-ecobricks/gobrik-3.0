@@ -118,7 +118,7 @@ if ($is_logged_in) {
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<?php require_once ("../includes/activate-subscriptions-inc.php");?>
+<?php require_once ("../includes/manage-subscriptions-inc.php");?>
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
 

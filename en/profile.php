@@ -221,8 +221,14 @@ echo '<!DOCTYPE html>
                         <p data-lang-id="011b-longitude"><strong>Latitude:</strong> <?php echo htmlspecialchars($longitude); ?></p>
                     </div>
                 <div class="form-item">
-                        <p data-lang-id="011b-longitude"><strong>Buwana ID:</strong> <?php echo htmlspecialchars($buwana_id); ?></p>
+                        <p data-lang-id="021-continent"><strong>Continent:</strong> <?php echo htmlspecialchars($continent['continent_name_en']); ?></p>
                     </div>
+
+                <div class="form-item">
+                        <p data-lang-id="015-country"><strong>Country:</strong> <?php echo htmlspecialchars($country['country_name']); ?></p>
+                    </div>
+
+
 
             </div>
 
@@ -287,7 +293,7 @@ echo '<!DOCTYPE html>
 
 <hr>
 
-    <!-- Continent -->
+    <!-- Continent
     <div class="form-item">
         <label for="continent_code" data-lang-id="021-continent">Continent:</label>
         <select name="continent_code" id="continent_code">
@@ -298,9 +304,9 @@ echo '<!DOCTYPE html>
                 </option>
             <?php endforeach; ?>
         </select>
-    </div>
+    </div>-->
 
-    <!-- Country -->
+    <!-- Country
     <div class="form-item">
         <label for="country_id" data-lang-id="015-country">Country:</label>
         <select name="country_id" id="country_id">
@@ -311,7 +317,7 @@ echo '<!DOCTYPE html>
                 </option>
             <?php endforeach; ?>
         </select>
-    </div>
+    </div>-->
 
 <!--LOCATION-->
 

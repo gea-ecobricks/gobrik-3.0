@@ -894,10 +894,10 @@ function restoreEcobrickDefaults() {
     if (defaults) {
         // Populate form fields with saved defaults
         document.getElementById('ecobricker_maker').value = defaults.ecobrickerMaker || '';
-        document.getElementById('volume_ml').value = defaults.volume || '';
-        document.getElementById('weight_g').value = defaults.weight || '';
+//         document.getElementById('volume_ml').value = defaults.volume || '';
+//         document.getElementById('weight_g').value = defaults.weight || '';
         document.getElementById('brand_name').value = defaults.brandName || '';
-        document.getElementById('bottom_colour').value = defaults.bottomColor || '';
+//         document.getElementById('bottom_colour').value = defaults.bottomColor || '';
         document.getElementById('sequestration_type').value = defaults.sequestrationType || '';
         document.getElementById('plastic_from').value = defaults.plasticFrom || '';
         document.getElementById('community_select').value = defaults.community || '';

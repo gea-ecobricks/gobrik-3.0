@@ -471,6 +471,7 @@ document.querySelectorAll('.confirm-rotate-button').forEach(function(button) {
     button.addEventListener('click', function() {
         var photoContainer = this.closest('.photo-container');
         var photo = photoContainer.querySelector('.rotatable-photo');
+        var currentRotation = parseInt(photo.getAttribute('data-rotation')) || 0;
         var photoUrl = this.previousElementSibling.getAttribute('data-photo-url'); // Get the original photo URL from the rotate button
 
         // Calculate total clockwise rotation (normalize it to 0-360)

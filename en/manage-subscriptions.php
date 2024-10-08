@@ -26,83 +26,88 @@ if ($is_logged_in) {
     $ecobrick_unique_id = '0';
     $first_name = getFirstName($buwana_conn, $buwana_id);
 
-$response = ['success' => false];
-$buwana_id = $_GET['id'] ?? null;
-$ghost_member_id = '';
+    $response = ['success' => false];
+    $buwana_id = $_GET['id'] ?? null;
+    $ghost_member_id = '';
 
-// Initialize user variables
-$credential_type = '';
-$credential_key = '';
-$account_status = '';
+    // Initialize user variables
+    $credential_type = '';
+    $credential_key = '';
+    $account_status = '';
 
-// Global variable to store the user's subscribed newsletters
-$subscribed_newsletters = [];
-
-
-// Include database connection
-include '../buwanaconn_env.php';
-include '../gobrikconn_env.php';
-require_once ("../scripts/earthen_subscribe_functions.php");
-
-// Look up user information if buwana_id is provided
-if ($buwana_id) {
-    $gea_status = getGEA_status($buwana_id);  //added here
-    $sql_lookup_credential = "SELECT credential_type, credential_key FROM credentials_tb WHERE buwana_id = ?";
-    $stmt_lookup_credential = $buwana_conn->prepare($sql_lookup_credential);
-    if ($stmt_lookup_credential) {
-        $stmt_lookup_credential->bind_param("i", $buwana_id);
-        $stmt_lookup_credential->execute();
-        $stmt_lookup_credential->bind_result($credential_type, $credential_key);
-        $stmt_lookup_credential->fetch();
-        $stmt_lookup_credential->close();
-    } else {
-        $response['error'] = 'db_error';
-    }
-
-    $sql_lookup_user = "SELECT first_name, account_status FROM users_tb WHERE buwana_id = ?";
-    $stmt_lookup_user = $buwana_conn->prepare($sql_lookup_user);
-    if ($stmt_lookup_user) {
-        $stmt_lookup_user->bind_param("i", $buwana_id);
-        $stmt_lookup_user->execute();
-        $stmt_lookup_user->bind_result($first_name, $account_status);
-        $stmt_lookup_user->fetch();
-        $stmt_lookup_user->close();
-    } else {
-        $response['error'] = 'db_error';
-    }
-
-    $credential_type = htmlspecialchars($credential_type);
-    $first_name = htmlspecialchars($first_name);
-
-    if ($account_status !== 'name set only') {
-        $response['error'] = 'account_status';
-    }
+    // Global variable to store the user's subscribed newsletters
+    $subscribed_newsletters = [];
 
 
+    // Include database connection
+    include '../buwanaconn_env.php';
+    include '../gobrikconn_env.php';
+    require_once ("../scripts/earthen_subscribe_functions.php");
 
-// Check subscription status
-$is_subscribed = false;
-$earthen_subscriptions = ''; // To store newsletter names if subscribed
-if (!empty($credential_key)) {
-    // Call the function and capture the JSON response
-    $api_response = checkEarthenEmailStatus($credential_key);
-
-    // Parse the API response
-    $response_data = json_decode($api_response, true);
-
-    // Check if the response is valid JSON and handle accordingly
-    if (json_last_error() === JSON_ERROR_NONE && isset($response_data['status']) && $response_data['status'] === 'success') {
-        if ($response_data['registered'] === 1) {
-            $is_subscribed = true;
-            // Join newsletter names with commas for display
-            $earthen_subscriptions = implode(', ', $subscribed_newsletters);
+    // Look up user information if buwana_id is provided
+    if ($buwana_id) {
+        $gea_status = getGEA_status($buwana_id);  //added here
+        $sql_lookup_credential = "SELECT credential_type, credential_key FROM credentials_tb WHERE buwana_id = ?";
+        $stmt_lookup_credential = $buwana_conn->prepare($sql_lookup_credential);
+        if ($stmt_lookup_credential) {
+            $stmt_lookup_credential->bind_param("i", $buwana_id);
+            $stmt_lookup_credential->execute();
+            $stmt_lookup_credential->bind_result($credential_type, $credential_key);
+            $stmt_lookup_credential->fetch();
+            $stmt_lookup_credential->close();
+        } else {
+            $response['error'] = 'db_error';
         }
-    } else {
-        // Handle invalid JSON or other errors
-        echo '<script>console.error("Invalid JSON response or error: ' . htmlspecialchars($response_data['message'] ?? 'Unknown error') . '");</script>';
+
+        $sql_lookup_user = "SELECT first_name, account_status FROM users_tb WHERE buwana_id = ?";
+        $stmt_lookup_user = $buwana_conn->prepare($sql_lookup_user);
+        if ($stmt_lookup_user) {
+            $stmt_lookup_user->bind_param("i", $buwana_id);
+            $stmt_lookup_user->execute();
+            $stmt_lookup_user->bind_result($first_name, $account_status);
+            $stmt_lookup_user->fetch();
+            $stmt_lookup_user->close();
+        } else {
+            $response['error'] = 'db_error';
+        }
+
+        $credential_type = htmlspecialchars($credential_type);
+        $first_name = htmlspecialchars($first_name);
+
+        if ($account_status !== 'name set only') {
+            $response['error'] = 'account_status';
+        }
+
+
+
+        // Check subscription status
+        $is_subscribed = false;
+        $earthen_subscriptions = ''; // To store newsletter names if subscribed
+        if (!empty($credential_key)) {
+            // Call the function and capture the JSON response
+            $api_response = checkEarthenEmailStatus($credential_key);
+
+            // Parse the API response
+            $response_data = json_decode($api_response, true);
+
+            // Check if the response is valid JSON and handle accordingly
+            if (json_last_error() === JSON_ERROR_NONE && isset($response_data['status']) && $response_data['status'] === 'success') {
+                if ($response_data['registered'] === 1) {
+                    $is_subscribed = true;
+                    // Join newsletter names with commas for display
+                    $earthen_subscriptions = implode(', ', $subscribed_newsletters);
+                }
+            } else {
+                // Handle invalid JSON or other errors
+                echo '<script>console.error("Invalid JSON response or error: ' . htmlspecialchars($response_data['message'] ?? 'Unknown error') . '");</script>';
+            }
+        }
+
     }
 }
-
+} else {
+    header('Location: login.php?redirect=' . urlencode($page));
+    exit();
 }
 
 ?>

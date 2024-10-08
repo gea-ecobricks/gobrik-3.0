@@ -151,7 +151,9 @@ echo '<!DOCTYPE html>
 <meta charset="UTF-8">
 ';
 ?>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 
 <?php require_once("../includes/profile-inc.php"); ?>
@@ -786,10 +788,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script>
-
-//LOCATION AND WATERSHED
-//FUnctions to access the openstreetmaps api and to populate the local area field and watershed field.
-
 
 $(function () {
     let debounceTimer;

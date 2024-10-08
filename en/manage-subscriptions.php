@@ -11,6 +11,7 @@ startSecureSession(); // Start a secure session with regeneration to prevent ses
 
 // PART 2: Check if user is logged in and session active
 if ($is_logged_in) {
+    $buwana_id = $_GET['id'] ?? null;
     $buwana_id = $_SESSION['buwana_id'] ?? ''; // Retrieve buwana_id from session
 
     // Include database connection
@@ -27,7 +28,7 @@ if ($is_logged_in) {
     $first_name = getFirstName($buwana_conn, $buwana_id);
 
     $response = ['success' => false];
-    $buwana_id = $_GET['id'] ?? null;
+
     $ghost_member_id = '';
 
     // Initialize user variables

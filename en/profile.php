@@ -308,7 +308,7 @@ echo '<!DOCTYPE html>
     <!-- Country-->
     <div class="form-item">
         <label for="country_id" data-lang-id="015-country">Country:</label>
-        <select name="country_id" id="country_id">
+        <select name="country_id" id="country_id" disabled>
             <option value="" data-lang-id="016-select-country">Select Country</option>
             <?php foreach ($countries as $country): ?>
                 <option value="<?php echo $country['country_id']; ?>" <?php if ($country['country_id'] == $country_id) echo 'selected'; ?>>
@@ -361,11 +361,13 @@ echo '<!DOCTYPE html>
                     <!-- Hidden latitude and longitude fields -->
                     <input type="hidden" id="lat" name="latitude" value="<?= htmlspecialchars($user_location_lat, ENT_QUOTES); ?>">
                     <input type="hidden" id="lon" name="longitude" value="<?= htmlspecialchars($user_location_long, ENT_QUOTES); ?>">
-                    <input type="hidden" id="country_id" name="country_id">
 
 
 
             <!--LOCATION OLD
+
+                                <input type="hidden" id="country_id" name="country_id">
+
     <div class="form-item">
         <label for="community_id" data-lang-id="025-community">Your community:</label>
         <select name="community_id" id="community_id">
@@ -781,64 +783,61 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script>
 
+$(function() {
+    let debounceTimer;
 
-    $(function() {
-        let debounceTimer;
-        $("#location_full").autocomplete({
-            source: function(request, response) {
-                $("#loading-spinner").show();
-                clearTimeout(debounceTimer);
-                debounceTimer = setTimeout(() => {
-                    $.ajax({
-                        url: "https://nominatim.openstreetmap.org/search",
-                        dataType: "json",
-                        headers: {
-                            'User-Agent': 'ecobricks.org'
-                        },
-                        data: {
-                            q: request.term,
-                            format: "json"
-                        },
-                        success: function(data) {
-                            $("#loading-spinner").hide();
-                            response($.map(data, function(item) {
-                                return {
-                                    label: item.display_name,
-                                    value: item.display_name,
-                                    lat: item.lat,
-                                    lon: item.lon
-                                };
-                            }));
-                        },
-                        error: function(xhr, status, error) {
-                            $("#loading-spinner").hide();
-                            console.error("Autocomplete error:", error);
-                            response([]);
-                        }
-                    });
-                }, 300);
-            },
-            select: function(event, ui) {
-                console.log('Selected location:', ui.item); // Debugging line
-                $('#location_full').val(ui.item.value);
-                $('#lat').val(ui.item.lat);
-                $('#lon').val(ui.item.lon);
-            },
-            minLength: 3
-        });
-
-        $('#submit-form').on('submit', function() {
-            console.log('Latitude:', $('#lat').val());
-            console.log('Longitude:', $('#lon').val());
-            // alert('Latitude: ' + $('#lat').val() + ', Longitude: ' + $('#lon').val());
-        });
+    // Autocomplete for location input field
+    $("#location_full").autocomplete({
+        source: function(request, response) {
+            $("#loading-spinner").show();
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                $.ajax({
+                    url: "https://nominatim.openstreetmap.org/search",
+                    dataType: "json",
+                    headers: {
+                        'User-Agent': 'ecobricks.org'
+                    },
+                    data: {
+                        q: request.term,
+                        format: "json"
+                    },
+                    success: function(data) {
+                        $("#loading-spinner").hide();
+                        response($.map(data, function(item) {
+                            return {
+                                label: item.display_name,
+                                value: item.display_name,
+                                lat: item.lat,
+                                lon: item.lon
+                            };
+                        }));
+                    },
+                    error: function(xhr, status, error) {
+                        $("#loading-spinner").hide();
+                        console.error("Autocomplete error:", error);
+                        response([]);
+                    }
+                });
+            }, 300);
+        },
+        select: function(event, ui) {
+            console.log('Selected location:', ui.item); // Debugging line
+            $('#location_full').val(ui.item.value);
+            $('#lat').val(ui.item.lat);
+            $('#lon').val(ui.item.lon);
+        },
+        minLength: 3
     });
 
+    // Ensure the latitude and longitude are logged when the form is submitted
+    $('#submit-form').on('submit', function() {
+        console.log('Latitude:', $('#lat').val());
+        console.log('Longitude:', $('#lon').val());
+    });
+});
 
-
-
-// Watershed
-
+// Watershed lookup functionality
 document.addEventListener('DOMContentLoaded', function() {
     const watershedInput = document.getElementById('location_watershed');
     const watershedSuggestions = document.getElementById('watershed-suggestions');
@@ -910,6 +909,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fetchNearbyRivers(lat, lon);
     });
 });
+
 
 </body>
 

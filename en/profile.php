@@ -25,11 +25,14 @@ if ($is_logged_in) {
     require_once '../buwanaconn_env.php';
 
 
+     // Fetch the user's location data
     $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
     $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
-    $first_name = getUserFirstName($buwana_conn, $buwana_id);
+    $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
     $gea_status = getGEA_status($buwana_id);
     $user_community_name = getCommunityName($buwana_conn, $buwana_id);
+    $ecobrick_unique_id = '0';
+    $first_name = getFirstName($buwana_conn, $buwana_id);
 
     // Fetch user information including community_id, location_watershed, location_full, latitude, and longitude
     $sql_user_info = "SELECT full_name, first_name, last_name, email, country_id, language_id, birth_date,

@@ -104,7 +104,7 @@ if ($is_logged_in) {
         }
 
     }
-}
+
 } else {
     header('Location: login.php?redirect=' . urlencode($page));
     exit();

@@ -128,8 +128,7 @@ if ($is_logged_in) {
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
             <h2 data-lang-id="001-manage-subs">Manage Earthen Subscriptions</h2>
-            <h4 style="color:#748931;" data-lang-id="002-sub-subtitle">We share news and notifications by email.</h4>
-            <p><span  data-lang-id="003-get-your">Earthen newsletter and GoBrik notifications sent to </span><?php echo $credential_key; ?>.<span data-lang-id="004-later-upgrade">  To manage your paid subscriptions please login with your email at <a href="https://earthen.io" target="_blank">earthen.io</span>
+            <p><span  data-lang-id="003-get-your">Earthen newsletter and GoBrik notifications sent to </span><?php echo $credential_key; ?>.<span data-lang-id="004-later-upgrade">  To manage your paid subscriptions please login with your email at <a href="https://earthen.io" target="_blank">earthen.io</a></span>
             </p>
            <!--<div id="subscribed" style="color:green;display:<?php echo $is_subscribed ? 'block' : 'none'; ?>;">
                 <?php if ($is_subscribed && !empty($earthen_subscriptions)): ?>
@@ -158,7 +157,7 @@ if ($is_logged_in) {
            </div>
 
             <div id="submit-section" style="text-align:center;margin-top:25px;" data-lang-id="016x-complete-button">
-                <input type="submit" id="submit-button" value="Save Selection" class="submit-button enabled">
+                <input type="submit" id="submit-button" value="💾 Save Selection" class="submit-button enabled">
             </div>
         </form>
 

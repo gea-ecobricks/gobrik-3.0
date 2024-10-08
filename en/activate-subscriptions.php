@@ -104,7 +104,6 @@ if (!empty($credential_key)) {
 <html lang="<?php echo $lang; ?>">
 <head>
 <meta charset="UTF-8">
-<title>Select Earthen Subscriptions</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <?php require_once ("../includes/activate-subscriptions-inc.php");?>

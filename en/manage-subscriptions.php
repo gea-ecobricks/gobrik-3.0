@@ -4,7 +4,7 @@ require_once '../earthenAuth_helper.php'; // Include the authentication helper f
 // PART 1: Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.543';
-$page = 'log';
+$page = 'manage-subscriptions';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
 startSecureSession(); // Start a secure session with regeneration to prevent session fixation
@@ -116,9 +116,7 @@ if ($is_logged_in) {
 <html lang="<?php echo $lang; ?>">
 <head>
 <meta charset="UTF-8">
-<title>Select Earthen Subscriptions</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <?php require_once ("../includes/activate-subscriptions-inc.php");?>
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
@@ -129,23 +127,21 @@ if ($is_logged_in) {
 <div id="form-submission-box" class="landing-page-form">
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="001-select-subs">Select Earthen Subscriptions</h2>
+            <h2 data-lang-id="001-manage-subs">Manage Earthen Subscriptions</h2>
             <h4 style="color:#748931;" data-lang-id="002-sub-subtitle">We share news and notifications by email.</h4>
-            <p><span  data-lang-id="003-get-your">Get our free Earthen newsletter and GoBrik notifications sent to </span><?php echo $credential_key; ?>.<span data-lang-id="004-later-upgrade">  Later you can upgrade to a paid subscription to support the movement.</span>
+            <p><span  data-lang-id="003-get-your">Earthen newsletter and GoBrik notifications sent to </span><?php echo $credential_key; ?>.<span data-lang-id="004-later-upgrade">  To manage your paid subscriptions please login with your email at <a href="https://earthen.io" target="_blank">earthen.io</span>
             </p>
-           <div id="subscribed" style="color:green;display:<?php echo $is_subscribed ? 'block' : 'none'; ?>;">
+           <!--<div id="subscribed" style="color:green;display:<?php echo $is_subscribed ? 'block' : 'none'; ?>;">
                 <?php if ($is_subscribed && !empty($earthen_subscriptions)): ?>
                     <p style="color:green;font-size:1em;">👍 <span data-lang-id="005-nice">Nice! You're already subscribed to:</span> <?php echo htmlspecialchars($earthen_subscriptions); ?>.  <span data-lang-id="006-choose"> Choose to add or remove subscriptions below:</span></p>
                 <?php endif; ?>
-            </div>
+            </div>-->
             <div id="not-subscribed" style="color:grey;display:<?php echo !$is_subscribed ? 'block' : 'none'; ?>;" data-lang-id="007-not-subscribed">You're not yet subscribed to any Earthen newsletters yet.  All are free with upgrade options later.  Please select:</div>
             <div id="earthen-server-error" class="form-field-error"></div>
 
 
-            <!-- SLECT SUBSCRIPTIONS FORM
-            Last Step <?php echo $first_name; ?>...-->
-                   <!-- SIGNUP FORM -->
-        <!-- SIGNUP FORM -->
+            <!-- MANAGE SUBSCRIPTIONS FORM
+                  -->
         <form id="select-earthen-subs" method="post" action="process_sub_selections.php" style="margin-top:30px;">
              <input type="hidden" name="buwana_id" value="<?php echo htmlspecialchars($buwana_id); ?>">
             <input type="hidden" name="credential_key" value="<?php echo htmlspecialchars($credential_key); ?>">
@@ -159,14 +155,10 @@ if ($is_logged_in) {
             </div>
         <p class="form-caption" style="text-align:center; margin-top: 10px;font-size:0.9em;" data-lang-id="009-terms">Earthen newsletters and GoBrik are sent according to our non-profit, privacy <a href="#" onclick="showModalInfo('terms', '<?php echo $lang; ?>')" class="underline-link"> Terms of Service</a>.</p>
 
-<hr style="margin-top:50px; margin-bottom:14px;">
-<h2 data-lang-id="008-that-is-it">That's it!</h2>
-<p data-lang-id="008b-your-activation-complete">Your Buwana account activation process is complete!  Now you can wrap up and login...</p>
-
            </div>
 
             <div id="submit-section" style="text-align:center;margin-top:25px;" data-lang-id="016x-complete-button">
-                <input type="submit" id="submit-button" value="Finish & Login" class="submit-button enabled">
+                <input type="submit" id="submit-button" value="Save Selection" class="submit-button enabled">
             </div>
         </form>
 

@@ -1,6 +1,6 @@
-<title>Activate your Earthen Subscriptions | GoBrik</title>
+<title>Manage your Earthen Subscriptions | GoBrik</title>
 <meta name="keywords" content="Earthen, subscriptions, ativate, manage, unsubscribe">
-<meta name="description" content="Activate and manage your Earthen newsletter subscriptions">
+<meta name="description" content="Subscribe, unsubscribe and manage your Earthen newsletter subscriptions">
 <meta name="author" content="GoBrik.com">
 <meta name="last-modified" content="' . $lastModified . '">
 <meta name="revised" content="' . $lastModified . '">
@@ -11,7 +11,7 @@
 <meta property="og:locale" content="en_GB" >
 <meta property="og:type"          content="website">
 <meta property="og:title"         content="Manage your Earthen Subscriptions">
-<meta property="og:description"   content="Activate and manage your Earthen newsletter subscriptions">
+<meta property="og:description"   content="Subscribe, unsubscribe and manage your Earthen newsletter subscriptions">
 <meta property="og:image"         content="https://gobrik.com/webps/earthen-newsletter-image.png">
 <meta property="og:image:width" content="500">
 <meta property="og:image:height" content="500">

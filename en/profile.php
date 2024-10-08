@@ -84,36 +84,6 @@ if ($result_languages && $result_languages->num_rows > 0) {
         }
     }
 
-//
-// $sql_communities = "SELECT com_id, com_name FROM communities_tb WHERE country_id = ?";
-//
-// // Prepare and execute the query to get all communities for the user's country
-// if ($stmt_communities = $buwana_conn->prepare($sql_communities)) {
-//     $stmt_communities->bind_param("i", $country_id); // Bind the country_id
-//     if ($stmt_communities->execute()) {
-//         $stmt_communities->bind_result($com_id, $com_name);
-//
-//         // Fetch and store all communities in an array
-//         while ($stmt_communities->fetch()) {
-//             $communities[] = ['com_id' => $com_id, 'com_name' => $com_name];
-//         }
-//     } else {
-//         error_log("Error executing statement for fetching communities: " . $stmt_communities->error);
-//     }
-//     $stmt_communities->close();
-// } else {
-//     error_log("Error preparing statement for fetching communities: " . $buwana_conn->error);
-// }
-
-
- // Fetch the user's location data
-//     $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
-//     $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
-//     $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
-//     $gea_status = getGEA_status($buwana_id);
-//     $user_community_name = getCommunityName($buwana_conn, $buwana_id);
-//     $ecobrick_unique_id = '0';
-//     $first_name = getFirstName($buwana_conn, $buwana_id);
 
     // Fetch location latitude and longitude from users_tb
     $sql_location = "SELECT location_lat, location_long FROM users_tb WHERE buwana_id = ?";
@@ -363,8 +333,8 @@ echo '<!DOCTYPE html>
                         <div id="watershed-suggestions" class="suggestions-box"></div>
                     </div>
                     <!-- Hidden latitude and longitude fields -->
-                    <input type="hidden" id="lat" name="latitude" value="<?= htmlspecialchars($user_location_lat, ENT_QUOTES); ?>">
-                    <input type="hidden" id="lon" name="longitude" value="<?= htmlspecialchars($user_location_long, ENT_QUOTES); ?>">
+                    <input  id="lat" name="latitude" value="<?= htmlspecialchars($user_location_lat, ENT_QUOTES); ?>">
+                    <input  id="lon" name="longitude" value="<?= htmlspecialchars($user_location_long, ENT_QUOTES); ?>">
 
 
 

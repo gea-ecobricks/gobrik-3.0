@@ -719,137 +719,54 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <script>
 
+/*COMMUNITY*/
 
-{/*          $(function () { */}
-{/*     let debounceTimer; */}
+document.addEventListener('DOMContentLoaded', function() {
+    const communitySelect = document.getElementById('community_select');
 
-{/*     // Show pin icon when the input is empty and when it's filled */}
-{/*     function updatePinIconVisibility() { */}
-{/*         if ($("#location_full").val().trim() === "" || $("#loading-spinner").is(":hidden")) { */}
-{/*             $("#location-pin").show(); */}
-{/*         } else { */}
-{/*             $("#location-pin").hide(); */}
-{/*         } */}
-{/*     } */}
+    // Log the current community name for debugging
+    console.log('Current community pre-set value:', communitySelect.value);
 
-{/*     // Initialize location search using OpenStreetMap Nominatim API */}
-{/*     $("#location_full").autocomplete({ */}
-{/*         source: function (request, response) { */}
-{/*             $("#loading-spinner").show(); */}
-{/*             $("#location-pin").hide(); // Hide the pin icon when typing starts */}
+    // Add an event listener to trigger AJAX search when user types in the community field
+    communitySelect.addEventListener('input', function() {
+        const query = this.value;
 
-{/*             clearTimeout(debounceTimer); */}
-{/*             debounceTimer = setTimeout(() => { */}
-{/*                 $.ajax({ */}
-{/*                     url: "https://nominatim.openstreetmap.org/search", */}
-{/*                     dataType: "json", */}
-{/*                     headers: { */}
-{/*                         'User-Agent': 'ecobricks.org' */}
-{/*                     }, */}
-{/*                     data: { */}
-{/*                         q: request.term, */}
-{/*                         format: "json" */}
-{/*                     }, */}
-{/*                     success: function (data) { */}
-{/*                         $("#loading-spinner").hide(); */}
-{/*                         updatePinIconVisibility(); // Show the pin when data has loaded */}
+        // If the user has typed at least 3 characters, trigger the AJAX search
+        if (query.length >= 3) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '../api/search_communities.php', true);  // Assume you have a separate PHP file for searching
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-{/*                         response($.map(data, function (item) { */}
-{/*                             return { */}
-{/*                                 label: item.display_name, */}
-{/*                                 value: item.display_name, */}
-{/*                                 lat: item.lat, */}
-{/*                                 lon: item.lon */}
-{/*                             }; */}
-{/*                         })); */}
-{/*                     }, */}
-{/*                     error: function (xhr, status, error) { */}
-{/*                         $("#loading-spinner").hide(); */}
-{/*                         updatePinIconVisibility(); // Show the pin when an error occurs */}
-{/*                         console.error("Autocomplete error:", error); */}
-{/*                         response([]); */}
-{/*                     } */}
-{/*                 }); */}
-{/*             }, 300); */}
-{/*         }, */}
-{/*         select: function (event, ui) { */}
-{/*             console.log('Selected location:', ui.item); */}
-{/*             $('#lat').val(ui.item.lat);  // Store latitude in hidden field */}
-{/*             $('#lon').val(ui.item.lon);  // Store longitude in hidden field */}
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    // Handle response, for example, show a list of matching communities
+                    showCommunitySuggestions(response);
+                }
+            };
 
-{/*             // Log latitude and longitude for debugging */}
-{/*             console.log('Latitude:', ui.item.lat); */}
-{/*             console.log('Longitude:', ui.item.lon); */}
+            xhr.send('query=' + encodeURIComponent(query));
+        }
+    });
 
-{/*             updatePinIconVisibility(); // Show pin icon after selection */}
-{/*         }, */}
-{/*         minLength: 3 */}
-{/*     }); */}
+    // Function to display the community suggestions
+    function showCommunitySuggestions(communities) {
+        // Clear previous suggestions
+        const suggestionsBox = document.getElementById('community-suggestions');
+        suggestionsBox.innerHTML = '';
 
-{/*     // Show or hide the pin icon based on input value changes */}
-{/*     $("#location_full").on("input", function () { */}
-{/*         updatePinIconVisibility(); */}
-{/*     }); */}
-
-{/*     // Fetch nearby rivers when the user focuses on the "location_watershed" input field */}
-{/*     $("#location_watershed").on('focus', function () { */}
-{/*         const lat = $('#lat').val();  // Fetch latitude from hidden field */}
-{/*         const lon = $('#lon').val();  // Fetch longitude from hidden field */}
-
-{/*         // Log lat and lon values for debugging */}
-{/*         console.log("Lat value on focus:", lat); */}
-{/*         console.log("Lon value on focus:", lon); */}
-
-{/*         // Check if latitude and longitude are available */}
-{/*         if (!lat || !lon) { */}
-{/*             console.error('No location selected to find nearby rivers.'); */}
-{/*             return;  // Exit if no lat/lon available */}
-{/*         } */}
-
-{/*         // Show loading spinner for the watershed field */}
-{/*         $("#loading-spinner-watershed").show(); */}
-{/*         $("#watershed-pin").hide(); // Hide the river pin icon when searching */}
-
-{/*         // Fetch nearby rivers using Overpass API */}
-{/*         fetchNearbyRivers(lat, lon); */}
-{/*     }); */}
-
-{/*     // Function to fetch nearby rivers using Overpass API */}
-{/*     function fetchNearbyRivers(lat, lon) { */}
-{/*         const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];(way["waterway"="river"](around:5000,${lat},${lon});relation["waterway"="river"](around:5000,${lat},${lon}););out body;`; */}
-
-{/*         $.get(overpassUrl, function (data) { */}
-{/*             $("#loading-spinner-watershed").hide(); */}
-{/*             $("#watershed-pin").show(); */}
-
-{/*             let rivers = data.elements; */}
-{/*             let uniqueRivers = new Set(); */}
-
-{/*             // Clear previous options and add a default message */}
-{/*             $('#location_watershed').empty().append('<option value="" disabled selected>Select your nearest river</option>'); */}
-
-{/*             // Iterate through rivers and add up to 5 unique names to the dropdown */}
-{/*             rivers.forEach(function (river) { */}
-{/*                 let riverName = river.tags.name; */}
-
-{/*                 if (riverName && !uniqueRivers.has(riverName) && !riverName.toLowerCase().includes("unnamed") && uniqueRivers.size < 5) { */}
-{/*                     uniqueRivers.add(riverName); */}
-{/*                     $('#location_watershed').append(new Option(riverName, riverName)); */}
-{/*                 } */}
-{/*             }); */}
-
-{/*             // If no rivers are found, show a message in the dropdown */}
-{/*             if (uniqueRivers.size === 0) { */}
-{/*                 $('#location_watershed').append('<option value="" disabled>No rivers found nearby</option>'); */}
-{/*             } */}
-{/*         }).fail(function () { */}
-{/*             $("#loading-spinner-watershed").hide(); */}
-{/*             console.error("Failed to fetch data from Overpass API."); */}
-{/*             $('#location_watershed').append('<option value="" disabled>Error fetching rivers</option>'); */}
-{/*         }); */}
-{/*     } */}
-{/* }); */}
-
+        communities.forEach(function(community) {
+            const suggestionItem = document.createElement('div');
+            suggestionItem.textContent = community.com_name;
+            suggestionItem.classList.add('suggestion-item'); // Add class for styling
+            suggestionItem.addEventListener('click', function() {
+                communitySelect.value = community.com_name;
+                suggestionsBox.innerHTML = '';  // Clear suggestions once a community is selected
+            });
+            suggestionsBox.appendChild(suggestionItem);
+        });
+    }
+});
 
 </script>
 
@@ -911,61 +828,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+// Watershed
 
-
-
-
-
-    //community functions
-document.addEventListener('DOMContentLoaded', function() {
-    const communitySelect = document.getElementById('community_select');
-
-    // Log the current community name for debugging
-    console.log('Current community pre-set value:', communitySelect.value);
-
-    // Add an event listener to trigger AJAX search when user types in the community field
-    communitySelect.addEventListener('input', function() {
-        const query = this.value;
-
-        // If the user has typed at least 3 characters, trigger the AJAX search
-        if (query.length >= 3) {
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', '../api/search_communities.php', true);  // Assume you have a separate PHP file for searching
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    const response = JSON.parse(xhr.responseText);
-                    // Handle response, for example, show a list of matching communities
-                    showCommunitySuggestions(response);
-                }
-            };
-
-            xhr.send('query=' + encodeURIComponent(query));
-        }
-    });
-
-    // Function to display the community suggestions
-    function showCommunitySuggestions(communities) {
-        // Clear previous suggestions
-        const suggestionsBox = document.getElementById('community-suggestions');
-        suggestionsBox.innerHTML = '';
-
-        communities.forEach(function(community) {
-            const suggestionItem = document.createElement('div');
-            suggestionItem.textContent = community.com_name;
-            suggestionItem.classList.add('suggestion-item'); // Add class for styling
-            suggestionItem.addEventListener('click', function() {
-                communitySelect.value = community.com_name;
-                suggestionsBox.innerHTML = '';  // Clear suggestions once a community is selected
-            });
-            suggestionsBox.appendChild(suggestionItem);
-        });
-    }
-});
-
-
-//Watershed
 document.addEventListener('DOMContentLoaded', function() {
     const watershedInput = document.getElementById('location_watershed');
     const watershedSuggestions = document.getElementById('watershed-suggestions');
@@ -1039,4 +903,5 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 </body>
+
 </html>

@@ -375,9 +375,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 //ROTATE Photo
-//ROTATE Photo
 
-// Function to send rotation request to the PHP function
+// SECTION 1: Function to send rotation request to the PHP function
 function rotateEcobrickPhoto(photoUrl, rotationDegrees, photoId, totalRotationDegrees) {
     // Create an AJAX request to send the rotation degrees to the server
     var xhr = new XMLHttpRequest();
@@ -387,22 +386,33 @@ function rotateEcobrickPhoto(photoUrl, rotationDegrees, photoId, totalRotationDe
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
+    // Handle the server's response
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
                 console.log("Server response: " + xhr.responseText);
                 if (xhr.responseText.trim() === "Image rotated successfully.") {
+                    // Alert the user of the successful rotation
                     alert("Your photo has been rotated " + totalRotationDegrees + " degrees clockwise and saved to the server.");
                     console.log("Image rotation successful for: " + photoUrl);
 
-                    // Reset the rotation to zero after confirmation
+                    // SECTION 2: Reset the rotation to zero after confirmation
                     var imageElement = document.getElementById(photoId);
                     imageElement.style.transform = 'rotate(0deg)';
                     imageElement.setAttribute('data-rotation', 0); // Reset the rotation data attribute
+
+                    // SECTION 3: Refresh the image after confirmation (COMMENTED OUT)
+                    // This section is responsible for refreshing the image after the rotation is confirmed.
+                    // Commenting this out to prevent the image from being refreshed after confirmation.
+                    /*
+                    imageElement.src = photoUrl + "?t=" + new Date().getTime(); // Force the browser to reload the image
+                    */
                 } else {
+                    // Handle error response from the server
                     alert("Something went wrong saving your rotation. Error: " + xhr.responseText);
                 }
             } else {
+                // Handle the error if the request was unsuccessful
                 alert("An error occurred. Status: " + xhr.status);
             }
         }
@@ -412,26 +422,28 @@ function rotateEcobrickPhoto(photoUrl, rotationDegrees, photoId, totalRotationDe
     xhr.send(params);
 }
 
-// Function to adjust the height of the container after the image rotates
+// SECTION 4: Function to adjust the height of the container after the image rotates
 function adjustContainerHeight(photo, container) {
     var currentRotation = parseInt(photo.getAttribute('data-rotation')) || 0;
 
+    // Adjust height when the image is rotated by 90 or 270 degrees
     if (currentRotation % 180 !== 0) {
         var newHeight = photo.width;
         container.style.height = newHeight + 'px';
     } else {
+        // Set container height to auto when image is not rotated (0 or 180 degrees)
         container.style.height = 'auto';
     }
 }
 
-// Function to handle the rotate button clicks
+// SECTION 5: Function to handle the rotate button clicks
 document.querySelectorAll('.rotate-button').forEach(function(button) {
     button.addEventListener('click', function() {
         var photoContainer = this.closest('.photo-container');
         var photo = photoContainer.querySelector('.rotatable-photo');
         var confirmButton = photoContainer.querySelector('.confirm-rotate-button');
 
-        // Get the current rotation from data attribute
+        // Get the current rotation from the data attribute
         var currentRotation = parseInt(photo.getAttribute('data-rotation')) || 0;
         var direction = this.getAttribute('data-direction');
 
@@ -454,7 +466,7 @@ document.querySelectorAll('.rotate-button').forEach(function(button) {
     });
 });
 
-// Handle the confirmation button click to send the rotation to the server
+// SECTION 6: Handle the confirmation button click to send the rotation to the server
 document.querySelectorAll('.confirm-rotate-button').forEach(function(button) {
     button.addEventListener('click', function() {
         var photoContainer = this.closest('.photo-container');
@@ -470,7 +482,6 @@ document.querySelectorAll('.confirm-rotate-button').forEach(function(button) {
         rotateEcobrickPhoto(photoUrl, currentRotation, photoId, totalRotationDegrees);
     });
 });
-
 
 
 

@@ -124,6 +124,8 @@ echo '<!DOCTYPE html>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
 
 <?php require_once("../includes/profile-inc.php"); ?>
@@ -333,57 +335,10 @@ echo '<!DOCTYPE html>
                         <div id="watershed-suggestions" class="suggestions-box"></div>
                     </div>
                     <!-- Hidden latitude and longitude fields -->
-                    <input  id="lat" name="latitude" value="<?= htmlspecialchars($user_location_lat, ENT_QUOTES); ?>">
-                    <input  id="lon" name="longitude" value="<?= htmlspecialchars($user_location_long, ENT_QUOTES); ?>">
+                    <input type="hidden" id="lat" name="latitude" value="<?= htmlspecialchars($user_location_lat, ENT_QUOTES); ?>">
+                    <input type="hidden" id="lon" name="longitude" value="<?= htmlspecialchars($user_location_long, ENT_QUOTES); ?>">
 
 
-
-            <!--LOCATION OLD
-
-                                <input type="hidden" id="country_id" name="country_id">
-
-    <div class="form-item">
-        <label for="community_id" data-lang-id="025-community">Your community:</label>
-        <select name="community_id" id="community_id">
-            <option value="" data-lang-id="026-select-community">Select Community</option>
-
-            <?php foreach ($communities as $community): ?>
-                <option value="<?php echo htmlspecialchars($community['com_id']); ?>" <?php if ($community['com_id'] == $community_id) echo 'selected'; ?>>
-                    <?php echo htmlspecialchars($community['com_name']); ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-        <p class="form-caption" data-lang-id="011-location-full-caption">Your GoBrik community (migrated from GoBrik 2.0, soon you'll be able to add new communities)</p>
-    </div>
-
-
-<input  id="lat" name="latitude">
-<input  id="lon" name="longitude">
-
-<div class="form-item">
-    <label for="location_full" data-lang-id="011X-location-full">Your local area:</label><br>
-    <div class="input-container">
-        <input type="text" id="location_full" name="location_full" aria-label="Location Full"
-               value="<?php echo $location_full; ?>" required style="padding-left:45px;">
-        <div id="loading-spinner" class="spinner" style="display: none;"></div>
-        <div id="location-pin" class="pin-icon">📍</div>
-    </div>
-    <p class="form-caption" data-lang-id="011-location-full-caption">To edit, start typing your local area name, and we'll fill in the rest using the open source, non-corporate OpenStreetMap API.</p>
-    <div id="location-error-required" class="form-field-error" data-lang-id="000-field-required-error">This field is required.</div>
-</div>
-
-
-<div class="form-item">
-    <label for="location_watershed" data-lang-id="011-watershed-location">Your local river:</label><br>
-    <div class="input-container">
-        <input type="text" id="location_watershed" name="location_watershed"
-               value="<?php echo $location_watershed; ?>" aria-label="Location Watershed" style="padding-left:45px;" >
-        <div id="loading-spinner-watershed" class="spinner" style="display: none;"></div>
-        <div id="watershed-pin" class="pin-icon">💧</div>
-    </div>
-    <p class="form-caption">💚 Rivers and their basins provide a great non-political way to localize our users by ecological region!</p>
-</div>
--->
 
 
 
@@ -393,11 +348,6 @@ echo '<!DOCTYPE html>
     </div>
 
 </form>
-
-
-
-
-
 
 
         </div>

@@ -248,6 +248,45 @@ echo '<!DOCTYPE html>
         <input type="text" name="last_name" id="last_name" value="<?php echo htmlspecialchars($last_name); ?>" required>
     </div>
 
+
+
+    <!-- Preferred Language -->
+    <div class="form-item">
+        <label for="language_id" data-lang-id="017-preferred-language">Preferred Language:</label>
+        <select name="language_id" id="language_id">
+            <option value="" data-lang-id="018-select-language">Select Language</option>
+            <?php foreach ($languages as $language): ?>
+                <option value="<?php echo htmlspecialchars($language['language_id']); ?>" <?php if ($language['language_id'] == $language_id) echo 'selected'; ?>>
+                    <?php
+                    switch (strtolower($lang)) {
+                        case 'id':
+                            echo htmlspecialchars($language['language_name_id']);
+                            break;
+                        case 'fr':
+                            echo htmlspecialchars($language['language_name_fr']);
+                            break;
+                        case 'es':
+                            echo htmlspecialchars($language['language_name_es']);
+                            break;
+                        case 'en':
+                        default:
+                            echo htmlspecialchars($language['language_name_en']);
+                            break;
+                    }
+                    ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+
+    <!-- Birth Date -->
+    <div class="form-item">
+        <label for="birth_date" data-lang-id="019-birth-date">Birth Date:</label>
+        <input type="date" name="birth_date" id="birth_date" value="<?php echo htmlspecialchars($birth_date); ?>">
+    </div>
+
+<hr>
+
     <!-- Continent -->
     <div class="form-item">
         <label for="continent_code" data-lang-id="021-continent">Continent:</label>
@@ -366,41 +405,6 @@ echo '<!DOCTYPE html>
 -->
 
 
-
-    <!-- Preferred Language -->
-    <div class="form-item">
-        <label for="language_id" data-lang-id="017-preferred-language">Preferred Language:</label>
-        <select name="language_id" id="language_id">
-            <option value="" data-lang-id="018-select-language">Select Language</option>
-            <?php foreach ($languages as $language): ?>
-                <option value="<?php echo htmlspecialchars($language['language_id']); ?>" <?php if ($language['language_id'] == $language_id) echo 'selected'; ?>>
-                    <?php
-                    switch (strtolower($lang)) {
-                        case 'id':
-                            echo htmlspecialchars($language['language_name_id']);
-                            break;
-                        case 'fr':
-                            echo htmlspecialchars($language['language_name_fr']);
-                            break;
-                        case 'es':
-                            echo htmlspecialchars($language['language_name_es']);
-                            break;
-                        case 'en':
-                        default:
-                            echo htmlspecialchars($language['language_name_en']);
-                            break;
-                    }
-                    ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </div>
-
-    <!-- Birth Date -->
-    <div class="form-item">
-        <label for="birth_date" data-lang-id="019-birth-date">Birth Date:</label>
-        <input type="date" name="birth_date" id="birth_date" value="<?php echo htmlspecialchars($birth_date); ?>">
-    </div>
 
     <!-- Save and Update Button -->
     <div style="margin:auto;text-align: center;margin-top:30px;">

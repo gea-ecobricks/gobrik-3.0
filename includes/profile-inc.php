@@ -33,6 +33,46 @@
 
 
 
+/* Suggestions box container */
+#community-suggestions {
+    background-color: var(--main-background); /* White background for suggestions */
+    width: calc(100% - 30px); /* Make the suggestions box the same width as the input */
+    max-height: 150px; /* Limit the height */
+    overflow-y: auto; /* Allow scrolling if suggestions exceed max height */
+    z-index: 1000; /* Ensure the dropdown is above other elements */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for the dropdown */
+    margin-top: -3px;
+}
+
+/* Individual suggestion items */
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1em;
+    color: var(--text-color);
+    background-color: var(--background-main); /* White background for individual items */
+}
+
+.suggestion-item:hover {
+    background-color: var(--button-2-1); /* Light gray background on hover */
+}
+
+#watershed-suggestions {
+    background-color: var(--main-background); /* White background for suggestions */
+    width: calc(100% - 30px); /* Make the suggestions box the same width as the input */
+    max-height: 150px; /* Limit the height */
+    overflow-y: auto; /* Allow scrolling if suggestions exceed max height */
+    z-index: 1000; /* Ensure the dropdown is above other elements */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for the dropdown */
+    margin-top: -3px;
+}
+
+
+.dropdown {
+  float: right;
+  overflow: hidden;
+  margin-bottom: -10px;
+}
 
 
 #main-background {

@@ -708,12 +708,16 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script>
-$("#location_full").autocomplete({
+
+    $(document).ready(function () {
+  $("#location_full").autocomplete({
     source: function (request, response) {
         response([{ label: "Test Location 1" }, { label: "Test Location 2" }]);
     },
     minLength: 1
 });
+});
+
 
 
 </body>

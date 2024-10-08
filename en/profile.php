@@ -220,37 +220,13 @@ echo '<!DOCTYPE html>
                 <div class="form-item">
                         <p data-lang-id="011b-longitude"><strong>Latitude:</strong> <?php echo htmlspecialchars($longitude); ?></p>
                     </div>
+                <!-- <div class="form-item">
+                        <p data-lang-id="021-continent"><strong>Continent:</strong> <?php echo htmlspecialchars($continent['continent_name_en']); ?></p>
+                    </div>
 
-                <?php
-// Get the user's country and continent names
-$country_name = '';
-$continent_name = '';
-
-// Find the country name based on the user's country_id
-foreach ($countries as $country) {
-    if ($country['country_id'] == $country_id) {
-        $country_name = $country['country_name'];
-        break;
-    }
-}
-
-// Find the continent name based on the user's continent_code
-foreach ($continents as $continent) {
-    if ($continent['continent_code'] == $continent_code) {
-        $continent_name = $continent['continent_name_en'];
-        break;
-    }
-}
-?>
-
-<div class="form-item">
-    <p data-lang-id="021-continent"><strong>Continent:</strong> <?php echo htmlspecialchars($continent_name); ?></p>
-</div>
-
-<div class="form-item">
-    <p data-lang-id="015-country"><strong>Country:</strong> <?php echo htmlspecialchars($country_name); ?></p>
-</div>
-
+                <div class="form-item">
+                        <p data-lang-id="015-country"><strong>Country:</strong> <?php echo htmlspecialchars($country['country_name']); ?></p>
+                    </div> -->
 
 
             </div>
@@ -316,10 +292,11 @@ foreach ($continents as $continent) {
 
 <hr>
 
-    <!-- Continent
+    <!-- Continent-->
+
     <div class="form-item">
         <label for="continent_code" data-lang-id="021-continent">Continent:</label>
-        <select name="continent_code" id="continent_code">
+        <select name="continent_code" id="continent_code" disabled>
             <option value="" data-lang-id="022-select-continent">Select Continent</option>
             <?php foreach ($continents as $continent): ?>
                 <option value="<?php echo $continent['continent_code']; ?>" <?php if ($continent['continent_code'] == $continent_code) echo 'selected'; ?>>
@@ -327,9 +304,8 @@ foreach ($continents as $continent) {
                 </option>
             <?php endforeach; ?>
         </select>
-    </div>-->
-
-    <!-- Country
+    </div>
+    <!-- Country-->
     <div class="form-item">
         <label for="country_id" data-lang-id="015-country">Country:</label>
         <select name="country_id" id="country_id">
@@ -340,7 +316,7 @@ foreach ($continents as $continent) {
                 </option>
             <?php endforeach; ?>
         </select>
-    </div>-->
+    </div>
 
 <!--LOCATION-->
 

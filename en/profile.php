@@ -282,13 +282,6 @@ echo '<!DOCTYPE html>
 
 <!--LOCATION-->
 
-     <div class="advanced-box-header"  id="advancedBoxLabel-1">
-                        <div class="advanced-title" data-lang-id="031-location-tags">⚙️ Location</div>
-                        <div class="advanced-open-icon">+</div>
-                    </div>
-                    <div class="advanced-box-content" style="display:none;">
-
-                    <p data-lang-id="111-localization-explanation">When you log an ecobrick it is tagged with your own Buwana account localization.  You can edit these defaults here:</p>
 
                      <div class="form-item">
                         <label for="community_select" data-lang-id="032-community-tag">Community:</label><br>
@@ -331,7 +324,7 @@ echo '<!DOCTYPE html>
                     <input type="hidden" id="lat" name="latitude" value="<?= htmlspecialchars($user_location_lat, ENT_QUOTES); ?>">
                     <input type="hidden" id="lon" name="longitude" value="<?= htmlspecialchars($user_location_long, ENT_QUOTES); ?>">
                     <input type="hidden" id="country_id" name="country_id">
-                </div>
+
 
 
             <!--LOCATION OLD

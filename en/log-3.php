@@ -471,7 +471,6 @@ document.querySelectorAll('.confirm-rotate-button').forEach(function(button) {
     button.addEventListener('click', function() {
         var photoContainer = this.closest('.photo-container');
         var photo = photoContainer.querySelector('.rotatable-photo');
-        var currentRotation = parseInt(photo.getAttribute('data-rotation')) || 0;
         var photoUrl = this.previousElementSibling.getAttribute('data-photo-url'); // Get the original photo URL from the rotate button
 
         // Calculate total clockwise rotation (normalize it to 0-360)
@@ -480,11 +479,6 @@ document.querySelectorAll('.confirm-rotate-button').forEach(function(button) {
         // Trigger the PHP function to rotate the actual photo
         var photoId = photo.getAttribute('id'); // Assuming the photo ID corresponds to the ecobrick ID or serial_no
         rotateEcobrickPhoto(photoUrl, currentRotation, photoId, totalRotationDegrees);
-
-        // SECTION: Reapply the user's rotation after confirmation
-        // Apply the rotation back to the image after it has been confirmed by the server
-        photo.style.transform = 'rotate(' + currentRotation + 'deg)';
-        photo.setAttribute('data-rotation', currentRotation); // Update the data-rotation attribute to reflect the confirmed rotation
     });
 });
 

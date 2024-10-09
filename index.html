@@ -103,7 +103,13 @@ AND UNIQUE to HTML Pages-->
     font-family: 'Mulish', sans-serif;
 }
 
-/* Light mode styles */
+.subtitle a {
+text-decoration: none;
+font-size: 1.5em;
+    font-family: 'Arvo', serif;
+    color:grey;
+    }
+
 @media (prefers-color-scheme: light) {
     body {
         background-color: white;
@@ -143,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         window.location.href = langDir;
-    }, 1000); // 10 seconds
+    }, 100000); // 10 seconds
 });
 
 </script>

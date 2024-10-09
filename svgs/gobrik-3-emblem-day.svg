@@ -47,12 +47,14 @@
          stop-color="#fff"
          stop-opacity=".15201"
          offset="0"
-         id="stop1" />
+         id="stop1"
+         style="stop-color:#d6d6d6;stop-opacity:0.15200998;" />
       <stop
          stop-color="#f2f2f2"
          stop-opacity="0"
          offset="1"
-         id="stop2" />
+         id="stop2"
+         style="stop-color:#dfdfdf;stop-opacity:0;" />
     </linearGradient>
     <clipPath
        id="clipPath6603-6">

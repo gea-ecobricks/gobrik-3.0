@@ -61,7 +61,7 @@ AND UNIQUE to HTML Pages-->
     align-items: center;
     background-color: black;
     color: darkgrey;
-    font-family: Arial, sans-serif;
+    font-family: 'Mulish', sans-serif;
     overflow: hidden; /* Prevent scrolling */
 }
 
@@ -95,12 +95,12 @@ AND UNIQUE to HTML Pages-->
 
 .subtitle p:last-child {
     font-size: 1.5em;
-    font-family: 'Arvo', serif,
+    font-family: 'Arvo', serif;
 }
 
 .subtitle p:first-child {
     font-size: 1.2em;
-    font-family: 'Mulish',sans-serif,
+    font-family: 'Mulish', sans-serif;
 }
 
 /* Light mode styles */
@@ -112,6 +112,14 @@ AND UNIQUE to HTML Pages-->
     .logo {
         background-image: url('svgs/gobrik-3-emblem.svg');
     }
+}
+
+    #gea-icon {
+       background: url('icons/trainer-newsletter-icon.webp') no-repeat;
+        background-size: contain;
+        width: 50px;
+        height:50px;
+
 }
 
 
@@ -146,6 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="container">
         <div class="logo"></div>
         <div class="subtitle">
+            <div id="gea-icon"></div>
             <p>GoBrik is a project of the </p>
             <p>Global Ecobrick Alliance</p>
         </div>

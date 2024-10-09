@@ -478,7 +478,6 @@ document.querySelectorAll('.confirm-rotate-button').forEach(function(button) {
 });
 
 
-
 </script>
 
 

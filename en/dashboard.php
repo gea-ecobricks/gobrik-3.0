@@ -22,21 +22,23 @@ if ($is_logged_in) {
     $gea_status = getGEA_status($buwana_id);
     $user_community_name = getCommunityName($buwana_conn, $buwana_id);
 
-    // Fetch user details from the GoBrik database
-    $sql_lookup_user = "SELECT first_name, ecobricks_made, location_full_txt, maker_id FROM tb_ecobrickers WHERE buwana_id = ?";
+   // Fetch user details from the GoBrik database
+    $sql_lookup_user = "SELECT first_name, ecobricks_made, maker_id FROM tb_ecobrickers WHERE buwana_id = ?";
     $stmt_lookup_user = $gobrik_conn->prepare($sql_lookup_user);
 
     if ($stmt_lookup_user) {
         $stmt_lookup_user->bind_param("i", $buwana_id);
         $stmt_lookup_user->execute();
-        $stmt_lookup_user->bind_result($first_name, $ecobricks_made, $location_full_txt, $maker_id);
+        $stmt_lookup_user->bind_result($first_name, $ecobricks_made, $maker_id);
         $stmt_lookup_user->fetch();
         $stmt_lookup_user->close();
     } else {
         die("Error preparing statement for tb_ecobrickers: " . $gobrik_conn->error);
     }
 
+
     // Fetch other user data (e.g., ecobrick count and weight)
+    //Please help me modify this php so that it returns a weight in kg rather than grams for total_weight:
     $sql = "SELECT COUNT(*) as ecobrick_count, SUM(weight_g) / 1000 as total_weight FROM tb_ecobricks";
     $result = $gobrik_conn->query($sql);
 
@@ -49,8 +51,16 @@ if ($is_logged_in) {
         $total_weight = 0;
     }
 
+
     // Fetch recent ecobricks data
-    $sql_recent = "SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, volume_ml, location_full, ecobricker_maker, serial_no, status FROM tb_ecobricks WHERE maker_id = ? ORDER BY date_logged_ts DESC LIMIT 20";
+  $sql_recent = "
+    SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, tb_ecobricks.weight_g, tb_ecobricks.volume_ml,
+           tb_ecobricks.location_full, tb_ecobricks.ecobricker_maker, tb_ecobricks.serial_no, tb_ecobricks.status
+    FROM tb_ecobricks
+    JOIN tb_ecobrickers ON tb_ecobricks.maker_id = tb_ecobrickers.maker_id
+    WHERE tb_ecobricks.maker_id = ? AND tb_ecobrickers.buwana_id = ?
+    ORDER BY tb_ecobricks.date_logged_ts DESC
+    LIMIT 20";
     $stmt_recent = $gobrik_conn->prepare($sql_recent);
 
     $total_weight = 0;

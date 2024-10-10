@@ -53,7 +53,8 @@ if ($is_logged_in) {
 
 
     // Fetch recent ecobricks data
-  $sql_recent = "
+  // Fetch recent ecobricks data for a specific maker_id and buwana_id
+$sql_recent = "
     SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, tb_ecobricks.weight_g, tb_ecobricks.volume_ml,
            tb_ecobricks.location_full, tb_ecobricks.ecobricker_maker, tb_ecobricks.serial_no, tb_ecobricks.status
     FROM tb_ecobricks
@@ -61,31 +62,43 @@ if ($is_logged_in) {
     WHERE tb_ecobricks.maker_id = ? AND tb_ecobrickers.buwana_id = ?
     ORDER BY tb_ecobricks.date_logged_ts DESC
     LIMIT 20";
-    $stmt_recent = $gobrik_conn->prepare($sql_recent);
 
-    $total_weight = 0;
-    $total_volume = 0;
-    $recent_ecobricks = [];
-    if ($stmt_recent) {
-        $stmt_recent->bind_param("s", $maker_id);
-        $stmt_recent->execute();
-        $stmt_recent->bind_result($ecobrick_thumb_photo_url, $ecobrick_full_photo_url, $weight_g, $volume_ml, $location_full, $ecobricker_maker, $serial_no, $status);
-        while ($stmt_recent->fetch()) {
-            $recent_ecobricks[] = [
-                'ecobrick_thumb_photo_url' => $ecobrick_thumb_photo_url,
-                'ecobrick_full_photo_url' => $ecobrick_full_photo_url,
-                'weight_g' => $weight_g,
-                'volume_ml' => $volume_ml,
-                'location_full' => $location_full,
-                'ecobricker_maker' => $ecobricker_maker,
-                'serial_no' => $serial_no,
-                'status' => $status,
-            ];
-            $total_weight += $weight_g;
-            $total_volume += $volume_ml;
-        }
-        $stmt_recent->close();
+$stmt_recent = $gobrik_conn->prepare($sql_recent);
+
+$total_weight = 0;
+$total_volume = 0;
+$recent_ecobricks = [];
+
+if ($stmt_recent) {
+    // Bind both maker_id and buwana_id to the query
+    $stmt_recent->bind_param("ss", $maker_id, $buwana_id);
+    $stmt_recent->execute();
+
+    // Bind the results
+    $stmt_recent->bind_result($ecobrick_thumb_photo_url, $ecobrick_full_photo_url, $weight_g, $volume_ml, $location_full, $ecobricker_maker, $serial_no, $status);
+
+    // Fetch and process the results
+    while ($stmt_recent->fetch()) {
+        $recent_ecobricks[] = [
+            'ecobrick_thumb_photo_url' => $ecobrick_thumb_photo_url,
+            'ecobrick_full_photo_url' => $ecobrick_full_photo_url,
+            'weight_g' => $weight_g,
+            'volume_ml' => $volume_ml,
+            'location_full' => $location_full,
+            'ecobricker_maker' => $ecobricker_maker,
+            'serial_no' => $serial_no,
+            'status' => $status,
+        ];
+        $total_weight += $weight_g;
+        $total_volume += $volume_ml;
     }
+
+    // Close the statement after fetching
+    $stmt_recent->close();
+} else {
+    die("Error preparing the statement for fetching recent ecobricks: " . $gobrik_conn->error);
+}
+
 
     // Calculate net density
     $net_density = $total_volume > 0 ? $total_weight / $total_volume : 0;

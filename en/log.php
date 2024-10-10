@@ -68,6 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $location_long = (float)trim($_POST['longitude']);
         $location_watershed = trim($_POST['location_watershed']);
         // Background set variables
+        $maker_id = $buwana_id;
         $owner = $ecobricker_maker;
         $status = "not ready";
         $universal_volume_ml = $volume_ml;
@@ -170,17 +171,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     ecobrick_unique_id, serial_no, ecobricker_maker, volume_ml, weight_g, sequestration_type,
                     plastic_from, location_full, bottom_colour, location_lat, location_long, brand_name, owner, status,
                     universal_volume_ml, density, date_logged_ts, CO2_kg, last_ownership_change,
-                    actual_maker_name, brik_notes, date_published_ts, location_watershed, community_id, country_id
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    actual_maker_name, brik_notes, date_published_ts, location_watershed, community_id, country_id, maker_id;
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             if ($stmt = $gobrik_conn->prepare($sql)) {
                     // Bind parameters for INSERT
                     $stmt->bind_param(
-                        "issiissssddsssidsdsssssii",
+                        "issiissssddsssidsdsssssiis",
                         $ecobrick_unique_id, $serial_no, $ecobricker_maker, $volume_ml, $weight_g,
                         $sequestration_type, $plastic_from, $location_full, $bottom_colour, $location_lat, $location_long,
                         $brand_name, $owner, $status, $universal_volume_ml, $density, $date_logged_ts,
                         $CO2_kg, $last_ownership_change, $actual_maker_name, $brik_notes, $date_published_ts,
-                        $location_watershed, $community_id, $country_id
+                        $location_watershed, $community_id, $country_id, $maker_id
                     );
             }
         }

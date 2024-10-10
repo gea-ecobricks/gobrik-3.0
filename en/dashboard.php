@@ -23,13 +23,13 @@ if ($is_logged_in) {
     $user_community_name = getCommunityName($buwana_conn, $buwana_id);
 
    // Fetch user details from the GoBrik database
-    $sql_lookup_user = "SELECT first_name, ecobricks_made, maker_id FROM tb_ecobrickers WHERE buwana_id = ?";
+    $sql_lookup_user = "SELECT first_name, ecobricks_made, location_full_txt, maker_id FROM tb_ecobrickers WHERE buwana_id = ?";
     $stmt_lookup_user = $gobrik_conn->prepare($sql_lookup_user);
 
     if ($stmt_lookup_user) {
         $stmt_lookup_user->bind_param("i", $buwana_id);
         $stmt_lookup_user->execute();
-        $stmt_lookup_user->bind_result($first_name, $ecobricks_made, $maker_id);
+        $stmt_lookup_user->bind_result($first_name, $ecobricks_made, $location_full_txt, $maker_id);
         $stmt_lookup_user->fetch();
         $stmt_lookup_user->close();
     } else {
@@ -39,17 +39,36 @@ if ($is_logged_in) {
 
     // Fetch other user data (e.g., ecobrick count and weight)
     //Please help me modify this php so that it returns a weight in kg rather than grams for total_weight:
-    $sql = "SELECT COUNT(*) as ecobrick_count, SUM(weight_g) / 1000 as total_weight FROM tb_ecobricks";
-    $result = $gobrik_conn->query($sql);
+// Prepare SQL query to count ecobricks and calculate total weight filtered by maker_id and buwana_id
+$sql = "
+    SELECT COUNT(*) as ecobrick_count, SUM(weight_g) / 1000 as total_weight
+    FROM tb_ecobricks
+    JOIN tb_ecobrickers ON tb_ecobricks.maker_id = tb_ecobrickers.maker_id
+    WHERE tb_ecobricks.maker_id = ? AND tb_ecobrickers.buwana_id = ?";
 
-    if ($result && $result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $ecobrick_count = $row['ecobrick_count'];
-        $total_weight = $row['total_weight'];
+$stmt = $gobrik_conn->prepare($sql);
+
+if ($stmt) {
+    // Bind both maker_id and buwana_id to the query
+    $stmt->bind_param("ss", $maker_id, $buwana_id);
+    $stmt->execute();
+    $stmt->bind_result($ecobrick_count, $total_weight);
+
+    // Fetch the results
+    if ($stmt->fetch()) {
+        // Handle cases where null values may be returned (e.g., no records found)
+        $ecobrick_count = $ecobrick_count ? $ecobrick_count : 0;
+        $total_weight = $total_weight ? $total_weight : 0;
     } else {
         $ecobrick_count = 0;
         $total_weight = 0;
     }
+
+    $stmt->close();
+} else {
+    die("Error preparing statement for ecobrick data: " . $gobrik_conn->error);
+}
+
 
 
     // Fetch recent ecobricks data

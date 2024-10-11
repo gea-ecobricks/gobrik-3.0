@@ -69,18 +69,13 @@ if ($stmt) {
     die("Error preparing statement for ecobrick data: " . $gobrik_conn->error);
 }
 
-
-
-    // Fetch recent ecobricks data
-  // Fetch recent ecobricks data for a specific maker_id and buwana_id
+// Fetch all ecobricks data for the user's maker id directly from tb_ecobricks
 $sql_recent = "
-    SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, tb_ecobricks.weight_g, tb_ecobricks.volume_ml,
-           tb_ecobricks.location_full, tb_ecobricks.ecobricker_maker, tb_ecobricks.serial_no, tb_ecobricks.status
+    SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, volume_ml,
+           location_full, ecobricker_maker, serial_no, status
     FROM tb_ecobricks
-    JOIN tb_ecobrickers ON tb_ecobricks.maker_id = tb_ecobrickers.maker_id
-    WHERE tb_ecobricks.maker_id = ? AND tb_ecobrickers.buwana_id = ?
-    ORDER BY tb_ecobricks.date_logged_ts DESC
-    LIMIT 20";
+    WHERE maker_id = ?
+    ORDER BY date_logged_ts DESC";
 
 $stmt_recent = $gobrik_conn->prepare($sql_recent);
 
@@ -89,8 +84,8 @@ $total_volume = 0;
 $recent_ecobricks = [];
 
 if ($stmt_recent) {
-    // Bind both maker_id and buwana_id to the query
-    $stmt_recent->bind_param("ss", $maker_id, $buwana_id);
+    // Bind maker_id to the query
+    $stmt_recent->bind_param("s", $maker_id);
     $stmt_recent->execute();
 
     // Bind the results
@@ -115,7 +110,7 @@ if ($stmt_recent) {
     // Close the statement after fetching
     $stmt_recent->close();
 } else {
-    die("Error preparing the statement for fetching recent ecobricks: " . $gobrik_conn->error);
+    die("Error preparing the statement for fetching ecobricks: " . $gobrik_conn->error);
 }
 
 

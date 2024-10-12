@@ -122,6 +122,37 @@ function getGEA_status($buwana_id) {
 }
 
 
+function getEcobrickerID($buwana_id) {
+    // Include the database connection if not already included
+    global $gobrik_conn; // Use the existing connection variable
+
+    // Prepare the SQL statement to fetch the ecobricker_id
+    $sql = "SELECT ecobricker_id FROM tb_ecobrickers WHERE buwana_id = ?";
+    $stmt = $gobrik_conn->prepare($sql);
+
+    // Check if the statement was prepared successfully
+    if ($stmt) {
+        // Bind the buwana_id as an integer to the SQL statement
+        $stmt->bind_param("i", $buwana_id);
+        $stmt->execute();
+
+        // Bind the result to the ecobricker_id variable
+        $stmt->bind_result($ecobricker_id);
+        $stmt->fetch();
+
+        // Close the prepared statement
+        $stmt->close();
+
+        // Return the fetched ecobricker_id
+        return $ecobricker_id;
+    } else {
+        // Log error or handle it appropriately
+        error_log("Database error: " . $gobrik_conn->error);
+        return null;
+    }
+}
+
+
 
 
 

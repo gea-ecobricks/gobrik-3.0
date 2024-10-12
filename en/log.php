@@ -22,6 +22,7 @@ if ($is_logged_in) {
     $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
     $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
     $gea_status = getGEA_status($buwana_id);
+    $user_ecobricker_id = getEcobrickerID($buwana_id);
     $user_community_name = getCommunityName($buwana_conn, $buwana_id);
     $ecobrick_unique_id = '0';
     $first_name = getFirstName($buwana_conn, $buwana_id);
@@ -68,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $location_long = (float)trim($_POST['longitude']);
         $location_watershed = trim($_POST['location_watershed']);
         // Background set variables
-        $maker_id = $buwana_id;
+        $maker_id = $user_ecobricker_id;
         $owner = $ecobricker_maker;
         $status = "not ready";
         $universal_volume_ml = $volume_ml;

@@ -298,7 +298,7 @@ echo '<!DOCTYPE html>
                 </div>
 
                 <div style="display:flex;flex-flow:row;width:100%;justify-content:center;" data-lang-id="037-Xsubmit-upload-button">
-                    <button id="upload-progress-button" aria-label="Submit photos for upload">Upload</button>
+                    <button id="upload-progress-button" aria-label="Submit photos for upload">⬆️ Upload</button>
                 </div>
 
                 </form>
@@ -393,7 +393,7 @@ document.querySelector('#photoform').addEventListener('submit', function(event) 
 
     var button = document.getElementById('upload-progress-button');
     var originalButtonText = button.innerText; // Save the original button text
-    button.innerText = '⬆️ Uploading...'; // Set button text to indicate progress
+    button.innerText = '<div id="loading-spinner" class="spinner">Uploading...</span>'; // Set button text to indicate progress
     button.disabled = true; // Disable button to prevent multiple submissions
 
     var messages = {

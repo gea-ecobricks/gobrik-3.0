@@ -380,6 +380,15 @@ window.onload = function() {
 };
 
 
+
+
+
+</script>
+
+
+<script>
+
+
 function viewEcobrickActions(serial_no, status, lang) {
     const modal = document.getElementById('form-modal-message');
     const messageContainer = document.querySelector('.modal-message');
@@ -443,15 +452,6 @@ function viewEcobrickActions(serial_no, status, lang) {
     });
 }
 
-// Function to close the modal
-function closeInfoModal() {
-    const modal = document.getElementById('form-modal-message');
-    modal.classList.remove('modal-visible');
-    modal.classList.add('modal-hidden');
-}
-
-
 </script>
-
 </body>
 </html>

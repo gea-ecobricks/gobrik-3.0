@@ -36,12 +36,14 @@ if ($is_logged_in) {
         die("Error preparing statement for tb_ecobrickers: " . $gobrik_conn->error);
     }
 
+$maker_id = $ecobricker_id;
+
     // Fetch all ecobricks data for the user's ecobricker_id directly from tb_ecobricks
     $sql_recent = "
         SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g / 1000 AS weight_kg, volume_ml,
                location_full, ecobricker_maker, serial_no, status
         FROM tb_ecobricks
-        WHERE ecobricker_id = ?
+        WHERE maker_id = ?
         ORDER BY date_logged_ts DESC";
 
     $stmt_recent = $gobrik_conn->prepare($sql_recent);

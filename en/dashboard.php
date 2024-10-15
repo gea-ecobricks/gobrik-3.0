@@ -180,10 +180,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     <?php foreach ($recent_ecobricks as $ecobrick) : ?>
                         <tr>
                             <td>
-                                <img src="/<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>"
+                                <img src="/<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>?v=2"
                                      alt="Ecobrick Thumbnail"
                                      class="table-thumbnail"
-                                     onclick="ecobrickPreview('<?php echo htmlspecialchars($ecobrick['ecobrick_full_photo_url']); ?>', '<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['weight_g']); ?>g', '<?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?>', '<?php echo htmlspecialchars($ecobrick['location_full']); ?>')">
+                                     onclick="ecobrickPreview('<?php echo htmlspecialchars($ecobrick['ecobrick_full_photo_url']); ?>?v=2', '<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['weight_g']); ?>g', '<?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?>', '<?php echo htmlspecialchars($ecobrick['location_full']); ?>')">
                             </td>
                             <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?>g</td>
                             <td><?php echo htmlspecialchars($ecobrick['location_full']); ?></td>

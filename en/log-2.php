@@ -200,7 +200,7 @@ echo '<!DOCTYPE html>
             <div class="splash-form-content-block" style="text-align:center; display:flex;flex-flow:column;">
 
                 <div class="splash-image-2" data-lang-id="003-weigh-plastic-image-alt">
-                    <img src="../svgs/snapit.svg?v=3" style="width:35%; margin:auto" alt="Please take a square photo">
+                    <img src="../svgs/snapit.svg?v=3" style="width:35%; margin:auto;margin-top:-15px;" alt="Please take a square photo">
                 </div>
                 <div><h2 data-lang-id="001-form-title">Record Serial & Take Photo</h2></div>
 

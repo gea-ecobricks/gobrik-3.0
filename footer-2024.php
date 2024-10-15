@@ -453,10 +453,7 @@ function showModalInfo(type, lang) {
                 <img class="preview-image" src="../photos/insert-example.webp" alt="${translations['inserts-title']}" height="300" style="margin:auto; display:block;">
                 <p style="text-align:center;">⭐⭐⭐⭐⭐</p>
                 <p class="preview-text" style="text-align:center;">${translations['inserts-text']}</p>
-                <div style="width:100%;text-align:center;">
-                    <a class="preview-btn" href="what.php">${translations['learn-more']}</a>
-                    <p style="font-size:smaller">${translations['link-note']}</p>
-                </div>
+
 
             `;
             break;
@@ -486,7 +483,6 @@ function showModalInfo(type, lang) {
                 <img class="preview-image" src="../photos/marker-example.webp" alt="${translations['marker-title']}" height="300" style="margin:auto; display:block;">
                 <p style="width:100%;text-align:center;">⭐⭐</p>
                 <p class="preview-text" style="text-align:center;">${translations['marker-text']}</p>
-
 
             `;
             break;

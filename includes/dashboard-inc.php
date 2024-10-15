@@ -166,7 +166,7 @@ color: var(--text-color);
 }
 
 
-.confirm-button {
+.ecobrick-action-button {
     width: 100%;           /* Ensures the button takes the full width */
     display: block;        /* Ensures the button behaves as a block element */
     text-align: center;    /* Centers the text inside the button */

@@ -113,7 +113,9 @@ const en_Translations = {
     "marker-title": "Permanent Marker",
     "marker-text": "Write the serial number using a permanent marker (not a board marker of water based marker).",
 
-
+    "015-edit-ecobrick": "Edit ecobrick",
+    "013-view-ecobrick-post": "View ecobrick",
+    "014-delete-ecobrick": "Delete ecobrick",
 
 
     //MODULES

@@ -426,9 +426,7 @@ function viewEcobrickActions(serial_no, status, lang) {
             ✏️ ${translations['015-edit-ecobrick']}
         </a>
 
-        <a class="confirm-button" href="dashboard.php" data-lang-id="000-dashboard" style="width:100%; display: block; margin-bottom: 10px;">
-            🏡 ${translations['000-dashboard']}
-        </a>
+
         <form id="deleteForm" method="POST" style="width:100%;">
             <input type="hidden" name="serial_no" value="${encodedSerialNo}">
             <input type="hidden" name="action" value="delete_ecobrick">
@@ -458,6 +456,47 @@ function viewEcobrickActions(serial_no, status, lang) {
     });
 }
 
+
+
+       document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('deleteButton').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default action
+
+        if (confirm('Are you sure you want to delete this ecobrick from the database? This cannot be undone.')) {
+            const ecobrickUniqueId = document.querySelector('input[name="ecobrick_unique_id"]').value;
+            const action = document.querySelector('input[name="action"]').value;
+
+            fetch('delete-ecobrick.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    'ecobrick_unique_id': ecobrickUniqueId,
+                    'action': action // Include the action field
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok.');
+                }
+                return response.json(); // Expecting JSON from the server
+            })
+            .then(data => {
+                if (data.success) {
+                    alert('Your ecobrick has been successfully deleted. You may now log another ecobrick...');
+                    window.location.href = 'log.php';
+                } else {
+                    alert('There was an error deleting the ecobrick: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error processing your request.');
+            });
+        }
+    });
+});
 
 </script>
 

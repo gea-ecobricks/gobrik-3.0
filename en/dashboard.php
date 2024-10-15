@@ -167,14 +167,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <!-- The button that calls the JavaScript function -->
             <button class="serial-button" onclick="viewEcobrickActions('<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['status']); ?>', '<?php echo htmlspecialchars($lang); ?>')">
                 <?php
-                // Display the serial number with line breaks, without wrapping it in an <a> tag
-                $wrapped_serial_no = substr(htmlspecialchars($ecobrick['serial_no']), 0, 3) . '<br>' . substr(htmlspecialchars($ecobrick['serial_no']), 3, 3);
-                echo $wrapped_serial_no;
+                // Display the serial number without line breaks
+                echo htmlspecialchars($ecobrick['serial_no']);
                 ?>
             </button>
         </td>
     </tr>
 <?php endforeach; ?>
+
 
                 <?php endif; ?>
             </table>

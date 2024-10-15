@@ -376,17 +376,13 @@ window.onload = function() {
 };
 
 
-
 function viewEcobrickActions(serial_no, status, lang) {
     const modal = document.getElementById('form-modal-message');
-    const photobox = document.getElementById('modal-photo-box');
-    const messageContainer = modal.querySelector('.modal-message');
+    const messageContainer = document.querySelector('.modal-message');
     const modalBox = document.getElementById('modal-content-box');
 
-    // Clear existing content
-    photobox.style.display = 'none';
+    // Clear existing content in the modal
     messageContainer.innerHTML = '';
-    modalBox.innerHTML = '';
 
     // Determine the appropriate language object
     let translations;
@@ -404,24 +400,35 @@ function viewEcobrickActions(serial_no, status, lang) {
             translations = en_Translations; // Default to English
     }
 
-    // Construct the content for the modal
+    // Construct the content (stack of buttons)
     let content = `
-        <a class="confirm-button" href="brik.php?serial_no=${serial_no}" data-lang-id="013-view-ecobrick-post" style="width:250px;">${translations['013-view-ecobrick-post']}</a>
-        <a class="confirm-button" href="log.php?retry=${serial_no}" data-lang-id="015-edit-ecobrick" style="width:250px;">✏️ ${translations['015-edit-ecobrick']}</a>
-        <a class="confirm-button" href="log.php" data-lang-id="015-log-another-ecobrick" style="width:250px;">➕ ${translations['015-log-another-ecobrick']}</a>
-        <a class="confirm-button" href="dashboard.php" data-lang-id="000-dashboard" style="width:250px;">🏡 ${translations['000-dashboard']}</a>
+        <a class="confirm-button" href="brik.php?serial_no=${serial_no}" data-lang-id="013-view-ecobrick-post" style="width:100%; display: block; margin-bottom: 10px;">
+            ${translations['013-view-ecobrick-post']}
+        </a>
+        <a class="confirm-button" href="log.php?retry=${serial_no}" data-lang-id="015-edit-ecobrick" style="width:100%; display: block; margin-bottom: 10px;">
+            ✏️ ${translations['015-edit-ecobrick']}
+        </a>
+        <a class="confirm-button" href="log.php" data-lang-id="015-log-another-ecobrick" style="width:100%; display: block; margin-bottom: 10px;">
+            ➕ ${translations['015-log-another-ecobrick']}
+        </a>
+        <a class="confirm-button" href="dashboard.php" data-lang-id="000-dashboard" style="width:100%; display: block; margin-bottom: 10px;">
+            🏡 ${translations['000-dashboard']}
+        </a>
         <form id="deleteForm" method="POST">
             <input type="hidden" name="serial_no" value="${serial_no}">
             <input type="hidden" name="action" value="delete_ecobrick">
-            <a class="confirm-button" style="background:red; cursor:pointer;width:250px;" id="deleteButton" data-lang-id="014-delete-ecobrick">❌ ${translations['014-delete-ecobrick']}</a>
+            <a class="confirm-button" style="background:red; cursor:pointer;width:100%; display: block;" id="deleteButton" data-lang-id="014-delete-ecobrick">
+                ❌ ${translations['014-delete-ecobrick']}
+            </a>
         </form>
     `;
 
-    // Set the content in the modal
-    modalBox.innerHTML = content;
+    // Insert the content into the message container
+    messageContainer.innerHTML = content;
 
     // Display the modal
-    modal.style.display = 'block';
+    modal.classList.remove('modal-hidden');
+    modal.classList.add('modal-visible');
 
     // Add event listener to the delete button
     const deleteButton = document.getElementById('deleteButton');
@@ -430,6 +437,13 @@ function viewEcobrickActions(serial_no, status, lang) {
             document.getElementById('deleteForm').submit();
         }
     });
+}
+
+// Function to close the modal
+function closeInfoModal() {
+    const modal = document.getElementById('form-modal-message');
+    modal.classList.remove('modal-visible');
+    modal.classList.add('modal-hidden');
 }
 
 

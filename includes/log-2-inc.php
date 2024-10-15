@@ -91,47 +91,39 @@ overflow: hidden;
 }
 
 
+
 #upload-progress-button {
   color: white;
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  background-color: #099d09;
-  background-size: 0% 100%;
-  transition: background-size 0.5s ease;
+  background-color: #099d09; /* Green background */
+  position: relative; /* Needed for progress bar overlay */
   font-size: 1.3em;
   width: 100%;
   margin-top: 30px;
   height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.progress-bar {
-  background: url('../svgs/square-upload-progress.svg') left center repeat-y, red;
-  background-size: 0% cover;
+#upload-progress-button .progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%; /* Start at 0% */
+  background-color: red; /* Red fill for progress */
+  transition: width 0.5s ease;
+  z-index: 1; /* Ensure it's behind the button text */
+  border-radius: 4px;
 }
 
-#upload-progress-button:hover {
-  background-color: green;
-  color: white;
+#upload-progress-button span {
+  z-index: 2; /* Ensure button text is on top */
 }
-
-
-
-.spinner-photo-loading {
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    border-left-color: #ffffff;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
 
 .spinner {
     width: 20px;
@@ -140,6 +132,8 @@ overflow: hidden;
     border-left-color: #000;
     border-radius: 50%;
     animation: spin 1s linear infinite;
+    margin-right: 10px; /* Space between spinner and text */
+    display: none; /* Initially hidden */
 }
 
 @keyframes spin {
@@ -150,6 +144,11 @@ overflow: hidden;
         transform: rotate(360deg);
     }
 }
+
+#upload-progress-button:hover {
+  background-color: #077e07;
+}
+
 
 
 

@@ -300,10 +300,12 @@ echo '<!DOCTYPE html>
                 </div>
 
 
-                <button id="upload-progress-button" aria-label="Submit photos for upload" style="display: flex; align-items: center;">
-                    <div id="loading-spinner" class="spinner" style="display:none; margin-right: 10px;"></div>
+                <button id="upload-progress-button" aria-label="Submit photos for upload">
+                    <div class="progress-fill"></div> <!-- This will show the red progress fill -->
+                    <div id="loading-spinner" class="spinner"></div>
                     <span id="button-text">⬆️ Upload</span>
                 </button>
+
 
 
 
@@ -392,8 +394,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
-// UPLOAD SUBMIT ACTION AND BUTTON
 document.querySelector('#photoform').addEventListener('submit', function(event) {
 
     event.preventDefault();
@@ -401,6 +401,7 @@ document.querySelector('#photoform').addEventListener('submit', function(event) 
     var button = document.getElementById('upload-progress-button');
     var spinner = document.getElementById('loading-spinner');
     var buttonText = document.getElementById('button-text');
+    var progressFill = document.querySelector('.progress-fill');
 
     var originalButtonText = buttonText.innerText.trim(); // Save the original button text
     buttonText.innerText = 'Uploading...'; // Change the button text to "Uploading..."
@@ -435,15 +436,14 @@ document.querySelector('#photoform').addEventListener('submit', function(event) 
     xhr.upload.onprogress = function(event) {
         if (event.lengthComputable) {
             var progress = (event.loaded / event.total) * 100;
-            button.style.backgroundSize = progress + '% 100%'; // Adjust the progress bar background size
-            button.classList.add('progress-bar'); // Add class to show progress bar
+            progressFill.style.width = progress + '%'; // Update progress fill width
         }
     };
 
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             spinner.style.display = 'none'; // Hide spinner when upload is complete
-            button.style.backgroundSize = '0% 100%'; // Reset background size
+            progressFill.style.width = '0%'; // Reset progress bar
 
             if (xhr.status === 200) {
                 try {

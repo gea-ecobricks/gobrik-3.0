@@ -136,9 +136,9 @@ echo '<!DOCTYPE html>
 
             <!-- Rotate buttons for the full ecobrick photo -->
             <div class="rotate-controls">
-                <button class="rotate-button rotate-left" data-direction="left" data-photo-url="<?php echo htmlspecialchars($ecobrick_full_photo_url); ?>" data-photo-id="ecobrick-photo-<?php echo $serial_no; ?>">⭯</button>
+                <button class="rotate-button rotate-left" data-direction="left" data-photo-url="<?php echo htmlspecialchars($ecobrick_full_photo_url); ?>" data-photo-id="ecobrick-photo-<?php echo $serial_no; ?>">↪️</button>
                 <button class="confirm-rotate-button" id="confirm-rotation-<?php echo $serial_no; ?>" style="display:none;">🗸</button>
-                <button class="rotate-button rotate-right" data-direction="right" data-photo-url="<?php echo htmlspecialchars($ecobrick_full_photo_url); ?>" data-photo-id="ecobrick-photo-<?php echo $serial_no; ?>">⭮</button>
+                <button class="rotate-button rotate-right" data-direction="right" data-photo-url="<?php echo htmlspecialchars($ecobrick_full_photo_url); ?>" data-photo-id="ecobrick-photo-<?php echo $serial_no; ?>">↩️</button>
             </div>
         </div>
     <?php endif; ?>
@@ -150,9 +150,9 @@ echo '<!DOCTYPE html>
 
             <!-- Rotate buttons for the selfie photo -->
             <div class="rotate-controls">
-                <button class="rotate-button rotate-left" data-direction="left" data-photo-url="<?php echo htmlspecialchars($selfie_photo_url); ?>" data-photo-id="selfie-photo-<?php echo $serial_no; ?>">⭯</button>
+                <button class="rotate-button rotate-left" data-direction="left" data-photo-url="<?php echo htmlspecialchars($selfie_photo_url); ?>" data-photo-id="selfie-photo-<?php echo $serial_no; ?>">↪️</button>
                 <button class="confirm-rotate-button" id="confirm-rotation-selfie-<?php echo $serial_no; ?>" style="display:none;">🗸</button>
-                <button class="rotate-button rotate-right" data-direction="right" data-photo-url="<?php echo htmlspecialchars($selfie_photo_url); ?>" data-photo-id="selfie-photo-<?php echo $serial_no; ?>">⭮</button>
+                <button class="rotate-button rotate-right" data-direction="right" data-photo-url="<?php echo htmlspecialchars($selfie_photo_url); ?>" data-photo-id="selfie-photo-<?php echo $serial_no; ?>">↩️</button>
             </div>
         </div>
     <?php endif; ?>

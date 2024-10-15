@@ -204,7 +204,7 @@ echo '<!DOCTYPE html>
                 <a class="confirm-button" href="brik.php?serial_no=<?php echo $serial_no; ?>" data-lang-id="013-view-ecobrick-post" style="width:250px;">View Ecobrick Post</a>
                 <a class="confirm-button" href="log.php?retry=<?php echo htmlspecialchars($ecobrick_unique_id); ?>" data-lang-id="015-edit-ecobrick" style="width:250px;">✏️ Edit  ecobrick</a>
                 <a class="confirm-button" href="log.php" data-lang-id="015-log-another-ecobrick" style="width:250px;">➕ Log another ecobrick</a>
-                <a class="confirm-button" href="log.php" data-lang-id="000-dashboard" style="width:250px;">🏡 Dashboard</a>
+                <a class="confirm-button" href="dashboard.php" data-lang-id="000-dashboard" style="width:250px;">🏡 Dashboard</a>
                 <form id="deleteForm" method="POST">
                     <input type="hidden" name="ecobrick_unique_id" value="<?php echo htmlspecialchars($ecobrick_unique_id); ?>">
                     <input type="hidden" name="action" value="delete_ecobrick">

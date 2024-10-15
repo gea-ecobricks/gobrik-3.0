@@ -103,6 +103,7 @@ overflow: hidden;
   font-size: 1.3em;
   width: 100%;
   margin-top: 30px;
+  height: 45px;
 }
 
 #upload-progress-button.progress-bar {
@@ -130,6 +131,25 @@ overflow: hidden;
     100% { transform: rotate(360deg); }
 }
 
+.spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(0,0,0,0.1);
+    border-left-color: #000;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 10px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
 
 
 </style>

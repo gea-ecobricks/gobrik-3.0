@@ -419,7 +419,7 @@ function viewEcobrickActions(serial_no, status, lang) {
 
     // Construct the content (stack of buttons)
     let content = `
-        <a class="confirm-button" href="brik.php?serial_no=${encodedSerialNo}" data-lang-id="013-view-ecobrick-post" style="width:100%; display: block; margin-bottom: 10px;">
+        <a class="confirm-button" href="brik.php?serial_no=${encodedSerialNo}" data-lang-id="013-view-ecobrick-post" style="width:100%; display: block; margin-bottom: 10px;">🔍
             ${translations['013-view-ecobrick-post']}
         </a>
         <a class="confirm-button" href="log.php?retry=${encodedSerialNo}" data-lang-id="015-edit-ecobrick" style="width:100%; display: block; margin-bottom: 10px;">

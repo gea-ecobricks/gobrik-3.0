@@ -448,58 +448,6 @@ function showModalInfo(type, lang) {
             `;
             break;
 
-            case 'insert':
-            content = `
-                <img class="preview-image" src="../photos/insert-example.webp" alt="${translations['inserts-title']}" height="300" style="margin:auto; display:block;">
-                <p>⭐⭐⭐⭐⭐</p>
-                <p class="preview-text" style="text-align:center;">${translations['inserts-text']}</p>
-                <div style="width:100%;text-align:center;">
-                    <a class="preview-btn" href="what.php">${translations['learn-more']}</a>
-                    <p style="font-size:smaller">${translations['link-note']}</p>
-                </div>
-
-            `;
-            break;
-
-             case 'nailvarnish':
-            content = `
-                <img class="preview-image" src="../photos/nailvarnish-example.webp" alt="${translations['nailvarnish-title']}" height="300" style="margin:auto; display:block;">
-                <p>⭐⭐⭐⭐</p>
-                <p class="preview-text" style="text-align:center;">${translations['nailvarnish-text']}</p>
-                <div style="width:100%;text-align:center;">
-                    <a class="preview-btn" href="what.php">${translations['learn-more']}</a>
-                    <p style="font-size:smaller">${translations['link-note']}</p>
-                </div>
-
-            `;
-            break;
-
-            case 'enamel':
-            content = `
-                <img class="preview-image" src="../photos/enamel-example.webp" alt="${translations['enamel-title']}" height="300" style="margin:auto; display:block;">
-                <p>⭐⭐⭐⭐</p>
-                <p class="preview-text" style="text-align:center;">${translations['enamel-text']}</p>
-                <div style="width:100%;text-align:center;">
-                    <a class="preview-btn" href="what.php">${translations['learn-more']}</a>
-                    <p style="font-size:smaller">${translations['link-note']}</p>
-                </div>
-
-            `;
-            break;
-
-            case 'marker':
-            content = `
-                <img class="preview-image" src="../photos/marker-example.webp" alt="${translations['marker-title']}" height="300" style="margin:auto; display:block;">
-                <p>⭐⭐</p>
-                <p class="preview-text" style="text-align:center;">${translations['marker-text']}</p>
-                <div style="width:100%;text-align:center;">
-                    <a class="preview-btn" href="what.php">${translations['learn-more']}</a>
-                    <p style="font-size:smaller">${translations['link-note']}</p>
-                </div>
-
-            `;
-            break;
-
         default:
             content = '<p>Invalid term selected.</p>';
     }

@@ -46,14 +46,14 @@ if ($is_logged_in) {
         $status_check_stmt->fetch();
         $status_check_stmt->close();
 
-        // Log the status for debugging
-        if (isset($status)) {
-            error_log("Ecobrick status retrieved: " . $status);
-        } else {
-            error_log("No status found for ecobrick_unique_id: " . $ecobrick_unique_id);
-        }
+//         // Log the status for debugging
+//         if (isset($status)) {
+//             error_log("Ecobrick status retrieved: " . $status);
+//         } else {
+//             error_log("No status found for ecobrick_unique_id: " . $ecobrick_unique_id);
+//         }
 
-        // If status is 'step 2 complete', show an alert and redirect
+        // If status is 'authenticated', show an alert and redirect
         if ($status === "authenticated") {
             echo "<script>
                 alert('This ecobrick has been authenticated and cannot be edited.  Please log another.');
@@ -572,9 +572,12 @@ function closeDensityModal() {
 }
 
 
-
+var ecobrickStatus = "<?php echo $status; ?>";
     // Show the modal on page load
+   if (ecobrickStatus !== "not ready") {
+    // Show the modal on page load if status is not "basic data logged"
     showDensityConfirmation(density, volume, weight);
+}
 </script>
 
 

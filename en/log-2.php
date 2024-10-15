@@ -3,7 +3,7 @@ require_once '../earthenAuth_helper.php'; // Include the authentication helper f
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.54';
+$version = '0.55';
 $page = 'log-2';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -200,7 +200,7 @@ echo '<!DOCTYPE html>
             <div class="splash-form-content-block" style="text-align:center; display:flex;flex-flow:column;">
 
                 <div class="splash-image-2" data-lang-id="003-weigh-plastic-image-alt">
-                    <img src="../svgs/snapit.svg?v=3" style="width:35%; margin:auto;margin-top:-15px;" alt="Please take a square photo">
+                    <img src="../svgs/snapit.svg?v=3" style="width:35%; margin:auto;margin-top:-40px;" alt="Please take a square photo">
                 </div>
                 <div><h2 data-lang-id="001-form-title">Record Serial & Take Photo</h2></div>
 

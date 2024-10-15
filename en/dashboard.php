@@ -124,6 +124,85 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="splash-bar"></div>
 <div id="top-page-image" class="dolphin-pic top-page-image"></div>
 
+
+
+<script>
+
+function viewEcobrickActions(serial_no, status, lang) {
+    const modal = document.getElementById('form-modal-message');
+    const messageContainer = document.querySelector('.modal-message');
+    const modalBox = document.getElementById('modal-content-box');
+
+    // Clear existing content in the modal
+    messageContainer.innerHTML = '';
+
+    // Determine the appropriate language object
+    let translations;
+    switch (lang) {
+        case 'fr':
+            translations = fr_Translations;
+            break;
+        case 'es':
+            translations = es_Translations;
+            break;
+        case 'id':
+            translations = id_Translations;
+            break;
+        default:
+            translations = en_Translations; // Default to English
+    }
+
+    // Properly encode serial number for URL safety
+    let encodedSerialNo = encodeURIComponent(serial_no);
+
+    // Construct the content (stack of buttons)
+    let content = `
+        <a class="confirm-button" href="brik.php?serial_no=${encodedSerialNo}" data-lang-id="013-view-ecobrick-post" style="width:100%; display: block; margin-bottom: 10px;">
+            ${translations['013-view-ecobrick-post']}
+        </a>
+        <a class="confirm-button" href="log.php?retry=${encodedSerialNo}" data-lang-id="015-edit-ecobrick" style="width:100%; display: block; margin-bottom: 10px;">
+            ✏️ ${translations['015-edit-ecobrick']}
+        </a>
+        <a class="confirm-button" href="log.php" data-lang-id="015-log-another-ecobrick" style="width:100%; display: block; margin-bottom: 10px;">
+            ➕ ${translations['015-log-another-ecobrick']}
+        </a>
+        <a class="confirm-button" href="dashboard.php" data-lang-id="000-dashboard" style="width:100%; display: block; margin-bottom: 10px;">
+            🏡 ${translations['000-dashboard']}
+        </a>
+        <form id="deleteForm" method="POST">
+            <input type="hidden" name="serial_no" value="${encodedSerialNo}">
+            <input type="hidden" name="action" value="delete_ecobrick">
+            <button class="confirm-button" type="button" style="background:red; cursor:pointer;width:100%; display: block;" id="deleteButton" data-lang-id="014-delete-ecobrick">
+                ❌ ${translations['014-delete-ecobrick']}
+            </button>
+        </form>
+    `;
+
+    // Insert the content into the message container
+    messageContainer.innerHTML = content;
+
+    // Display the modal
+    modal.classList.remove('modal-hidden');
+    modal.classList.add('modal-visible');
+
+    // Add event listener to the delete button
+    const deleteButton = document.getElementById('deleteButton');
+    deleteButton.addEventListener('click', function () {
+        if (confirm(translations['014-delete-ecobrick'])) {
+            document.getElementById('deleteForm').submit();
+        }
+    });
+}
+
+// Function to close the modal
+function closeInfoModal() {
+    const modal = document.getElementById('form-modal-message');
+    modal.classList.remove('modal-visible');
+    modal.classList.add('modal-hidden');
+}
+
+
+</script>
 <!-- DASHBOARD CONTENT -->
 <div id="form-submission-box" style="height:fit-content;margin-top: 90px;">
     <div class="form-container">
@@ -386,82 +465,5 @@ window.onload = function() {
 </script>
 
 
-<script>
-
-function viewEcobrickActions(serial_no, status, lang) {
-    const modal = document.getElementById('form-modal-message');
-    const messageContainer = document.querySelector('.modal-message');
-    const modalBox = document.getElementById('modal-content-box');
-
-    // Clear existing content in the modal
-    messageContainer.innerHTML = '';
-
-    // Determine the appropriate language object
-    let translations;
-    switch (lang) {
-        case 'fr':
-            translations = fr_Translations;
-            break;
-        case 'es':
-            translations = es_Translations;
-            break;
-        case 'id':
-            translations = id_Translations;
-            break;
-        default:
-            translations = en_Translations; // Default to English
-    }
-
-    // Properly encode serial number for URL safety
-    let encodedSerialNo = encodeURIComponent(serial_no);
-
-    // Construct the content (stack of buttons)
-    let content = `
-        <a class="confirm-button" href="brik.php?serial_no=${encodedSerialNo}" data-lang-id="013-view-ecobrick-post" style="width:100%; display: block; margin-bottom: 10px;">
-            ${translations['013-view-ecobrick-post']}
-        </a>
-        <a class="confirm-button" href="log.php?retry=${encodedSerialNo}" data-lang-id="015-edit-ecobrick" style="width:100%; display: block; margin-bottom: 10px;">
-            ✏️ ${translations['015-edit-ecobrick']}
-        </a>
-        <a class="confirm-button" href="log.php" data-lang-id="015-log-another-ecobrick" style="width:100%; display: block; margin-bottom: 10px;">
-            ➕ ${translations['015-log-another-ecobrick']}
-        </a>
-        <a class="confirm-button" href="dashboard.php" data-lang-id="000-dashboard" style="width:100%; display: block; margin-bottom: 10px;">
-            🏡 ${translations['000-dashboard']}
-        </a>
-        <form id="deleteForm" method="POST">
-            <input type="hidden" name="serial_no" value="${encodedSerialNo}">
-            <input type="hidden" name="action" value="delete_ecobrick">
-            <button class="confirm-button" type="button" style="background:red; cursor:pointer;width:100%; display: block;" id="deleteButton" data-lang-id="014-delete-ecobrick">
-                ❌ ${translations['014-delete-ecobrick']}
-            </button>
-        </form>
-    `;
-
-    // Insert the content into the message container
-    messageContainer.innerHTML = content;
-
-    // Display the modal
-    modal.classList.remove('modal-hidden');
-    modal.classList.add('modal-visible');
-
-    // Add event listener to the delete button
-    const deleteButton = document.getElementById('deleteButton');
-    deleteButton.addEventListener('click', function () {
-        if (confirm(translations['014-delete-ecobrick'])) {
-            document.getElementById('deleteForm').submit();
-        }
-    });
-}
-
-// Function to close the modal
-function closeInfoModal() {
-    const modal = document.getElementById('form-modal-message');
-    modal.classList.remove('modal-visible');
-    modal.classList.add('modal-hidden');
-}
-
-
-</script>
 </body>
 </html>

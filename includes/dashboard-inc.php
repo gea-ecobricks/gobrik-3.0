@@ -197,23 +197,10 @@ color: var(--text-color);
     color: white;          /* White text for contrast */
 }
 
-
-
 </style>
-color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background: var(--emblem-green);
-  font-size: 1.3em;
-  margin: auto;
-  justify-content: center;
-  text-align: center;
-  text-decoration: none;
-  margin-top: 10px;
-  display: flex;
-}
+
+
+
 
 
 

@@ -306,7 +306,6 @@ echo '<!DOCTYPE html>
                 </button>
 
 
-                </div>
 
                 </form>
             </div>

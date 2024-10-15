@@ -227,7 +227,7 @@ echo '<!DOCTYPE html>
                     <option value="Impermanent marker" data-lang-id="009-enscribe-option-3">Impermanent marker</option>
                     <option value="Other" data-lang-id="013-enscribe-option-7">Other</option>
                 </select>
-                <p class="form-caption" data-lang-id="013b">See an example of plastic inserts, enamel paint, nail polish and permanent marker.</p>
+                <p class="form-caption" data-lang-id="013b">👁️ See an example of <a href="#" onclick="showModalInfo('inserts')" class="underline-link">plastic inserts</a>, enamel paint, nail polish and permanent marker.<span style="color:orange;">Under construction</span></p>
 
             </div>
 

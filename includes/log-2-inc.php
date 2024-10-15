@@ -115,7 +115,7 @@ overflow: hidden;
   left: 0;
   height: 100%;
   width: 0%; /* Start at 0% */
-  background-color: red; /* Red fill for progress */
+  background-color: lightgreen; /* Red fill for progress */
   transition: width 0.5s ease;
   z-index: 1; /* Ensure it's behind the button text */
   border-radius: 4px;
@@ -134,6 +134,7 @@ overflow: hidden;
     animation: spin 1s linear infinite;
     margin-right: 10px; /* Space between spinner and text */
     display: none; /* Initially hidden */
+    z-index: 10;
 }
 
 @keyframes spin {

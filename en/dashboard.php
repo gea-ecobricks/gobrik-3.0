@@ -443,8 +443,11 @@ function viewEcobrickActions(serial_no, status, lang) {
     messageContainer.innerHTML = content;
 
     // Display the modal
-    modal.classList.remove('modal-hidden');
-    modal.classList.add('modal-visible');
+
+    modal.style.display = 'flex';
+    document.getElementById('page-content').classList.add('blurred');
+    document.getElementById('footer-full').classList.add('blurred');
+    document.body.classList.add('modal-open');
 
     // Add event listener to the delete button
     const deleteButton = document.getElementById('deleteButton');

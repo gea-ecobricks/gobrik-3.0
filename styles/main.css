@@ -1680,7 +1680,7 @@ color: var(--text-color);
   border: 1px solid;
   padding: 10px;
   border-radius: 5px;
-  background: var(--darker);
+  background: rgba(116, 202, 244, 0.32); // var(--darker);
   cursor: pointer;
 }
 
@@ -1690,7 +1690,7 @@ text-decoration: none;
 }
 
 .serial-button:hover {
-  background: var(--lighter);
+ background: rgba(116, 202, 244, 0.8); // background: var(--lighter);
 }
 
 

@@ -3,7 +3,7 @@ require_once '../earthenAuth_helper.php'; // Include the authentication helper f
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.39';
+$version = '0.41';
 $page = 'dashboard';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -425,9 +425,7 @@ function viewEcobrickActions(serial_no, status, lang) {
         <a class="confirm-button" href="log.php?retry=${encodedSerialNo}" data-lang-id="015-edit-ecobrick" style="width:100%; display: block; margin-bottom: 10px;">
             ✏️ ${translations['015-edit-ecobrick']}
         </a>
-        <a class="confirm-button" href="log.php" data-lang-id="015-log-another-ecobrick" style="width:100%; display: block; margin-bottom: 10px;">
-            ➕ ${translations['015-log-another-ecobrick']}
-        </a>
+
         <a class="confirm-button" href="dashboard.php" data-lang-id="000-dashboard" style="width:100%; display: block; margin-bottom: 10px;">
             🏡 ${translations['000-dashboard']}
         </a>

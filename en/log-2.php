@@ -54,10 +54,10 @@ if ($is_logged_in) {
         }
 
         // If status is 'step 2 complete', show an alert and redirect
-        if ($status === "step 2 complete") {
+        if ($status === "authenticated") {
             echo "<script>
-                alert('Your revisiting an ecobrick whose photos have already been set.  Here you can add new ones.');
-                window.location.href = 'log-3.php?id=' + ecobrick_unique_id; // Redirect to the logging page or any other appropriate page
+                alert('This ecobrick has been authenticated and cannot be edited.  Please log another.');
+                window.location.href = 'log.php'; // Redirect to the logging page or any other appropriate page
             </script>";
             exit();
         }

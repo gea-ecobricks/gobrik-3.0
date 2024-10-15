@@ -77,6 +77,7 @@ if ($stmt_recent) {
         $total_weight += $weight_kg; // Sum up total weight in kilograms
         $total_volume += $volume_ml; // Sum up total volume in ml
         $ecobrick_count++; // Increment the ecobrick count
+        $net_density = $total_volume > 0 ? ($total_weight * 1000) / $total_volume : 0;
     }
 
         // Close the statement after fetching
@@ -86,7 +87,7 @@ if ($stmt_recent) {
     }
 
     // Calculate net density
-    $net_density = $total_volume > 0 ? $total_weight / $total_volume : 0;
+
 
     // Close database connections
     $buwana_conn->close();

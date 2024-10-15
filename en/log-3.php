@@ -201,13 +201,14 @@ echo '<!DOCTYPE html>
                 <h2 data-lang-id="077-earth-thanks-you">The Earth Thanks You.</h2>
                 <br>
 
-                <a class="confirm-button" href="brik.php?serial_no=<?php echo $serial_no; ?>" data-lang-id="013-view-ecobrick-post" style="width:300px;">View Ecobrick Post</a>
-                <a class="confirm-button" href="log.php" data-lang-id="015-log-another-ecobrick" style="width:300px;">➕ Log another ecobrick</a>
-                <a class="confirm-button" href="log.php" data-lang-id="000-dashboard" style="width:300px;">🏡 Dashboard</a>
+                <a class="confirm-button" href="brik.php?serial_no=<?php echo $serial_no; ?>" data-lang-id="013-view-ecobrick-post" style="width:250px;">View Ecobrick Post</a>
+                <a class="confirm-button" href="log.php?retry=<?php echo htmlspecialchars($ecobrick_unique_id); ?>" data-lang-id="015-edit-ecobrick" style="width:250px;">✏️ Edit  ecobrick</a>
+                <a class="confirm-button" href="log.php" data-lang-id="015-log-another-ecobrick" style="width:250px;">➕ Log another ecobrick</a>
+                <a class="confirm-button" href="log.php" data-lang-id="000-dashboard" style="width:250px;">🏡 Dashboard</a>
                 <form id="deleteForm" method="POST">
                     <input type="hidden" name="ecobrick_unique_id" value="<?php echo htmlspecialchars($ecobrick_unique_id); ?>">
                     <input type="hidden" name="action" value="delete_ecobrick">
-                    <a class="confirm-button" style="background:red; cursor:pointer;width:300px;" id="deleteButton" data-lang-id="014-delete-ecobrick">❌ Delete Ecobrick</a>
+                    <a class="confirm-button" style="background:red; cursor:pointer;width:250px;" id="deleteButton" data-lang-id="014-delete-ecobrick">❌ Delete Ecobrick</a>
                 </form>
                 <br>
                 <div id="vision-added-failure" style="display:none;font-size:1.2em;">

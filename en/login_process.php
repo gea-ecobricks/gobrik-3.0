@@ -120,9 +120,17 @@ if ($stmt_credential) {
                     $_SESSION['buwana_id'] = $buwana_id;
 
                     // PART 6: Redirect to the appropriate page
+                if (in_array($redirect, ['log-2', 'log-3', 'upload-success'])) {
+                    // Redirect to log.php if $redirect is one of the specified values
+                    $redirect_url = 'log.php';
+                } else {
+                    // Otherwise, redirect to the appropriate page or dashboard.php
                     $redirect_url = !empty($redirect) ? $redirect . '.php' : 'dashboard.php';
-                    header("Location: " . $redirect_url);
-                    exit();
+                }
+
+                header("Location: " . $redirect_url);
+                exit();
+
 
                 } else {
                     header("Location: ../$lang/login.php?status=invalid_password&key=" . urlencode($credential_key));

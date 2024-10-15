@@ -166,6 +166,31 @@ color: var(--text-color);
 }
 
 
+.confirm-button {
+    width: 100%;           /* Ensures the button takes the full width */
+    display: block;        /* Ensures the button behaves as a block element */
+    text-align: center;    /* Centers the text inside the button */
+    padding: 10px;         /* Add some padding for better button appearance */
+    margin-bottom: 10px;   /* Margin to create space between buttons */
+    border: none;          /* Remove default borders */
+    cursor: pointer;       /* Show pointer on hover */
+    font-size: 1em;        /* Consistent font size */
+}
+
+.confirm-button:hover {
+    opacity: 0.9;          /* Slight hover effect */
+}
+
+/* Special styling for delete button */
+.confirm-button.delete-button {
+    background-color: red; /* Red background for the delete button */
+    color: white;          /* White text for contrast */
+}
+
+.confirm-button a {
+    text-decoration: none; /* No underline for links */
+    color: inherit;        /* Inherit color from button */
+}
 
 </style>
 

@@ -111,7 +111,7 @@ const en_Translations = {
     "enamel-text": "Write the serial number using a paint brush and oil/enamel paint.",
 
     "marker-title": "Permanent Marker",
-    "maker-text": "Write the serial number using a permanent marker (not a board marker of water based marker).",
+    "marker-text": "Write the serial number using a permanent marker (not a board marker of water based marker).",
 
 
 

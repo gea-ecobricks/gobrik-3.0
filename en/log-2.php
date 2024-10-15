@@ -299,8 +299,12 @@ echo '<!DOCTYPE html>
                     </div>
                 </div>
 
+
                 <div style="display:flex;flex-flow:row;width:100%;justify-content:center;" data-lang-id="037-Xsubmit-upload-button">
-                    <button id="upload-progress-button" aria-label="Submit photos for upload">⬆️ Upload</button>
+                    <button id="upload-progress-button" aria-label="Submit photos for upload">
+                        ⬆️ Upload
+                        <div id="loading-spinner" class="spinner" style="display:none;">Uploading...</div>
+                    </button>
                 </div>
 
                 </form>
@@ -391,11 +395,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // UPLOAD SUBMIT ACTION AND BUTTON
 document.querySelector('#photoform').addEventListener('submit', function(event) {
+
     event.preventDefault();
 
     var button = document.getElementById('upload-progress-button');
-    var originalButtonText = button.innerText; // Save the original button text
-    button.innerText = '<div id="loading-spinner" class="spinner">Uploading...</div>'; // Set button text to indicate progress
+    var spinner = document.getElementById('loading-spinner');
+
+    var originalButtonText = button.innerText.trim(); // Save the original button text
+    button.innerText = ''; // Clear the button text
+    button.appendChild(spinner); // Add spinner to the button
+    spinner.style.display = 'inline-block'; // Show the spinner
     button.disabled = true; // Disable button to prevent multiple submissions
 
     var messages = {
@@ -413,8 +422,9 @@ document.querySelector('#photoform').addEventListener('submit', function(event) 
 
     if (fileInput.files.length === 0 && selfieInput.files.length === 0) {
         showFormModal(chooseFileMessage);
-        button.innerText = originalButtonText; // Restore button text if no file chosen
-        button.disabled = false; // Enable button
+        button.removeChild(spinner); // Remove spinner if no file chosen
+        button.innerText = originalButtonText; // Restore original button text
+        button.disabled = false; // Re-enable button
         return;
     }
 
@@ -432,22 +442,25 @@ document.querySelector('#photoform').addEventListener('submit', function(event) 
 
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
-            button.innerText = originalButtonText; // Restore button text after upload
-            button.disabled = false; // Enable button
-            button.style.backgroundSize = '0% 100%'; // Reset background size after completion
-            button.classList.remove('progress-bar'); // Remove progress bar class
+            button.removeChild(spinner); // Remove spinner when upload is complete
+            button.style.backgroundSize = '0% 100%'; // Reset background size
 
             if (xhr.status === 200) {
                 try {
                     var response = JSON.parse(xhr.responseText);
                     var ecobrick_unique_id = response.ecobrick_unique_id;
-                    window.location.href = 'log-3.php?id=' + ecobrick_unique_id; // Redirect to success page with ecobrick_unique_id
+                    button.innerText = "Uploaded!"; // Change button text to "Uploaded!"
+                    window.location.href = 'log-3.php?id=' + ecobrick_unique_id; // Redirect to success page
                 } catch (e) {
                     console.error('Error parsing server response:', e);
                     document.getElementById('post-error-message').innerText = 'An error occurred while processing your upload.';
+                    button.innerText = originalButtonText; // Restore original button text
+                    button.disabled = false; // Re-enable button
                 }
             } else {
                 document.getElementById('post-error-message').innerText = 'Upload failed. Please try again.';
+                button.innerText = originalButtonText; // Restore original button text
+                button.disabled = false; // Re-enable button
             }
         }
     };
@@ -455,6 +468,7 @@ document.querySelector('#photoform').addEventListener('submit', function(event) 
     xhr.open(form.method, form.action, true);
     xhr.send(formData);
 });
+
 
 
 function showFormModal(message) {

@@ -22,7 +22,7 @@ if ($is_logged_in) {
     $gea_status = getGEA_status($buwana_id);
     $user_community_name = getCommunityName($buwana_conn, $buwana_id);
 
-   // Fetch user details from the GoBrik database
+    // Fetch user details from the GoBrik database
     $sql_lookup_user = "SELECT first_name, ecobricks_made, location_full_txt, maker_id FROM tb_ecobrickers WHERE buwana_id = ?";
     $stmt_lookup_user = $gobrik_conn->prepare($sql_lookup_user);
 
@@ -36,87 +36,54 @@ if ($is_logged_in) {
         die("Error preparing statement for tb_ecobrickers: " . $gobrik_conn->error);
     }
 
+    // Fetch all ecobricks data for the user's maker id directly from tb_ecobricks
+    $sql_recent = "
+        SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, volume_ml,
+               location_full, ecobricker_maker, serial_no, status
+        FROM tb_ecobricks
+        WHERE maker_id = ?
+        ORDER BY date_logged_ts DESC";
 
-    // Fetch other user data (e.g., ecobrick count and weight)
-    //// Prepare SQL query to count ecobricks and calculate total weight filtered by maker_id and buwana_id
-$sql = "
-    SELECT COUNT(*) as ecobrick_count, SUM(weight_g) / 1000 as total_weight
-    FROM tb_ecobricks
-    JOIN tb_ecobrickers ON tb_ecobricks.maker_id = tb_ecobrickers.maker_id
-    WHERE tb_ecobricks.maker_id = ? AND tb_ecobrickers.buwana_id = ?";
+    $stmt_recent = $gobrik_conn->prepare($sql_recent);
 
-$stmt = $gobrik_conn->prepare($sql);
+    $total_weight = 0; // Total weight in grams
+    $total_volume = 0; // Total volume in ml
+    $recent_ecobricks = [];
+    $ecobrick_count = 0; // Count of ecobricks
 
-if ($stmt) {
-    // Bind both maker_id and buwana_id to the query
-    $stmt->bind_param("ss", $maker_id, $buwana_id);
-    $stmt->execute();
-    $stmt->bind_result($ecobrick_count, $total_weight);
+    if ($stmt_recent) {
+        // Bind maker_id to the query
+        $stmt_recent->bind_param("s", $maker_id);
+        $stmt_recent->execute();
 
-    // Fetch the results
-    if ($stmt->fetch()) {
-        // Handle cases where null values may be returned (e.g., no records found)
-        $ecobrick_count = $ecobrick_count ? $ecobrick_count : 0;
-        // Convert total weight to kilograms if it has a value, otherwise return 0 kg
-        $total_weight = $total_weight !== null ? round($total_weight, 2) : 0;
+        // Bind the results
+        $stmt_recent->bind_result($ecobrick_thumb_photo_url, $ecobrick_full_photo_url, $weight_g, $volume_ml, $location_full, $ecobricker_maker, $serial_no, $status);
+
+        // Fetch and process the results
+        while ($stmt_recent->fetch()) {
+            $recent_ecobricks[] = [
+                'ecobrick_thumb_photo_url' => $ecobrick_thumb_photo_url,
+                'ecobrick_full_photo_url' => $ecobrick_full_photo_url,
+                'weight_g' => $weight_g,
+                'volume_ml' => $volume_ml,
+                'location_full' => $location_full,
+                'ecobricker_maker' => $ecobricker_maker,
+                'serial_no' => $serial_no,
+                'status' => $status,
+            ];
+            $total_weight += $weight_g; // Sum up total weight in grams
+            $total_volume += $volume_ml; // Sum up total volume in ml
+            $ecobrick_count++; // Increment the ecobrick count
+        }
+
+        // Close the statement after fetching
+        $stmt_recent->close();
     } else {
-        // In case of no results, set default values
-        $ecobrick_count = 0;
-        $total_weight = 0;
+        die("Error preparing the statement for fetching ecobricks: " . $gobrik_conn->error);
     }
 
-    $stmt->close();
-} else {
-    die("Error preparing statement for ecobrick data: " . $gobrik_conn->error);
-}
-
-// Now total_weight is in kilograms and properly handled for null values or missing data.
-
-
-// Fetch all ecobricks data for the user's maker id directly from tb_ecobricks
-$sql_recent = "
-    SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, volume_ml,
-           location_full, ecobricker_maker, serial_no, status
-    FROM tb_ecobricks
-    WHERE maker_id = ?
-    ORDER BY date_logged_ts DESC";
-
-$stmt_recent = $gobrik_conn->prepare($sql_recent);
-
-$total_weight = 0;
-$total_volume = 0;
-$recent_ecobricks = [];
-
-if ($stmt_recent) {
-    // Bind maker_id to the query
-    $stmt_recent->bind_param("s", $maker_id);
-    $stmt_recent->execute();
-
-    // Bind the results
-    $stmt_recent->bind_result($ecobrick_thumb_photo_url, $ecobrick_full_photo_url, $weight_g, $volume_ml, $location_full, $ecobricker_maker, $serial_no, $status);
-
-    // Fetch and process the results
-    while ($stmt_recent->fetch()) {
-        $recent_ecobricks[] = [
-            'ecobrick_thumb_photo_url' => $ecobrick_thumb_photo_url,
-            'ecobrick_full_photo_url' => $ecobrick_full_photo_url,
-            'weight_g' => $weight_g,
-            'volume_ml' => $volume_ml,
-            'location_full' => $location_full,
-            'ecobricker_maker' => $ecobricker_maker,
-            'serial_no' => $serial_no,
-            'status' => $status,
-        ];
-        $total_weight += $weight_g;
-        $total_volume += $volume_ml;
-    }
-
-    // Close the statement after fetching
-    $stmt_recent->close();
-} else {
-    die("Error preparing the statement for fetching ecobricks: " . $gobrik_conn->error);
-}
-
+    // Convert total weight from grams to kilograms (divide by 1000)
+    $total_weight_kg = $total_weight / 1000;
 
     // Calculate net density
     $net_density = $total_volume > 0 ? $total_weight / $total_volume : 0;
@@ -139,7 +106,11 @@ echo '<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 ';
+
+// Here you can display or use $total_weight_kg (in kilograms) and $ecobrick_count
+
 ?>
+
 
 <!--
 GoBrik.com site version 3.0

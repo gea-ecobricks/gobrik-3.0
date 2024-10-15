@@ -249,7 +249,7 @@ function ecobrickPreview(imageUrl, brik_serial, weight, owner, location) {
     img.style.minHeight = "400px";
     img.style.minWidth = "400px";
     img.style.margin = 'auto';
-    // img.style.backgroundColor = '#8080802e';
+    // img.style.backgroundColor = '#8080802e'; hmmm
     photoContainer.appendChild(img);
 
     // Add ecobrick details and view details button inside photo container

@@ -107,13 +107,13 @@ overflow: hidden;
 }
 
 .progress-bar {
-  background: url('../svgs/square-upload-progress.svg') left center repeat-y, #12b712; /* Combined background */
-  background-size: 0% contain;
+  background: url('../svgs/square-upload-progress.svg') left center repeat-y, red;
+  background-size: 0% cover;
 }
 
 #upload-progress-button:hover {
   background-color: green;
-  color: black;
+  color: white;
 }
 
 
@@ -132,15 +132,14 @@ overflow: hidden;
     100% { transform: rotate(360deg); }
 }
 
+
 .spinner {
-    display: inline-block;
     width: 20px;
     height: 20px;
-    border: 2px solid rgba(0,0,0,0.1);
+    border: 2px solid rgba(0, 0, 0, 0.1);
     border-left-color: #000;
     border-radius: 50%;
     animation: spin 1s linear infinite;
-    margin-left: 10px;
 }
 
 @keyframes spin {
@@ -151,6 +150,7 @@ overflow: hidden;
         transform: rotate(360deg);
     }
 }
+
 
 
 </style>

@@ -183,6 +183,7 @@ color: var(--text-color);
   font-size: 1.3em;
   text-align: center;
   text-decoration: none;
+  color:white;
 }
 
 

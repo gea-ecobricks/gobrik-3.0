@@ -337,13 +337,13 @@ function createInfoModal(infoText) {
 function closeInfoModal() {
     var modal = document.getElementById("form-modal-message");
     modal.style.display = "none";
-
+    document.body.style.overflow = 'auto'; // Re-enable body scrolling
     // Remove blur effect and restore overflow on page-content and footer-full
     document.getElementById('page-content').classList.remove('blurred');
     document.getElementById('footer-full').classList.remove('blurred');
     document.body.classList.remove('modal-open');
 
-    document.body.style.overflow = ''; // Re-enable body scrolling
+
 
 }
 

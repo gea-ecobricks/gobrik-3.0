@@ -164,7 +164,8 @@ if ($stmt) {
 
 $gobrik_conn->close();  // Close the database connection
 ?>
-
+</div>
+</div>
 </div><!--closes main?-->
 <!--FOOTER STARTS HERE-->
 <?php require_once ("../footer-2024.php");?>

@@ -106,7 +106,7 @@ overflow: hidden;
   height: 45px;
 }
 
-#upload-progress-button.progress-bar {
+.progress-bar {
   background: url('../svgs/square-upload-progress.svg') left center repeat-y, #12b712; /* Combined background */
   background-size: 0% 100%;
 }

@@ -405,7 +405,9 @@ function rotateEcobrickPhoto(photoUrl, thumbUrl, rotationDegrees, photoId, total
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
                 console.log("Server response: " + xhr.responseText);
-                if (xhr.responseText.trim() === "Image rotated successfully.") {
+
+                // Check if the response contains a success message
+                if (xhr.responseText.trim().includes("rotated successfully")) {
                     // Alert the user of the successful rotation
                     alert("Your photo has been rotated " + totalRotationDegrees + " degrees clockwise and saved to the server.");
                     console.log("Image rotation successful for: " + photoUrl);
@@ -424,6 +426,7 @@ function rotateEcobrickPhoto(photoUrl, thumbUrl, rotationDegrees, photoId, total
             }
         }
     };
+
 
     // Send the rotation degrees to the server
     xhr.send(params);

@@ -166,7 +166,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                             <td>
                                 <button class="serial-button" onclick="viewEcobrickActions('<?php echo $serial_no; ?>', '<?php echo $ecobrick['status']; ?>', '<?php echo $lang; ?>')">
                                     <?php $wrapped_serial_no = substr($serial_no, 0, 3) . '<br>' . substr($serial_no, 3, 3); ?>
-                                    <a href="brik.php?serial_no=<?php echo $serial_no; ?>"><?php echo $wrapped_serial_no; ?></a>
+
                                 </button>
 
                             </td>

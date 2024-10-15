@@ -120,6 +120,14 @@ color: white;
   }
 
 
+/* Specify the progress bar color */
+input[type="submit"].progress-bar {
+  background: url(../svgs/square-upload-progress.svg) left center repeat-y, gray; /* Combined background */
+  background-size: auto; /* Auto size for image background */
+}
+
+
+
   .login-one-banner {
     z-index:20;
     position: absolute;

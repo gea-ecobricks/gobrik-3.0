@@ -448,7 +448,7 @@ function showModalInfo(type, lang) {
             `;
             break;
 
-            case 'insert':
+            case 'inserts':
             content = `
                 <img class="preview-image" src="../photos/insert-example.webp" alt="${translations['inserts-title']}" height="300" style="margin:auto; display:block;">
                 <p>⭐⭐⭐⭐⭐</p>

@@ -3,7 +3,7 @@ require_once '../earthenAuth_helper.php'; // Include the authentication helper f
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.51';
+$version = '0.53';
 $page = 'log-2';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -227,7 +227,7 @@ echo '<!DOCTYPE html>
                     <option value="Impermanent marker" data-lang-id="009-enscribe-option-3">Impermanent marker</option>
                     <option value="Other" data-lang-id="013-enscribe-option-7">Other</option>
                 </select>
-                <p class="form-caption" data-lang-id="013b">👁️ See an example of <a href="#" onclick="showModalInfo('inserts')" class="underline-link">plastic inserts</a>, <a href="#" onclick="showModalInfo('enamel')" class="underline-link">enamel paint</a>, <a href="#" onclick="showModalInfo('marker')" class="underline-link">pernament marker</a> and <a href="#" onclick="showModalInfo('nailvarnish')" class="underline-link">nailvarnish</a></p>
+                <p class="form-caption" data-lang-id="013b">👁️ See an example of <a href="#" onclick="showModalInfo('inserts')" class="underline-link">plastic inserts</a>, <a href="#" onclick="showModalInfo('enamel')" class="underline-link">enamel paint</a>, <a href="#" onclick="showModalInfo('marker')" class="underline-link">pernament marker</a> and <a href="#" onclick="showModalInfo('nailvarnish')" class="underline-link">nail varnish</a></p>
 
             </div>
 

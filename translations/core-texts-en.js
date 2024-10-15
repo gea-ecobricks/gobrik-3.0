@@ -100,6 +100,22 @@ const en_Translations = {
     "learn-more": "Learn more ↗️",
     "link-note": "Link opens to Ecobricks.org",
 
+
+        "inserts-title": "Plastic inserts",
+    "inserts-text": "For maximum serial number durability, write your serial on a piece of stiff white plastic using a permanent marker and slide into the completed ecobrick.",
+
+    "nailvarnish-title": "Nail varnish",
+    "nailvarnish-text": "Write the serial number using an old bottle nail polish.",
+
+    "enamel-title": "Enamel Paint",
+    "maker-text": "Write the serial number using a paint brush and oil/enamel paint.",
+
+    "marker-title": "Permanent Marker",
+    "maker-text": "Write the serial number using a permanent marker (not a board marker of water based marker).",
+
+
+
+
     //MODULES
 
      "2000-for-earth-title": "For-Earth Enterprise",

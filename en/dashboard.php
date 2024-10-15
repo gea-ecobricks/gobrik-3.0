@@ -442,7 +442,13 @@ function viewEcobrickActions(serial_no, status, lang) {
     document.getElementById('footer-full').classList.add('blurred');
     document.body.classList.add('modal-open');
 
-
+    // Add event listener to the delete button
+    const deleteButton = document.getElementById('deleteButton');
+    deleteButton.addEventListener('click', function () {
+        if (confirm(translations['014-delete-ecobrick'])) {
+            document.getElementById('deleteForm').submit();
+        }
+    });
 }
 
 

@@ -68,7 +68,20 @@ const id_Page_Translations = {
     "overMaxDensityMessage": "Kepadatan ecobrick Anda sebesar ${density} melebihi standar GEA sebesar 0,73g/ml. Harap periksa apakah Anda telah memasukkan berat dan volume dengan benar. Jika demikian, maka mohon kemas ulang ecobrick Anda dengan lebih sedikit plastik. Pedoman GEA dikembangkan untuk memastikan keamanan dan kegunaan ecobrick untuk semua aplikasi jangka pendek dan jangka panjang.",
     "geaStandardsLinkText": "Standar GEA",
     "nextRegisterSerial": "Berikutnya: Daftar Nomor Seri",
-    "goBack": "Kembali"
+    "goBack": "Kembali",
+
+        "inserts-title": "Plastic inserts",
+    "inserts-text": "For maximum serial number durability, write your serial on a piece of stiff white plastic using a permanent marker and slide into the completed ecobrick.",
+
+    "nailvarnish-title": "Nail varnish",
+    "nailvarnish-text": "Write the serial number using an old bottle nail polish.",
+
+    "enamel-title": "Enamel Paint",
+    "maker-text": "Write the serial number using a paint brush and oil/enamel paint.",
+
+    "marker-title": "Permanent Marker",
+    "maker-text": "Write the serial number using a permanent marker (not a board marker of water based marker).",
+
 
 
     };

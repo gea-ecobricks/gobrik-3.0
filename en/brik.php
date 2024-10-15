@@ -154,7 +154,9 @@ if ($stmt) {
     <p><b data-lang-id="147b">Catalyst:</b> ' . htmlspecialchars($catalyst, ENT_QUOTES, 'UTF-8') . '</p>
     <p><b data-lang-id="148">Validation score final:</b> ' . htmlspecialchars($final_validation_score, ENT_QUOTES, 'UTF-8') . '</p>
     <p><b data-lang-id="149">Authenticated weight:</b> ' . htmlspecialchars($weight_authenticated_kg, ENT_QUOTES, 'UTF-8') . '&#8202;kg</p>
-    <p data-lang-id="150">||| END RECORD.</p>';
+    <p data-lang-id="150">||| END RECORD.</p>
+    </div>
+';
     }
 
     $stmt->close();  // Close the statement
@@ -164,8 +166,7 @@ if ($stmt) {
 
 $gobrik_conn->close();  // Close the database connection
 ?>
-</div>
-</div>
+
 </div><!--closes main?-->
 <!--FOOTER STARTS HERE-->
 <?php require_once ("../footer-2024.php");?>

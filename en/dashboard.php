@@ -38,8 +38,7 @@ if ($is_logged_in) {
 
 
     // Fetch other user data (e.g., ecobrick count and weight)
-    //Please help me modify this php so that it returns a weight in kg rather than grams for total_weight:
-// Prepare SQL query to count ecobricks and calculate total weight filtered by maker_id and buwana_id
+    //// Prepare SQL query to count ecobricks and calculate total weight filtered by maker_id and buwana_id
 $sql = "
     SELECT COUNT(*) as ecobrick_count, SUM(weight_g) / 1000 as total_weight
     FROM tb_ecobricks
@@ -58,8 +57,10 @@ if ($stmt) {
     if ($stmt->fetch()) {
         // Handle cases where null values may be returned (e.g., no records found)
         $ecobrick_count = $ecobrick_count ? $ecobrick_count : 0;
-        $total_weight = $total_weight ? $total_weight : 0;
+        // Convert total weight to kilograms if it has a value, otherwise return 0 kg
+        $total_weight = $total_weight !== null ? round($total_weight, 2) : 0;
     } else {
+        // In case of no results, set default values
         $ecobrick_count = 0;
         $total_weight = 0;
     }
@@ -68,6 +69,9 @@ if ($stmt) {
 } else {
     die("Error preparing statement for ecobrick data: " . $gobrik_conn->error);
 }
+
+// Now total_weight is in kilograms and properly handled for null values or missing data.
+
 
 // Fetch all ecobricks data for the user's maker id directly from tb_ecobricks
 $sql_recent = "

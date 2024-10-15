@@ -3,7 +3,7 @@ require_once '../earthenAuth_helper.php'; // Include the authentication helper f
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.55';
+$version = '0.56';
 $page = 'log-2';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -300,11 +300,12 @@ echo '<!DOCTYPE html>
                 </div>
 
 
-                <div style="display:flex;flex-flow:row;width:100%;justify-content:center;" data-lang-id="037-Xsubmit-upload-button">
-                    <button id="upload-progress-button" aria-label="Submit photos for upload">
-                        ⬆️ Upload
-                        <div id="loading-spinner" class="spinner" style="display:none;">Uploading...</div>
-                    </button>
+                <button id="upload-progress-button" aria-label="Submit photos for upload" style="display: flex; align-items: center;">
+                    <div id="loading-spinner" class="spinner" style="display:none; margin-right: 10px;"></div>
+                    <span id="button-text">⬆️ Upload</span>
+                </button>
+
+
                 </div>
 
                 </form>
@@ -400,10 +401,10 @@ document.querySelector('#photoform').addEventListener('submit', function(event) 
 
     var button = document.getElementById('upload-progress-button');
     var spinner = document.getElementById('loading-spinner');
+    var buttonText = document.getElementById('button-text');
 
-    var originalButtonText = button.innerText.trim(); // Save the original button text
-    button.innerText = ''; // Clear the button text
-    button.appendChild(spinner); // Add spinner to the button
+    var originalButtonText = buttonText.innerText.trim(); // Save the original button text
+    buttonText.innerText = 'Uploading...'; // Change the button text to "Uploading..."
     spinner.style.display = 'inline-block'; // Show the spinner
     button.disabled = true; // Disable button to prevent multiple submissions
 
@@ -422,8 +423,8 @@ document.querySelector('#photoform').addEventListener('submit', function(event) 
 
     if (fileInput.files.length === 0 && selfieInput.files.length === 0) {
         showFormModal(chooseFileMessage);
-        button.removeChild(spinner); // Remove spinner if no file chosen
-        button.innerText = originalButtonText; // Restore original button text
+        spinner.style.display = 'none'; // Hide spinner if no file is chosen
+        buttonText.innerText = originalButtonText; // Restore original button text
         button.disabled = false; // Re-enable button
         return;
     }
@@ -442,24 +443,24 @@ document.querySelector('#photoform').addEventListener('submit', function(event) 
 
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
-            button.removeChild(spinner); // Remove spinner when upload is complete
+            spinner.style.display = 'none'; // Hide spinner when upload is complete
             button.style.backgroundSize = '0% 100%'; // Reset background size
 
             if (xhr.status === 200) {
                 try {
                     var response = JSON.parse(xhr.responseText);
                     var ecobrick_unique_id = response.ecobrick_unique_id;
-                    button.innerText = "Uploaded!"; // Change button text to "Uploaded!"
+                    buttonText.innerText = "Uploaded!"; // Change button text to "Uploaded!"
                     window.location.href = 'log-3.php?id=' + ecobrick_unique_id; // Redirect to success page
                 } catch (e) {
                     console.error('Error parsing server response:', e);
                     document.getElementById('post-error-message').innerText = 'An error occurred while processing your upload.';
-                    button.innerText = originalButtonText; // Restore original button text
+                    buttonText.innerText = originalButtonText; // Restore original button text
                     button.disabled = false; // Re-enable button
                 }
             } else {
                 document.getElementById('post-error-message').innerText = 'Upload failed. Please try again.';
-                button.innerText = originalButtonText; // Restore original button text
+                buttonText.innerText = originalButtonText; // Restore original button text
                 button.disabled = false; // Re-enable button
             }
         }
@@ -468,6 +469,7 @@ document.querySelector('#photoform').addEventListener('submit', function(event) 
     xhr.open(form.method, form.action, true);
     xhr.send(formData);
 });
+
 
 
 

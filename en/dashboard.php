@@ -153,28 +153,29 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     </tr>
                 <?php else : ?>
                     <?php foreach ($recent_ecobricks as $ecobrick) : ?>
-                        <tr>
-                            <td>
-                                <img src="/<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>?v=2"
-                                     alt="Ecobrick Thumbnail"
-                                     class="table-thumbnail"
-                                     onclick="ecobrickPreview('<?php echo htmlspecialchars($ecobrick['ecobrick_full_photo_url']); ?>?v=2', '<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['weight_g']); ?>g', '<?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?>', '<?php echo htmlspecialchars($ecobrick['location_full']); ?>')">
-                            </td>
-                            <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?>g</td>
-                            <td><?php echo htmlspecialchars($ecobrick['location_full']); ?></td>
-                            <td><?php echo htmlspecialchars($ecobrick['status']); ?></td>
-                            <td>
-                                <button class="serial-button" onclick="viewEcobrickActions('<?php echo $serial_no; ?>', '<?php echo $ecobrick['status']; ?>', '<?php echo $lang; ?>')">
-    <?php
-    $wrapped_serial_no = substr($serial_no, 0, 3) . '<br>' . substr($serial_no, 3, 3);
-    echo $wrapped_serial_no;
-    ?>
-</button>
+    <tr>
+        <td>
+            <img src="/<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>?v=2"
+                 alt="Ecobrick Thumbnail"
+                 class="table-thumbnail"
+                 onclick="ecobrickPreview('<?php echo htmlspecialchars($ecobrick['ecobrick_full_photo_url']); ?>?v=2', '<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['weight_g']); ?>g', '<?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?>', '<?php echo htmlspecialchars($ecobrick['location_full']); ?>')">
+        </td>
+        <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?>g</td>
+        <td><?php echo htmlspecialchars($ecobrick['location_full']); ?></td>
+        <td><?php echo htmlspecialchars($ecobrick['status']); ?></td>
+        <td>
+            <!-- The button that calls the JavaScript function -->
+            <button class="serial-button" onclick="viewEcobrickActions('<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['status']); ?>', '<?php echo htmlspecialchars($lang); ?>')">
+                <?php
+                // Display the serial number with line breaks, without wrapping it in an <a> tag
+                $wrapped_serial_no = substr(htmlspecialchars($ecobrick['serial_no']), 0, 3) . '<br>' . substr(htmlspecialchars($ecobrick['serial_no']), 3, 3);
+                echo $wrapped_serial_no;
+                ?>
+            </button>
+        </td>
+    </tr>
+<?php endforeach; ?>
 
-
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
                 <?php endif; ?>
             </table>
         </div>

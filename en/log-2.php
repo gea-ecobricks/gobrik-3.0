@@ -393,7 +393,7 @@ document.querySelector('#photoform').addEventListener('submit', function(event) 
 
     var button = document.getElementById('upload-progress-button');
     var originalButtonText = button.innerText; // Save the original button text
-    button.innerText = '<div id="loading-spinner" class="spinner">Uploading...</span>'; // Set button text to indicate progress
+    button.innerText = '<div id="loading-spinner" class="spinner">Uploading...</div>'; // Set button text to indicate progress
     button.disabled = true; // Disable button to prevent multiple submissions
 
     var messages = {

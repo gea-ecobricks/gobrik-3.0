@@ -1,6 +1,5 @@
 <?php
 
-
 // Function to rotate an image by the specified degrees and save it back
 function rotateEcobrickPhoto($sourcePath, $rotationDegrees, $targetPath = null) {
     // Log the start of the process
@@ -73,19 +72,25 @@ function rotateEcobrickPhoto($sourcePath, $rotationDegrees, $targetPath = null) 
     return true; // Indicate success
 }
 
-
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $photoUrl = $_POST['photo_url'] ?? '';
+    $thumbUrl = $_POST['thumb_url'] ?? ''; // Get the thumbnail URL from POST data
     $rotationDegrees = $_POST['rotation'] ?? 0;
 
     if (!empty($photoUrl) && $rotationDegrees) {
-        // Try rotating the photo using the server path
-        if (rotateEcobrickPhoto($photoUrl, $rotationDegrees)) {
-            echo "Image rotated successfully.";
+        // Try rotating the main photo using the server path
+        $mainPhotoSuccess = rotateEcobrickPhoto($photoUrl, $rotationDegrees);
+        $thumbPhotoSuccess = true; // Default success flag for thumbnail
+
+        // If there's a thumbnail URL, rotate it as well
+        if (!empty($thumbUrl)) {
+            $thumbPhotoSuccess = rotateEcobrickPhoto($thumbUrl, $rotationDegrees);
+        }
+
+        if ($mainPhotoSuccess && $thumbPhotoSuccess) {
+            echo "Image and thumbnail rotated successfully.";
         } else {
-            echo "Failed to rotate the image.";
+            echo "Failed to rotate the image or thumbnail.";
         }
     } else {
         echo "Invalid request data.";

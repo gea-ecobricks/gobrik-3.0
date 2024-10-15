@@ -97,7 +97,7 @@ overflow: hidden;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  background-color: #12b712;
+  background-color: green;
   background-size: 0% 100%;
   transition: background-size 0.5s ease;
   font-size: 1.3em;
@@ -112,7 +112,8 @@ overflow: hidden;
 }
 
 #upload-progress-button:hover {
-  background-color: green;
+  background-color: lightgreen;
+  color: black;
 }
 
 

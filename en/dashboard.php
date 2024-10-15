@@ -388,7 +388,6 @@ window.onload = function() {
 
 <script>
 
-
 function viewEcobrickActions(serial_no, status, lang) {
     const modal = document.getElementById('form-modal-message');
     const messageContainer = document.querySelector('.modal-message');
@@ -413,12 +412,15 @@ function viewEcobrickActions(serial_no, status, lang) {
             translations = en_Translations; // Default to English
     }
 
+    // Properly encode serial number for URL safety
+    let encodedSerialNo = encodeURIComponent(serial_no);
+
     // Construct the content (stack of buttons)
     let content = `
-        <a class="confirm-button" href="brik.php?serial_no=${serial_no}" data-lang-id="013-view-ecobrick-post" style="width:100%; display: block; margin-bottom: 10px;">
+        <a class="confirm-button" href="brik.php?serial_no=${encodedSerialNo}" data-lang-id="013-view-ecobrick-post" style="width:100%; display: block; margin-bottom: 10px;">
             ${translations['013-view-ecobrick-post']}
         </a>
-        <a class="confirm-button" href="log.php?retry=${serial_no}" data-lang-id="015-edit-ecobrick" style="width:100%; display: block; margin-bottom: 10px;">
+        <a class="confirm-button" href="log.php?retry=${encodedSerialNo}" data-lang-id="015-edit-ecobrick" style="width:100%; display: block; margin-bottom: 10px;">
             ✏️ ${translations['015-edit-ecobrick']}
         </a>
         <a class="confirm-button" href="log.php" data-lang-id="015-log-another-ecobrick" style="width:100%; display: block; margin-bottom: 10px;">
@@ -428,11 +430,11 @@ function viewEcobrickActions(serial_no, status, lang) {
             🏡 ${translations['000-dashboard']}
         </a>
         <form id="deleteForm" method="POST">
-            <input type="hidden" name="serial_no" value="${serial_no}">
+            <input type="hidden" name="serial_no" value="${encodedSerialNo}">
             <input type="hidden" name="action" value="delete_ecobrick">
-            <a class="confirm-button" style="background:red; cursor:pointer;width:100%; display: block;" id="deleteButton" data-lang-id="014-delete-ecobrick">
+            <button class="confirm-button" type="button" style="background:red; cursor:pointer;width:100%; display: block;" id="deleteButton" data-lang-id="014-delete-ecobrick">
                 ❌ ${translations['014-delete-ecobrick']}
-            </a>
+            </button>
         </form>
     `;
 
@@ -451,6 +453,14 @@ function viewEcobrickActions(serial_no, status, lang) {
         }
     });
 }
+
+// Function to close the modal
+function closeInfoModal() {
+    const modal = document.getElementById('form-modal-message');
+    modal.classList.remove('modal-visible');
+    modal.classList.add('modal-hidden');
+}
+
 
 </script>
 </body>

@@ -175,24 +175,46 @@ color: var(--text-color);
     border: none;          /* Remove default borders */
     cursor: pointer;       /* Show pointer on hover */
     font-size: 1em;        /* Consistent font size */
+    padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: var(--emblem-green);
+  font-size: 1.3em;
+  text-align: center;
+  text-decoration: none;
 }
 
-.confirm-button:hover {
-    opacity: 0.9;          /* Slight hover effect */
+
+.ecobrick-action-button:hover {
+  background: var(--emblem-green-over);
 }
+
 
 /* Special styling for delete button */
-.confirm-button.delete-button {
+.ecobrick-action-button.delete-button {
     background-color: red; /* Red background for the delete button */
     color: white;          /* White text for contrast */
 }
 
-.confirm-button a {
-    text-decoration: none; /* No underline for links */
-    color: inherit;        /* Inherit color from button */
-}
+
 
 </style>
+color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: var(--emblem-green);
+  font-size: 1.3em;
+  margin: auto;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  margin-top: 10px;
+  display: flex;
+}
+
 
 
 

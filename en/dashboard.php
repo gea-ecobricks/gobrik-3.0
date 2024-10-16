@@ -461,7 +461,7 @@ function copyEcobrickLink(url, button) {
                 // Change the button text to "URL Copied!"
                 button.innerHTML = 'URL Copied!';
                 // After 1 second, close the modal
-                setTimeout(closeModal, 1000);
+                setTimeout(closeInfoModal, 1000);
             })
             .catch(err => {
                 console.error('Failed to copy: ', err);
@@ -480,7 +480,7 @@ function copyEcobrickLink(url, button) {
         button.innerHTML = 'URL Copied!';
 
         // After 1 second, close the modal
-        setTimeout(closeModal, 1000);
+        setTimeout(closeInfoModal, 1000);
     }
 }
 

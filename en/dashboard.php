@@ -426,7 +426,7 @@ function viewEcobrickActions(serial_no, status, lang) {
         <form id="deleteForm" method="POST">
             <input type="hidden" name="serial_no" value="${encodedSerialNo}">
             <input type="hidden" name="action" value="delete_ecobrick">
-            <button class="ecobrick-action-button delete-button" type="button" id="deleteButton" data-lang-id="014-delete-ecobrick">
+            <button class="ecobrick-action-button delete" type="button" id="deleteButton" data-lang-id="014-delete-ecobrick">
                 ❌ ${translations['014-delete-ecobrick']}
             </button>
         </form>

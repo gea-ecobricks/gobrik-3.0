@@ -417,13 +417,14 @@ function viewEcobrickActions(serial_no, status, lang) {
 
     // Construct the content (stack of buttons)
     let content = `
-        <a class="ecobrick-action-button" href="brik.php?serial_no=${encodedSerialNo}" data-lang-id="013-view-ecobrick-post">
-            🔍 ${translations['013-view-ecobrick-post']}
-        </a>
-        <a class="ecobrick-action-button" href="log.php?retry=${encodedSerialNo}" data-lang-id="015-edit-ecobrick">
-            ✏️ ${translations['015-edit-ecobrick']}
-        </a>
+
         <form id="deleteForm" method="POST">
+            <a class="ecobrick-action-button" href="brik.php?serial_no=${encodedSerialNo}" data-lang-id="013-view-ecobrick-post">
+            🔍 ${translations['013-view-ecobrick-post']}
+            </a>
+            <a class="ecobrick-action-button" href="log.php?retry=${encodedSerialNo}" data-lang-id="015-edit-ecobrick">
+                ✏️ ${translations['015-edit-ecobrick']}
+            </a>
             <input type="hidden" name="serial_no" value="${encodedSerialNo}">
             <input type="hidden" name="action" value="delete_ecobrick">
             <button class="ecobrick-action-button deleter-button" type="button" id="deleteButton" data-lang-id="014-delete-ecobrick">

@@ -426,7 +426,7 @@ function viewEcobrickActions(serial_no, status, lang) {
         <form id="deleteForm" method="POST">
             <input type="hidden" name="serial_no" value="${encodedSerialNo}">
             <input type="hidden" name="action" value="delete_ecobrick">
-            <button class="ecobrick-action-button delete-button" type="button" id="deleteButton" data-lang-id="014-delete-ecobrick">
+            <button class="ecobrick-action-button deleter-button" type="button" id="deleteButton" data-lang-id="014-delete-ecobrick">
                 ❌ ${translations['014-delete-ecobrick']}
             </button>
         </form>
@@ -469,8 +469,8 @@ function viewEcobrickActions(serial_no, status, lang) {
         })
         .then(data => {
             if (data.success) {
-                alert('Your ecobrick has been successfully deleted. You may now log another ecobrick...');
-                window.location.href = 'log.php';
+                alert('Your ecobrick has been successfully deleted.');
+                window.location.href = 'dashboard.php';
             } else {
                 alert('There was an error deleting the ecobrick: ' + data.error);
             }

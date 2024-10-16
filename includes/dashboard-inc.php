@@ -193,12 +193,12 @@ color: var(--text-color);
 
 
 /* Special styling for delete button */
-.ecobrick-action-button.delete-button {
+.ecobrick-action-button.deleter-button {
     background-color: #ff000094; /* Red background for the delete button */
     color: white;          /* White text for contrast */
 }
 
-.ecobrick-action-button.delete-button:hover {
+.ecobrick-action-button.deleter-button:hover {
     background-color: red; /* Red background for the delete button */
     color: white;          /* White text for contrast */
 }

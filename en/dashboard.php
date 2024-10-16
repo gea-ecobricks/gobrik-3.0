@@ -386,6 +386,7 @@ window.onload = function() {
 
 
 
+
 <script>
 function viewEcobrickActions(serial_no, status, lang) {
     console.log("Button clicked with serial number:", serial_no);
@@ -414,14 +415,26 @@ function viewEcobrickActions(serial_no, status, lang) {
 
     // Properly encode serial number for URL safety
     let encodedSerialNo = encodeURIComponent(serial_no);
+    let ecobrickURL = `https://beta.gobrik.com/en/brik.php?serial_no=${encodedSerialNo}`;
 
     // Construct the content (stack of buttons)
     let content = `
         <a class="ecobrick-action-button" href="brik.php?serial_no=${encodedSerialNo}" data-lang-id="013-view-ecobrick-post">
             🔍 ${translations['013-view-ecobrick-post']}
-        </a>
+        </a>`;
+
+    // Conditionally display the "Edit Ecobrick" button
+    if (status !== "authenticated") {
+        content += `
         <a class="ecobrick-action-button" href="log.php?retry=${encodedSerialNo}" data-lang-id="015-edit-ecobrick">
             ✏️ ${translations['015-edit-ecobrick']}
+        </a>`;
+    }
+
+    // Add the "Share Ecobrick" button
+    content += `
+        <a class="ecobrick-action-button" href="javascript:void(0);" onclick="copyEcobrickLink('${ecobrickURL}', this)" data-lang-id="016-share-ecobrick">
+            🔗 ${translations['016-share-ecobrick'] || 'Share Ecobrick'}
         </a>
         <a class="ecobrick-action-button deleter-button" href="javascript:void(0);" onclick="deleteEcobrick('${encodedSerialNo}')" data-lang-id="014-delete-ecobrick">
             ❌ ${translations['014-delete-ecobrick']}
@@ -439,6 +452,33 @@ function viewEcobrickActions(serial_no, status, lang) {
     document.body.classList.add('modal-open');
 }
 
+// Function to copy the Ecobrick URL to clipboard and change the button text
+function copyEcobrickLink(url, button) {
+    // Create a temporary input to copy the URL
+    const tempInput = document.createElement('input');
+    tempInput.value = url;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
+
+    // Change the button text to "URL Copied!"
+    button.innerHTML = 'URL Copied!';
+
+    // After 1 second, close the modal
+    setTimeout(closeModal, 1000);
+}
+
+// Function to close the modal
+function closeModal() {
+    const modal = document.getElementById('form-modal-message');
+    modal.style.display = 'none';
+    document.getElementById('page-content').classList.remove('blurred');
+    document.getElementById('footer-full').classList.remove('blurred');
+    document.body.classList.remove('modal-open');
+}
+
+// Function to delete an ecobrick
 function deleteEcobrick(serial_no) {
     // Ask the user for confirmation
     if (confirm('Are you sure you want to delete this ecobrick from the database? This cannot be undone.')) {
@@ -462,7 +502,7 @@ function deleteEcobrick(serial_no) {
         .then(data => {
             if (data.success) {
                 alert('Your ecobrick has been successfully deleted.');
-//                 window.location.href = 'dashboard.php'; // Redirect after deletion
+                window.location.href = 'log.php'; // Redirect after deletion
             } else {
                 alert('There was an error deleting the ecobrick: ' + data.error);
             }
@@ -474,6 +514,7 @@ function deleteEcobrick(serial_no) {
     }
 }
 </script>
+
 
 
 

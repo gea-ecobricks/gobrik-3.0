@@ -12,20 +12,20 @@ header('Content-Type: application/json');
 
 // Check if the request is a POST request
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Retrieve the ecobrick_unique_id from the POST data
-    $ecobrick_unique_id = $_POST['ecobrick_unique_id'] ?? null;
+    // Retrieve the serial_no from the POST data
+    $serial_no = $_POST['serial_no'] ?? null;
 
-    // Check if the ecobrick_unique_id is valid
-    if ($ecobrick_unique_id && is_numeric($ecobrick_unique_id)) {
+    // Check if the serial_no is valid
+    if ($serial_no) {
         try {
-            // Prepare the DELETE SQL query
-            $sql = "DELETE FROM tb_ecobricks WHERE ecobrick_unique_id = ?";
+            // Prepare the DELETE SQL query based on the serial_no
+            $sql = "DELETE FROM tb_ecobricks WHERE serial_no = ?";
             $stmt = $gobrik_conn->prepare($sql);
 
             // Check if the query was successfully prepared
             if ($stmt) {
-                // Bind the ecobrick_unique_id to the SQL query
-                $stmt->bind_param('i', $ecobrick_unique_id);
+                // Bind the serial_no to the SQL query
+                $stmt->bind_param('s', $serial_no);
 
                 // Execute the query
                 if ($stmt->execute()) {
@@ -47,8 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo json_encode(['success' => false, 'error' => 'Exception occurred: ' . $e->getMessage()]);
         }
     } else {
-        // If ecobrick_unique_id is invalid or missing, send error response
-        echo json_encode(['success' => false, 'error' => 'Invalid ecobrick ID provided']);
+        // If serial_no is invalid or missing, send error response
+        echo json_encode(['success' => false, 'error' => 'Invalid ecobrick serial number provided']);
     }
 } else {
     // If the request is not POST, send error response

@@ -417,21 +417,15 @@ function viewEcobrickActions(serial_no, status, lang) {
 
     // Construct the content (stack of buttons)
     let content = `
-
-        <form id="deleteForm" method="POST">
-            <a class="ecobrick-action-button" href="brik.php?serial_no=${encodedSerialNo}" data-lang-id="013-view-ecobrick-post">
+        <a class="ecobrick-action-button" href="brik.php?serial_no=${encodedSerialNo}" data-lang-id="013-view-ecobrick-post">
             🔍 ${translations['013-view-ecobrick-post']}
-            </a>
-            <a class="ecobrick-action-button" href="log.php?retry=${encodedSerialNo}" data-lang-id="015-edit-ecobrick">
-                ✏️ ${translations['015-edit-ecobrick']}
-            </a>
-            <input type="hidden" name="serial_no" value="${encodedSerialNo}">
-            <input type="hidden" name="action" value="delete_ecobrick">
-            <button class="ecobrick-action-button deleter-button" type="button" id="deleteButton" data-lang-id="014-delete-ecobrick">
-                ❌ ${translations['014-delete-ecobrick']}
-            </button>
-        </form>
-
+        </a>
+        <a class="ecobrick-action-button" href="log.php?retry=${encodedSerialNo}" data-lang-id="015-edit-ecobrick">
+            ✏️ ${translations['015-edit-ecobrick']}
+        </a>
+        <a class="ecobrick-action-button deleter-button" href="javascript:void(0);" onclick="deleteEcobrick('${encodedSerialNo}')" data-lang-id="014-delete-ecobrick">
+            ❌ ${translations['014-delete-ecobrick']}
+        </a>
     `;
 
     // Insert the content into the message container
@@ -443,23 +437,20 @@ function viewEcobrickActions(serial_no, status, lang) {
     document.getElementById('page-content').classList.add('blurred');
     document.getElementById('footer-full').classList.add('blurred');
     document.body.classList.add('modal-open');
+}
 
-    // Attach the event listener to the dynamically inserted delete button
-    document.getElementById('deleteButton').addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent default action
-
-    const serial_no = document.querySelector('input[name="serial_no"]').value;
-    console.log("Deleting ecobrick with serial_no:", serial_no); // Log the serial_no for debugging
-
+function deleteEcobrick(serial_no) {
+    // Ask the user for confirmation
     if (confirm('Are you sure you want to delete this ecobrick from the database? This cannot be undone.')) {
+        // Send the delete request via fetch
         fetch('delete-ecobrick.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: new URLSearchParams({
-                'serial_no': serial_no,
-                'action': 'delete_ecobrick' // Explicitly passing the action
+                'serial_no': serial_no, // Send serial_no
+                'action': 'delete_ecobrick' // Include action for clarity
             })
         })
         .then(response => {
@@ -471,7 +462,7 @@ function viewEcobrickActions(serial_no, status, lang) {
         .then(data => {
             if (data.success) {
                 alert('Your ecobrick has been successfully deleted.');
-                window.location.href = 'dashboard.php';
+                window.location.href = 'log.php'; // Redirect after deletion
             } else {
                 alert('There was an error deleting the ecobrick: ' + data.error);
             }
@@ -481,12 +472,9 @@ function viewEcobrickActions(serial_no, status, lang) {
             alert('There was an error processing your request.');
         });
     }
-});
-
 }
-
-
 </script>
+
 
 
 </body>

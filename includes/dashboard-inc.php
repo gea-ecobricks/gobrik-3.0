@@ -177,9 +177,9 @@ color: var(--text-color);
     font-size: 1em;        /* Consistent font size */
     padding: 10px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
-  background: var(--emblem-green);
+  background: #00800094;
   font-size: 1.3em;
   text-align: center;
   text-decoration: none;
@@ -188,12 +188,17 @@ color: var(--text-color);
 
 
 .ecobrick-action-button:hover {
-  background: var(--emblem-green-over);
+  background: var(--emblem-green);
 }
 
 
 /* Special styling for delete button */
 .ecobrick-action-button.delete-button {
+    background-color: #ff000094; /* Red background for the delete button */
+    color: white;          /* White text for contrast */
+}
+
+.ecobrick-action-button.delete-button:hover {
     background-color: red; /* Red background for the delete button */
     color: white;          /* White text for contrast */
 }

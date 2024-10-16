@@ -482,6 +482,7 @@ function viewEcobrickActions(serial_no, status, lang) {
     }
 });
 
+}
 
 
 </script>

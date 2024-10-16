@@ -24,8 +24,8 @@ function retryEcobrick($gobrik_conn, $ecobrick_unique_id) {
         // Fetch the data and check the status
         if ($stmt->fetch()) {
             // If status is not "not ready", exit the function
-            if ($status !== "not ready") {
-                echo "<script>console.log('Ecobrick is not in a not-ready state. Retry function skipped.');</script>";
+            if ($status !== "authenticated") {
+                echo "<script>console.log('Ecobrick is authenticated. You cannot edited an authenticated ecobrick.  Retry function skipped.');</script>";
                 return;  // Quit the function early if status isn't "not ready"
             }
 

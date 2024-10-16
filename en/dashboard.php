@@ -385,8 +385,6 @@ window.onload = function() {
 </script>
 
 
-
-<script>
 function viewEcobrickActions(serial_no, status, lang) {
     console.log("Button clicked with serial number:", serial_no);
     const modal = document.getElementById('form-modal-message');
@@ -442,18 +440,12 @@ function viewEcobrickActions(serial_no, status, lang) {
     document.getElementById('footer-full').classList.add('blurred');
     document.body.classList.add('modal-open');
 
-
-}
-
-
-
-
-       document.addEventListener('DOMContentLoaded', function() {
+    // Attach the event listener to the dynamically inserted delete button
     document.getElementById('deleteButton').addEventListener('click', function(event) {
         event.preventDefault(); // Prevent default action
 
         if (confirm('Are you sure you want to delete this ecobrick from the database? This cannot be undone.')) {
-            const ecobrickUniqueId = document.querySelector('input[name="ecobrick_unique_id"]').value;
+            const serial_no = document.querySelector('input[name="serial_no"]').value;
             const action = document.querySelector('input[name="action"]').value;
 
             fetch('delete-ecobrick.php', {
@@ -462,7 +454,7 @@ function viewEcobrickActions(serial_no, status, lang) {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: new URLSearchParams({
-                    'ecobrick_unique_id': ecobrickUniqueId,
+                    'serial_no': serial_no,
                     'action': action // Include the action field
                 })
             })
@@ -486,9 +478,8 @@ function viewEcobrickActions(serial_no, status, lang) {
             });
         }
     });
-});
-
-</script>
+}
+<script>
 
 
 </body>

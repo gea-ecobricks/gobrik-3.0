@@ -477,7 +477,7 @@ function copyEcobrickLink(url, button) {
         document.body.removeChild(tempInput);
 
         // Change the button text to "URL Copied!"
-        button.innerHTML = 'URL Copied!';
+        button.innerHTML = '🤩 URL Copied!';
 
         // After 1 second, close the modal
         setTimeout(closeInfoModal, 1000);

@@ -3,9 +3,11 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-
 // Function to fetch ecobrick data for retry
 function retryEcobrick($gobrik_conn, $ecobrick_unique_id) {
+    // Ensure ecobrick_unique_id is an integer
+    $ecobrick_unique_id = intval($ecobrick_unique_id);
+
     // Fetch the ecobrick data from the database, including the status
     $sql = "SELECT ecobricker_maker, volume_ml, weight_g, sequestration_type, plastic_from, brand_name, community_id, location_full, bottom_colour, location_lat, location_long, location_watershed, country_id, status FROM tb_ecobricks WHERE ecobrick_unique_id = ?";
     $stmt = $gobrik_conn->prepare($sql);
@@ -21,20 +23,18 @@ function retryEcobrick($gobrik_conn, $ecobrick_unique_id) {
             $location_watershed, $country_id, $status
         );
 
-     // Fetch the data and check the status
-    if ($stmt->fetch()) {
-        // If status is "authenticated", show an alert and redirect the user
-        if ($status == "authenticated") {
-            echo "<script>
-                    alert('Ecobrick is authenticated. You cannot edit an authenticated ecobrick. Retry function skipped.');
-                    window.location.href = 'log.php'; // Redirect after the user clicks OK
-                  </script>";
-            return;  // Quit the function early if status is "authenticated"
-        }
-    }
+        // Fetch the data and check the status
+        if ($stmt->fetch()) {
+            // If status is "authenticated", show an alert and redirect the user
+            if ($status == "authenticated") {
+                echo "<script>
+                        alert('Ecobrick is authenticated. You cannot edit an authenticated ecobrick. Retry function skipped.');
+                        window.location.href = 'log.php'; // Redirect after the user clicks OK
+                      </script>";
+                return;  // Quit the function early if status is "authenticated"
+            }
 
-
-            // Output JavaScript to populate the form
+            // Output JavaScript to populate the form if status is not "authenticated"
             echo "<script>
                 document.addEventListener('DOMContentLoaded', function() {
                     document.getElementById('ecobricker_maker').value = '" . htmlspecialchars($ecobricker_maker, ENT_QUOTES) . "';
@@ -62,14 +62,16 @@ function retryEcobrick($gobrik_conn, $ecobrick_unique_id) {
                 });
             </script>";
         } else {
-            echo "<script>console.log('No ecobrick found with this unique ID');</script>";
+            echo "<script>alert('No ecobrick found with this unique ID.'); window.location.href = 'log.php';</script>";
         }
 
         $stmt->close();
     } else {
         error_log("Error preparing retryEcobrick statement: " . $gobrik_conn->error);
+        echo "<script>alert('An error occurred while fetching the ecobrick data. Please try again later.'); window.location.href = 'log.php';</script>";
     }
 }
+
 
 
 // Function to generate or return a serial number

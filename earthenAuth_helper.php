@@ -21,13 +21,18 @@ function retryEcobrick($gobrik_conn, $ecobrick_unique_id) {
             $location_watershed, $country_id, $status
         );
 
-        // Fetch the data and check the status
-        if ($stmt->fetch()) {
-            // If status is not "not ready", exit the function
-            if ($status == "authenticated") {
-                echo "<script>console.log('Ecobrick is authenticated. You cannot edited an authenticated ecobrick.  Retry function skipped.');</script>";
-                return;  // Quit the function early if status isn't "not ready"
-            }
+     // Fetch the data and check the status
+    if ($stmt->fetch()) {
+        // If status is "authenticated", show an alert and redirect the user
+        if ($status == "authenticated") {
+            echo "<script>
+                    alert('Ecobrick is authenticated. You cannot edit an authenticated ecobrick. Retry function skipped.');
+                    window.location.href = 'log.php'; // Redirect after the user clicks OK
+                  </script>";
+            return;  // Quit the function early if status is "authenticated"
+        }
+    }
+
 
             // Output JavaScript to populate the form
             echo "<script>

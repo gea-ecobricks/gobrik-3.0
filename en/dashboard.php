@@ -511,7 +511,7 @@ function deleteEcobrick(serial_no) {
         .then(data => {
             if (data.success) {
                 alert('Your ecobrick has been successfully deleted.');
-                window.location.href = 'log.php'; // Redirect after deletion
+                window.location.href = 'dashboard.php'; // Redirect after deletion
             } else {
                 alert('There was an error deleting the ecobrick: ' + data.error);
             }

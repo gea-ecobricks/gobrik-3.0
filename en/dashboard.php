@@ -426,10 +426,11 @@ function viewEcobrickActions(serial_no, status, lang) {
         <form id="deleteForm" method="POST">
             <input type="hidden" name="serial_no" value="${encodedSerialNo}">
             <input type="hidden" name="action" value="delete_ecobrick">
-            <button class="ecobrick-action-button delete" type="button" id="deleteButton" data-lang-id="014-delete-ecobrick">
+            <button class="ecobrick-action-button delete-button" type="button" id="deleteButton" data-lang-id="014-delete-ecobrick">
                 ❌ ${translations['014-delete-ecobrick']}
             </button>
         </form>
+
     `;
 
     // Insert the content into the message container
@@ -444,43 +445,43 @@ function viewEcobrickActions(serial_no, status, lang) {
 
     // Attach the event listener to the dynamically inserted delete button
     document.getElementById('deleteButton').addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent default action
+    event.preventDefault(); // Prevent default action
 
-        if (confirm('Are you sure you want to delete this ecobrick from the database? This cannot be undone.')) {
-            const serial_no = document.querySelector('input[name="serial_no"]').value;
-            const action = document.querySelector('input[name="action"]').value;
+    const serial_no = document.querySelector('input[name="serial_no"]').value;
+    console.log("Deleting ecobrick with serial_no:", serial_no); // Log the serial_no for debugging
 
-            fetch('delete-ecobrick.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams({
-                    'serial_no': serial_no,
-                    'action': action // Include the action field
-                })
+    if (confirm('Are you sure you want to delete this ecobrick from the database? This cannot be undone.')) {
+        fetch('delete-ecobrick.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                'serial_no': serial_no,
+                'action': 'delete_ecobrick' // Explicitly passing the action
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok.');
-                }
-                return response.json(); // Expecting JSON from the server
-            })
-            .then(data => {
-                if (data.success) {
-                    alert('Your ecobrick has been successfully deleted. You may now log another ecobrick...');
-                    window.location.href = 'log.php';
-                } else {
-                    alert('There was an error deleting the ecobrick: ' + data.error);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('There was an error processing your request.');
-            });
-        }
-    });
-}
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+            return response.json(); // Expecting JSON from the server
+        })
+        .then(data => {
+            if (data.success) {
+                alert('Your ecobrick has been successfully deleted. You may now log another ecobrick...');
+                window.location.href = 'log.php';
+            } else {
+                alert('There was an error deleting the ecobrick: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('There was an error processing your request.');
+        });
+    }
+});
+
 
 
 </script>

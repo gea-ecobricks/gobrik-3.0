@@ -59,7 +59,7 @@ $gobrik_conn->close();
             "serverSide": true,
             "processing": true,
             "ajax": {
-                "url": "../api/fetch_ecobricks.php",
+                "url": "../api/newest_briks.php",
                 "type": "POST"
             },
             "pageLength": 12,

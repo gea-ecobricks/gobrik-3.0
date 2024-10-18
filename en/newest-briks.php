@@ -63,7 +63,7 @@ $gobrik_conn->close();
             "serverSide": true,
             "processing": true,
             "ajax": {
-                "url": "fetch_newest_briks.php",
+                "url": "../api/fetch_newest_briks.php",
                 "type": "POST"
             },
             "pageLength": 12,

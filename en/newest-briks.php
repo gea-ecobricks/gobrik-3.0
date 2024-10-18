@@ -121,9 +121,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <thead>
             <tr>
                 <th data-lang-id="1103-brik">Brik</th>
-                <th data-lang-id="1104-weight">Weight (g)</th>
-                <th data-lang-id="1108-volume">Volume (ml)</th>
-                <th data-lang-id="1109-density">Density (g/ml)</th>
+                <th data-lang-id="1104-weight">Weight</th>
+                <th data-lang-id="1108-volume">Volume</th>
+                <th data-lang-id="1109-density">Density)</th>
                 <th data-lang-id="1110-date-logged">Date Logged</th>
                 <th data-lang-id="1105-location">Location</th>
                 <th data-lang-id="1106-status">Status</th>

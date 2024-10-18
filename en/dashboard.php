@@ -41,16 +41,17 @@ $maker_id = $ecobricker_id; // Assuming ecobricker_id is equivalent to maker_id
 // Fetch all ecobricks data for the user's maker_id directly from tb_ecobricks
 $sql_recent = "
     SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, weight_g / 1000 AS weight_kg, volume_ml,
-           location_full, ecobricker_maker, serial_no, status
+           weight_g / volume_ml AS density, date_logged_ts, ecobricker_maker, serial_no, status
     FROM tb_ecobricks
     WHERE maker_id = ?
     ORDER BY date_logged_ts DESC";
 
+
 $stmt_recent = $gobrik_conn->prepare($sql_recent);
 
+$recent_ecobricks = [];
 $total_weight = 0; // Total weight in kilograms
 $total_volume = 0; // Total volume in ml
-$recent_ecobricks = [];
 $ecobrick_count = 0; // Count of ecobricks
 
 if ($stmt_recent) {
@@ -58,18 +59,19 @@ if ($stmt_recent) {
     $stmt_recent->bind_param("s", $maker_id);
     $stmt_recent->execute();
 
-    // Bind the results, now also binding weight_g (in grams) and weight_kg (in kilograms)
-    $stmt_recent->bind_result($ecobrick_thumb_photo_url, $ecobrick_full_photo_url, $weight_g, $weight_kg, $volume_ml, $location_full, $ecobricker_maker, $serial_no, $status);
+    // Bind the results, now also binding density and date_logged_ts
+    $stmt_recent->bind_result($ecobrick_thumb_photo_url, $ecobrick_full_photo_url, $weight_g, $weight_kg, $volume_ml, $density, $date_logged_ts, $ecobricker_maker, $serial_no, $status);
 
     // Fetch and process the results
     while ($stmt_recent->fetch()) {
         $recent_ecobricks[] = [
             'ecobrick_thumb_photo_url' => $ecobrick_thumb_photo_url,
             'ecobrick_full_photo_url' => $ecobrick_full_photo_url,
-            'weight_g' => $weight_g,  // Now the weight in grams is available
-            'weight_kg' => $weight_kg,  // Also have the weight in kilograms
+            'weight_g' => $weight_g,
+            'weight_kg' => $weight_kg,
             'volume_ml' => $volume_ml,
-            'location_full' => $location_full,
+            'density' => $density,
+            'date_logged_ts' => $date_logged_ts,
             'ecobricker_maker' => $ecobricker_maker,
             'serial_no' => $serial_no,
             'status' => $status,
@@ -77,14 +79,14 @@ if ($stmt_recent) {
         $total_weight += $weight_kg; // Sum up total weight in kilograms
         $total_volume += $volume_ml; // Sum up total volume in ml
         $ecobrick_count++; // Increment the ecobrick count
-        $net_density = $total_volume > 0 ? ($total_weight * 1000) / $total_volume : 0;
     }
 
-        // Close the statement after fetching
-        $stmt_recent->close();
-    } else {
-        die("Error preparing the statement for fetching ecobricks: " . $gobrik_conn->error);
-    }
+    // Close the statement after fetching
+    $stmt_recent->close();
+} else {
+    die("Error preparing the statement for fetching ecobricks: " . $gobrik_conn->error);
+}
+
 
     // Close database connections
     $buwana_conn->close();
@@ -141,16 +143,18 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <thead>
             <tr>
                 <th data-lang-id="1103-brik">Brik</th>
-                <th data-lang-id="1104-weight">Weight</th>
-                <th data-lang-id="1105-location">Location</th>
-                <th data-lang-id="1106-status">Status</th>
+                <th data-lang-id="1104-weight">Weight (g)</th>
+                <th data-lang-id="1108-volume">Volume (ml)</th>
+                <th data-lang-id="1109-density">Density (g/ml)</th>
+                <th data-lang-id="1110-date-logged">Date Logged</th>
                 <th data-lang-id="1107-serial">Serial</th>
+                <th data-lang-id="1106-status">Status</th>
             </tr>
         </thead>
         <tbody>
             <?php if (empty($recent_ecobricks)) : ?>
                 <tr>
-                    <td colspan="5" style="text-align:center;">
+                    <td colspan="7" style="text-align:center;">
                         <span data-lang-id="003-no-ecobricks-yet">It looks like you haven't logged any ecobricks yet! When you do, they will appear here for you to manage.</span>
                     </td>
                 </tr>
@@ -161,22 +165,25 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                             <img src="/<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>?v=2"
                                  alt="Ecobrick Thumbnail"
                                  class="table-thumbnail"
-                                 onclick="ecobrickPreview('<?php echo htmlspecialchars($ecobrick['ecobrick_full_photo_url']); ?>?v=2', '<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['weight_g']); ?>g', '<?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?>', '<?php echo htmlspecialchars($ecobrick['location_full']); ?>')">
+                                 onclick="ecobrickPreview('<?php echo htmlspecialchars($ecobrick['ecobrick_full_photo_url']); ?>?v=2', '<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['weight_g']); ?>g', '<?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?>', '<?php echo htmlspecialchars($ecobrick['date_logged_ts']); ?>')">
                         </td>
                         <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?>g</td>
-                        <td><?php echo htmlspecialchars($ecobrick['location_full']); ?></td>
-                        <td><?php echo htmlspecialchars($ecobrick['status']); ?></td>
+                        <td><?php echo htmlspecialchars($ecobrick['volume_ml']); ?> ml</td>
+                        <td><?php echo number_format($ecobrick['density'], 2); ?> g/ml</td>
+                        <td><?php echo htmlspecialchars($ecobrick['date_logged_ts']); ?></td>
                         <td>
                             <button class="serial-button" onclick="viewEcobrickActions('<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['status']); ?>', '<?php echo htmlspecialchars($lang); ?>')">
                                 <?php echo htmlspecialchars($ecobrick['serial_no']); ?>
                             </button>
                         </td>
+                        <td><?php echo htmlspecialchars($ecobrick['status']); ?></td>
                     </tr>
                 <?php endforeach; ?>
             <?php endif; ?>
         </tbody>
     </table>
 </div>
+
 
 
         <div style="display:flex;flex-flow:row;width:100%;justify-content:center; margin-top:50px;">
@@ -199,7 +206,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     $(document).ready(function() {
         $('#latest-ecobricks').DataTable({
             "responsive": true,
-            "searching": true,
+            "searching": false,
             "paging": true,
             "ordering": true,
             "pageLength": 10, // Adjust this value as needed

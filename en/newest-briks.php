@@ -24,13 +24,15 @@ if ($result->num_rows > 0) {
     $total_weight = 0;
 }
 
-// SQL query to fetch the 12 most recent ecobricks with necessary fields
+// SQL query to fetch the 12 most recent ecobricks, excluding those with status "not ready"
 $sql_recent = "
     SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, weight_g / 1000 AS weight_kg, volume_ml,
            density, date_logged_ts, location_full, location_watershed, ecobricker_maker, serial_no, status
     FROM tb_ecobricks
+    WHERE status != 'not ready'
     ORDER BY date_logged_ts DESC
     LIMIT 12";
+
 
 
 $result_recent = $gobrik_conn->query($sql_recent);
@@ -38,17 +40,18 @@ $result_recent = $gobrik_conn->query($sql_recent);
 $recent_ecobricks = [];
 if ($result_recent->num_rows > 0) {
     while ($row = $result_recent->fetch_assoc()) {
-        // Extract the last two parts of location_full
+        // Extract parts of location_full
         $location_parts = explode(',', $row['location_full']);
         $location_parts = array_map('trim', $location_parts); // Trim whitespace from each part
 
-        // Get the last two elements of the location
-        $location_last_two = array_slice($location_parts, -2);
+        // Get the last and third-last elements of the location
+        $location_last = $location_parts[count($location_parts) - 1] ?? '';
+        $location_third_last = $location_parts[count($location_parts) - 3] ?? '';
 
         // Build the location_brik string
-        $location_brik = implode(', ', $location_last_two);
+        $location_brik = $location_third_last . ', ' . $location_last;
 
-        // If location_watershed is not null, prepend it
+        // If location_watershed is not null or empty, prepend it
         if (!empty($row['location_watershed'])) {
             $location_brik = $row['location_watershed'] . ', ' . $location_brik;
         }
@@ -69,6 +72,7 @@ if ($result_recent->num_rows > 0) {
         ];
     }
 }
+
 
 
 $gobrik_conn->close();
@@ -104,7 +108,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 
-           <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
+
+
+<!--DATA TABLE ECOBRICKS NEWEST-->
+
+
+<div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
     <h2>The Latest Ecobricks</h2>
     <p>As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik, representing over <?php echo round($total_weight); ?> kg of sequestered plastic!</p>
 
@@ -125,8 +134,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <?php foreach ($recent_ecobricks as $ecobrick) : ?>
                 <tr>
                     <td>
-                        <img src="https://ecobricks.org/<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>"
-                             alt="Ecobrick Thumbnail"
+                        <img src="<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>"
+                             alt="Ecobrick <?php echo htmlspecialchars($ecobrick['serial_no']); ?> Thumbnail"
+                             title="Ecobrick <?php echo htmlspecialchars($ecobrick['serial_no']); ?>"
                              class="table-thumbnail"
                              onclick="ecobrickPreview('<?php echo htmlspecialchars($ecobrick['ecobrick_full_photo_url']); ?>', '<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['weight_g']); ?> g', '<?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?>', '<?php echo htmlspecialchars($ecobrick['date_logged_ts']); ?>')">
                     </td>
@@ -148,6 +158,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </tbody>
     </table>
 </div>
+
 
 
 

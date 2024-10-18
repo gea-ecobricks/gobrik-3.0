@@ -58,6 +58,54 @@ $gobrik_conn->close();
 <?php require_once("../includes/newest-briks-inc.php"); ?>
 
 
+
+
+</head>
+<body>
+    <div class="splash-title-block"></div>
+    <div id="splash-bar"></div>
+
+    <!-- PAGE CONTENT -->
+    <div id="top-page-image" class="my-ecobricks top-page-image"></div>
+
+    <div id="form-submission-box" class="landing-page-form">
+        <div class="form-container">
+            <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
+                <h2 data-lang-id="001-latest-ecobricks">Latest Ecobricks</h2>
+                <p>
+                    As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik,
+                    representing over <?php echo $total_weight; ?> kg of sequestered plastic!
+                </p>
+
+                <table id="latest-ecobricks" class="display responsive nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th data-lang-id="1103-brik">Brik</th>
+                            <th data-lang-id="1104-weight">Weight</th>
+                            <th data-lang-id="1108-volume">Volume</th>
+                            <th data-lang-id="1109-density">Density</th>
+                            <th data-lang-id="1110-date-logged">Date Logged</th>
+                            <th data-lang-id="1105-location">Location</th>
+                            <th data-lang-id="1106-status">Status</th>
+                            <th data-lang-id="1107-serial">Serial</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- DataTables will populate this via AJAX -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="display:flex;flex-flow:row;width:100%;justify-content:center;margin-top:30px;">
+                <button class="go-button" id="log-ecobrick-button">➕ Log an Ecobrick</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <?php require_once("../footer-2024.php"); ?>
+
+
 <script>
     $(document).ready(function() {
         $("#latest-ecobricks").DataTable({
@@ -109,49 +157,5 @@ $gobrik_conn->close();
 </script>
 
 
-</head>
-<body>
-    <div class="splash-title-block"></div>
-    <div id="splash-bar"></div>
-
-    <!-- PAGE CONTENT -->
-    <div id="top-page-image" class="my-ecobricks top-page-image"></div>
-
-    <div id="form-submission-box" class="landing-page-form">
-        <div class="form-container">
-            <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
-                <h2 data-lang-id="001-latest-ecobricks">Latest Ecobricks</h2>
-                <p>
-                    As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik,
-                    representing over <?php echo $total_weight; ?> kg of sequestered plastic!
-                </p>
-
-                <table id="latest-ecobricks" class="display responsive nowrap" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th data-lang-id="1103-brik">Brik</th>
-                            <th data-lang-id="1104-weight">Weight</th>
-                            <th data-lang-id="1108-volume">Volume</th>
-                            <th data-lang-id="1109-density">Density</th>
-                            <th data-lang-id="1110-date-logged">Date Logged</th>
-                            <th data-lang-id="1105-location">Location</th>
-                            <th data-lang-id="1106-status">Status</th>
-                            <th data-lang-id="1107-serial">Serial</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- DataTables will populate this via AJAX -->
-                    </tbody>
-                </table>
-            </div>
-
-            <div style="display:flex;flex-flow:row;width:100%;justify-content:center;margin-top:30px;">
-                <button class="go-button" id="log-ecobrick-button">➕ Log an Ecobrick</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- FOOTER -->
-    <?php require_once("../footer-2024.php"); ?>
 </body>
 </html>

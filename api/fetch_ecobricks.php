@@ -77,3 +77,4 @@ $gobrik_conn->close();
 
 // Send the response in JSON format
 echo json_encode($response);
+?>

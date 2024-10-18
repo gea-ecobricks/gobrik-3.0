@@ -38,15 +38,6 @@ if ($is_logged_in) {
 
 $maker_id = $ecobricker_id; // Assuming ecobricker_id is equivalent to maker_id
 
-// Fetch all ecobricks data for the user's maker_id directly from tb_ecobricks
-$sql_recent = "
-    SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, weight_g / 1000 AS weight_kg, volume_ml,
-           density, date_logged_ts, ecobricker_maker, serial_no, status
-    FROM tb_ecobricks
-    WHERE maker_id = ?
-    ORDER BY date_logged_ts DESC";
-
-
 
 // Fetch all ecobricks data for the user's maker_id directly from tb_ecobricks
 $sql_recent = "

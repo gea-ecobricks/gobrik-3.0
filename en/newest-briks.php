@@ -116,7 +116,7 @@ $gobrik_conn->close();
                 "url": "../api/fetch_newest_briks.php", // Adjust path if necessary
                 "type": "POST"
             },
-            "pageLength": 12,
+            "pageLength": 10,
             "language": {
                 "emptyTable": "It looks like no ecobricks have been logged yet!",
                 "lengthMenu": "Show _MENU_ briks",

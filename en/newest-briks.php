@@ -113,7 +113,7 @@ $gobrik_conn->close();
             "serverSide": true,
             "processing": true,
             "ajax": {
-                "url": "fetch_newest_briks.php", // Adjust path if necessary
+                "url": "../api/fetch_newest_briks.php", // Adjust path if necessary
                 "type": "POST"
             },
             "pageLength": 10, // Set default number of rows per page to 10

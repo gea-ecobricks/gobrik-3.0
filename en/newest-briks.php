@@ -6,7 +6,28 @@ $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.43';
 $page = 'newest-briks';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+$is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 
+
+// Check if the user is logged in
+if (isLoggedIn()) {
+    $buwana_id = $_SESSION['buwana_id'];
+        // Include database connection
+    require_once '../gobrikconn_env.php';
+    require_once '../buwanaconn_env.php';
+
+    // Fetch the user's location data
+    $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
+    $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
+    $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
+    $gea_status = getGEA_status($buwana_id);
+    $user_community_name = getCommunityName($buwana_conn, $buwana_id);
+    $first_name = getFirstName($buwana_conn, $buwana_id);
+
+    $buwana_conn->close();  // Close the database connection
+} else {
+
+}
 // Include database connection
 require_once '../gobrikconn_env.php';
 

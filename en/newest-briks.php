@@ -132,7 +132,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
-    <h2>The Latest Ecobricks</h2>
+    <h2 data-lang-id="001-latest-ecobricks">Latest Ecobricks</h2>
 <p>
     As of today, <?php echo number_format($ecobrick_count); ?> ecobricks have been logged on GoBrik,
     representing over <?php echo number_format(round($total_weight)); ?> kg of sequestered plastic!
@@ -203,7 +203,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             "serverSide": true,
             "processing": true,
             "ajax": {
-                "url": "newest-briks.php",
+                "url": "../api/fetch_ecobricks.php",
                 "type": "POST"
             },
             "pageLength": 12,
@@ -235,6 +235,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         });
     });
 </script>
+
 
 
 

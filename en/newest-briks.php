@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.43';
+$version = '0.431';
 $page = 'newest-briks';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -109,6 +109,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 
+
 <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
     <h2>The Latest Ecobricks</h2>
 <p>
@@ -185,17 +186,23 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             "language": {
                 "emptyTable": "It looks like no ecobricks have been logged yet!",
                 "lengthMenu": "Show _MENU_ briks",
-                "search": "Search briks:"
+                "search": ""
             },
             "columnDefs": [
                 { "orderable": false, "targets": [0, 6] }, // Make the image and status columns unsortable
                 { "className": "all", "targets": [0, 1, 7] }, // Ensure Brik (thumbnail), Weight, and Serial always display
                 { "className": "min-tablet", "targets": [2, 3, 4] }, // These fields can be hidden first on smaller screens
                 { "className": "none", "targets": [5] } // Allow Location text to wrap as needed
-            ]
+            ],
+            "initComplete": function() {
+                // Add a placeholder to the search input field
+                var searchBox = $('div.dataTables_filter input');
+                searchBox.attr('placeholder', 'Search briks...');
+            }
         });
     });
 </script>
+
 
 
 </body>

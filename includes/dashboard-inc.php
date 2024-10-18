@@ -205,6 +205,33 @@ color: var(--text-color);
 
 </style>
 
+<style>
+@media (min-width: 769px) and (max-width: 1200px) {
+    #latest-ecobricks th:nth-child(3),
+    #latest-ecobricks td:nth-child(3),
+    #latest-ecobricks th:nth-child(4),
+    #latest-ecobricks td:nth-child(4),
+    #latest-ecobricks th:nth-child(5),
+    #latest-ecobricks td:nth-child(5) {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    #latest-ecobricks th:nth-child(2),
+    #latest-ecobricks td:nth-child(2),
+    #latest-ecobricks th:nth-child(3),
+    #latest-ecobricks td:nth-child(3),
+    #latest-ecobricks th:nth-child(4),
+    #latest-ecobricks td:nth-child(4),
+    #latest-ecobricks th:nth-child(5),
+    #latest-ecobricks td:nth-child(5) {
+        display: none;
+    }
+}
+</style>
+
+
  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
     <!-- Responsive DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">

@@ -48,22 +48,26 @@ $sql_recent = "
 
 
 
+// Fetch all ecobricks data for the user's maker_id directly from tb_ecobricks
+$sql_recent = "
+    SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, weight_g / 1000 AS weight_kg, volume_ml,
+           density, date_logged_ts, ecobricker_maker, serial_no, status,
+           (SELECT AVG(density) FROM tb_ecobricks WHERE maker_id = ?) AS net_density
+    FROM tb_ecobricks
+    WHERE maker_id = ?
+    ORDER BY date_logged_ts DESC";
+
 $stmt_recent = $gobrik_conn->prepare($sql_recent);
 
-$recent_ecobricks = [];
-$total_weight = 0; // Total weight in kilograms
-$total_volume = 0; // Total volume in ml
-$ecobrick_count = 0; // Count of ecobricks
-
 if ($stmt_recent) {
-    // Bind maker_id to the query
-    $stmt_recent->bind_param("s", $maker_id);
+    // Bind maker_id twice to the query (once for the subquery and once for the main query)
+    $stmt_recent->bind_param("ss", $maker_id, $maker_id);
     $stmt_recent->execute();
 
-    // Bind the results, including density and date_logged_ts
-    $stmt_recent->bind_result($ecobrick_thumb_photo_url, $ecobrick_full_photo_url, $weight_g, $weight_kg, $volume_ml, $density, $date_logged_ts, $ecobricker_maker, $serial_no, $status);
+    // Bind the results, including net_density
+    $stmt_recent->bind_result($ecobrick_thumb_photo_url, $ecobrick_full_photo_url, $weight_g, $weight_kg, $volume_ml, $density, $date_logged_ts, $ecobricker_maker, $serial_no, $status, $net_density);
 
-    // Fetch and process the results
+    // Process results as before, now having access to $net_density for later use.
     while ($stmt_recent->fetch()) {
         $recent_ecobricks[] = [
             'ecobrick_thumb_photo_url' => $ecobrick_thumb_photo_url,
@@ -77,9 +81,9 @@ if ($stmt_recent) {
             'serial_no' => $serial_no,
             'status' => $status,
         ];
-        $total_weight += $weight_kg; // Sum up total weight in kilograms
-        $total_volume += $volume_ml; // Sum up total volume in ml
-        $ecobrick_count++; // Increment the ecobrick count
+        $total_weight += $weight_kg;
+        $total_volume += $volume_ml;
+        $ecobrick_count++;
     }
 
     // Close the statement after fetching
@@ -87,6 +91,7 @@ if ($stmt_recent) {
 } else {
     die("Error preparing the statement for fetching ecobricks: " . $gobrik_conn->error);
 }
+
 
 
 
@@ -142,15 +147,15 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 
-       <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
+    <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
     <h3 data-lang-id="002-my-ecobricks">My Ecobricks</h3>
     <table id="latest-ecobricks" class="display responsive nowrap" style="width:100%">
         <thead>
             <tr>
                 <th data-lang-id="1103-brik">Brik</th>
-                <th data-lang-id="1104-weight">Weight (g)</th>
-                <th data-lang-id="1108-volume">Volume (ml)</th>
-                <th data-lang-id="1109-density">Density (g/ml)</th>
+                <th data-lang-id="1104-weight">Weight (g)</th>
+                <th data-lang-id="1108-volume">Volume (ml)</th>
+                <th data-lang-id="1109-density">Density (g/ml)</th>
                 <th data-lang-id="1110-date-logged">Date Logged</th>
                 <th data-lang-id="1107-serial">Serial</th>
                 <th data-lang-id="1106-status">Status</th>
@@ -170,12 +175,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                             <img src="/<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>?v=2"
                                  alt="Ecobrick Thumbnail"
                                  class="table-thumbnail"
-                                 onclick="ecobrickPreview('<?php echo htmlspecialchars($ecobrick['ecobrick_full_photo_url']); ?>?v=2', '<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['weight_g']); ?>g', '<?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?>', '<?php echo htmlspecialchars($ecobrick['date_logged_ts']); ?>')">
+                                 onclick="ecobrickPreview('<?php echo htmlspecialchars($ecobrick['ecobrick_full_photo_url']); ?>?v=2', '<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['weight_g']); ?> g', '<?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?>', '<?php echo htmlspecialchars($ecobrick['date_logged_ts']); ?>')">
                         </td>
-                        <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?>g</td>
-                        <td><?php echo htmlspecialchars($ecobrick['volume_ml']); ?> ml</td>
-                        <td><?php echo number_format($ecobrick['density'], 2); ?> g/ml</td>
-                        <td><?php echo htmlspecialchars($ecobrick['date_logged_ts']); ?></td>
+                        <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?> g</td>
+                        <td><?php echo htmlspecialchars($ecobrick['volume_ml']); ?> ml</td>
+                        <td><?php echo number_format($ecobrick['density'], 2); ?> g/ml</td>
+                        <td><?php echo date('Y-m-d', strtotime($ecobrick['date_logged_ts'])); ?></td>
                         <td>
                             <button class="serial-button" onclick="viewEcobrickActions('<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['status']); ?>', '<?php echo htmlspecialchars($lang); ?>')">
                                 <?php echo htmlspecialchars($ecobrick['serial_no']); ?>
@@ -188,6 +193,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </tbody>
     </table>
 </div>
+
 
 
 

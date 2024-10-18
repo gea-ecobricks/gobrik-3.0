@@ -86,12 +86,10 @@ if ($stmt_recent) {
         die("Error preparing the statement for fetching ecobricks: " . $gobrik_conn->error);
     }
 
-    // Calculate net density
-
-
     // Close database connections
     $buwana_conn->close();
     $gobrik_conn->close();
+
 } else {
     // Redirect to login page with the redirect parameter set to the current page
     echo '<script>
@@ -138,49 +136,48 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>
 
         <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
-            <h3 data-lang-id="002-my-ecobricks">My Ecobricks</h3>
-            <table id="latest-ecobricks">
+    <h3 data-lang-id="002-my-ecobricks">My Ecobricks</h3>
+    <table id="latest-ecobricks" class="display responsive nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th data-lang-id="1103-brik">Brik</th>
+                <th data-lang-id="1104-weight">Weight</th>
+                <th data-lang-id="1105-location">Location</th>
+                <th data-lang-id="1106-status">Status</th>
+                <th data-lang-id="1107-serial">Serial</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (empty($recent_ecobricks)) : ?>
                 <tr>
-                    <th data-lang-id="1103-brik">Brik</th>
-                    <th data-lang-id="1104-weight">Weight</th>
-                    <th data-lang-id="1105-location">Location</th>
-                    <th data-lang-id="1106-status">Status</th>
-                    <th data-lang-id="1107-serial">Serial</th>
+                    <td colspan="5" style="text-align:center;">
+                        <span data-lang-id="003-no-ecobricks-yet">It looks like you haven't logged any ecobricks yet! When you do, they will appear here for you to manage.</span>
+                    </td>
                 </tr>
-                <?php if (empty($recent_ecobricks)) : ?>
+            <?php else : ?>
+                <?php foreach ($recent_ecobricks as $ecobrick) : ?>
                     <tr>
-                        <td colspan="5" style="text-align:center;">
-                            <span data-lang-id="003-no-ecobricks-yet">It looks like you haven't logged any ecobricks yet! When you do, they will appear here for you to manage.</span>
+                        <td>
+                            <img src="/<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>?v=2"
+                                 alt="Ecobrick Thumbnail"
+                                 class="table-thumbnail"
+                                 onclick="ecobrickPreview('<?php echo htmlspecialchars($ecobrick['ecobrick_full_photo_url']); ?>?v=2', '<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['weight_g']); ?>g', '<?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?>', '<?php echo htmlspecialchars($ecobrick['location_full']); ?>')">
+                        </td>
+                        <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?>g</td>
+                        <td><?php echo htmlspecialchars($ecobrick['location_full']); ?></td>
+                        <td><?php echo htmlspecialchars($ecobrick['status']); ?></td>
+                        <td>
+                            <button class="serial-button" onclick="viewEcobrickActions('<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['status']); ?>', '<?php echo htmlspecialchars($lang); ?>')">
+                                <?php echo htmlspecialchars($ecobrick['serial_no']); ?>
+                            </button>
                         </td>
                     </tr>
-                <?php else : ?>
-                    <?php foreach ($recent_ecobricks as $ecobrick) : ?>
-    <tr>
-        <td>
-            <img src="/<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>?v=2"
-                 alt="Ecobrick Thumbnail"
-                 class="table-thumbnail"
-                 onclick="ecobrickPreview('<?php echo htmlspecialchars($ecobrick['ecobrick_full_photo_url']); ?>?v=2', '<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['weight_g']); ?>g', '<?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?>', '<?php echo htmlspecialchars($ecobrick['location_full']); ?>')">
-        </td>
-        <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?>g</td>
-        <td><?php echo htmlspecialchars($ecobrick['location_full']); ?></td>
-        <td><?php echo htmlspecialchars($ecobrick['status']); ?></td>
-        <td>
-            <!-- The button that calls the JavaScript function -->
-            <button class="serial-button" onclick="viewEcobrickActions('<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['status']); ?>', '<?php echo htmlspecialchars($lang); ?>')">
-                <?php
-                // Display the serial number without line breaks
-                echo htmlspecialchars($ecobrick['serial_no']);
-                ?>
-            </button>
-        </td>
-    </tr>
-<?php endforeach; ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </tbody>
+    </table>
+</div>
 
-
-                <?php endif; ?>
-            </table>
-        </div>
 
         <div style="display:flex;flex-flow:row;width:100%;justify-content:center; margin-top:50px;">
             <a href="newest-briks.php"><button id="newest-ecobricks-button"  style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;" data-lang-id="005-newest-ecobricks">📅 Newest Ecobricks</button></a>
@@ -197,6 +194,22 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <!-- FOOTER STARTS HERE -->
 <?php require_once("../footer-2024.php"); ?>
+
+<script>
+    $(document).ready(function() {
+        $('#latest-ecobricks').DataTable({
+            "responsive": true,
+            "searching": true,
+            "paging": true,
+            "ordering": true,
+            "pageLength": 10, // Adjust this value as needed
+            "language": {
+                "emptyTable": "It looks like you haven't logged any ecobricks yet!"
+            }
+        });
+    });
+</script>
+
 
 <script type="text/javascript">
 

@@ -220,16 +220,33 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     $(document).ready(function() {
         $('#latest-ecobricks').DataTable({
             "responsive": true,
-            "searching": false,
+            "searching": true,
             "paging": true,
             "ordering": true,
-            "pageLength": 10, // Adjust this value as needed
+            "pageLength": 10,
             "language": {
                 "emptyTable": "It looks like you haven't logged any ecobricks yet!"
-            }
+            },
+            "columnDefs": [
+                // Hide Volume, Density, Date Logged for screens 769px - 1200px
+                {
+                    "targets": [2, 3, 4], // Volume, Density, Date Logged
+                    "visible": false,
+                    "responsivePriority": 2,
+                    "className": "dt-hidden-769-1200"
+                },
+                // Hide Volume, Density, Weight, Date Logged for screens under 769px
+                {
+                    "targets": [1, 2, 3, 4], // Weight, Volume, Density, Date Logged
+                    "visible": false,
+                    "responsivePriority": 1,
+                    "className": "dt-hidden-under-769"
+                }
+            ]
         });
     });
 </script>
+
 
 
 <script type="text/javascript">

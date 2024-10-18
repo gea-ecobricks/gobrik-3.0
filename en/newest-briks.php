@@ -111,7 +111,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
     <h2>The Latest Ecobricks</h2>
-    <p>As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik, representing over <?php echo round($total_weight); ?> kg of sequestered plastic!</p>
+<p>
+    As of today, <?php echo number_format($ecobrick_count); ?> ecobricks have been logged on GoBrik,
+    representing over <?php echo number_format(round($total_weight)); ?> kg of sequestered plastic!
+</p>
 
     <table id="latest-ecobricks" class="display responsive nowrap" style="width:100%">
         <thead>
@@ -143,12 +146,13 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     <td style="white-space: normal;"><?php echo htmlspecialchars($ecobrick['location_brik']); ?></td>
                     <td><?php echo htmlspecialchars($ecobrick['status']); ?></td>
                     <td>
-                        <button class="serial-button">
+                        <button class="serial-button" data-text="<?php echo htmlspecialchars($ecobrick['serial_no']); ?>">
                             <a href="brik.php?serial_no=<?php echo htmlspecialchars($ecobrick['serial_no']); ?>">
                                 <?php echo htmlspecialchars($ecobrick['serial_no']); ?>
                             </a>
                         </button>
                     </td>
+
                 </tr>
             <?php endforeach; ?>
         </tbody>

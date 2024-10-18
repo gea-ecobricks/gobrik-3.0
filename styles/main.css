@@ -1676,21 +1676,36 @@ body.modal-open {
     }
 
 .serial-button {
-color: var(--text-color);
-  border: 1px solid;
-  padding: 10px;
-  border-radius: 5px;
-  background: rgba(116, 202, 244, 0.32); // var(--darker);
-  cursor: pointer;
+    color: var(--text-color);
+    border: 1px solid;
+    padding: 10px;
+    border-radius: 5px;
+    background: rgba(116, 202, 244, 0.32); /* var(--darker); */
+    cursor: pointer;
+    position: relative; /* To enable positioning of pseudo-elements */
+    transition: background 0.3s ease;
 }
 
 .serial-button a {
-color: var(--text-color);
-text-decoration: none;
+    color: var(--text-color);
+    text-decoration: none;
 }
 
 .serial-button:hover {
- background: rgba(116, 202, 244, 0.8); // background: var(--lighter);
+    background: rgba(116, 202, 244, 0.8); /* var(--lighter); */
+}
+
+/* Change the text to the magnifying glass on hover */
+.serial-button:hover::before {
+    content: "🔎";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.serial-button:hover a {
+    visibility: hidden;
 }
 
 

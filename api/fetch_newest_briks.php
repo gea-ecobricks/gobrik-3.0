@@ -77,7 +77,8 @@ while ($stmt->fetch()) {
         $location_brik = $location_watershed . ', ' . $location_brik;
     }
 
-    $data[] = [
+    $serial_url = "brik.php?serial_no=" . urlencode($serial_no);
+$data[] = [
     'ecobrick_thumb_photo_url' => '<img src="' . htmlspecialchars($ecobrick_thumb_photo_url) . '" alt="Ecobrick ' . htmlspecialchars($serial_no) . ' Thumbnail" title="Ecobrick ' . htmlspecialchars($serial_no) . '" class="table-thumbnail">',
     'weight_g' => number_format($weight_g) . ' g',
     'volume_ml' => number_format($volume_ml) . ' ml',
@@ -85,7 +86,7 @@ while ($stmt->fetch()) {
     'date_logged_ts' => date("Y-m-d", strtotime($date_logged_ts)),
     'location_brik' => htmlspecialchars($location_brik),
     'status' => htmlspecialchars($status),
-    'serial_no' => '<button class="serial-button" data-text="' . htmlspecialchars($serial_no) . '"><a href="brik.php?serial_no=' . htmlspecialchars($serial_no) . '">' . htmlspecialchars($serial_no) . '</a></button>'
+    'serial_no' => '<a href="' . htmlspecialchars($serial_url) . '" class="serial-button" data-text="' . htmlspecialchars($serial_no) . '">' . htmlspecialchars($serial_no) . '</a>'
 ];
 
 }

@@ -113,10 +113,10 @@ $gobrik_conn->close();
             "serverSide": true,
             "processing": true,
             "ajax": {
-                "url": "../api/fetch_newest_briks.php", // Adjust path if necessary
+                "url": "fetch_newest_briks.php", // Adjust path if necessary
                 "type": "POST"
             },
-            "pageLength": 10,
+            "pageLength": 10, // Set default number of rows per page to 10
             "language": {
                 "emptyTable": "It looks like no ecobricks have been logged yet!",
                 "lengthMenu": "Show _MENU_ briks",
@@ -155,6 +155,7 @@ $gobrik_conn->close();
         });
     });
 </script>
+
 
 
 </body>

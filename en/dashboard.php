@@ -41,10 +41,11 @@ $maker_id = $ecobricker_id; // Assuming ecobricker_id is equivalent to maker_id
 // Fetch all ecobricks data for the user's maker_id directly from tb_ecobricks
 $sql_recent = "
     SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, weight_g / 1000 AS weight_kg, volume_ml,
-           weight_g / volume_ml AS density, date_logged_ts, ecobricker_maker, serial_no, status
+           density, date_logged_ts, ecobricker_maker, serial_no, status
     FROM tb_ecobricks
     WHERE maker_id = ?
     ORDER BY date_logged_ts DESC";
+
 
 
 $stmt_recent = $gobrik_conn->prepare($sql_recent);
@@ -59,7 +60,7 @@ if ($stmt_recent) {
     $stmt_recent->bind_param("s", $maker_id);
     $stmt_recent->execute();
 
-    // Bind the results, now also binding density and date_logged_ts
+    // Bind the results, including density and date_logged_ts
     $stmt_recent->bind_result($ecobrick_thumb_photo_url, $ecobrick_full_photo_url, $weight_g, $weight_kg, $volume_ml, $density, $date_logged_ts, $ecobricker_maker, $serial_no, $status);
 
     // Fetch and process the results
@@ -86,6 +87,7 @@ if ($stmt_recent) {
 } else {
     die("Error preparing the statement for fetching ecobricks: " . $gobrik_conn->error);
 }
+
 
 
     // Close database connections
@@ -137,7 +139,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <a href="log.php" class="confirm-button enabled" id="log-ecobrick-button" data-lang-id="001-log-an-ecobrick">➕ Log an Ecobrick</a>
         </div>
 
-        <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
+
+
+
+       <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
     <h3 data-lang-id="002-my-ecobricks">My Ecobricks</h3>
     <table id="latest-ecobricks" class="display responsive nowrap" style="width:100%">
         <thead>
@@ -183,6 +188,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </tbody>
     </table>
 </div>
+
+
+
 
 
 

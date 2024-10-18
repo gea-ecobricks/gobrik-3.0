@@ -109,10 +109,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 
-
-<!--DATA TABLE ECOBRICKS NEWEST-->
-
-
 <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
     <h2>The Latest Ecobricks</h2>
     <p>As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik, representing over <?php echo round($total_weight); ?> kg of sequestered plastic!</p>
@@ -123,7 +119,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <th data-lang-id="1103-brik">Brik</th>
                 <th data-lang-id="1104-weight">Weight</th>
                 <th data-lang-id="1108-volume">Volume</th>
-                <th data-lang-id="1109-density">Density)</th>
+                <th data-lang-id="1109-density">Density</th>
                 <th data-lang-id="1110-date-logged">Date Logged</th>
                 <th data-lang-id="1105-location">Location</th>
                 <th data-lang-id="1106-status">Status</th>
@@ -144,7 +140,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     <td><?php echo htmlspecialchars($ecobrick['volume_ml']); ?> ml</td>
                     <td><?php echo number_format($ecobrick['density'], 2); ?> g/ml</td>
                     <td><?php echo date("Y-m-d", strtotime($ecobrick['date_logged_ts'])); ?></td>
-                    <td><?php echo htmlspecialchars($ecobrick['location_brik']); ?></td>
+                    <td style="white-space: normal;"><?php echo htmlspecialchars($ecobrick['location_brik']); ?></td>
                     <td><?php echo htmlspecialchars($ecobrick['status']); ?></td>
                     <td>
                         <button class="serial-button">
@@ -158,6 +154,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </tbody>
     </table>
 </div>
+
 
 
 
@@ -187,19 +184,15 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 "search": "Search briks:"
             },
             "columnDefs": [
-                { "orderable": false, "targets": [0, 6] } // Make the image and status columns unsortable
+                { "orderable": false, "targets": [0, 6] }, // Make the image and status columns unsortable
+                { "className": "all", "targets": [0, 1, 7] }, // Ensure Brik (thumbnail), Weight, and Serial always display
+                { "className": "min-tablet", "targets": [2, 3, 4] }, // These fields can be hidden first on smaller screens
+                { "className": "none", "targets": [5] } // Allow Location text to wrap as needed
             ]
         });
     });
-
-
-
-document.getElementById('log-ecobrick-button').addEventListener('click', function() {
-    // Redirect to the log.php page
-    window.location.href = 'log.php';
-});
-
 </script>
+
 
 </body>
 </html>

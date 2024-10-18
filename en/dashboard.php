@@ -166,10 +166,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <thead>
             <tr>
                 <th data-lang-id="1103-brik">Brik</th>
-                <th data-lang-id="1104-weight">Weight (g)</th>
-                <th data-lang-id="1108-volume">Volume (ml)</th>
-                <th data-lang-id="1109-density">Density (g/ml)</th>
-                <th data-lang-id="1110-date-logged">Date Logged</th>
+                <th data-lang-id="1104-weight">Weight</th>
+                <th data-lang-id="1108-volume">Volume</th>
+                <th data-lang-id="1109-density">Density</th>
+                <th data-lang-id="1110-date-logged">Logged</th>
                 <th data-lang-id="1106-status">Status</th>
                 <th data-lang-id="1107-serial">Serial</th>
             </tr>
@@ -214,11 +214,15 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 
+
+    <!--
+
+
         <div style="display:flex;flex-flow:row;width:100%;justify-content:center; margin-top:50px;">
             <a href="newest-briks.php"><button id="newest-ecobricks-button"  style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;" data-lang-id="005-newest-ecobricks">📅 Newest Ecobricks</button></a>
         </div>
 
-    <!--    <div style="text-align:center;width:100%;margin:auto;">
+    <div style="text-align:center;width:100%;margin:auto;">
             <p style="font-size:smaller;">As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik, representing over <?php echo round($total_weight); ?> kg of sequestered plastic!</p>
         </div>
     -->
@@ -234,7 +238,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     $(document).ready(function() {
         $('#latest-ecobricks').DataTable({
             "responsive": true,
-            "searching": true,
+            "searching": false,
             "paging": true,
             "ordering": true,
             "pageLength": 10,

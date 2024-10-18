@@ -54,13 +54,6 @@ $gobrik_conn->close();
 <meta charset="UTF-8">
 <title>Newest Ecobricks | GoBrik 3.0</title>
 
-<!-- Include DataTables and jQuery Libraries -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
-
 <!-- Page CSS & JS Initialization -->
 <?php require_once("../includes/newest-briks-inc.php"); ?>
 <script>
@@ -70,7 +63,7 @@ $gobrik_conn->close();
             "serverSide": true,
             "processing": true,
             "ajax": {
-                "url": "../api/fetch_newest_briks.php",
+                "url": "fetch_newest_briks.php",
                 "type": "POST"
             },
             "pageLength": 12,

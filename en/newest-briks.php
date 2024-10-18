@@ -1,3 +1,4 @@
+
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
@@ -8,53 +9,68 @@ $page = 'newest-briks';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 $is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 
+
+// Check if the user is logged in
+if (isLoggedIn()) {
+    $buwana_id = $_SESSION['buwana_id'];
+        // Include database connection
+    require_once '../gobrikconn_env.php';
+    require_once '../buwanaconn_env.php';
+
+    // Fetch the user's location data
+    $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
+    $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
+    $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
+    $gea_status = getGEA_status($buwana_id);
+    $user_community_name = getCommunityName($buwana_conn, $buwana_id);
+    $first_name = getFirstName($buwana_conn, $buwana_id);
+
+    $buwana_conn->close();  // Close the database connection
+} else {
+
+}
+
 // Include GoBrik database credentials
-require_once '../gobrikconn_env.php'; // Sets up gobrik_conn database connection
+ require_once '../gobrikconn_env.php'; //sets up buwana_conn database connection
 
-// Handle server-side processing for DataTables
-if (isset($_POST['draw'])) {
-    // Get the request parameters sent by DataTables
-    $draw = intval($_POST['draw']);
-    $start = intval($_POST['start']);
-    $length = intval($_POST['length']);
-    $searchValue = isset($_POST['search']['value']) ? $_POST['search']['value'] : '';
+// SQL query to fetch the count of ecobricks and the sum of weight_g divided by 1000 to get kg
+$sql = "SELECT COUNT(*) as ecobrick_count, SUM(weight_g) / 1000 as total_weight FROM tb_ecobricks";
+$result = $gobrik_conn->query($sql);
 
-    // Prepare the base SQL query
-    $sql = "SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, weight_g / 1000 AS weight_kg, volume_ml,
-            density, date_logged_ts, location_full, location_watershed, ecobricker_maker, serial_no, status
-            FROM tb_ecobricks
-            WHERE status != 'not ready'";
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $ecobrick_count = $row['ecobrick_count'];
+    $total_weight = $row['total_weight'];
+} else {
+    $ecobrick_count = 0;
+    $total_weight = 0;
+}
 
-    // Add search filter if there is a search term
-    if (!empty($searchValue)) {
-        $sql .= " AND (serial_no LIKE ? OR location_full LIKE ? OR ecobricker_maker LIKE ?)";
-    }
+// SQL query to fetch the 12 most recent ecobricks, excluding those with status "not ready"
+$sql_recent = "
+    SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, weight_g / 1000 AS weight_kg, volume_ml,
+           density, date_logged_ts, location_full, location_watershed, ecobricker_maker, serial_no, status
+    FROM tb_ecobricks
+    WHERE status != 'not ready'
+    ORDER BY date_logged_ts DESC
+    LIMIT 12";
 
-    // Get the total number of records before applying the filter
-    $totalRecordsResult = $gobrik_conn->query("SELECT COUNT(*) as total FROM tb_ecobricks WHERE status != 'not ready'");
-    $totalRecords = $totalRecordsResult->fetch_assoc()['total'];
 
-    // Prepare the statement for the main query with search, order, and limit
-    $stmt = $gobrik_conn->prepare($sql . " ORDER BY date_logged_ts DESC LIMIT ?, ?");
-    if (!empty($searchValue)) {
-        $searchTerm = "%" . $searchValue . "%";
-        $stmt->bind_param("sssii", $searchTerm, $searchTerm, $searchTerm, $start, $length);
-    } else {
-        $stmt->bind_param("ii", $start, $length);
-    }
 
-    $stmt->execute();
-    $result = $stmt->get_result();
+$result_recent = $gobrik_conn->query($sql_recent);
 
-    $data = [];
-    while ($row = $result->fetch_assoc()) {
+$recent_ecobricks = [];
+if ($result_recent->num_rows > 0) {
+    while ($row = $result_recent->fetch_assoc()) {
         // Extract parts of location_full
         $location_parts = explode(',', $row['location_full']);
-        $location_parts = array_map('trim', $location_parts);
+        $location_parts = array_map('trim', $location_parts); // Trim whitespace from each part
 
         // Get the last and third-last elements of the location
         $location_last = $location_parts[count($location_parts) - 1] ?? '';
         $location_third_last = $location_parts[count($location_parts) - 3] ?? '';
+
+        // Build the location_brik string
         $location_brik = $location_third_last . ', ' . $location_last;
 
         // If location_watershed is not null or empty, prepend it
@@ -62,36 +78,33 @@ if (isset($_POST['draw'])) {
             $location_brik = $row['location_watershed'] . ', ' . $location_brik;
         }
 
-        $data[] = [
-            'ecobrick_thumb_photo_url' => '<img src="' . htmlspecialchars($row['ecobrick_thumb_photo_url']) . '" alt="Ecobrick ' . htmlspecialchars($row['serial_no']) . ' Thumbnail" title="Ecobrick ' . htmlspecialchars($row['serial_no']) . '" class="table-thumbnail">',
-            'weight_g' => number_format($row['weight_g']) . ' g',
-            'volume_ml' => number_format($row['volume_ml']) . ' ml',
-            'density' => number_format($row['density'], 2) . ' g/ml',
-            'date_logged_ts' => date("Y-m-d", strtotime($row['date_logged_ts'])),
-            'location_brik' => htmlspecialchars($location_brik),
-            'status' => htmlspecialchars($row['status']),
-            'serial_no' => '<button class="serial-button" data-text="' . htmlspecialchars($row['serial_no']) . '"><a href="brik.php?serial_no=' . htmlspecialchars($row['serial_no']) . '">' . htmlspecialchars($row['serial_no']) . '</a></button>'
+        // Add the processed data to the recent_ecobricks array
+        $recent_ecobricks[] = [
+            'ecobrick_thumb_photo_url' => $row['ecobrick_thumb_photo_url'],
+            'ecobrick_full_photo_url' => $row['ecobrick_full_photo_url'],
+            'weight_g' => $row['weight_g'],
+            'weight_kg' => $row['weight_kg'],
+            'volume_ml' => $row['volume_ml'],
+            'density' => $row['density'],
+            'date_logged_ts' => $row['date_logged_ts'],
+            'location_brik' => $location_brik,
+            'ecobricker_maker' => $row['ecobricker_maker'],
+            'serial_no' => $row['serial_no'],
+            'status' => $row['status'],
         ];
     }
-
-    // Get the total number of records after filtering
-    $totalFilteredRecords = $gobrik_conn->query("SELECT COUNT(*) as total FROM tb_ecobricks WHERE status != 'not ready'" . (!empty($searchValue) ? " AND (serial_no LIKE '%$searchValue%' OR location_full LIKE '%$searchValue%' OR ecobricker_maker LIKE '%$searchValue%')" : ""))->fetch_assoc()['total'];
-
-    // Prepare the JSON response
-    $response = [
-        "draw" => $draw,
-        "recordsTotal" => $totalRecords,
-        "recordsFiltered" => $totalFilteredRecords,
-        "data" => $data
-    ];
-
-    // Send the response in JSON format
-    echo json_encode($response);
-    $gobrik_conn->close();
-    exit;
 }
 
-// Regular page content below (for initial page load)
+
+
+$gobrik_conn->close();
+
+
+echo '<!DOCTYPE html>
+<html lang="' . $lang . '">
+<head>
+<meta charset="UTF-8">
+';
 ?>
 
 

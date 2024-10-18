@@ -28,8 +28,13 @@ $result = $gobrik_conn->query($sql);
 
 if ($result && $result->num_rows > 0) {
     $row = $result->fetch_assoc();
-    $ecobrick_count = number_format($row['ecobrick_count']);
-    $total_weight = number_format(round($row['total_weight'])) . ' kg'; // Add a half-space before 'kg'
+    // Ensure the values are treated as floats for number_format
+$ecobrick_count = $row['ecobrick_count'] ? (int)$row['ecobrick_count'] : 0;
+$total_weight = $row['total_weight'] ? (float)$row['total_weight'] : 0.0;
+
+$formatted_ecobrick_count = number_format($ecobrick_count);
+$formatted_total_weight = number_format(round($total_weight)) . ' kg'; // Add a half-space before 'kg'
+
 } else {
     $ecobrick_count = '0';
     $total_weight = '0 kg';

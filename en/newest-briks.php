@@ -1,12 +1,33 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 
-// Set up page variables
+// Set page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.431';
+$version = '0.43';
 $page = 'newest-briks';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+$is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
+
+
+// Check if the user is logged in
+if (isLoggedIn()) {
+    $buwana_id = $_SESSION['buwana_id'];
+        // Include database connection
+    require_once '../gobrikconn_env.php';
+    require_once '../buwanaconn_env.php';
+
+    // Fetch the user's location data
+    $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
+    $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
+    $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
+    $gea_status = getGEA_status($buwana_id);
+    $user_community_name = getCommunityName($buwana_conn, $buwana_id);
+    $first_name = getFirstName($buwana_conn, $buwana_id);
+
+    $buwana_conn->close();  // Close the database connection
+} else {
+
+}
 
 // Include GoBrik database credentials
  require_once '../gobrikconn_env.php'; //sets up buwana_conn database connection
@@ -31,7 +52,7 @@ $sql_recent = "
     FROM tb_ecobricks
     WHERE status != 'not ready'
     ORDER BY date_logged_ts DESC
-    ";
+    LIMIT 12";
 
 
 
@@ -179,14 +200,27 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     $(document).ready(function() {
         $('#latest-ecobricks').DataTable({
             "responsive": true,
-            "searching": true,
-            "paging": true,
-            "ordering": true,
-            "pageLength": 10,
+            "serverSide": true,
+            "processing": true,
+            "ajax": {
+                "url": "fetch_ecobricks.php",
+                "type": "POST"
+            },
+            "pageLength": 12,
             "language": {
                 "emptyTable": "It looks like no ecobricks have been logged yet!",
                 "lengthMenu": "Show _MENU_ briks",
-                "search": ""
+                "search": "",
+                "info": "Showing _START_ to _END_ of _TOTAL_ ecobricks",
+                "infoEmpty": "No ecobricks available",
+                "loadingRecords": "Loading ecobricks...",
+                "processing": "Processing...",
+                "paginate": {
+                    "first": "First",
+                    "last": "Last",
+                    "next": "Next",
+                    "previous": "Previous"
+                }
             },
             "columnDefs": [
                 { "orderable": false, "targets": [0, 6] }, // Make the image and status columns unsortable
@@ -195,13 +229,13 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 { "className": "none", "targets": [5] } // Allow Location text to wrap as needed
             ],
             "initComplete": function() {
-                // Add a placeholder to the search input field
                 var searchBox = $('div.dataTables_filter input');
                 searchBox.attr('placeholder', 'Search briks...');
             }
         });
     });
 </script>
+
 
 
 

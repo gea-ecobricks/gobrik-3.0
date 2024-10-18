@@ -31,16 +31,6 @@ if (isLoggedIn()) {
 // Include database connection
 require_once '../gobrikconn_env.php';
 
-// Check if the user is logged in
-$is_logged_in = isLoggedIn();
-if ($is_logged_in) {
-    $buwana_id = $_SESSION['buwana_id'];
-
-    // Fetch the user's details if needed (e.g., first_name)
-    require_once '../buwanaconn_env.php';
-    $first_name = getFirstName($buwana_conn, $buwana_id);
-    $buwana_conn->close();
-}
 
 // Fetch the count of ecobricks and the total weight in kg
 $sql = "SELECT COUNT(*) as ecobrick_count, SUM(weight_g) / 1000 as total_weight FROM tb_ecobricks WHERE status != 'not ready'";

@@ -24,8 +24,13 @@ if ($result->num_rows > 0) {
     $total_weight = 0;
 }
 
-// SQL query to fetch the 12 most recent ecobricks
-$sql_recent = "SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, location_full, ecobricker_maker, serial_no, status FROM tb_ecobricks ORDER BY date_logged_ts DESC LIMIT 12";
+// SQL query to fetch the 12 most recent ecobricks with necessary fields
+$sql_recent = "
+    SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, weight_g / 1000 AS weight_kg, volume_ml, density, date_logged_ts, location_full, ecobricker_maker, serial_no, status
+    FROM tb_ecobricks
+    ORDER BY date_logged_ts DESC
+    LIMIT 12";
+
 $result_recent = $gobrik_conn->query($sql_recent);
 
 $recent_ecobricks = [];
@@ -36,6 +41,7 @@ if ($result_recent->num_rows > 0) {
 }
 
 $gobrik_conn->close();
+
 
 echo '<!DOCTYPE html>
 <html lang="' . $lang . '">
@@ -64,40 +70,54 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div id="form-submission-box" class="landing-page-form">
         <div class="form-container">
 
-            <div style="text-align:center;width:100%;margin:auto;">
-                <h2>The Latest Ecobricks</h2>
-                <p>As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik, representing over <?php echo round($total_weight); ?> kg of sequestered plastic!</p>
-            </div>
-            <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
-                <table id="latest-ecobricks">
-                    <tr>
-                        <th data-lang-id="1103-brik">Brik</th>
-                        <th data-lang-id="1104-weight">Weight</th>
-                        <th data-lang-id="1105-location">Location</th>
-                        <th data-lang-id="1106-status">Status</th>
-                        <th data-lang-id="1107-serial">Serial</th>
-                    </tr>
-                    <?php foreach ($recent_ecobricks as $ecobrick) : ?>
-                        <tr>
-                            <td>
-                                <img src="https://ecobricks.org/<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>"
-                                     alt="Ecobrick Thumbnail"
-                                     class="table-thumbnail"
-                                     onclick="ecobrickPreview('<?php echo htmlspecialchars($ecobrick['ecobrick_full_photo_url']); ?>', '<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['weight_g']); ?>g', '<?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?>', '<?php echo htmlspecialchars($ecobrick['location_full']); ?>')">
-                            </td>
-                            <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?>g</td>
-                            <td><?php echo htmlspecialchars($ecobrick['location_full']); ?></td>
-                            <td><?php echo htmlspecialchars($ecobrick['status']); ?></td>
-                            <td>
-                                <button class="serial-button">
-                                    <?php $serial_no = htmlspecialchars($ecobrick['serial_no']); $wrapped_serial_no = substr($serial_no, 0, 3) . '<br>' . substr($serial_no, 3, 3); ?>
-                                    <a href="brik.php?serial_no=<?php echo $serial_no; ?>"><?php echo $wrapped_serial_no; ?></a>
-                                </button>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </table>
-            </div>
+
+
+
+           <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
+    <h2>The Latest Ecobricks</h2>
+    <p>As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik, representing over <?php echo round($total_weight); ?> kg of sequestered plastic!</p>
+
+    <table id="latest-ecobricks" class="display responsive nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th data-lang-id="1103-brik">Brik</th>
+                <th data-lang-id="1104-weight">Weight (g)</th>
+                <th data-lang-id="1108-volume">Volume (ml)</th>
+                <th data-lang-id="1109-density">Density (g/ml)</th>
+                <th data-lang-id="1110-date-logged">Date Logged</th>
+                <th data-lang-id="1105-location">Location</th>
+                <th data-lang-id="1106-status">Status</th>
+                <th data-lang-id="1107-serial">Serial</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($recent_ecobricks as $ecobrick) : ?>
+                <tr>
+                    <td>
+                        <img src="https://ecobricks.org/<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>"
+                             alt="Ecobrick Thumbnail"
+                             class="table-thumbnail"
+                             onclick="ecobrickPreview('<?php echo htmlspecialchars($ecobrick['ecobrick_full_photo_url']); ?>', '<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['weight_g']); ?> g', '<?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?>', '<?php echo htmlspecialchars($ecobrick['date_logged_ts']); ?>')">
+                    </td>
+                    <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?> g</td>
+                    <td><?php echo htmlspecialchars($ecobrick['volume_ml']); ?> ml</td>
+                    <td><?php echo number_format($ecobrick['density'], 2); ?> g/ml</td>
+                    <td><?php echo date("Y-m-d", strtotime($ecobrick['date_logged_ts'])); ?></td>
+                    <td><?php echo htmlspecialchars($ecobrick['location_full']); ?></td>
+                    <td><?php echo htmlspecialchars($ecobrick['status']); ?></td>
+                    <td>
+                        <button class="serial-button">
+                            <a href="brik.php?serial_no=<?php echo htmlspecialchars($ecobrick['serial_no']); ?>">
+                                <?php echo htmlspecialchars($ecobrick['serial_no']); ?>
+                            </a>
+                        </button>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
 
             <div style="display:flex;flex-flow:row;width:100%;justify-content:center;margin-top:30px;">
                 <button class="go-button" id="log-ecobrick-button">➕ Log an Ecobrick</button>
@@ -111,6 +131,26 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once("../footer-2024.php"); ?>
 
 <script>
+    $(document).ready(function() {
+        $('#latest-ecobricks').DataTable({
+            "responsive": true,
+            "searching": true,
+            "paging": true,
+            "ordering": true,
+            "pageLength": 10,
+            "language": {
+                "emptyTable": "It looks like no ecobricks have been logged yet!",
+                "lengthMenu": "Show _MENU_ briks",
+                "search": "Search briks:"
+            },
+            "columnDefs": [
+                { "orderable": false, "targets": [0, 6] } // Make the image and status columns unsortable
+            ]
+        });
+    });
+
+
+
 document.getElementById('log-ecobrick-button').addEventListener('click', function() {
     // Redirect to the log.php page
     window.location.href = 'log.php';

@@ -1674,7 +1674,6 @@ body.modal-open {
         max-width: 60px;
         height: auto;
     }
-
 .serial-button {
     color: var(--text-color);
     border: 1px solid;
@@ -1684,11 +1683,8 @@ body.modal-open {
     cursor: pointer;
     position: relative; /* To enable positioning of pseudo-elements */
     transition: background 0.3s ease;
-}
-
-.serial-button a {
-    color: var(--text-color);
-    text-decoration: none;
+    text-decoration: none; /* Ensure no underline on the link */
+    display: inline-block; /* Ensures that the button behaves like a block element */
 }
 
 .serial-button:hover {
@@ -1702,11 +1698,14 @@ body.modal-open {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    font-size: 1.2em; /* Adjust size of the magnifying glass if needed */
+    line-height: 1; /* Ensures the icon is centered */
 }
 
-.serial-button:hover a {
-    visibility: hidden;
+.serial-button:hover {
+    color: transparent; /* Hide the text color of the original content */
 }
+
 
 
 

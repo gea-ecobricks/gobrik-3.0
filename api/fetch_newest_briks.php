@@ -78,15 +78,16 @@ while ($stmt->fetch()) {
     }
 
     $data[] = [
-        'ecobrick_thumb_photo_url' => '<img src="' . htmlspecialchars($ecobrick_thumb_photo_url) . '" alt="Ecobrick ' . htmlspecialchars($serial_no) . ' Thumbnail" title="Ecobrick ' . htmlspecialchars($serial_no) . '" class="table-thumbnail">',
-        'weight_g' => number_format($weight_g) . ' g',
-        'volume_ml' => number_format($volume_ml) . ' ml',
-        'density' => number_format($density, 2) . ' g/ml',
-        'date_logged_ts' => date("Y-m-d", strtotime($date_logged_ts)),
-        'location_brik' => htmlspecialchars($location_brik),
-        'status' => htmlspecialchars($status),
-        'serial_no' => '<button class="serial-button" data-text="' . htmlspecialchars($serial_no) . '"><a href="brik.php?serial_no=' . htmlspecialchars($serial_no) . '">' . htmlspecialchars($serial_no) . '</a></button>'
-    ];
+    'ecobrick_thumb_photo_url' => '<img src="' . htmlspecialchars($ecobrick_thumb_photo_url) . '" alt="Ecobrick ' . htmlspecialchars($serial_no) . ' Thumbnail" title="Ecobrick ' . htmlspecialchars($serial_no) . '" class="table-thumbnail">',
+    'weight_g' => number_format($weight_g) . ' g',
+    'volume_ml' => number_format($volume_ml) . ' ml',
+    'density' => number_format($density, 2) . ' g/ml',
+    'date_logged_ts' => date("Y-m-d", strtotime($date_logged_ts)),
+    'location_brik' => htmlspecialchars($location_brik),
+    'status' => htmlspecialchars($status),
+    'serial_no' => '<button class="serial-button" data-text="' . htmlspecialchars($serial_no) . '"><a href="brik.php?serial_no=' . htmlspecialchars($serial_no) . '">' . htmlspecialchars($serial_no) . '</a></button>'
+];
+
 }
 
 // Get total filtered records

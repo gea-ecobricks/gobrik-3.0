@@ -56,6 +56,8 @@ $gobrik_conn->close();
 
 <!-- Page CSS & JS Initialization -->
 <?php require_once("../includes/newest-briks-inc.php"); ?>
+
+
 <script>
     $(document).ready(function() {
         $("#latest-ecobricks").DataTable({
@@ -63,7 +65,7 @@ $gobrik_conn->close();
             "serverSide": true,
             "processing": true,
             "ajax": {
-                "url": "../api/fetch_newest_briks.php",
+                "url": "../api/fetch_newest_briks.php", // Adjust path if necessary
                 "type": "POST"
             },
             "pageLength": 12,
@@ -82,6 +84,16 @@ $gobrik_conn->close();
                     "previous": "Previous"
                 }
             },
+            "columns": [
+                { "data": "ecobrick_thumb_photo_url" }, // Column 0
+                { "data": "weight_g" }, // Column 1
+                { "data": "volume_ml" }, // Column 2
+                { "data": "density" }, // Column 3
+                { "data": "date_logged_ts" }, // Column 4
+                { "data": "location_brik" }, // Column 5
+                { "data": "status" }, // Column 6
+                { "data": "serial_no" } // Column 7
+            ],
             "columnDefs": [
                 { "orderable": false, "targets": [0, 6] }, // Make the image and status columns unsortable
                 { "className": "all", "targets": [0, 1, 7] }, // Ensure Brik (thumbnail), Weight, and Serial always display
@@ -95,6 +107,8 @@ $gobrik_conn->close();
         });
     });
 </script>
+
+
 </head>
 <body>
     <div class="splash-title-block"></div>

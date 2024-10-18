@@ -7,95 +7,33 @@ $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.43';
 $page = 'newest-briks';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
-$is_logged_in = isLoggedIn(); // Check if the user is logged in using the helper function
 
+// Include database connection
+require_once '../gobrikconn_env.php';
 
 // Check if the user is logged in
-if (isLoggedIn()) {
+$is_logged_in = isLoggedIn();
+if ($is_logged_in) {
     $buwana_id = $_SESSION['buwana_id'];
-        // Include database connection
-    require_once '../gobrikconn_env.php';
+
+    // Fetch the user's details if needed (e.g., first_name, user_location)
     require_once '../buwanaconn_env.php';
-
-    // Fetch the user's location data
-    $user_continent_icon = getUserContinent($buwana_conn, $buwana_id);
-    $user_location_watershed = getWatershedName($buwana_conn, $buwana_id);
-    $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
-    $gea_status = getGEA_status($buwana_id);
-    $user_community_name = getCommunityName($buwana_conn, $buwana_id);
     $first_name = getFirstName($buwana_conn, $buwana_id);
-
-    $buwana_conn->close();  // Close the database connection
-} else {
-
+    $buwana_conn->close();
 }
 
-// Include GoBrik database credentials
- require_once '../gobrikconn_env.php'; //sets up buwana_conn database connection
-
-// SQL query to fetch the count of ecobricks and the sum of weight_g divided by 1000 to get kg
-$sql = "SELECT COUNT(*) as ecobrick_count, SUM(weight_g) / 1000 as total_weight FROM tb_ecobricks";
+// Fetch the count of ecobricks and the total weight in kg
+$sql = "SELECT COUNT(*) as ecobrick_count, SUM(weight_g) / 1000 as total_weight FROM tb_ecobricks WHERE status != 'not ready'";
 $result = $gobrik_conn->query($sql);
 
-if ($result->num_rows > 0) {
+if ($result && $result->num_rows > 0) {
     $row = $result->fetch_assoc();
-    $ecobrick_count = $row['ecobrick_count'];
-    $total_weight = $row['total_weight'];
+    $ecobrick_count = number_format($row['ecobrick_count']);
+    $total_weight = number_format(round($row['total_weight'])) . ' kg'; // Add a half-space before 'kg'
 } else {
-    $ecobrick_count = 0;
-    $total_weight = 0;
+    $ecobrick_count = '0';
+    $total_weight = '0 kg';
 }
-
-// SQL query to fetch the 12 most recent ecobricks, excluding those with status "not ready"
-$sql_recent = "
-    SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, weight_g / 1000 AS weight_kg, volume_ml,
-           density, date_logged_ts, location_full, location_watershed, ecobricker_maker, serial_no, status
-    FROM tb_ecobricks
-    WHERE status != 'not ready'
-    ORDER BY date_logged_ts DESC
-    LIMIT 12";
-
-
-
-$result_recent = $gobrik_conn->query($sql_recent);
-
-$recent_ecobricks = [];
-if ($result_recent->num_rows > 0) {
-    while ($row = $result_recent->fetch_assoc()) {
-        // Extract parts of location_full
-        $location_parts = explode(',', $row['location_full']);
-        $location_parts = array_map('trim', $location_parts); // Trim whitespace from each part
-
-        // Get the last and third-last elements of the location
-        $location_last = $location_parts[count($location_parts) - 1] ?? '';
-        $location_third_last = $location_parts[count($location_parts) - 3] ?? '';
-
-        // Build the location_brik string
-        $location_brik = $location_third_last . ', ' . $location_last;
-
-        // If location_watershed is not null or empty, prepend it
-        if (!empty($row['location_watershed'])) {
-            $location_brik = $row['location_watershed'] . ', ' . $location_brik;
-        }
-
-        // Add the processed data to the recent_ecobricks array
-        $recent_ecobricks[] = [
-            'ecobrick_thumb_photo_url' => $row['ecobrick_thumb_photo_url'],
-            'ecobrick_full_photo_url' => $row['ecobrick_full_photo_url'],
-            'weight_g' => $row['weight_g'],
-            'weight_kg' => $row['weight_kg'],
-            'volume_ml' => $row['volume_ml'],
-            'density' => $row['density'],
-            'date_logged_ts' => $row['date_logged_ts'],
-            'location_brik' => $location_brik,
-            'ecobricker_maker' => $row['ecobricker_maker'],
-            'serial_no' => $row['serial_no'],
-            'status' => $row['status'],
-        ];
-    }
-}
-
-
 
 $gobrik_conn->close();
 

@@ -213,14 +213,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 
-
+<div style="display:flex;flex-flow:row;width:100%;justify-content:center; margin-top:50px;">
+            <a href="newest-briks.php"><button id="newest-ecobricks-button"  style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;" data-lang-id="005-newest-ecobricks">📅 Newest Ecobricks</button></a>
+        </div>
 
     <!--
 
 
-        <div style="display:flex;flex-flow:row;width:100%;justify-content:center; margin-top:50px;">
-            <a href="newest-briks.php"><button id="newest-ecobricks-button"  style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;" data-lang-id="005-newest-ecobricks">📅 Newest Ecobricks</button></a>
-        </div>
+
 
     <div style="text-align:center;width:100%;margin:auto;">
             <p style="font-size:smaller;">As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik, representing over <?php echo round($total_weight); ?> kg of sequestered plastic!</p>
@@ -235,22 +235,24 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once("../footer-2024.php"); ?>
 
 <script>
-    $(document).ready(function() {
-        $('#latest-ecobricks').DataTable({
-            "responsive": true,
-            "searching": false,
-            "paging": true,
-            "ordering": true,
-            "pageLength": 10,
-            "language": {
-                "emptyTable": "It looks like you haven't logged any ecobricks yet!"
-            },
-            "columnDefs": [
-                { "orderable": false, "targets": [0, 5] } // Make the image and status columns unsortable
-            ]
+        $(document).ready(function() {
+            $('#latest-ecobricks').DataTable({
+                "responsive": true,
+                "searching": true,
+                "paging": true,
+                "ordering": true,
+                "pageLength": 10,
+                "language": {
+                    "emptyTable": "It looks like you haven't logged any ecobricks yet!",
+                    "lengthMenu": "Show _MENU_ briks",
+                    "search": "Search briks:"
+                },
+                "columnDefs": [
+                    { "orderable": false, "targets": [0, 5] } // Make the image and status columns unsortable
+                ]
+            });
         });
-    });
-</script>
+    </script>
 
 
 

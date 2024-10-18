@@ -229,6 +229,40 @@ color: var(--text-color);
         display: none;
     }
 }
+
+  /* Style for the DataTables length menu (dropdown) */
+        .dataTables_length {
+            margin-bottom: 20px;
+        }
+        .dataTables_length label {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .dataTables_length select {
+            padding: 5px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-left: 5px;
+        }
+
+        /* Style for the DataTables search input */
+        .dataTables_filter {
+            margin-bottom: 20px;
+        }
+        .dataTables_filter label {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .dataTables_filter input {
+            padding: 5px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-left: 5px;
+            width: 250px; /* Adjust width as needed */
+        }
+
 </style>
 
 

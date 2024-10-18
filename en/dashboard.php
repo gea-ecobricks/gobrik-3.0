@@ -57,6 +57,15 @@ $sql_recent = "
     WHERE maker_id = ?
     ORDER BY date_logged_ts DESC";
 
+// Fetch all ecobricks data for the user's maker_id directly from tb_ecobricks
+$sql_recent = "
+    SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, weight_g / 1000 AS weight_kg, volume_ml,
+           density, date_logged_ts, ecobricker_maker, serial_no, status
+    FROM tb_ecobricks
+    WHERE maker_id = ?
+    ORDER BY date_logged_ts DESC";
+
+
 $stmt_recent = $gobrik_conn->prepare($sql_recent);
 
 if ($stmt_recent) {
@@ -68,6 +77,21 @@ if ($stmt_recent) {
     $stmt_recent->bind_result($ecobrick_thumb_photo_url, $ecobrick_full_photo_url, $weight_g, $weight_kg, $volume_ml, $density, $date_logged_ts, $ecobricker_maker, $serial_no, $status, $net_density);
 
     // Process results as before, now having access to $net_density for later use.
+    while ($stmt_recent->fetch()) {
+        $recent_ecobricks = [];
+$total_weight = 0; // Total weight in kilograms
+$total_volume = 0; // Total volume in ml
+$ecobrick_count = 0; // Count of ecobricks
+
+if ($stmt_recent) {
+    // Bind maker_id to the query
+    $stmt_recent->bind_param("s", $maker_id);
+    $stmt_recent->execute();
+
+    // Bind the results, including density and date_logged_ts
+    $stmt_recent->bind_result($ecobrick_thumb_photo_url, $ecobrick_full_photo_url, $weight_g, $weight_kg, $volume_ml, $density, $date_logged_ts, $ecobricker_maker, $serial_no, $status);
+
+    // Fetch and process the results
     while ($stmt_recent->fetch()) {
         $recent_ecobricks[] = [
             'ecobrick_thumb_photo_url' => $ecobrick_thumb_photo_url,
@@ -81,9 +105,9 @@ if ($stmt_recent) {
             'serial_no' => $serial_no,
             'status' => $status,
         ];
-        $total_weight += $weight_kg;
-        $total_volume += $volume_ml;
-        $ecobrick_count++;
+        $total_weight += $weight_kg; // Sum up total weight in kilograms
+        $total_volume += $volume_ml; // Sum up total volume in ml
+        $ecobrick_count++; // Increment the ecobrick count
     }
 
     // Close the statement after fetching
@@ -91,6 +115,7 @@ if ($stmt_recent) {
 } else {
     die("Error preparing the statement for fetching ecobricks: " . $gobrik_conn->error);
 }
+
 
 
 
@@ -153,10 +178,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <thead>
             <tr>
                 <th data-lang-id="1103-brik">Brik</th>
-                <th data-lang-id="1104-weight">Weight (g)</th>
-                <th data-lang-id="1108-volume">Volume (ml)</th>
-                <th data-lang-id="1109-density">Density (g/ml)</th>
-                <th data-lang-id="1110-date-logged">Date Logged</th>
+                <th data-lang-id="1104-weight">Weight</th>
+                <th data-lang-id="1108-volume">Volume</th>
+                <th data-lang-id="1109-density">Density</th>
+                <th data-lang-id="1110-date-logged">Logged</th>
                 <th data-lang-id="1107-serial">Serial</th>
                 <th data-lang-id="1106-status">Status</th>
             </tr>
@@ -193,6 +218,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </tbody>
     </table>
 </div>
+
 
 
 

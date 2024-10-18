@@ -4,32 +4,45 @@ require_once '../gobrikconn_env.php'; // Include database connection
 // Get the request parameters sent by DataTables
 $draw = isset($_POST['draw']) ? intval($_POST['draw']) : 0;
 $start = isset($_POST['start']) ? intval($_POST['start']) : 0;
-$length = isset($_POST['length']) ? intval($_POST['length']) : 12; // Number of records to fetch per page
+$length = isset($_POST['length']) ? intval($_POST['length']) : 12;
 
 // Search term (if any)
 $searchValue = isset($_POST['search']['value']) ? $_POST['search']['value'] : '';
 
-// Prepare the base SQL query
+// Base query
 $sql = "SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, volume_ml, density, date_logged_ts, location_full, location_watershed, ecobricker_maker, serial_no, status
         FROM tb_ecobricks
         WHERE status != 'not ready'";
+
+// Count total records before filtering
+$totalRecordsResult = $gobrik_conn->query("SELECT COUNT(*) as total FROM tb_ecobricks WHERE status != 'not ready'");
+$totalRecords = $totalRecordsResult->fetch_assoc()['total'] ?? 0;
 
 // Add search filter if there is a search term
 if (!empty($searchValue)) {
     $sql .= " AND (serial_no LIKE ? OR location_full LIKE ? OR ecobricker_maker LIKE ?)";
 }
 
-// Count total records before filtering
-$totalRecordsResult = $gobrik_conn->query("SELECT COUNT(*) as total FROM tb_ecobricks WHERE status != 'not ready'");
-$totalRecords = $totalRecordsResult->fetch_assoc()['total'];
-
 // Prepare the statement for the main query
-$stmt = $gobrik_conn->prepare($sql . " ORDER BY date_logged_ts DESC LIMIT ?, ?");
+$sql .= " ORDER BY date_logged_ts DESC LIMIT ?, ?";
+$stmt = $gobrik_conn->prepare($sql);
+
 if (!empty($searchValue)) {
     $searchTerm = "%" . $searchValue . "%";
     $stmt->bind_param("sssii", $searchTerm, $searchTerm, $searchTerm, $start, $length);
 } else {
     $stmt->bind_param("ii", $start, $length);
+}
+
+if (!$stmt) {
+    echo json_encode([
+        "draw" => $draw,
+        "recordsTotal" => 0,
+        "recordsFiltered" => 0,
+        "data" => [],
+        "error" => "Failed to prepare SQL statement: " . $gobrik_conn->error
+    ]);
+    exit;
 }
 
 $stmt->execute();
@@ -40,7 +53,6 @@ while ($row = $result->fetch_assoc()) {
     // Process the location into $location_brik
     $location_parts = explode(',', $row['location_full']);
     $location_parts = array_map('trim', $location_parts);
-
     $location_last = $location_parts[count($location_parts) - 1] ?? '';
     $location_third_last = $location_parts[count($location_parts) - 3] ?? '';
     $location_brik = $location_third_last . ', ' . $location_last;
@@ -62,7 +74,8 @@ while ($row = $result->fetch_assoc()) {
 }
 
 // Get total filtered records
-$totalFilteredRecords = $gobrik_conn->query("SELECT COUNT(*) as total FROM tb_ecobricks WHERE status != 'not ready'" . (!empty($searchValue) ? " AND (serial_no LIKE '%$searchValue%' OR location_full LIKE '%$searchValue%' OR ecobricker_maker LIKE '%$searchValue%')" : ""))->fetch_assoc()['total'];
+$filteredResult = $gobrik_conn->query("SELECT COUNT(*) as total FROM tb_ecobricks WHERE status != 'not ready'" . (!empty($searchValue) ? " AND (serial_no LIKE '%$searchValue%' OR location_full LIKE '%$searchValue%' OR ecobricker_maker LIKE '%$searchValue%')" : ""));
+$totalFilteredRecords = $filteredResult->fetch_assoc()['total'] ?? 0;
 
 // Prepare the JSON response
 $response = [

@@ -210,30 +210,30 @@ color: var(--text-color);
             width: 250px; /* Adjust width as needed */
         }
 
-        /* Hide certain columns based on screen size */
-        @media (min-width: 769px) and (max-width: 1200px) {
-            #latest-ecobricks th:nth-child(3),
-            #latest-ecobricks td:nth-child(3),
-            #latest-ecobricks th:nth-child(4),
-            #latest-ecobricks td:nth-child(4),
-            #latest-ecobricks th:nth-child(5),
-            #latest-ecobricks td:nth-child(5) {
-                display: none;
-            }
-        }
+/*          *//* Hide certain columns based on screen size */
+/*         @media (min-width: 769px) and (max-width: 1200px) { */
+/*             #latest-ecobricks th:nth-child(3), */
+/*             #latest-ecobricks td:nth-child(3), */
+/*             #latest-ecobricks th:nth-child(4), */
+/*             #latest-ecobricks td:nth-child(4), */
+/*             #latest-ecobricks th:nth-child(5), */
+/*             #latest-ecobricks td:nth-child(5) { */
+/*                 display: none; */
+/*             } */
+/*         } */
 
-        @media (max-width: 768px) {
-            #latest-ecobricks th:nth-child(2),
-            #latest-ecobricks td:nth-child(2),
-            #latest-ecobricks th:nth-child(3),
-            #latest-ecobricks td:nth-child(3),
-            #latest-ecobricks th:nth-child(4),
-            #latest-ecobricks td:nth-child(4),
-            #latest-ecobricks th:nth-child(5),
-            #latest-ecobricks td:nth-child(5) {
-                display: none;
-            }
-        }
+/*         @media (max-width: 768px) { */
+/*             #latest-ecobricks th:nth-child(2), */
+/*             #latest-ecobricks td:nth-child(2), */
+/*             #latest-ecobricks th:nth-child(3), */
+/*             #latest-ecobricks td:nth-child(3), */
+/*             #latest-ecobricks th:nth-child(4), */
+/*             #latest-ecobricks td:nth-child(4), */
+/*             #latest-ecobricks th:nth-child(5), */
+/*             #latest-ecobricks td:nth-child(5) { */
+/*                 display: none; */
+/*             } */
+/*         } */
     </style>
 
 

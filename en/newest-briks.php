@@ -31,7 +31,7 @@ $sql_recent = "
     FROM tb_ecobricks
     WHERE status != 'not ready'
     ORDER BY date_logged_ts DESC
-    LIMIT 12";
+    ";
 
 
 

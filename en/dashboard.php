@@ -38,7 +38,6 @@ if ($is_logged_in) {
 
 $maker_id = $ecobricker_id; // Assuming ecobricker_id is equivalent to maker_id
 
-
 // Fetch all ecobricks data for the user's maker_id directly from tb_ecobricks
 $sql_recent = "
     SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, weight_g / 1000 AS weight_kg, volume_ml,
@@ -47,6 +46,16 @@ $sql_recent = "
     WHERE maker_id = ?
     ORDER BY date_logged_ts DESC";
 
+
+
+// Fetch all ecobricks data for the user's maker_id directly from tb_ecobricks
+$sql_recent = "
+    SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, weight_g / 1000 AS weight_kg, volume_ml,
+           density, date_logged_ts, ecobricker_maker, serial_no, status,
+           (SELECT AVG(density) FROM tb_ecobricks WHERE maker_id = ?) AS net_density
+    FROM tb_ecobricks
+    WHERE maker_id = ?
+    ORDER BY date_logged_ts DESC";
 
 $stmt_recent = $gobrik_conn->prepare($sql_recent);
 
@@ -82,7 +91,6 @@ if ($stmt_recent) {
 } else {
     die("Error preparing the statement for fetching ecobricks: " . $gobrik_conn->error);
 }
-
 
 
 
@@ -145,10 +153,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <thead>
             <tr>
                 <th data-lang-id="1103-brik">Brik</th>
-                <th data-lang-id="1104-weight">Weight</th>
-                <th data-lang-id="1108-volume">Volume</th>
-                <th data-lang-id="1109-density">Density</th>
-                <th data-lang-id="1110-date-logged">Logged</th>
+                <th data-lang-id="1104-weight">Weight (g)</th>
+                <th data-lang-id="1108-volume">Volume (ml)</th>
+                <th data-lang-id="1109-density">Density (g/ml)</th>
+                <th data-lang-id="1110-date-logged">Date Logged</th>
                 <th data-lang-id="1107-serial">Serial</th>
                 <th data-lang-id="1106-status">Status</th>
             </tr>
@@ -185,7 +193,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </tbody>
     </table>
 </div>
-
 
 
 

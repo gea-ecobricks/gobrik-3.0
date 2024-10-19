@@ -6,35 +6,53 @@ $draw = isset($_POST['draw']) ? intval($_POST['draw']) : 0;
 $start = isset($_POST['start']) ? intval($_POST['start']) : 0;
 $length = isset($_POST['length']) ? intval($_POST['length']) : 12;
 $ecobricker_id = isset($_POST['ecobricker_id']) ? $_POST['ecobricker_id'] : ''; // Get the ecobricker_id from the request
-
-// Search term (if any)
-$searchValue = isset($_POST['search']['value']) ? $_POST['search']['value'] : '';
+$searchValue = isset($_POST['search']['value']) ? $_POST['search']['value'] : ''; // Search term, if any
 
 // Prepare the base SQL query
 $sql = "SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, volume_ml, density, date_logged_ts, location_full, location_watershed, ecobricker_maker, serial_no, status
         FROM tb_ecobricks
         WHERE status != 'not ready'";
 
-// If ecobricker_id is provided, use it to filter by maker_id in the SQL query
+// Add filtering for ecobricker_id and search term
+$bindTypes = '';
+$bindValues = [];
+
+// If ecobricker_id is provided, add it to the filter
 if (!empty($ecobricker_id)) {
     $sql .= " AND maker_id = ?";
+    $bindTypes .= 's';
+    $bindValues[] = $ecobricker_id;
 }
 
 // Add search filter if there is a search term
 if (!empty($searchValue)) {
     $sql .= " AND (serial_no LIKE ? OR location_full LIKE ? OR ecobricker_maker LIKE ?)";
+    $bindTypes .= 'sss';
+    $searchTerm = '%' . $searchValue . '%';
+    $bindValues[] = $searchTerm;
+    $bindValues[] = $searchTerm;
+    $bindValues[] = $searchTerm;
 }
 
 // Count total records before filtering
 $totalRecordsQuery = "SELECT COUNT(*) as total FROM tb_ecobricks WHERE status != 'not ready'";
 if (!empty($ecobricker_id)) {
-    $totalRecordsQuery .= " AND maker_id = '$ecobricker_id'";
+    $totalRecordsQuery .= " AND maker_id = ?";
+    $totalRecordsStmt = $gobrik_conn->prepare($totalRecordsQuery);
+    $totalRecordsStmt->bind_param('s', $ecobricker_id);
+} else {
+    $totalRecordsStmt = $gobrik_conn->prepare($totalRecordsQuery);
 }
-$totalRecordsResult = $gobrik_conn->query($totalRecordsQuery);
+$totalRecordsStmt->execute();
+$totalRecordsResult = $totalRecordsStmt->get_result();
 $totalRecords = $totalRecordsResult->fetch_assoc()['total'] ?? 0;
 
-// Prepare the statement for the main query
+// Prepare the main query with pagination
 $sql .= " ORDER BY date_logged_ts DESC LIMIT ?, ?";
+$bindTypes .= 'ii';
+$bindValues[] = $start;
+$bindValues[] = $length;
+
 $stmt = $gobrik_conn->prepare($sql);
 
 if (!$stmt) {
@@ -48,23 +66,9 @@ if (!$stmt) {
     exit;
 }
 
-// Prepare search term with wildcards for the LIKE statements
-$searchTerm = "%" . $searchValue . "%";
-
-// Determine the correct binding of parameters
-if (!empty($ecobricker_id) && !empty($searchValue)) {
-    $stmt->bind_param("ssssii", $ecobricker_id, $searchTerm, $searchTerm, $searchTerm, $start, $length);
-} elseif (!empty($ecobricker_id)) {
-    $stmt->bind_param("sii", $ecobricker_id, $start, $length);
-} elseif (!empty($searchValue)) {
-    $stmt->bind_param("sssii", $searchTerm, $searchTerm, $searchTerm, $start, $length);
-} else {
-    $stmt->bind_param("ii", $start, $length);
-}
-
+// Bind the parameters dynamically
+$stmt->bind_param($bindTypes, ...$bindValues);
 $stmt->execute();
-
-// Bind the results to variables
 $stmt->bind_result(
     $ecobrick_thumb_photo_url,
     $ecobrick_full_photo_url,
@@ -79,12 +83,11 @@ $stmt->bind_result(
     $status
 );
 
+// Fetch the results into the data array
 $data = [];
 while ($stmt->fetch()) {
-    // Process the location into $location_brik
-    $location_parts = explode(',', $location_full);
-    $location_parts = array_map('trim', $location_parts);
-
+    // Process location data
+    $location_parts = array_map('trim', explode(',', $location_full));
     $location_last = $location_parts[count($location_parts) - 1] ?? '';
     $location_third_last = $location_parts[count($location_parts) - 3] ?? '';
     $location_brik = $location_third_last . ', ' . $location_last;
@@ -113,15 +116,24 @@ while ($stmt->fetch()) {
     ];
 }
 
-// Get total filtered records
+// Count filtered records for pagination purposes
 $filteredSql = "SELECT COUNT(*) as total FROM tb_ecobricks WHERE status != 'not ready'";
 if (!empty($ecobricker_id)) {
-    $filteredSql .= " AND maker_id = '$ecobricker_id'";
+    $filteredSql .= " AND maker_id = ?";
 }
 if (!empty($searchValue)) {
-    $filteredSql .= " AND (serial_no LIKE '%$searchValue%' OR location_full LIKE '%$searchValue%' OR ecobricker_maker LIKE '%$searchValue%')";
+    $filteredSql .= " AND (serial_no LIKE ? OR location_full LIKE ? OR ecobricker_maker LIKE ?)";
 }
-$filteredResult = $gobrik_conn->query($filteredSql);
+$filteredStmt = $gobrik_conn->prepare($filteredSql);
+if (!empty($ecobricker_id) && !empty($searchValue)) {
+    $filteredStmt->bind_param('ssss', $ecobricker_id, $searchTerm, $searchTerm, $searchTerm);
+} elseif (!empty($ecobricker_id)) {
+    $filteredStmt->bind_param('s', $ecobricker_id);
+} elseif (!empty($searchValue)) {
+    $filteredStmt->bind_param('sss', $searchTerm, $searchTerm, $searchTerm);
+}
+$filteredStmt->execute();
+$filteredResult = $filteredStmt->get_result();
 $totalFilteredRecords = $filteredResult->fetch_assoc()['total'] ?? 0;
 
 // Prepare the JSON response

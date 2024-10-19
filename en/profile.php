@@ -268,31 +268,7 @@ echo '<!DOCTYPE html>
 
 <h4>⚙️ Local area</h4>
 
-    <!-- Continent-->
 
-    <div class="form-item">
-        <label for="continent_code" data-lang-id="021-continent">Continent:</label>
-        <select name="continent_code" id="continent_code" disabled>
-            <option value="" data-lang-id="022-select-continent">Select Continent</option>
-            <?php foreach ($continents as $continent): ?>
-                <option value="<?php echo $continent['continent_code']; ?>" <?php if ($continent['continent_code'] == $continent_code) echo 'selected'; ?>>
-                    <?php echo htmlspecialchars($continent['continent_name_en']); ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </div>
-    <!-- Country-->
-    <div class="form-item">
-        <label for="country_id" data-lang-id="015-country">Country:</label>
-        <select name="country_id" id="country_id" disabled>
-            <option value="" data-lang-id="016-select-country">Select Country</option>
-            <?php foreach ($countries as $country): ?>
-                <option value="<?php echo $country['country_id']; ?>" <?php if ($country['country_id'] == $country_id) echo 'selected'; ?>>
-                    <?php echo htmlspecialchars($country['country_name']); ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </div>
 
 <!--LOCATION-->
 
@@ -338,6 +314,31 @@ echo '<!DOCTYPE html>
                     <input type="hidden" id="lat" name="latitude" value="<?= htmlspecialchars($user_location_lat, ENT_QUOTES); ?>">
                     <input type="hidden" id="lon" name="longitude" value="<?= htmlspecialchars($user_location_long, ENT_QUOTES); ?>">
 
+ <!-- Continent-->
+
+    <div class="form-item" style="opacity: 0.5">
+        <label for="continent_code" data-lang-id="021-continent">Continent:</label>
+        <select name="continent_code" id="continent_code" disabled>
+            <option value="" data-lang-id="022-select-continent">Select Continent</option>
+            <?php foreach ($continents as $continent): ?>
+                <option value="<?php echo $continent['continent_code']; ?>" <?php if ($continent['continent_code'] == $continent_code) echo 'selected'; ?>>
+                    <?php echo htmlspecialchars($continent['continent_name_en']); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    <!-- Country-->
+    <div class="form-item" style="opacity: 0.5">
+        <label for="country_id" data-lang-id="015-country">Country:</label>
+        <select name="country_id" id="country_id" disabled>
+            <option value="" data-lang-id="016-select-country">Select Country</option>
+            <?php foreach ($countries as $country): ?>
+                <option value="<?php echo $country['country_id']; ?>" <?php if ($country['country_id'] == $country_id) echo 'selected'; ?>>
+                    <?php echo htmlspecialchars($country['country_name']); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
 
 
 
@@ -569,7 +570,7 @@ const buwana_id = <?php echo json_encode($buwana_id); ?>;
 // Event listener for the manage subscription button
 document.getElementById('manage-subscription-button').addEventListener('click', function() {
     const url = 'manage-subscriptions.php?id=' + encodeURIComponent(buwana_id) + '&type=update';
-    window.open(url, '_blank'); // Open the generated URL in a new tab
+   // window.open(url, '_blank');  Open the generated URL in a new tab
 });
 
 

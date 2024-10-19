@@ -395,7 +395,7 @@ display: none;
     <!-- Other menu items -->
     <div class="menu-page-item">
       <a href="log.php" data-lang-id="1000-log-ecobricks">Log Ecobricks</a>
-      <span class="status-circle" style="background-color: limegreen;" title="Under beta testing"></span>
+      <span class="status-circle" style="background-color: green;" title="Under beta testing"></span>
     </div>
     <!--
     <div class="menu-page-item">

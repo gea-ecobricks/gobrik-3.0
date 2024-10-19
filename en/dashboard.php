@@ -334,7 +334,7 @@ function secondaryGreeting() {
     // Retrieve the language setting from the server-side PHP variable
     const lang = '<?php echo htmlspecialchars($lang); ?>';
     const ecobricksMade = <?php echo (int) $ecobricks_made; ?>;
-//     const locationFullTxt = '<?php echo htmlspecialchars($location_full_txt); ?>';
+    const locationFullTxt = '<?php echo htmlspecialchars($user_location_full); ?>';
     const totalWeight = '<?php echo htmlspecialchars($total_weight); ?>';
     const netDensity = '<?php echo number_format($net_density, 2); ?>';
 
@@ -362,7 +362,7 @@ function secondaryGreeting() {
         // Replace placeholders with dynamic values
         message = translations.loggedEcobricks
             .replace('{ecobricksMade}', ecobricksMade)
-//             .replace('{locationFullTxt}', locationFullTxt)
+            .replace('{locationFullTxt}', locationFullTxt)
             .replace('{totalWeight}', totalWeight)
             .replace('{netDensity}', netDensity);
     }

@@ -5,7 +5,7 @@ require_once '../gobrikconn_env.php'; // Include database connection
 $draw = isset($_POST['draw']) ? intval($_POST['draw']) : 0;
 $start = isset($_POST['start']) ? intval($_POST['start']) : 0;
 $length = isset($_POST['length']) ? intval($_POST['length']) : 12;
-$ecobricker_id = isset($_POST['ecobriker_id']) ? $_POST['ecobriker_id'] : ''; // Get the ecobricker_id from the request
+$ecobricker_id = isset($_POST['ecobricker_id']) ? $_POST['ecobricker_id'] : ''; // Get the ecobricker_id from the request
 
 // Search term (if any)
 $searchValue = isset($_POST['search']['value']) ? $_POST['search']['value'] : '';
@@ -15,7 +15,7 @@ $sql = "SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, volu
         FROM tb_ecobricks
         WHERE status != 'not ready'";
 
-// If ecobriker_id is provided, use it to filter by maker_id in the SQL query
+// If ecobricker_id is provided, use it to filter by maker_id in the SQL query
 if (!empty($ecobricker_id)) {
     $sql .= " AND maker_id = ?";
 }
@@ -48,14 +48,15 @@ if (!$stmt) {
     exit;
 }
 
-// Bind parameters and execute the statement
+// Prepare search term with wildcards for the LIKE statements
+$searchTerm = "%" . $searchValue . "%";
+
+// Determine the correct binding of parameters
 if (!empty($ecobricker_id) && !empty($searchValue)) {
-    $searchTerm = "%" . $searchValue . "%";
     $stmt->bind_param("ssssii", $ecobricker_id, $searchTerm, $searchTerm, $searchTerm, $start, $length);
 } elseif (!empty($ecobricker_id)) {
     $stmt->bind_param("sii", $ecobricker_id, $start, $length);
 } elseif (!empty($searchValue)) {
-    $searchTerm = "%" . $searchValue . "%";
     $stmt->bind_param("sssii", $searchTerm, $searchTerm, $searchTerm, $start, $length);
 } else {
     $stmt->bind_param("ii", $start, $length);
@@ -95,22 +96,21 @@ while ($stmt->fetch()) {
     $serial_url = "brik.php?serial_no=" . urlencode($serial_no);
 
     $data[] = [
-    'ecobrick_thumb_photo_url' => '<img src="' . htmlspecialchars($ecobrick_thumb_photo_url) . '"
-        alt="Ecobrick ' . htmlspecialchars($serial_no) . ' Thumbnail"
-        title="Ecobrick ' . htmlspecialchars($serial_no) . '"
-        class="table-thumbnail"
-        onclick="ecobrickPreview(\'' . htmlspecialchars($ecobrick_full_photo_url) . '\', \'' . htmlspecialchars($serial_no) . '\', \'' . htmlspecialchars($weight_g) . ' g\', \'' . htmlspecialchars($ecobricker_maker) . '\', \'' . htmlspecialchars($location_brik) . '\')">',
-    'weight_g' => number_format($weight_g) . ' g',
-    'volume_ml' => number_format($volume_ml) . ' ml',
-    'density' => number_format($density, 2) . ' g/ml',
-    'date_logged_ts' => date("Y-m-d", strtotime($date_logged_ts)),
-    'location_brik' => htmlspecialchars($location_brik),
-    'status' => htmlspecialchars($status),
-    'serial_no' => '<a href="' . htmlspecialchars($serial_url) . '" class="serial-button" data-text="' . htmlspecialchars($serial_no) . '">
-                        <span>' . htmlspecialchars($serial_no) . '</span>
-                    </a>'
-];
-
+        'ecobrick_thumb_photo_url' => '<img src="' . htmlspecialchars($ecobrick_thumb_photo_url) . '"
+            alt="Ecobrick ' . htmlspecialchars($serial_no) . ' Thumbnail"
+            title="Ecobrick ' . htmlspecialchars($serial_no) . '"
+            class="table-thumbnail"
+            onclick="ecobrickPreview(\'' . htmlspecialchars($ecobrick_full_photo_url) . '\', \'' . htmlspecialchars($serial_no) . '\', \'' . htmlspecialchars($weight_g) . ' g\', \'' . htmlspecialchars($ecobricker_maker) . '\', \'' . htmlspecialchars($location_brik) . '\')">',
+        'weight_g' => number_format($weight_g) . ' g',
+        'volume_ml' => number_format($volume_ml) . ' ml',
+        'density' => number_format($density, 2) . ' g/ml',
+        'date_logged_ts' => date("Y-m-d", strtotime($date_logged_ts)),
+        'location_brik' => htmlspecialchars($location_brik),
+        'status' => htmlspecialchars($status),
+        'serial_no' => '<a href="' . htmlspecialchars($serial_url) . '" class="serial-button" data-text="' . htmlspecialchars($serial_no) . '">
+                            <span>' . htmlspecialchars($serial_no) . '</span>
+                        </a>'
+    ];
 }
 
 // Get total filtered records

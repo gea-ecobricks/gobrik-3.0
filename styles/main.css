@@ -1674,7 +1674,9 @@ body.modal-open {
         max-width: 60px;
         height: auto;
     }
-.serial-button {
+
+
+    .serial-button {
     color: var(--text-color);
     border: 1px solid;
     padding: 10px;
@@ -1705,6 +1707,7 @@ body.modal-open {
 .serial-button:hover {
     color: transparent; /* Hide the text color of the original content */
 }
+
 
 
 

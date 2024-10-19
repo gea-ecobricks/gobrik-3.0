@@ -2334,7 +2334,7 @@ position:relative;
 
 //DataTables
 
-    .dataTables_info {
+   #ecobrick-search-return_info {
    color: grey !important;
    font-family: 'Mulish', sans-serif !important;
    }

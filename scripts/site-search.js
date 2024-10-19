@@ -70,8 +70,7 @@ function ecobrickSearch() {
                 }
             },
             "pageLength": 10, // Show only 10 results at a time
-            "dom": "<'row'<'col-sm-12'tr>>" + // Remove the built-in "Show X briks" selector
-                   "<'row'<'col-sm-6'i><'col-sm-6'p>>", // Place pagination at the bottom
+
             "language": {
                 "emptyTable": "No ecobricks match your search.",
                 "info": "Showing _START_ to _END_ of _TOTAL_ ecobricks",

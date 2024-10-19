@@ -85,6 +85,7 @@ echo '<!DOCTYPE html>
 
 
 
+
 <!--
 GoBrik.com site version 3.0
 Developed and made open source by the Global Ecobrick Alliance
@@ -283,16 +284,7 @@ window.onload = function() {
 }
 
 
-//
-// document.getElementById('log-ecobrick-button').addEventListener('click', function() {
-//     // Redirect to the log.php page
-//     window.location.href = 'log.php';
-// });
 
-document.getElementById('newest-ecobricks-button').addEventListener('click', function() {
-    // Redirect to the newest-briks.php page
-    window.location.href = 'newest-briks.php';
-});
 // Main greeting function to determine the user's time of day and display an appropriate greeting
 function mainGreeting() {
     var now = new Date();
@@ -353,6 +345,7 @@ function mainGreeting() {
 
     document.getElementById("greeting").innerHTML = greeting + " <?php echo htmlspecialchars($first_name); ?>!";
 }
+
 
 // Secondary greeting function to provide additional dynamic content
 function secondaryGreeting() {

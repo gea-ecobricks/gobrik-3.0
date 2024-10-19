@@ -5,7 +5,7 @@ require_once '../gobrikconn_env.php'; // Include database connection
 $draw = isset($_POST['draw']) ? intval($_POST['draw']) : 0;
 $start = isset($_POST['start']) ? intval($_POST['start']) : 0;
 $length = isset($_POST['length']) ? intval($_POST['length']) : 12;
-$maker_id = isset($_POST['maker_id']) ? $_POST['maker_id'] : ''; // Get the maker_id from the request
+$ecobriker_id = isset($_POST['ecobriker_id']) ? $_POST['ecobriker_id'] : ''; // Get the ecobriker_id from the request
 
 // Search term (if any)
 $searchValue = isset($_POST['search']['value']) ? $_POST['search']['value'] : '';
@@ -15,9 +15,9 @@ $sql = "SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, volu
         FROM tb_ecobricks
         WHERE status != 'not ready'";
 
-// If maker_id is provided, add it to the SQL query to filter results
-if (!empty($maker_id)) {
-    $sql .= " AND maker_id = ?";
+// If ecobriker_id is provided, add it to the SQL query to filter results
+if (!empty($ecobriker_id)) {
+    $sql .= " AND ecobricker_id = ?";
 }
 
 // Add search filter if there is a search term
@@ -27,8 +27,8 @@ if (!empty($searchValue)) {
 
 // Count total records before filtering
 $totalRecordsQuery = "SELECT COUNT(*) as total FROM tb_ecobricks WHERE status != 'not ready'";
-if (!empty($maker_id)) {
-    $totalRecordsQuery .= " AND maker_id = '$maker_id'";
+if (!empty($ecobriker_id)) {
+    $totalRecordsQuery .= " AND ecobricker_id = '$ecobriker_id'";
 }
 $totalRecordsResult = $gobrik_conn->query($totalRecordsQuery);
 $totalRecords = $totalRecordsResult->fetch_assoc()['total'] ?? 0;
@@ -49,11 +49,11 @@ if (!$stmt) {
 }
 
 // Bind parameters and execute the statement
-if (!empty($maker_id) && !empty($searchValue)) {
+if (!empty($ecobriker_id) && !empty($searchValue)) {
     $searchTerm = "%" . $searchValue . "%";
-    $stmt->bind_param("ssssii", $maker_id, $searchTerm, $searchTerm, $searchTerm, $start, $length);
-} elseif (!empty($maker_id)) {
-    $stmt->bind_param("sii", $maker_id, $start, $length);
+    $stmt->bind_param("ssssii", $ecobriker_id, $searchTerm, $searchTerm, $searchTerm, $start, $length);
+} elseif (!empty($ecobriker_id)) {
+    $stmt->bind_param("sii", $ecobriker_id, $start, $length);
 } elseif (!empty($searchValue)) {
     $searchTerm = "%" . $searchValue . "%";
     $stmt->bind_param("sssii", $searchTerm, $searchTerm, $searchTerm, $start, $length);
@@ -62,7 +62,6 @@ if (!empty($maker_id) && !empty($searchValue)) {
 }
 
 $stmt->execute();
-
 
 // Bind the results to variables
 $stmt->bind_result(
@@ -94,23 +93,25 @@ while ($stmt->fetch()) {
     }
 
     $serial_url = "brik.php?serial_no=" . urlencode($serial_no);
-$data[] = [
-    'ecobrick_thumb_photo_url' => '<img src="' . htmlspecialchars($ecobrick_thumb_photo_url) . '" alt="Ecobrick ' . htmlspecialchars($serial_no) . ' Thumbnail" title="Ecobrick ' . htmlspecialchars($serial_no) . '" class="table-thumbnail">',
-    'weight_g' => number_format($weight_g) . ' g',
-    'volume_ml' => number_format($volume_ml) . ' ml',
-    'density' => number_format($density, 2) . ' g/ml',
-    'date_logged_ts' => date("Y-m-d", strtotime($date_logged_ts)),
-    'location_brik' => htmlspecialchars($location_brik),
-    'status' => htmlspecialchars($status),
-    'serial_no' => '<a href="' . htmlspecialchars($serial_url) . '" class="serial-button" data-text="' . htmlspecialchars($serial_no) . '">
-                        <span>' . htmlspecialchars($serial_no) . '</span>
-                    </a>'
-];
-
+    $data[] = [
+        'ecobrick_thumb_photo_url' => '<img src="' . htmlspecialchars($ecobrick_thumb_photo_url) . '" alt="Ecobrick ' . htmlspecialchars($serial_no) . ' Thumbnail" title="Ecobrick ' . htmlspecialchars($serial_no) . '" class="table-thumbnail">',
+        'weight_g' => number_format($weight_g) . ' g',
+        'volume_ml' => number_format($volume_ml) . ' ml',
+        'density' => number_format($density, 2) . ' g/ml',
+        'date_logged_ts' => date("Y-m-d", strtotime($date_logged_ts)),
+        'location_brik' => htmlspecialchars($location_brik),
+        'status' => htmlspecialchars($status),
+        'serial_no' => '<a href="' . htmlspecialchars($serial_url) . '" class="serial-button" data-text="' . htmlspecialchars($serial_no) . '">
+                            <span>' . htmlspecialchars($serial_no) . '</span>
+                        </a>'
+    ];
 }
 
 // Get total filtered records
 $filteredSql = "SELECT COUNT(*) as total FROM tb_ecobricks WHERE status != 'not ready'";
+if (!empty($ecobriker_id)) {
+    $filteredSql .= " AND ecobricker_id = '$ecobriker_id'";
+}
 if (!empty($searchValue)) {
     $filteredSql .= " AND (serial_no LIKE '%$searchValue%' OR location_full LIKE '%$searchValue%' OR ecobricker_maker LIKE '%$searchValue%')";
 }

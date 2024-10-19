@@ -92,10 +92,6 @@ echo '<!DOCTYPE html>
                 </table>
             </div>
 
-            <div style="display:flex;flex-flow:row;width:100%;justify-content:center;margin-top:30px;">
-                <button class="go-button" id="log-ecobrick-button">➕ Log an Ecobrick</button>
-            </div>
-        </div>
 
 
     <!-- FOOTER -->

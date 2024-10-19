@@ -41,8 +41,9 @@
 }
 
 /* Hide the original text when hovering */
-.serial-button:hover > span {
-    visibility: hidden; /* Hide the serial number text */
+.serial-button:hover span {
+    opacity: 0; /* Hide the serial number text smoothly */
+    transition: opacity 0.2s ease; /* Smooth transition */
 }
 
 /* Display the magnifying glass on hover */
@@ -61,6 +62,7 @@
 .serial-button:hover::before {
     opacity: 1; /* Show the magnifying glass */
 }
+
 
 
 

@@ -354,7 +354,7 @@ function secondaryGreeting() {
     const lang = '<?php echo htmlspecialchars($lang); ?>';
     const ecobricksMade = <?php echo (int) $ecobricks_made; ?>;
     const locationFullTxt = '<?php echo htmlspecialchars($user_location_full); ?>';
-    const totalWeight = '<?php echo htmlspecialchars($total_weight_kg); ?>';
+    const totalWeight = '<?php echo htmlspecialchars($total_weight_kg, 1); ?>';
     const netDensity = '<?php echo number_format($net_density, 2); ?>';
 
     // Determine the appropriate language object based on the current language setting

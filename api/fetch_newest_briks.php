@@ -78,7 +78,23 @@ $stmt->bind_result(
     $status
 );
 
-$data[] = [
+$data = [];
+while ($stmt->fetch()) {
+    // Process the location into $location_brik
+    $location_parts = explode(',', $location_full);
+    $location_parts = array_map('trim', $location_parts);
+
+    $location_last = $location_parts[count($location_parts) - 1] ?? '';
+    $location_third_last = $location_parts[count($location_parts) - 3] ?? '';
+    $location_brik = $location_third_last . ', ' . $location_last;
+
+    if (!empty($location_watershed)) {
+        $location_brik = $location_watershed . ', ' . $location_brik;
+    }
+
+    $serial_url = "brik.php?serial_no=" . urlencode($serial_no);
+
+    $data[] = [
     'ecobrick_thumb_photo_url' => '<img src="' . htmlspecialchars($ecobrick_thumb_photo_url) . '"
         alt="Ecobrick ' . htmlspecialchars($serial_no) . ' Thumbnail"
         title="Ecobrick ' . htmlspecialchars($serial_no) . '"

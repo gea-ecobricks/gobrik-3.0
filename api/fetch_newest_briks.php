@@ -17,13 +17,21 @@ $sql = "SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, volu
         WHERE status != 'not ready'";
 
 // If ecobricker_id is provided, use it to filter by maker_id in the SQL query
+$bindTypes = "";
+$bindValues = [];
+
 if (!empty($ecobricker_id)) {
     $sql .= " AND maker_id = ?";
+    $bindTypes .= "s";
+    $bindValues[] = $ecobricker_id;
 }
 
 // Add search filter if there is a search term
 if (!empty($searchValue)) {
     $sql .= " AND (serial_no LIKE ? OR location_full LIKE ? OR ecobricker_maker LIKE ? OR community_name LIKE ?)";
+    $bindTypes .= "ssss";
+    $searchTerm = "%" . $searchValue . "%";
+    $bindValues = array_merge($bindValues, [$searchTerm, $searchTerm, $searchTerm, $searchTerm]);
 }
 
 // Count total records before filtering
@@ -36,6 +44,10 @@ $totalRecords = $totalRecordsResult->fetch_assoc()['total'] ?? 0;
 
 // Prepare the statement for the main query
 $sql .= " ORDER BY date_logged_ts DESC LIMIT ?, ?";
+$bindTypes .= "ii";
+$bindValues[] = $start;
+$bindValues[] = $length;
+
 $stmt = $gobrik_conn->prepare($sql);
 
 if (!$stmt) {
@@ -49,18 +61,8 @@ if (!$stmt) {
     exit;
 }
 
-// Bind parameters and execute the statement
-if (!empty($ecobricker_id) && !empty($searchValue)) {
-    $searchTerm = "%" . $searchValue . "%";
-    $stmt->bind_param("sssssii", $ecobricker_id, $searchTerm, $searchTerm, $searchTerm, $searchTerm, $start, $length);
-} elseif (!empty($ecobricker_id)) {
-    $stmt->bind_param("sii", $ecobricker_id, $start, $length);
-} elseif (!empty($searchValue)) {
-    $searchTerm = "%" . $searchValue . "%";
-    $stmt->bind_param("sssii", $searchTerm, $searchTerm, $searchTerm, $searchTerm, $start, $length);
-} else {
-    $stmt->bind_param("ii", $start, $length);
-}
+// Bind parameters dynamically
+$stmt->bind_param($bindTypes, ...$bindValues);
 
 $stmt->execute();
 

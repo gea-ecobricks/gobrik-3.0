@@ -65,11 +65,11 @@ function ecobrickSearch() {
                     d.searchValue = query; // Send the search query to the server
                 }
             },
-            "pageLength": 12,
+            "pageLength": 10,
             "language": {
                 "emptyTable": "No ecobricks match your search.",
                 "lengthMenu": "Show _MENU_ briks",
-                "search": "false",
+                "search": "",
                 "info": "Showing _START_ to _END_ of _TOTAL_ ecobricks",
                 "infoEmpty": "No ecobricks available",
                 "loadingRecords": "Loading ecobricks...",

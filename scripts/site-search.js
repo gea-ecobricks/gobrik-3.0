@@ -45,64 +45,66 @@ function handleKeyPress(event) {
 }
 
 
-//ECOBRICK SEARCH FUNCTION
-function ecobrickSearch() {
-    var query = document.getElementById("search_input").value.toLowerCase();
+    function ecobrickSearch() {
+        var query = document.getElementById("search_input").value.trim().toLowerCase();
 
-    // Hide the search results initially
-    document.getElementById('search-results').style.display = 'none';
-    var overlayContent = document.querySelector('.search-overlay-content');
-    overlayContent.style.height = 'fit-content';
-    overlayContent.style.marginTop = '8%';
-
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4) {
-            if (this.status == 200) {
-                try {
-                    var data = JSON.parse(this.responseText);
-                    presentEcobrickResults(data, query);
-                } catch (e) {
-                    console.error("Error parsing JSON:", e);
-                    console.error("Response:", this.responseText);
+        // Initialize DataTables if not already initialized
+        if (!$.fn.DataTable.isDataTable("#ecobrick-search-return")) {
+            $("#ecobrick-search-return").DataTable({
+                "responsive": true,
+                "serverSide": true,
+                "processing": true,
+                "ajax": {
+                    "url": "../api/fetch_newest_briks.php",
+                    "type": "POST",
+                    "data": function(d) {
+                        d.searchValue = query; // Send the search query to the server
+                    }
+                },
+                "pageLength": 12,
+                "language": {
+                    "emptyTable": "No ecobricks match your search.",
+                    "lengthMenu": "Show _MENU_ briks",
+                    "search": "",
+                    "info": "Showing _START_ to _END_ of _TOTAL_ ecobricks",
+                    "infoEmpty": "No ecobricks available",
+                    "loadingRecords": "Loading ecobricks...",
+                    "processing": "Processing...",
+                    "paginate": {
+                        "first": "First",
+                        "last": "Last",
+                        "next": "Next",
+                        "previous": "Previous"
+                    }
+                },
+                "columns": [
+                    { "data": "ecobrick_thumb_photo_url" },
+                    { "data": "weight_g" },
+                    { "data": "volume_ml" },
+                    { "data": "density" },
+                    { "data": "date_logged_ts" },
+                    { "data": "location_brik" },
+                    { "data": "status" },
+                    { "data": "serial_no" }
+                ],
+                "columnDefs": [
+                    { "orderable": false, "targets": [0, 6] }, // Make the image and status columns unsortable
+                    { "className": "all", "targets": [0, 1, 7] }, // Ensure Brik (thumbnail), Weight, and Serial always display
+                    { "className": "min-tablet", "targets": [2, 3, 4] }, // These fields can be hidden first on smaller screens
+                    { "className": "none", "targets": [5] } // Allow Location text to wrap as needed
+                ],
+                "initComplete": function() {
+                    var searchBox = $("div.dataTables_filter input");
+                    searchBox.attr("placeholder", "Search briks...");
                 }
-            } else {
-                console.error("Error with search request:", this.status, this.statusText);
-            }
+            });
+        } else {
+            // If already initialized, just reload the table with the new search value
+            $("#ecobrick-search-return").DataTable().ajax.reload();
         }
-    };
-    xmlhttp.open("GET", "../scripts/ecobrick_search.php?query=" + encodeURIComponent(query), true);
-    xmlhttp.send();
-}
 
-function presentEcobrickResults(ecobricks) {
-    var resultsTable = document.getElementById("ecobrick-search-return");
-    resultsTable.innerHTML = `
-        <tr>
-            <th data-lang-id="1103-brik">Brik</th>
-            <th data-lang-id="1104-weight">Weight</th>
-            <th data-lang-id="1105-location">Location</th>
-            <th data-lang-id="1106-maker">Maker</th>
-            <th data-lang-id="1107-serial">Serial</th>
-        </tr>
-    `;
+        // Display the search results section
+        document.getElementById('search-results').style.display = 'block';
+    }
 
-    ecobricks.forEach(function(ecobrick) {
-        var serial_no = ecobrick.serial_no;
-        var wrapped_serial_no = serial_no.slice(0, 3) + '<br>' + serial_no.slice(3);
 
-        resultsTable.innerHTML += `
-            <tr>
-                <td><img src="https://ecobricks.org/${ecobrick.ecobrick_thumb_photo_url}" alt="Ecobrick ${serial_no} by ${ecobrick.ecobricker_maker} in ${ecobrick.location_full}" title="Ecobrick ${serial_no} by ${ecobrick.ecobricker_maker} in ${ecobrick.location_full}" loading="lazy" onclick="ecobrickPreview('${ecobrick.ecobrick_full_photo_url}','${serial_no}','${ecobrick.weight_g}g','${ecobrick.ecobricker_maker}','${ecobrick.location_full}')" class="table-thumbnail"></td>
-
-                <td>${ecobrick.weight_g}g</td>
-                <td>${ecobrick.location_full}</td>
-                <td>${ecobrick.ecobricker_maker}</td>
-                <td><button class="serial-button"><a href="brik.php?serial_no=${serial_no}">${wrapped_serial_no}</a></button></td>
-            </tr>
-        `;
-    });
-
-    // Show the search results
-    document.getElementById('search-results').style.display = 'block';
-}

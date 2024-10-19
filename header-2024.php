@@ -435,7 +435,6 @@ display: none;
 
 
 
-
 <!--SEARCH PAGE-->
 <div id="right-search-overlay" class="search-overlay">
     <button type="button" onclick="closeSearch(), clearResults()" aria-label="Close Search" class="x-button" id="modal-x-button"></button>
@@ -446,25 +445,37 @@ display: none;
         </div>
         <div class="search-box">
             <div class="search-section" data-lang-id="1102-search-section">
-                <input id="search_input" type="text" placeholder="Enter serial..." aria-label="Enter Serial..." onkeypress="handleKeyPress(event)">
+                <input id="search_input" type="text" placeholder="Enter serial..." aria-label="Enter Serial...">
                 <button class="btn main-search-button" onclick="ecobrickSearch()" aria-label="Search Button"></button>
             </div>
         </div>
         <!-- Search results div -->
         <div id="search-results" style="display: none;">
-            <table id="ecobrick-search-return">
-                <tr>
-                    <th data-lang-id="1103-brik">Brik</th>
-                    <th data-lang-id="1104-weight">Weight</th>
-                    <th data-lang-id="1105-location">Location</th>
-                    <th data-lang-id="1106-maker">Maker</th>
-                    <th data-lang-id="1107-serial">Serial</th>
-                </tr>
+            <table id="ecobrick-search-return" class="display responsive nowrap" style="width:100%">
+                <thead>
+                    <tr>
+                        <th data-lang-id="1103-brik">Brik</th>
+                        <th data-lang-id="1104-weight">Weight</th>
+                        <th data-lang-id="1108-volume">Volume</th>
+                        <th data-lang-id="1109-density">Density</th>
+                        <th data-lang-id="1110-date-logged">Logged</th>
+                        <th data-lang-id="1105-location">Location</th>
+                        <th data-lang-id="1106-status">Status</th>
+                        <th data-lang-id="1107-serial">Serial</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- DataTables will populate this via AJAX -->
+                </tbody>
             </table>
-           <p style="var(--subdued-text);font-size:medium;" data-lang-id="1108-search-footer">Looking for general information about ecobricks? Search on <a target="_blank" href="https://ecobricks.org/faqs">ecobricks.org</a></button></p>
+            <p style="var(--subdued-text);font-size:medium;" data-lang-id="1108-search-footer">
+                Looking for general information about ecobricks? Search on
+                <a target="_blank" href="https://ecobricks.org/faqs">ecobricks.org</a>
+            </p>
         </div>
     </div>
 </div>
+
 
 
 

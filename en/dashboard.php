@@ -87,8 +87,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 
-
-    <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
+<div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
     <h3 data-lang-id="002-my-ecobricks">My Ecobricks</h3>
     <table id="latest-ecobricks" class="display responsive nowrap" style="width:100%">
         <thead>
@@ -103,37 +102,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             </tr>
         </thead>
         <tbody>
-            <?php if (empty($recent_ecobricks)) : ?>
-                <tr>
-                    <td colspan="7" style="text-align:center;">
-                        <span data-lang-id="003-no-ecobricks-yet">It looks like you haven't logged any ecobricks yet! When you do, they will appear here for you to manage.</span>
-                    </td>
-                </tr>
-            <?php else : ?>
-                <?php foreach ($recent_ecobricks as $ecobrick) : ?>
-                    <tr>
-                        <td>
-                            <img src="/<?php echo htmlspecialchars($ecobrick['ecobrick_thumb_photo_url']); ?>?v=2"
-                                 alt="Ecobrick Thumbnail"
-                                 class="table-thumbnail"
-                                 onclick="ecobrickPreview('<?php echo htmlspecialchars($ecobrick['ecobrick_full_photo_url']); ?>?v=2', '<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['weight_g']); ?> g', '<?php echo htmlspecialchars($ecobrick['ecobricker_maker']); ?>', '<?php echo htmlspecialchars($ecobrick['date_logged_ts']); ?>')">
-                        </td>
-                        <td><?php echo htmlspecialchars($ecobrick['weight_g']); ?> g</td>
-                        <td><?php echo htmlspecialchars($ecobrick['volume_ml']); ?> ml</td>
-                        <td><?php echo number_format($ecobrick['density'], 2); ?> g/ml</td>
-                        <td><?php echo date("Y-m-d", strtotime($ecobrick['date_logged_ts'])); ?></td>
-                        <td><?php echo htmlspecialchars($ecobrick['status']); ?></td>
-                        <td>
-                            <button class="serial-button" onclick="viewEcobrickActions('<?php echo htmlspecialchars($ecobrick['serial_no']); ?>', '<?php echo htmlspecialchars($ecobrick['status']); ?>', '<?php echo htmlspecialchars($lang); ?>')">
-                                <?php echo htmlspecialchars($ecobrick['serial_no']); ?>
-                            </button>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
+            <!-- DataTables will populate this via AJAX -->
         </tbody>
     </table>
 </div>
+
 
 
 
@@ -162,10 +135,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <!-- FOOTER STARTS HERE -->
 <?php require_once("../footer-2024.php"); ?>
 
-
 <script>
     $(document).ready(function() {
-        var makerId = "<?php echo htmlspecialchars($ecobriker_id); ?>"; // Get the logged-in user's maker_id
+        var ecobrikerId = "<?php echo htmlspecialchars($ecobricker_id); ?>"; // Get the logged-in user's ecobriker_id
 
         $("#latest-ecobricks").DataTable({
             "responsive": true,
@@ -175,10 +147,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 "url": "../api/fetch_newest_briks.php",
                 "type": "POST",
                 "data": function(d) {
-                    d.maker_id = makerId; // Pass the maker_id to filter the results to the user's ecobricks
+                    d.ecobriker_id = ecobrikerId; // Pass the ecobriker_id to filter the results to the user's ecobricks
                 }
             },
-            "pageLength": 12,
+            "pageLength": 10, // Show 10 briks per page
             "language": {
                 "emptyTable": "It looks like you haven't logged any ecobricks yet!",
                 "lengthMenu": "Show _MENU_ briks",
@@ -200,15 +172,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 { "data": "volume_ml" },
                 { "data": "density" },
                 { "data": "date_logged_ts" },
-                { "data": "location_brik" },
                 { "data": "status" },
                 { "data": "serial_no" }
             ],
             "columnDefs": [
-                { "orderable": false, "targets": [0, 6] }, // Make the image and status columns unsortable
-                { "className": "all", "targets": [0, 1, 7] }, // Ensure Brik (thumbnail), Weight, and Serial always display
+                { "orderable": false, "targets": [0, 5] }, // Make the image and status columns unsortable
+                { "className": "all", "targets": [0, 1, 6] }, // Ensure Brik (thumbnail), Weight, and Serial always display
                 { "className": "min-tablet", "targets": [2, 3, 4] }, // These fields can be hidden first on smaller screens
-                { "className": "none", "targets": [5] } // Allow Location text to wrap as needed
+                { "className": "none", "targets": [] } // Allow other fields to wrap as needed
             ],
             "initComplete": function() {
                 var searchBox = $("div.dataTables_filter input");
@@ -217,6 +188,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         });
     });
 </script>
+
 
 
 

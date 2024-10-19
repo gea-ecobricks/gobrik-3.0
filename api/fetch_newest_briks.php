@@ -10,8 +10,9 @@ $ecobricker_id = isset($_POST['ecobricker_id']) ? $_POST['ecobricker_id'] : ''; 
 // Search term (if any)
 $searchValue = isset($_POST['searchValue']) ? $_POST['searchValue'] : '';
 
-// Prepare the base SQL query
-$sql = "SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, volume_ml, density, date_logged_ts, location_full, location_watershed, ecobricker_maker, serial_no, status
+// Prepare the base SQL query, including the community_name field
+$sql = "SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, volume_ml, density, date_logged_ts,
+        location_full, location_watershed, ecobricker_maker, community_name, serial_no, status
         FROM tb_ecobricks
         WHERE status != 'not ready'";
 
@@ -22,7 +23,7 @@ if (!empty($ecobricker_id)) {
 
 // Add search filter if there is a search term
 if (!empty($searchValue)) {
-    $sql .= " AND (serial_no LIKE ? OR location_full LIKE ? OR ecobricker_maker LIKE ?)";
+    $sql .= " AND (serial_no LIKE ? OR location_full LIKE ? OR ecobricker_maker LIKE ? OR community_name LIKE ?)";
 }
 
 // Count total records before filtering
@@ -51,12 +52,12 @@ if (!$stmt) {
 // Bind parameters and execute the statement
 if (!empty($ecobricker_id) && !empty($searchValue)) {
     $searchTerm = "%" . $searchValue . "%";
-    $stmt->bind_param("ssssii", $ecobricker_id, $searchTerm, $searchTerm, $searchTerm, $start, $length);
+    $stmt->bind_param("sssssii", $ecobricker_id, $searchTerm, $searchTerm, $searchTerm, $searchTerm, $start, $length);
 } elseif (!empty($ecobricker_id)) {
     $stmt->bind_param("sii", $ecobricker_id, $start, $length);
 } elseif (!empty($searchValue)) {
     $searchTerm = "%" . $searchValue . "%";
-    $stmt->bind_param("sssii", $searchTerm, $searchTerm, $searchTerm, $start, $length);
+    $stmt->bind_param("sssii", $searchTerm, $searchTerm, $searchTerm, $searchTerm, $start, $length);
 } else {
     $stmt->bind_param("ii", $start, $length);
 }
@@ -74,6 +75,7 @@ $stmt->bind_result(
     $location_full,
     $location_watershed,
     $ecobricker_maker,
+    $community_name,
     $serial_no,
     $status
 );
@@ -105,6 +107,8 @@ while ($stmt->fetch()) {
         'density' => number_format($density, 2) . ' g/ml',
         'date_logged_ts' => date("Y-m-d", strtotime($date_logged_ts)),
         'location_brik' => htmlspecialchars($location_brik),
+        'ecobricker_maker' => htmlspecialchars($ecobricker_maker),
+        'community_name' => htmlspecialchars($community_name),
         'status' => htmlspecialchars($status),
         'serial_no' => '<a href="' . htmlspecialchars($serial_url) . '" class="serial-button" data-text="' . htmlspecialchars($serial_no) . '">
                             <span>' . htmlspecialchars($serial_no) . '</span>
@@ -118,7 +122,7 @@ if (!empty($ecobricker_id)) {
     $filteredSql .= " AND maker_id = '$ecobricker_id'";
 }
 if (!empty($searchValue)) {
-    $filteredSql .= " AND (serial_no LIKE '%$searchValue%' OR location_full LIKE '%$searchValue%' OR ecobricker_maker LIKE '%$searchValue%')";
+    $filteredSql .= " AND (serial_no LIKE '%$searchValue%' OR location_full LIKE '%$searchValue%' OR ecobricker_maker LIKE '%$searchValue%' OR community_name LIKE '%$searchValue%')";
 }
 $filteredResult = $gobrik_conn->query($filteredSql);
 $totalFilteredRecords = $filteredResult->fetch_assoc()['total'] ?? 0;

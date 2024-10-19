@@ -8,7 +8,7 @@ $length = isset($_POST['length']) ? intval($_POST['length']) : 12;
 $ecobricker_id = isset($_POST['ecobricker_id']) ? $_POST['ecobricker_id'] : ''; // Get the ecobricker_id from the request
 
 // Search term (if any)
-$searchValue = isset($_POST['search']['value']) ? $_POST['search']['value'] : '';
+$searchValue = isset($_POST['searchValue']) ? $_POST['searchValue'] : '';
 
 // Prepare the base SQL query
 $sql = "SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, volume_ml, density, date_logged_ts, location_full, location_watershed, ecobricker_maker, serial_no, status
@@ -48,15 +48,14 @@ if (!$stmt) {
     exit;
 }
 
-// Prepare search term with wildcards for the LIKE statements
-$searchTerm = "%" . $searchValue . "%";
-
-// Determine the correct binding of parameters
+// Bind parameters and execute the statement
 if (!empty($ecobricker_id) && !empty($searchValue)) {
+    $searchTerm = "%" . $searchValue . "%";
     $stmt->bind_param("ssssii", $ecobricker_id, $searchTerm, $searchTerm, $searchTerm, $start, $length);
 } elseif (!empty($ecobricker_id)) {
     $stmt->bind_param("sii", $ecobricker_id, $start, $length);
 } elseif (!empty($searchValue)) {
+    $searchTerm = "%" . $searchValue . "%";
     $stmt->bind_param("sssii", $searchTerm, $searchTerm, $searchTerm, $start, $length);
 } else {
     $stmt->bind_param("ii", $start, $length);

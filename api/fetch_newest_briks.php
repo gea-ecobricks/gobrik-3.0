@@ -78,33 +78,23 @@ $stmt->bind_result(
     $status
 );
 
-$data = [];
-while ($stmt->fetch()) {
-    // Process the location into $location_brik
-    $location_parts = explode(',', $location_full);
-    $location_parts = array_map('trim', $location_parts);
+$data[] = [
+    'ecobrick_thumb_photo_url' => '<img src="' . htmlspecialchars($ecobrick_thumb_photo_url) . '"
+        alt="Ecobrick ' . htmlspecialchars($serial_no) . ' Thumbnail"
+        title="Ecobrick ' . htmlspecialchars($serial_no) . '"
+        class="table-thumbnail"
+        onclick="ecobrickPreview(\'' . htmlspecialchars($ecobrick_full_photo_url) . '\', \'' . htmlspecialchars($serial_no) . '\', \'' . htmlspecialchars($weight_g) . ' g\', \'' . htmlspecialchars($ecobricker_maker) . '\', \'' . htmlspecialchars($location_brik) . '\')">',
+    'weight_g' => number_format($weight_g) . ' g',
+    'volume_ml' => number_format($volume_ml) . ' ml',
+    'density' => number_format($density, 2) . ' g/ml',
+    'date_logged_ts' => date("Y-m-d", strtotime($date_logged_ts)),
+    'location_brik' => htmlspecialchars($location_brik),
+    'status' => htmlspecialchars($status),
+    'serial_no' => '<a href="' . htmlspecialchars($serial_url) . '" class="serial-button" data-text="' . htmlspecialchars($serial_no) . '">
+                        <span>' . htmlspecialchars($serial_no) . '</span>
+                    </a>'
+];
 
-    $location_last = $location_parts[count($location_parts) - 1] ?? '';
-    $location_third_last = $location_parts[count($location_parts) - 3] ?? '';
-    $location_brik = $location_third_last . ', ' . $location_last;
-
-    if (!empty($location_watershed)) {
-        $location_brik = $location_watershed . ', ' . $location_brik;
-    }
-
-    $serial_url = "brik.php?serial_no=" . urlencode($serial_no);
-    $data[] = [
-        'ecobrick_thumb_photo_url' => '<img src="' . htmlspecialchars($ecobrick_thumb_photo_url) . '" alt="Ecobrick ' . htmlspecialchars($serial_no) . ' Thumbnail" title="Ecobrick ' . htmlspecialchars($serial_no) . '" class="table-thumbnail">',
-        'weight_g' => number_format($weight_g) . ' g',
-        'volume_ml' => number_format($volume_ml) . ' ml',
-        'density' => number_format($density, 2) . ' g/ml',
-        'date_logged_ts' => date("Y-m-d", strtotime($date_logged_ts)),
-        'location_brik' => htmlspecialchars($location_brik),
-        'status' => htmlspecialchars($status),
-        'serial_no' => '<a href="' . htmlspecialchars($serial_url) . '" class="serial-button" data-text="' . htmlspecialchars($serial_no) . '">
-                            <span>' . htmlspecialchars($serial_no) . '</span>
-                        </a>'
-    ];
 }
 
 // Get total filtered records

@@ -145,15 +145,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <a href="newest-briks.php"><button id="newest-ecobricks-button"  style="padding:5px;margin:5px;background:grey;border-radius:5px;color:var(--text-color);cursor:pointer;border:none;" data-lang-id="005-newest-ecobricks">📅 Newest Ecobricks</button></a>
         </div>
 
-    <!--
-
-
-
-
-    <div style="text-align:center;width:100%;margin:auto;">
-            <p style="font-size:smaller;">As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik, representing over <?php echo round($total_weight); ?> kg of sequestered plastic!</p>
-        </div>
-    -->
     </div>
 </div>
 
@@ -354,7 +345,7 @@ function secondaryGreeting() {
     const lang = '<?php echo htmlspecialchars($lang); ?>';
     const ecobricksMade = <?php echo (int) $ecobricks_made; ?>;
     const locationFullTxt = '<?php echo htmlspecialchars($user_location_full); ?>';
-    const totalWeight = '<?php echo number_format($total_weight_kg, 1); ?> kg';
+    const totalWeight = '<?php echo number_format($total_weight_kg, 1); ?>';
     const netDensity = '<?php echo number_format($net_density, 2); ?>';
 
     // Determine the appropriate language object based on the current language setting

@@ -22,6 +22,11 @@
 
 <STYLE>
 
+        #main {
+        height: fit-content !important;
+        padding-bottom: 100px;
+    }
+
 .serial-button {
     color: var(--text-color);
     border: 1px solid;

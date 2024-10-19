@@ -97,6 +97,7 @@ echo '<!DOCTYPE html>
             </div>
         </div>
     </div>
+</div>
 
 
     <!-- FOOTER -->

@@ -46,12 +46,13 @@ if ($result && $result->num_rows > 0) {
 }
 
 $gobrik_conn->close();
-?>
 
-<!DOCTYPE html>
-<html lang="<?php echo htmlspecialchars($lang); ?>">
+echo '<!DOCTYPE html>
+<html lang="' . htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') . '">
 <head>
 <meta charset="UTF-8">
+';
+?>
 
 <!-- Page CSS & JS Initialization -->
 <?php require_once("../includes/newest-briks-inc.php"); ?>
@@ -95,7 +96,7 @@ $gobrik_conn->close();
                 <button class="go-button" id="log-ecobrick-button">➕ Log an Ecobrick</button>
             </div>
         </div>
-    </div>
+
 
     <!-- FOOTER -->
     <?php require_once("../footer-2024.php"); ?>

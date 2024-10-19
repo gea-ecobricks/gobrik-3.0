@@ -401,7 +401,7 @@ display: none;
     <div class="menu-page-item">
       <a href="brikchain.php" data-lang-id="1000-brikchain">The Brikchain</a>
       <span class="status-circle" style="background-color: red;" title="Under development, but active!"></span>
-    </div>-->
+    </div>
     <div class="menu-page-item">
       <a href="newest-briks.php" data-lang-id="1000-latest-ecobricks">Latest Ecobricks</a>
       <span class="status-circle" style="background-color: green;" title="Under development, but active!"></span>
@@ -413,7 +413,7 @@ display: none;
     <div class="menu-page-item">
       <a href="newest-trainings.php" data-lang-id="1000-latest-trainings">Latest Trainings</a>
       <span class="status-circle" style="background-color: red;" title="Not yet deployed"></span>
-    </div>
+    </div>-->
     <div class="menu-page-item">
       <a href="index.php" data-lang-id="1000-landing-page">Landing Page</a>
       <span class="status-circle" style="background-color: green;" title="Deployed. Under development."></span>

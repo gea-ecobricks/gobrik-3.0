@@ -2334,6 +2334,15 @@ position:relative;
 
 //DataTables
 
+    .dataTables_info {
+   color: grey;
+   }
+
+  .paginate_button {
+   color: grey;
+   }
+
+
 
 
 

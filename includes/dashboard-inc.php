@@ -14,9 +14,7 @@
 
 <STYLE>
 
-     .form-container .dataTables_info {
-   color: var(--subdued-text) !important;
-   }
+
 
 /* Media query for screens less than 769px wide */
 @media screen and (max-width: 768px) {

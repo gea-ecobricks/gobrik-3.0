@@ -188,7 +188,7 @@ color: var(--text-color);
             font-size: 14px;
             font-weight: bold;
             display: ruby;
-            width: 60px;
+
         }
         .dataTables_length select {
             padding: 5px;
@@ -196,6 +196,7 @@ color: var(--text-color);
             border-radius: 5px;
             border: 1px solid #ddd;
             margin-left: 5px;
+            width: 60px;
         }
 
         /* Style for the DataTables search input */

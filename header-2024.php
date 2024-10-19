@@ -397,13 +397,14 @@ display: none;
       <a href="log.php" data-lang-id="1000-log-ecobricks">Log Ecobricks</a>
       <span class="status-circle" style="background-color: limegreen;" title="Under beta testing"></span>
     </div>
+    <!--
     <div class="menu-page-item">
       <a href="brikchain.php" data-lang-id="1000-brikchain">The Brikchain</a>
-      <span class="status-circle" style="background-color: yellow;" title="Under development, but active!"></span>
-    </div>
+      <span class="status-circle" style="background-color: red;" title="Under development, but active!"></span>
+    </div>-->
     <div class="menu-page-item">
       <a href="newest-briks.php" data-lang-id="1000-latest-ecobricks">Latest Ecobricks</a>
-      <span class="status-circle" style="background-color: yellow;" title="Under development, but active!"></span>
+      <span class="status-circle" style="background-color: green;" title="Under development, but active!"></span>
     </div>
     <div class="menu-page-item">
       <a href="newest-projects.php" data-lang-id="1000-featured-projects">Featured Projects</a>

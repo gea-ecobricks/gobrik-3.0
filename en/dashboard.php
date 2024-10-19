@@ -36,74 +36,86 @@ if ($is_logged_in) {
         die("Error preparing statement for tb_ecobrickers: " . $gobrik_conn->error);
     }
 
-$maker_id = $ecobricker_id; // Assuming ecobricker_id is equivalent to maker_id
+    $maker_id = $ecobricker_id; // Assuming ecobricker_id is equivalent to maker_id
 
-// Fetch all ecobricks data for the user's maker_id directly from tb_ecobricks
-$sql_recent = "
-    SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, weight_g / 1000 AS weight_kg, volume_ml,
-           density, date_logged_ts, location_full, location_watershed, ecobricker_maker, serial_no, status
-    FROM tb_ecobricks
-    ORDER BY date_logged_ts DESC
-    LIMIT 12";
+    // Fetch all ecobricks data for the user's maker_id directly from tb_ecobricks
+    $sql_recent = "
+        SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, weight_g / 1000 AS weight_kg, volume_ml,
+               density, date_logged_ts, location_full, location_watershed, ecobricker_maker, serial_no, status
+        FROM tb_ecobricks
+        WHERE maker_id = ?
+        ORDER BY date_logged_ts DESC
+        LIMIT 12";
 
-
-$stmt_recent = $gobrik_conn->prepare($sql_recent);
-
-// Calculate the average density for all of the user's ecobricks
-$sql_avg_density = "
-    SELECT AVG(density) AS net_density
-    FROM tb_ecobricks
-    WHERE maker_id = ? AND density IS NOT NULL";
-
-$stmt_avg_density = $gobrik_conn->prepare($sql_avg_density);
-
-$recent_ecobricks = [];
-$total_weight = 0; // Total weight in kilograms
-$total_volume = 0; // Total volume in ml
-$ecobrick_count = 0; // Count of ecobricks
-$net_density = 0; // Variable to store the average density
-
-if ($stmt_recent && $stmt_avg_density) {
-    // No need to bind parameters for the recent ecobricks query, as it has no placeholders.
-    $stmt_recent->execute();
-
-    // Bind the results for the recent ecobricks
-    $stmt_recent->bind_result($ecobrick_thumb_photo_url, $ecobrick_full_photo_url, $weight_g, $weight_kg, $volume_ml, $density, $date_logged_ts, $ecobricker_maker, $serial_no, $status);
-
-    // Fetch and process the recent ecobricks data
-    while ($stmt_recent->fetch()) {
-        $recent_ecobricks[] = [
-            'ecobrick_thumb_photo_url' => $ecobrick_thumb_photo_url,
-            'ecobrick_full_photo_url' => $ecobrick_full_photo_url,
-            'weight_g' => $weight_g,
-            'weight_kg' => $weight_kg,
-            'volume_ml' => $volume_ml,
-            'density' => $density,
-            'date_logged_ts' => $date_logged_ts,
-            'ecobricker_maker' => $ecobricker_maker,
-            'serial_no' => $serial_no,
-            'status' => $status,
-        ];
-        $total_weight += $weight_kg; // Sum up total weight in kilograms
-        $total_volume += $volume_ml; // Sum up total volume in ml
-        $ecobrick_count++; // Increment the ecobrick count
+    $stmt_recent = $gobrik_conn->prepare($sql_recent);
+    if (!$stmt_recent) {
+        die("Error preparing statement for recent ecobricks: " . $gobrik_conn->error);
     }
 
-    // Close the statement after fetching recent ecobricks
-    $stmt_recent->close();
+    // Calculate the average density for all of the user's ecobricks
+    $sql_avg_density = "
+        SELECT AVG(density) AS net_density
+        FROM tb_ecobricks
+        WHERE maker_id = ? AND density IS NOT NULL";
 
-    // Calculate the average density by executing the second query
-    $stmt_avg_density->bind_param("s", $maker_id);
-    $stmt_avg_density->execute();
-    $stmt_avg_density->bind_result($net_density);
-    $stmt_avg_density->fetch();
+    $stmt_avg_density = $gobrik_conn->prepare($sql_avg_density);
+    if (!$stmt_avg_density) {
+        die("Error preparing statement for average density: " . $gobrik_conn->error);
+    }
 
-    // Close the statement after fetching average density
-    $stmt_avg_density->close();
-} else {
-    die("Error preparing the statement for fetching ecobricks or calculating net density: " . $gobrik_conn->error);
-}
+    $recent_ecobricks = [];
+    $total_weight = 0; // Total weight in kilograms
+    $total_volume = 0; // Total volume in ml
+    $ecobrick_count = 0; // Count of ecobricks
+    $net_density = 0; // Variable to store the average density
 
+    if ($stmt_recent && $stmt_avg_density) {
+        // Bind maker_id to the recent ecobricks query
+        $stmt_recent->bind_param("s", $maker_id);
+        if (!$stmt_recent->execute()) {
+            die("Error executing statement for recent ecobricks: " . $stmt_recent->error);
+        }
+
+        // Bind the results for the recent ecobricks
+        $stmt_recent->bind_result($ecobrick_thumb_photo_url, $ecobrick_full_photo_url, $weight_g, $weight_kg, $volume_ml, $density, $date_logged_ts, $location_full, $location_watershed, $ecobricker_maker, $serial_no, $status);
+
+        // Fetch and process the recent ecobricks data
+        while ($stmt_recent->fetch()) {
+            $recent_ecobricks[] = [
+                'ecobrick_thumb_photo_url' => $ecobrick_thumb_photo_url,
+                'ecobrick_full_photo_url' => $ecobrick_full_photo_url,
+                'weight_g' => $weight_g,
+                'weight_kg' => $weight_kg,
+                'volume_ml' => $volume_ml,
+                'density' => $density,
+                'date_logged_ts' => $date_logged_ts,
+                'location_full' => $location_full,
+                'location_watershed' => $location_watershed,
+                'ecobricker_maker' => $ecobricker_maker,
+                'serial_no' => $serial_no,
+                'status' => $status,
+            ];
+            $total_weight += $weight_kg; // Sum up total weight in kilograms
+            $total_volume += $volume_ml; // Sum up total volume in ml
+            $ecobrick_count++; // Increment the ecobrick count
+        }
+
+        // Close the statement after fetching recent ecobricks
+        $stmt_recent->close();
+
+        // Calculate the average density by executing the second query
+        $stmt_avg_density->bind_param("s", $maker_id);
+        if (!$stmt_avg_density->execute()) {
+            die("Error executing statement for average density: " . $stmt_avg_density->error);
+        }
+        $stmt_avg_density->bind_result($net_density);
+        $stmt_avg_density->fetch();
+
+        // Close the statement after fetching average density
+        $stmt_avg_density->close();
+    } else {
+        die("Error preparing the statement for fetching ecobricks or calculating net density.");
+    }
 
     // Close database connections
     $buwana_conn->close();
@@ -124,8 +136,8 @@ echo '<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 ';
-
 ?>
+
 
 
 

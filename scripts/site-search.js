@@ -54,7 +54,9 @@ function ecobrickSearch() {
     if ($.fn.DataTable.isDataTable("#ecobrick-search-return")) {
         // If already initialized, update the search parameter and reload the table
         var table = $("#ecobrick-search-return").DataTable();
-        table.ajax.params().searchValue = query; // Update the search query
+        table.settings()[0].ajax.data = function(d) {
+            d.searchValue = query; // Update the search query
+        };
         table.ajax.reload();
     } else {
         // Initialize DataTables if not already initialized
@@ -77,7 +79,7 @@ function ecobrickSearch() {
                 "infoEmpty": "No ecobricks available",
                 "loadingRecords": "Loading ecobricks...",
                 "processing": "Processing...",
-                "Search": "",
+                "search": "",
                 "paginate": {
                     "first": "First",
                     "last": "Last",
@@ -108,6 +110,7 @@ function ecobrickSearch() {
         });
     }
 }
+
 
 
 

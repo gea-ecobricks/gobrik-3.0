@@ -60,9 +60,6 @@ echo '<!DOCTYPE html>
 ?>
 
 
-
-
-
 <!--
 GoBrik.com site version 3.0
 Developed and made open source by the Global Ecobrick Alliance
@@ -174,10 +171,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             "serverSide": true,
             "processing": true,
             "ajax": {
-                "url": "../api/fetch_ecobricks.php",
+                "url": "../api/fetch_newest_ecobricks.php",
                 "type": "POST",
                 "data": function(d) {
-                    d.maker_id = makerId; // Pass the maker_id as part of the request
+                    d.maker_id = makerId; // Pass the maker_id to filter the results to the user's ecobricks
                 }
             },
             "pageLength": 12,
@@ -219,7 +216,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         });
     });
 </script>
-
 
 
 

@@ -96,7 +96,7 @@ echo '<!DOCTYPE html>
                 <button class="go-button" id="log-ecobrick-button">➕ Log an Ecobrick</button>
             </div>
         </div>
-</div>
+
 
     <!-- FOOTER -->
     <?php require_once("../footer-2024.php"); ?>

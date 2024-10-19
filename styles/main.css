@@ -2334,7 +2334,9 @@ position:relative;
 
 //DataTables
 
-   .form-container dataTables_info {color: var(--subdued-text);};
+   .form-container dataTables_info {
+   color: var(--subdued-text) !important;
+   }
 
 
 

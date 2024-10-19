@@ -96,6 +96,7 @@ echo '<!DOCTYPE html>
                 <button class="go-button" id="log-ecobrick-button">➕ Log an Ecobrick</button>
             </div>
         </div>
+    </div>
 
 
     <!-- FOOTER -->

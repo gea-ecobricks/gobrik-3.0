@@ -45,7 +45,6 @@ function handleKeyPress(event) {
 }
 
 
-
 function ecobrickSearch() {
     var query = document.getElementById("search_input").value.trim().toLowerCase();
 
@@ -74,11 +73,11 @@ function ecobrickSearch() {
                 }
             },
             "pageLength": 10, // Show only 10 results at a time
-            "dom": "<'row'<'col-sm-12'tr>>" + // Remove the built-in search box
-                   "<'row'<'col-sm-6'i><'col-sm-6'p>>", // Move the "Show X briks" selector to the bottom
+            "dom": "<'row'<'col-sm-12'tr>>" + // Remove the built-in "Show X briks" selector
+                   "<'row'<'col-sm-6'i><'col-sm-6'p>>", // Place pagination at the bottom
             "language": {
                 "emptyTable": "No ecobricks match your search.",
-                "lengthMenu": "Show _MENU_ briks",
+                "lengthMenu": "Show _MENU_ briks", // This will not display due to custom 'dom'
                 "search": "",
                 "info": "Showing _START_ to _END_ of _TOTAL_ ecobricks",
                 "infoEmpty": "No ecobricks available",
@@ -92,19 +91,19 @@ function ecobrickSearch() {
                 }
             },
             "columns": [
-                { "data": "ecobrick_thumb_photo_url" },
+                { "data": "ecobrick_thumb_photo_url" }, // Brik column
                 { "data": "weight_g" },
                 { "data": "volume_ml" },
-                { "data": "density" },
+                { "data": "ecobricker_maker" }, // Maker column
                 { "data": "date_logged_ts" },
                 { "data": "location_brik" },
                 { "data": "status" },
-                { "data": "serial_no" }
+                { "data": "serial_no" } // Serial column
             ],
             "columnDefs": [
                 { "orderable": false, "targets": [0, 6] }, // Make the image and status columns unsortable
-                { "className": "all", "targets": [0, 1, 7] }, // Ensure Brik (thumbnail), Weight, and Serial always display
-                { "className": "min-tablet", "targets": [2, 3, 4] }, // These fields can be hidden first on smaller screens
+                { "className": "all", "targets": [0, 3, 7] }, // Ensure Brik (thumbnail), Maker, and Serial always display
+                { "className": "min-tablet", "targets": [1, 2, 4] }, // These fields can be hidden first on smaller screens
                 { "className": "none", "targets": [5] } // Allow Location text to wrap as needed
             ],
             "initComplete": function() {
@@ -114,6 +113,7 @@ function ecobrickSearch() {
         });
     }
 }
+
 
 
 

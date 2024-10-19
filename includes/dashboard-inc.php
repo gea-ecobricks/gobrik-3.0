@@ -14,8 +14,6 @@
 
 <STYLE>
 
-    .form-container .dataTables_wrapper {color: red;}
-
 
 /* Media query for screens less than 769px wide */
 @media screen and (max-width: 768px) {

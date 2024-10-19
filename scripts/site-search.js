@@ -44,9 +44,8 @@ function handleKeyPress(event) {
     }
 }
 
-
 function ecobrickSearch() {
-    var query = document.getElementById("search_input").value.trim().toLowerCase();
+    var query = document.getElementById("search_input").value.trim();
 
     // Display the search results section
     document.getElementById('search-results').style.display = 'block';
@@ -55,9 +54,7 @@ function ecobrickSearch() {
     if ($.fn.DataTable.isDataTable("#ecobrick-search-return")) {
         // If already initialized, update the search parameter and reload the table
         var table = $("#ecobrick-search-return").DataTable();
-        table.settings()[0].ajax.data = function(d) {
-            d.searchValue = query; // Update the search query
-        };
+        table.ajax.params().searchValue = query; // Update the search query
         table.ajax.reload();
     } else {
         // Initialize DataTables if not already initialized
@@ -77,8 +74,6 @@ function ecobrickSearch() {
                    "<'row'<'col-sm-6'i><'col-sm-6'p>>", // Place pagination at the bottom
             "language": {
                 "emptyTable": "No ecobricks match your search.",
-                "lengthMenu": "Show _MENU_ briks", // This will not display due to custom 'dom'
-                "search": "",
                 "info": "Showing _START_ to _END_ of _TOTAL_ ecobricks",
                 "infoEmpty": "No ecobricks available",
                 "loadingRecords": "Loading ecobricks...",

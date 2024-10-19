@@ -188,6 +188,7 @@ color: var(--text-color);
             font-size: 14px;
             font-weight: bold;
             display: ruby;
+            width: 60px;
         }
         .dataTables_length select {
             padding: 5px;

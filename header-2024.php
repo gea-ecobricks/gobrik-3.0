@@ -468,7 +468,7 @@ display: none;
                     <!-- DataTables will populate this via AJAX -->
                 </tbody>
             </table>
-            <p style="color:var(--subdued-text);font-size:medium;" data-lang-id="1108-search-footer">
+            <p style="color:var(--subdued-text);font-size:medium;margin-top:40px;margin-bottom:20px;" data-lang-id="1108-search-footer">
                 Looking for general information about ecobricks? Search on
                 <a target="_blank" href="https://ecobricks.org/faqs">ecobricks.org</a>
             </p>

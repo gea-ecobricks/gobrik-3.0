@@ -2335,11 +2335,13 @@ position:relative;
 //DataTables
 
     .dataTables_info {
-   color: grey;
+   color: grey !important;
+   font-family: 'Mulish', sans-serif !important;
    }
 
   .paginate_button {
-   color: grey;
+   color: grey !important;
+   font-family: 'Mulish', sans-serif !important;
    }
 
 

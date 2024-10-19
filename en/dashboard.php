@@ -171,7 +171,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             "serverSide": true,
             "processing": true,
             "ajax": {
-                "url": "../api/fetch_newest_ecobricks.php",
+                "url": "../api/fetch_newest_briks.php",
                 "type": "POST",
                 "data": function(d) {
                     d.maker_id = makerId; // Pass the maker_id to filter the results to the user's ecobricks

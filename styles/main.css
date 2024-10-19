@@ -2334,12 +2334,12 @@ position:relative;
 
 //DataTables
 
-   #ecobrick-search-return_info {
+   #latest-ecobricks_info {
    color: grey !important;
    font-family: 'Mulish', sans-serif !important;
    }
 
-  .paginate_button {
+#latest-ecobricks_paginate {
    color: grey !important;
    font-family: 'Mulish', sans-serif !important;
    }

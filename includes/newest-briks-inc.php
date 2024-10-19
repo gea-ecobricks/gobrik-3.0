@@ -27,47 +27,6 @@
         padding-bottom: 100px;
     }
 
-.serial-button {
-    color: var(--text-color);
-    border: 1px solid;
-    padding: 10px;
-    border-radius: 5px;
-    background: rgba(116, 202, 244, 0.32); /* var(--darker); */
-    cursor: pointer;
-    position: relative; /* Enables positioning of pseudo-elements */
-    transition: background 0.3s ease;
-    text-decoration: none; /* Remove underline from links */
-    display: inline-block; /* Makes button behave like a block element */
-    overflow: hidden; /* Ensures that the content stays within the button */
-}
-
-.serial-button:hover {
-    background: rgba(116, 202, 244, 0.8); /* var(--lighter); */
-}
-
-/* Hide the original text when hovering */
-.serial-button:hover span {
-    opacity: 0; /* Hide the serial number text smoothly */
-    transition: opacity 0.2s ease; /* Smooth transition */
-}
-
-/* Display the magnifying glass on hover */
-.serial-button::before {
-    content: "🔎";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0; /* Start hidden */
-    transition: opacity 0.2s ease; /* Smooth transition */
-    font-size: 1.2em; /* Adjust size as needed */
-    line-height: 1;
-}
-
-.serial-button:hover::before {
-    opacity: 1; /* Show the magnifying glass */
-}
-
 
 
 

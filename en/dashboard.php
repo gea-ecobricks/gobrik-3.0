@@ -3,7 +3,7 @@ require_once '../earthenAuth_helper.php'; // Include the authentication helper f
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.43';
+$version = '0.431';
 $page = 'dashboard';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -162,9 +162,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <!-- FOOTER STARTS HERE -->
 <?php require_once("../footer-2024.php"); ?>
 
+
 <script>
     $(document).ready(function() {
-        var makerId = "<?php echo htmlspecialchars($maker_id); ?>"; // Get the logged-in user's maker_id
+        var makerId = "<?php echo htmlspecialchars($ecobriker_id); ?>"; // Get the logged-in user's maker_id
 
         $("#latest-ecobricks").DataTable({
             "responsive": true,

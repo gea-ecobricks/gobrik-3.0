@@ -44,67 +44,71 @@ function handleKeyPress(event) {
     }
 }
 
+function ecobrickSearch() {
+    var query = document.getElementById("search_input").value.trim().toLowerCase();
 
-    function ecobrickSearch() {
-        var query = document.getElementById("search_input").value.trim().toLowerCase();
+    // Display the search results section
+    document.getElementById('search-results').style.display = 'block';
 
-        // Initialize DataTables if not already initialized
-        if (!$.fn.DataTable.isDataTable("#ecobrick-search-return")) {
-            $("#ecobrick-search-return").DataTable({
-                "responsive": true,
-                "serverSide": true,
-                "processing": true,
-                "ajax": {
-                    "url": "../api/fetch_newest_briks.php",
-                    "type": "POST",
-                    "data": function(d) {
-                        d.searchValue = query; // Send the search query to the server
-                    }
-                },
-                "pageLength": 12,
-                "language": {
-                    "emptyTable": "No ecobricks match your search.",
-                    "lengthMenu": "Show _MENU_ briks",
-                    "search": "",
-                    "info": "Showing _START_ to _END_ of _TOTAL_ ecobricks",
-                    "infoEmpty": "No ecobricks available",
-                    "loadingRecords": "Loading ecobricks...",
-                    "processing": "Processing...",
-                    "paginate": {
-                        "first": "First",
-                        "last": "Last",
-                        "next": "Next",
-                        "previous": "Previous"
-                    }
-                },
-                "columns": [
-                    { "data": "ecobrick_thumb_photo_url" },
-                    { "data": "weight_g" },
-                    { "data": "volume_ml" },
-                    { "data": "density" },
-                    { "data": "date_logged_ts" },
-                    { "data": "location_brik" },
-                    { "data": "status" },
-                    { "data": "serial_no" }
-                ],
-                "columnDefs": [
-                    { "orderable": false, "targets": [0, 6] }, // Make the image and status columns unsortable
-                    { "className": "all", "targets": [0, 1, 7] }, // Ensure Brik (thumbnail), Weight, and Serial always display
-                    { "className": "min-tablet", "targets": [2, 3, 4] }, // These fields can be hidden first on smaller screens
-                    { "className": "none", "targets": [5] } // Allow Location text to wrap as needed
-                ],
-                "initComplete": function() {
-                    var searchBox = $("div.dataTables_filter input");
-                    searchBox.attr("placeholder", "Search briks...");
+    // Initialize DataTables if not already initialized
+    var table = $("#ecobrick-search-return").DataTable();
+
+    if (!$.fn.DataTable.isDataTable("#ecobrick-search-return")) {
+        table = $("#ecobrick-search-return").DataTable({
+            "responsive": true,
+            "serverSide": true,
+            "processing": true,
+            "ajax": {
+                "url": "../api/fetch_newest_briks.php",
+                "type": "POST",
+                "data": function(d) {
+                    d.searchValue = query; // Send the search query to the server
                 }
-            });
-        } else {
-            // If already initialized, just reload the table with the new search value
-            $("#ecobrick-search-return").DataTable().ajax.reload();
-        }
-
-        // Display the search results section
-        document.getElementById('search-results').style.display = 'block';
+            },
+            "pageLength": 12,
+            "language": {
+                "emptyTable": "No ecobricks match your search.",
+                "lengthMenu": "Show _MENU_ briks",
+                "search": "",
+                "info": "Showing _START_ to _END_ of _TOTAL_ ecobricks",
+                "infoEmpty": "No ecobricks available",
+                "loadingRecords": "Loading ecobricks...",
+                "processing": "Processing...",
+                "paginate": {
+                    "first": "First",
+                    "last": "Last",
+                    "next": "Next",
+                    "previous": "Previous"
+                }
+            },
+            "columns": [
+                { "data": "ecobrick_thumb_photo_url" },
+                { "data": "weight_g" },
+                { "data": "volume_ml" },
+                { "data": "density" },
+                { "data": "date_logged_ts" },
+                { "data": "location_brik" },
+                { "data": "status" },
+                { "data": "serial_no" }
+            ],
+            "columnDefs": [
+                { "orderable": false, "targets": [0, 6] }, // Make the image and status columns unsortable
+                { "className": "all", "targets": [0, 1, 7] }, // Ensure Brik (thumbnail), Weight, and Serial always display
+                { "className": "min-tablet", "targets": [2, 3, 4] }, // These fields can be hidden first on smaller screens
+                { "className": "none", "targets": [5] } // Allow Location text to wrap as needed
+            ],
+            "initComplete": function() {
+                var searchBox = $("div.dataTables_filter input");
+                searchBox.attr("placeholder", "Search briks...");
+            }
+        });
+    } else {
+        // If already initialized, just update the search parameter and reload the table
+        table.settings()[0].ajax.data = function(d) {
+            d.searchValue = query; // Update the search query
+        };
+        table.ajax.reload();
     }
+}
 
 

@@ -1,4 +1,7 @@
 <?php
+// Enable error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 require_once '../gobrikconn_env.php'; // Include database connection
 
 // Get the request parameters sent by DataTables
@@ -33,7 +36,7 @@ if (!empty($ecobriker_id)) {
 $totalRecordsResult = $gobrik_conn->query($totalRecordsQuery);
 $totalRecords = $totalRecordsResult->fetch_assoc()['total'] ?? 0;
 
-// Prepare the statement for the main query
+// Prepare the statement for the main query with order and pagination
 $sql .= " ORDER BY date_logged_ts DESC LIMIT ?, ?";
 $stmt = $gobrik_conn->prepare($sql);
 
@@ -61,7 +64,17 @@ if (!empty($ecobriker_id) && !empty($searchValue)) {
     $stmt->bind_param("ii", $start, $length);
 }
 
-$stmt->execute();
+// Execute the statement and check for errors
+if (!$stmt->execute()) {
+    echo json_encode([
+        "draw" => $draw,
+        "recordsTotal" => $totalRecords,
+        "recordsFiltered" => 0,
+        "data" => [],
+        "error" => "Failed to execute SQL statement: " . $stmt->error
+    ]);
+    exit;
+}
 
 // Bind the results to variables
 $stmt->bind_result(
@@ -125,6 +138,12 @@ $response = [
     "recordsFiltered" => $totalFilteredRecords,
     "data" => $data
 ];
+
+// Debugging: Uncomment the following lines to see the output
+// echo '<pre>';
+// print_r($response);
+// echo '</pre>';
+// exit;
 
 // Close database connection
 $gobrik_conn->close();

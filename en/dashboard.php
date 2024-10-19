@@ -64,8 +64,7 @@ $ecobrick_count = 0; // Count of ecobricks
 $net_density = 0; // Variable to store the average density
 
 if ($stmt_recent && $stmt_avg_density) {
-    // Bind maker_id to the query
-    $stmt_recent->bind_param("s", $maker_id);
+    // No need to bind parameters for the recent ecobricks query, as it has no placeholders.
     $stmt_recent->execute();
 
     // Bind the results for the recent ecobricks
@@ -104,9 +103,6 @@ if ($stmt_recent && $stmt_avg_density) {
 } else {
     die("Error preparing the statement for fetching ecobricks or calculating net density: " . $gobrik_conn->error);
 }
-
-
-
 
 
     // Close database connections

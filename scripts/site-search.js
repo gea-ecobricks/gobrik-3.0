@@ -77,6 +77,7 @@ function ecobrickSearch() {
                 "infoEmpty": "No ecobricks available",
                 "loadingRecords": "Loading ecobricks...",
                 "processing": "Processing...",
+                "Search": "",
                 "paginate": {
                     "first": "First",
                     "last": "Last",
@@ -102,7 +103,7 @@ function ecobrickSearch() {
             ],
             "initComplete": function() {
                 var searchBox = $("div.dataTables_filter input");
-                searchBox.attr("placeholder", "Search briks...");
+                searchBox.attr("placeholder", "Search within results...");
             }
         });
     }

@@ -4,7 +4,7 @@ require_once '../earthenAuth_helper.php'; // Include the authentication helper f
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.442';
+$version = '0.443';
 $page = 'dashboard';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -201,7 +201,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             ],
             "initComplete": function() {
                 var searchBox = $("div.dataTables_filter input");
-                searchBox.attr("placeholder", "Search briks...");
+                searchBox.attr("placeholder", "Search your briks...");
             }
         });
     });

@@ -24,13 +24,13 @@ if ($is_logged_in) {
     $user_community_name = getCommunityName($buwana_conn, $buwana_id);
 
     // Fetch user details from the GoBrik database
-    $sql_lookup_user = "SELECT first_name, ecobricks_made, ecobricker_id FROM tb_ecobrickers WHERE buwana_id = ?";
+    $sql_lookup_user = "SELECT first_name, ecobricks_made, ecobricker_id, location_full_txt FROM tb_ecobrickers WHERE buwana_id = ?";
     $stmt_lookup_user = $gobrik_conn->prepare($sql_lookup_user);
 
     if ($stmt_lookup_user) {
         $stmt_lookup_user->bind_param("i", $buwana_id);
         $stmt_lookup_user->execute();
-        $stmt_lookup_user->bind_result($first_name, $ecobricks_made, $ecobricker_id);
+        $stmt_lookup_user->bind_result($first_name, $ecobricks_made, $ecobricker_id, $location_full_txt);
         $stmt_lookup_user->fetch();
         $stmt_lookup_user->close();
     } else {
@@ -40,7 +40,31 @@ if ($is_logged_in) {
     // Set maker_id for use in JavaScript
     $maker_id = $ecobricker_id;
 
-    // Close the database connections since the rest of the data will be loaded via AJAX
+    // Calculate the user's ecobricks summary data
+    $sql_summary = "SELECT COUNT(*) as total_ecobricks, SUM(weight_g) / 1000 as total_weight_kg, SUM(volume_ml) as total_volume_ml FROM tb_ecobricks WHERE maker_id = ? AND status != 'not ready'";
+    $stmt_summary = $gobrik_conn->prepare($sql_summary);
+
+    if ($stmt_summary) {
+        $stmt_summary->bind_param("s", $maker_id);
+        $stmt_summary->execute();
+        $stmt_summary->bind_result($total_ecobricks, $total_weight_kg, $total_volume_ml);
+        $stmt_summary->fetch();
+        $stmt_summary->close();
+    } else {
+        die("Error preparing statement for ecobricks summary: " . $gobrik_conn->error);
+    }
+
+    // Calculate net density (total weight divided by total volume)
+    $net_density = $total_volume_ml > 0 ? ($total_weight_kg * 1000) / $total_volume_ml : 0; // Convert weight back to grams for density calculation
+
+    // Process locationFullTxt by extracting the last and third-last elements
+    $location_parts = explode(',', $location_full_txt);
+    $location_parts = array_map('trim', $location_parts); // Trim whitespace from each part
+    $location_last = $location_parts[count($location_parts) - 1] ?? '';
+    $location_third_last = $location_parts[count($location_parts) - 3] ?? '';
+    $locationFullTxt = $location_third_last . ', ' . $location_last;
+
+    // Close the database connections
     $buwana_conn->close();
     $gobrik_conn->close();
 } else {
@@ -59,6 +83,7 @@ echo '<!DOCTYPE html>
 <meta charset="UTF-8">
 ';
 ?>
+
 
 
 

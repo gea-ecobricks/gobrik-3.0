@@ -1,14 +1,11 @@
 <?php
-// Enable error reporting for debugging
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 require_once '../gobrikconn_env.php'; // Include database connection
 
 // Get the request parameters sent by DataTables
 $draw = isset($_POST['draw']) ? intval($_POST['draw']) : 0;
 $start = isset($_POST['start']) ? intval($_POST['start']) : 0;
 $length = isset($_POST['length']) ? intval($_POST['length']) : 12;
-$ecobriker_id = isset($_POST['ecobriker_id']) ? $_POST['ecobriker_id'] : ''; // Get the ecobriker_id from the request
+$ecobricker_id = isset($_POST['ecobriker_id']) ? $_POST['ecobriker_id'] : ''; // Get the ecobricker_id from the request
 
 // Search term (if any)
 $searchValue = isset($_POST['search']['value']) ? $_POST['search']['value'] : '';
@@ -18,9 +15,9 @@ $sql = "SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, volu
         FROM tb_ecobricks
         WHERE status != 'not ready'";
 
-// If ecobriker_id is provided, add it to the SQL query to filter results
-if (!empty($ecobriker_id)) {
-    $sql .= " AND ecobricker_id = ?";
+// If ecobriker_id is provided, use it to filter by maker_id in the SQL query
+if (!empty($ecobricker_id)) {
+    $sql .= " AND maker_id = ?";
 }
 
 // Add search filter if there is a search term
@@ -30,13 +27,13 @@ if (!empty($searchValue)) {
 
 // Count total records before filtering
 $totalRecordsQuery = "SELECT COUNT(*) as total FROM tb_ecobricks WHERE status != 'not ready'";
-if (!empty($ecobriker_id)) {
-    $totalRecordsQuery .= " AND ecobricker_id = '$ecobriker_id'";
+if (!empty($ecobricker_id)) {
+    $totalRecordsQuery .= " AND maker_id = '$ecobricker_id'";
 }
 $totalRecordsResult = $gobrik_conn->query($totalRecordsQuery);
 $totalRecords = $totalRecordsResult->fetch_assoc()['total'] ?? 0;
 
-// Prepare the statement for the main query with order and pagination
+// Prepare the statement for the main query
 $sql .= " ORDER BY date_logged_ts DESC LIMIT ?, ?";
 $stmt = $gobrik_conn->prepare($sql);
 
@@ -52,11 +49,11 @@ if (!$stmt) {
 }
 
 // Bind parameters and execute the statement
-if (!empty($ecobriker_id) && !empty($searchValue)) {
+if (!empty($ecobricker_id) && !empty($searchValue)) {
     $searchTerm = "%" . $searchValue . "%";
-    $stmt->bind_param("ssssii", $ecobriker_id, $searchTerm, $searchTerm, $searchTerm, $start, $length);
-} elseif (!empty($ecobriker_id)) {
-    $stmt->bind_param("sii", $ecobriker_id, $start, $length);
+    $stmt->bind_param("ssssii", $ecobricker_id, $searchTerm, $searchTerm, $searchTerm, $start, $length);
+} elseif (!empty($ecobricker_id)) {
+    $stmt->bind_param("sii", $ecobricker_id, $start, $length);
 } elseif (!empty($searchValue)) {
     $searchTerm = "%" . $searchValue . "%";
     $stmt->bind_param("sssii", $searchTerm, $searchTerm, $searchTerm, $start, $length);
@@ -64,17 +61,7 @@ if (!empty($ecobriker_id) && !empty($searchValue)) {
     $stmt->bind_param("ii", $start, $length);
 }
 
-// Execute the statement and check for errors
-if (!$stmt->execute()) {
-    echo json_encode([
-        "draw" => $draw,
-        "recordsTotal" => $totalRecords,
-        "recordsFiltered" => 0,
-        "data" => [],
-        "error" => "Failed to execute SQL statement: " . $stmt->error
-    ]);
-    exit;
-}
+$stmt->execute();
 
 // Bind the results to variables
 $stmt->bind_result(
@@ -122,8 +109,8 @@ while ($stmt->fetch()) {
 
 // Get total filtered records
 $filteredSql = "SELECT COUNT(*) as total FROM tb_ecobricks WHERE status != 'not ready'";
-if (!empty($ecobriker_id)) {
-    $filteredSql .= " AND ecobricker_id = '$ecobriker_id'";
+if (!empty($ecobricker_id)) {
+    $filteredSql .= " AND maker_id = '$ecobricker_id'";
 }
 if (!empty($searchValue)) {
     $filteredSql .= " AND (serial_no LIKE '%$searchValue%' OR location_full LIKE '%$searchValue%' OR ecobricker_maker LIKE '%$searchValue%')";
@@ -138,12 +125,6 @@ $response = [
     "recordsFiltered" => $totalFilteredRecords,
     "data" => $data
 ];
-
-// Debugging: Uncomment the following lines to see the output
-// echo '<pre>';
-// print_r($response);
-// echo '</pre>';
-// exit;
 
 // Close database connection
 $gobrik_conn->close();

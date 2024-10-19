@@ -23,6 +23,40 @@
 <STYLE>
 
 
+    .serial-button {
+    color: var(--text-color);
+    border: 1px solid;
+    padding: 10px;
+    border-radius: 5px;
+    background: rgba(116, 202, 244, 0.32); /* var(--darker); */
+    cursor: pointer;
+    position: relative; /* To enable positioning of pseudo-elements */
+    transition: background 0.3s ease;
+    text-decoration: none; /* Ensure no underline on the link */
+    display: inline-block; /* Ensures that the button behaves like a block element */
+}
+
+.serial-button:hover {
+    background: rgba(116, 202, 244, 0.8); /* var(--lighter); */
+}
+
+/* Change the text to the magnifying glass on hover */
+.serial-button:hover::before {
+    content: "🔎";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2em; /* Adjust size of the magnifying glass if needed */
+    line-height: 1; /* Ensures the icon is centered */
+}
+
+.serial-button:hover {
+    color: transparent; /* Hide the text color of the original content */
+}
+
+
+
 /* Media query for screens less than 769px wide */
 @media screen and (max-width: 768px) {
     /* Hide the "Location" and "Weight" table headers */

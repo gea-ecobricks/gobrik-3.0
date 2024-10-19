@@ -5,6 +5,7 @@ require_once '../gobrikconn_env.php'; // Include database connection
 $draw = isset($_POST['draw']) ? intval($_POST['draw']) : 0;
 $start = isset($_POST['start']) ? intval($_POST['start']) : 0;
 $length = isset($_POST['length']) ? intval($_POST['length']) : 12;
+$maker_id = isset($_POST['maker_id']) ? $_POST['maker_id'] : ''; // Get the maker_id from the request
 
 // Search term (if any)
 $searchValue = isset($_POST['search']['value']) ? $_POST['search']['value'] : '';
@@ -14,13 +15,22 @@ $sql = "SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, volu
         FROM tb_ecobricks
         WHERE status != 'not ready'";
 
+// If maker_id is provided, add it to the SQL query to filter results
+if (!empty($maker_id)) {
+    $sql .= " AND maker_id = ?";
+}
+
 // Add search filter if there is a search term
 if (!empty($searchValue)) {
     $sql .= " AND (serial_no LIKE ? OR location_full LIKE ? OR ecobricker_maker LIKE ?)";
 }
 
 // Count total records before filtering
-$totalRecordsResult = $gobrik_conn->query("SELECT COUNT(*) as total FROM tb_ecobricks WHERE status != 'not ready'");
+$totalRecordsQuery = "SELECT COUNT(*) as total FROM tb_ecobricks WHERE status != 'not ready'";
+if (!empty($maker_id)) {
+    $totalRecordsQuery .= " AND maker_id = '$maker_id'";
+}
+$totalRecordsResult = $gobrik_conn->query($totalRecordsQuery);
 $totalRecords = $totalRecordsResult->fetch_assoc()['total'] ?? 0;
 
 // Prepare the statement for the main query
@@ -39,7 +49,12 @@ if (!$stmt) {
 }
 
 // Bind parameters and execute the statement
-if (!empty($searchValue)) {
+if (!empty($maker_id) && !empty($searchValue)) {
+    $searchTerm = "%" . $searchValue . "%";
+    $stmt->bind_param("ssssii", $maker_id, $searchTerm, $searchTerm, $searchTerm, $start, $length);
+} elseif (!empty($maker_id)) {
+    $stmt->bind_param("sii", $maker_id, $start, $length);
+} elseif (!empty($searchValue)) {
     $searchTerm = "%" . $searchValue . "%";
     $stmt->bind_param("sssii", $searchTerm, $searchTerm, $searchTerm, $start, $length);
 } else {
@@ -47,6 +62,7 @@ if (!empty($searchValue)) {
 }
 
 $stmt->execute();
+
 
 // Bind the results to variables
 $stmt->bind_result(

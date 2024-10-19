@@ -244,24 +244,61 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once("../footer-2024.php"); ?>
 
 <script>
-        $(document).ready(function() {
-            $('#latest-ecobricks').DataTable({
-                "responsive": true,
-                "searching": true,
-                "paging": true,
-                "ordering": true,
-                "pageLength": 10,
-                "language": {
-                    "emptyTable": "It looks like you haven't logged any ecobricks yet!",
-                    "lengthMenu": "Show _MENU_ briks",
-                    "search": "Search briks:"
-                },
-                "columnDefs": [
-                    { "orderable": false, "targets": [0, 5] } // Make the image and status columns unsortable
-                ]
-            });
+    $(document).ready(function() {
+        var makerId = "<?php echo htmlspecialchars($maker_id); ?>"; // Get the logged-in user's maker_id
+
+        $("#latest-ecobricks").DataTable({
+            "responsive": true,
+            "serverSide": true,
+            "processing": true,
+            "ajax": {
+                "url": "../api/fetch_ecobricks.php",
+                "type": "POST",
+                "data": function(d) {
+                    d.maker_id = makerId; // Pass the maker_id as part of the request
+                }
+            },
+            "pageLength": 12,
+            "language": {
+                "emptyTable": "It looks like you haven't logged any ecobricks yet!",
+                "lengthMenu": "Show _MENU_ briks",
+                "search": "",
+                "info": "Showing _START_ to _END_ of _TOTAL_ ecobricks",
+                "infoEmpty": "No ecobricks available",
+                "loadingRecords": "Loading ecobricks...",
+                "processing": "Processing...",
+                "paginate": {
+                    "first": "First",
+                    "last": "Last",
+                    "next": "Next",
+                    "previous": "Previous"
+                }
+            },
+            "columns": [
+                { "data": "ecobrick_thumb_photo_url" },
+                { "data": "weight_g" },
+                { "data": "volume_ml" },
+                { "data": "density" },
+                { "data": "date_logged_ts" },
+                { "data": "location_brik" },
+                { "data": "status" },
+                { "data": "serial_no" }
+            ],
+            "columnDefs": [
+                { "orderable": false, "targets": [0, 6] }, // Make the image and status columns unsortable
+                { "className": "all", "targets": [0, 1, 7] }, // Ensure Brik (thumbnail), Weight, and Serial always display
+                { "className": "min-tablet", "targets": [2, 3, 4] }, // These fields can be hidden first on smaller screens
+                { "className": "none", "targets": [5] } // Allow Location text to wrap as needed
+            ],
+            "initComplete": function() {
+                var searchBox = $("div.dataTables_filter input");
+                searchBox.attr("placeholder", "Search briks...");
+            }
         });
-    </script>
+    });
+</script>
+
+
 
 
 

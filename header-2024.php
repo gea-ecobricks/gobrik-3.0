@@ -434,8 +434,7 @@ display: none;
 
 
 
-
-<!--SEARCH PAGE-->
+<!-- SEARCH PAGE -->
 <div id="right-search-overlay" class="search-overlay">
     <button type="button" onclick="closeSearch(), clearResults()" aria-label="Close Search" class="x-button" id="modal-x-button"></button>
     <div class="search-overlay-content">
@@ -475,6 +474,7 @@ display: none;
         </div>
     </div>
 </div>
+
 
 
 

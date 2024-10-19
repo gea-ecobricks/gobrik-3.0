@@ -69,7 +69,7 @@ function ecobrickSearch() {
             "language": {
                 "emptyTable": "No ecobricks match your search.",
                 "lengthMenu": "Show _MENU_ briks",
-                "search": "",
+                "search": "false",
                 "info": "Showing _START_ to _END_ of _TOTAL_ ecobricks",
                 "infoEmpty": "No ecobricks available",
                 "loadingRecords": "Loading ecobricks...",

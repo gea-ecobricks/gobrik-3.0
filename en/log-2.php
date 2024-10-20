@@ -571,13 +571,15 @@ function closeDensityModal() {
     toggleButtonsVisibility(true);
 }
 
+showDensityConfirmation(density, volume, weight);
 
-var ecobrickStatus = "<?php echo $status; ?>";
-    // Show the modal on page load
-   if (ecobrickStatus !== "not ready") {
-    // Show the modal on page load if status is not "basic data logged"
-    showDensityConfirmation(density, volume, weight);
-}
+
+// var ecobrickStatus = "<?php echo $status; ?>";
+//     // Show the modal on page load
+//    if (ecobrickStatus !== "not ready") {
+//     // Show the modal on page load if status is not "basic data logged"
+//     showDensityConfirmation(density, volume, weight);
+// }
 </script>
 
 

@@ -112,6 +112,19 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <a href="log.php" class="confirm-button enabled" id="log-ecobrick-button" data-lang-id="001-log-an-ecobrick">➕ Log an Ecobrick</a>
         </div>
 
+<?php if (strpos(strtolower($gea_status), 'trainer') !== false): ?>
+    <div id="gea-trainer-menu" class="page-panel">
+        <h4 class="panel-title">GEA Trainer Menu</h4>
+        <div class="menu-buttons-row">
+            <a href="https://nextcloud.ecobricks.org/index.php/s/wCC2BwBwkW7GzTA" target="_blank" class="page-button">Trainer File Kit</a>
+            <a href="https://learning.ecobricks.org" target="_blank" class="page-button">GEA Courses</a>
+            <a href="https://ecobricks.org/<?php echo htmlspecialchars($lang); ?>/media" target="_blank" class="page-button">Ecobricks Media Kit</a>
+            <a href="admin-review.php" target="_blank" class="page-button disabled">Validate Ecobricks</a>
+            <a href="bug-report.php" class="page-button disabled">Report a Bug</a>
+        </div>
+    </div>
+<?php endif; ?>
+
 
 
 <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">

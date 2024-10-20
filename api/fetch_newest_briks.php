@@ -4,7 +4,7 @@ require_once '../gobrikconn_env.php'; // Include database connection
 // Get the request parameters sent by DataTables
 $draw = isset($_POST['draw']) ? intval($_POST['draw']) : 0;
 $start = isset($_POST['start']) ? intval($_POST['start']) : 0;
-$length = isset($_POST['length']) ? intval($_POST['length']) : 12;
+$length = isset($_POST['length']) ? intval($_POST['length']) : 5;
 $ecobricker_id = isset($_POST['ecobricker_id']) ? $_POST['ecobricker_id'] : ''; // Get the ecobricker_id from the request
 
 // Search term (if any)

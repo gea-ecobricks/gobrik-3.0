@@ -15,9 +15,6 @@
 <STYLE>
 
 
-//page panels
-
-
 .dashboard-panel {
     background: var(--lighter);
     border-radius: 10px;
@@ -56,7 +53,6 @@
 }
 
 .page-button.disabled {
-    background: var(--subdued);
     pointer-events: none;
     opacity: 0.6;
 }

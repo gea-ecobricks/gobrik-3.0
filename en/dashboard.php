@@ -113,7 +113,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>
 
 <?php if (strpos(strtolower($gea_status), 'trainer') !== false): ?>
-    <div id="gea-trainer-menu" class="page-panel">
+    <div id="gea-trainer-menu" class="dashboard-panel">
         <h4 class="panel-title">GEA Trainer Menu</h4>
         <div class="menu-buttons-row">
             <a href="https://nextcloud.ecobricks.org/index.php/s/wCC2BwBwkW7GzTA" target="_blank" class="page-button">Trainer File Kit</a>

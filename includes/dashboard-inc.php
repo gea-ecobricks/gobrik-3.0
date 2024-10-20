@@ -18,7 +18,7 @@
 //page panels
 
 
-.page-panel {
+.dashboard-panel {
     background: var(--lighter);
     border-radius: 10px;
     padding: 15px;

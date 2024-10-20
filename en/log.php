@@ -902,9 +902,9 @@ function restoreEcobrickDefaults() {
         document.getElementById('bottom_colour').value = defaults.bottomColor || '';
         document.getElementById('sequestration_type').value = defaults.sequestrationType || '';
         document.getElementById('plastic_from').value = defaults.plasticFrom || '';
-        document.getElementById('community_select').value = defaults.community || '';
-        document.getElementById('location_full').value = defaults.locationFull || '';
-        document.getElementById('location_watershed').value = defaults.watershed || '';
+//         document.getElementById('community_select').value = defaults.community || '';
+//         document.getElementById('location_full').value = defaults.locationFull || '';
+//         document.getElementById('location_watershed').value = defaults.watershed || '';
 
         // Show the "Defaults loaded" message
         document.getElementById('defaults-loaded').style.display = 'block';

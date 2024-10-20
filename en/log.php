@@ -313,7 +313,7 @@ require_once ("../includes/log-inc.php");
     <div id="log-1-banner" class="log-one-ecobrick" style="height:160px;width:100%;margin-top:-20px;"></div>
 
            <div style="text-align:center;width:100%;margin:auto;">
-            <h2 data-lang-id="001-log-title">Log an Ecobrick</h2>
+            <h2 id="log-page-title" data-lang-id="001-log-title">Log an Ecobrick</h2>
             <p style="color:red;font-weight:500;" data-lang-id="002-log-warning">Important: Beta testers do not actually log and serialize an ecobrick.  All ecobricks logged at this stage will be deleted once we launch. Use generic data and photos.</p>
             <p data-lang-id="002-log-subheading">Record your ecobrick to the brikchain for projects, posterity and posting!</p>
         </div>
@@ -912,19 +912,29 @@ function restoreEcobrickDefaults() {
     }
 }
 
-// Function to check if "retry" parameter is present in the URL
+// Function to check if a specific RETRY parameter is present in the URL
 function getQueryParam(param) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(param);
 }
 
-// Call restoreEcobrickDefaults only if the "retry" parameter is not set
+// Call restoreEcobrickDefaults only if the "retry" parameter is not set,
+// and update the title if "retry" is present.
 window.onload = function() {
     const retryParam = getQueryParam('retry');
-    if (!retryParam) {
+    const titleElement = document.getElementById('log-page-title');
+
+    if (retryParam) {
+        // If the "retry" parameter is present, change the title of the page:
+        if (titleElement) {
+            titleElement.innerHTML = "Retry logging ecobrick";
+        }
+    } else {
+        // Otherwise, call the restoreEcobrickDefaults function
         restoreEcobrickDefaults();
     }
 };
+
 
 // Hook saveEcobrickDefaults function to form submission
 document.getElementById('submit-form').addEventListener('submit', function(event) {

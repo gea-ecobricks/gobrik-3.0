@@ -286,13 +286,13 @@ display: none;
       <div id="information-one" class="information">
         <div class="tour-image tour-slide1"></div>
         <div class="modal-header" data-lang-id="200-tour-1-header-welcome">Welcome to Gobrik!</div>
-        <div class="modal-description" data-lang-id="201-tour-1-description">GoBrik is an open source app that allows individuals and communities to manage their ecobricks, projects and more.</div>
+        <div class="modal-description" data-lang-id="201-tour-1-description">GoBrik is ecological action platform that supports individuals and communities to manage their ecobricks, projects and more.</div>
         <button class="next-slide" data-lang-id="202-tour-start-button">Start Tour ➔</button>
     </div>
 
     <div id="information-two" style="display:none;" class="information">
         <div class="tour-image tour-slide2"></div>
-        <div class="modal-header" data-lang-id="203-tour-2-header">Here for your Ecobricking!</div>
+        <div class="modal-header" data-lang-id="203-tour-2-header">Here for your ecobricking.</div>
         <div class="modal-description" data-lang-id="204-tour-2-description">Your ecobricks are valuable!  Every ecobrick represents plastic (and carbon!) that won't be polluting the biosphere or churning a factory.  We've built GoBrik to help you track and manage each gram of plastic that you sequester.</div>
         <button class="back" data-lang-id="205-tour-back-button">↩ Back</button>
         <button class="next-slide" data-lang-id="206-tour-next-button">Next ➔</button>

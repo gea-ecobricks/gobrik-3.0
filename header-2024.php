@@ -292,8 +292,8 @@ display: none;
 
     <div id="information-two" style="display:none;" class="information">
         <div class="tour-image tour-slide2"></div>
-        <div class="modal-header" data-lang-id="203-tour-2-header">Here for your ecobricking.</div>
-        <div class="modal-description" data-lang-id="204-tour-2-description">Your ecobricks are valuable!  Every ecobrick represents plastic (and carbon!) that won't be polluting the biosphere or churning a factory.  We've built GoBrik to help you track and manage each gram of plastic that you sequester.</div>
+        <div class="modal-header" data-lang-id="203-tour-2-header">Your ecobricks are valuable.</div>
+        <div class="modal-description" data-lang-id="204-tour-2-description">We're here for your ecobricking. Every ecobrick represents plastic (and carbon!) that won't be polluting the biosphere or churning a factory.  We've built GoBrik to help you track and manage each gram of plastic that you sequester so to amplify our collective ecological service.</div>
         <button class="back" data-lang-id="205-tour-back-button">↩ Back</button>
         <button class="next-slide" data-lang-id="206-tour-next-button">Next ➔</button>
         <div class="reference" data-lang-id="207-tour-2-reference">What is an ecobrick? <a href="https://en.wikipedia.org/wiki/Ecobricks" target="_blank">wikipedia/wiki/ecobricks</a>  |   <a href="https://ecobricks.org/en/what.php" target="_blank">Ecobricks.org</a></div>

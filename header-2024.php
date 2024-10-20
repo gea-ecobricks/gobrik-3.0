@@ -286,14 +286,14 @@ display: none;
       <div id="information-one" class="information">
         <div class="tour-image tour-slide1"></div>
         <div class="modal-header" data-lang-id="200-tour-1-header-welcome">Welcome to Gobrik!</div>
-        <div class="modal-description" data-lang-id="201-tour-1-description">So what is GoBrik exactly?  GoBrik is an open source app that allows individuals and communities to manage their ecobricks, projects and more.</div>
+        <div class="modal-description" data-lang-id="201-tour-1-description">GoBrik is an open source app that allows individuals and communities to manage their ecobricks, projects and more.</div>
         <button class="next-slide" data-lang-id="202-tour-start-button">Start Tour ➔</button>
     </div>
 
     <div id="information-two" style="display:none;" class="information">
         <div class="tour-image tour-slide2"></div>
-        <div class="modal-header" data-lang-id="203-tour-2-header">Ecobricks are Valuable</div>
-        <div class="modal-description" data-lang-id="204-tour-2-description">Ecobricks represent sequestered plastic.  That's plastic that is not going to dumped, burned or industrially recycled (lots of emissions!).  Plus, ecobricks can be used to build regenerative structures!  Gobrik helps you manage ecobricks: the plastic that they represent and the building projects that they enable</div>
+        <div class="modal-header" data-lang-id="203-tour-2-header">Here for your Ecobricking!</div>
+        <div class="modal-description" data-lang-id="204-tour-2-description">Your ecobricks are valuable!  Every ecobrick represents plastic (and carbon!) that won't be polluting the biosphere or churning a factory.  We've built GoBrik to help you track and manage each gram of plastic that you sequester.</div>
         <button class="back" data-lang-id="205-tour-back-button">↩ Back</button>
         <button class="next-slide" data-lang-id="206-tour-next-button">Next ➔</button>
         <div class="reference" data-lang-id="207-tour-2-reference">What is an ecobrick? <a href="https://en.wikipedia.org/wiki/Ecobricks" target="_blank">wikipedia/wiki/ecobricks</a>  |   <a href="https://ecobricks.org/en/what.php" target="_blank">Ecobricks.org</a></div>
@@ -304,18 +304,18 @@ display: none;
       <div id="information-three" style="display:none;" class="information">
       <div class="tour-image"><img src="../webp/ancient-future.webp"   style="margin:auto"  title="Our Neighbourhood" alt="Our Neighbourhood" loading="lazy"></div>
 
-        <div class="modal-header" data-lang-id="208-tour-3-header">First: Log</div>
-        <div class="modal-description" data-lang-id="209-tour-3-description">Ecobricks will last a long time.  GoBrik enables you to permanently record your ecobrick core data.  This process records the briks data onto our brikchain by giving each ecobrick a serial number.  Using these serial numbers, ecobricks can allocate to projects and exchanges.</div>
+        <div class="modal-header" data-lang-id="208-tour-3-header">Peer Validation</div>
+        <div class="modal-description" data-lang-id="209-tour-3-description">Not every bottle packed with plastic is an ecobrick.  On GoBrik, ecobricks are peer-reviewed and authenticated.  Authenticated ecobricks represent sequestered plastic and carbon which generates Brikcoins for ecobrickers involved in the authentication process.</div>
         <button class="back" data-lang-id="205-tour-back-button">↩ Back</button>
         <button class="next-slide" data-lang-id="206-tour-next-button">Next ➔</button>
-        <div class="reference" data-lang-id="210-reference-tour-3-description">Ecobrick applications: <a href="/plastic/">gobrik.com/plastic</a></div>
+        <div class="reference" data-lang-id="210-reference-tour-3-description">Authenticated Ecobrick Sequestered Plastic: <a href="https://ecobricks.org/aes/">ecobricks.org/aes</a></div>
       </div>
 
 
       <div id="information-four" style="display:none;" class="information">
       <div class="tour-image tour-slide4"></div>
-        <div class="modal-header" data-lang-id="211-tour-4-header" >More than Eco</div>
-        <div class="modal-description" data-lang-id="212-tour-4-description">Ecobricks do more than just prevent plastic from polluting the biosphere.  Ecobricking also keeps plastic from industrially processing-- which often creates even more problems than it solves.  Best of all, ecobricks can put to use locally to build all sorts of great green things!</div>
+        <div class="modal-header" data-lang-id="211-tour-4-header" >For our Children's Children</div>
+        <div class="modal-description" data-lang-id="212-tour-4-description">Your ecobrick will last for centuries!  Our Brikchain record of authenticated ecobricks is designed to last for just as long.  Through unique serial numbers, ecobricks can be managed and their data can be looked up easily.</div>
         <button class="back" data-lang-id="205-tour-back-button">↩ Back</button>
         <button class="next-slide" data-lang-id="206-tour-next-button">Next ➔</button>
         <div class="reference" data-lang-id="213-tour-4-reference">Why we ecobrick: <a href="build">gobrik.com/why</a></div>
@@ -325,22 +325,22 @@ display: none;
 
       <div id="information-five" style="display:none;" class="information" >
       <div class="tour-image tour-slide5"></div>
-      <div class="modal-header" data-lang-id="214-tour-5-header">Build Green and Great</div>
-      <div class="modal-description" data-lang-id="215-tour-5-description">Ecobricks are put to use in all sorts of ways by the global community.  In the Philippines we build food forest play parks with them.  In the UK, we build earthen round houses.  In Indonesia, we make modular furniture for homes and cafes.  Be sure to check out the building sections of our site for ideas.</div>
+      <div class="modal-header" data-lang-id="214-tour-5-header">Projects & Exchanges</div>
+      <div class="modal-description" data-lang-id="215-tour-5-description">GoBrik let's you allocate your ecobricks into building projects.  Keep track of how many ecobricks you've got and how much plastic and carbon your construction will sequester.  Once complete, log your project and share with the world.</div>
         <button class="back" data-lang-id="205-tour-back-button">↩ Back</button>
         <button class="next-slide" data-lang-id="206-tour-next-button">Next ➔</button>
-        <div class="reference" data-lang-id="216-tour-5-reference">Our page on building methods: <a href="build">gobrik.com/build</a></div>
+        <div class="reference" data-lang-id="216-tour-5-reference">Exchanges and projects are coming soon on GoBrik 3.0</div>
       </div>
 
       <div id="information-six" style="display:none;" class="information" >
         <div class="tour-image tour-slide6"></div>
 
-        <div class="modal-header" data-lang-id="217-tour-6-header">Got questions?</div>
-        <div class="modal-description" data-lang-id="218-tour-6-description">We're here to help! The Global Ecobrick Alliance is an Earth enterprise that global plastic transition movement by maintaining the philosophical and technological of the movement.  We're not at this for profit. Nor are we sponsored by any governments or corporations.  We're at this for people and planet.</div>
+        <div class="modal-header" data-lang-id="217-tour-6-header">Good Green Vibes</div>
+        <div class="modal-description" data-lang-id="218-tour-6-description">GoBrik is developed by the Global Ecobrick Alliance, a not-for-profit, for-Earth enterprise based in Indonesia.  Our version 3.0 app is 100% open source.  And... your data is no longer stored on for-profit corporate servers, nor do we use any corporate services or protocals. All our funds are generated through ecological service-- we have no corporate bakers or sponsors. Our funds are no longer managed in USD currency or accounts.    Join us in regenerative transition!</div>
         <button class="back" data-lang-id="205-tour-back-button">↩ Back</button>
 
         <button class="next-slide" onclick="closeTour();" data-lang-id="219-tour-done-button">✓ Done</button>
-        <div class="reference" data-lang-id="220-tour-6-reference">Learn more about us <a href="/plastic/">gobrik.com/about</a></div>
+        <div class="reference" data-lang-id="220-tour-6-reference">Learn more about us <a href="https://ecobricks.org/about">ecobricks.og/about</a></div>
 
       </div>
     </div>

@@ -142,8 +142,8 @@ echo '<!DOCTYPE html>
             ],
             "columnDefs": [
                 { "orderable": false, "targets": [0, 6] }, // Make the image and status columns unsortable
-                { "className": "all", "targets": [0, 1, 7] }, // Ensure Brik, Maker, and Serial always display
-                { "className": "min-tablet", "targets": [2, 3, 4, 5] }, // These fields can be hidden first on smaller screens
+                { "className": "all", "targets": [0, 1, 3, 7] }, // Ensure Brik (thumbnail), Maker, Weight, and Serial always display
+                { "className": "min-tablet", "targets": [2, 4, 5] }, // These fields can be hidden first on smaller screens
             ],
             "initComplete": function() {
                 var searchBox = $("div.dataTables_filter input");
@@ -152,6 +152,7 @@ echo '<!DOCTYPE html>
         });
     });
 </script>
+
 
 
 

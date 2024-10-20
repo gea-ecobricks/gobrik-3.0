@@ -302,7 +302,7 @@ display: none;
 
 
       <div id="information-three" style="display:none;" class="information">
-      <div class="tour-image"><img src="../webp/ancient-future.webp"   style="margin:auto"  title="Our Neighbourhood" alt="Our Neighbourhood" loading="lazy"></div>
+      <div class="tour-image tour-slide3"></div>
 
         <div class="modal-header" data-lang-id="208-tour-3-header">Peer Validation</div>
         <div class="modal-description" data-lang-id="209-tour-3-description">Not every bottle packed with plastic is an ecobrick.  On GoBrik, ecobricks are peer-reviewed and authenticated.  Authenticated ecobricks represent sequestered plastic and carbon which generates Brikcoins for ecobrickers involved in the authentication process.</div>

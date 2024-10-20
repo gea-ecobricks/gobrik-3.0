@@ -197,6 +197,11 @@
   background-size: contain;
 }
 
+.tour-slide3 {
+  background: url(../svgs/authenticated-ecobricks-night.svg) no-repeat bottom;
+  background-size: contain;
+}
+
 .tour-slide4 {
   background: url(../svgs/dolphin-top-optimized.svg) no-repeat bottom;
   background-size: contain;

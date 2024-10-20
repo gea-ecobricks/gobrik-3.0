@@ -206,66 +206,6 @@ color: var(--text-color);
 
 </style>
 
-<style>
-@media (min-width: 769px) and (max-width: 1200px) {
-    #latest-ecobricks th:nth-child(3),
-    #latest-ecobricks td:nth-child(3),
-    #latest-ecobricks th:nth-child(4),
-    #latest-ecobricks td:nth-child(4),
-    #latest-ecobricks th:nth-child(5),
-    #latest-ecobricks td:nth-child(5) {
-        display: none;
-    }
-}
-
-@media (max-width: 768px) {
-    #latest-ecobricks th:nth-child(2),
-    #latest-ecobricks td:nth-child(2),
-    #latest-ecobricks th:nth-child(3),
-    #latest-ecobricks td:nth-child(3),
-    #latest-ecobricks th:nth-child(4),
-    #latest-ecobricks td:nth-child(4),
-    #latest-ecobricks th:nth-child(5),
-    #latest-ecobricks td:nth-child(5) {
-        display: none;
-    }
-}
-
-  /* Style for the DataTables length menu (dropdown) */
-        .dataTables_length {
-            margin-bottom: 20px;
-        }
-        .dataTables_length label {
-            font-size: 14px;
-            font-weight: bold;
-                    display: ruby;
-        }
-        .dataTables_length select {
-            padding: 5px;
-            font-size: 14px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            margin-left: 5px;
-        }
-
-        /* Style for the DataTables search input */
-        .dataTables_filter {
-            margin-bottom: 20px;
-        }
-        .dataTables_filter label {
-            font-size: 14px;
-            font-weight: bold;
-        }
-        .dataTables_filter input {
-            padding: 5px;
-            font-size: 14px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            margin-left: 5px;
-            width: 250px; /* Adjust width as needed */
-        }
-
-</style>
 
 
  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">

@@ -335,12 +335,12 @@ display: none;
       <div id="information-six" style="display:none;" class="information" >
         <div class="tour-image tour-slide6"></div>
 
-        <div class="modal-header" data-lang-id="217-tour-6-header">Good Green Vibes</div>
-        <div class="modal-description" data-lang-id="218-tour-6-description">GoBrik is developed by the Global Ecobrick Alliance, a not-for-profit, for-Earth enterprise based in Indonesia.  Our version 3.0 app is 100% open source.  And... your data is no longer stored on for-profit corporate servers, nor do we use any corporate services or protocals. All our funds are generated through ecological service-- we have no corporate bakers or sponsors. Our funds are no longer managed in USD currency or accounts.    Join us in regenerative transition!</div>
+        <div class="modal-header" data-lang-id="217-tour-6-header">Buwana Accounts</div>
+        <div class="modal-description" data-lang-id="218-tour-6-description">Buwana means 'Earth' in ancient sanskrit.  Our GoBrik app and Buwana account system are managed by the Global Ecobrick Alliance-- a for-Earth enterprise.  Our work and our platform are guided by regenerative Earthen principles.  Our code is open source, our books transparent and as of GoBrik 3.0 we do not use any corporate services or protocols.</div>
         <button class="back" data-lang-id="205-tour-back-button">↩ Back</button>
 
         <button class="next-slide" onclick="closeTour();" data-lang-id="219-tour-done-button">✓ Done</button>
-        <div class="reference" data-lang-id="220-tour-6-reference">Learn more about us <a href="https://ecobricks.org/about">ecobricks.og/about</a></div>
+        <div class="reference" data-lang-id="220-tour-6-reference">Learn more about us <a href="https://ecobricks.org/about">ecobricks.og/about</a> and our <a href="https://ecobricks.org/principles">principles.</a></div>
 
       </div>
     </div>
@@ -397,15 +397,16 @@ display: none;
       <a href="log.php" data-lang-id="1000-log-ecobricks">Log Ecobricks</a>
       <span class="status-circle" style="background-color: green;" title="Under beta testing"></span>
     </div>
+ <div class="menu-page-item">
+      <a href="newest-briks.php" data-lang-id="1000-latest-ecobricks">Latest Ecobricks</a>
+      <span class="status-circle" style="background-color: green;" title="Under development, but active!"></span>
+    </div>
     <!--
     <div class="menu-page-item">
       <a href="brikchain.php" data-lang-id="1000-brikchain">The Brikchain</a>
       <span class="status-circle" style="background-color: red;" title="Under development, but active!"></span>
     </div>
-    <div class="menu-page-item">
-      <a href="newest-briks.php" data-lang-id="1000-latest-ecobricks">Latest Ecobricks</a>
-      <span class="status-circle" style="background-color: green;" title="Under development, but active!"></span>
-    </div>
+
     <div class="menu-page-item">
       <a href="newest-projects.php" data-lang-id="1000-featured-projects">Featured Projects</a>
       <span class="status-circle" style="background-color: red;" title="Not yet deployed"></span>

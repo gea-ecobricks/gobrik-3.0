@@ -77,11 +77,11 @@ echo '<!DOCTYPE html>
                     <thead>
                         <tr>
                             <th data-lang-id="1103-brik">Brik</th>
+                            <th data-lang-id="1111-maker">Maker</th>
+                            <th data-lang-id="1105-location">Location</th>
                             <th data-lang-id="1104-weight">Weight</th>
                             <th data-lang-id="1108-volume">Volume</th>
                             <th data-lang-id="1109-density">Density</th>
-                            <th data-lang-id="1110-date-logged">Date Logged</th>
-                            <th data-lang-id="1105-location">Location</th>
                             <th data-lang-id="1106-status">Status</th>
                             <th data-lang-id="1107-serial">Serial</th>
                         </tr>
@@ -90,6 +90,7 @@ echo '<!DOCTYPE html>
                         <!-- DataTables will populate this via AJAX -->
                     </tbody>
                 </table>
+
             </div>
 
             <div style="display:flex;flex-flow:row;width:100%;justify-content:center;margin-top:30px;">
@@ -111,18 +112,17 @@ echo '<!DOCTYPE html>
             "serverSide": true,
             "processing": true,
             "ajax": {
-                "url": "../api/fetch_newest_briks.php", // Adjust path if necessary
+                "url": "../api/fetch_newest_briks.php",
                 "type": "POST"
             },
             "pageLength": 10, // Set default number of rows per page to 10
             "language": {
                 "emptyTable": "It looks like no ecobricks have been logged yet!",
-                "lengthMenu": "Show _MENU_ briks",
-                "search": "",
                 "info": "Showing _START_ to _END_ of _TOTAL_ ecobricks",
                 "infoEmpty": "No ecobricks available",
                 "loadingRecords": "Loading ecobricks...",
                 "processing": "Processing...",
+                "search": "",
                 "paginate": {
                     "first": "First",
                     "last": "Last",
@@ -131,20 +131,19 @@ echo '<!DOCTYPE html>
                 }
             },
             "columns": [
-                { "data": "ecobrick_thumb_photo_url" }, // Column 0
-                { "data": "weight_g" }, // Column 1
-                { "data": "volume_ml" }, // Column 2
-                { "data": "density" }, // Column 3
-                { "data": "date_logged_ts" }, // Column 4
-                { "data": "location_brik" }, // Column 5
-                { "data": "status" }, // Column 6
-                { "data": "serial_no" } // Column 7
+                { "data": "ecobrick_thumb_photo_url" }, // Brik thumbnail
+                { "data": "ecobricker_maker" }, // Maker
+                { "data": "location_brik" }, // Location
+                { "data": "weight_g" }, // Weight
+                { "data": "volume_ml" }, // Volume
+                { "data": "density" }, // Density
+                { "data": "status" }, // Status
+                { "data": "serial_no" } // Serial
             ],
             "columnDefs": [
                 { "orderable": false, "targets": [0, 6] }, // Make the image and status columns unsortable
-                { "className": "all", "targets": [0, 1, 7] }, // Ensure Brik (thumbnail), Weight, and Serial always display
-                { "className": "min-tablet", "targets": [2, 3, 4] }, // These fields can be hidden first on smaller screens
-                { "className": "none", "targets": [5] } // Allow Location text to wrap as needed
+                { "className": "all", "targets": [0, 1, 7] }, // Ensure Brik, Maker, and Serial always display
+                { "className": "min-tablet", "targets": [2, 3, 4, 5] }, // These fields can be hidden first on smaller screens
             ],
             "initComplete": function() {
                 var searchBox = $("div.dataTables_filter input");
@@ -153,6 +152,7 @@ echo '<!DOCTYPE html>
         });
     });
 </script>
+
 
 
 

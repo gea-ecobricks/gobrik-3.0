@@ -123,7 +123,7 @@
     flex-grow: 1;
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid var(--settings-border);
+    border: 1px solid grey;
     background: var(--darker);
     color: var(--text-color);
 }

@@ -33,19 +33,21 @@ if ($user_id > 0) {
         ");
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
-        $result = $stmt->get_result();
 
-        // Fetch all conversations as an associative array
+        // Bind the result fields
+        $stmt->bind_result($conversation_id, $last_message_id, $updated_at, $last_message, $last_message_time, $last_message_sender_name, $last_message_sender_id);
+
+        // Fetch all conversations into an associative array
         $conversations = [];
-        while ($row = $result->fetch_assoc()) {
+        while ($stmt->fetch()) {
             $conversations[] = [
-                "conversation_id" => $row['conversation_id'],
-                "last_message_id" => $row['last_message_id'],
-                "last_message" => $row['last_message'],
-                "last_message_time" => $row['last_message_time'],
-                "last_message_sender_name" => $row['last_message_sender_name'],
-                "last_message_sender_id" => $row['last_message_sender_id'],
-                "updated_at" => $row['updated_at']
+                "conversation_id" => $conversation_id,
+                "last_message_id" => $last_message_id,
+                "last_message" => $last_message,
+                "last_message_time" => $last_message_time,
+                "last_message_sender_name" => $last_message_sender_name,
+                "last_message_sender_id" => $last_message_sender_id,
+                "updated_at" => $updated_at
             ];
         }
 

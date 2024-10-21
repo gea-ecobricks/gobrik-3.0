@@ -21,6 +21,34 @@
     }
 
 
+.hidden {
+    display: none;
+}
+
+.start-conversation-container {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+#searchResults, #selectedUsers {
+    margin-top: 10px;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    background: #fff;
+}
+
+.search-result-item, .selected-user-item {
+    padding: 5px;
+    cursor: pointer;
+    border-bottom: 1px solid #ddd;
+}
+
+.selected-user-item {
+    background-color: #f0f0f0;
+}
+
+
 
 .messenger-container {
     display: flex;

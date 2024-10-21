@@ -3,7 +3,7 @@ require_once '../earthenAuth_helper.php'; // Include the authentication helper f
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.1';
+$version = '0.11';
 $page = 'messenger';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -73,6 +73,18 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
    <div class="messenger-container">
     <div class="conversation-list" id="conversation-list">
+        <div class="start-conversation-container">
+    <button id="startConversationButton">+ Start conversation...</button>
+    <div id="searchBoxContainer" class="hidden">
+        <input type="text" id="userSearchInput" placeholder="Search users..." />
+        <div id="searchResults"></div>
+        <div id="selectedUsers">
+            <!-- Selected users will appear here -->
+        </div>
+        <button id="createConversationButton" disabled>Create Conversation</button>
+    </div>
+</div>
+
         <!-- Conversations will be dynamically loaded here -->
     </div>
     <div class="message-thread" id="message-thread">
@@ -96,6 +108,111 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 <script>
+
+
+    //user search and selection
+
+    $(document).ready(function() {
+    const selectedUsers = new Set();
+
+    // Show search box when "Start Conversation" button is clicked
+    $('#startConversationButton').on('click', function() {
+        $('#searchBoxContainer').toggleClass('hidden');
+        $('#userSearchInput').focus();
+    });
+
+    // Handle user search input
+    $('#userSearchInput').on('input', function() {
+        const query = $(this).val().trim();
+        if (query.length > 2) {
+            searchUsers(query);
+        } else {
+            $('#searchResults').empty();
+        }
+    });
+
+    // AJAX request to search for users
+    function searchUsers(query) {
+        $.ajax({
+            url: '../messenger/search_users.php',
+            method: 'GET',
+            data: { query: query },
+            success: function(response) {
+                if (response.status === 'success') {
+                    renderSearchResults(response.users);
+                } else {
+                    $('#searchResults').html('<p>No users found</p>');
+                }
+            },
+            error: function(error) {
+                console.error('Error searching users:', error);
+            }
+        });
+    }
+
+    // Render search results
+    function renderSearchResults(users) {
+        const searchResults = $('#searchResults');
+        searchResults.empty();
+        users.forEach(user => {
+            if (!selectedUsers.has(user.buwana_id)) {
+                const userElement = `<div class="search-result-item" data-user-id="${user.buwana_id}">${user.first_name} ${user.last_name}</div>`;
+                searchResults.append(userElement);
+            }
+        });
+
+        // Add click event for each search result item
+        $('.search-result-item').on('click', function() {
+            const userId = $(this).data('user-id');
+            const userName = $(this).text();
+            if (selectedUsers.size < 5) {
+                selectedUsers.add(userId);
+                $('#selectedUsers').append(`<div class="selected-user-item" data-user-id="${userId}">${userName}</div>`);
+                $(this).remove(); // Remove from search results
+                $('#createConversationButton').prop('disabled', false);
+            }
+        });
+
+        // Remove a selected user
+        $('#selectedUsers').on('click', '.selected-user-item', function() {
+            const userId = $(this).data('user-id');
+            selectedUsers.delete(userId);
+            $(this).remove();
+            if (selectedUsers.size === 0) {
+                $('#createConversationButton').prop('disabled', true);
+            }
+        });
+    }
+
+    // Create a new conversation with selected users
+    $('#createConversationButton').on('click', function() {
+        const participantIds = Array.from(selectedUsers);
+        $.ajax({
+            url: '../messenger/create_conversation.php',
+            method: 'POST',
+            data: {
+                created_by: userId,
+                participant_ids: JSON.stringify(participantIds)
+            },
+            success: function(response) {
+                if (response.status === 'success') {
+                    $('#searchBoxContainer').addClass('hidden');
+                    $('#userSearchInput').val('');
+                    $('#selectedUsers').empty();
+                    selectedUsers.clear();
+                    loadConversations();
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function(error) {
+                console.error('Error creating conversation:', error);
+            }
+        });
+    });
+});
+
+
 
    // 3. JavaScript/jQuery for Fetching and Displaying Conversations
 

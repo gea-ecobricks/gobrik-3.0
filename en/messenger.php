@@ -6,7 +6,8 @@ $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.1';
 $page = 'messenger';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
-    $buwana_id = $_SESSION['buwana_id'] ?? ''; // Retrieve buwana_id from session
+
+//startSecureSession(); // Start a secure session with regeneration to prevent session fixation
 
 // Check if user is logged in and session active
 if ($is_logged_in) {
@@ -22,6 +23,7 @@ if ($is_logged_in) {
     $user_location_full = getUserFullLocation($buwana_conn, $buwana_id);
     $gea_status = getGEA_status($buwana_id);
     $user_community_name = getCommunityName($buwana_conn, $buwana_id);
+    $first_name = getFirstName($buwana_conn, $buwana_id);
 
     // Run messenger code here
 

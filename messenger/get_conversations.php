@@ -16,40 +16,41 @@ $response = [];
 if ($user_id > 0) {
     try {
         // Prepare the SQL query to retrieve conversations for the user
-        $stmt = $buwana_conn->prepare("
-            SELECT c.conversation_id,
-                   c.last_message_id,
-                   c.updated_at,
-                   m.content AS last_message,
-                   m.created_at AS last_message_time,
-                   u.first_name AS last_message_sender_name,
-                   u.buwana_id AS last_message_sender_id
-            FROM conversations_tb c
-            LEFT JOIN messages_tb m ON c.last_message_id = m.message_id
-            LEFT JOIN users_tb u ON m.sender_id = u.buwana_id
-            JOIN participants_tb p ON c.conversation_id = p.conversation_id
-            WHERE p.buwana_id = ?
-            ORDER BY c.updated_at DESC
-        ");
-        $stmt->bind_param("i", $user_id);
-        $stmt->execute();
+        // Prepare the SQL query to retrieve conversations for the user
+$stmt = $buwana_conn->prepare("
+    SELECT c.conversation_id,
+           c.last_message_id,
+           c.updated_at,
+           m.content AS last_message,
+           m.created_at AS last_message_time,
+           GROUP_CONCAT(u.first_name SEPARATOR ', ') AS other_participants
+    FROM conversations_tb c
+    LEFT JOIN messages_tb m ON c.last_message_id = m.message_id
+    JOIN participants_tb p ON c.conversation_id = p.conversation_id
+    JOIN users_tb u ON u.buwana_id = p.buwana_id
+    WHERE p.conversation_id = c.conversation_id AND p.buwana_id != ?
+    GROUP BY c.conversation_id
+    ORDER BY c.updated_at DESC
+");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
 
-        // Bind the result fields
-        $stmt->bind_result($conversation_id, $last_message_id, $updated_at, $last_message, $last_message_time, $last_message_sender_name, $last_message_sender_id);
+// Bind the result fields
+$stmt->bind_result($conversation_id, $last_message_id, $updated_at, $last_message, $last_message_time, $other_participants);
 
-        // Fetch all conversations into an associative array
-        $conversations = [];
-        while ($stmt->fetch()) {
-            $conversations[] = [
-                "conversation_id" => $conversation_id,
-                "last_message_id" => $last_message_id,
-                "last_message" => $last_message,
-                "last_message_time" => $last_message_time,
-                "last_message_sender_name" => $last_message_sender_name,
-                "last_message_sender_id" => $last_message_sender_id,
-                "updated_at" => $updated_at
-            ];
-        }
+// Fetch all conversations into an associative array
+$conversations = [];
+while ($stmt->fetch()) {
+    $conversations[] = [
+        "conversation_id" => $conversation_id,
+        "last_message_id" => $last_message_id,
+        "last_message" => $last_message,
+        "last_message_time" => $last_message_time,
+        "other_participants" => $other_participants,
+        "updated_at" => $updated_at
+    ];
+}
+
 
         // Close the statement
         $stmt->close();

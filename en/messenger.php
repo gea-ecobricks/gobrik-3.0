@@ -66,12 +66,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
             <h2 id="greeting">GoBrik Messenger</h2>
-            <p id="subgreeting">Welcome to your conversations! <?php echo $buwana_id; ?></p>
+            <p id="subgreeting">Welcome to your conversations <?php echo $first_name; ?>.</p>
         </div>
 
      <!-- ACTIVE MESSENGER PHP AND HTML GOES HERE-->
 
-        <div class="messenger-container">
+   <div class="messenger-container">
     <div class="conversation-list" id="conversation-list">
         <!-- Conversations will be dynamically loaded here -->
     </div>
@@ -103,7 +103,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
    const userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
 
    $(document).ready(function() {
-    alert(userId);
+
 
   function loadConversations() {
     $.ajax({
@@ -125,28 +125,41 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 }
 
 
-    function renderConversations(conversations) {
-        const conversationList = $('#conversation-list');
-        conversationList.empty();
-        conversations.forEach(conv => {
-            const convElement = `
-                <div class="conversation-item" data-conversation-id="${conv.conversation_id}">
-                    <p><strong>${conv.last_message_sender_name}</strong></p>
-                    <p>${conv.last_message}</p>
-                    <p class="timestamp">${conv.updated_at}</p>
-                </div>
-            `;
-            conversationList.append(convElement);
-        });
+   function renderConversations(conversations) {
+    const conversationList = $('#conversation-list');
+    conversationList.empty();
+    conversations.forEach((conv, index) => {
+        // Trim the last message to 50 characters with ellipsis
+        const trimmedMessage = conv.last_message.length > 50
+            ? conv.last_message.substring(0, 50) + '...'
+            : conv.last_message;
 
-        // Add click event to each conversation
-        $('.conversation-item').on('click', function() {
-            const conversationId = $(this).data('conversation-id');
-            loadMessages(conversationId);
+        const convElement = `
+            <div class="conversation-item" data-conversation-id="${conv.conversation_id}">
+                <p><strong>${conv.other_participants}</strong></p>
+                <p>${trimmedMessage}</p>
+                <p class="timestamp">${conv.updated_at}</p>
+            </div>
+        `;
+        conversationList.append(convElement);
+
+        // Automatically load the most recent conversation if it's the first time loading
+        if (index === 0) {
+            loadMessages(conv.conversation_id);
             $('.conversation-item').removeClass('active');
-            $(this).addClass('active');
-        });
-    }
+            $(`.conversation-item[data-conversation-id="${conv.conversation_id}"]`).addClass('active');
+        }
+    });
+
+    // Add click event to each conversation
+    $('.conversation-item').on('click', function() {
+        const conversationId = $(this).data('conversation-id');
+        loadMessages(conversationId);
+        $('.conversation-item').removeClass('active');
+        $(this).addClass('active');
+    });
+}
+
 
     // Load conversations on page load
     loadConversations();

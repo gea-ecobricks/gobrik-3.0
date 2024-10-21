@@ -116,217 +116,268 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <!-- FOOTER STARTS HERE -->
 <?php require_once("../footer-2024.php"); ?>
 
-<script>
-   // Define userId as a global variable
-   const userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
 
-   // JavaScript/jQuery for Fetching and Displaying Conversations
-   function loadConversations() {
-       $.ajax({
-           url: '../messenger/get_conversations.php',
-           method: 'GET',
-           data: { user_id: userId },
-           success: function(response) {
-               console.log('Response from get_conversations.php:', response);
-               if (response.status === 'success') {
-                   renderConversations(response.conversations);
-               } else {
-                   alert(response.message);
-               }
-           },
-           error: function(error) {
-               console.error('Error fetching conversations:', error);
-           }
-       });
-   }
+   <script>
 
-   function renderConversations(conversations) {
-       const conversationList = $('#conversation-list');
-       conversationList.empty();
-       conversations.forEach((conv, index) => {
-           // Trim the last message to 50 characters with ellipsis
-           const trimmedMessage = conv.last_message.length > 50
-               ? conv.last_message.substring(0, 50) + '...'
-               : conv.last_message;
+          const userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
 
-           const convElement = `
-               <div class="conversation-item" data-conversation-id="${conv.conversation_id}">
-                   <p><strong>${conv.other_participants}</strong></p>
-                   <p>${trimmedMessage}</p>
-                   <p class="timestamp">${conv.updated_at}</p>
-               </div>
-           `;
-           conversationList.append(convElement);
 
-           // Automatically load the most recent conversation if it's the first time loading
-           if (index === 0) {
-               loadMessages(conv.conversation_id);
-               $('.conversation-item').removeClass('active');
-               $(`.conversation-item[data-conversation-id="${conv.conversation_id}"]`).addClass('active');
-           }
-       });
+    $(document).ready(function() {
+        // Define userId as a global variable
+        const userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
+        const selectedUsers = new Set();
 
-       // Add click event to each conversation
-       $('.conversation-item').on('click', function() {
-           const conversationId = $(this).data('conversation-id');
-           loadMessages(conversationId);
-           $('.conversation-item').removeClass('active');
-           $(this).addClass('active');
-       });
-   }
+        // Show search box when "Start Conversation" button is clicked
+        $('#startConversationButton').on('click', function() {
+            $('#searchBoxContainer').toggleClass('hidden');
+            $('#userSearchInput').focus();
+        });
 
-   // JavaScript/jQuery for Fetching and Displaying Messages
-   function loadMessages(conversationId) {
-       $.ajax({
-           url: '../messenger/get_messages.php',
-           method: 'GET',
-           data: { conversation_id: conversationId, user_id: userId },
-           success: function(response) {
-               if (response.status === 'success') {
-                   renderMessages(response.messages);
-               } else {
-                   alert(response.message);
-               }
-           },
-           error: function(error) {
-               console.error('Error fetching messages:', error);
-           }
-       });
-   }
+        // Handle user search input
+        $('#userSearchInput').on('input', function() {
+            const query = $(this).val().trim();
+            if (query.length >= 4) {
+                searchUsers(query);
+            } else {
+                $('#searchResults').empty();
+            }
+        });
 
-   function renderMessages(messages) {
-       const messageList = $('#message-list');
-       messageList.empty();
-       messages.forEach(msg => {
-           const messageClass = msg.sender_id == userId ? 'self' : '';
-           const msgElement = `
-               <div class="message-item ${messageClass}">
-                   <p class="sender">${msg.sender_name}</p>
-                   <p>${msg.content}</p>
-                   <p class="timestamp">${msg.created_at}</p>
-               </div>
-           `;
-           messageList.append(msgElement);
-       });
+        // AJAX request to search for users
+        function searchUsers(query) {
+            $.ajax({
+                url: '../messenger/search_users.php',
+                method: 'GET',
+                data: {
+                    query: query,
+                    user_id: userId
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        renderSearchResults(response.users);
+                    } else {
+                        $('#searchResults').html('<p>No users found</p>');
+                    }
+                },
+                error: function(error) {
+                    console.error('Error searching users:', error);
+                    $('#searchResults').html('<p>An error occurred while searching.</p>');
+                }
+            });
+        }
 
-       // Scroll to the bottom of the message list to show the latest messages
-       messageList.scrollTop(messageList.prop("scrollHeight"));
-   }
+        // Render search results as a dropdown list
+        function renderSearchResults(users) {
+            const searchResults = $('#searchResults');
+            searchResults.empty();
+            if (users.length > 0) {
+                users.forEach(user => {
+                    if (!selectedUsers.has(user.buwana_id)) {
+                        const userElement = `<div class="search-result-item" data-user-id="${user.buwana_id}">${user.first_name} ${user.last_name}</div>`;
+                        searchResults.append(userElement);
+                    }
+                });
 
-   // Function for creating a new conversation
-   function createConversation() {
-       const participantIds = Array.from(selectedUsers);
-       $.ajax({
-           url: '../messenger/create_conversation.php',
-           method: 'POST',
-           data: {
-               created_by: userId,
-               participant_ids: JSON.stringify(participantIds)
-           },
-           success: function(response) {
-               if (response.status === 'success') {
-                   $('#searchBoxContainer').addClass('hidden');
-                   $('#userSearchInput').val('');
-                   $('#selectedUsers').empty();
-                   selectedUsers.clear();
-                   loadConversations(); // Refresh the conversations list
-               } else {
-                   alert(response.message);
-               }
-           },
-           error: function(error) {
-               console.error('Error creating conversation:', error);
-           }
-       });
-   }
+                // Add click event for each search result item
+                $('.search-result-item').on('click', function() {
+                    const userId = $(this).data('user-id');
+                    const userName = $(this).text();
+                    if (selectedUsers.size < 5) {
+                        selectedUsers.add(userId);
+                        $('#selectedUsers').append(`<div class="selected-user-item" data-user-id="${userId}">${userName}</div>`);
+                        $(this).remove();
+                        $('#createConversationButton').prop('disabled', false);
+                    }
+                });
+            } else {
+                searchResults.html('<p>No users found</p>');
+            }
+        }
 
-   // User search and selection
-   $(document).ready(function() {
-       const selectedUsers = new Set();
+        // Remove a selected user when clicked
+        $('#selectedUsers').on('click', '.selected-user-item', function() {
+            const userId = $(this).data('user-id');
+            selectedUsers.delete(userId);
+            $(this).remove();
+            if (selectedUsers.size === 0) {
+                $('#createConversationButton').prop('disabled', true);
+            }
+        });
 
-       // Show search box when "Start Conversation" button is clicked
-       $('#startConversationButton').on('click', function() {
-           $('#searchBoxContainer').toggleClass('hidden');
-           $('#userSearchInput').focus();
-       });
+        // Create a new conversation with selected users
+        $('#createConversationButton').on('click', function() {
+            const participantIds = Array.from(selectedUsers);
+            $.ajax({
+                url: '../messenger/create_conversation.php',
+                method: 'POST',
+                data: {
+                    created_by: userId,
+                    participant_ids: JSON.stringify(participantIds)
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        $('#searchBoxContainer').addClass('hidden');
+                        $('#userSearchInput').val('');
+                        $('#selectedUsers').empty();
+                        selectedUsers.clear();
+                        loadConversations(); // Reload the conversation list after creating a new conversation
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function(error) {
+                    console.error('Error creating conversation:', error);
+                }
+            });
+        });
 
-       // Handle user search input
-       $('#userSearchInput').on('input', function() {
-           const query = $(this).val().trim();
-           if (query.length >= 4) {
-               searchUsers(query);
-           } else {
-               $('#searchResults').empty();
-           }
-       });
+        // Load conversations on page load
+        loadConversations();
 
-       // AJAX request to search for users
-       function searchUsers(query) {
-           $.ajax({
-               url: '../messenger/search_users.php',
-               method: 'GET',
-               data: {
-                   query: query,
-                   user_id: userId // Ensure userId is available and passed in the request
-               },
-               success: function(response) {
-                   if (response.status === 'success') {
-                       renderSearchResults(response.users);
-                   } else {
-                       $('#searchResults').html('<p>No users found</p>');
-                   }
-               },
-               error: function(error) {
-                   console.error('Error searching users:', error);
-                   $('#searchResults').html('<p>An error occurred while searching.</p>');
-               }
-           });
-       }
+        // Function to fetch and display conversations
+        function loadConversations() {
+            $.ajax({
+                url: '../messenger/get_conversations.php',
+                method: 'GET',
+                data: { user_id: userId },
+                success: function(response) {
+                    console.log('Response from get_conversations.php:', response);
+                    if (response.status === 'success') {
+                        renderConversations(response.conversations);
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function(error) {
+                    console.error('Error fetching conversations:', error);
+                }
+            });
+        }
 
-       // Render search results as a dropdown list
-       function renderSearchResults(users) {
-           const searchResults = $('#searchResults');
-           searchResults.empty();
-           if (users.length > 0) {
-               users.forEach(user => {
-                   if (!selectedUsers.has(user.buwana_id)) {
-                       const userElement = `<div class="search-result-item" data-user-id="${user.buwana_id}">${user.first_name} ${user.last_name}</div>`;
-                       searchResults.append(userElement);
-                   }
-               });
+        // Render conversation list
+        function renderConversations(conversations) {
+            const conversationList = $('#conversation-list');
+            conversationList.empty();
+            conversations.forEach((conv, index) => {
+                const trimmedMessage = conv.last_message.length > 50
+                    ? conv.last_message.substring(0, 50) + '...'
+                    : conv.last_message;
 
-               // Add click event for each search result item
-               $('.search-result-item').on('click', function() {
-                   const userId = $(this).data('user-id');
-                   const userName = $(this).text();
-                   if (selectedUsers.size < 5) {
-                       selectedUsers.add(userId);
-                       $('#selectedUsers').append(`<div class="selected-user-item" data-user-id="${userId}">${userName}</div>`);
-                       $(this).remove(); // Remove from search results
-                       $('#createConversationButton').prop('disabled', false);
-                   }
-               });
-           } else {
-               searchResults.html('<p>No users found</p>');
-           }
-       }
+                const convElement = `
+                    <div class="conversation-item" data-conversation-id="${conv.conversation_id}">
+                        <p><strong>${conv.other_participants}</strong></p>
+                        <p>${trimmedMessage}</p>
+                        <p class="timestamp">${conv.updated_at}</p>
+                    </div>
+                `;
+                conversationList.append(convElement);
 
-       // Remove a selected user when clicked
-       $('#selectedUsers').on('click', '.selected-user-item', function() {
-           const userId = $(this).data('user-id');
-           selectedUsers.delete(userId);
-           $(this).remove();
-           if (selectedUsers.size === 0) {
-               $('#createConversationButton').prop('disabled', true);
-           }
-       });
+                // Automatically load the most recent conversation if it's the first time loading
+                if (index === 0) {
+                    loadMessages(conv.conversation_id);
+                    $('.conversation-item').removeClass('active');
+                    $(`.conversation-item[data-conversation-id="${conv.conversation_id}"]`).addClass('active');
+                }
+            });
 
-       // Handle the create conversation button click
-       $('#createConversationButton').on('click', createConversation);
+            // Add click event to each conversation
+            $('.conversation-item').on('click', function() {
+                const conversationId = $(this).data('conversation-id');
+                loadMessages(conversationId);
+                $('.conversation-item').removeClass('active');
+                $(this).addClass('active');
+            });
+        }
 
-       // Load conversations on page load
-       loadConversations();
-   });
+        // Fetch and display messages
+        function loadMessages(conversationId) {
+            $.ajax({
+                url: '../messenger/get_messages.php',
+                method: 'GET',
+                data: { conversation_id: conversationId, user_id: userId },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        renderMessages(response.messages);
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function(error) {
+                    console.error('Error fetching messages:', error);
+                }
+            });
+        }
+
+        // Render messages
+        function renderMessages(messages) {
+            const messageList = $('#message-list');
+            messageList.empty();
+            messages.forEach(msg => {
+                const messageClass = msg.sender_id == userId ? 'self' : '';
+                const msgElement = `
+                    <div class="message-item ${messageClass}">
+                        <p class="sender">${msg.sender_name}</p>
+                        <p>${msg.content}</p>
+                        <p class="timestamp">${msg.created_at}</p>
+                    </div>
+                `;
+                messageList.append(msgElement);
+            });
+
+            // Scroll to the bottom of the message list to show the latest messages
+            messageList.scrollTop(messageList.prop("scrollHeight"));
+        }
+
+        // Send a message
+        $('#sendButton').on('click', function() {
+            const messageContent = $('#messageInput').val().trim();
+            const selectedConversationId = $('.conversation-item.active').data('conversation-id');
+
+            if (messageContent && selectedConversationId) {
+                $.ajax({
+                    url: '../messenger/send_message.php',
+                    method: 'POST',
+                    data: {
+                        conversation_id: selectedConversationId,
+                        sender_id: userId,
+                        content: messageContent
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            $('#messageInput').val(''); // Clear the input field
+                            loadMessages(selectedConversationId); // Refresh message list
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function(error) {
+                        console.error('Error sending message:', error);
+                    }
+                });
+            } else {
+                alert('Please select a conversation and enter a message.');
+            }
+        });
+
+        // Mark messages as read
+        function markMessagesAsRead(conversationId, latestMessageId) {
+            $.ajax({
+                url: '../messenger/update_message_status.php',
+                method: 'POST',
+                data: {
+                    message_id: latestMessageId,
+                    user_id: userId,
+                    status: 'read'
+                },
+                success: function(response) {
+                    console.log('Messages marked as read:', response);
+                },
+                error: function(error) {
+                    console.error('Error marking messages as read:', error);
+                }
+            });
+        }
+    });
 </script>
 
 

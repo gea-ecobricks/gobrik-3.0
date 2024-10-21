@@ -66,7 +66,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
             <h2 id="greeting">GoBrik Messenger</h2>
-            <p id="subgreeting">Welcome to your conversations!</p>
+            <p id="subgreeting">Welcome to your conversations! <?php echo $buwana_id; ?></p>
         </div>
 
      <!-- ACTIVE MESSENGER PHP AND HTML GOES HERE-->

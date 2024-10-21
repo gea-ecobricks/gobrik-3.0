@@ -119,6 +119,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <script>
 
+   // Define userId as a global variable
+   const userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
+
 
     //user search and selection
 
@@ -142,28 +145,24 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     });
 
     // AJAX request to search for users
-  function searchUsers(query) {
-    $.ajax({
-        url: '../messenger/search_users.php',
-        method: 'GET',
-        data: {
-            query: query,
-            user_id: userId // Ensure userId is available and passed in the request
-        },
-        success: function(response) {
-            if (response.status === 'success') {
-                renderSearchResults(response.users);
-            } else {
-                $('#searchResults').html('<p>No users found</p>');
+    function searchUsers(query) {
+        $.ajax({
+            url: '../messenger/search_users.php',
+            method: 'GET',
+            data: { query: query },
+            success: function(response) {
+                if (response.status === 'success') {
+                    renderSearchResults(response.users);
+                } else {
+                    $('#searchResults').html('<p>No users found</p>');
+                }
+            },
+            error: function(error) {
+                console.error('Error searching users:', error);
+                $('#searchResults').html('<p>An error occurred while searching.</p>');
             }
-        },
-        error: function(error) {
-            console.error('Error searching users:', error);
-            $('#searchResults').html('<p>An error occurred while searching.</p>');
-        }
-    });
-}
-
+        });
+    }
 
     // Render search results as a dropdown list
     function renderSearchResults(users) {
@@ -235,9 +234,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
    // 3. JavaScript/jQuery for Fetching and Displaying Conversations
-
-   // Define userId as a global variable
-   const userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
 
    $(document).ready(function() {
 

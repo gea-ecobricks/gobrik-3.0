@@ -99,23 +99,25 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     $(document).ready(function() {
     const userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
 
-    function loadConversations() {
-        $.ajax({
-            url: '../messenger/get_conversations.php',
-            method: 'GET',
-            data: { user_id: userId },
-            success: function(response) {
-                if (response.status === 'success') {
-                    renderConversations(response.conversations);
-                } else {
-                    alert(response.message);
-                }
-            },
-            error: function(error) {
-                console.error('Error fetching conversations:', error);
+  function loadConversations() {
+    $.ajax({
+        url: '../messenger/get_conversations.php',
+        method: 'GET',
+        data: { user_id: userId },
+        success: function(response) {
+            console.log('Response from get_conversations.php:', response);
+            if (response.status === 'success') {
+                renderConversations(response.conversations);
+            } else {
+                alert(response.message);
             }
-        });
-    }
+        },
+        error: function(error) {
+            console.error('Error fetching conversations:', error);
+        }
+    });
+}
+
 
     function renderConversations(conversations) {
         const conversationList = $('#conversation-list');

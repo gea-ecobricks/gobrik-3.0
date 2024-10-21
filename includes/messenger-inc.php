@@ -5,7 +5,6 @@
 
 
 <!-- Include DataTables and jQuery Libraries -->
-<link rel="stylesheet" type="text/css" href="../styles/messenger.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

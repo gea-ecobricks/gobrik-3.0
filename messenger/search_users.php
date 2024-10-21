@@ -8,17 +8,18 @@ require_once '../buwanaconn_env.php';
 
 // Retrieve the search query from the GET request
 $query = isset($_GET['query']) ? trim($_GET['query']) : '';
+$user_id = isset($_GET['user_id']) ? intval($_GET['user_id']) : 0; // Ensure user_id is passed for exclusion
 
 $response = [];
 
 // Validate the query
 if (!empty($query)) {
     try {
-        // Prepare the SQL query to search for users
+        // Prepare the SQL query to search for users by first_name, last_name, or email
         $stmt = $buwana_conn->prepare("
             SELECT buwana_id, first_name, last_name
             FROM users_tb
-            WHERE (first_name LIKE ? OR last_name LIKE ? OR username LIKE ?)
+            WHERE (first_name LIKE ? OR last_name LIKE ? OR email LIKE ?)
             AND buwana_id != ?
             LIMIT 10
         ");
@@ -38,6 +39,7 @@ if (!empty($query)) {
         }
         $stmt->close();
 
+        // Return the matching users
         $response = [
             "status" => "success",
             "users" => $users

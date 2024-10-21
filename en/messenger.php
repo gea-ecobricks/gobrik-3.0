@@ -75,7 +75,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="conversation-list-container">
         <!-- Container for the start conversation button and search box -->
         <div class="start-conversation-container">
-            <button id="startConversationButton">+ Start conversation...</button>
+            <button id="startConversationButton" class="confirm-button enabled">+ Start conversation...</button>
             <div id="searchBoxContainer" class="hidden">
                 <input type="text" id="userSearchInput" placeholder="Search users..." />
                 <div id="searchResults"></div>
@@ -142,24 +142,28 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     });
 
     // AJAX request to search for users
-    function searchUsers(query) {
-        $.ajax({
-            url: '../messenger/search_users.php',
-            method: 'GET',
-            data: { query: query },
-            success: function(response) {
-                if (response.status === 'success') {
-                    renderSearchResults(response.users);
-                } else {
-                    $('#searchResults').html('<p>No users found</p>');
-                }
-            },
-            error: function(error) {
-                console.error('Error searching users:', error);
-                $('#searchResults').html('<p>An error occurred while searching.</p>');
+  function searchUsers(query) {
+    $.ajax({
+        url: '../messenger/search_users.php',
+        method: 'GET',
+        data: {
+            query: query,
+            user_id: userId // Ensure userId is available and passed in the request
+        },
+        success: function(response) {
+            if (response.status === 'success') {
+                renderSearchResults(response.users);
+            } else {
+                $('#searchResults').html('<p>No users found</p>');
             }
-        });
-    }
+        },
+        error: function(error) {
+            console.error('Error searching users:', error);
+            $('#searchResults').html('<p>An error occurred while searching.</p>');
+        }
+    });
+}
+
 
     // Render search results as a dropdown list
     function renderSearchResults(users) {

@@ -101,7 +101,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     $(document).ready(function() {
     const userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
-
+    alert('userID');
   function loadConversations() {
     $.ajax({
         url: '../messenger/get_conversations.php',

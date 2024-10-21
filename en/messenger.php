@@ -101,7 +101,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     function loadConversations() {
         $.ajax({
-            url: '../messager/get_conversations.php',
+            url: '../messenger/get_conversations.php',
             method: 'GET',
             data: { user_id: userId },
             success: function(response) {
@@ -148,7 +148,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 // 4. JavaScript/jQuery for Fetching and Displaying Messages
     function loadMessages(conversationId) {
     $.ajax({
-        url: '../messager/get_messages.php',
+        url: '../messenger/get_messages.php',
         method: 'GET',
         data: { conversation_id: conversationId, user_id: userId },
         success: function(response) {
@@ -192,7 +192,7 @@ function renderMessages(messages) {
 
     if (messageContent && selectedConversationId) {
         $.ajax({
-            url: '../messager/send_message.php',
+            url: '../messenger/send_message.php',
             method: 'POST',
             data: {
                 conversation_id: selectedConversationId,
@@ -220,7 +220,7 @@ function renderMessages(messages) {
 
 function markMessagesAsRead(conversationId, latestMessageId) {
     $.ajax({
-        url: '../messager/update_message_status.php',
+        url: '../messenger/update_message_status.php',
         method: 'POST',
         data: {
             message_id: latestMessageId,

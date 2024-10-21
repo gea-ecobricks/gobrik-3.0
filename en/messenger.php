@@ -6,6 +6,7 @@ $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
 $version = '0.1';
 $page = 'messenger';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
+    $buwana_id = $_SESSION['buwana_id'] ?? ''; // Retrieve buwana_id from session
 
 // Check if user is logged in and session active
 if ($is_logged_in) {

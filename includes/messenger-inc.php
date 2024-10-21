@@ -162,6 +162,25 @@
 }
 
 
+#searchResults {
+    position: relative;
+    background: var(--darker);
+    border: 1px solid var(--settings-border);
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 2; /* Ensures it appears above other elements */
+}
+
+.search-result-item {
+    padding: 8px;
+    border-bottom: 1px solid var(--settings-border);
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.search-result-item:hover {
+    background-color: var(--advanced-background);
+}
 
 
 

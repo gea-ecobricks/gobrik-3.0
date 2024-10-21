@@ -122,7 +122,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     //user search and selection
 
-    $(document).ready(function() {
+ $(document).ready(function() {
     const selectedUsers = new Set();
 
     // Show search box when "Start Conversation" button is clicked
@@ -134,7 +134,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     // Handle user search input
     $('#userSearchInput').on('input', function() {
         const query = $(this).val().trim();
-        if (query.length > 2) {
+        if (query.length >= 4) {
             searchUsers(query);
         } else {
             $('#searchResults').empty();
@@ -156,43 +156,48 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             },
             error: function(error) {
                 console.error('Error searching users:', error);
+                $('#searchResults').html('<p>An error occurred while searching.</p>');
             }
         });
     }
 
-    // Render search results
+    // Render search results as a dropdown list
     function renderSearchResults(users) {
         const searchResults = $('#searchResults');
         searchResults.empty();
-        users.forEach(user => {
-            if (!selectedUsers.has(user.buwana_id)) {
-                const userElement = `<div class="search-result-item" data-user-id="${user.buwana_id}">${user.first_name} ${user.last_name}</div>`;
-                searchResults.append(userElement);
-            }
-        });
+        if (users.length > 0) {
+            users.forEach(user => {
+                if (!selectedUsers.has(user.buwana_id)) {
+                    const userElement = `<div class="search-result-item" data-user-id="${user.buwana_id}">${user.first_name} ${user.last_name}</div>`;
+                    searchResults.append(userElement);
+                }
+            });
 
-        // Add click event for each search result item
-        $('.search-result-item').on('click', function() {
-            const userId = $(this).data('user-id');
-            const userName = $(this).text();
-            if (selectedUsers.size < 5) {
-                selectedUsers.add(userId);
-                $('#selectedUsers').append(`<div class="selected-user-item" data-user-id="${userId}">${userName}</div>`);
-                $(this).remove(); // Remove from search results
-                $('#createConversationButton').prop('disabled', false);
-            }
-        });
-
-        // Remove a selected user
-        $('#selectedUsers').on('click', '.selected-user-item', function() {
-            const userId = $(this).data('user-id');
-            selectedUsers.delete(userId);
-            $(this).remove();
-            if (selectedUsers.size === 0) {
-                $('#createConversationButton').prop('disabled', true);
-            }
-        });
+            // Add click event for each search result item
+            $('.search-result-item').on('click', function() {
+                const userId = $(this).data('user-id');
+                const userName = $(this).text();
+                if (selectedUsers.size < 5) {
+                    selectedUsers.add(userId);
+                    $('#selectedUsers').append(`<div class="selected-user-item" data-user-id="${userId}">${userName}</div>`);
+                    $(this).remove(); // Remove from search results
+                    $('#createConversationButton').prop('disabled', false);
+                }
+            });
+        } else {
+            searchResults.html('<p>No users found</p>');
+        }
     }
+
+    // Remove a selected user when clicked
+    $('#selectedUsers').on('click', '.selected-user-item', function() {
+        const userId = $(this).data('user-id');
+        selectedUsers.delete(userId);
+        $(this).remove();
+        if (selectedUsers.size === 0) {
+            $('#createConversationButton').prop('disabled', true);
+        }
+    });
 
     // Create a new conversation with selected users
     $('#createConversationButton').on('click', function() {
@@ -221,6 +226,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         });
     });
 });
+
 
 
 

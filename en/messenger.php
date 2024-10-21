@@ -54,20 +54,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <?php require_once("../includes/messenger-inc.php"); ?>
 
-
-<div id="form-modal-message" class="modal-hidden">
-    <button type="button" onclick="closeInfoModal()" aria-label="Click to close modal" class="x-button"></button>
-    <div class="modal-content-box" id="modal-content-box">
-        <div class="modal-message"></div>
-    </div>
-    <div class="modal-photo-box" id="modal-photo-box">
-        <div class ="modal-photo"></div>
-    </div>
-
-</div>
-
-<div id="page-content"> <!--modal blur added here-->
-
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
 <div id="top-page-image" class="message-birded top-page-image"></div>
@@ -77,7 +63,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
         <div style="text-align:center;width:100%;margin:auto;">
             <h2 id="greeting">GoBrik Messenger</h2>
-            <p id="subgreeting">Welcome to your conversations</p>
+            <p id="subgreeting">Welcome to your conversations!</p>
         </div>
 
      <!-- ACTIVE MESSENGER PHP AND HTML GOES HERE-->

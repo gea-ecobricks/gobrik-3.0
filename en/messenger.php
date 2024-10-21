@@ -71,22 +71,27 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
      <!-- ACTIVE MESSENGER PHP AND HTML GOES HERE-->
 
-   <div class="messenger-container">
-    <div class="conversation-list" id="conversation-list">
+  <div class="messenger-container">
+    <div class="conversation-list-container">
+        <!-- Container for the start conversation button and search box -->
         <div class="start-conversation-container">
-    <button id="startConversationButton">+ Start conversation...</button>
-    <div id="searchBoxContainer" class="hidden">
-        <input type="text" id="userSearchInput" placeholder="Search users..." />
-        <div id="searchResults"></div>
-        <div id="selectedUsers">
-            <!-- Selected users will appear here -->
+            <button id="startConversationButton">+ Start conversation...</button>
+            <div id="searchBoxContainer" class="hidden">
+                <input type="text" id="userSearchInput" placeholder="Search users..." />
+                <div id="searchResults"></div>
+                <div id="selectedUsers">
+                    <!-- Selected users will appear here -->
+                </div>
+                <button id="createConversationButton" disabled>Create Conversation</button>
+            </div>
         </div>
-        <button id="createConversationButton" disabled>Create Conversation</button>
-    </div>
-</div>
 
-        <!-- Conversations will be dynamically loaded here -->
+        <!-- Scrollable container for conversations -->
+        <div class="conversation-list" id="conversation-list">
+            <!-- Conversations will be dynamically loaded here -->
+        </div>
     </div>
+
     <div class="message-thread" id="message-thread">
         <div id="message-list">
             <!-- Messages will be dynamically loaded here -->
@@ -97,6 +102,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>
     </div>
 </div>
+
+
+
+
+
 
     </div>
 </div>

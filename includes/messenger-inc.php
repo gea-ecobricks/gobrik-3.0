@@ -21,46 +21,81 @@
     }
 
 
+/* MESSENGER CSS */
 .hidden {
     display: none;
 }
 
+.messenger-container {
+    display: flex;
+    height: calc(100vh - 150px); /* Adjust height as needed */
+    border: 1px solid var(--settings-border);
+    background: var(--darker);
+    border-radius: 15px;
+}
+
+.conversation-list-container {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--settings-border);
+    background: var(--darker);
+}
+
 .start-conversation-container {
     padding: 10px;
-    border-bottom: 1px solid #ddd;
+    background: var(--darker);
+    border-bottom: 1px solid var(--settings-border);
+    z-index: 1; /* Ensures it stays above the conversation list when scrolling */
+}
+
+#searchBoxContainer {
+    margin-top: 10px;
 }
 
 #searchResults, #selectedUsers {
     margin-top: 10px;
     max-height: 150px;
     overflow-y: auto;
-    border: 1px solid #ddd;
-    background: #fff;
+    border: 1px solid var(--settings-border);
+    background: var(--darker);
 }
 
 .search-result-item, .selected-user-item {
     padding: 5px;
     cursor: pointer;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--settings-border);
+    color: var(--text-color);
 }
 
 .selected-user-item {
-    background-color: #f0f0f0;
-}
-
-
-
-.messenger-container {
-    display: flex;
-    height: calc(100vh - 150px);
-    border: 1px solid #ddd;
+    background-color: var(--advanced-background);
 }
 
 .conversation-list {
-    width: 30%;
-    border-right: 1px solid #ddd;
+    flex-grow: 1;
     overflow-y: auto;
     padding: 10px;
+}
+
+.conversation-item {
+    padding: 10px;
+    border-bottom: 1px solid var(--settings-border);
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.conversation-item.active {
+    background-color: var(--advanced-background);
+}
+
+.conversation-item strong {
+    color: var(--h1); /* Color for the other participants' names */
+}
+
+.timestamp {
+    font-size: 0.8em;
+    color: var(--subdued-text);
 }
 
 .message-thread {
@@ -75,7 +110,7 @@
     overflow-y: auto;
     flex-grow: 1;
     padding-bottom: 10px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--settings-border);
 }
 
 .message-input {
@@ -88,7 +123,9 @@
     flex-grow: 1;
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--settings-border);
+    background: var(--darker);
+    color: var(--text-color);
 }
 
 #sendButton {
@@ -100,21 +137,12 @@
     cursor: pointer;
 }
 
-.conversation-item {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    cursor: pointer;
-}
-
-.conversation-item.active {
-    background-color: #f0f0f0;
-}
-
 .message-item {
     margin-bottom: 10px;
     padding: 10px;
     border-radius: 5px;
-    background-color: #f0f0f0;
+    background-color: var(--advanced-background);
+    color: var(--text-color);
 }
 
 .message-item.self {
@@ -125,11 +153,12 @@
 
 .message-item .sender {
     font-weight: bold;
+    color: var(--h1); /* Color for sender names */
 }
 
 .message-item .timestamp {
     font-size: 0.8em;
-    color: #777;
+    color: var(--subdued-text);
 }
 
 

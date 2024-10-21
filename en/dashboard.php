@@ -1,4 +1,3 @@
-
 <?php
 require_once '../earthenAuth_helper.php'; // Include the authentication helper functions
 

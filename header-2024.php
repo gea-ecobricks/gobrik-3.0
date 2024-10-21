@@ -416,14 +416,19 @@ display: none;
       <span class="status-circle" style="background-color: red;" title="Not yet deployed"></span>
     </div>-->
     <div class="menu-page-item">
+      <a href="messenger.php" data-lang-id="1000-bug-report">Report a Bug</a>
+      <span class="status-circle" style="background-color: red;" title="Under development."></span>
+    </div>
+
+    <div class="menu-page-item">
       <a href="index.php" data-lang-id="1000-landing-page">Landing Page</a>
-      <span class="status-circle" style="background-color: green;" title="Deployed. Under development."></span>
+      <span class="status-circle" style="background-color: green;" title="Deployed."></span>
     </div>
 
     <!-- GoBrik Tour at the bottom -->
     <div class="menu-page-item">
       <a data-lang-id="1001-gobrik-tour" onclick="closeSettings(); setTimeout(guidedTour, 500);">GoBrik Tour</a>
-      <span class="status-circle" style="background-color: red;" title="Under development"></span>
+      <span class="status-circle" style="background-color: yellow;" title="Working"></span>
     </div>
   </div> <!-- close overlay-content-settings -->
 </div> <!-- close main menu -->

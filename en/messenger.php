@@ -99,9 +99,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
    // 3. JavaScript/jQuery for Fetching and Displaying Conversations
 
-    $(document).ready(function() {
-    const userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
-    alert('userID');
+   // Define userId as a global variable
+   const userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
+
+   $(document).ready(function() {
+    alert(userId);
+
   function loadConversations() {
     $.ajax({
         url: '../messenger/get_conversations.php',

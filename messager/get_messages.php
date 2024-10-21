@@ -1,0 +1,87 @@
+<?php
+// Include the database connection
+require_once '../buwanaconn_env.php';
+
+// Retrieve the conversation ID from the GET request
+$conversation_id = isset($_GET['conversation_id']) ? intval($_GET['conversation_id']) : 0;
+$user_id = isset($_GET['user_id']) ? intval($_GET['user_id']) : 0;
+
+$response = [];
+
+// Validate the conversation ID and user ID
+if ($conversation_id > 0 && $user_id > 0) {
+    try {
+        // Prepare the SQL query to retrieve messages for the conversation
+        $stmt = $buwana_conn->prepare("
+            SELECT m.message_id,
+                   m.sender_id,
+                   u.first_name AS sender_name,
+                   m.content,
+                   m.created_at,
+                   ms.status AS message_status
+            FROM messages_tb m
+            LEFT JOIN users_tb u ON m.sender_id = u.buwana_id
+            LEFT JOIN message_status_tb ms ON ms.message_id = m.message_id AND ms.buwana_id = ?
+            WHERE m.conversation_id = ?
+            ORDER BY m.created_at ASC
+        ");
+        $stmt->bind_param("ii", $user_id, $conversation_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        // Fetch all messages as an associative array
+        $messages = [];
+        while ($row = $result->fetch_assoc()) {
+            $messages[] = [
+                "message_id" => $row['message_id'],
+                "sender_id" => $row['sender_id'],
+                "sender_name" => $row['sender_name'],
+                "content" => $row['content'],
+                "created_at" => $row['created_at'],
+                "status" => $row['message_status']
+            ];
+        }
+
+        // Close the statement
+        $stmt->close();
+
+        // Update the last read message ID for the user in the participants_tb
+        $update_stmt = $buwana_conn->prepare("
+            UPDATE participants_tb
+            SET last_read_message_id = (
+                SELECT MAX(message_id)
+                FROM messages_tb
+                WHERE conversation_id = ?
+            )
+            WHERE buwana_id = ? AND conversation_id = ?
+        ");
+        $update_stmt->bind_param("iii", $conversation_id, $user_id, $conversation_id);
+        $update_stmt->execute();
+        $update_stmt->close();
+
+        // Return the message data
+        $response = [
+            "status" => "success",
+            "messages" => $messages
+        ];
+    } catch (Exception $e) {
+        $response = [
+            "status" => "error",
+            "message" => "An error occurred while retrieving messages: " . $e->getMessage()
+        ];
+    }
+} else {
+    // Invalid conversation ID or user ID
+    $response = [
+        "status" => "error",
+        "message" => "Invalid conversation ID or user ID."
+    ];
+}
+
+// Output the response as JSON
+header('Content-Type: application/json');
+echo json_encode($response);
+
+// Close the database connection
+$buwana_conn->close();
+?>

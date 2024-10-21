@@ -68,9 +68,8 @@ echo '<!DOCTYPE html>
         <div class="form-container">
             <div style="text-align:center;width:100%;margin:auto;margin-top:25px;">
                 <h2 data-lang-id="001-latest-ecobricks">Latest Ecobricks</h2>
-                <p>
-                    As of today, <?php echo $ecobrick_count; ?> ecobricks have been logged on GoBrik,
-                    representing over <?php echo $total_weight; ?> kg of sequestered plastic!
+                <p><span data-lang-id="002-as-of-today">As of today, </span><?php echo $ecobrick_count; ?> <span data-lang-id="002b-have-been">ecobricks have been logged on GoBrik,
+                    representing over </span><?php echo $total_weight; ?> kg <span data-lang-id="002c-of-seq-plastic">of sequestered plastic!</span>
                 </p>
 
                 <table id="latest-ecobricks" class="display responsive nowrap" style="width:100%">
@@ -93,9 +92,6 @@ echo '<!DOCTYPE html>
 
             </div>
 
-            <div style="display:flex;flex-flow:row;width:100%;justify-content:center;margin-top:30px;">
-                <button class="go-button" id="log-ecobrick-button">➕ Log an Ecobrick</button>
-            </div>
         </div>
     </div>
 </div>

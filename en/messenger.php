@@ -83,10 +83,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 </div>
 
-
-
-
-
     </div>
 </div>
 
@@ -148,9 +144,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     loadConversations();
 });
 
-</script>
 
-<script>
 // 4. JavaScript/jQuery for Fetching and Displaying Messages
     function loadMessages(conversationId) {
     $.ajax({
@@ -189,9 +183,6 @@ function renderMessages(messages) {
     messageList.scrollTop(messageList.prop("scrollHeight"));
 }
 
-</script>
-
-<script>
 
     //5. JavaScript/jQuery for Sending Messages
 

@@ -35,10 +35,11 @@ if ($message_id > 0 && $user_id > 0 && in_array($status, ['read', 'delivered', '
             // If no rows were affected, it might mean the status entry does not exist
             $response = [
                 "status" => "error",
-                "message" => "Failed to update status. Message ID or User ID might be incorrect."
+                "message" => "No status updated. The message or user may not exist."
             ];
         }
 
+        // Close the statement
         $stmt->close();
     } catch (Exception $e) {
         $response = [

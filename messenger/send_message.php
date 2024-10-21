@@ -35,14 +35,18 @@ if ($conversation_id > 0 && $sender_id > 0 && !empty($content)) {
         $stmt = $buwana_conn->prepare("SELECT buwana_id FROM participants_tb WHERE conversation_id = ?");
         $stmt->bind_param("i", $conversation_id);
         $stmt->execute();
-        $result = $stmt->get_result();
-        $participants = $result->fetch_all(MYSQLI_ASSOC);
+
+        // Bind the result field and fetch each participant
+        $stmt->bind_result($buwana_id);
+        $participants = [];
+        while ($stmt->fetch()) {
+            $participants[] = $buwana_id;
+        }
         $stmt->close();
 
         // Insert or update the message status for each participant
         $status_stmt = $buwana_conn->prepare("INSERT INTO message_status_tb (message_id, buwana_id, status, updated_at) VALUES (?, ?, ?, NOW()) ON DUPLICATE KEY UPDATE status = VALUES(status), updated_at = NOW()");
-        foreach ($participants as $participant) {
-            $recipient_id = $participant['buwana_id'];
+        foreach ($participants as $recipient_id) {
             $status = ($recipient_id == $sender_id) ? 'read' : 'sending'; // Set 'read' for the sender immediately
             $status_stmt->bind_param("iis", $message_id, $recipient_id, $status);
             $status_stmt->execute();

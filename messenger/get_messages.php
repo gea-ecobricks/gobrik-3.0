@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 // Include the database connection
 require_once '../buwanaconn_env.php';
 
-// Retrieve the conversation ID from the GET request
+// Retrieve the conversation ID and user ID from the request
 $conversation_id = isset($_GET['conversation_id']) ? intval($_GET['conversation_id']) : 0;
 $user_id = isset($_GET['user_id']) ? intval($_GET['user_id']) : 0;
 
@@ -31,18 +31,20 @@ if ($conversation_id > 0 && $user_id > 0) {
         ");
         $stmt->bind_param("ii", $user_id, $conversation_id);
         $stmt->execute();
-        $result = $stmt->get_result();
 
-        // Fetch all messages as an associative array
+        // Bind the result fields
+        $stmt->bind_result($message_id, $sender_id, $sender_name, $content, $created_at, $message_status);
+
+        // Fetch all messages into an associative array
         $messages = [];
-        while ($row = $result->fetch_assoc()) {
+        while ($stmt->fetch()) {
             $messages[] = [
-                "message_id" => $row['message_id'],
-                "sender_id" => $row['sender_id'],
-                "sender_name" => $row['sender_name'],
-                "content" => $row['content'],
-                "created_at" => $row['created_at'],
-                "status" => $row['message_status']
+                "message_id" => $message_id,
+                "sender_id" => $sender_id,
+                "sender_name" => $sender_name,
+                "content" => $content,
+                "created_at" => $created_at,
+                "status" => $message_status
             ];
         }
 

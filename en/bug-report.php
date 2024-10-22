@@ -178,8 +178,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 </script>
 
 <script>
-
-    $(document).ready(function() {
+$(document).ready(function() {
     const maxFileSize = 10 * 1024 * 1024; // 10 MB
 
     // Handle photo upload button click
@@ -210,28 +209,13 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     .html('') // Remove inner content (camera icon)
                     .prop('disabled', true);
 
-                // Upload the file via AJAX
-                const formData = new FormData();
-                formData.append('image', file);
-                formData.append('user_id', userId);
+                // Simulate processing (since we are not uploading now)
+                setTimeout(function() {
+                    // Show successful attachment state
+                    $('#uploadPhotoButton').removeClass('uploading').prop('disabled', false);
+                    showUploadSuccess();
+                }, 1000); // Simulated delay for visual effect
 
-                $.ajax({
-                    url: '../messenger/upload_image_attachment.php',
-                    method: 'POST',
-                    data: formData,
-                    processData: false, // Don't process the files
-                    contentType: false, // Set content type to false as jQuery will tell the server it's a form data
-                    success: function(response) {
-                        // Handle successful upload
-                        $('#uploadPhotoButton').removeClass('uploading').prop('disabled', false);
-                        showUploadSuccess();
-                    },
-                    error: function(error) {
-                        console.error('Error uploading image:', error);
-                        $('#uploadPhotoButton').removeClass('uploading').prop('disabled', false);
-                        $('#feedbackMessage').removeClass('hidden').text('An error occurred while uploading the image. Please try again.');
-                    }
-                });
             } else {
                 alert('🤔 Hmmm... looks like this isn\'t an image file, or else it\'s over 10MB. Please try another file.');
                 $('#imageUploadInput').val(''); // Reset the input if validation fails
@@ -240,6 +224,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         }
     });
 
+    // Update the upload button to indicate success
     function showUploadSuccess() {
         $('#uploadPhotoButton')
             .html('✔️') // Add the check mark
@@ -278,6 +263,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         }
     );
 });
+
 </script>
 
 

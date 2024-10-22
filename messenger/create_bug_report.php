@@ -41,7 +41,29 @@ if ($created_by > 0 && !empty($message)) {
         $stmt = $buwana_conn->prepare("INSERT INTO messages_tb (conversation_id, sender_id, content) VALUES (?, ?, ?)");
         $stmt->bind_param("iis", $conversation_id, $created_by, $message);
         $stmt->execute();
+        $message_id = $buwana_conn->insert_id;
         $stmt->close();
+
+        // Handle file upload if an image is included
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            // Include the script that handles image upload
+            require_once '../messenger/upload_image_attachment.php';
+
+            // Prepare data for the upload function
+            $_POST['user_id'] = $created_by;
+            $_POST['message_id'] = $message_id;
+            $_POST['conversation_id'] = $conversation_id;
+            $_FILES['image'] = $_FILES['image']; // Include the image file
+
+            // Call the upload script and handle the response
+            ob_start(); // Start output buffering to capture the JSON response
+            include '../messenger/upload_image_attachment.php';
+            $upload_response = json_decode(ob_get_clean(), true); // Decode the JSON response
+
+            if ($upload_response['status'] !== 'success') {
+                throw new Exception($upload_response['message']);
+            }
+        }
 
         // Commit the transaction
         $buwana_conn->commit();

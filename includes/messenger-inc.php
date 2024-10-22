@@ -445,6 +445,15 @@ position: absolute;
 
   }
 
+
+.toggle-drawer-button {
+  width: 50px;
+  text-align: center;
+  background: var(--emblem-blue);
+  border-radius: 5px;
+  margin-left: 5px;
+
+
 .start-convo-button {
     display: inline-block;
     padding: 5px 10px;

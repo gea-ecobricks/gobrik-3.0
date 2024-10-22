@@ -105,7 +105,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <!-- FOOTER STARTS HERE -->
 <?php require_once("../footer-2024.php"); ?>
-
 <script>
     const userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
     const userContinentIcon = '<?php echo addslashes($user_continent_icon); ?>';
@@ -117,95 +116,58 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     $(document).ready(function() {
         // Handle form submission
+        $('#bugReportForm').on('submit', function(event) {
+            event.preventDefault();
 
-    const maxFileSize = 10 * 1024 * 1024; // 10 MB
+            const bugReport = $('#bugReportInput').val().trim();
+            const file = $('#imageUploadInput')[0].files[0];
 
-    $('#bugReportForm').on('submit', function(event) {
-        event.preventDefault();
+            if (bugReport) {
+                const formData = new FormData();
+                formData.append('created_by', userId);
 
-        const bugReport = $('#bugReportInput').val().trim();
-        const file = $('#imageUploadInput')[0].files[0];
+                // Append the user's bug report message with browser info and user data
+                const browserInfo = getBrowserInfo();
+                const userInfo = getUserData();
+                const messageWithInfo = `${bugReport}<br><br><hr><br>${browserInfo}<br><br><hr><br>${userInfo}`;
 
-        if (bugReport) {
-            const formData = new FormData();
-            formData.append('created_by', userId);
-            formData.append('message', bugReport);
+                formData.append('message', messageWithInfo);
 
-            if (file && validateFile(file)) {
-                formData.append('image', file);
-            }
+                // If a file is selected and valid, append it to the FormData
+                if (file && validateFile(file)) {
+                    formData.append('image', file);
+                }
 
-            $('#bugReportSubmit').addClass('loading').prop('disabled', true).html('');
-            $('#submitSpinner').removeClass('hidden');
+                // Show the spinner and disable the submit button
+                $('#bugReportSubmit').addClass('loading').prop('disabled', true).html('');
+                $('#submitSpinner').removeClass('hidden');
 
-            $.ajax({
-                url: '../messenger/create_bug_report.php',
-                method: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.status === 'success') {
-                        $('#greeting, #subgreeting, #bugReportInput, #bugReportSubmit, #uploadPhotoButton').fadeOut(300);
-                        $('#feedbackMessage')
-                            .removeClass('hidden error')
-                            .addClass('success')
-                            .html(`
-                                <h1>✅</h1>
-                                <h3>Bug report submitted successfully.</h3>
-                                <p>Thank you for taking the time to make GoBrik better for everyone.</p>
-                                <h2>🙏</h2>
-                            `);
-                    } else {
-                        $('#feedbackMessage')
-                            .removeClass('hidden success')
-                            .addClass('error')
-                            .text(response.message || 'Failed to submit bug report. Please try again.');
+                // Submit the bug report
+                $.ajax({
+                    url: '../messenger/create_bug_report.php',
+                    method: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: handleFormSuccess,
+                    error: handleFormError,
+                    complete: function() {
+                        $('#bugReportSubmit').removeClass('loading').prop('disabled', false).html('🐞 Submit Bug');
+                        $('#submitSpinner').addClass('hidden');
                     }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error('Error:', jqXHR.responseText);
-                    $('#feedbackMessage')
-                        .removeClass('hidden success')
-                        .addClass('error')
-                        .text('An error occurred. Please try again.');
-                },
-                complete: function() {
-                    $('#bugReportSubmit').removeClass('loading').prop('disabled', false).html('🐞 Submit Bug');
-                    $('#submitSpinner').addClass('hidden');
-                }
-            });
-        }
-    });
+                });
+            }
+        });
 
-    function validateFile(file) {
-        const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-        return validTypes.includes(file.type) && file.size <= maxFileSize;
-    }
-
-
-        // Submit the bug report with AJAX
-        function submitBugReport(formData) {
-            $.ajax({
-                url: '../messenger/create_bug_report.php',
-                method: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: handleFormSuccess,
-                error: handleFormError,
-                complete: function() {
-                    // Reset the button after the request completes
-                    $('#bugReportSubmit').removeClass('loading').prop('disabled', false).html('🐞 Submit Bug');
-                    $('#submitSpinner').addClass('hidden');
-                }
-            });
+        // Validate the uploaded file
+        function validateFile(file) {
+            const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+            return validTypes.includes(file.type) && file.size <= maxFileSize;
         }
 
         // Handle form submission success
         function handleFormSuccess(response) {
             if (response.status === 'success') {
-                // Hide elements and show the success message
                 $('#greeting, #subgreeting, #bugReportInput, #bugReportSubmit, #uploadPhotoButton').fadeOut(300);
                 $('#feedbackMessage')
                     .removeClass('hidden error')
@@ -217,7 +179,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                         <h2>🙏</h2>
                     `);
             } else {
-                showError(response.message);
+                showError(response.message || 'Failed to submit bug report. Please try again.');
             }
         }
 
@@ -296,14 +258,39 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         // Utility functions for gathering user and browser info
         function getBrowserInfo() {
-            // Details omitted for brevity
+            const userAgent = navigator.userAgent;
+            const platform = navigator.platform;
+            const appVersion = navigator.appVersion;
+            const appName = navigator.appName;
+            const appCodeName = navigator.appCodeName;
+            const screenWidth = window.screen.width;
+            const screenHeight = window.screen.height;
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            const language = navigator.language || navigator.userLanguage;
+
+            return `Browser Info:
+- App Name: ${appName}
+- App Version: ${appVersion}
+- App Code Name: ${appCodeName}
+- User Agent: ${userAgent}
+- Platform: ${platform}
+- Language: ${language}
+- Screen Size: ${screenWidth}x${screenHeight}
+- Viewport Size: ${viewportWidth}x${viewportHeight}`;
         }
 
         function getUserData() {
-            // Details omitted for brevity
+            return `User Info:
+- Continent Icon: ${userContinentIcon}
+- Location Watershed: ${userLocationWatershed}
+- Full Location: ${userLocationFull}
+- GEA Status: ${geaStatus}
+- Community Name: ${userCommunityName}`;
         }
     });
 </script>
+
 
 
 

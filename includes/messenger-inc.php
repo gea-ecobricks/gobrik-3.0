@@ -445,7 +445,7 @@ position: absolute;
 
   }
 
-.start-convo-button, .toggle-drawer-button {
+.start-convo-button {
     display: inline-block;
     padding: 5px 10px;
     background: var(--emblem-green);
@@ -454,10 +454,9 @@ position: absolute;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1em;
-    margin: auto;
-    transition: background 0.3s ease, border 0.3s ease;
+    transition: background 0.3s ease, border 0.3s ease, width 0.4s ease, opacity 0.3s ease;
+    width: calc(100% - 60px); /* Adjust width to accommodate the toggle button */
 }
-
 
 .start-convo-button.hidden {
     opacity: 0;
@@ -509,6 +508,7 @@ position: absolute;
 .message-thread.expanded {
     width: calc(100% - 60px); /* Expands when the drawer is collapsed */
 }
+
 
 .toggle-drawer-button:hover {
     background: var(--emblem-blue-over);

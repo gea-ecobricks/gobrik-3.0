@@ -445,83 +445,85 @@ position: absolute;
 
   }
 
-
-.toggle-drawer-button {
-  width: 50px;
-  text-align: center;
-  background: var(--emblem-blue);
-  border-radius: 5px;
-  margin-left: 5px;
-
-
-.start-convo-button {
-    display: inline-block;
-    padding: 5px 10px;
-    background: var(--emblem-green);
-    color: white;
-    border: 1px solid var(--emblem-green);
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background 0.3s ease, border 0.3s ease, width 0.4s ease, opacity 0.3s ease;
-    width: calc(100% - 60px); /* Adjust width to accommodate the toggle button */
-}
-
-.start-convo-button.hidden {
-    opacity: 0;
-    pointer-events: none; /* Prevent interaction when hidden */
-    width: 0;
-}
-
-.toggle-drawer-button {
-    width: 50px;
-    text-align: center;
-    background: var(--emblem-blue);
-    border-radius: 5px;
-    margin-top: 0;
-    transition: background-color 0.3s ease, margin-left 0.4s ease, margin-top 0.4s ease;
-}
-
-.toggle-drawer-button.collapsed {
-    margin-left: 0;
-    margin-top: 10px;
-}
-
 .conversation-list-container {
     width: 30%;
     display: flex;
     flex-direction: column;
     border-right: 1px solid var(--settings-border);
     background: var(--darker);
-    transition: width 0.4s ease; /* Smooth transition for width */
+    transition: width 0.4s ease; /* Animates the width change over 0.4 seconds */
 }
 
-.conversation-list-container.collapsed {
-    width: 60px; /* Narrower width when collapsed */
-}
-
-.conversation-details, .delete-conversation {
-    transition: opacity 0.3s ease;
-}
-
-.conversation-details.hidden, .delete-conversation.hidden {
-    opacity: 0;
-    pointer-events: none;
+.conversation-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
 }
 
 .message-thread {
     width: 70%;
-    transition: width 0.4s ease; /* Adjusts smoothly when the conversation list changes width */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    transition: width 0.4s ease; /* Animates the width change over 0.4 seconds */
 }
 
 .message-thread.expanded {
-    width: calc(100% - 60px); /* Expands when the drawer is collapsed */
+    width: calc(100% - 60px); /* When the conversation list is collapsed, the message thread takes more space */
 }
 
-
-.toggle-drawer-button:hover {
-    background: var(--emblem-blue-over);
+.conversation-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid var(--settings-border);
+    cursor: pointer;
+    color: var(--text-color);
 }
+
+.conversation-item.collapsed .delete-conversation,
+.conversation-item.collapsed .conversation-details,
+.start-convo-button.hidden {
+    display: none; /* Hide elements when the drawer is collapsed */
+}
+
+.delete-conversation {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 0.9em;
+    color: var(--subdued-text);
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 2px;
+    line-height: 1;
+}
+
+.delete-conversation:hover {
+    color: var(--emblem-red); /* Change the color on hover to indicate delete action */
+}
+
+.conversation-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px; /* Prevent the icon from shrinking */
+    border-radius: 50%;
+    background-color: var(--font-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.conversation-details {
+    flex-grow: 1;
+    overflow: hidden;
+    transition: opacity 0.4s ease; /* Smoothly fades out the details when hidden */
+}
+
 
 
 

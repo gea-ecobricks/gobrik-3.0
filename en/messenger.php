@@ -485,31 +485,34 @@ $(document).ready(function() {
 </script>
 
 <script>
+
+
 $(document).ready(function() {
     let isDrawerCollapsed = false;
 
     $('#toggleConvoDrawer').on('click', function() {
         if (isDrawerCollapsed) {
             // Expand the drawer
-            $('.conversation-list-container').removeClass('collapsed');
-            $('#startConversationButton').removeClass('hidden');
-            $('#toggleConvoDrawer').removeClass('collapsed').html('<');
-            $('.conversation-details').removeClass('hidden');
-            $('.delete-conversation').removeClass('hidden');
+            $('.conversation-list-container').css('width', '30%');
             $('.message-thread').removeClass('expanded');
+            $('#startConversationButton').removeClass('hidden');
+            $('#toggleConvoDrawer').html('<');
+
+            // Show conversation details after expanding
+            $('.conversation-item').removeClass('collapsed');
         } else {
             // Collapse the drawer
-            $('.conversation-list-container').addClass('collapsed');
-            $('#startConversationButton').addClass('hidden');
-            $('#toggleConvoDrawer').addClass('collapsed').html('>');
-            $('.conversation-details').addClass('hidden');
-            $('.delete-conversation').addClass('hidden');
+            $('.conversation-list-container').css('width', '60px');
             $('.message-thread').addClass('expanded');
+            $('#startConversationButton').addClass('hidden');
+            $('#toggleConvoDrawer').html('>');
+
+            // Hide conversation details when collapsed
+            $('.conversation-item').addClass('collapsed');
         }
         isDrawerCollapsed = !isDrawerCollapsed; // Toggle the state
     });
 });
-
 
 
 </script>

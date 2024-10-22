@@ -94,28 +94,23 @@ while ($stmt->fetch()) {
     if (!empty($location_watershed)) {
         $location_brik = $location_watershed . ', ' . $location_brik;
     }
+$data[] = [
+    'ecobrick_thumb_photo_url' => '<img src="' . htmlspecialchars($ecobrick_thumb_photo_url) . '"
+        alt="Ecobrick ' . htmlspecialchars($serial_no) . ' Thumbnail"
+        title="Ecobrick ' . htmlspecialchars($serial_no) . '"
+        class="table-thumbnail"
+        onclick="ecobrickPreview(\'' . htmlspecialchars($ecobrick_full_photo_url) . '\', \'' . htmlspecialchars($serial_no) . '\', \'' . htmlspecialchars($weight_g) . ' g\', \'' . htmlspecialchars($ecobricker_maker) . '\', \'' . htmlspecialchars($location_brik) . '\')">',
+    'weight_g' => number_format($weight_g) . ' g',
+    'volume_ml' => number_format($volume_ml) . ' ml',
+    'density' => number_format($density, 2) . ' g/ml',
+    'date_logged_ts' => date("Y-m-d", strtotime($date_logged_ts)),
+    'location_brik' => htmlspecialchars($location_brik),
+    'ecobricker_maker' => htmlspecialchars($ecobricker_maker),
+    'community_name' => htmlspecialchars($community_name),
+    'status' => htmlspecialchars($status),
+    'serial_no' => htmlspecialchars($serial_no) // Pass only the raw serial number
+];
 
-    $serial_url = "brik.php?serial_no=" . urlencode($serial_no);
-
-    $data[] = [
-        'ecobrick_thumb_photo_url' => '<img src="' . htmlspecialchars($ecobrick_thumb_photo_url) . '"
-            alt="Ecobrick ' . htmlspecialchars($serial_no) . ' Thumbnail"
-            title="Ecobrick ' . htmlspecialchars($serial_no) . '"
-            class="table-thumbnail"
-            onclick="ecobrickPreview(\'' . htmlspecialchars($ecobrick_full_photo_url) . '\', \'' . htmlspecialchars($serial_no) . '\', \'' . htmlspecialchars($weight_g) . ' g\', \'' . htmlspecialchars($ecobricker_maker) . '\', \'' . htmlspecialchars($location_brik) . '\')">',
-        'weight_g' => number_format($weight_g) . ' g',
-        'volume_ml' => number_format($volume_ml) . ' ml',
-        'density' => number_format($density, 2) . ' g/ml',
-        'date_logged_ts' => date("Y-m-d", strtotime($date_logged_ts)),
-        'location_brik' => htmlspecialchars($location_brik),
-        'ecobricker_maker' => htmlspecialchars($ecobricker_maker),
-        'community_name' => htmlspecialchars($community_name),
-        'status' => htmlspecialchars($status),
-        'serial_no' => '<a href="' . htmlspecialchars($serial_url) . '" class="serial-button" data-text="' . htmlspecialchars($serial_no) . '">
-                            <span>' . htmlspecialchars($serial_no) . '</span>
-                        </a>'
-    ];
-}
 
 // Get total filtered records
 $filteredSql = "SELECT COUNT(*) as total FROM tb_ecobricks WHERE status != 'not ready'";

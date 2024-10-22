@@ -20,27 +20,29 @@
         padding-bottom: 100px;
     }
 
+
 /* MESSENGER CSS */
 .hidden {
     display: none;
 }
 
-/* Buttons, Messages, and Search Results Styling */
-.start-convo-button, .create-button {
-    width: 100%;
-    padding: 5px 10px;
-    border: 1px solid;
-    border-radius: 5px;
-    font-size: 1em;
-    transition: background 0.3s ease, border 0.3s ease;
-    cursor: pointer;
-}
 
+/* Start Conversation Button */
 .start-convo-button {
     background: var(--emblem-green);
     color: white;
-    border-color: var(--emblem-green);
-    text-align: left;
+    padding: 5px 10px;
+    border: 1px solid var(--emblem-green);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    margin: auto;
+    justify-content: center;
+    text-align: left; /* Aligns text to the left */
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.3s ease, border 0.3s ease;
+    width: 100%;
 }
 
 .start-convo-button:hover {
@@ -48,11 +50,22 @@
     border-color: var(--emblem-green-over);
 }
 
+/* Create Conversation Button */
 .create-button {
     background: grey;
     color: white;
-    border-color: grey;
-    cursor: not-allowed;
+    padding: 5px 10px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    cursor: not-allowed; /* Cursor shows as not-allowed when disabled */
+    font-size: 1em;
+    margin: auto;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.3s ease, border 0.3s ease;
+    width:100%;
 }
 
 .create-button:not(:disabled) {
@@ -68,20 +81,22 @@
 
 .no-messages {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: center; /* Vertically centers the content */
+    justify-content: center; /* Horizontally centers the content */
     color: var(--subdued-text);
     height: 100%;
-    text-align: center;
-    font-size: 1.1em;
-    padding: 20px;
-    background: var(--darker);
-    border-radius: 15px;
+    text-align: center; /* Ensures text is centered in the element */
+    font-size: 1.1em; /* Adjust as needed for better readability */
+    padding: 20px; /* Optional: Adds some padding for spacing */
+    background: var(--darker); /* Optional: Ensure background matches the message area */
+    border-radius: 15px; /* Optional: Rounds the corners if needed */
 }
+
+
 
 .messenger-container {
     display: flex;
-    height: calc(100vh - 150px);
+    height: calc(100vh - 150px); /* Adjust height as needed */
     border: 1px solid var(--settings-border);
     background: var(--darker);
     border-radius: 15px;
@@ -99,7 +114,31 @@
     padding: 10px;
     background: var(--darker);
     border-bottom: 1px solid var(--settings-border);
+    z-index: 1; /* Ensures it stays above the conversation list when scrolling */
 }
+
+#searchBoxContainer {
+    margin-top: 10px;
+}
+
+#searchResults, #selectedUsers {
+    margin-top: 10px;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid var(--settings-border);
+    background: var(--darker);
+}
+
+.search-result-item, .selected-user-item {
+    padding: 5px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--settings-border);
+    color: var(--text-color);
+}
+
+/* .selected-user-item {
+    background-color: var(--advanced-background);
+} */
 
 .conversation-list {
     flex-grow: 1;
@@ -107,17 +146,35 @@
     padding: 10px;
 }
 
+.conversation-item {
+    padding: 10px;
+    border-bottom: 1px solid var(--settings-border);
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.conversation-item.active {
+    background-color: var(--lighter);
+}
+
+.conversation-item strong {
+    color: var(--h1); /* Color for the other participants' names */
+}
+
+.timestamp {
+    font-size: 0.8em;
+    color: var(--subdued-text);
+}
+
 .message-thread {
     width: 70%;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     padding: 10px;
 }
 
 #message-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
     overflow-y: auto;
     flex-grow: 1;
     padding-bottom: 10px;
@@ -143,43 +200,61 @@
     padding: 10px 15px;
     background-color: var(--emblem-blue);
     color: #fff;
+    border: none;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 #sendButton:hover {
-    background-color: var(--emblem-blue-over);
+background-color: var(--emblem-blue-over);
 }
 
 .message-item {
+    margin-bottom: 10px;
     padding: 10px;
-    border-radius: 15px;
-    max-width: 80%;
-    word-wrap: break-word;
+    border-radius: 5px;
+    background-color: var(--advanced-background);
+    color: var(--text-color);
+    min-width: 50%;
 }
 
 .message-item.self {
     background-color: #007BFF;
     color: #fff;
     align-self: flex-end;
-    text-align: right;
-}
-
-.message-item:not(.self) {
-    background-color: var(--advanced-background);
-    color: var(--text-color);
-    align-self: flex-start;
-    text-align: left;
 }
 
 .message-item .sender {
     font-weight: bold;
-    color: var(--h1);
+    color: var(--h1); /* Color for sender names */
 }
 
 .message-item .timestamp {
     font-size: 0.8em;
     color: var(--subdued-text);
 }
+
+
+#searchResults {
+    position: relative;
+    background: var(--darker);
+    border: 1px solid var(--settings-border);
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 2; /* Ensures it appears above other elements */
+}
+
+.search-result-item {
+    padding: 8px;
+    border-bottom: 1px solid var(--settings-border);
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.search-result-item:hover {
+    background-color: var(--advanced-background);
+}
+
 
 
 

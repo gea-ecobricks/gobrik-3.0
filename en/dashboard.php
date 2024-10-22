@@ -166,8 +166,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once("../footer-2024.php"); ?>
 
 <script>
+
+            var ecobrikerId = "<?php echo htmlspecialchars($ecobricker_id); ?>"; // Get the logged-in user's ecobriker_id
+
+
     $(document).ready(function() {
-        var ecobrikerId = "<?php echo htmlspecialchars($ecobricker_id); ?>"; // Get the logged-in user's ecobriker_id
 
         $("#latest-ecobricks").DataTable({
             "responsive": true,

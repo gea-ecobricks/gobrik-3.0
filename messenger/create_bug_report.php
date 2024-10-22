@@ -46,14 +46,12 @@ if ($created_by > 0 && !empty($message)) {
 
         // Handle file upload if an image is included
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            // Include the script that handles image upload
             require_once '../messenger/upload_image_attachment.php';
 
             // Prepare data for the upload function
             $_POST['user_id'] = $created_by;
             $_POST['message_id'] = $message_id;
             $_POST['conversation_id'] = $conversation_id;
-            $_FILES['image'] = $_FILES['image']; // Include the image file
 
             // Call the upload script and handle the response
             ob_start(); // Start output buffering to capture the JSON response
@@ -93,6 +91,7 @@ if ($created_by > 0 && !empty($message)) {
 // Output the response as JSON
 header('Content-Type: application/json');
 echo json_encode($response);
+exit(); // Ensure no further output after JSON
 
 // Close the database connection
 $buwana_conn->close();

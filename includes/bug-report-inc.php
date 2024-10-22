@@ -50,6 +50,8 @@
     transition: background 0.3s ease, border 0.3s ease;
     margin: auto;
     display: block;
+    min-width:100px;
+    min-height: 42px;
 }
 
 #bugReportSubmit:hover {

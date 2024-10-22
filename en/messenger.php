@@ -146,7 +146,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     conversationList.empty();
     conversations.forEach((conv, index) => {
         // Use a default message if there is no last message
-        const lastMessage = conv.last_message ? conv.last_message : "No messages yet. Start the conversation!";
+        const lastMessage = conv.last_message ? conv.last_message : "No messages yet.<br>Start the conversation!";
         const trimmedMessage = lastMessage.length > 50
             ? lastMessage.substring(0, 50) + '...'
             : lastMessage;
@@ -222,103 +222,90 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 }
 
 
-   // Function for creating a new conversation
-   function createConversation() {
-       const participantIds = Array.from(selectedUsers);
-       $.ajax({
-           url: '../messenger/create_conversation.php',
-           method: 'POST',
-           data: {
-               created_by: userId,
-               participant_ids: JSON.stringify(participantIds)
-           },
-           success: function(response) {
-               if (response.status === 'success') {
-                   $('#searchBoxContainer').addClass('hidden');
-                   $('#userSearchInput').val('');
-                   $('#selectedUsers').empty();
-                   selectedUsers.clear();
-                   loadConversations(); // Refresh the conversations list
-               } else {
-                   alert(response.message);
-               }
-           },
-           error: function(error) {
-               console.error('Error creating conversation:', error);
-           }
-       });
-   }
-
    // User search and selection
    $(document).ready(function() {
-       const selectedUsers = new Set();
+    const selectedUsers = new Set();
 
-       // Show search box when "Start Conversation" button is clicked
-       $('#startConversationButton').on('click', function() {
-           $('#searchBoxContainer').toggleClass('hidden');
-           $('#userSearchInput').focus();
-       });
+    // Show search box when "Start Conversation" button is clicked and hide the button
+    $('#startConversationButton').on('click', function() {
+        $(this).addClass('hidden'); // Hide the start conversation button
+        $('#searchBoxContainer').removeClass('hidden'); // Show the search box
+        $('#userSearchInput').focus();
+    });
 
-       // Handle user search input
-       $('#userSearchInput').on('input', function() {
-           const query = $(this).val().trim();
-           if (query.length >= 4) {
-               searchUsers(query);
-           } else {
-               $('#searchResults').empty();
-           }
-       });
+    // Handle user search input
+    $('#userSearchInput').on('input', function() {
+        const query = $(this).val().trim();
+        if (query.length >= 4) {
+            searchUsers(query);
+        } else {
+            $('#searchResults').empty();
+        }
+    });
 
-       // AJAX request to search for users
-       function searchUsers(query) {
-           $.ajax({
-               url: '../messenger/search_users.php',
-               method: 'GET',
-               data: {
-                   query: query,
-                   user_id: userId // Ensure userId is available and passed in the request
-               },
-               success: function(response) {
-                   if (response.status === 'success') {
-                       renderSearchResults(response.users);
-                   } else {
-                       $('#searchResults').html('<p>No users found</p>');
-                   }
-               },
-               error: function(error) {
-                   console.error('Error searching users:', error);
-                   $('#searchResults').html('<p>An error occurred while searching.</p>');
-               }
-           });
-       }
+    // Render search results as a dropdown list
+    function renderSearchResults(users) {
+        const searchResults = $('#searchResults');
+        searchResults.empty();
+        if (users.length > 0) {
+            users.forEach(user => {
+                if (!selectedUsers.has(user.buwana_id)) {
+                    const userElement = `<div class="search-result-item" data-user-id="${user.buwana_id}">${user.first_name} ${user.last_name}</div>`;
+                    searchResults.append(userElement);
+                }
+            });
 
-       // Render search results as a dropdown list
-       function renderSearchResults(users) {
-           const searchResults = $('#searchResults');
-           searchResults.empty();
-           if (users.length > 0) {
-               users.forEach(user => {
-                   if (!selectedUsers.has(user.buwana_id)) {
-                       const userElement = `<div class="search-result-item" data-user-id="${user.buwana_id}">${user.first_name} ${user.last_name}</div>`;
-                       searchResults.append(userElement);
-                   }
-               });
+            // Add click event for each search result item
+            $('.search-result-item').on('click', function() {
+                const userId = $(this).data('user-id');
+                const userName = $(this).text();
+                if (selectedUsers.size < 5) {
+                    selectedUsers.add(userId);
+                    $('#selectedUsers').append(`<div class="selected-user-item" data-user-id="${userId}">${userName}</div>`);
+                    $(this).remove(); // Remove from search results
+                    $('#userSearchInput').val(''); // Clear the search input box to reset the dropdown
+                    $('#searchResults').empty(); // Clear the search results
+                    $('#createConversationButton').prop('disabled', false); // Enable the create button
+                }
+            });
+        } else {
+            searchResults.html('<p>No users found</p>');
+        }
+    }
 
-               // Add click event for each search result item
-               $('.search-result-item').on('click', function() {
-                   const userId = $(this).data('user-id');
-                   const userName = $(this).text();
-                   if (selectedUsers.size < 5) {
-                       selectedUsers.add(userId);
-                       $('#selectedUsers').append(`<div class="selected-user-item" data-user-id="${userId}">${userName}</div>`);
-                       $(this).remove(); // Remove from search results
-                       $('#createConversationButton').prop('disabled', false);
-                   }
-               });
-           } else {
-               searchResults.html('<p>No users found</p>');
-           }
-       }
+    // Function for creating a new conversation
+    function createConversation() {
+        const participantIds = Array.from(selectedUsers);
+        $.ajax({
+            url: '../messenger/create_conversation.php',
+            method: 'POST',
+            data: {
+                created_by: userId,
+                participant_ids: JSON.stringify(participantIds)
+            },
+            success: function(response) {
+                if (response.status === 'success') {
+                    $('#searchBoxContainer').addClass('hidden'); // Hide the search box
+                    $('#startConversationButton').removeClass('hidden'); // Show the start conversation button again
+                    $('#userSearchInput').val(''); // Clear the search input
+                    $('#searchResults').empty(); // Clear the search results
+                    $('#selectedUsers').empty(); // Clear selected users
+                    selectedUsers.clear(); // Clear the selected users set
+                    loadConversations(); // Refresh the conversations list
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function(error) {
+                console.error('Error creating conversation:', error);
+            }
+        });
+    }
+
+    // Handle the create conversation button click
+    $('#createConversationButton').on('click', createConversation);
+});
+
 
        // Remove a selected user when clicked
        $('#selectedUsers').on('click', '.selected-user-item', function() {

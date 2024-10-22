@@ -91,90 +91,63 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <!-- FOOTER STARTS HERE -->
 <?php require_once("../footer-2024.php"); ?>
-
 <script>
     const userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
+    const userContinentIcon = '<?php echo addslashes($user_continent_icon); ?>';
+    const userLocationWatershed = '<?php echo addslashes($user_location_watershed); ?>';
+    const userLocationFull = '<?php echo addslashes($user_location_full); ?>';
+    const geaStatus = '<?php echo addslashes($gea_status); ?>';
+    const userCommunityName = '<?php echo addslashes($user_community_name); ?>';
 
     $(document).ready(function() {
-    $('#bugReportForm').on('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission
+        $('#bugReportForm').on('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
 
-        const bugReport = $('#bugReportInput').val().trim();
-        if (bugReport) {
-            $.ajax({
-                url: '../messenger/create_bug_report.php',
-                method: 'POST',
-                data: {
-                    created_by: userId, // Pass the user's ID from PHP
-                    message: bugReport
-                },
-                success: function(response) {
-                    if (response.status === 'success') {
-                        $('#feedbackMessage').removeClass('hidden').text('Bug report submitted successfully.');
-                        $('#bugReportInput').val(''); // Clear the input field
-                    } else {
-                        $('#feedbackMessage').removeClass('hidden').text('Failed to submit bug report. Please try again.');
+            const bugReport = $('#bugReportInput').val().trim();
+            if (bugReport) {
+                // Get the browser info and user info
+                const browserInfo = getBrowserInfo();
+                const userInfo = getUserData();
+
+                // Append the browser info and user info to the user's bug report message
+                const messageWithInfo = `${bugReport}<br><br><hr><br>${browserInfo}<br><br><hr><br>${userInfo}`;
+
+                $.ajax({
+                    url: '../messenger/create_bug_report.php',
+                    method: 'POST',
+                    data: {
+                        created_by: userId, // Pass the user's ID from PHP
+                        message: messageWithInfo
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            $('#feedbackMessage').removeClass('hidden').text('Bug report submitted successfully.');
+                            $('#bugReportInput').val(''); // Clear the input field
+                        } else {
+                            $('#feedbackMessage').removeClass('hidden').text('Failed to submit bug report. Please try again.');
+                        }
+                    },
+                    error: function(error) {
+                        console.error('Error submitting bug report:', error);
+                        $('#feedbackMessage').removeClass('hidden').text('An error occurred while submitting your bug report. Please try again.');
                     }
-                },
-                error: function(error) {
-                    console.error('Error submitting bug report:', error);
-                    $('#feedbackMessage').removeClass('hidden').text('An error occurred while submitting your bug report. Please try again.');
-                }
-            });
-        }
-    });
+                });
+            }
+        });
 
-    $(document).ready(function() {
-    $('#bugReportForm').on('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission
+        function getBrowserInfo() {
+            const userAgent = navigator.userAgent;
+            const platform = navigator.platform;
+            const appVersion = navigator.appVersion;
+            const appName = navigator.appName;
+            const appCodeName = navigator.appCodeName;
+            const screenWidth = window.screen.width;
+            const screenHeight = window.screen.height;
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            const language = navigator.language || navigator.userLanguage;
 
-        const bugReport = $('#bugReportInput').val().trim();
-        if (bugReport) {
-            // Get the browser info and user info
-            const browserInfo = getBrowserInfo();
-            const userInfo = getUserData();
-
-            // Append the browser info and user info to the user's bug report message
-            const messageWithInfo = `${bugReport}<br><br><hr><br>${browserInfo}<br><br><hr><br>${userInfo}`;
-
-            $.ajax({
-                url: '../messenger/create_bug_report.php',
-                method: 'POST',
-                data: {
-                    created_by: userId, // Pass the user's ID from PHP
-                    message: messageWithInfo
-                },
-                success: function(response) {
-                    if (response.status === 'success') {
-                        $('#feedbackMessage').removeClass('hidden').text('Bug report submitted successfully.');
-                        $('#bugReportInput').val(''); // Clear the input field
-                    } else {
-                        $('#feedbackMessage').removeClass('hidden').text('Failed to submit bug report. Please try again.');
-                    }
-                },
-                error: function(error) {
-                    console.error('Error submitting bug report:', error);
-                    $('#feedbackMessage').removeClass('hidden').text('An error occurred while submitting your bug report. Please try again.');
-                }
-            });
-        }
-    });
-
-
-
-    function getBrowserInfo() {
-    const userAgent = navigator.userAgent;
-    const platform = navigator.platform;
-    const appVersion = navigator.appVersion;
-    const appName = navigator.appName;
-    const appCodeName = navigator.appCodeName;
-    const screenWidth = window.screen.width;
-    const screenHeight = window.screen.height;
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
-    const language = navigator.language || navigator.userLanguage;
-
-    return `Browser Info:
+            return `Browser Info:
 - App Name: ${appName}
 - App Version: ${appVersion}
 - App Code Name: ${appCodeName}
@@ -183,29 +156,19 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 - Language: ${language}
 - Screen Size: ${screenWidth}x${screenHeight}
 - Viewport Size: ${viewportWidth}x${viewportHeight}`;
-}
+        }
 
-
-const userContinentIcon = '<?php echo addslashes($user_continent_icon); ?>';
-    const userLocationWatershed = '<?php echo addslashes($user_location_watershed); ?>';
-    const userLocationFull = '<?php echo addslashes($user_location_full); ?>';
-    const geaStatus = '<?php echo addslashes($gea_status); ?>';
-    const userCommunityName = '<?php echo addslashes($user_community_name); ?>';
-
-
-function getUserData() {
-    return `User Info:
+        function getUserData() {
+            return `User Info:
 - Continent Icon: ${userContinentIcon}
 - Location Watershed: ${userLocationWatershed}
 - Full Location: ${userLocationFull}
 - GEA Status: ${geaStatus}
 - Community Name: ${userCommunityName}`;
-}
-
-
-});
-
+        }
+    });
 </script>
+
 
 
 </body>

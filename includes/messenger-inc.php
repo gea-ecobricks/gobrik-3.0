@@ -136,9 +136,9 @@
     color: var(--text-color);
 }
 
-.selected-user-item {
+/* .selected-user-item {
     background-color: var(--advanced-background);
-}
+} */
 
 .conversation-list {
     flex-grow: 1;

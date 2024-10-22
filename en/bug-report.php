@@ -117,7 +117,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     $(document).ready(function() {
         // Handle form submission
-        $(document).ready(function() {
+
     const maxFileSize = 10 * 1024 * 1024; // 10 MB
 
     $('#bugReportForm').on('submit', function(event) {

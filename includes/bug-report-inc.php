@@ -15,22 +15,16 @@
 
 <STYLE>
 
-        #main {
-        height: fit-content !important;
-        padding-bottom: 100px;
-    }
+/*         #main { */
+/*         height: fit-content !important; */
+/*         padding-bottom: 100px; */
+/*     } */
 
 
 /* MESSENGER CSS */
-.hidden {
-    display: none;
-}
-
-.bug-report-input-wrapper {
-    position: relative;
-    width: 100%; /* Ensure the wrapper takes up the full available width */
-    box-sizing: border-box; /* Include padding and border in width calculations */
-}
+/* .hidden { */
+/*     display: none; */
+/* } */
 
 #bugReportInput {
     width: 100%; /* Ensure the input fills the wrapper */
@@ -42,6 +36,37 @@
     font-size: 1.1em;
     margin-bottom: 10px;
     resize: vertical;
+    box-sizing: border-box; /* Include padding and border in width calculations */
+}
+
+#bugReportSubmit {
+    background: var(--emblem-green);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid var(--emblem-green);
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s ease, border 0.3s ease;
+    margin: auto;
+    display: block;
+}
+
+#bugReportSubmit:hover {
+    background: var(--emblem-green-over);
+    border-color: var(--emblem-green-over);
+}
+
+#feedbackMessage {
+    margin-top: 10px;
+    font-size: 1em;
+    color: var(--emblem-green);
+    text-align: center;
+}
+
+.bug-report-input-wrapper {
+    position: relative;
+    width: 100%; /* Ensure the wrapper takes up the full available width */
     box-sizing: border-box; /* Include padding and border in width calculations */
 }
 
@@ -97,6 +122,7 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
 
 
 

@@ -270,6 +270,59 @@ background-color: var(--emblem-blue-over);
     background-color: var(--advanced-background);
 }
 
+.conversation-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid var(--settings-border);
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.conversation-item.active {
+    background-color: var(--lighter);
+}
+
+.conversation-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--font-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.conversation-icon .initial {
+    color: var(--same);
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.conversation-details {
+    flex-grow: 1;
+    overflow: hidden; /* Ensures no overflow */
+}
+
+.conversation-details strong {
+    color: var(--h1); /* Color for the other participants' names */
+    font-size: 1em;
+}
+
+.convo-preview-text {
+    color: var(--text-color);
+    font-size: 0.9em;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adds "..." at the end if the text is too long */
+    white-space: nowrap; /* Ensures the text stays on a single line */
+}
+
+.timestamp {
+    font-size: 0.8em;
+    color: var(--subdued-text);
+    margin-top: 2px;
+}
 
 
 

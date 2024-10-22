@@ -152,10 +152,16 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
             const convElement = `
                 <div class="conversation-item" data-conversation-id="${conv.conversation_id}">
-                    <p><strong>${conv.other_participants}</strong></p>
-                    <p>${trimmedMessage}</p>
-                    <p class="timestamp">${conv.updated_at}</p>
+                    <div class="conversation-icon">
+                        <span class="initial">${conv.other_participants.charAt(0)}</span>
+                    </div>
+                    <div class="conversation-details">
+                        <p><strong>${conv.other_participants}</strong></p>
+                        <p class="convo-preview-text">${trimmedMessage}</p>
+                        <p class="timestamp">${conv.updated_at}</p>
+                    </div>
                 </div>
+
             `;
             conversationList.append(convElement);
 

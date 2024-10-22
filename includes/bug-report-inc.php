@@ -155,7 +155,7 @@
     animation: spin 1s linear infinite;
     position: absolute;
    margin-top: -33px;
-    left: 50%;
+    left: 48%;
     transform: translate(-50%, -50%);
 }
 

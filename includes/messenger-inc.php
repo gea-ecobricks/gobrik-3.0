@@ -223,21 +223,57 @@ background-color: var(--emblem-pink-over);
     min-width: 50%;
 }
 
+.message-item {
+    position: relative; /* Ensure the ::after element is positioned relative to the message box */
+    padding: 10px;
+    border-radius: 15px;
+    max-width: 80%;
+    word-wrap: break-word;
+    margin-bottom: 10px;
+}
+
 .message-item.self {
     background-color: var(--advanced-background);
     color: #fff;
     align-self: flex-end; /* Aligns to the right */
-    max-width: 80%;
     text-align: right;
+    margin-right: 22px; /* Space to account for the spike */
+}
+
+.message-item.self::after {
+    content: '';
+    position: absolute;
+    bottom: -18px; /* Position the spike below the message box */
+    right: 22px; /* 22px away from the right edge */
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 18px 18px 0 0; /* Creates a right-angled triangle */
+    border-color: var(--advanced-background) transparent transparent transparent; /* Color the spike */
+    transform: rotate(45deg); /* Rotate to create the angled effect */
 }
 
 .message-item:not(.self) {
     background-color: var(--emblem-blue);
     color: var(--text-color);
     align-self: flex-start; /* Aligns to the left */
-    max-width: 80%;
     text-align: left;
+    margin-left: 22px; /* Space to account for the spike */
 }
+
+.message-item:not(.self)::after {
+    content: '';
+    position: absolute;
+    bottom: -18px; /* Position the spike below the message box */
+    left: 22px; /* 22px away from the left edge */
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 18px 0 0 18px; /* Creates a left-angled triangle */
+    border-color: var(--emblem-blue) transparent transparent transparent; /* Color the spike */
+    transform: rotate(-45deg); /* Rotate to create the angled effect */
+}
+
 
 
 .message-item .sender {

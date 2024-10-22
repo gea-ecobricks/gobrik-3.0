@@ -70,16 +70,22 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>
 
 <!-- Bug Report Form -->
-        <form id="bugReportForm" data-lang-id="003-bug-form">
-            <div class="bug-report-input-wrapper" style="position: relative;">
-                <textarea id="bugReportInput" placeholder="What went wrong? Or... what could be better?" rows="6" required></textarea>
-                <input type="file" id="imageUploadInput" accept="image/jpeg, image/jpg, image/png, image/webp" style="display: none;" />
-                <span id="imageFileName" class="image-file-name"></span>
-                <button type="button" id="uploadPhotoButton" class="upload-photo-button" title="Upload Photo" aria-label="Upload Photo">📷</button>
-            </div>
+     <!-- Bug Report Form -->
+<form id="bugReportForm" data-lang-id="003-bug-form">
+    <div class="bug-report-input-wrapper" style="position: relative;">
+        <textarea id="bugReportInput" placeholder="What went wrong? Or... what could be better?" rows="6" required></textarea>
+        <input type="file" id="imageUploadInput" accept="image/jpeg, image/jpg, image/png, image/webp" style="display: none;" />
+        <span id="imageFileName" class="image-file-name"></span>
+        <button type="button" id="uploadPhotoButton" class="upload-photo-button" title="Upload Photo" aria-label="Upload Photo">📷</button>
+    </div>
 
-            <button type="submit" id="bugReportSubmit" class="submit-button enabled">🐞 Submit Bug</button>
-        </form>
+    <button type="submit" id="bugReportSubmit" class="submit-button enabled" title="Submit Bug Report">
+        🐞 Submit Bug
+        <div class="spinner hidden" id="submitSpinner"></div>
+    </button>
+    <div id="feedbackMessage" class="hidden"></div>
+</form>
+
 
 
         <!-- Feedback Message -->
@@ -106,7 +112,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     const geaStatus = '<?php echo addslashes($gea_status); ?>';
     const userCommunityName = '<?php echo addslashes($user_community_name); ?>';
 
-    $(document).ready(function() {
+   $(document).ready(function() {
     const maxFileSize = 10 * 1024 * 1024; // 10 MB
 
     $('#bugReportForm').on('submit', function(event) {
@@ -131,6 +137,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 }
             }
 
+            // Show the spinner and disable the submit button
+            $('#bugReportSubmit').addClass('loading').prop('disabled', true);
+            $('#submitSpinner').removeClass('hidden');
+            $('#bugReportSubmit').html(''); // Clear the button text
+
             $.ajax({
                 url: '../messenger/create_bug_report.php',
                 method: 'POST',
@@ -139,22 +150,42 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 contentType: false, // Set content type to false as jQuery will tell the server it's a form data
                 success: function(response) {
                     if (response.status === 'success') {
-                        $('#feedbackMessage').removeClass('hidden').text('Bug report submitted successfully.');
-                        $('#bugReportInput').val(''); // Clear the input field
-                        resetUploadButton(); // Reset the upload button
-                        $('#imageFileName').text(''); // Clear any displayed file name
-                        $('#imageUploadInput').val(''); // Reset the file input
+                        $('#feedbackMessage')
+                            .removeClass('hidden error')
+                            .addClass('success')
+                            .text('Bug report submitted successfully.');
+                        resetForm();
                     } else {
-                        $('#feedbackMessage').removeClass('hidden').text('Failed to submit bug report. Please try again.');
+                        $('#feedbackMessage')
+                            .removeClass('hidden success')
+                            .addClass('error')
+                            .text('Failed to submit bug report. Please try again.');
                     }
                 },
                 error: function(error) {
                     console.error('Error submitting bug report:', error);
-                    $('#feedbackMessage').removeClass('hidden').text('An error occurred while submitting your bug report. Please try again.');
+                    $('#feedbackMessage')
+                        .removeClass('hidden success')
+                        .addClass('error')
+                        .text('An error occurred while submitting your bug report. Please try again.');
+                },
+                complete: function() {
+                    // Reset the button after the request completes
+                    $('#bugReportSubmit').removeClass('loading').prop('disabled', false).html('🐞 Submit Bug');
+                    $('#submitSpinner').addClass('hidden');
                 }
             });
         }
     });
+
+    function resetForm() {
+        $('#bugReportInput').val(''); // Clear the input field
+        resetUploadButton(); // Reset the upload button
+        $('#imageFileName').text(''); // Clear any displayed file name
+        $('#imageUploadInput').val(''); // Reset the file input
+    }
+
+
 
 
 

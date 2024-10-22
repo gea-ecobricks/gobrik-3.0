@@ -26,8 +26,14 @@
     display: none;
 }
 
+.bug-report-input-wrapper {
+    position: relative;
+    width: 100%; /* Ensure the wrapper takes up the full available width */
+    box-sizing: border-box; /* Include padding and border in width calculations */
+}
+
 #bugReportInput {
-    width: 100%;
+    width: 100%; /* Ensure the input fills the wrapper */
     padding: 10px;
     border-radius: 5px;
     border: 1px solid grey;
@@ -36,40 +42,12 @@
     font-size: 1.1em;
     margin-bottom: 10px;
     resize: vertical;
-}
-
-#bugReportSubmit {
-    background: var(--emblem-green);
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    border: 1px solid var(--emblem-green);
-    cursor: pointer;
-    font-size: 1em;
-    transition: background 0.3s ease, border 0.3s ease;
-    margin: auto;
-    display: block;
-}
-
-#bugReportSubmit:hover {
-    background: var(--emblem-green-over);
-    border-color: var(--emblem-green-over);
-}
-
-#feedbackMessage {
-    margin-top: 10px;
-    font-size: 1em;
-    color: var(--emblem-green);
-    text-align: center;
-}
-
-.bug-report-input-wrapper {
-    position: relative;
+    box-sizing: border-box; /* Include padding and border in width calculations */
 }
 
 #uploadPhotoButton {
     position: absolute;
-    bottom: 10px;
+    bottom: 20px; /* Adjusted to be 10px above the bottom of the form field */
     right: 10px;
     width: 40px;
     height: 40px;
@@ -79,8 +57,8 @@
     border-radius: 50%;
     font-size: 1.2em;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: center; /* Center the icon vertically */
+    justify-content: center; /* Center the icon horizontally */
     cursor: pointer;
     transition: background 0.3s ease;
 }
@@ -92,9 +70,9 @@
 #uploadPhotoButton.uploading::after {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 50%; /* Center the spinner vertically */
+    left: 50%; /* Center the spinner horizontally */
+    transform: translate(-50%, -50%); /* Adjusts for perfect centering */
     width: 20px;
     height: 20px;
     border: 4px solid rgba(0, 0, 0, 0.1);
@@ -105,7 +83,7 @@
 
 .image-file-name {
     position: absolute;
-    bottom: 15px;
+    bottom: 25px; /* Adjusted position for better alignment with the upload button */
     right: 60px; /* Position to the left of the button */
     font-size: 0.8em;
     color: var(--subdued-text);
@@ -119,7 +97,6 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-
 
 
 

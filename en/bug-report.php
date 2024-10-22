@@ -78,11 +78,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <span id="imageFileName" class="image-file-name"></span>
         <button type="button" id="uploadPhotoButton" class="upload-photo-button" title="Upload Photo" aria-label="Upload Photo">📷</button>
     </div>
-
-    <button type="submit" id="bugReportSubmit" class="submit-button enabled" title="Submit Bug Report">
-        🐞 Submit Bug
-        <div class="load-spinner" id="submitSpinner"></div>
-    </button>
+    <div>
+        <button type="submit" id="bugReportSubmit" class="submit-button enabled" title="Submit Bug Report">
+            🐞 Submit Bug
+        </button>
+        <div class="load-spinner hidden" id="submitSpinner"></div>
+    </div>
     <div id="feedbackMessage" class="hidden"></div>
 </form>
 
@@ -104,6 +105,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <!-- FOOTER STARTS HERE -->
 <?php require_once("../footer-2024.php"); ?>
+
+
 <script>
     const userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
     const userContinentIcon = '<?php echo addslashes($user_continent_icon); ?>';

@@ -141,40 +141,42 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
        });
    }
 
-   function renderConversations(conversations) {
-       const conversationList = $('#conversation-list');
-       conversationList.empty();
-       conversations.forEach((conv, index) => {
-           // Trim the last message to 50 characters with ellipsis
-           const trimmedMessage = conv.last_message.length > 50
-               ? conv.last_message.substring(0, 50) + '...'
-               : conv.last_message;
+  function renderConversations(conversations) {
+    const conversationList = $('#conversation-list');
+    conversationList.empty();
+    conversations.forEach((conv, index) => {
+        // Use a default message if there is no last message
+        const lastMessage = conv.last_message ? conv.last_message : "No messages yet. Start the conversation!";
+        const trimmedMessage = lastMessage.length > 50
+            ? lastMessage.substring(0, 50) + '...'
+            : lastMessage;
 
-           const convElement = `
-               <div class="conversation-item" data-conversation-id="${conv.conversation_id}">
-                   <p><strong>${conv.other_participants}</strong></p>
-                   <p>${trimmedMessage}</p>
-                   <p class="timestamp">${conv.updated_at}</p>
-               </div>
-           `;
-           conversationList.append(convElement);
+        const convElement = `
+            <div class="conversation-item" data-conversation-id="${conv.conversation_id}">
+                <p><strong>${conv.other_participants}</strong></p>
+                <p>${trimmedMessage}</p>
+                <p class="timestamp">${conv.updated_at}</p>
+            </div>
+        `;
+        conversationList.append(convElement);
 
-           // Automatically load the most recent conversation if it's the first time loading
-           if (index === 0) {
-               loadMessages(conv.conversation_id);
-               $('.conversation-item').removeClass('active');
-               $(`.conversation-item[data-conversation-id="${conv.conversation_id}"]`).addClass('active');
-           }
-       });
+        // Automatically load the most recent conversation if it's the first time loading
+        if (index === 0) {
+            loadMessages(conv.conversation_id);
+            $('.conversation-item').removeClass('active');
+            $(`.conversation-item[data-conversation-id="${conv.conversation_id}"]`).addClass('active');
+        }
+    });
 
-       // Add click event to each conversation
-       $('.conversation-item').on('click', function() {
-           const conversationId = $(this).data('conversation-id');
-           loadMessages(conversationId);
-           $('.conversation-item').removeClass('active');
-           $(this).addClass('active');
-       });
-   }
+    // Add click event to each conversation
+    $('.conversation-item').on('click', function() {
+        const conversationId = $(this).data('conversation-id');
+        loadMessages(conversationId);
+        $('.conversation-item').removeClass('active');
+        $(this).addClass('active');
+    });
+}
+
 
    // JavaScript/jQuery for Fetching and Displaying Messages
    function loadMessages(conversationId) {
@@ -196,23 +198,29 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
    }
 
    function renderMessages(messages) {
-       const messageList = $('#message-list');
-       messageList.empty();
-       messages.forEach(msg => {
-           const messageClass = msg.sender_id == userId ? 'self' : '';
-           const msgElement = `
-               <div class="message-item ${messageClass}">
-                   <p class="sender">${msg.sender_name}</p>
-                   <p>${msg.content}</p>
-                   <p class="timestamp">${msg.created_at}</p>
-               </div>
-           `;
-           messageList.append(msgElement);
-       });
+    const messageList = $('#message-list');
+    messageList.empty();
+    if (messages.length > 0) {
+        messages.forEach(msg => {
+            const messageClass = msg.sender_id == userId ? 'self' : '';
+            const msgElement = `
+                <div class="message-item ${messageClass}">
+                    <p class="sender">${msg.sender_name}</p>
+                    <p>${msg.content}</p>
+                    <p class="timestamp">${msg.created_at}</p>
+                </div>
+            `;
+            messageList.append(msgElement);
+        });
 
-       // Scroll to the bottom of the message list to show the latest messages
-       messageList.scrollTop(messageList.prop("scrollHeight"));
-   }
+        // Scroll to the bottom of the message list to show the latest messages
+        messageList.scrollTop(messageList.prop("scrollHeight"));
+    } else {
+        // Display a default message when no messages are present
+        messageList.html('<div class="no-messages">No messages yet! Send a message to get the conversation going...</div>');
+    }
+}
+
 
    // Function for creating a new conversation
    function createConversation() {

@@ -206,18 +206,28 @@
 }
 
 .message-item {
-    margin-bottom: 10px;
+    max-width: 80%; /* Ensures the message box takes up to 80% of the available space */
+    margin: 5px;
     padding: 10px;
-    border-radius: 5px;
-    background-color: var(--advanced-background);
-    color: var(--text-color);
+    border-radius: 15px; /* 15px rounded corners */
+    display: inline-block;
+    word-wrap: break-word; /* Ensures long words break and don't overflow */
 }
 
 .message-item.self {
-    background-color: #007BFF;
-    color: #fff;
-    align-self: flex-end;
+    background-color: #007BFF; /* Blue background for user messages */
+    color: #fff; /* White text for better contrast */
+    align-self: flex-end; /* Aligns the user's messages to the right */
+    text-align: right; /* Text alignment to the right */
 }
+
+.message-item:not(.self) {
+    background-color: #f0f0f0; /* Light grey background for other users' messages */
+    color: #333; /* Darker text for better readability */
+    align-self: flex-start; /* Aligns other users' messages to the left */
+    text-align: left; /* Text alignment to the left */
+}
+
 
 .message-item .sender {
     font-weight: bold;

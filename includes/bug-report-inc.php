@@ -65,6 +65,31 @@
 }
 
 
+.bug-report-input-wrapper {
+    position: relative;
+}
+
+#uploadPhotoButton {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background: grey;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#uploadPhotoButton:hover {
+    background: var(--emblem-blue);
+}
 
 
 

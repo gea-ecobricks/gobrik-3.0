@@ -84,7 +84,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     </div>
 
-<div style="padding:10px;font-size: smaller; text-align: center; margin: auto; align-self: center;padding-top:40px;padding-bottom:50px;margin-top: 0px;color:var(--subdued-text);width:80%;">
+<div style="padding:10px;font-size: 0.9em; text-align: center; margin: auto; align-self: center;margin-top: 0px;color:var(--subdued-text);width:80%;">
         <p class="caption" data-lang-id="10-sending-info">When you send a bug report your message and details on your browser and OS will be sent to our development team over GoBrik messenger.</p>
     </div>
 </div>

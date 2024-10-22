@@ -85,6 +85,7 @@
     justify-content: center;
     cursor: pointer;
     transition: background 0.3s ease;
+    margin-bottom:10px;
 }
 
 #uploadPhotoButton:hover {

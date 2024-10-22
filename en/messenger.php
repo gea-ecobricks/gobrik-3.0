@@ -117,7 +117,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once("../footer-2024.php"); ?>
 
 
-
 <script>
 
 
@@ -395,6 +394,7 @@ function markMessagesAsRead(conversationId, latestMessageId) {
     });
 }
 </script>
+
 
 </body>
 </html>

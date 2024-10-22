@@ -1,4 +1,4 @@
-<title>Messenger | GoBrik</title>
+<title>Bug Report | GoBrik</title>
 
 <meta name="keywords" content="chat, conversations, buwana users, contact, communicate, talk, gobrik, messenger, message">
 <meta name="description" content="Chat and converse with other Buwana and GoBrik users">

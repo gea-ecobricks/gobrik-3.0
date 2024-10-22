@@ -55,7 +55,7 @@ Developed and made open source by the Global Ecobrick Alliance
 See our git hub repository for the full code and to help out:
 https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
-<?php require_once("../includes/messenger-inc.php"); ?>
+<?php require_once("../includes/bug-report-inc.php"); ?>
 
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
@@ -72,7 +72,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <!-- Bug Report Form -->
         <form id="bugReportForm">
             <textarea id="bugReportInput" placeholder="What went wrong? Or... what could be better?" rows="6" required></textarea>
-            <button type="submit" id="bugReportSubmit" class="submit-button">Submit Bug Report</button>
+            <button type="submit" id="bugReportSubmit" class="submit-button enabled">Submit Bug Report</button>
         </form>
 
         <!-- Feedback Message -->

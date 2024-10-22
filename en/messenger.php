@@ -460,6 +460,25 @@ $(document).ready(function() {
 
 </script>
 
+<script>
+
+    $(document).ready(function() {
+    // Listen for keypress event on the textarea
+    $('#messageInput').on('keypress', function(event) {
+        // Check if the key pressed is "Enter" (key code 13) and if there is text in the input
+        if (event.which === 13 && !event.shiftKey) {
+            event.preventDefault(); // Prevent the default behavior of adding a new line
+            const messageContent = $(this).val().trim();
+
+            // If the message content is not empty, trigger the send button click
+            if (messageContent) {
+                $('#sendButton').click();
+            }
+        }
+    });
+});
+
+</script>
 
 </body>
 </html>

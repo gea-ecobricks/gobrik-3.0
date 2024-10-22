@@ -458,9 +458,11 @@ position: absolute;
     transition: background 0.3s ease, border 0.3s ease;
 }
 
-.start-convo-button {
-    text-align: left;
-    width: calc(100% - 60px); /* Adjust width to accommodate toggle button */
+
+.start-convo-button.hidden {
+    opacity: 0;
+    pointer-events: none; /* Prevent interaction when hidden */
+    width: 0;
 }
 
 .toggle-drawer-button {
@@ -468,7 +470,44 @@ position: absolute;
     text-align: center;
     background: var(--emblem-blue);
     border-radius: 5px;
-    margin-left: 5px;
+    margin-top: 0;
+    transition: background-color 0.3s ease, margin-left 0.4s ease, margin-top 0.4s ease;
+}
+
+.toggle-drawer-button.collapsed {
+    margin-left: 0;
+    margin-top: 10px;
+}
+
+.conversation-list-container {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--settings-border);
+    background: var(--darker);
+    transition: width 0.4s ease; /* Smooth transition for width */
+}
+
+.conversation-list-container.collapsed {
+    width: 60px; /* Narrower width when collapsed */
+}
+
+.conversation-details, .delete-conversation {
+    transition: opacity 0.3s ease;
+}
+
+.conversation-details.hidden, .delete-conversation.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.message-thread {
+    width: 70%;
+    transition: width 0.4s ease; /* Adjusts smoothly when the conversation list changes width */
+}
+
+.message-thread.expanded {
+    width: calc(100% - 60px); /* Expands when the drawer is collapsed */
 }
 
 .toggle-drawer-button:hover {

@@ -348,9 +348,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         },
         error: function(error) {
             console.error('Error creating conversation:', error);
-        }
+           }
     });
-
+});
 
 
        // Load conversations on page load

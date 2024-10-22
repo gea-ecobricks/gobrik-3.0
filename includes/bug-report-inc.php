@@ -154,8 +154,8 @@
     border-radius: 50%;
     animation: spin 1s linear infinite;
     position: absolute;
-    top: 8px;
-    left: 55px;
+   margin-top: -33px;
+    left: 50%;
     transform: translate(-50%, -50%);
 }
 

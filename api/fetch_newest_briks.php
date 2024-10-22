@@ -1,6 +1,6 @@
 <?php
 require_once '../gobrikconn_env.php'; // Include database connection
-
+error_log("Received ecobricker_id: " . $ecobricker_id);
 // Get the request parameters sent by DataTables
 $draw = isset($_POST['draw']) ? intval($_POST['draw']) : 0;
 $start = isset($_POST['start']) ? intval($_POST['start']) : 0;
@@ -120,14 +120,28 @@ while ($stmt->fetch()) {
 
 // Get total filtered records
 $filteredSql = "SELECT COUNT(*) as total FROM tb_ecobricks WHERE status != 'not ready'";
+$bindFilteredTypes = "";
+$bindFilteredValues = [];
+
 if (!empty($ecobricker_id)) {
-    $filteredSql .= " AND maker_id = '$ecobricker_id'";
+    $filteredSql .= " AND maker_id = ?";
+    $bindFilteredTypes .= "s";
+    $bindFilteredValues[] = $ecobricker_id;
 }
+
 if (!empty($searchValue)) {
-    $filteredSql .= " AND (serial_no LIKE '%$searchValue%' OR location_full LIKE '%$searchValue%' OR ecobricker_maker LIKE '%$searchValue%' OR community_name LIKE '%$searchValue%')";
+    $filteredSql .= " AND (serial_no LIKE ? OR location_full LIKE ? OR ecobricker_maker LIKE ? OR community_name LIKE ?)";
+    $bindFilteredTypes .= "ssss";
+    $searchTerm = "%" . $searchValue . "%";
+    $bindFilteredValues = array_merge($bindFilteredValues, [$searchTerm, $searchTerm, $searchTerm, $searchTerm]);
 }
-$filteredResult = $gobrik_conn->query($filteredSql);
-$totalFilteredRecords = $filteredResult->fetch_assoc()['total'] ?? 0;
+
+$stmtFiltered = $gobrik_conn->prepare($filteredSql);
+$stmtFiltered->bind_param($bindFilteredTypes, ...$bindFilteredValues);
+$stmtFiltered->execute();
+$stmtFiltered->bind_result($totalFilteredRecords);
+$stmtFiltered->fetch();
+$stmtFiltered->close();
 
 // Prepare the JSON response
 $response = [

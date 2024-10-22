@@ -485,25 +485,29 @@ $(document).ready(function() {
 </script>
 
 <script>
-
-    $(document).ready(function() {
+$(document).ready(function() {
     let isDrawerCollapsed = false;
 
     $('#toggleConvoDrawer').on('click', function() {
         if (isDrawerCollapsed) {
             // Expand the drawer
-            $('.conversation-list-container').css('width', '30%');
-            $('#startConversationButton').html('📝 New Chat...');
-            $('#toggleConvoDrawer').html('<');
+            $('.conversation-list-container').removeClass('collapsed');
+            $('#startConversationButton').removeClass('collapsed').html('📝 New Chat...');
+            $('#toggleConvoDrawer').removeClass('collapsed').html('<');
+            $('.conversation-details').removeClass('hidden');
+            $('.delete-conversation').removeClass('hidden');
         } else {
             // Collapse the drawer
-            $('.conversation-list-container').css('width', '60px');
-            $('#startConversationButton').html('📝');
-            $('#toggleConvoDrawer').html('>');
+            $('.conversation-list-container').addClass('collapsed');
+            $('#startConversationButton').addClass('collapsed').html('📝');
+            $('#toggleConvoDrawer').addClass('collapsed').html('>');
+            $('.conversation-details').addClass('hidden');
+            $('.delete-conversation').addClass('hidden');
         }
         isDrawerCollapsed = !isDrawerCollapsed; // Toggle the state
     });
 });
+
 
 </script>
 

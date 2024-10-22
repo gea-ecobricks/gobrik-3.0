@@ -445,6 +445,7 @@ position: absolute;
 
   }
 
+
 .start-convo-button, .toggle-drawer-button {
     display: inline-block;
     padding: 5px 10px;
@@ -454,13 +455,17 @@ position: absolute;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1em;
-    margin: auto;
     transition: background 0.3s ease, border 0.3s ease;
 }
 
 .start-convo-button {
     text-align: left;
     width: calc(100% - 60px); /* Adjust width to accommodate toggle button */
+    transition: width 0.4s ease; /* Animate width change */
+}
+
+.start-convo-button.collapsed {
+    width: 50px; /* Reduced width when the drawer is collapsed */
 }
 
 .toggle-drawer-button {
@@ -469,11 +474,38 @@ position: absolute;
     background: var(--emblem-blue);
     border-radius: 5px;
     margin-left: 5px;
+    margin-top: 0;
+    transition: background-color 0.3s ease, margin-left 0.4s ease, margin-top 0.4s ease;
 }
 
-.toggle-drawer-button:hover {
-    background: var(--emblem-blue-over);
+.toggle-drawer-button.collapsed {
+    margin-left: 0;
+    margin-top: 10px;
 }
+
+.conversation-list-container {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--settings-border);
+    background: var(--darker);
+    transition: width 0.4s ease; /* Smooth transition for width */
+}
+
+.conversation-list-container.collapsed {
+    width: 60px;
+}
+
+.conversation-details, .delete-conversation {
+    transition: opacity 0.3s ease; /* Smooth fade-out for hiding details */
+}
+
+.conversation-details.hidden, .delete-conversation.hidden {
+    opacity: 0;
+    pointer-events: none; /* Prevent interaction when hidden */
+}
+
+
 
 
 

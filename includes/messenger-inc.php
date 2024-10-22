@@ -175,11 +175,15 @@
 }
 
 #message-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     overflow-y: auto;
     flex-grow: 1;
     padding-bottom: 10px;
     border-bottom: 1px solid var(--settings-border);
 }
+
 
 .message-input {
     display: flex;
@@ -221,8 +225,19 @@ background-color: var(--emblem-blue-over);
 .message-item.self {
     background-color: #007BFF;
     color: #fff;
-    align-self: flex-end;
+    align-self: flex-end; /* Aligns to the right */
+    max-width: 80%;
+    text-align: right;
 }
+
+.message-item:not(.self) {
+    background-color: var(--advanced-background);
+    color: var(--text-color);
+    align-self: flex-start; /* Aligns to the left */
+    max-width: 80%;
+    text-align: left;
+}
+
 
 .message-item .sender {
     font-weight: bold;

@@ -94,7 +94,10 @@ while ($stmt->fetch()) {
     if (!empty($location_watershed)) {
         $location_brik = $location_watershed . ', ' . $location_brik;
     }
-$data[] = [
+
+    $serial_url = "brik.php?serial_no=" . urlencode($serial_no);
+
+    $data[] = [
     'ecobrick_thumb_photo_url' => '<img src="' . htmlspecialchars($ecobrick_thumb_photo_url) . '"
         alt="Ecobrick ' . htmlspecialchars($serial_no) . ' Thumbnail"
         title="Ecobrick ' . htmlspecialchars($serial_no) . '"
@@ -111,6 +114,7 @@ $data[] = [
     'serial_no' => htmlspecialchars($serial_no) // Pass only the raw serial number
 ];
 
+}
 
 // Get total filtered records
 $filteredSql = "SELECT COUNT(*) as total FROM tb_ecobricks WHERE status != 'not ready'";

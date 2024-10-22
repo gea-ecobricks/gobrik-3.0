@@ -134,18 +134,7 @@ echo '<!DOCTYPE html>
                 { "data": "volume_ml" }, // Volume
                 { "data": "density" }, // Density
                 { "data": "status" }, // Status
-                {
-            "data": "serial_no",
-            "render": function(data, type, row) {
-                // Construct the URL for the serial_no
-                const serialUrl = 'brik.php?serial_no=' + encodeURIComponent(data);
-
-                // Return a button with the serial number
-                return '<a href="' + serialUrl + '" class="serial-button" data-text="' + data + '">'
-                    + '<span>' + data + '</span>'
-                    + '</a>';
-            }
-        }
+                { "data": "serial_no" } // Serial
             ],
             "columnDefs": [
                 { "orderable": false, "targets": [0, 6] }, // Make the image and status columns unsortable

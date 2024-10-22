@@ -82,7 +82,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <button type="submit" id="bugReportSubmit" class="submit-button enabled" title="Submit Bug Report">
             🐞 Submit Bug
         </button>
-        <div class="load-spinner" id="submitSpinner"></div>
+        <div class="load-spinner hidden" id="submitSpinner"></div>
     </div>
     <div id="feedbackMessage" class="hidden"></div>
 </form>

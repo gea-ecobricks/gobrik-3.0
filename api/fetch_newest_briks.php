@@ -8,7 +8,6 @@ $ecobricker_id = isset($_POST['ecobricker_id']) ? $_POST['ecobricker_id'] : ''; 
 
 // Search term (if any)
 $searchValue = isset($_POST['searchValue']) ? $_POST['searchValue'] : '';
-error_log("Received ecobricker_id: " . $ecobricker_id);
 
 // Prepare the base SQL query, including the community_name field
 $sql = "SELECT ecobrick_thumb_photo_url, ecobrick_full_photo_url, weight_g, volume_ml, density, date_logged_ts,

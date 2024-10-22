@@ -198,11 +198,12 @@
     border: 1px solid grey;
     background: var(--darker);
     color: var(--text-color);
+    font-size: 1.2em;
 }
 
 #sendButton {
     padding: 10px 15px;
-    background-color: var(--emblem-blue);
+    background-color: var(--emblem-pink);
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -210,7 +211,7 @@
 }
 
 #sendButton:hover {
-background-color: var(--emblem-blue-over);
+background-color: var(--emblem-pink-over);
 }
 
 .message-item {
@@ -223,7 +224,7 @@ background-color: var(--emblem-blue-over);
 }
 
 .message-item.self {
-    background-color: #007BFF;
+    background-color: var(--emblem-blue);
     color: #fff;
     align-self: flex-end; /* Aligns to the right */
     max-width: 80%;
@@ -287,7 +288,7 @@ background-color: var(--emblem-blue-over);
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: var(--font-color);
+    background-color: var(--text-color);
     display: flex;
     align-items: center;
     justify-content: center;

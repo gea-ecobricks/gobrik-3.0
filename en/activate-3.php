@@ -128,17 +128,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die('Error preparing statement for fetching community info: ' . $buwana_conn->error);
     }
 
-    // Check if the country and community were found in the database
-    if (empty($set_country_id) || empty($set_continent_code) || empty($community_id)) {
-        echo '<script>alert("Could not determine your country, continent, or community based on your location or community selection. Please refine your details.");</script>';
-    } else {
-        // Update the Buwana user's continent, country, location, watershed, and community using buwana_id
-        $sql_update_buwana = "UPDATE users_tb SET continent_code = ?, country_id = ?, location_full = ?, location_lat = ?, location_long = ?, location_watershed = ?, community_id = ? WHERE buwana_id = ?";
-        $stmt_update_buwana = $buwana_conn->prepare($sql_update_buwana);
-        if ($stmt_update_buwana) {
-            $stmt_update_buwana->bind_param('sissdsii', $set_continent_code, $set_country_id, $user_location_full, $user_lat, $user_lon, $location_watershed, $community_id, $buwana_id);
-            $stmt_update_buwana->execute();
-            $stmt_update_buwana->close();
+   // Check if the country, continent, and community were found in the database, and set to null if not found.
+$set_country_id = !empty($set_country_id) ? $set_country_id : null;
+$set_continent_code = !empty($set_continent_code) ? $set_continent_code : null;
+$community_id = !empty($community_id) ? $community_id : null;
+
+// Update the Buwana user's continent, country, location, watershed, and community using buwana_id
+$sql_update_buwana = "UPDATE users_tb SET continent_code = ?, country_id = ?, location_full = ?, location_lat = ?, location_long = ?, location_watershed = ?, community_id = ? WHERE buwana_id = ?";
+$stmt_update_buwana = $buwana_conn->prepare($sql_update_buwana);
+
+if ($stmt_update_buwana) {
+    $stmt_update_buwana->bind_param('sissdsii', $set_continent_code, $set_country_id, $user_location_full, $user_lat, $user_lon, $location_watershed, $community_id, $buwana_id);
+    $stmt_update_buwana->execute();
+    $stmt_update_buwana->close();
+} else {
+    echo '<script>alert("There was an error preparing the update statement. Please try again.");</script>';
+}
+
 
             // PART 7: Open GoBrik connection and update tb_ecobrickers to set buwana_activated to 1
             require_once("../gobrikconn_env.php");

@@ -373,11 +373,12 @@ background-color: var(--emblem-pink-over);
 #messageInput {
     flex-grow: 1;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 10px 0px 0px 10px;
     border: 1px solid grey;
     background: var(--darker);
     color: var(--text-color);
     font-size: 1.2em;
+    margin-left: -2px;
 }
 
 #sendButton {

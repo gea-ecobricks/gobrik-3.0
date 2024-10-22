@@ -97,8 +97,8 @@
 #uploadPhotoButton.uploading::after {
     content: '';
     position: absolute;
-    top: 50%; /* Center the spinner vertically */
-    left: 50%; /* Center the spinner horizontally */
+    top: 0px; /* Center the spinner vertically */
+    left: 0px; /* Center the spinner horizontally */
     transform: translate(-50%, -50%); /* Adjusts for perfect centering */
     width: 20px;
     height: 20px;
@@ -149,13 +149,13 @@
 #bugReportSubmit .spinner {
     width: 20px;
     height: 20px;
-    border: 3px solid rgba(255, 255, 255, 0.2);
+    border: 3px solid rgba(255, 255, 255, 0.8);
     border-top: 3px solid white;
     border-radius: 50%;
     animation: spin 1s linear infinite;
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 0px;
+    left: 0px;
     transform: translate(-50%, -50%);
 }
 

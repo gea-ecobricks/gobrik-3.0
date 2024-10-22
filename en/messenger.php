@@ -76,14 +76,16 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <!-- Container for the start conversation button and search box -->
         <div class="start-conversation-container">
             <button id="startConversationButton" class="start-convo-button">📝 New Chat...</button>
-            <div id="searchBoxContainer" class="hidden">
+            <div id="searchBoxContainer" class="hidden" style="position: relative;">
                 <input type="text" id="userSearchInput" placeholder="Search users..." />
+                <div class="spinner" id="userSearchSpinner"></div>
                 <div id="searchResults"></div>
                 <div id="selectedUsers">
                     <!-- Selected users will appear here -->
                 </div>
                 <button id="createConversationButton" disabled class="create-button">+ Create Conversation</button>
             </div>
+
         </div>
 
         <!-- Scrollable container for conversations -->
@@ -248,27 +250,34 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         });
 
         // AJAX request to search for users
-        function searchUsers(query) {
-            $.ajax({
-                url: '../messenger/search_users.php',
-                method: 'GET',
-                data: {
-                    query: query,
-                    user_id: userId
-                },
-                success: function(response) {
-                    if (response.status === 'success') {
-                        renderSearchResults(response.users);
-                    } else {
-                        $('#searchResults').html('<p>No users found</p>');
-                    }
-                },
-                error: function(error) {
-                    console.error('Error searching users:', error);
-                    $('#searchResults').html('<p>An error occurred while searching.</p>');
-                }
-            });
+        // Function to search for users
+function searchUsers(query) {
+    // Show the spinner before starting the AJAX request
+    $('#userSearchSpinner').show();
+
+    $.ajax({
+        url: '../messenger/search_users.php',
+        method: 'GET',
+        data: {
+            query: query,
+            user_id: userId // Ensure userId is available and passed in the request
+        },
+        success: function(response) {
+            $('#userSearchSpinner').hide(); // Hide the spinner after receiving the response
+            if (response.status === 'success') {
+                renderSearchResults(response.users);
+            } else {
+                $('#searchResults').html('<p>No users found</p>');
+            }
+        },
+        error: function(error) {
+            $('#userSearchSpinner').hide(); // Hide the spinner if there's an error
+            console.error('Error searching users:', error);
+            $('#searchResults').html('<p>An error occurred while searching.</p>');
         }
+    });
+}
+
 
         // Render search results as a dropdown list
         function renderSearchResults(users) {

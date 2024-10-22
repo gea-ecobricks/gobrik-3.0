@@ -187,7 +187,7 @@
 
 .message-input {
     display: flex;
-    gap: 10px;
+/*     gap: 10px; */
     margin-top: 10px;
 }
 
@@ -198,7 +198,8 @@
     border: 1px solid grey;
     background: var(--darker);
     color: var(--text-color);
-    font-size: 1.2em;
+    font-size: 1.3em;
+    border-radius: 10px 0px 0px 10px;
 }
 
 #sendButton {
@@ -250,7 +251,7 @@ background-color: var(--emblem-pink-over);
     border-style: solid;
     border-width: 18px 18px 0 0; /* Creates a right-angled triangle */
     border-color: var(--advanced-background) transparent transparent transparent; /* Color the spike */
-    transform: rotate(270deg); /* Rotate to create the angled effect */
+    transform: rotate(-270deg); /* Rotate to create the angled effect */
 }
 
 .message-item:not(.self) {

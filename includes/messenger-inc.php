@@ -326,20 +326,19 @@ background-color: var(--emblem-pink-over);
     border-radius: 10px 0px 0px 10px;
 }
 
-
-
-}
 .conversation-icon {
     width: 40px;
     height: 40px;
-    min-width: 40px; /* Prevent the icon from shrinking */
     border-radius: 50%;
     background-color: var(--text-color);
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 10px 10px auto 0px;
+    min-width: 40px; /* Prevent the icon from shrinking */
+
 }
+
 
 .conversation-icon .initial {
     color: var(--same);
@@ -485,7 +484,6 @@ position: absolute;
     border-bottom: 1px solid var(--settings-border);
     cursor: pointer;
     color: var(--text-color);
-    min-width: 80px;
 }
 
 .conversation-item.collapsed .delete-conversation,

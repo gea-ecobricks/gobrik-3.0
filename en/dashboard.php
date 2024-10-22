@@ -166,11 +166,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once("../footer-2024.php"); ?>
 
 <script>
-
-
     $(document).ready(function() {
+        var ecobrickerId = "<?php echo htmlspecialchars($ecobricker_id); ?>"; // Get the logged-in user's ecobricker_id
+        var userLang = "<?php echo htmlspecialchars($lang); ?>"; // Get the user's language
 
-   var ecobrickerId = "<?php echo htmlspecialchars($ecobricker_id); ?>"; // Get the logged-in user's ecobriker_id
         $("#latest-ecobricks").DataTable({
             "responsive": true,
             "serverSide": true,
@@ -179,7 +178,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 "url": "../api/fetch_newest_briks.php",
                 "type": "POST",
                 "data": function(d) {
-                    d.ecobricker_id = ecobrickerId; // Pass the ecobriker_id to filter the results to the user's ecobricks
+                    d.ecobricker_id = ecobrickerId; // Pass the ecobricker_id to filter the results to the user's ecobricks
                 }
             },
             "pageLength": 10, // Show 10 briks per page
@@ -199,27 +198,44 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 }
             },
             "columns": [
-                { "data": "ecobrick_thumb_photo_url" },
+                { "data": "ecobrick_thumb_photo_url", "orderable": false },
                 { "data": "weight_g" },
                 { "data": "volume_ml" },
                 { "data": "density" },
                 { "data": "date_logged_ts" },
-                { "data": "status" },
-                { "data": "serial_no" }
+                { "data": "status", "orderable": false },
+                {
+                    "data": "serial_no",
+                    "render": function(data, type, row) {
+                        if (type === 'display') {
+                            return `<button class="serial-no-button" data-serial-no="${data}" data-status="${row.status}" title="View Ecobrick Details">${data}</button>`;
+                        }
+                        return data;
+                    },
+                    "orderable": false
+                }
             ],
             "columnDefs": [
-                { "orderable": false, "targets": [0, 5] }, // Make the image and status columns unsortable
                 { "className": "all", "targets": [0, 1, 6] }, // Ensure Brik (thumbnail), Weight, and Serial always display
-                { "className": "min-tablet", "targets": [2, 3, 4] }, // These fields can be hidden first on smaller screens
-                { "className": "none", "targets": [] } // Allow other fields to wrap as needed
+                { "className": "min-tablet", "targets": [2, 3, 4] } // These fields can be hidden first on smaller screens
             ],
             "initComplete": function() {
                 var searchBox = $("div.dataTables_filter input");
                 searchBox.attr("placeholder", "Search your briks...");
+
+                // Add event listener for clicks on the serial number buttons
+                $('#latest-ecobricks tbody').on('click', '.serial-no-button', function() {
+                    var serialNo = $(this).data('serial-no');
+                    var status = $(this).data('status');
+                    viewEcobrickActions(serialNo, status, userLang);
+                });
             }
         });
     });
+
+
 </script>
+
 
 
 

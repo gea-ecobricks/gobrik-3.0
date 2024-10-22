@@ -28,6 +28,7 @@
 
 #bugReportInput {
     width: 100%;
+    width: -moz-available;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid grey;

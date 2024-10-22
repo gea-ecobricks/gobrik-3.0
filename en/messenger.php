@@ -155,6 +155,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
             const convElement = `
                 <div class="conversation-item" data-conversation-id="${conv.conversation_id}">
+                    <div class="delete-conversation">✖</div>
                     <div class="conversation-icon">
                         <span class="initial">${conv.other_participants.charAt(0)}</span>
                     </div>
@@ -164,6 +165,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                         <p class="timestamp">${conv.updated_at}</p>
                     </div>
                 </div>
+
 
             `;
             conversationList.append(convElement);

@@ -155,7 +155,14 @@ echo '<!DOCTYPE html>
             ],
             "initComplete": function() {
                 var searchBox = $("div.dataTables_filter input");
-                searchBox.attr("placeholder", "Search briks...");
+                searchBox.attr("placeholder", "Search your briks...");
+
+                // Add event listener for clicks on the serial number buttons
+                $('#latest-ecobricks tbody').on('click', '.serial-button', function() {
+                    var serialNo = $(this).data('serial-no');
+                    var status = $(this).data('status');
+                    viewEcobrickActions(serialNo, status, userLang);
+                });
             }
         });
     });

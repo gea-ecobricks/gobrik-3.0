@@ -73,8 +73,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <form id="bugReportForm" data-lang-id="003-bug-form">
             <div class="bug-report-input-wrapper" style="position: relative;">
                 <textarea id="bugReportInput" placeholder="What went wrong? Or... what could be better?" rows="6" required></textarea>
+                <input type="file" id="imageUploadInput" accept="image/jpeg, image/jpg, image/png, image/webp" style="display: none;" />
+                <span id="imageFileName" class="image-file-name"></span>
                 <button type="button" id="uploadPhotoButton" class="upload-photo-button" title="Upload Photo" aria-label="Upload Photo">📸</button>
             </div>
+
             <button type="submit" id="bugReportSubmit" class="submit-button enabled">🐞 Submit Bug</button>
         </form>
 
@@ -137,6 +140,56 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 });
             }
         });
+
+        const maxFileSize = 10 * 1024 * 1024; // 10 MB
+
+            // Handle photo upload button click
+            $('#uploadPhotoButton').on('click', function() {
+                $('#imageUploadInput').click(); // Trigger the hidden file input
+            });
+
+            // Handle file selection
+            $('#imageUploadInput').on('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+                    if (validTypes.includes(file.type) && file.size <= maxFileSize) {
+                        // Show the file name
+                        $('#imageFileName').text(file.name);
+
+                        // Change the button to show a spinner
+                        $('#uploadPhotoButton').addClass('uploading').prop('disabled', true);
+
+                        // Upload the file via AJAX
+                        const formData = new FormData();
+                        formData.append('image', file);
+                        formData.append('user_id', userId);
+
+                        $.ajax({
+                            url: '../messenger/upload_image_attachment.php',
+                            method: 'POST',
+                            data: formData,
+                            processData: false, // Don't process the files
+                            contentType: false, // Set content type to false as jQuery will tell the server it's a form data
+                            success: function(response) {
+                                // Handle successful upload
+                                $('#uploadPhotoButton').removeClass('uploading').prop('disabled', false);
+                                // You can store the file URL or handle the response as needed
+                                $('#feedbackMessage').removeClass('hidden').text('Image uploaded successfully.');
+                            },
+                            error: function(error) {
+                                console.error('Error uploading image:', error);
+                                $('#uploadPhotoButton').removeClass('uploading').prop('disabled', false);
+                                $('#feedbackMessage').removeClass('hidden').text('An error occurred while uploading the image. Please try again.');
+                            }
+                        });
+                    } else {
+                        alert('🤔 Hmmm... looks like this isn\'t an image file, or else it\'s over 10MB. Please try another file.');
+                        $('#imageUploadInput').val(''); // Reset the input if validation fails
+                        $('#imageFileName').text(''); // Clear any displayed file name
+                    }
+                }
+            });
 
         function getBrowserInfo() {
             const userAgent = navigator.userAgent;

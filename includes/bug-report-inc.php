@@ -92,6 +92,38 @@
     background: var(--emblem-blue);
 }
 
+.image-file-name {
+    position: absolute;
+    bottom: 15px;
+    right: 60px; /* Position to the left of the button */
+    font-size: 0.8em;
+    color: var(--subdued-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px; /* Adjust to fit */
+}
+
+#uploadPhotoButton.uploading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid var(--emblem-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
 
 
 
@@ -107,422 +139,422 @@
 
 
 /* Start Conversation Button */
-.start-convo-button {
-    background: var(--emblem-green);
-    color: white;
-    padding: 5px 10px;
-    border: 1px solid var(--emblem-green);
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    margin: auto;
-    justify-content: center;
-    text-align: left; /* Aligns text to the left */
-    text-decoration: none;
-    display: inline-block;
-    transition: background 0.3s ease, border 0.3s ease;
-    width: 100%;
-}
+/* .start-convo-button { */
+/*     background: var(--emblem-green); */
+/*     color: white; */
+/*     padding: 5px 10px; */
+/*     border: 1px solid var(--emblem-green); */
+/*     border-radius: 5px; */
+/*     cursor: pointer; */
+/*     font-size: 1em; */
+/*     margin: auto; */
+/*     justify-content: center; */
+/*     text-align: left;  *//* Aligns text to the left */
+/*     text-decoration: none; */
+/*     display: inline-block; */
+/*     transition: background 0.3s ease, border 0.3s ease; */
+/*     width: 100%; */
+/* } */
 
-.start-convo-button:hover {
-    background: var(--emblem-green-over);
-    border-color: var(--emblem-green-over);
-}
+/* .start-convo-button:hover { */
+/*     background: var(--emblem-green-over); */
+/*     border-color: var(--emblem-green-over); */
+/* } */
 
 /* Create Conversation Button */
-.create-button {
-    background: grey;
-    color: white;
-    padding: 5px 10px;
-    border: 1px solid grey;
-    border-radius: 5px;
-    cursor: not-allowed; /* Cursor shows as not-allowed when disabled */
-    font-size: 1em;
-    margin: auto;
-    justify-content: center;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    transition: background 0.3s ease, border 0.3s ease;
-    width:100%;
-}
+/* .create-button { */
+/*     background: grey; */
+/*     color: white; */
+/*     padding: 5px 10px; */
+/*     border: 1px solid grey; */
+/*     border-radius: 5px; */
+/*     cursor: not-allowed;  *//* Cursor shows as not-allowed when disabled */
+/*     font-size: 1em; */
+/*     margin: auto; */
+/*     justify-content: center; */
+/*     text-align: center; */
+/*     text-decoration: none; */
+/*     display: inline-block; */
+/*     transition: background 0.3s ease, border 0.3s ease; */
+/*     width:100%; */
+/* } */
 
-.create-button:not(:disabled) {
-    background: var(--emblem-blue);
-    border-color: var(--emblem-blue);
-    cursor: pointer;
-}
+/* .create-button:not(:disabled) { */
+/*     background: var(--emblem-blue); */
+/*     border-color: var(--emblem-blue); */
+/*     cursor: pointer; */
+/* } */
 
-.create-button:not(:disabled):hover {
-    background: var(--emblem-blue-over);
-    border-color: var(--emblem-blue-over);
-}
+/* .create-button:not(:disabled):hover { */
+/*     background: var(--emblem-blue-over); */
+/*     border-color: var(--emblem-blue-over); */
+/* } */
 
-.no-messages {
-    display: flex;
-    align-items: center; /* Vertically centers the content */
-    justify-content: center; /* Horizontally centers the content */
-    color: var(--subdued-text);
-    height: 100%;
-    text-align: center; /* Ensures text is centered in the element */
-    font-size: 1.1em; /* Adjust as needed for better readability */
-    padding: 20px; /* Optional: Adds some padding for spacing */
-    background: var(--darker); /* Optional: Ensure background matches the message area */
-    border-radius: 15px; /* Optional: Rounds the corners if needed */
-}
-
-
-
-.messenger-container {
-    display: flex;
-    height: calc(100vh - 150px); /* Adjust height as needed */
-    border: 1px solid var(--settings-border);
-    background: var(--darker);
-    border-radius: 15px;
-}
-
-.conversation-list-container {
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-    border-right: 1px solid var(--settings-border);
-    background: var(--darker);
-}
-
-.start-conversation-container {
-    padding: 10px;
-    background: var(--darker);
-    border-bottom: 1px solid var(--settings-border);
-    z-index: 1; /* Ensures it stays above the conversation list when scrolling */
-}
-
-#searchBoxContainer {
-    margin-top: 10px;
-}
-
-#searchResults, #selectedUsers {
-    margin-top: 10px;
-    max-height: 150px;
-    overflow-y: auto;
-    border: 1px solid var(--settings-border);
-    background: var(--darker);
-}
-
-.search-result-item, .selected-user-item {
-    padding: 5px;
-    cursor: pointer;
-    border-bottom: 1px solid var(--settings-border);
-    color: var(--text-color);
-}
-
-/* .selected-user-item {
-    background-color: var(--advanced-background);
-} */
-
-.conversation-list {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding: 10px;
-}
-
-.conversation-item {
-    position: relative; /* Allows the delete button to be positioned relative to this container */
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid var(--settings-border);
-    cursor: pointer;
-    color: var(--text-color);
-}
-
-.conversation-item.active {
-    background-color: var(--lighter);
-}
-
-.conversation-item strong {
-    color: var(--h1); /* Color for the other participants' names */
-}
-
-.timestamp {
-    font-size: 0.8em;
-    color: var(--subdued-text);
-}
-
-.message-thread {
-    width: 70%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 10px;
-}
-
-#message-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    overflow-y: auto;
-    flex-grow: 1;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--settings-border);
-}
+/* .no-messages { */
+/*     display: flex; */
+/*     align-items: center;  *//* Vertically centers the content */
+/*     justify-content: center;  *//* Horizontally centers the content */
+/*     color: var(--subdued-text); */
+/*     height: 100%; */
+/*     text-align: center;  *//* Ensures text is centered in the element */
+/*     font-size: 1.1em;  *//* Adjust as needed for better readability */
+/*     padding: 20px;  *//* Optional: Adds some padding for spacing */
+/*     background: var(--darker);  *//* Optional: Ensure background matches the message area */
+/*     border-radius: 15px;  *//* Optional: Rounds the corners if needed */
+/* } */
 
 
-.message-input {
-    display: flex;
+
+/* .messenger-container { */
+/*     display: flex; */
+/*     height: calc(100vh - 150px);  *//* Adjust height as needed */
+/*     border: 1px solid var(--settings-border); */
+/*     background: var(--darker); */
+/*     border-radius: 15px; */
+/* } */
+
+/* .conversation-list-container { */
+/*     width: 30%; */
+/*     display: flex; */
+/*     flex-direction: column; */
+/*     border-right: 1px solid var(--settings-border); */
+/*     background: var(--darker); */
+/* } */
+
+/* .start-conversation-container { */
+/*     padding: 10px; */
+/*     background: var(--darker); */
+/*     border-bottom: 1px solid var(--settings-border); */
+/*     z-index: 1;  *//* Ensures it stays above the conversation list when scrolling */
+/* } */
+
+/* #searchBoxContainer { */
+/*     margin-top: 10px; */
+/* } */
+
+/* #searchResults, #selectedUsers { */
+/*     margin-top: 10px; */
+/*     max-height: 150px; */
+/*     overflow-y: auto; */
+/*     border: 1px solid var(--settings-border); */
+/*     background: var(--darker); */
+/* } */
+
+/* .search-result-item, .selected-user-item { */
+/*     padding: 5px; */
+/*     cursor: pointer; */
+/*     border-bottom: 1px solid var(--settings-border); */
+/*     color: var(--text-color); */
+/* } */
+
+/* .selected-user-item { */
+/*     background-color: var(--advanced-background); */
+/* } */
+
+/* .conversation-list { */
+/*     flex-grow: 1; */
+/*     overflow-y: auto; */
+/*     padding: 10px; */
+/* } */
+
+/* .conversation-item { */
+/*     position: relative;  *//* Allows the delete button to be positioned relative to this container */
+/*     display: flex; */
+/*     align-items: center; */
+/*     padding: 10px; */
+/*     border-bottom: 1px solid var(--settings-border); */
+/*     cursor: pointer; */
+/*     color: var(--text-color); */
+/* } */
+
+/* .conversation-item.active { */
+/*     background-color: var(--lighter); */
+/* } */
+
+/* .conversation-item strong { */
+/*     color: var(--h1);  *//* Color for the other participants' names */
+/* } */
+
+/* .timestamp { */
+/*     font-size: 0.8em; */
+/*     color: var(--subdued-text); */
+/* } */
+
+/* .message-thread { */
+/*     width: 70%; */
+/*     display: flex; */
+/*     flex-direction: column; */
+/*     justify-content: space-between; */
+/*     padding: 10px; */
+/* } */
+
+/* #message-list { */
+/*     display: flex; */
+/*     flex-direction: column; */
 /*     gap: 10px; */
-    margin-top: 10px;
-}
-
-#messageInput {
-    flex-grow: 1;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid grey;
-    background: var(--darker);
-    color: var(--text-color);
-    font-size: 1.3em;
-    border-radius: 10px 0px 0px 10px;
-}
-
-#sendButton {
-    padding: 10px 15px;
-    background-color: var(--emblem-pink);
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: -10px;
-}
-
-#sendButton:hover {
-background-color: var(--emblem-pink-over);
-}
-
-.message-item {
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: var(--advanced-background);
-    color: var(--text-color);
-    min-width: 50%;
-}
-
-.message-item {
-    position: relative; /* Ensure the ::after element is positioned relative to the message box */
-    padding: 10px;
-    border-radius: 15px;
-    max-width: 80%;
-    word-wrap: break-word;
-    margin-bottom: 10px;
-}
-
-.message-item.self {
-    background-color: var(--advanced-background);
-    color: #fff;
-    align-self: flex-end; /* Aligns to the right */
-    text-align: right;
-    margin-right: 22px; /* Space to account for the spike */
-}
-
-.message-item.self::after {
-    content: '';
-    position: absolute;
-    bottom: -17px; /* Position the spike below the message box */
-    right: 22px; /* 22px away from the right edge */
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 18px 18px 0 0; /* Creates a right-angled triangle */
-    border-color: var(--advanced-background) transparent transparent transparent; /* Color the spike */
-    transform: rotate(-270deg); /* Rotate to create the angled effect */
-}
-
-.message-item:not(.self) {
-    background-color: var(--emblem-blue);
-    color: var(--text-color);
-    align-self: flex-start; /* Aligns to the left */
-    text-align: left;
-    margin-left: 22px; /* Space to account for the spike */
-}
-
-.message-item:not(.self)::after {
-    content: '';
-    position: absolute;
-    bottom: -18px; /* Position the spike below the message box */
-    left: 22px; /* 22px away from the left edge */
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 18px 0 0 18px; /* Creates a left-angled triangle */
-    border-color: var(--emblem-blue) transparent transparent transparent; /* Color the spike */
-    transform: rotate(270deg); /* Rotate to create the angled effect */
-}
+/*     overflow-y: auto; */
+/*     flex-grow: 1; */
+/*     padding-bottom: 10px; */
+/*     border-bottom: 1px solid var(--settings-border); */
+/* } */
 
 
+/* .message-input { */
+/*     display: flex; */
+/*     gap: 10px; */
+/*     margin-top: 10px; */
+/* } */
 
-.message-item .sender {
-    font-weight: bold;
-    color: var(--h1); /* Color for sender names */
-}
+/* #messageInput { */
+/*     flex-grow: 1; */
+/*     padding: 10px; */
+/*     border-radius: 5px; */
+/*     border: 1px solid grey; */
+/*     background: var(--darker); */
+/*     color: var(--text-color); */
+/*     font-size: 1.3em; */
+/*     border-radius: 10px 0px 0px 10px; */
+/* } */
 
-.message-item .timestamp {
-    font-size: 0.8em;
-    color: var(--subdued-text);
-}
+/* #sendButton { */
+/*     padding: 10px 15px; */
+/*     background-color: var(--emblem-pink); */
+/*     color: #fff; */
+/*     border: none; */
+/*     border-radius: 5px; */
+/*     cursor: pointer; */
+/*     margin-left: -10px; */
+/* } */
 
+/* #sendButton:hover { */
+/* background-color: var(--emblem-pink-over); */
+/* } */
 
-#searchResults {
-    position: relative;
-    background: var(--darker);
-    border: 1px solid var(--settings-border);
-    max-height: 200px;
-    overflow-y: auto;
-    z-index: 2; /* Ensures it appears above other elements */
-}
+/* .message-item { */
+/*     margin-bottom: 10px; */
+/*     padding: 10px; */
+/*     border-radius: 5px; */
+/*     background-color: var(--advanced-background); */
+/*     color: var(--text-color); */
+/*     min-width: 50%; */
+/* } */
 
-.search-result-item {
-    padding: 8px;
-    border-bottom: 1px solid var(--settings-border);
-    cursor: pointer;
-    color: var(--text-color);
-}
+/* .message-item { */
+/*     position: relative;  *//* Ensure the ::after element is positioned relative to the message box */
+/*     padding: 10px; */
+/*     border-radius: 15px; */
+/*     max-width: 80%; */
+/*     word-wrap: break-word; */
+/*     margin-bottom: 10px; */
+/* } */
 
-.search-result-item:hover {
-    background-color: var(--advanced-background);
-}
+/* .message-item.self { */
+/*     background-color: var(--advanced-background); */
+/*     color: #fff; */
+/*     align-self: flex-end;  *//* Aligns to the right */
+/*     text-align: right; */
+/*     margin-right: 22px;  *//* Space to account for the spike */
+/* } */
 
-.conversation-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid var(--settings-border);
-    cursor: pointer;
-    color: var(--text-color);
-}
+/* .message-item.self::after { */
+/*     content: ''; */
+/*     position: absolute; */
+/*     bottom: -17px;  *//* Position the spike below the message box */
+/*     right: 22px;  *//* 22px away from the right edge */
+/*     width: 0; */
+/*     height: 0; */
+/*     border-style: solid; */
+/*     border-width: 18px 18px 0 0;  *//* Creates a right-angled triangle */
+/*     border-color: var(--advanced-background) transparent transparent transparent;  *//* Color the spike */
+/*     transform: rotate(-270deg);  *//* Rotate to create the angled effect */
+/* } */
 
-.conversation-item.active {
-    background-color: var(--lighter);
-    border-radius: 10px 0px 0px 10px;
-}
+/* .message-item:not(.self) { */
+/*     background-color: var(--emblem-blue); */
+/*     color: var(--text-color); */
+/*     align-self: flex-start;  *//* Aligns to the left */
+/*     text-align: left; */
+/*     margin-left: 22px;  *//* Space to account for the spike */
+/* } */
 
-.conversation-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: var(--text-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 10px 10px auto 0px;
-}
-
-.conversation-icon .initial {
-    color: var(--same);
-    font-size: 1.2em;
-    font-weight: bold;
-}
-
-.conversation-details {
-    flex-grow: 1;
-    overflow: hidden; /* Ensures no overflow */
-}
-
-.conversation-details strong {
-    color: var(--h1); /* Color for the other participants' names */
-    font-size: 1em;
-}
-
-
-.delete-conversation {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    font-size: 0.9em;
-    color: var(--subdued-text);
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    padding: 2px;
-    line-height: 1;
-}
-
-.convo-preview-text {
-    color: var(--text-color);
-    font-size: 0.9em;
-    overflow: hidden;
-    text-overflow: ellipsis; /* Adds "..." at the end if the text is too long */
-    white-space: nowrap; /* Ensures the text stays on a single line */
-}
-
-.timestamp {
-    font-size: 0.8em;
-    color: var(--subdued-text);
-    margin-top: 2px;
-}
-
-.message-input {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-#messageInput {
-    flex-grow: 1;
-    padding: 10px;
-    border-radius: 10px 0px 0px 10px;
-    border: 1px solid grey;
-    background: var(--darker);
-    color: var(--text-color);
-    font-size: 1.2em;
-    margin-left: -2px;
-}
-
-#sendButton {
-    width: 50px; /* Adjust width to fit the triangle */
-    background-color: var(--emblem-pink);
-    border: none;
-    border-radius: 0 15px 15px 0; /* Flat left edge, rounded right edge */
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease;
-}
-
-#sendButton::before {
-    content: '';
-    display: block;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 10px 0 10px 20px; /* Creates a right-facing triangle */
-    border-color: transparent transparent transparent #fff; /* White triangle color */
-    margin-left: 3px; /* Adjust position if needed */
-}
-
-#sendButton:hover {
-    background-color: var(--emblem-pink-over);
-}
+/* .message-item:not(.self)::after { */
+/*     content: ''; */
+/*     position: absolute; */
+/*     bottom: -18px;  *//* Position the spike below the message box */
+/*     left: 22px;  *//* 22px away from the left edge */
+/*     width: 0; */
+/*     height: 0; */
+/*     border-style: solid; */
+/*     border-width: 18px 0 0 18px;  *//* Creates a left-angled triangle */
+/*     border-color: var(--emblem-blue) transparent transparent transparent;  *//* Color the spike */
+/*     transform: rotate(270deg);  *//* Rotate to create the angled effect */
+/* } */
 
 
-.spinner-right {
 
-position: absolute;
-  top: 13px;
-  right: 11px;
-  transform: translateY(-50%);
-  width: 15px;
-  height: 15px;
-  border: 4px solid rgba(0,0,0,0.1);
-    border-top-width: 4px;
-    border-top-style: solid;
-    border-top-color: rgba(0, 0, 0, 0.1);
-  border-top: 4px solid var(--emblem-blue);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  display: none;
+/* .message-item .sender { */
+/*     font-weight: bold; */
+/*     color: var(--h1);  *//* Color for sender names */
+/* } */
 
-  }
+/* .message-item .timestamp { */
+/*     font-size: 0.8em; */
+/*     color: var(--subdued-text); */
+/* } */
+
+
+/* #searchResults { */
+/*     position: relative; */
+/*     background: var(--darker); */
+/*     border: 1px solid var(--settings-border); */
+/*     max-height: 200px; */
+/*     overflow-y: auto; */
+/*     z-index: 2;  *//* Ensures it appears above other elements */
+/* } */
+
+/* .search-result-item { */
+/*     padding: 8px; */
+/*     border-bottom: 1px solid var(--settings-border); */
+/*     cursor: pointer; */
+/*     color: var(--text-color); */
+/* } */
+
+/* .search-result-item:hover { */
+/*     background-color: var(--advanced-background); */
+/* } */
+
+/* .conversation-item { */
+/*     display: flex; */
+/*     align-items: center; */
+/*     padding: 10px; */
+/*     border-bottom: 1px solid var(--settings-border); */
+/*     cursor: pointer; */
+/*     color: var(--text-color); */
+/* } */
+
+/* .conversation-item.active { */
+/*     background-color: var(--lighter); */
+/*     border-radius: 10px 0px 0px 10px; */
+/* } */
+
+/* .conversation-icon { */
+/*     width: 40px; */
+/*     height: 40px; */
+/*     border-radius: 50%; */
+/*     background-color: var(--text-color); */
+/*     display: flex; */
+/*     align-items: center; */
+/*     justify-content: center; */
+/*     margin: 10px 10px auto 0px; */
+/* } */
+
+/* .conversation-icon .initial { */
+/*     color: var(--same); */
+/*     font-size: 1.2em; */
+/*     font-weight: bold; */
+/* } */
+
+/* .conversation-details { */
+/*     flex-grow: 1; */
+/*     overflow: hidden;  *//* Ensures no overflow */
+/* } */
+
+/* .conversation-details strong { */
+/*     color: var(--h1);  *//* Color for the other participants' names */
+/*     font-size: 1em; */
+/* } */
+
+
+/* .delete-conversation { */
+/*     position: absolute; */
+/*     top: 5px; */
+/*     right: 5px; */
+/*     font-size: 0.9em; */
+/*     color: var(--subdued-text); */
+/*     cursor: pointer; */
+/*     background: transparent; */
+/*     border: none; */
+/*     padding: 2px; */
+/*     line-height: 1; */
+/* } */
+
+/* .convo-preview-text { */
+/*     color: var(--text-color); */
+/*     font-size: 0.9em; */
+/*     overflow: hidden; */
+/*     text-overflow: ellipsis;  *//* Adds "..." at the end if the text is too long */
+/*     white-space: nowrap;  *//* Ensures the text stays on a single line */
+/* } */
+
+/* .timestamp { */
+/*     font-size: 0.8em; */
+/*     color: var(--subdued-text); */
+/*     margin-top: 2px; */
+/* } */
+
+/* .message-input { */
+/*     display: flex; */
+/*     gap: 10px; */
+/*     margin-top: 10px; */
+/* } */
+
+/* #messageInput { */
+/*     flex-grow: 1; */
+/*     padding: 10px; */
+/*     border-radius: 10px 0px 0px 10px; */
+/*     border: 1px solid grey; */
+/*     background: var(--darker); */
+/*     color: var(--text-color); */
+/*     font-size: 1.2em; */
+/*     margin-left: -2px; */
+/* } */
+
+/* #sendButton { */
+/*     width: 50px;  *//* Adjust width to fit the triangle */
+/*     background-color: var(--emblem-pink); */
+/*     border: none; */
+/*     border-radius: 0 15px 15px 0;  *//* Flat left edge, rounded right edge */
+/*     cursor: pointer; */
+/*     display: flex; */
+/*     align-items: center; */
+/*     justify-content: center; */
+/*     transition: background-color 0.3s ease; */
+/* } */
+
+/* #sendButton::before { */
+/*     content: ''; */
+/*     display: block; */
+/*     width: 0; */
+/*     height: 0; */
+/*     border-style: solid; */
+/*     border-width: 10px 0 10px 20px;  *//* Creates a right-facing triangle */
+/*     border-color: transparent transparent transparent #fff;  *//* White triangle color */
+/*     margin-left: 3px;  *//* Adjust position if needed */
+/* } */
+
+/* #sendButton:hover { */
+/*     background-color: var(--emblem-pink-over); */
+/* } */
+
+
+/* .spinner-right { */
+
+/* position: absolute; */
+/*   top: 13px; */
+/*   right: 11px; */
+/*   transform: translateY(-50%); */
+/*   width: 15px; */
+/*   height: 15px; */
+/*   border: 4px solid rgba(0,0,0,0.1); */
+/*     border-top-width: 4px; */
+/*     border-top-style: solid; */
+/*     border-top-color: rgba(0, 0, 0, 0.1); */
+/*   border-top: 4px solid var(--emblem-blue); */
+/*   border-radius: 50%; */
+/*   animation: spin 1s linear infinite; */
+/*   display: none; */
+
+/*   } */
 
 
 

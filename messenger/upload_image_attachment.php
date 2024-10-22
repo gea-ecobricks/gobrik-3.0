@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Log the start of the process
-error_log("Starting image upload process...");
+error_log("Starting image upload process");
 
 // Include the database connection
 require_once '../buwanaconn_env.php';

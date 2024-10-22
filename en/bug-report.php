@@ -81,7 +81,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     <button type="submit" id="bugReportSubmit" class="submit-button enabled" title="Submit Bug Report">
         🐞 Submit Bug
-        <div class="load-spinner hidden" id="submitSpinner"></div>
+        <div class="load-spinner" id="submitSpinner"></div>
     </button>
     <div id="feedbackMessage" class="hidden"></div>
 </form>
@@ -299,7 +299,7 @@ $(document).ready(function() {
                 .addClass('attachment-added') // Mark as having an attachment
                 .attr('title', 'Click to remove attachment') // Add title for better UX
                 .addClass('remove-attachment'); // Change state for removal
-        }, 2000);
+        }, 1000);
     }
 
     // Reset the upload button to its original state (camera icon)

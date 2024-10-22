@@ -175,7 +175,7 @@
 }
 
 #feedbackMessage.error {
-    color: var(--emblem-pink);
+    color: red;
 }
 
 

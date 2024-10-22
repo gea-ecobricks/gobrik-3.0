@@ -26,6 +26,60 @@
     display: none;
 }
 
+
+/* Start Conversation Button */
+.start-convo-button {
+    background: var(--emblem-green);
+    color: white;
+    padding: 5px 10px;
+    border: 1px solid var(--emblem-green);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    margin: auto;
+    justify-content: center;
+    text-align: left; /* Aligns text to the left */
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.3s ease, border 0.3s ease;
+}
+
+.start-convo-button:hover {
+    background: var(--emblem-green-over);
+    border-color: var(--emblem-green-over);
+}
+
+/* Create Conversation Button */
+.create-button {
+    background: grey;
+    color: white;
+    padding: 5px 10px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    cursor: not-allowed; /* Cursor shows as not-allowed when disabled */
+    font-size: 1em;
+    margin: auto;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.3s ease, border 0.3s ease;
+}
+
+.create-button:not(:disabled) {
+    background: var(--emblem-blue);
+    border-color: var(--emblem-blue);
+    cursor: pointer;
+}
+
+.create-button:not(:disabled):hover {
+    background: var(--emblem-blue-over);
+    border-color: var(--emblem-blue-over);
+}
+
+
+
+
 .messenger-container {
     display: flex;
     height: calc(100vh - 150px); /* Adjust height as needed */

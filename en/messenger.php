@@ -75,7 +75,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="conversation-list-container">
         <!-- Container for the start conversation button and search box -->
         <div class="start-conversation-container">
-            <button id="startConversationButton" class="confirm-button enabled" style="text-align:left;">Start conversation...</button>
+            <button id="startConversationButton" class="confirm-button enabled" style="text-align:left;font-size:1em;">▶️ Start conversation...</button>
             <div id="searchBoxContainer" class="hidden">
                 <input type="text" id="userSearchInput" placeholder="Search users..." />
                 <div id="searchResults"></div>

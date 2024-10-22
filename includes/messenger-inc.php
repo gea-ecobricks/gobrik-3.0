@@ -78,6 +78,19 @@
     border-color: var(--emblem-blue-over);
 }
 
+.no-messages {
+    display: flex;
+    align-items: center; /* Vertically centers the content */
+    justify-content: center; /* Horizontally centers the content */
+    color: var(--subdued-text);
+    height: 100%;
+    width: 100%;
+    text-align: center; /* Ensures text is centered in the element */
+    font-size: 1.1em; /* Adjust as needed for better readability */
+    padding: 20px; /* Optional: Adds some padding for spacing */
+    background: var(--darker); /* Optional: Ensure background matches the message area */
+    border-radius: 5px; /* Optional: Rounds the corners if needed */
+}
 
 
 

@@ -323,7 +323,35 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
        });
 
        // Handle the create conversation button click
-       $('#createConversationButton').on('click', createConversation);
+       $('#createConversationButton').on('click', function() {
+    const participantIds = Array.from(selectedUsers); // Convert the selected users to an array
+    console.log('Creating conversation with:', participantIds); // Debugging line
+
+    $.ajax({
+        url: '../messenger/create_conversation.php',
+        method: 'POST',
+        data: {
+            created_by: userId,
+            participant_ids: JSON.stringify(participantIds)
+        },
+        success: function(response) {
+            console.log('Response from create_conversation.php:', response); // Debugging line
+            if (response.status === 'success') {
+                $('#searchBoxContainer').addClass('hidden');
+                $('#userSearchInput').val('');
+                $('#selectedUsers').empty();
+                selectedUsers.clear();
+                loadConversations(); // Refresh the conversations list
+            } else {
+                alert(response.message);
+            }
+        },
+        error: function(error) {
+            console.error('Error creating conversation:', error);
+        }
+    });
+
+
 
        // Load conversations on page load
        loadConversations();

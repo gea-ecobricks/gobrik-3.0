@@ -207,28 +207,32 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     }
 
     function renderMessages(messages) {
-        const messageList = $('#message-list');
-        messageList.empty();
-        if (messages.length > 0) {
-            messages.forEach(msg => {
-                const messageClass = msg.sender_id == userId ? 'self' : '';
-                const msgElement = `
-                    <div class="message-item ${messageClass}">
-                        <p class="sender">${msg.sender_name}</p>
-                        <p>${msg.content}</p>
-                        <p class="timestamp">${msg.created_at}</p>
-                    </div>
-                `;
-                messageList.append(msgElement);
-            });
+    const messageList = $('#message-list');
+    messageList.empty();
+    if (messages.length > 0) {
+        messages.forEach(msg => {
+            const messageClass = msg.sender_id == userId ? 'self' : '';
+            // Only show the sender's name if it's not the current user's message
+            const senderName = msg.sender_id == userId ? '' : `<p class="sender">${msg.sender_name}</p>`;
 
-            // Scroll to the bottom of the message list to show the latest messages
-            messageList.scrollTop(messageList.prop("scrollHeight"));
-        } else {
-            // Display a default message when no messages are present
-            messageList.html('<div class="no-messages">No messages yet! Send a message to get the conversation going...</div>');
-        }
+            const msgElement = `
+                <div class="message-item ${messageClass}">
+                    ${senderName}
+                    <p>${msg.content}</p>
+                    <p class="timestamp">${msg.created_at}</p>
+                </div>
+            `;
+            messageList.append(msgElement);
+        });
+
+        // Scroll to the bottom of the message list to show the latest messages
+        messageList.scrollTop(messageList.prop("scrollHeight"));
+    } else {
+        // Display a default message when no messages are present
+        messageList.html('<div class="no-messages">No messages yet! Send a message to get the conversation going...</div>');
     }
+}
+
 
     // SECTION 4: User Search and Selection
     $(document).ready(function() {

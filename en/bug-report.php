@@ -72,7 +72,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <!-- Bug Report Form -->
         <form id="bugReportForm">
             <textarea id="bugReportInput" placeholder="What went wrong? Or... what could be better?" rows="6" required></textarea>
-            <button type="submit" id="bugReportSubmit" class="submit-button enabled">Submit Bug Report</button>
+            <button type="submit" id="bugReportSubmit" class="submit-button enabled">🐞 Submit Bug</button>
         </form>
 
         <!-- Feedback Message -->

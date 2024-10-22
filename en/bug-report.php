@@ -66,7 +66,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="form-container">
         <div id="greeting" style="text-align:center;width:100%;margin:auto;">
             <h2 id="greeting" data-lang-id="001-bug-report-title">Report a Bug</h2>
-            <p id="subgreeting" data-lang-id="002-bug-report-subtitle">GoBrik 3.0 has just launched. Help us catch all the bugs by reporting any problems you encounter. Messages go to our volunteer development team.</p>
+            <p id="subgreeting" data-lang-id="002-bug-report-subtitle">GoBrik 3.0 has just launched. Help us catch all the bugs by reporting any problems you encounter. Messages go to our volunteer development team. Attach a screen shot if necessary.📸</p>
         </div>
 
         <!-- Bug Report Form -->
@@ -75,7 +75,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <textarea id="bugReportInput" placeholder="What went wrong? Or... what could be better?" rows="6" required></textarea>
                 <input type="file" id="imageUploadInput" accept="image/jpeg, image/jpg, image/png, image/webp" style="display: none;" />
                 <span id="imageFileName" class="image-file-name"></span>
-                <button type="button" id="uploadPhotoButton" class="upload-photo-button" title="Upload Photo" aria-label="Upload Photo">📸</button>
+                <button type="button" id="uploadPhotoButton" class="upload-photo-button" title="Upload Photo" aria-label="Upload Photo">📷</button>
             </div>
 
             <button type="submit" id="bugReportSubmit" class="submit-button enabled">🐞 Submit Bug</button>
@@ -88,7 +88,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     </div>
 
 <div style="padding:10px; text-align: center; margin: auto; align-self: center;margin-top: 0px;width:80%;">
-        <p class="caption" data-lang-id="10-sending-info" style="font-size: 0.8em;color:var(--subdued-text);">When you send a bug report your message and details on your browser and OS will be sent to our development team over GoBrik messenger.</p>
+        <p class="caption" data-lang-id="10-sending-info" style="font-size: 0.8em;color:var(--subdued-text);">When you send a bug report your message and details on your browser and OS will be sent to our development team over GoBrik messenger.  </p>
     </div>
 </div>
 

@@ -209,6 +209,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-left: -10px;
 }
 
 #sendButton:hover {
@@ -244,7 +245,7 @@ background-color: var(--emblem-pink-over);
 .message-item.self::after {
     content: '';
     position: absolute;
-    bottom: -18px; /* Position the spike below the message box */
+    bottom: -17px; /* Position the spike below the message box */
     right: 22px; /* 22px away from the right edge */
     width: 0;
     height: 0;
@@ -421,6 +422,7 @@ position: absolute;
   border-top: 4px solid var(--emblem-blue);
   border-radius: 50%;
   animation: spin 1s linear infinite;
+  display: none;
 
   }
 

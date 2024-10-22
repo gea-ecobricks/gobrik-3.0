@@ -150,8 +150,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 contentType: false, // Set content type to false as jQuery will tell the server it's a form data
                 success: function(response) {
                     if (response.status === 'success') {
-                        // Hide greeting and input elements
-                        $('#greeting, #subgreeting, #bugReportInput, #bugReportSubmit').fadeOut(300);
+                        // Hide greeting, input elements, and upload button
+                        $('#greeting, #subgreeting, #bugReportInput, #bugReportSubmit, #uploadPhotoButton').fadeOut(300);
 
                         // Display the success message inside the feedbackMessage div
                         $('#feedbackMessage')
@@ -170,8 +170,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                             .text('Failed to submit bug report. Please try again.');
                     }
                 },
-                error: function(error) {
-                    console.error('Error submitting bug report:', error);
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error submitting bug report:', textStatus, errorThrown);
+                    console.error('Response:', jqXHR.responseText); // Log the server's response for better debugging
                     $('#feedbackMessage')
                         .removeClass('hidden success')
                         .addClass('error')
@@ -192,6 +193,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         $('#imageFileName').text(''); // Clear any displayed file name
         $('#imageUploadInput').val(''); // Reset the file input
     }
+});
 
 
 

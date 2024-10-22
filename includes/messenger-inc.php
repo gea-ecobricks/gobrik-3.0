@@ -64,6 +64,7 @@
     text-decoration: none;
     display: inline-block;
     transition: background 0.3s ease, border 0.3s ease;
+    width:100%;
 }
 
 .create-button:not(:disabled) {

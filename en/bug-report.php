@@ -75,6 +75,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <textarea id="bugReportInput" placeholder="What went wrong? Or... what could be better?" rows="6" required></textarea>
                 <button type="button" id="uploadPhotoButton" class="upload-photo-button" title="Upload Photo" aria-label="Upload Photo">📸</button>
             </div>
+            <button type="submit" id="bugReportSubmit" class="submit-button enabled">🐞 Submit Bug</button>
         </form>
 
         <!-- Feedback Message -->

@@ -320,6 +320,7 @@ background-color: var(--emblem-pink-over);
 
 .conversation-item.active {
     background-color: var(--lighter);
+    border-radius: 10px 0px 0px 10px;
 }
 
 .conversation-icon {

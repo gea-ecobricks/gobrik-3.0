@@ -106,6 +106,8 @@ echo '<!DOCTYPE html>
 
 <script>
     $(document).ready(function() {
+        var userLang = "<?php echo htmlspecialchars($lang); ?>"; // Get the user's language
+
         $("#latest-ecobricks").DataTable({
             "responsive": true,
             "serverSide": true,

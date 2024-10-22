@@ -114,20 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die('Error preparing statement for fetching country info: ' . $buwana_conn->error);
     }
 
-    // Fetch the community_id from communities_tb using the selected community name
-    $sql_community = "SELECT com_id FROM communities_tb WHERE com_name = ?";
-    $stmt_community = $buwana_conn->prepare($sql_community);
-
-    if ($stmt_community) {
-        $stmt_community->bind_param('s', $selected_community_name);
-        $stmt_community->execute();
-        $stmt_community->bind_result($community_id);
-        $stmt_community->fetch();
-        $stmt_community->close();
-    } else {
-        die('Error preparing statement for fetching community info: ' . $buwana_conn->error);
-    }
-// Check if the country, continent, or community were found in the database and set to null if not
+    // Check if the country, continent, or community were found in the database and set to null if not
 $set_country_id = !empty($set_country_id) ? $set_country_id : null;
 $set_continent_code = !empty($set_continent_code) ? $set_continent_code : null;
 $community_id = !empty($community_id) ? $community_id : null;
@@ -172,6 +159,8 @@ if ($stmt_update_buwana) {
     exit();
 }
 
+    }
+}
 ?>
 
 

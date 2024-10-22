@@ -87,6 +87,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once("../footer-2024.php"); ?>
 
 <script>
+    const userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
 
     $(document).ready(function() {
     $('#bugReportForm').on('submit', function(event) {

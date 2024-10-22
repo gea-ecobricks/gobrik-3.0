@@ -47,6 +47,8 @@
     cursor: pointer;
     font-size: 1em;
     transition: background 0.3s ease, border 0.3s ease;
+    margin: auto;
+  display: block;
 }
 
 #bugReportSubmit:hover {

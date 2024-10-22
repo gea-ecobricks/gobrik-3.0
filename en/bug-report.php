@@ -69,7 +69,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <p id="subgreeting" data-lang-id="002-bug-report-subtitle">GoBrik 3.0 has just launched. Help us catch all the bugs by reporting any problems you encounter. Messages go to our volunteer development team. Attach a screen shot if necessary.📸</p>
         </div>
 
-        <!-- Bug Report Form -->
+<!-- Bug Report Form -->
         <form id="bugReportForm" data-lang-id="003-bug-form">
             <div class="bug-report-input-wrapper" style="position: relative;">
                 <textarea id="bugReportInput" placeholder="What went wrong? Or... what could be better?" rows="6" required></textarea>
@@ -80,6 +80,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
             <button type="submit" id="bugReportSubmit" class="submit-button enabled">🐞 Submit Bug</button>
         </form>
+
 
         <!-- Feedback Message -->
         <div id="feedbackMessage" class="hidden"></div>
@@ -106,40 +107,56 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     const userCommunityName = '<?php echo addslashes($user_community_name); ?>';
 
     $(document).ready(function() {
-        $('#bugReportForm').on('submit', function(event) {
-            event.preventDefault(); // Prevent the default form submission
+    const maxFileSize = 10 * 1024 * 1024; // 10 MB
 
-            const bugReport = $('#bugReportInput').val().trim();
-            if (bugReport) {
-                // Get the browser info and user info
-                const browserInfo = getBrowserInfo();
-                const userInfo = getUserData();
+    $('#bugReportForm').on('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
 
-                // Append the browser info and user info to the user's bug report message
-                const messageWithInfo = `${bugReport}<br><br><hr><br>${browserInfo}<br><br><hr><br>${userInfo}`;
+        const bugReport = $('#bugReportInput').val().trim();
+        const file = $('#imageUploadInput')[0].files[0];
 
-                $.ajax({
-                    url: '../messenger/create_bug_report.php',
-                    method: 'POST',
-                    data: {
-                        created_by: userId, // Pass the user's ID from PHP
-                        message: messageWithInfo
-                    },
-                    success: function(response) {
-                        if (response.status === 'success') {
-                            $('#feedbackMessage').removeClass('hidden').text('Bug report submitted successfully.');
-                            $('#bugReportInput').val(''); // Clear the input field
-                        } else {
-                            $('#feedbackMessage').removeClass('hidden').text('Failed to submit bug report. Please try again.');
-                        }
-                    },
-                    error: function(error) {
-                        console.error('Error submitting bug report:', error);
-                        $('#feedbackMessage').removeClass('hidden').text('An error occurred while submitting your bug report. Please try again.');
-                    }
-                });
+        if (bugReport) {
+            const formData = new FormData();
+            formData.append('created_by', userId); // Pass the user's ID from PHP
+            formData.append('message', bugReport);
+
+            // If a file is selected and valid, append it to the FormData
+            if (file) {
+                const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+                if (validTypes.includes(file.type) && file.size <= maxFileSize) {
+                    formData.append('image', file);
+                } else {
+                    alert('🤔 Hmmm... looks like this isn\'t an image file, or else it\'s over 10MB. Please try another file.');
+                    return; // Exit the function if the file is invalid
+                }
             }
-        });
+
+            $.ajax({
+                url: '../messenger/create_bug_report.php',
+                method: 'POST',
+                data: formData,
+                processData: false, // Don't process the files
+                contentType: false, // Set content type to false as jQuery will tell the server it's a form data
+                success: function(response) {
+                    if (response.status === 'success') {
+                        $('#feedbackMessage').removeClass('hidden').text('Bug report submitted successfully.');
+                        $('#bugReportInput').val(''); // Clear the input field
+                        resetUploadButton(); // Reset the upload button
+                        $('#imageFileName').text(''); // Clear any displayed file name
+                        $('#imageUploadInput').val(''); // Reset the file input
+                    } else {
+                        $('#feedbackMessage').removeClass('hidden').text('Failed to submit bug report. Please try again.');
+                    }
+                },
+                error: function(error) {
+                    console.error('Error submitting bug report:', error);
+                    $('#feedbackMessage').removeClass('hidden').text('An error occurred while submitting your bug report. Please try again.');
+                }
+            });
+        }
+    });
+
+
 
 
 

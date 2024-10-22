@@ -78,7 +78,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <button id="startConversationButton" class="start-convo-button">📝 New Chat...</button>
             <div id="searchBoxContainer" class="hidden" style="position: relative;">
                 <input type="text" id="userSearchInput" placeholder="Search users..." />
-                <div class="spinner" id="userSearchSpinner"></div>
+                <div class="spinner-right" id="userSearchSpinner"></div>
                 <div id="searchResults"></div>
                 <div id="selectedUsers">
                     <!-- Selected users will appear here -->

@@ -406,7 +406,23 @@ background-color: var(--emblem-pink-over);
 }
 
 
+.spinner-right {
 
+position: absolute;
+  top: 13px;
+  right: 11px;
+  transform: translateY(-50%);
+  width: 15px;
+  height: 15px;
+  border: 4px solid rgba(0,0,0,0.1);
+    border-top-width: 4px;
+    border-top-style: solid;
+    border-top-color: rgba(0, 0, 0, 0.1);
+  border-top: 4px solid var(--emblem-blue);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+
+  }
 
 
 

@@ -156,7 +156,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
             const convElement = `
                 <div class="conversation-item" data-conversation-id="${conv.conversation_id}">
-                    <div class="delete-conversation">✖</div>
+                    <div class="delete-conversation">×</div>
                     <div class="conversation-icon">
                         <span class="initial">${conv.other_participants.charAt(0)}</span>
                     </div>
@@ -503,7 +503,7 @@ $(document).ready(function() {
             $('.conversation-item').removeClass('collapsed');
         } else {
             // Collapse the drawer
-            $('.conversation-list-container').css('width', '60px');
+            $('.conversation-list-container').css('width', '80px');
             $('.message-thread').addClass('expanded');
             $('#startConversationButton').addClass('hidden');
             $('#toggleConvoDrawer').html('>');

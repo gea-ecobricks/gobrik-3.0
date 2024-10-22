@@ -326,11 +326,15 @@ background-color: var(--emblem-pink-over);
     border-radius: 10px 0px 0px 10px;
 }
 
+
+
+}
 .conversation-icon {
     width: 40px;
     height: 40px;
+    min-width: 40px; /* Prevent the icon from shrinking */
     border-radius: 50%;
-    background-color: var(--text-color);
+    background-color: var(--font-color);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -481,6 +485,7 @@ position: absolute;
     border-bottom: 1px solid var(--settings-border);
     cursor: pointer;
     color: var(--text-color);
+    min-width:80px;
 }
 
 .conversation-item.collapsed .delete-conversation,
@@ -506,17 +511,7 @@ position: absolute;
     color: var(--emblem-red); /* Change the color on hover to indicate delete action */
 }
 
-.conversation-icon {
-    width: 40px;
-    height: 40px;
-    min-width: 40px; /* Prevent the icon from shrinking */
-    border-radius: 50%;
-    background-color: var(--font-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 10px;
-}
+
 
 .conversation-details {
     flex-grow: 1;

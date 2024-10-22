@@ -1,6 +1,6 @@
 <?php
 require_once '../gobrikconn_env.php'; // Include database connection
-error_log("Received ecobricker_id: " . $ecobricker_id);
+
 // Get the request parameters sent by DataTables
 $draw = isset($_POST['draw']) ? intval($_POST['draw']) : 0;
 $start = isset($_POST['start']) ? intval($_POST['start']) : 0;

@@ -120,29 +120,14 @@ while ($stmt->fetch()) {
 
 // Get total filtered records
 $filteredSql = "SELECT COUNT(*) as total FROM tb_ecobricks WHERE status != 'not ready'";
-$bindFilteredTypes = "";
-$bindFilteredValues = [];
-
 if (!empty($ecobricker_id)) {
-    $filteredSql .= " AND maker_id = ?";
-    $bindFilteredTypes .= "s";
-    $bindFilteredValues[] = $ecobricker_id;
+    $filteredSql .= " AND maker_id = '$ecobricker_id'";
 }
-
 if (!empty($searchValue)) {
-    $filteredSql .= " AND (serial_no LIKE ? OR location_full LIKE ? OR ecobricker_maker LIKE ? OR community_name LIKE ?)";
-    $bindFilteredTypes .= "ssss";
-    $searchTerm = "%" . $searchValue . "%";
-    $bindFilteredValues = array_merge($bindFilteredValues, [$searchTerm, $searchTerm, $searchTerm, $searchTerm]);
+    $filteredSql .= " AND (serial_no LIKE '%$searchValue%' OR location_full LIKE '%$searchValue%' OR ecobricker_maker LIKE '%$searchValue%' OR community_name LIKE '%$searchValue%')";
 }
-
-$stmtFiltered = $gobrik_conn->prepare($filteredSql);
-$stmtFiltered->bind_param($bindFilteredTypes, ...$bindFilteredValues);
-$stmtFiltered->execute();
-$stmtFiltered->bind_result($totalFilteredRecords);
-$stmtFiltered->fetch();
-$stmtFiltered->close();
-
+$filteredResult = $gobrik_conn->query($filteredSql);
+$totalFilteredRecords = $filteredResult->fetch_assoc()['total'] ?? 0;
 
 // Prepare the JSON response
 $response = [

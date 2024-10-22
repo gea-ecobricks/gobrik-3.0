@@ -117,10 +117,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once("../footer-2024.php"); ?>
 
 <script>
-    // Define userId as a global variable
+    // SECTION 1: Define Global Variables
     const userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
 
-    // JavaScript/jQuery for Fetching and Displaying Conversations
+    // SECTION 2: Load Conversations
     function loadConversations() {
         $.ajax({
             url: '../messenger/get_conversations.php',
@@ -176,7 +176,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         });
     }
 
-    // JavaScript/jQuery for Fetching and Displaying Messages
+    // SECTION 3: Load and Render Messages
     function loadMessages(conversationId) {
         $.ajax({
             url: '../messenger/get_messages.php',
@@ -219,7 +219,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         }
     }
 
-    // User search and selection
+    // SECTION 4: User Search and Selection
     $(document).ready(function() {
         const selectedUsers = new Set();
 
@@ -247,7 +247,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 method: 'GET',
                 data: {
                     query: query,
-                    user_id: userId // Ensure userId is available and passed in the request
+                    user_id: userId
                 },
                 success: function(response) {
                     if (response.status === 'success') {
@@ -304,7 +304,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     participant_ids: JSON.stringify(participantIds)
                 },
                 success: function(response) {
-                    console.log('Response from create_conversation.php:', response); // Debugging line
+                    console.log('Response from create_conversation.php:', response);
                     if (response.status === 'success') {
                         $('#searchBoxContainer').addClass('hidden');
                         $('#startConversationButton').removeClass('hidden');
@@ -339,7 +339,45 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         // Load conversations on page load
         loadConversations();
     });
+
+    // SECTION 5: JavaScript/jQuery for Sending Messages
+    $('#sendButton').on('click', function() {
+        const messageContent = $('#messageInput').val().trim();
+        const selectedConversationId = $('.conversation-item.active').data('conversation-id');
+
+        // Check if a conversation is selected and there is message content
+        if (messageContent && selectedConversationId) {
+            $.ajax({
+                url: '../messenger/send_message.php',
+                method: 'POST',
+                data: {
+                    conversation_id: selectedConversationId,
+                    sender_id: userId,
+                    content: messageContent
+                },
+                success: function(response) {
+                    console.log('Response from send_message.php:', response);
+                    if (response.status === 'success') {
+                        $('#messageInput').val(''); // Clear the input field
+                        loadMessages(selectedConversationId); // Refresh message list
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function(error) {
+                    console.error('Error sending message:', error);
+                }
+            });
+        } else {
+            if (!selectedConversationId) {
+                alert('Please select a conversation to send a message.');
+            } else {
+                alert('Please enter a message.');
+            }
+        }
+    });
 </script>
+
 
 
 

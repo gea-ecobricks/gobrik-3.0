@@ -250,7 +250,7 @@ background-color: var(--emblem-pink-over);
     border-style: solid;
     border-width: 18px 18px 0 0; /* Creates a right-angled triangle */
     border-color: var(--advanced-background) transparent transparent transparent; /* Color the spike */
-    transform: rotate(45deg); /* Rotate to create the angled effect */
+    transform: rotate(270deg); /* Rotate to create the angled effect */
 }
 
 .message-item:not(.self) {
@@ -271,7 +271,7 @@ background-color: var(--emblem-pink-over);
     border-style: solid;
     border-width: 18px 0 0 18px; /* Creates a left-angled triangle */
     border-color: var(--emblem-blue) transparent transparent transparent; /* Color the spike */
-    transform: rotate(-45deg); /* Rotate to create the angled effect */
+    transform: rotate(270deg); /* Rotate to create the angled effect */
 }
 
 

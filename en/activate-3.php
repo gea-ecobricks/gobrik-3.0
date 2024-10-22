@@ -159,7 +159,7 @@ if ($stmt_update_buwana) {
     exit();
 }
 
-    }
+
 }
 ?>
 

@@ -492,21 +492,24 @@ $(document).ready(function() {
         if (isDrawerCollapsed) {
             // Expand the drawer
             $('.conversation-list-container').removeClass('collapsed');
-            $('#startConversationButton').removeClass('collapsed').html('📝 New Chat...');
+            $('#startConversationButton').removeClass('hidden');
             $('#toggleConvoDrawer').removeClass('collapsed').html('<');
             $('.conversation-details').removeClass('hidden');
             $('.delete-conversation').removeClass('hidden');
+            $('.message-thread').removeClass('expanded');
         } else {
             // Collapse the drawer
             $('.conversation-list-container').addClass('collapsed');
-            $('#startConversationButton').addClass('collapsed').html('📝');
+            $('#startConversationButton').addClass('hidden');
             $('#toggleConvoDrawer').addClass('collapsed').html('>');
             $('.conversation-details').addClass('hidden');
             $('.delete-conversation').addClass('hidden');
+            $('.message-thread').addClass('expanded');
         }
         isDrawerCollapsed = !isDrawerCollapsed; // Toggle the state
     });
 });
+
 
 
 </script>

@@ -26,6 +26,56 @@
     display: none;
 }
 
+#bugReportInput {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    background: var(--darker);
+    color: var(--text-color);
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    resize: vertical;
+}
+
+#bugReportSubmit {
+    background: var(--emblem-green);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid var(--emblem-green);
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s ease, border 0.3s ease;
+}
+
+#bugReportSubmit:hover {
+    background: var(--emblem-green-over);
+    border-color: var(--emblem-green-over);
+}
+
+#feedbackMessage {
+    margin-top: 10px;
+    font-size: 1em;
+    color: var(--emblem-green);
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Start Conversation Button */
 .start-convo-button {

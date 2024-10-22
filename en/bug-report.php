@@ -61,24 +61,64 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="splash-bar"></div>
 <div id="top-page-image" class="message-birded top-page-image"></div>
 
-<!-- MESSENGER CONTENT -->
+<!-- BUG REPORT FORM CONTENT -->
 <div id="form-submission-box" style="height:fit-content;margin-top: 90px;">
     <div class="form-container">
         <div id="greeting" style="text-align:center;width:100%;margin:auto;">
             <h2 id="greeting">Report a Bug</h2>
-            <p id="subgreeting">GoBrik 3.0 has just launched.  Help us catch all the bugs by reporting any problems you encounter.  Messages go to our volunteer development team.</p>
+            <p id="subgreeting">GoBrik 3.0 has just launched. Help us catch all the bugs by reporting any problems you encounter. Messages go to our volunteer development team.</p>
         </div>
 
-     <!-- BUG REPORT FORM PHP AND HTML GOES HERE-->
+        <!-- Bug Report Form -->
+        <form id="bugReportForm">
+            <textarea id="bugReportInput" placeholder="What went wrong? Or... what could be better?" rows="6" required></textarea>
+            <button type="submit" id="bugReportSubmit" class="submit-button">Submit Bug Report</button>
+        </form>
 
+        <!-- Feedback Message -->
+        <div id="feedbackMessage" class="hidden"></div>
     </div>
 </div>
+
 
 </div><!--closes main and starry background-->
 
 <!-- FOOTER STARTS HERE -->
 <?php require_once("../footer-2024.php"); ?>
 
+<script>
+
+    $(document).ready(function() {
+    $('#bugReportForm').on('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const bugReport = $('#bugReportInput').val().trim();
+        if (bugReport) {
+            $.ajax({
+                url: '../messenger/create_bug_report.php',
+                method: 'POST',
+                data: {
+                    created_by: userId, // Pass the user's ID from PHP
+                    message: bugReport
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        $('#feedbackMessage').removeClass('hidden').text('Bug report submitted successfully.');
+                        $('#bugReportInput').val(''); // Clear the input field
+                    } else {
+                        $('#feedbackMessage').removeClass('hidden').text('Failed to submit bug report. Please try again.');
+                    }
+                },
+                error: function(error) {
+                    console.error('Error submitting bug report:', error);
+                    $('#feedbackMessage').removeClass('hidden').text('An error occurred while submitting your bug report. Please try again.');
+                }
+            });
+        }
+    });
+});
+
+</script>
 
 
 </body>

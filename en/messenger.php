@@ -64,7 +64,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <!-- MESSENGER CONTENT -->
 <div id="form-submission-box" style="height:fit-content;margin-top: 90px;">
     <div class="form-container">
-        <div style="text-align:center;width:100%;margin:auto;">
+        <div id="greeting" style="text-align:center;width:100%;margin:auto;">
             <h2 id="greeting">GoBrik Messenger</h2>
             <p id="subgreeting">Welcome to your conversations <?php echo $first_name; ?>.</p>
         </div>
@@ -385,7 +385,21 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 </script>
 
 
+<Script>
+    $(document).ready(function() {
+    // Function to fade out elements after 3 seconds
+    setTimeout(function() {
+        $('#top-page-image').fadeOut(500); // Fade out the top-page-image over 0.5 seconds
+        $('#greeting').fadeOut(500); // Fade out the greeting over 0.5 seconds
 
+        // Change the margin-top of the form-submission-box after the elements fade out
+        $('#form-submission-box').animate({
+            'margin-top': '70px'
+        }, 500); // Adjust the margin-top over 0.5 seconds
+    }, 3000); // Delay for 3 seconds (3000 milliseconds)
+});
+
+</script>
 
 
 </body>

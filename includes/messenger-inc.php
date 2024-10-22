@@ -224,7 +224,7 @@ background-color: var(--emblem-pink-over);
 }
 
 .message-item.self {
-    background-color: var(--emblem-blue);
+    background-color: var(--advanced-background);
     color: #fff;
     align-self: flex-end; /* Aligns to the right */
     max-width: 80%;
@@ -232,7 +232,7 @@ background-color: var(--emblem-pink-over);
 }
 
 .message-item:not(.self) {
-    background-color: var(--advanced-background);
+    background-color: var(--emblem-blue);
     color: var(--text-color);
     align-self: flex-start; /* Aligns to the left */
     max-width: 80%;
@@ -292,7 +292,7 @@ background-color: var(--emblem-pink-over);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 10px;
+    margin: 10px 10px auto 0px;
 }
 
 .conversation-icon .initial {

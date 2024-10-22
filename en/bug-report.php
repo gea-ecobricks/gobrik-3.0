@@ -124,16 +124,18 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         }
     });
 
+    $(document).ready(function() {
     $('#bugReportForm').on('submit', function(event) {
         event.preventDefault(); // Prevent the default form submission
 
         const bugReport = $('#bugReportInput').val().trim();
         if (bugReport) {
-            // Get the browser info
+            // Get the browser info and user info
             const browserInfo = getBrowserInfo();
+            const userInfo = getUserData();
 
-            // Append the browser info to the user's bug report message
-            const messageWithInfo = `${bugReport}<br><br><hr><br>${browserInfo}`;
+            // Append the browser info and user info to the user's bug report message
+            const messageWithInfo = `${bugReport}<br><br><hr><br>${browserInfo}<br><br><hr><br>${userInfo}`;
 
             $.ajax({
                 url: '../messenger/create_bug_report.php',
@@ -158,6 +160,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         }
     });
 
+
+
     function getBrowserInfo() {
     const userAgent = navigator.userAgent;
     const platform = navigator.platform;
@@ -180,6 +184,24 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 - Screen Size: ${screenWidth}x${screenHeight}
 - Viewport Size: ${viewportWidth}x${viewportHeight}`;
 }
+
+
+const userContinentIcon = '<?php echo addslashes($user_continent_icon); ?>';
+    const userLocationWatershed = '<?php echo addslashes($user_location_watershed); ?>';
+    const userLocationFull = '<?php echo addslashes($user_location_full); ?>';
+    const geaStatus = '<?php echo addslashes($gea_status); ?>';
+    const userCommunityName = '<?php echo addslashes($user_community_name); ?>';
+
+
+function getUserData() {
+    return `User Info:
+- Continent Icon: ${userContinentIcon}
+- Location Watershed: ${userLocationWatershed}
+- Full Location: ${userLocationFull}
+- GEA Status: ${geaStatus}
+- Community Name: ${userCommunityName}`;
+}
+
 
 });
 

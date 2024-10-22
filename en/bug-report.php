@@ -141,55 +141,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             }
         });
 
-        const maxFileSize = 10 * 1024 * 1024; // 10 MB
 
-            // Handle photo upload button click
-            $('#uploadPhotoButton').on('click', function() {
-                $('#imageUploadInput').click(); // Trigger the hidden file input
-            });
-
-            // Handle file selection
-            $('#imageUploadInput').on('change', function(event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-                    if (validTypes.includes(file.type) && file.size <= maxFileSize) {
-                        // Show the file name
-                        $('#imageFileName').text(file.name);
-
-                        // Change the button to show a spinner
-                        $('#uploadPhotoButton').addClass('uploading').prop('disabled', true);
-
-                        // Upload the file via AJAX
-                        const formData = new FormData();
-                        formData.append('image', file);
-                        formData.append('user_id', userId);
-
-                        $.ajax({
-                            url: '../messenger/upload_image_attachment.php',
-                            method: 'POST',
-                            data: formData,
-                            processData: false, // Don't process the files
-                            contentType: false, // Set content type to false as jQuery will tell the server it's a form data
-                            success: function(response) {
-                                // Handle successful upload
-                                $('#uploadPhotoButton').removeClass('uploading').prop('disabled', false);
-                                // You can store the file URL or handle the response as needed
-                                $('#feedbackMessage').removeClass('hidden').text('Image uploaded successfully.');
-                            },
-                            error: function(error) {
-                                console.error('Error uploading image:', error);
-                                $('#uploadPhotoButton').removeClass('uploading').prop('disabled', false);
-                                $('#feedbackMessage').removeClass('hidden').text('An error occurred while uploading the image. Please try again.');
-                            }
-                        });
-                    } else {
-                        alert('🤔 Hmmm... looks like this isn\'t an image file, or else it\'s over 10MB. Please try another file.');
-                        $('#imageUploadInput').val(''); // Reset the input if validation fails
-                        $('#imageFileName').text(''); // Clear any displayed file name
-                    }
-                }
-            });
 
         function getBrowserInfo() {
             const userAgent = navigator.userAgent;
@@ -223,6 +175,109 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 - Community Name: ${userCommunityName}`;
         }
     });
+</script>
+
+<script>
+
+    $(document).ready(function() {
+    const maxFileSize = 10 * 1024 * 1024; // 10 MB
+
+    // Handle photo upload button click
+    $('#uploadPhotoButton').on('click', function() {
+        // Only allow file selection if we're not in the "remove" state
+        if (!$(this).hasClass('remove-attachment')) {
+            $('#imageUploadInput').click(); // Trigger the hidden file input
+        } else {
+            // Handle removal of the attachment
+            resetUploadButton();
+            $('#imageFileName').text(''); // Clear the displayed file name
+            $('#imageUploadInput').val(''); // Reset the file input
+        }
+    });
+
+    // Handle file selection
+    $('#imageUploadInput').on('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+            if (validTypes.includes(file.type) && file.size <= maxFileSize) {
+                // Show the file name
+                $('#imageFileName').text(file.name);
+
+                // Change the button to show a spinner
+                $('#uploadPhotoButton')
+                    .addClass('uploading')
+                    .html('') // Remove inner content (camera icon)
+                    .prop('disabled', true);
+
+                // Upload the file via AJAX
+                const formData = new FormData();
+                formData.append('image', file);
+                formData.append('user_id', userId);
+
+                $.ajax({
+                    url: '../messenger/upload_image_attachment.php',
+                    method: 'POST',
+                    data: formData,
+                    processData: false, // Don't process the files
+                    contentType: false, // Set content type to false as jQuery will tell the server it's a form data
+                    success: function(response) {
+                        // Handle successful upload
+                        $('#uploadPhotoButton').removeClass('uploading').prop('disabled', false);
+                        showUploadSuccess();
+                    },
+                    error: function(error) {
+                        console.error('Error uploading image:', error);
+                        $('#uploadPhotoButton').removeClass('uploading').prop('disabled', false);
+                        $('#feedbackMessage').removeClass('hidden').text('An error occurred while uploading the image. Please try again.');
+                    }
+                });
+            } else {
+                alert('🤔 Hmmm... looks like this isn\'t an image file, or else it\'s over 10MB. Please try another file.');
+                $('#imageUploadInput').val(''); // Reset the input if validation fails
+                $('#imageFileName').text(''); // Clear any displayed file name
+            }
+        }
+    });
+
+    function showUploadSuccess() {
+        $('#uploadPhotoButton')
+            .html('✔️') // Add the check mark
+            .css('background', 'var(--emblem-green)');
+
+        setTimeout(function() {
+            $('#uploadPhotoButton')
+                .html('📎') // Change to paperclip icon
+                .css('background', 'grey')
+                .addClass('attachment-added') // Mark as having an attachment
+                .attr('title', 'Click to remove attachment') // Add title for better UX
+                .addClass('remove-attachment'); // Change state for removal
+        }, 2000);
+    }
+
+    // Reset the upload button to its original state (camera icon)
+    function resetUploadButton() {
+        $('#uploadPhotoButton')
+            .html('📸') // Revert to the camera icon
+            .css('background', 'grey')
+            .removeClass('attachment-added remove-attachment')
+            .attr('title', 'Upload Photo'); // Restore the original title
+    }
+
+    // Handle hover behavior for attachment removal state
+    $('#uploadPhotoButton').hover(
+        function() {
+            if ($(this).hasClass('remove-attachment')) {
+                $(this).html('❌'); // Show the delete icon on hover
+            }
+        },
+        function() {
+            if ($(this).hasClass('remove-attachment')) {
+                $(this).html('📎'); // Revert back to the paperclip icon when not hovered
+            }
+        }
+    );
+});
 </script>
 
 

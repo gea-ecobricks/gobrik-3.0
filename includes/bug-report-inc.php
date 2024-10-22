@@ -102,8 +102,8 @@
     transform: translate(-50%, -50%); /* Adjusts for perfect centering */
     width: 20px;
     height: 20px;
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    border-top: 4px solid var(--emblem-blue);
+    border: 4px solid rgba(0, 0, 0, 0.8);
+    border-top: 4px solid var(--emblem-pink);
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }

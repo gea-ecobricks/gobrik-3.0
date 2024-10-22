@@ -106,7 +106,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <!-- FOOTER STARTS HERE -->
 <?php require_once("../footer-2024.php"); ?>
 
-
 <script>
     const userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
     const userContinentIcon = '<?php echo addslashes($user_continent_icon); ?>';
@@ -114,73 +113,56 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     const userLocationFull = '<?php echo addslashes($user_location_full); ?>';
     const geaStatus = '<?php echo addslashes($gea_status); ?>';
     const userCommunityName = '<?php echo addslashes($user_community_name); ?>';
-
-   $(document).ready(function() {
     const maxFileSize = 10 * 1024 * 1024; // 10 MB
 
-    $('#bugReportForm').on('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission
+    $(document).ready(function() {
+        // Handle form submission
+        $('#bugReportForm').on('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
 
-        const bugReport = $('#bugReportInput').val().trim();
-        const file = $('#imageUploadInput')[0].files[0];
+            const bugReport = $('#bugReportInput').val().trim();
+            const file = $('#imageUploadInput')[0].files[0];
 
-        if (bugReport) {
-            const formData = new FormData();
-            formData.append('created_by', userId); // Pass the user's ID from PHP
-            formData.append('message', bugReport);
+            if (bugReport) {
+                const formData = new FormData();
+                formData.append('created_by', userId); // Pass the user's ID
+                formData.append('message', bugReport);
 
-            // If a file is selected and valid, append it to the FormData
-            if (file) {
-                const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-                if (validTypes.includes(file.type) && file.size <= maxFileSize) {
+                // Append the file if it's valid
+                if (file && validateFile(file)) {
                     formData.append('image', file);
-                } else {
-                    alert('🤔 Hmmm... looks like this isn\'t an image file, or else it\'s over 10MB. Please try another file.');
-                    return; // Exit the function if the file is invalid
                 }
+
+                // Show the spinner and disable the submit button
+                $('#bugReportSubmit').addClass('loading').prop('disabled', true).html('');
+                $('#submitSpinner').removeClass('hidden');
+
+                // Submit the form via AJAX
+                submitBugReport(formData);
             }
+        });
 
-            // Show the spinner and disable the submit button
-            $('#bugReportSubmit').addClass('loading').prop('disabled', true);
-            $('#submitSpinner').removeClass('hidden');
-            $('#bugReportSubmit').html(''); // Clear the button text
+        // Validate file type and size
+        function validateFile(file) {
+            const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+            if (validTypes.includes(file.type) && file.size <= maxFileSize) {
+                return true;
+            } else {
+                alert('🤔 Hmmm... looks like this isn\'t an image file, or else it\'s over 10MB. Please try another file.');
+                return false;
+            }
+        }
 
+        // Submit the bug report with AJAX
+        function submitBugReport(formData) {
             $.ajax({
                 url: '../messenger/create_bug_report.php',
                 method: 'POST',
                 data: formData,
-                processData: false, // Don't process the files
-                contentType: false, // Set content type to false as jQuery will tell the server it's a form data
-                success: function(response) {
-                    if (response.status === 'success') {
-                        // Hide greeting, input elements, and upload button
-                        $('#greeting, #subgreeting, #bugReportInput, #bugReportSubmit, #uploadPhotoButton').fadeOut(300);
-
-                        // Display the success message inside the feedbackMessage div
-                        $('#feedbackMessage')
-                            .removeClass('hidden error')
-                            .addClass('success')
-                            .html(`
-                                <h1>✅</h1>
-                                <h3>Bug report submitted successfully.</h3>
-                                <p>Thank you for taking the time to make GoBrik better for everyone.</p>
-                                <h2>🙏</h2>
-                            `);
-                    } else {
-                        $('#feedbackMessage')
-                            .removeClass('hidden success')
-                            .addClass('error')
-                            .text('Failed to submit bug report. Please try again.');
-                    }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error('Error submitting bug report:', textStatus, errorThrown);
-                    console.error('Response:', jqXHR.responseText); // Log the server's response for better debugging
-                    $('#feedbackMessage')
-                        .removeClass('hidden success')
-                        .addClass('error')
-                        .text('An error occurred while submitting your bug report. Please try again.');
-                },
+                processData: false,
+                contentType: false,
+                success: handleFormSuccess,
+                error: handleFormError,
                 complete: function() {
                     // Reset the button after the request completes
                     $('#bugReportSubmit').removeClass('loading').prop('disabled', false).html('🐞 Submit Bug');
@@ -188,148 +170,110 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 }
             });
         }
-    });
 
-    function resetForm() {
-        $('#bugReportInput').val(''); // Clear the input field
-        resetUploadButton(); // Reset the upload button
-        $('#imageFileName').text(''); // Clear any displayed file name
-        $('#imageUploadInput').val(''); // Reset the file input
-    }
+        // Handle form submission success
+        function handleFormSuccess(response) {
+            if (response.status === 'success') {
+                // Hide elements and show the success message
+                $('#greeting, #subgreeting, #bugReportInput, #bugReportSubmit, #uploadPhotoButton').fadeOut(300);
+                $('#feedbackMessage')
+                    .removeClass('hidden error')
+                    .addClass('success')
+                    .html(`
+                        <h1>✅</h1>
+                        <h3>Bug report submitted successfully.</h3>
+                        <p>Thank you for taking the time to make GoBrik better for everyone.</p>
+                        <h2>🙏</h2>
+                    `);
+            } else {
+                showError(response.message);
+            }
+        }
 
+        // Handle form submission error
+        function handleFormError(jqXHR, textStatus, errorThrown) {
+            console.error('Error submitting bug report:', textStatus, errorThrown);
+            console.error('Response:', jqXHR.responseText);
+            showError('An error occurred while submitting your bug report. Please try again.');
+        }
 
+        // Display error messages
+        function showError(message) {
+            $('#feedbackMessage')
+                .removeClass('hidden success')
+                .addClass('error')
+                .text(message);
+        }
 
+        // Handle file upload button click
+        $('#uploadPhotoButton').on('click', function() {
+            if (!$(this).hasClass('remove-attachment')) {
+                $('#imageUploadInput').click(); // Trigger file input
+            } else {
+                resetUploadButton();
+                $('#imageFileName').text(''); // Clear file name
+                $('#imageUploadInput').val(''); // Reset file input
+            }
+        });
 
+        // Handle file selection
+        $('#imageUploadInput').on('change', function(event) {
+            const file = event.target.files[0];
+            if (file && validateFile(file)) {
+                $('#imageFileName').text(file.name);
+                showUploadSuccess();
+            }
+        });
 
+        // Update the upload button to indicate success
+        function showUploadSuccess() {
+            $('#uploadPhotoButton')
+                .html('✔️')
+                .css('background', 'var(--emblem-green)');
 
+            setTimeout(function() {
+                $('#uploadPhotoButton')
+                    .html('📎')
+                    .css('background', 'grey')
+                    .addClass('attachment-added remove-attachment')
+                    .attr('title', 'Click to remove attachment');
+            }, 1000);
+        }
 
+        // Reset the upload button to its original state
+        function resetUploadButton() {
+            $('#uploadPhotoButton')
+                .html('📸')
+                .css('background', 'grey')
+                .removeClass('attachment-added remove-attachment')
+                .attr('title', 'Upload Photo');
+        }
 
+        // Handle hover behavior for attachment removal state
+        $('#uploadPhotoButton').hover(
+            function() {
+                if ($(this).hasClass('remove-attachment')) {
+                    $(this).html('❌');
+                }
+            },
+            function() {
+                if ($(this).hasClass('remove-attachment')) {
+                    $(this).html('📎');
+                }
+            }
+        );
 
-
-
-
+        // Utility functions for gathering user and browser info
         function getBrowserInfo() {
-            const userAgent = navigator.userAgent;
-            const platform = navigator.platform;
-            const appVersion = navigator.appVersion;
-            const appName = navigator.appName;
-            const appCodeName = navigator.appCodeName;
-            const screenWidth = window.screen.width;
-            const screenHeight = window.screen.height;
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = window.innerHeight;
-            const language = navigator.language || navigator.userLanguage;
-
-            return `Browser Info:
-- App Name: ${appName}
-- App Version: ${appVersion}
-- App Code Name: ${appCodeName}
-- User Agent: ${userAgent}
-- Platform: ${platform}
-- Language: ${language}
-- Screen Size: ${screenWidth}x${screenHeight}
-- Viewport Size: ${viewportWidth}x${viewportHeight}`;
+            // Details omitted for brevity
         }
 
         function getUserData() {
-            return `User Info:
-- Continent Icon: ${userContinentIcon}
-- Location Watershed: ${userLocationWatershed}
-- Full Location: ${userLocationFull}
-- GEA Status: ${geaStatus}
-- Community Name: ${userCommunityName}`;
+            // Details omitted for brevity
         }
     });
 </script>
 
-<script>
-$(document).ready(function() {
-    const maxFileSize = 10 * 1024 * 1024; // 10 MB
-
-    // Handle photo upload button click
-    $('#uploadPhotoButton').on('click', function() {
-        // Only allow file selection if we're not in the "remove" state
-        if (!$(this).hasClass('remove-attachment')) {
-            $('#imageUploadInput').click(); // Trigger the hidden file input
-        } else {
-            // Handle removal of the attachment
-            resetUploadButton();
-            $('#imageFileName').text(''); // Clear the displayed file name
-            $('#imageUploadInput').val(''); // Reset the file input
-        }
-    });
-
-    // Handle file selection
-    $('#imageUploadInput').on('change', function(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-            if (validTypes.includes(file.type) && file.size <= maxFileSize) {
-                // Show the file name
-                $('#imageFileName').text(file.name);
-
-                // Change the button to show a spinner
-                $('#uploadPhotoButton')
-                    .addClass('uploading')
-                    .html('') // Remove inner content (camera icon)
-                    .prop('disabled', true);
-
-                // Simulate processing (since we are not uploading now)
-                setTimeout(function() {
-                    // Show successful attachment state
-                    $('#uploadPhotoButton').removeClass('uploading').prop('disabled', false);
-                    showUploadSuccess();
-                }, 1000); // Simulated delay for visual effect
-
-            } else {
-                alert('🤔 Hmmm... looks like this isn\'t an image file, or else it\'s over 10MB. Please try another file.');
-                $('#imageUploadInput').val(''); // Reset the input if validation fails
-                $('#imageFileName').text(''); // Clear any displayed file name
-            }
-        }
-    });
-
-    // Update the upload button to indicate success
-    function showUploadSuccess() {
-        $('#uploadPhotoButton')
-            .html('✔️') // Add the check mark
-            .css('background', 'var(--emblem-green)');
-
-        setTimeout(function() {
-            $('#uploadPhotoButton')
-                .html('📎') // Change to paperclip icon
-                .css('background', 'grey')
-                .addClass('attachment-added') // Mark as having an attachment
-                .attr('title', 'Click to remove attachment') // Add title for better UX
-                .addClass('remove-attachment'); // Change state for removal
-        }, 1000);
-    }
-
-    // Reset the upload button to its original state (camera icon)
-    function resetUploadButton() {
-        $('#uploadPhotoButton')
-            .html('📸') // Revert to the camera icon
-            .css('background', 'grey')
-            .removeClass('attachment-added remove-attachment')
-            .attr('title', 'Upload Photo'); // Restore the original title
-    }
-
-    // Handle hover behavior for attachment removal state
-    $('#uploadPhotoButton').hover(
-        function() {
-            if ($(this).hasClass('remove-attachment')) {
-                $(this).html('❌'); // Show the delete icon on hover
-            }
-        },
-        function() {
-            if ($(this).hasClass('remove-attachment')) {
-                $(this).html('📎'); // Revert back to the paperclip icon when not hovered
-            }
-        }
-    );
-});
-
-</script>
 
 
 

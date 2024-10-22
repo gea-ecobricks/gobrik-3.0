@@ -386,18 +386,24 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 <Script>
-    $(document).ready(function() {
-    // Function to fade out elements after 3 seconds
-    setTimeout(function() {
-        $('#top-page-image').fadeOut(500); // Fade out the top-page-image over 0.5 seconds
-        $('#greeting').fadeOut(500); // Fade out the greeting over 0.5 seconds
+$(document).ready(function() {
+    // Function to make elements fade out and adjust styles after 3 seconds
+    function adjustPageAfterSplash() {
+        setTimeout(function() {
+            // Fade out the top-page-image and greeting divs
+            $('#top-page-image').fadeOut(1000); // Fades out over 1 second
+            $('#greeting').fadeOut(1000); // Fades out over 1 second
 
-        // Change the margin-top of the form-submission-box after the elements fade out
-        $('#form-submission-box').animate({
-            'margin-top': '70px'
-        }, 500); // Adjust the margin-top over 0.5 seconds
-    }, 3000); // Delay for 3 seconds (3000 milliseconds)
+            // Adjust the margin-top of form-submission-box and padding-top of form-container
+//             $('#form-submission-box').animate({ 'margin-top': '70px' }, 1000); // Adjusts margin-top over 1 second
+            $('.form-container').animate({ 'padding-top': '30px' }, 1000); // Adjusts padding-top over 1 second
+        }, 3000); // 3000 milliseconds = 3 seconds delay
+    }
+
+    // Call the function when the document is ready
+    adjustPageAfterSplash();
 });
+
 
 </script>
 

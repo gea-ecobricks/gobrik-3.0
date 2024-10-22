@@ -143,6 +143,7 @@ $stmtFiltered->bind_result($totalFilteredRecords);
 $stmtFiltered->fetch();
 $stmtFiltered->close();
 
+
 // Prepare the JSON response
 $response = [
     "draw" => $draw,

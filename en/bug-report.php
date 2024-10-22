@@ -193,7 +193,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         $('#imageFileName').text(''); // Clear any displayed file name
         $('#imageUploadInput').val(''); // Reset the file input
     }
-});
+
 
 
 

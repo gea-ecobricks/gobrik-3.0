@@ -71,8 +71,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
         <!-- Bug Report Form -->
         <form id="bugReportForm" data-lang-id="003-bug-form">
-            <textarea id="bugReportInput" placeholder="What went wrong? Or... what could be better?" rows="6" required></textarea>
-            <button type="submit" id="bugReportSubmit" class="submit-button enabled">🐞 Submit Bug</button>
+            <div class="bug-report-input-wrapper" style="position: relative;">
+                <textarea id="bugReportInput" placeholder="What went wrong? Or... what could be better?" rows="6" required></textarea>
+                <button type="button" id="uploadPhotoButton" class="upload-photo-button" title="Upload Photo" aria-label="Upload Photo">📸</button>
+            </div>
         </form>
 
         <!-- Feedback Message -->
@@ -81,7 +83,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     </div>
 
-<div style="padding:10px;font-size: smaller; text-align: center; margin: auto; align-self: center;padding-top:40px;padding-bottom:50px;margin-top: 0px;color:var(--subdued-text);">
+<div style="padding:10px;font-size: smaller; text-align: center; margin: auto; align-self: center;padding-top:40px;padding-bottom:50px;margin-top: 0px;color:var(--subdued-text);width:80%;">
         <p class="caption" data-lang-id="10-sending-info">When you send a bug report your message and details on your browser and OS will be sent to our development team over GoBrik messenger.</p>
     </div>
 </div>

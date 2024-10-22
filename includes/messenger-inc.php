@@ -525,6 +525,41 @@ position: absolute;
 }
 
 
+.start-convo-button, .toggle-drawer-button {
+    display: inline-block;
+    background: var(--emblem-green);
+    color: white;
+    border: 1px solid var(--emblem-green);
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s ease, border 0.3s ease;
+    height: 42px; /* Ensures both buttons have the same height */
+}
+
+.start-convo-button {
+    text-align: left;
+    width: calc(100% - 60px); /* Leaves room for the toggle button */
+    border-radius: 5px;
+}
+
+.start-convo-button.hidden {
+    display: none;
+}
+
+.toggle-drawer-button {
+    width: 50px;
+    text-align: center;
+    background: var(--emblem-blue);
+    border-radius: 5px;
+    margin-left: 5px;
+    border: 1px solid var(--emblem-blue);
+}
+
+.toggle-drawer-button:hover {
+    background: var(--emblem-blue-over);
+    border-color: var(--emblem-blue-over);
+}
 
 
 

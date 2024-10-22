@@ -88,6 +88,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             </div>
         </div>
 
+
         <!-- Scrollable container for conversations -->
         <div class="conversation-list" id="conversation-list">
             <!-- Conversations will be dynamically loaded here -->

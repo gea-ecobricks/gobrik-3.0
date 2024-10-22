@@ -208,7 +208,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     "data": "serial_no",
                     "render": function(data, type, row) {
                         if (type === 'display') {
-                            return `<button class="serial-no-button" data-serial-no="${data}" data-status="${row.status}" title="View Ecobrick Details">${data}</button>`;
+                            return `<button class="serial-button" data-serial-no="${data}" data-status="${row.status}" title="View Ecobrick Details">${data}</button>`;
                         }
                         return data;
                     },

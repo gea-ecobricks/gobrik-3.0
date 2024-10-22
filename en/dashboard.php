@@ -170,19 +170,16 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     $(document).ready(function() {
 
-   var ecobrikerId = "<?php echo htmlspecialchars($ecobricker_id); ?>"; // Get the logged-in user's ecobriker_id
-
-alert("testing" ecobrikerId);
-
+   var ecobrickerId = "<?php echo htmlspecialchars($ecobricker_id); ?>"; // Get the logged-in user's ecobriker_id
         $("#latest-ecobricks").DataTable({
             "responsive": true,
             "serverSide": true,
             "processing": true,
             "ajax": {
-                "url": "../api/fetch_newest_briks.php",
+                "url": "../api/fetch_my_briks.php",
                 "type": "POST",
                 "data": function(d) {
-                    d.ecobriker_id = ecobrikerId; // Pass the ecobriker_id to filter the results to the user's ecobricks
+                    d.ecobricker_id = ecobrickerId; // Pass the ecobriker_id to filter the results to the user's ecobricks
                 }
             },
             "pageLength": 10, // Show 10 briks per page

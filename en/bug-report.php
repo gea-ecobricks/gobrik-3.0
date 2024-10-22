@@ -78,8 +78,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <!-- Feedback Message -->
         <div id="feedbackMessage" class="hidden"></div>
 
-        <p class="caption" data-lang-id="10-sending-info">When you send a bug report your message and details on your browser and OS will be sent to our development team over GoBrik messenger.</p>
 
+    </div>
+
+<div style="font-size: small; text-align: center; margin: auto; align-self: center;padding-top:40px;padding-bottom:50px;margin-top: 0px;">
+        <p class="caption" data-lang-id="10-sending-info">When you send a bug report your message and details on your browser and OS will be sent to our development team over GoBrik messenger.</p>
     </div>
 </div>
 

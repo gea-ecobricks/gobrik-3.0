@@ -76,6 +76,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <!-- Container for the start conversation button and search box -->
         <div class="start-conversation-container">
             <button id="startConversationButton" class="start-convo-button">📝 New Chat...</button>
+            <button id="toggleConvoDrawer" class="toggle-drawer-button" title="Toggle Drawer"><</button>
             <div id="searchBoxContainer" class="hidden" style="position: relative;">
                 <input type="text" id="userSearchInput" placeholder="Search users..." />
                 <div class="spinner-right" id="userSearchSpinner"></div>
@@ -85,7 +86,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 </div>
                 <button id="createConversationButton" disabled class="create-button">+ Create Conversation</button>
             </div>
-
         </div>
 
         <!-- Scrollable container for conversations -->
@@ -102,9 +102,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <textarea id="messageInput" placeholder="Type your message..."></textarea>
             <button id="sendButton" title="Send" aria-label="Send"></button>
         </div>
-
     </div>
 </div>
+
 
 
 
@@ -479,6 +479,29 @@ $(document).ready(function() {
                 $('#sendButton').click();
             }
         }
+    });
+});
+
+</script>
+
+<script>
+
+    $(document).ready(function() {
+    let isDrawerCollapsed = false;
+
+    $('#toggleConvoDrawer').on('click', function() {
+        if (isDrawerCollapsed) {
+            // Expand the drawer
+            $('.conversation-list-container').css('width', '30%');
+            $('#startConversationButton').html('📝 New Chat...');
+            $('#toggleConvoDrawer').html('<');
+        } else {
+            // Collapse the drawer
+            $('.conversation-list-container').css('width', '60px');
+            $('#startConversationButton').html('📝');
+            $('#toggleConvoDrawer').html('>');
+        }
+        isDrawerCollapsed = !isDrawerCollapsed; // Toggle the state
     });
 });
 

@@ -445,35 +445,6 @@ position: absolute;
 
   }
 
-.start-convo-button, .toggle-drawer-button {
-    display: inline-block;
-    padding: 5px 10px;
-    background: var(--emblem-green);
-    color: white;
-    border: 1px solid var(--emblem-green);
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    margin: auto;
-    transition: background 0.3s ease, border 0.3s ease;
-}
-
-.start-convo-button {
-    text-align: left;
-    width: calc(100% - 60px); /* Adjust width to accommodate toggle button */
-}
-
-.toggle-drawer-button {
-    width: 50px;
-    text-align: center;
-    background: var(--emblem-blue);
-    border-radius: 5px;
-    margin-left: 5px;
-}
-
-.toggle-drawer-button:hover {
-    background: var(--emblem-blue-over);
-}
 
 
 

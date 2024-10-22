@@ -416,7 +416,12 @@ display: none;
       <span class="status-circle" style="background-color: red;" title="Not yet deployed"></span>
     </div>-->
     <div class="menu-page-item">
-      <a href="messenger.php" data-lang-id="1000-bug-report">Report a Bug</a>
+      <a href="bug-report.php" data-lang-id="1000-bug-report">Report a Bug</a>
+      <span class="status-circle" style="background-color: red;" title="Under development."></span>
+    </div>
+
+    <div class="menu-page-item">
+      <a href="messenger.php" data-lang-id="1000-bug-report">Messenger</a>
       <span class="status-circle" style="background-color: red;" title="Under development."></span>
     </div>
 

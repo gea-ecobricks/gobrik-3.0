@@ -224,7 +224,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 searchBox.attr("placeholder", "Search your briks...");
 
                 // Add event listener for clicks on the serial number buttons
-                $('#latest-ecobricks tbody').on('click', '.serial-no-button', function() {
+                $('#latest-ecobricks tbody').on('click', '.serial-button', function() {
                     var serialNo = $(this).data('serial-no');
                     var status = $(this).data('status');
                     viewEcobrickActions(serialNo, status, userLang);

@@ -650,6 +650,11 @@ background-size: contain;
       background-size: contain;
       }
 
+ .bug-reported {
+      background: url(../svgs/bug-report-night.svg) no-repeat center;
+      background-size: contain;
+      }
+
       .welcome-casandra {
       background: url(../svgs/welcome-casandra-night.svg) no-repeat center;
       background-size: contain;

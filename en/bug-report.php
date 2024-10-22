@@ -3,7 +3,7 @@ require_once '../earthenAuth_helper.php'; // Include the authentication helper f
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.11';
+$version = '0.12';
 $page = 'bug-report';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -59,7 +59,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
-<div id="top-page-image" class="message-birded top-page-image"></div>
+<div id="top-page-image" class="bug-reported top-page-image"></div>
 
 <!-- BUG REPORT FORM CONTENT -->
 <div id="form-submission-box" style="height:fit-content;margin-top: 90px;">

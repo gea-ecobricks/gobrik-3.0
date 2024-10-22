@@ -65,12 +65,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <div id="form-submission-box" style="height:fit-content;margin-top: 90px;">
     <div class="form-container">
         <div id="greeting" style="text-align:center;width:100%;margin:auto;">
-            <h2 id="greeting">Report a Bug</h2>
-            <p id="subgreeting">GoBrik 3.0 has just launched. Help us catch all the bugs by reporting any problems you encounter. Messages go to our volunteer development team.</p>
+            <h2 id="greeting" data-lang-id="001-bug-report-title">Report a Bug</h2>
+            <p id="subgreeting" data-lang-id="002-bug-report-subtitle">GoBrik 3.0 has just launched. Help us catch all the bugs by reporting any problems you encounter. Messages go to our volunteer development team.</p>
         </div>
 
         <!-- Bug Report Form -->
-        <form id="bugReportForm">
+        <form id="bugReportForm" data-lang-id="003-bug-form">
             <textarea id="bugReportInput" placeholder="What went wrong? Or... what could be better?" rows="6" required></textarea>
             <button type="submit" id="bugReportSubmit" class="submit-button enabled">🐞 Submit Bug</button>
         </form>
@@ -81,7 +81,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     </div>
 
-<div style="padding:10px;font-size: smaller; text-align: center; margin: auto; align-self: center;padding-top:40px;padding-bottom:50px;margin-top: 0px;">
+<div style="padding:10px;font-size: smaller; text-align: center; margin: auto; align-self: center;padding-top:40px;padding-bottom:50px;margin-top: 0px;color:var(--subdued-text);">
         <p class="caption" data-lang-id="10-sending-info">When you send a bug report your message and details on your browser and OS will be sent to our development team over GoBrik messenger.</p>
     </div>
 </div>

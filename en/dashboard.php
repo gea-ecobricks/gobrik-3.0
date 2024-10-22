@@ -170,10 +170,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     $(document).ready(function() {
 
-    alert(<?php echo htmlspecialchars($ecobricker_id); ?>);
    var ecobrikerId = "<?php echo htmlspecialchars($ecobricker_id); ?>"; // Get the logged-in user's ecobriker_id
 
-alert(ecobrikerId);
+alert("testing" ecobrikerId);
 
         $("#latest-ecobricks").DataTable({
             "responsive": true,

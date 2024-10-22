@@ -98,8 +98,9 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         </div>
         <div class="message-input">
             <textarea id="messageInput" placeholder="Type your message..."></textarea>
-            <button id="sendButton">Send</button>
+            <button id="sendButton" title="Send" aria-label="Send"></button>
         </div>
+
     </div>
 </div>
 

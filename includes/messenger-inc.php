@@ -361,6 +361,52 @@ background-color: var(--emblem-pink-over);
     margin-top: 2px;
 }
 
+.message-input {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+#messageInput {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    background: var(--darker);
+    color: var(--text-color);
+    font-size: 1.2em;
+}
+
+#sendButton {
+    width: 50px; /* Adjust width to fit the triangle */
+    background-color: var(--emblem-pink);
+    border: none;
+    border-radius: 0 15px 15px 0; /* Flat left edge, rounded right edge */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+#sendButton::before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 0 10px 20px; /* Creates a right-facing triangle */
+    border-color: transparent transparent transparent #fff; /* White triangle color */
+    margin-left: 3px; /* Adjust position if needed */
+}
+
+#sendButton:hover {
+    background-color: var(--emblem-pink-over);
+}
+
+
+
+
 
 
 

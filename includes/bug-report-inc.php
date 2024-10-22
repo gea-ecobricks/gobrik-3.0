@@ -97,8 +97,8 @@
 #uploadPhotoButton.uploading::after {
     content: '';
     position: absolute;
-    top: 0px; /* Center the spinner vertically */
-    left: 0px; /* Center the spinner horizontally */
+    top: 5px; /* Center the spinner vertically */
+    left: 5px; /* Center the spinner horizontally */
     transform: translate(-50%, -50%); /* Adjusts for perfect centering */
     width: 20px;
     height: 20px;

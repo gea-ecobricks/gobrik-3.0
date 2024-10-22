@@ -117,41 +117,72 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
     $(document).ready(function() {
         // Handle form submission
-        $('#bugReportForm').on('submit', function(event) {
-            event.preventDefault(); // Prevent the default form submission
+        $(document).ready(function() {
+    const maxFileSize = 10 * 1024 * 1024; // 10 MB
 
-            const bugReport = $('#bugReportInput').val().trim();
-            const file = $('#imageUploadInput')[0].files[0];
+    $('#bugReportForm').on('submit', function(event) {
+        event.preventDefault();
 
-            if (bugReport) {
-                const formData = new FormData();
-                formData.append('created_by', userId); // Pass the user's ID
-                formData.append('message', bugReport);
+        const bugReport = $('#bugReportInput').val().trim();
+        const file = $('#imageUploadInput')[0].files[0];
 
-                // Append the file if it's valid
-                if (file && validateFile(file)) {
-                    formData.append('image', file);
+        if (bugReport) {
+            const formData = new FormData();
+            formData.append('created_by', userId);
+            formData.append('message', bugReport);
+
+            if (file && validateFile(file)) {
+                formData.append('image', file);
+            }
+
+            $('#bugReportSubmit').addClass('loading').prop('disabled', true).html('');
+            $('#submitSpinner').removeClass('hidden');
+
+            $.ajax({
+                url: '../messenger/create_bug_report.php',
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.status === 'success') {
+                        $('#greeting, #subgreeting, #bugReportInput, #bugReportSubmit, #uploadPhotoButton').fadeOut(300);
+                        $('#feedbackMessage')
+                            .removeClass('hidden error')
+                            .addClass('success')
+                            .html(`
+                                <h1>✅</h1>
+                                <h3>Bug report submitted successfully.</h3>
+                                <p>Thank you for taking the time to make GoBrik better for everyone.</p>
+                                <h2>🙏</h2>
+                            `);
+                    } else {
+                        $('#feedbackMessage')
+                            .removeClass('hidden success')
+                            .addClass('error')
+                            .text(response.message || 'Failed to submit bug report. Please try again.');
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error:', jqXHR.responseText);
+                    $('#feedbackMessage')
+                        .removeClass('hidden success')
+                        .addClass('error')
+                        .text('An error occurred. Please try again.');
+                },
+                complete: function() {
+                    $('#bugReportSubmit').removeClass('loading').prop('disabled', false).html('🐞 Submit Bug');
+                    $('#submitSpinner').addClass('hidden');
                 }
-
-                // Show the spinner and disable the submit button
-                $('#bugReportSubmit').addClass('loading').prop('disabled', true).html('');
-                $('#submitSpinner').removeClass('hidden');
-
-                // Submit the form via AJAX
-                submitBugReport(formData);
-            }
-        });
-
-        // Validate file type and size
-        function validateFile(file) {
-            const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-            if (validTypes.includes(file.type) && file.size <= maxFileSize) {
-                return true;
-            } else {
-                alert('🤔 Hmmm... looks like this isn\'t an image file, or else it\'s over 10MB. Please try another file.');
-                return false;
-            }
+            });
         }
+    });
+
+    function validateFile(file) {
+        const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+        return validTypes.includes(file.type) && file.size <= maxFileSize;
+    }
+
 
         // Submit the bug report with AJAX
         function submitBugReport(formData) {

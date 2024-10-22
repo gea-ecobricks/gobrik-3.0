@@ -22,6 +22,7 @@ if ($conversation_id > 0 && $user_id > 0) {
                    u.first_name AS sender_name,
                    m.content,
                    m.created_at,
+                   m.thumbnail_url,
                    ms.status AS message_status
             FROM messages_tb m
             LEFT JOIN users_tb u ON m.sender_id = u.buwana_id
@@ -33,7 +34,7 @@ if ($conversation_id > 0 && $user_id > 0) {
         $stmt->execute();
 
         // Bind the result fields
-        $stmt->bind_result($message_id, $sender_id, $sender_name, $content, $created_at, $message_status);
+        $stmt->bind_result($message_id, $sender_id, $sender_name, $content, $created_at, $thumbnail_url, $message_status);
 
         // Fetch all messages into an associative array
         $messages = [];
@@ -44,6 +45,7 @@ if ($conversation_id > 0 && $user_id > 0) {
                 "sender_name" => $sender_name,
                 "content" => $content,
                 "created_at" => $created_at,
+                "thumbnail_url" => $thumbnail_url,
                 "status" => $message_status
             ];
         }

@@ -394,6 +394,47 @@ function searchUsers(query) {
     });
 </script>
 
+<script>
+    $(document).ready(function() {
+    // Add click event to the delete button inside each conversation item
+    $(document).on('click', '.delete-conversation', function(event) {
+        event.stopPropagation(); // Prevent triggering the conversation click event
+
+        // Get the conversation ID from the parent .conversation-item
+        const conversationId = $(this).closest('.conversation-item').data('conversation-id');
+
+        // Confirm with the user before proceeding
+        const confirmation = confirm("Are you sure you want to delete this conversation? Everyone's messages will be deleted permanently.");
+        if (confirmation) {
+            deleteConversation(conversationId);
+        }
+    });
+
+    // Function to delete the conversation
+    function deleteConversation(conversationId) {
+        $.ajax({
+            url: '../messenger/delete_conversation.php', // Endpoint to handle conversation deletion
+            method: 'POST',
+            data: {
+                conversation_id: conversationId
+            },
+            success: function(response) {
+                if (response.status === 'success') {
+                    alert('Conversation deleted successfully.');
+                    loadConversations(); // Refresh the conversation list after deletion
+                } else {
+                    alert('Failed to delete the conversation. Please try again.');
+                }
+            },
+            error: function(error) {
+                console.error('Error deleting conversation:', error);
+                alert('An error occurred while deleting the conversation. Please try again.');
+            }
+        });
+    }
+});
+</script>
+
 
 <Script>
 $(document).ready(function() {

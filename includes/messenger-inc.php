@@ -429,6 +429,22 @@ position: absolute;
   }
 
 
+.delete-conversation {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 0.9em;
+    color: var(--subdued-text);
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 2px;
+    line-height: 1;
+}
+
+.delete-conversation:hover {
+    color: var(--emblem-red); /* Change the color on hover to indicate delete action */
+}
 
 
 

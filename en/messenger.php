@@ -494,14 +494,13 @@ $(document).ready(function() {
             $('#top-page-image').fadeOut(1000); // Fades out over 1 second
             $('#greeting').fadeOut(1000); // Fades out over 1 second
              document.getElementById("header").style.height = "60px";
-            document.getElementById("header").style.borderBottom = "var(--header-accent) 0.5px solid";
             document.getElementById("gea-logo").style.width = "170px";
             document.getElementById("gea-logo").style.height = "35px";
             document.getElementById("logo-gobrik").style.opacity = "0.9";
             document.getElementById("settings-buttons").style.padding = "12px 43px 12px 12px";
             document.getElementById("language-menu-slider").style.top = "-35px";
             document.getElementById("login-menu-slider").style.top = "-35px";
-            document.getElementById("form-submission-box").style.marginTop = "45px";
+            document.getElementById("form-submission-box").style.marginTop = "55px";
 
 
             // Adjust the padding-top of form-container

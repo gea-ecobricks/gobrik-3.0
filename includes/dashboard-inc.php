@@ -20,6 +20,7 @@
     border-radius: 10px;
     padding: 15px;
     margin: 20px 0;
+    opacity: 0.9;
 }
 
 .panel-title {
@@ -27,6 +28,7 @@
     font-size: 1.2em;
     margin-bottom: 10px;
     font-weight: bold;
+    margin:10px;
 }
 
 .menu-buttons-row {
@@ -48,7 +50,7 @@
 }
 
 .page-button:hover {
-    background: rgba(116, 202, 244, 0.8); /* Adjust hover color if needed */
+    background: var(--form-background); /* Adjust hover color if needed */
     text-decoration: none;
 }
 
@@ -67,7 +69,7 @@
    }
 
    #latest-ecobricks_info {
-   color: var(--subdued-text) !important;
+   color: grey !important;
    font-family: 'Mulish', sans-serif !important;
    }
 

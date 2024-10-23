@@ -121,8 +121,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <a href="https://nextcloud.ecobricks.org/index.php/s/wCC2BwBwkW7GzTA" target="_blank" class="page-button">Trainer File Kit</a>
             <a href="https://learning.ecobricks.org" target="_blank" class="page-button">GEA Courses</a>
             <a href="https://ecobricks.org/<?php echo htmlspecialchars($lang); ?>/media" target="_blank" class="page-button">Ecobricks Media Kit</a>
-            <a href="admin-review.php" target="_blank" class="page-button disabled">Validate Ecobricks</a>
-            <a href="bug-report.php" class="page-button disabled">Report a Bug</a>
+            <a href="admin-review.php" class="page-button">Validate Ecobricks</a>
+            <a href="bug-report.php" class="page-button">Report a Bug</a>
         </div>
     </div>
 <?php endif; ?>

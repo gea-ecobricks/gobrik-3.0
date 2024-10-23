@@ -495,7 +495,6 @@ $(document).ready(function() {
             $('#greeting').fadeOut(1000); // Fades out over 1 second
              document.getElementById("header").style.height = "60px";
             document.getElementById("header").style.borderBottom = "var(--header-accent) 0.5px solid";
-            document.getElementById("header").style.boxShadow = "0px 0px 15px rgba(0, 0, 10, 0.805)";
             document.getElementById("gea-logo").style.width = "170px";
             document.getElementById("gea-logo").style.height = "35px";
             document.getElementById("logo-gobrik").style.opacity = "0.9";

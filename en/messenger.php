@@ -204,6 +204,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             }
         });
     }
+
+
 function renderMessages(messages) {
     const messageList = $('#message-list');
     messageList.empty();
@@ -211,7 +213,9 @@ function renderMessages(messages) {
     messages.forEach(msg => {
         const messageClass = msg.sender_id == userId ? 'self' : '';
         const thumbnailHtml = msg.thumbnail_url
-            ? `<img src="${msg.thumbnail_url}" alt="Image attachment" class="message-thumbnail" />`
+            ? `<a href="${msg.image_url}" target="_blank">
+                  <img src="${msg.thumbnail_url}" alt="Image attachment" class="message-thumbnail" />
+               </a>`
             : '';
 
         const msgElement = `
@@ -228,6 +232,7 @@ function renderMessages(messages) {
     // Scroll to the bottom of the message list to show the latest messages
     messageList.scrollTop(messageList.prop("scrollHeight"));
 }
+
 
 
 

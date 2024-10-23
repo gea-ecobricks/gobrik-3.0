@@ -16,13 +16,15 @@ $response = [];
 if ($conversation_id > 0 && $user_id > 0) {
     try {
         // Prepare the SQL query to retrieve messages for the conversation
+        // Prepare the SQL query to retrieve messages for the conversation
         $stmt = $buwana_conn->prepare("
             SELECT m.message_id,
                    m.sender_id,
                    u.first_name AS sender_name,
                    m.content,
                    m.created_at,
-                   m.thumbnail_url,
+                   CONCAT('../', m.thumbnail_url) AS thumbnail_url,
+                   CONCAT('../', m.image_url) AS image_url,
                    ms.status AS message_status
             FROM messages_tb m
             LEFT JOIN users_tb u ON m.sender_id = u.buwana_id
@@ -30,6 +32,7 @@ if ($conversation_id > 0 && $user_id > 0) {
             WHERE m.conversation_id = ?
             ORDER BY m.created_at ASC
         ");
+
         $stmt->bind_param("ii", $user_id, $conversation_id);
         $stmt->execute();
 

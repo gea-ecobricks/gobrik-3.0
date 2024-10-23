@@ -566,7 +566,7 @@ $(document).ready(function() {
                 $('.conversation-list-container').css('width', '0');
                 $('.message-thread').css('width', '100%').show();
                 $('#startConversationButton').addClass('hidden');
-                $('#toggleConvoDrawer').html('<');
+                $('#toggleConvoDrawer').html('>');
             } else {
                 // On larger screens, expand the drawer to 30% width
                 $('.conversation-list-container').css('width', '30%');
@@ -575,7 +575,7 @@ $(document).ready(function() {
             }
 
             // Show conversation details after expanding
-            $('.conversation-item').removeClass('collapsed');
+
         } else {
             if (window.innerWidth < 800) {
                 // On mobile, show only the conversation list and hide the message thread
@@ -583,6 +583,7 @@ $(document).ready(function() {
                 $('.message-thread').hide();
                 $('#startConversationButton').removeClass('hidden');
                 $('#toggleConvoDrawer').html('>'); // Indicate that the drawer can be expanded
+                $('.conversation-item').removeClass('collapsed');
             } else {
                 // On larger screens, collapse to minimal view
                 $('.conversation-list-container').css('width', '80px');

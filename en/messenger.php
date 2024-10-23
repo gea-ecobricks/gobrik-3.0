@@ -493,7 +493,15 @@ $(document).ready(function() {
             // Fade out the top-page-image and greeting divs
             $('#top-page-image').fadeOut(1000); // Fades out over 1 second
             $('#greeting').fadeOut(1000); // Fades out over 1 second
-            scrollMoreThan30();
+             document.getElementById("header").style.height = "60px";
+            document.getElementById("header").style.borderBottom = "var(--header-accent) 0.5px solid";
+            document.getElementById("header").style.boxShadow = "0px 0px 15px rgba(0, 0, 10, 0.805)";
+            document.getElementById("gea-logo").style.width = "170px";
+            document.getElementById("gea-logo").style.height = "35px";
+            document.getElementById("logo-gobrik").style.opacity = "0.9";
+            document.getElementById("settings-buttons").style.padding = "12px 43px 12px 12px";
+            document.getElementById("language-menu-slider").style.top = "-35px";
+            document.getElementById("login-menu-slider").style.top = "-35px";
 
             // Adjust the padding-top of form-container
             $('.form-container').animate({ 'padding-top': '30px' }, 1000); // Adjusts padding-top over 1 second
@@ -501,25 +509,6 @@ $(document).ready(function() {
     }
 
 
-function scrollMoreThan30() {
-    if (window.pageYOffset > 30 && window.pageYOffset < 800) {
-        document.getElementById("header").style.height = "60px";
-        document.getElementById("header").style.borderBottom = "var(--header-accent) 0.5px solid";
-        document.getElementById("header").style.boxShadow = "0px 0px 15px rgba(0, 0, 10, 0.805)";
-        document.getElementById("gea-logo").style.width = "170px";
-        document.getElementById("gea-logo").style.height = "35px";
-        document.getElementById("logo-gobrik").style.opacity = "0.9";
-        document.getElementById("settings-buttons").style.padding = "12px 43px 12px 12px";
-        document.getElementById("language-menu-slider").style.top = "-35px";
-        document.getElementById("login-menu-slider").style.top = "-35px";
-
-        // Tuck the top banner image under the header
-        var topPageImage = document.querySelector('.top-page-image');
-        if (topPageImage) {
-            topPageImage.style.zIndex = "25";
-        }
-    }
-}
 
     // Call the function when the document is ready
     adjustPageAfterSplash();

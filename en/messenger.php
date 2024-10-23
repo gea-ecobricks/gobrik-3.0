@@ -493,6 +493,7 @@ $(document).ready(function() {
             // Fade out the top-page-image and greeting divs
             $('#top-page-image').fadeOut(1000); // Fades out over 1 second
             $('#greeting').fadeOut(1000); // Fades out over 1 second
+            scrollMoreThan30()
 
             // Adjust the margin-top of form-submission-box and padding-top of form-container
 //             $('#form-submission-box').animate({ 'margin-top': '70px' }, 1000); // Adjusts margin-top over 1 second

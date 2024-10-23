@@ -122,7 +122,7 @@
 
 
 
-<script src="../scripts/core-2024.js?v=<?php echo ($version); ;?>"></script>
+<script src="../scripts/core-2024.js?v=1<?php echo ($version); ;?>"></script>
 
 
 <!--This enables the Light and Dark mode switching-->

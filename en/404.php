@@ -13,10 +13,10 @@ $lang = isset($path_segments[0]) ? $path_segments[0] : 'en'; // Default to Engli
 <HTML lang="en">
 <HEAD>
 <META charset="UTF-8">
-<?php $version='2.45';?>
+<?php $version='2.46';?>
 <?php $page='404';?>
 
-<?php require_once ("../en/includes/404-inc.php");?>
+<?php require_once ("../includes/404-inc.php");?>
 
 <!--PAGE BANNER-->
 

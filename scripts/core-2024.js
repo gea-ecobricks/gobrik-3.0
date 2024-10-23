@@ -282,6 +282,8 @@ let lastScrollTop = 0;
 
 const currentPage = '<?php echo $page; ?>';
 
+alert(currentPage);
+
     if (currentPage !== 'messenger') {
         window.onscroll = function() {
             scrollLessThan30();

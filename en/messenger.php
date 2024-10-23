@@ -583,6 +583,8 @@ $(document).ready(function() {
                 $('.conversation-list-container').css('width', '30%');
                 $('.message-thread').css('width', '70%').show();
                 $('#toggleConvoDrawer').html('<');
+                $('.conversation-item').removeClass('collapsed');
+                $('.conversation-item').addClass('expanded');
             }
 
             // Show conversation details after expanding
@@ -601,6 +603,7 @@ $(document).ready(function() {
                 $('.conversation-list-container').css('width', '80px');
                 $('.message-thread').addClass('expanded');
                 $('#toggleConvoDrawer').html('>'); // Indicate that the drawer can be expanded
+
             }
 
             // Hide conversation details when collapsed

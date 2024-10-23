@@ -221,7 +221,7 @@ function renderMessages(messages) {
             <div class="message-item ${messageClass}">
                 ${thumbnailHtml}
                 <p class="sender">${msg.sender_name}</p>
-                <p>${msg.content}</p>
+                <p class="the-message-text">${msg.content}</p>
                 <p class="timestamp">${msg.created_at}</p>
             </div>
         `;
@@ -272,28 +272,6 @@ function openPhotoModal(imageUrl) {
     document.getElementById('footer-full')?.classList.add('blurred');
     document.body.classList.add('modal-open');
 }
-
-// Function to close the modal
-// function closeInfoModal() {
-//     const modal = document.getElementById('form-modal-message');
-//     modal.style.display = 'none';
-//
-//     // Reset the content and photo boxes
-//     const contentBox = modal.querySelector('.modal-content-box');
-//     const photoBox = modal.querySelector('.modal-photo-box');
-//     contentBox.style.display = 'block'; // Restore the content box for other uses
-//     photoBox.style.display = 'none'; // Hide the photo box when closing
-//
-//     // Clear the image
-//     const photoContainer = modal.querySelector('.modal-photo');
-//     photoContainer.innerHTML = '';
-//
-//     // Remove blur effect from the background
-//     document.getElementById('page-content')?.classList.remove('blurred');
-//     document.getElementById('footer-full')?.classList.remove('blurred');
-//     document.body.classList.remove('modal-open');
-// }
-
 
 
 
@@ -551,33 +529,73 @@ $(document).ready(function() {
 
 <script>
 
-
 $(document).ready(function() {
     let isDrawerCollapsed = false;
 
+    // Adjust the initial state based on screen width
+    function adjustDrawerState() {
+        if (window.innerWidth < 800) {
+            // Start with the conversation list at full width and hide the message thread
+            $('.conversation-list-container').css('width', '100%');
+            $('.message-thread').hide();
+            $('#startConversationButton').removeClass('hidden');
+            $('#toggleConvoDrawer').html('>'); // Button indicates collapse
+            isDrawerCollapsed = true;
+        } else {
+            // On larger screens, start with the drawer at 30% and message thread visible
+            $('.conversation-list-container').css('width', '30%');
+            $('.message-thread').show();
+            $('#startConversationButton').removeClass('hidden');
+            $('#toggleConvoDrawer').html('<'); // Button indicates expand
+            isDrawerCollapsed = false;
+        }
+    }
+
+    // Adjust drawer state on window resize
+    $(window).on('resize', function() {
+        adjustDrawerState();
+    });
+
+    // Initial setup based on window size
+    adjustDrawerState();
+
     $('#toggleConvoDrawer').on('click', function() {
         if (isDrawerCollapsed) {
-            // Expand the drawer
-            $('.conversation-list-container').css('width', '30%');
-            $('.message-thread').removeClass('expanded');
-            $('#startConversationButton').removeClass('hidden');
-            $('#toggleConvoDrawer').html('<');
+            if (window.innerWidth < 800) {
+                // On mobile, expand to full width for the message thread, hide the drawer
+                $('.conversation-list-container').css('width', '0');
+                $('.message-thread').css('width', '100%').show();
+                $('#toggleConvoDrawer').html('<');
+            } else {
+                // On larger screens, expand the drawer to 30% width
+                $('.conversation-list-container').css('width', '30%');
+                $('.message-thread').css('width', '70%').show();
+                $('#toggleConvoDrawer').html('<');
+            }
 
-            // Show conversation details after expanding
+            $('#startConversationButton').removeClass('hidden');
             $('.conversation-item').removeClass('collapsed');
         } else {
-            // Collapse the drawer
-            $('.conversation-list-container').css('width', '80px');
-            $('.message-thread').addClass('expanded');
-            $('#startConversationButton').addClass('hidden');
-            $('#toggleConvoDrawer').html('>');
+            if (window.innerWidth < 800) {
+                // On mobile, show only the conversation list
+                $('.conversation-list-container').css('width', '100%');
+                $('.message-thread').hide();
+                $('#toggleConvoDrawer').html('>'); // Indicate that the drawer can be expanded
+            } else {
+                // On larger screens, collapse to minimal view
+                $('.conversation-list-container').css('width', '80px');
+                $('.message-thread').addClass('expanded');
+                $('#toggleConvoDrawer').html('>'); // Indicate that the drawer can be expanded
+            }
 
-            // Hide conversation details when collapsed
+            $('#startConversationButton').addClass('hidden');
             $('.conversation-item').addClass('collapsed');
         }
+
         isDrawerCollapsed = !isDrawerCollapsed; // Toggle the state
     });
 });
+
 
 
 </script>

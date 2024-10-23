@@ -61,11 +61,15 @@
 //Databables
 
 
-   #ecobrick-search-return_info, #latest-ecobricks_info {
+   #ecobrick-search-return_info {
    color: grey !important;
    font-family: 'Mulish', sans-serif !important;
    }
 
+   #latest-ecobricks_info {
+   color: var(--subdued-text) !important;
+   font-family: 'Mulish', sans-serif !important;
+   }
 
 /* Media query for screens less than 769px wide */
 @media screen and (max-width: 768px) {

@@ -584,6 +584,7 @@ $(document).ready(function() {
                 $('#startConversationButton').removeClass('hidden');
                 $('#toggleConvoDrawer').html('>'); // Indicate that the drawer can be expanded
                 $('.conversation-item').removeClass('collapsed');
+                $('.conversation-item').addClass('expanded');
             } else {
                 // On larger screens, collapse to minimal view
                 $('.conversation-list-container').css('width', '80px');

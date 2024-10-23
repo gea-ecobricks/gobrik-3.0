@@ -603,7 +603,7 @@ $(document).ready(function() {
                 $('.conversation-list-container').css('width', '80px');
                 $('.message-thread').addClass('expanded');
                 $('#toggleConvoDrawer').html('>'); // Indicate that the drawer can be expanded
-                $('#startConversationButton').addClass('hidden');
+
                 $('.message-thread').css('width', 'calc(100% - 60px)').show();
 
             }

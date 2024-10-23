@@ -213,8 +213,8 @@ function renderMessages(messages) {
     messages.forEach(msg => {
         const messageClass = msg.sender_id == userId ? 'self' : '';
         const thumbnailHtml = msg.thumbnail_url
-            ? `<a href="${msg.image_url}" target="_blank">
-                  <img src="${msg.thumbnail_url}" alt="Image attachment" class="message-thumbnail" />
+            ? `<a href="../${msg.image_url}" target="_blank">
+                  <img src="../${msg.thumbnail_url}" alt="Image attachment" class="message-thumbnail" />
                </a>`
             : '';
 

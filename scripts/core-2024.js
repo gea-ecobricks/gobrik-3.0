@@ -1,5 +1,4 @@
 
-//var buwanaId = '<?php echo $buwana_id; ?>';
 
 function switchLanguage(langCode) {
  currentLanguage = langCode; // Update the global language variable
@@ -280,18 +279,12 @@ SCROLL CONTROL
 -------------------------------------------*/
 let lastScrollTop = 0;
 
-const currentPage = '<?php echo $page; ?>';
-
-alert(currentPage);
-
-    if (currentPage !== 'messenger') {
-        window.onscroll = function() {
-            scrollLessThan30();
-            scrollMoreThan30();
-            scrollMoreThan800();
-            scrollLessThan800();
-        };
-    }
+window.onscroll = function() {
+    scrollLessThan30();
+    scrollMoreThan30();
+    scrollMoreThan800();
+    scrollLessThan800();
+};
 
 function scrollLessThan30() {
     if (window.pageYOffset <= 30) {

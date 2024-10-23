@@ -241,15 +241,59 @@ function renderMessages(messages) {
 
 // Function to open the modal with the full image
 function openPhotoModal(imageUrl) {
-    $('#modal-photo-box .modal-photo').html(`<img src="${imageUrl}" alt="Full image" class="modal-full-photo" />`);
-    $('#form-modal-message').removeClass('modal-hidden').addClass('modal-visible');
+    const modal = document.getElementById('form-modal-message');
+    const contentBox = modal.querySelector('.modal-content-box');
+    const photoBox = modal.querySelector('.modal-photo-box');
+    const photoContainer = modal.querySelector('.modal-photo');
+
+    // Hide the content box and show the photo box
+    contentBox.style.display = 'none'; // Hide the content box
+    photoBox.style.display = 'block'; // Make sure the photo box is visible
+
+    // Clear previous images from the photo container
+    photoContainer.innerHTML = '';
+
+    // Create and append the image to the photo container
+    const img = document.createElement('img');
+    img.src = imageUrl;
+    img.alt = "Full-size image preview";
+    img.style.maxWidth = '90%';
+    img.style.maxHeight = '75vh';
+    img.style.minHeight = "400px";
+    img.style.minWidth = "400px";
+    img.style.margin = 'auto';
+    photoContainer.appendChild(img);
+
+    // Show the modal
+    modal.style.display = 'flex';
+
+    // Blur out background
+    document.getElementById('page-content')?.classList.add('blurred');
+    document.getElementById('footer-full')?.classList.add('blurred');
+    document.body.classList.add('modal-open');
 }
 
 // Function to close the modal
-function closeInfoModal() {
-    $('#form-modal-message').removeClass('modal-visible').addClass('modal-hidden');
-    $('#modal-photo-box .modal-photo').empty(); // Clear the image when closing
-}
+// function closeInfoModal() {
+//     const modal = document.getElementById('form-modal-message');
+//     modal.style.display = 'none';
+//
+//     // Reset the content and photo boxes
+//     const contentBox = modal.querySelector('.modal-content-box');
+//     const photoBox = modal.querySelector('.modal-photo-box');
+//     contentBox.style.display = 'block'; // Restore the content box for other uses
+//     photoBox.style.display = 'none'; // Hide the photo box when closing
+//
+//     // Clear the image
+//     const photoContainer = modal.querySelector('.modal-photo');
+//     photoContainer.innerHTML = '';
+//
+//     // Remove blur effect from the background
+//     document.getElementById('page-content')?.classList.remove('blurred');
+//     document.getElementById('footer-full')?.classList.remove('blurred');
+//     document.body.classList.remove('modal-open');
+// }
+
 
 
 

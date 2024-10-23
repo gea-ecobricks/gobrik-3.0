@@ -205,7 +205,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         });
     }
 
-
 function renderMessages(messages) {
     const messageList = $('#message-list');
     messageList.empty();
@@ -213,8 +212,8 @@ function renderMessages(messages) {
     messages.forEach(msg => {
         const messageClass = msg.sender_id == userId ? 'self' : '';
         const thumbnailHtml = msg.thumbnail_url
-            ? `<a href="../${msg.image_url}" target="_blank">
-                  <img src="../${msg.thumbnail_url}" alt="Image attachment" class="message-thumbnail" />
+            ? `<a href="#" class="thumbnail-link" data-full-url="../${msg.image_url}">
+                <img src=../"${msg.thumbnail_url}" alt="Image attachment" class="message-thumbnail" />
                </a>`
             : '';
 
@@ -231,7 +230,27 @@ function renderMessages(messages) {
 
     // Scroll to the bottom of the message list to show the latest messages
     messageList.scrollTop(messageList.prop("scrollHeight"));
+
+    // Add click event to open modal for each thumbnail link
+    $('.thumbnail-link').on('click', function(event) {
+        event.preventDefault();
+        const fullUrl = $(this).data('full-url');
+        openPhotoModal(fullUrl);
+    });
 }
+
+// Function to open the modal with the full image
+function openPhotoModal(imageUrl) {
+    $('#modal-photo-box .modal-photo').html(`<img src="${imageUrl}" alt="Full image" class="modal-full-photo" />`);
+    $('#form-modal-message').removeClass('modal-hidden').addClass('modal-visible');
+}
+
+// Function to close the modal
+function closeInfoModal() {
+    $('#form-modal-message').removeClass('modal-visible').addClass('modal-hidden');
+    $('#modal-photo-box .modal-photo').empty(); // Clear the image when closing
+}
+
 
 
 

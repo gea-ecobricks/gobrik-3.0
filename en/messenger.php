@@ -213,7 +213,7 @@ function renderMessages(messages) {
         const messageClass = msg.sender_id == userId ? 'self' : '';
         const thumbnailHtml = msg.thumbnail_url
             ? `<a href="#" class="thumbnail-link" data-full-url="../${msg.image_url}">
-                <img src=../"${msg.thumbnail_url}" alt="Image attachment" class="message-thumbnail" />
+                <img src="../${msg.thumbnail_url}" alt="Image attachment" class="message-thumbnail" />
                </a>`
             : '';
 

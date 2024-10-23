@@ -579,6 +579,90 @@ position: absolute;
 }
 
 
+//upload button
+/* Wrapper for the message input, similar to bug-report input */
+.message-input-wrapper,
+.bug-report-input-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#messageInput,
+#bugReportInput {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    background: var(--darker);
+    color: var(--text-color);
+    font-size: 1.1em;
+    resize: vertical;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+/* Style for the upload photo button */
+.upload-photo-button {
+    position: absolute;
+    bottom: 10px;
+    right: 50px; /* Adjust to align with the send button */
+    width: 40px;
+    height: 40px;
+    background: grey;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.upload-photo-button:hover {
+    background: var(--emblem-blue);
+}
+
+.image-file-name {
+    position: absolute;
+    bottom: 15px;
+    right: 100px; /* Position to the left of the upload button */
+    font-size: 0.8em;
+    color: var(--subdued-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px; /* Adjust as needed */
+}
+
+/* Style for the send button */
+.send-message-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background: var(--emblem-pink);
+    border: none;
+    border-radius: 0 15px 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.send-message-button::before {
+    content: '▶️'; /* Send icon, can be customized */
+    color: white;
+    font-size: 1.1em;
+}
+
+.send-message-button:hover {
+    background: var(--emblem-pink-over);
+}
 
 
     </style>

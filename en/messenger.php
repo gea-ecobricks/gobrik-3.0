@@ -99,10 +99,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <div id="message-list">
             <!-- Messages will be dynamically loaded here -->
         </div>
-        <div class="message-input">
-            <textarea id="messageInput" placeholder="Type your message..."></textarea>
-            <button id="sendButton" title="Send" aria-label="Send"></button>
+        <div class="message-input-wrapper" style="position: relative;">
+            <textarea id="messageInput" placeholder="Type your message..." rows="3"></textarea>
+            <input type="file" id="imageUploadInput" accept="image/jpeg, image/jpg, image/png, image/webp" style="display: none;" />
+            <span id="imageFileName" class="image-file-name"></span>
+            <button type="button" id="uploadPhotoButton" class="upload-photo-button" title="Upload Photo" aria-label="Upload Photo">📷</button>
+            <button id="sendButton" title="Send" aria-label="Send" class="send-message-button"></button>
         </div>
+
     </div>
 </div>
 
@@ -117,6 +121,33 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <!-- FOOTER STARTS HERE -->
 <?php require_once("../footer-2024.php"); ?>
+<script>
+
+    //POLLING
+
+    $(document).ready(function() {
+    const pollingInterval = 5000; // 5 seconds
+
+    function startPollingMessages() {
+        setInterval(function() {
+            $.ajax({
+                url: '../messenger/get_messages.php',
+                method: 'GET',
+                data: { conversation_id: currentConversationId, user_id: userId },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        renderMessages(response.messages);
+                    }
+                }
+            });
+        }, pollingInterval);
+    }
+
+    startPollingMessages(); // Start polling when the document is ready
+});
+
+</script>
+
 
 <script>
     // SECTION 1: Define Global Variables

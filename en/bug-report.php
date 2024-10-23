@@ -168,12 +168,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         // Handle form submission success
         function handleFormSuccess(response) {
             if (response.status === 'success') {
-                $('#greeting, #subgreeting, #bugReportInput, #bugReportSubmit, #uploadPhotoButton').fadeOut(300);
+                $('#greeting, #imageFileName, #subgreeting, #bugReportInput, #bugReportSubmit, #uploadPhotoButton').fadeOut(300);
                 $('#feedbackMessage')
                     .removeClass('hidden error')
                     .addClass('success')
                     .html(`
-                        <h1>✅</h1>
+
                         <h3>Bug report submitted successfully.</h3>
                         <p>Thank you for taking the time to make GoBrik better for everyone.</p>
                         <h2>🙏</h2>

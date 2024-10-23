@@ -31,29 +31,30 @@ if ($conversation_id > 0 && $user_id > 0) {
     WHERE m.conversation_id = ?
     ORDER BY m.created_at ASC
 ");
+
 $stmt->bind_param("ii", $user_id, $conversation_id);
+$stmt->execute();
 
-        $stmt->execute();
+// Make sure to bind all selected fields here
+$stmt->bind_result($message_id, $sender_id, $sender_name, $content, $created_at, $message_status, $image_url, $thumbnail_url);
 
-        // Bind the result fields
-        $stmt->bind_result($message_id, $sender_id, $sender_name, $content, $created_at, $thumbnail_url, $message_status);
+// Fetch all messages into an associative array
+$messages = [];
+while ($stmt->fetch()) {
+    $messages[] = [
+        "message_id" => $message_id,
+        "sender_id" => $sender_id,
+        "sender_name" => $sender_name,
+        "content" => $content,
+        "created_at" => $created_at,
+        "status" => $message_status,
+        "image_url" => $image_url,
+        "thumbnail_url" => $thumbnail_url
+    ];
+}
 
-        // Fetch all messages into an associative array
-        $messages = [];
-        while ($stmt->fetch()) {
-            $messages[] = [
-                "message_id" => $message_id,
-                "sender_id" => $sender_id,
-                "sender_name" => $sender_name,
-                "content" => $content,
-                "created_at" => $created_at,
-                "thumbnail_url" => $thumbnail_url,
-                "status" => $message_status
-            ];
-        }
+$stmt->close();
 
-        // Close the statement
-        $stmt->close();
 
         // Update the last read message ID for the user in the participants_tb
         $update_stmt = $buwana_conn->prepare("

@@ -63,7 +63,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <!-- MESSENGER CONTENT -->
 <div id="form-submission-box" style="height:fit-content;margin-top: 90px;">
-    <div class="form-container">
+    <div class="form-container" id="messenger-form-container">
         <div id="greeting" style="text-align:center;width:100%;margin:auto;">
             <h2 id="greeting">GoBrik Messenger</h2>
             <p id="subgreeting">Welcome to your conversations <?php echo $first_name; ?>.</p>
@@ -500,7 +500,9 @@ $(document).ready(function() {
             document.getElementById("settings-buttons").style.padding = "12px 43px 12px 12px";
             document.getElementById("language-menu-slider").style.top = "-35px";
             document.getElementById("login-menu-slider").style.top = "-35px";
-            document.getElementById("form-submission-box").style.marginTop = "55px";
+            document.getElementById("form-submission-box").style.marginTop = "60px";
+            document.getElementById("messenger-form-container").style.maxWidth = "unset";
+            document.getElementById("messenger-form-container").style.width = "90%";
 
 
             // Adjust the padding-top of form-container

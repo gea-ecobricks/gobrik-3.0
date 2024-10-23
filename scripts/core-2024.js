@@ -280,12 +280,16 @@ SCROLL CONTROL
 -------------------------------------------*/
 let lastScrollTop = 0;
 
-window.onscroll = function() {
-    scrollLessThan30();
-    scrollMoreThan30();
-    scrollMoreThan800();
-    scrollLessThan800();
-};
+const currentPage = '<?php echo $page; ?>';
+
+    if (currentPage !== 'messenger') {
+        window.onscroll = function() {
+            scrollLessThan30();
+            scrollMoreThan30();
+            scrollMoreThan800();
+            scrollLessThan800();
+        };
+    }
 
 function scrollLessThan30() {
     if (window.pageYOffset <= 30) {

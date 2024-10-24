@@ -599,6 +599,7 @@ position: absolute;
     line-height: 1.5em;
     border: none; /* Removes all borders */
     outline: none; /* Removes the border when selected */
+    font-family: 'Mulish', sans-serif;
 }
 
 /* Placeholder text style */

@@ -95,7 +95,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <div id="selectedUsers">
                     <!-- Selected users will appear here -->
                 </div>
-                <button id="createConversationButton" class="create-button">Create Conversation →</button>
+                <button id="createConversationButton" class="create-button disabled">Create Conversation →</button>
             </div>
 
         </div>
@@ -352,7 +352,7 @@ $(document).ready(function() {
                 const userName = $(this).text();
                 if (selectedUsers.size < 5) {
                     selectedUsers.add(userId);
-                    $('#selectedUsers').append(`<div class="selected-user-item" data-user-id="${userId}" style="color: green;">+ ${userName}</div>`);
+                    $('#selectedUsers').append(`<div class="selected-user-item" data-user-id="${userId}" style="color: var(--emblem-green);">+ ${userName}</div>`);
                     $(this).remove(); // Remove from search results
                     $('#userSearchInput').val(''); // Clear the search input box to reset the dropdown
                     $('#searchResults').empty(); // Clear the search results

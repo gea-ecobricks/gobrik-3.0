@@ -728,16 +728,14 @@ position: absolute;
 
 .clear-search-button {
     position: absolute;
-    left: 15px;
-    top: 24px;
+    left: 10px;
+    top: 23px;
     transform: translateY(-50%);
-    background: var(--subdued-text);
-    color: var(--main-background);
+    background: var(--lighter);
     border: none;
     border-radius: 50%;
-    width: 22px;
-    height: 22px;
-    font-size: 15px;
+    width: 23px;
+    height: 23px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -750,9 +748,9 @@ position: absolute;
 .clear-search-button::after {
     content: '';
     position: absolute;
-    width: 10px; /* Adjust to make the "X" thinner */
-    height: 2px; /* Thinner line for a lighter look */
-    background-color: #333; /* Darker color for contrast */
+    width: 12px; /* Adjust to make the "X" thinner */
+    height: 1.5px; /* Thinner line for a lighter look */
+    background-color: var(--main-background); /* Darker color for contrast */
 }
 
 .clear-search-button::before {
@@ -764,7 +762,7 @@ position: absolute;
 }
 
 .clear-search-button:hover {
-    background: #fff; /* White background on hover */
+    background: var(--subdued-text); /* White background on hover */
     border: 1px solid #ddd;
 }
 

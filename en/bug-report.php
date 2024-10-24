@@ -174,7 +174,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     .addClass('success')
                     .html(`
 
-                        <h3 style="margin-top:20px;">Bug report submitted successfully.</h3>
+                        <h3 style="margin-top:42px;">Bug report submitted successfully.</h3>
                         <p>Thank you for taking the time to make GoBrik better for everyone.</p>
                         <h2>🙏</h2>
                         <p>🦉 🐢 🦋 🐠 🐂</p>

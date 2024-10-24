@@ -64,7 +64,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <!-- BUG REPORT FORM CONTENT -->
 <div id="form-submission-box" style="height:fit-content;margin-top: 90px;">
     <div class="form-container">
-        <div id="greeting" style="text-align:center;width:100%;margin:auto;">
+        <div id="greeting" style="text-align:center;width:100%;margin:auto;margin-top:42px;">
             <h2 id="greeting" data-lang-id="001-bug-report-title">Report a Bug</h2>
             <p id="subgreeting" data-lang-id="002-bug-report-subtitle">GoBrik 3.0 has just launched. Help us catch all the bugs by reporting any problems you encounter. Messages go to our volunteer development team. Attach a screen shot if necessary.📸</p>
         </div>
@@ -129,7 +129,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 // Append the user's bug report message with browser info and user data
                 const browserInfo = getBrowserInfo();
                 const userInfo = getUserData();
-                const messageWithInfo = `${bugReport}<br><br><hr><br>${browserInfo}<br><br><hr><br>${userInfo}`;
+                const messageWithInfo = `${bugReport}  ${browserInfo}  ${userInfo}`;
 
                 formData.append('message', messageWithInfo);
 

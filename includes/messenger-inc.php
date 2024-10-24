@@ -696,11 +696,17 @@ position: absolute;
     border: none;
 }
 
-.create-button .disabled {
+.create-button.disabled {
     background: grey;
-        cursor: not-allowed; /* Cursor shows as not-allowed when disabled */
-
+    color: white;
+    cursor: not-allowed;
 }
+.create-button:not(.disabled) {
+    background: var(--emblem-blue);
+    color: white;
+    cursor: pointer;
+}
+
 
 
 

@@ -644,9 +644,9 @@ position: absolute;
 /*     font-size: 1.1em; */
 /* } */
 
-.send-message-button:hover {
-    background: var(--emblem-pink-over);
-}
+/* .send-message-button:hover { */
+/*     background: var(--emblem-pink-over); */
+/* } */
 
     </style>
 

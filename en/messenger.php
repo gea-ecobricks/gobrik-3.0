@@ -95,7 +95,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <div id="selectedUsers">
                     <!-- Selected users will appear here -->
                 </div>
-                <button id="createConversationButton" class="create-button">Create Conversation →</button>
+                <button id="createConversationButton" class="create-button disabled">Create Conversation →</button>
             </div>
 
         </div>
@@ -272,13 +272,13 @@ $(document).ready(function() {
         $('#userSearchInput').focus();
         $('#toggleConvoDrawer').addClass('hidden');
         $('#clearSearchButton').show(); // Show the clear search button
-        $('#createConversationButton').prop('disabled', true).hide(); // Hide the create conversation button initially
+        $('#createConversationButton').prop('disabled', true).addClass('disabled'); // Initially disable the create conversation button
     });
 
     // Handle user search input
     $('#userSearchInput').on('input', function() {
         const query = $(this).val().trim();
-        if (query.length >= 3) { // Start searching after 3 characters
+        if (query.length >= 3) { // Adjusted to trigger after 3 characters
             searchUsers(query);
         } else {
             $('#searchResults').empty();
@@ -295,7 +295,7 @@ $(document).ready(function() {
         $(this).hide(); // Hide the clear search button
         selectedUsers.clear(); // Clear selected users
         $('#selectedUsers').empty(); // Clear displayed selected users
-        $('#createConversationButton').hide(); // Hide the create conversation button
+        $('#createConversationButton').prop('disabled', true).addClass('disabled'); // Disable the create button
     });
 
     // Show the clear button when there's text in the search input
@@ -352,7 +352,7 @@ $(document).ready(function() {
                 const userName = $(this).text();
                 if (selectedUsers.size < 5) {
                     selectedUsers.add(userId);
-                    $('#selectedUsers').append(`<div class="selected-user-item" data-user-id="${userId}" style="color: var(--emblem-green);">+ ${userName}</div>`);
+                    $('#selectedUsers').append(`<div class="selected-user-item" data-user-id="${userId}">+ ${userName}</div>`);
                     $(this).remove(); // Remove from search results
                     $('#userSearchInput').val(''); // Clear the search input box to reset the dropdown
                     $('#searchResults').empty(); // Clear the search results
@@ -364,14 +364,16 @@ $(document).ready(function() {
         }
     }
 
-    // Function to toggle the create conversation button
+    // Function to enable or disable the create conversation button based on selection
     function toggleCreateButton() {
         if (selectedUsers.size > 0) {
-            $('#createConversationButton').prop('disabled', false).show(); // Enable and show the create button if users are selected
+            $('#createConversationButton').prop('disabled', false).removeClass('disabled'); // Enable the create button if users are selected
         } else {
-            $('#createConversationButton').prop('disabled', true).hide(); // Disable and hide the create button if no users are selected
+            $('#createConversationButton').prop('disabled', true).addClass('disabled'); // Disable the create button if no users are selected
         }
     }
+});
+
 
 
 

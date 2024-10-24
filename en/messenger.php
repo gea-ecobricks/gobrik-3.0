@@ -115,8 +115,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 
 
-
-
     </div>
 </div>
 
@@ -124,32 +122,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <!-- FOOTER STARTS HERE -->
 <?php require_once("../footer-2024.php"); ?>
-<script>
 
-    //POLLING
-
-    $(document).ready(function() {
-    const pollingInterval = 5000; // 5 seconds
-
-    function startPollingMessages() {
-        setInterval(function() {
-            $.ajax({
-                url: '../messenger/get_messages.php',
-                method: 'GET',
-                data: { conversation_id: currentConversationId, user_id: userId },
-                success: function(response) {
-                    if (response.status === 'success') {
-                        renderMessages(response.messages);
-                    }
-                }
-            });
-        }, pollingInterval);
-    }
-
-    startPollingMessages(); // Start polling when the document is ready
-});
-
-</script>
 
 
 <script>

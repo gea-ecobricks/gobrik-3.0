@@ -705,22 +705,22 @@ position: absolute;
 }
 
 
-#userSearchInput {
-    padding: 5px;
-    padding-right: 20px;
-    background: var(--main-background);
-    color: var(--text-color);
-    font-size: 1em;
-    border-radius: 25px;
-    width: -moz-available;
-    resize: none; /* Prevents manual resizing */
-    overflow: hidden; /* Hides the scrollbar */
-    max-height: calc(1.5em * 5 + 30px); /* Adjusts to a max of 5 rows plus padding */
-    line-height: 1.5em;
-    border: none; /* Removes all borders */
-    outline: none; /* Removes the border when selected */
-    font-family: 'Mulish', sans-serif;
-}
+/* #userSearchInput { */
+/*     padding: 5px; */
+/*     padding-right: 20px; */
+/*     background: var(--main-background); */
+/*     color: var(--text-color); */
+/*     font-size: 1em; */
+/*     border-radius: 25px; */
+/*     width: -moz-available; */
+/*     resize: none;  *//* Prevents manual resizing */
+/*     overflow: hidden;  *//* Hides the scrollbar */
+/*     max-height: calc(1.5em * 5 + 30px);  *//* Adjusts to a max of 5 rows plus padding */
+/*     line-height: 1.5em; */
+/*     border: none;  *//* Removes all borders */
+/*     outline: none;  *//* Removes the border when selected */
+/*     font-family: 'Mulish', sans-serif; */
+/* } */
 
 #searchBoxContainer {
     position: relative;
@@ -745,9 +745,32 @@ position: absolute;
     transition: background 0.3s, color 0.3s;
 }
 
+
+.clear-search-button::before,
+.clear-search-button::after {
+    content: '';
+    position: absolute;
+    width: 10px; /* Adjust to make the "X" thinner */
+    height: 2px; /* Thinner line for a lighter look */
+    background-color: #333; /* Darker color for contrast */
+}
+
+.clear-search-button::before {
+    transform: rotate(45deg);
+}
+
+.clear-search-button::after {
+    transform: rotate(-45deg);
+}
+
 .clear-search-button:hover {
-    background: white;
-    color: black;
+    background: #fff; /* White background on hover */
+    border: 1px solid #ddd;
+}
+
+.clear-search-button:hover::before,
+.clear-search-button:hover::after {
+    background-color: #000; /* Darker "X" on hover */
 }
 
 #userSearchInput {

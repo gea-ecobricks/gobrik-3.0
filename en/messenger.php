@@ -253,6 +253,7 @@ function openPhotoModal(imageUrl) {
     const contentBox = modal.querySelector('.modal-content-box');
     const photoBox = modal.querySelector('.modal-photo-box');
     const photoContainer = modal.querySelector('.modal-photo');
+    const userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
 
     // Hide the content box and show the photo box
     contentBox.style.display = 'none'; // Hide the content box

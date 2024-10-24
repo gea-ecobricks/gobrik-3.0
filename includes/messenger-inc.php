@@ -604,17 +604,17 @@ position: absolute;
     width: 50px; /* Adjust width to fit the triangle */
     background-color: var(--emblem-pink);
     border: none;
-    border-radius: 0 25px 25px 0; /* Flat left edge, rounded right edge */
+    border-radius: 20px; /* Flat left edge, rounded right edge */
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s ease;
     position: absolute;
-    bottom: 10px;
-    right: 10px;
-    width: 50px;
-    height: 50px;
+    bottom: 19px;
+  right: 18px;
+  width: 38px;
+  height: 38px;
 }
 
 #sendButton::before {
@@ -623,8 +623,8 @@ position: absolute;
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 10px 0 10px 20px; /* Creates a right-facing triangle */
-    border-color: transparent transparent transparent #fff; /* White triangle color */
+    border-width: 8px 0 8px 16px; /* Creates a right-facing triangle */
+    border-color: transparent transparent transparent var(--main-background); /* White triangle color */
     margin-left: 3px; /* Adjust position if needed */
 }
 

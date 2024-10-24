@@ -100,7 +100,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <!-- Messages will be dynamically loaded here -->
         </div>
         <div class="message-input-wrapper" style="position: relative;">
-            <textarea id="messageInput" placeholder="Type your message..." rows="3"></textarea>
+            <textarea id="messageInput" placeholder="Type your message..." rows="1"></textarea>
             <input type="file" id="imageUploadInput" accept="image/jpeg, image/jpg, image/png, image/webp" style="display: none;" />
             <span id="imageFileName" class="image-file-name"></span>
             <button type="button" id="uploadPhotoButton" class="upload-photo-button" title="Upload Photo" aria-label="Upload Photo">📷</button>

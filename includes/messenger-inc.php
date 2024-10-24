@@ -194,26 +194,7 @@
     margin-top: 10px;
 }
 
-#messageInput {
-    flex-grow: 1;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid grey;
-    background: var(--darker);
-    color: var(--text-color);
-    font-size: 1.3em;
-    border-radius: 10px 0px 0px 10px;
-}
 
-#sendButton {
-    padding: 10px 15px;
-    background-color: var(--emblem-pink);
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: -10px;
-}
 
 #sendButton:hover {
 background-color: var(--emblem-pink-over);
@@ -665,6 +646,28 @@ position: absolute;
 }
 
 
+//CUSTOMIZED
+#messageInput {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 25px;
+    border: 1px solid grey;
+    background: var(--darker);
+    color: var(--text-color);
+    font-size: medium;
+    border-radius: 10px 0px 0px 10px;
+    margin-right: 50px;
+}
+
+#sendButton {
+    padding: 10px 15px;
+    background-color: var(--emblem-pink);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: -10px;
+}
     </style>
 
 

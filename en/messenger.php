@@ -690,7 +690,7 @@ $(document).ready(function() {
 
 </script>
 
-<script src="../scripts/messenger.js"></script>
+<script src="../scripts/messenger.js?v=2"></script>
 
 
 

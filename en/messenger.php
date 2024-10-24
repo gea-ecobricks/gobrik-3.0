@@ -198,12 +198,12 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             `;
             conversationList.append(convElement);
 
-            // Automatically load the most recent conversation if it's the first time loading
-//             if (index === 0) {
-//                 loadMessages(conv.conversation_id);
-//                 $('.conversation-item').removeClass('active');
-//                 $(`.conversation-item[data-conversation-id="${conv.conversation_id}"]`).addClass('active');
-//             }
+            Automatically load the most recent conversation if it's the first time loading
+            if (index === 0) {
+                loadMessages(conv.conversation_id);
+                $('.conversation-item').removeClass('active');
+                $(`.conversation-item[data-conversation-id="${conv.conversation_id}"]`).addClass('active');
+            }
         });
 
         // Add click event to each conversation
@@ -418,7 +418,8 @@ $(document).ready(function() {
 
 
 
-// Function for creating a new conversation
+
+    // Function for creating a new conversation
 function createConversation() {
     const participantIds = Array.from(selectedUsers);
     $.ajax({
@@ -449,12 +450,9 @@ function createConversation() {
                 if (conversationId) {
                     loadMessages(conversationId); // Load the new conversation messages
 
-                    // Add a short delay to ensure the conversation list is updated
-                    setTimeout(function() {
-                        // Mark the newly created conversation as active
-                        $('.conversation-item').removeClass('active'); // Remove active class from any other conversation
-                        $(`.conversation-item[data-conversation-id="${conversationId}"]`).addClass('active'); // Add active class to the newly created conversation
-                    }, 500); // Adjust delay as needed to ensure the conversation list updates
+                    // Mark the newly created conversation as active
+                    $('.conversation-item').removeClass('active'); // Remove active class from any other conversation
+                    $(`.conversation-item[data-conversation-id="${conversationId}"]`).addClass('active'); // Add active class to the newly created conversation
                 }
             } else {
                 alert(response.message);
@@ -465,7 +463,6 @@ function createConversation() {
         }
     });
 }
-
 
 
 

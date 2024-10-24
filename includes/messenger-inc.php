@@ -164,7 +164,7 @@ background-color: var(--emblem-pink-over);
     border-radius: 5px;
     background-color: var(--advanced-background);
     color: var(--text-color);
-    min-width: 50%;
+    min-width: 10%;
 }
 
 .message-item {
@@ -696,7 +696,7 @@ position: absolute;
 
 .create-button .disabled {
     background: grey;
-
+}
 
 
 

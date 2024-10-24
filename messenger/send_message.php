@@ -14,7 +14,7 @@ $content = isset($_POST['content']) ? trim($_POST['content']) : '';
 $response = [];
 
 // Check if the required data is present
-if ($conversation_id > 0 && $sender_id > 0 && !empty($content)) {
+if ($conversation_id > 0 && $sender_id > 0 && (!empty($content) || isset($_FILES['image']))) {
     // Begin a transaction to ensure data integrity
     $buwana_conn->begin_transaction();
     try {
@@ -24,6 +24,27 @@ if ($conversation_id > 0 && $sender_id > 0 && !empty($content)) {
         $stmt->execute();
         $message_id = $buwana_conn->insert_id;
         $stmt->close();
+
+        // Handle file upload if an image is included
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            // Include the script that handles image upload
+            require_once '../messenger/upload_image_attachment.php';
+
+            // Prepare data for the upload function
+            $_POST['user_id'] = $sender_id;
+            $_POST['message_id'] = $message_id;
+            $_POST['conversation_id'] = $conversation_id;
+            $_FILES['image'] = $_FILES['image']; // Include the image file
+
+            // Call the upload script and handle the response
+            ob_start(); // Start output buffering to capture the JSON response
+            include '../messenger/upload_image_attachment.php';
+            $upload_response = json_decode(ob_get_clean(), true); // Decode the JSON response
+
+            if ($upload_response['status'] !== 'success') {
+                throw new Exception($upload_response['message']);
+            }
+        }
 
         // Update the last message ID and timestamp in the conversation
         $stmt = $buwana_conn->prepare("UPDATE conversations_tb SET last_message_id = ?, updated_at = NOW(), size_in_bytes = size_in_bytes + LENGTH(?) WHERE conversation_id = ?");
@@ -75,7 +96,7 @@ if ($conversation_id > 0 && $sender_id > 0 && !empty($content)) {
     // Invalid input data
     $response = [
         "status" => "error",
-        "message" => "Invalid input data. 'conversation_id', 'sender_id', and 'content' are required."
+        "message" => "Invalid input data. 'conversation_id', 'sender_id', and 'content' or an image are required."
     ];
 }
 

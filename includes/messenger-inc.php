@@ -620,7 +620,7 @@ position: absolute;
     justify-content: center;
     transition: background-color 0.3s ease;
     position: absolute;
-    bottom: 26px;
+    bottom: 24px;
   right: 18px;
   width: 38px;
   height: 38px;

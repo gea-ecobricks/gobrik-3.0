@@ -193,7 +193,7 @@ background-color: var(--emblem-pink-over);
     height: 0;
     border-style: solid;
     border-width: 18px 18px 0 0; /* Creates a right-angled triangle */
-    border-color: var(--emblem-pink) transparent transparent transparent; /* Color the spike */
+    border-color: var(--my-chat) transparent transparent transparent; /* Color the spike */
     transform: rotate(-270deg); /* Rotate to create the angled effect */
 }
 
@@ -208,13 +208,13 @@ background-color: var(--emblem-pink-over);
 .message-item:not(.self)::after {
     content: '';
     position: absolute;
-    bottom: -18px; /* Position the spike below the message box */
+    bottom: -17px; /* Position the spike below the message box */
     left: 22px; /* 22px away from the left edge */
     width: 0;
     height: 0;
     border-style: solid;
     border-width: 18px 0 0 18px; /* Creates a left-angled triangle */
-    border-color: var(--emblem-blue) transparent transparent transparent; /* Color the spike */
+    border-color: var(--friends-chat) transparent transparent transparent; /* Color the spike */
     transform: rotate(270deg); /* Rotate to create the angled effect */
     margin-top: -2px;
 }

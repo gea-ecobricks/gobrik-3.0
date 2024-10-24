@@ -447,6 +447,12 @@ $(document).ready(function() {
                 error: function(error) {
                     console.error('Error creating conversation:', error);
                 }
+
+               // Automatically load the most recent conversation if it's the first time loading
+//             if (index === 0) {
+                loadMessages(conv.conversation_id);
+                $('.conversation-item').removeClass('active');
+                $(`.conversation-item[data-conversation-id="${conv.conversation_id}"]`).addClass('active');
             });
         }
 

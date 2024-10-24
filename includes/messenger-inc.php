@@ -37,7 +37,7 @@
 
 
 
-.no-messages-yet {
+#no-messages-yet {
     display: flex;
     align-items: center; /* Vertically centers the content */
     justify-content: center; /* Horizontally centers the content */

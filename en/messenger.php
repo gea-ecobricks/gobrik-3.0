@@ -95,7 +95,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <div id="selectedUsers">
                     <!-- Selected users will appear here -->
                 </div>
-                <button id="createConversationButton" class="create-button disabled">Create Conversation →</button>
+                <button id="createConversationButton" class="create-button">Create Conversation →</button>
             </div>
 
         </div>
@@ -241,7 +241,7 @@ function showNewChatMessage() {
     const newChatMessage = `
         <div id="no-messages-yet">
             <div class="message-birded" style="width: 200px; height: 100px;"></div>
-            <h2>New Chat</h2>
+            <h4>New Chat</h4>
             <p>This chat is just getting going. Send a message to kick it off!</p>
         </div>
     `;

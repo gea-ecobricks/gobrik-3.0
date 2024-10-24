@@ -80,7 +80,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <div class="start-conversation-container">
             <div style="display:flex;flex-flow:row">
                 <button id="startConversationButton" class="start-convo-button">
-                    <img src="../svgs/gobrik-3-emblem-tight.svg?v=4" alt="GoBrik Emblem" class="button-icon">
+                    <img src="../svgs/gobrik-3-emblem-tight.svg?v=5" alt="GoBrik Emblem" class="button-icon">
                     <span style="margin:auto auto auto 0px;">New Chat...</span>
                 </button>
                 <button id="toggleConvoDrawer" class="toggle-drawer-button" title="Toggle Drawer">⮜</button>
@@ -269,6 +269,8 @@ function renderMessages(messages) {
             $(this).addClass('hidden'); // Hide the start conversation button
             $('#searchBoxContainer').removeClass('hidden'); // Show the search box
             $('#userSearchInput').focus();
+            $('#toggleConvoDrawer').addClass('hidden');
+
         });
 
         // Handle user search input

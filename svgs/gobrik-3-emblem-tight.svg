@@ -2,10 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg width="97.084mm" height="97.084mm" version="1.1" viewBox="0 0 97.084 97.084" xmlns="http://www.w3.org/2000/svg">
  <defs>
-  <linearGradient id="linearGradient22" x1="585.74" x2="224.04" y1="872.86" y2="401.62" gradientTransform="matrix(.18985 0 0 .19 30.234 26.381)" gradientUnits="userSpaceOnUse">
-   <stop stop-opacity=".4795" offset="0"/>
-   <stop stop-color="#838383" stop-opacity=".50588" offset=".49064"/>
-   <stop stop-opacity=".5112" offset="1"/>
+  <linearGradient id="linearGradient22" x1="465.52" x2="255.14" y1="826.25" y2="437.48" gradientTransform="matrix(.18985 0 0 .19 30.234 26.381)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#fff" stop-opacity=".15201" offset="0"/>
+   <stop stop-color="#f2f2f2" stop-opacity="0" offset="1"/>
   </linearGradient>
   <clipPath id="clipPath6603-6">
    <path transform="matrix(.38984 -.0015378 .0015378 .38984 -191.48 -165.47)" d="m638.86 565.08-22.197-0.0302-0.56345 14.49 3.0937-3e-3c-0.0212 1.8291-0.0475 3.627-0.072 5.4948-4.3123 5.3811-8.475 4.9838-12.401 11.695-3.0607 12.43-0.64511 18.1 0.89325 27.415 1.1251 12.423-2.7724 12.529-1.908 35.529-0.0464 4.8162 4.2193 9.865 9.1615 9.7536l9.3328-9.4e-4v1e-3l16.495-6.7e-4c4.9422 0.11143 9.2079-4.9365 9.1615-9.7526 0.86445-23-3.0338-23.107-1.9088-35.531 1.5384-9.3143 3.9534-14.985 0.89275-27.415-3.9264-6.7113-8.0891-6.314-12.401-11.695-0.0246-1.8743-0.0507-3.679-0.0719-5.515l2.8867-4e-3 -0.39342-14.432z" fill="#fff" filter="url(#filter4530-5-2)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.37"/>

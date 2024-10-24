@@ -665,7 +665,7 @@ position: absolute;
     display: flex; /* Align SVG and text side by side */
     align-items: center; /* Vertically center the content */
     color: white;
-    padding: 10px;
+    padding: 10px 0px 10px 15px;
     cursor: pointer;
     font-size: 1.2em;
     transition: background 0.3s ease, border 0.3s ease;

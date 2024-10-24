@@ -414,41 +414,70 @@ function searchUsers(query) {
     });
 
     // SECTION 5: JavaScript/jQuery for Sending Messages
-    $('#sendButton').on('click', function() {
-        const messageContent = $('#messageInput').val().trim();
-        const selectedConversationId = $('.conversation-item.active').data('conversation-id');
+$('#sendButton').on('click', function() {
+    const messageContent = $('#messageInput').val().trim();
+    const selectedConversationId = $('.conversation-item.active').data('conversation-id');
+    const file = $('#imageUploadInput')[0].files[0]; // Get the selected file, if any
 
-        // Check if a conversation is selected and there is message content
-        if (messageContent && selectedConversationId) {
-            $.ajax({
-                url: '../messenger/send_message.php',
-                method: 'POST',
-                data: {
-                    conversation_id: selectedConversationId,
-                    sender_id: userId,
-                    content: messageContent
-                },
-                success: function(response) {
-                    console.log('Response from send_message.php:', response);
-                    if (response.status === 'success') {
-                        $('#messageInput').val(''); // Clear the input field
-                        loadMessages(selectedConversationId); // Refresh message list
-                    } else {
-                        alert(response.message);
-                    }
-                },
-                error: function(error) {
-                    console.error('Error sending message:', error);
-                }
-            });
-        } else {
-            if (!selectedConversationId) {
-                alert('Please select a conversation to send a message.');
+    // Check if a conversation is selected and there is message content or a file
+    if ((messageContent || file) && selectedConversationId) {
+        const formData = new FormData();
+        formData.append('conversation_id', selectedConversationId);
+        formData.append('sender_id', userId);
+        formData.append('content', messageContent);
+
+        // If a file is selected, append it to the form data
+        if (file) {
+            const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+            const maxFileSize = 10 * 1024 * 1024; // 10 MB
+
+            if (validTypes.includes(file.type) && file.size <= maxFileSize) {
+                formData.append('image', file);
             } else {
-                alert('Please enter a message.');
+                alert('🤔 Hmmm... looks like this isn\'t an image file, or else it\'s over 10MB. Please try another file.');
+                return; // Exit if the file is invalid
             }
         }
-    });
+
+        // Show a loading indicator (if desired)
+        $('#sendButton').prop('disabled', true).addClass('loading');
+
+        $.ajax({
+            url: '../messenger/send_message.php',
+            method: 'POST',
+            data: formData,
+            processData: false, // Required for FormData
+            contentType: false, // Required for FormData
+            success: function(response) {
+                console.log('Response from send_message.php:', response);
+                if (response.status === 'success') {
+                    $('#messageInput').val(''); // Clear the input field
+                    $('#imageUploadInput').val(''); // Clear the file input
+                    $('#imageFileName').text(''); // Clear the file name display
+                    resetUploadButton(); // Reset the upload button to its original state
+                    loadMessages(selectedConversationId); // Refresh message list
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function(error) {
+                console.error('Error sending message:', error);
+                alert('An error occurred while sending your message. Please try again.');
+            },
+            complete: function() {
+                // Re-enable the send button after request completes
+                $('#sendButton').prop('disabled', false).removeClass('loading');
+            }
+        });
+    } else {
+        if (!selectedConversationId) {
+            alert('Please select a conversation to send a message.');
+        } else {
+            alert('Please enter a message or select a photo.');
+        }
+    }
+});
+
 </script>
 
 <script>
@@ -678,7 +707,7 @@ $(document).ready(function() {
             setTimeout(function() {
                 $('#uploadPhotoButton')
                     .html('📎')
-                    .css('background', '#434343')
+                    .css('background', 'green')
                     .addClass('attachment-added remove-attachment')
                     .attr('title', 'Click to remove attachment');
             }, 1000);

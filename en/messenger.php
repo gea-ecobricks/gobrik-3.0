@@ -361,6 +361,7 @@ function searchUsers(query) {
                         $('#userSearchInput').val('');
                         $('#searchResults').empty();
                         $('#selectedUsers').empty();
+                        $('#toggleConvoDrawer').removeClass('hidden');
                         selectedUsers.clear();
                         loadConversations(); // Refresh the conversations list
                     } else {

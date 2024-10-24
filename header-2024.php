@@ -352,7 +352,7 @@ display: none;
   <div class="overlay-content-settings">
     <!-- Check if the user is logged in before displaying the logged-in status box : earthen values set by earthenAuth_helper-->
     <?php if ($is_logged_in): ?>
-      <div class="menu-page-item" style="display: flex; flex-direction: column; align-items: flex-start; padding-bottom: 46px; cursor:unset;">
+      <div class="menu-page-item" style="display: flex; flex-direction: column; align-items: flex-start; padding-bottom: 60px; cursor:unset;">
         <div style="width:100%; display: flex; align-items: center;">
           <div style="color: var(--text-color); margin-left: 0px;">
               <span data-lang-id="1000-logged-user"></span>
@@ -371,7 +371,8 @@ display: none;
         </div>
 
         <div class="logged-in-links" style="width:100%; font-size: 0.8em; margin-top: 5px; text-align: left;">
-           <p style="font-size:0.9em;"><span id="continent-icon"><?php echo htmlspecialchars($user_continent_icon); ?> </span> <span style="color:green;"><?php echo htmlspecialchars($user_location_watershed); ?></span> <span style="color:grey">| <?php echo htmlspecialchars($user_community_name); ?></span></p>
+           <p style="font-size:0.9em; margin-bottom: 5px;
+  margin-top: 5px;"><span id="continent-icon"><?php echo htmlspecialchars($user_continent_icon); ?> </span> <span style="color:green;"><?php echo htmlspecialchars($user_location_watershed); ?></span> <span style="color:grey">| <?php echo htmlspecialchars($user_community_name); ?></span></p>
            <p style="font-size:0.9em;">⚙️ <a href="profile.php" class="underline-link" data-lang-id="1000-profile-settings">Profile settings</a> |
           🐳 <a href="logout.php?redirect=<?php echo urlencode($page); ?>" class="underline-link" onclick="handleLogout(event)" data-lang-id="1000-log-out">Log out</a></p>
         </div>

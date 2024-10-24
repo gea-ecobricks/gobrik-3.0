@@ -518,6 +518,7 @@ function searchUsers(query) {
 
 <Script>
 $(document).ready(function() {
+    document.body.classList.add('modal-open');
     // Function to make elements fade out and adjust styles after 3 seconds
     function adjustPageAfterSplash() {
         setTimeout(function() {

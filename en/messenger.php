@@ -219,22 +219,6 @@ function renderConversations(conversations) {
     });
 }
 
-function renderCurrentConversation(conversation) {
-    // Find the conversation item in the list based on the conversation_id
-    const conversationElement = $(`.conversation-item[data-conversation-id="${conversation.conversation_id}"]`);
-
-    // If the conversation element exists, update its details
-    if (conversationElement.length > 0) {
-        const lastMessage = conversation.last_message ? conversation.last_message : "🥚 No messages yet.";
-        const trimmedMessage = lastMessage.length > 50
-            ? lastMessage.substring(0, 50) + '...'
-            : lastMessage;
-
-        // Update the conversation details with the latest message and timestamp
-        conversationElement.find('.convo-preview-text').text(trimmedMessage);
-        conversationElement.find('.timestamp').text(conversation.updated_at);
-    }
-}
 
 
     // SECTION 3: Load and Render Messages
@@ -301,7 +285,7 @@ function renderMessages(messages) {
                 ${thumbnailHtml}
                 <p class="sender">${msg.sender_name}</p>
                 <p class="the-message-text">${msg.content}</p>
-                <p class="timestamp">${msg.created_at}<span id="check-sent"> ✅</span>"</p>
+                <p class="timestamp">${msg.created_at}<span id="check-sent" style="color:green"> ✓</span>"</p>
             </div>
         `;
         messageList.append(msgElement);
@@ -316,7 +300,6 @@ function renderMessages(messages) {
         const fullUrl = $(this).data('full-url');
         openPhotoModal(fullUrl);
     });
-    renderCurrentConversation(conversation);
 }
 
 $(document).ready(function() {

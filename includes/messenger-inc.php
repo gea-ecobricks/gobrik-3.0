@@ -731,7 +731,7 @@ position: absolute;
     left: 15px;
     top: 24px;
     transform: translateY(-50%);
-    background: var(--lighter);
+    background: var(--subdued-text);
     color: var(--main-background);
     border: none;
     border-radius: 50%;

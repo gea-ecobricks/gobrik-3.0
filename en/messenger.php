@@ -87,7 +87,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             </div>
 
             <div id="searchBoxContainer" class="hidden" style="position: relative;">
-                <button id="clearSearchButton" class="clear-search-button" aria-label="Clear Search">✖</button>
+                <button id="clearSearchButton" class="clear-search-button" aria-label="Clear Search">×</button>
                 <input type="text" id="userSearchInput" placeholder="Search users..." />
                 <div class="spinner-right" id="userSearchSpinner"></div>
                 <div id="searchResults"></div>

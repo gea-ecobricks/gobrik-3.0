@@ -88,10 +88,11 @@
 }
 
 .search-result-item, .selected-user-item {
-    padding: 5px;
+    padding: 7px;
     cursor: pointer;
     border-bottom: 1px solid var(--settings-border);
     color: var(--text-color);
+    background: var(--lighter);
 }
 
 /* .selected-user-item {
@@ -246,6 +247,8 @@ background-color: var(--emblem-pink-over);
     max-height: 200px;
     overflow-y: auto;
     z-index: 2; /* Ensures it appears above other elements */
+    margin: -3px 12px 0px 12px;
+  padding: 4px;
 }
 
 .search-result-item {
@@ -680,13 +683,13 @@ position: absolute;
 .create-button {
     background: var(--emblem-green);
     color: white;
-    padding: 8px;
+    padding: 9px;
     border-radius: 0px 0px 10px 10px;
     cursor: not-allowed; /* Cursor shows as not-allowed when disabled */
-    font-size: 1em;
+    font-size: 1.1em;
     margin: auto;
     justify-content: center;
-    text-align: center;
+    text-align: left;
     text-decoration: none;
     display: inline-block;
     transition: background 0.3s ease, border 0.3s ease;

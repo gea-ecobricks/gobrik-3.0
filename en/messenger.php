@@ -128,10 +128,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 <?php require_once("../footer-2024.php"); ?>
 
 
+
 <script>
     // SECTION 1: Define Global Variables
-    const userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
-    const maxFileSize = 10 * 1024 * 1024; // 10 MB
+    var userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
 
     // SECTION 2: Load Conversations
     function loadConversations() {
@@ -157,6 +157,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         const conversationList = $('#conversation-list');
         conversationList.empty();
         conversations.forEach((conv, index) => {
+            // Use a default message if there is no last message
             const lastMessage = conv.last_message ? conv.last_message : "No messages yet.<br>Start the conversation!";
             const trimmedMessage = lastMessage.length > 50
                 ? lastMessage.substring(0, 50) + '...'
@@ -174,6 +175,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                         <p class="timestamp">${conv.updated_at}</p>
                     </div>
                 </div>
+
+
             `;
             conversationList.append(convElement);
 
@@ -201,7 +204,6 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             method: 'GET',
             data: { conversation_id: conversationId, user_id: userId },
             success: function(response) {
-                console.log('Response from get_messages.php:', response);
                 if (response.status === 'success') {
                     renderMessages(response.messages);
                 } else {
@@ -214,47 +216,56 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         });
     }
 
-    function renderMessages(messages) {
-        const messageList = $('#message-list');
-        messageList.empty();
-        messages.forEach(msg => {
-            const messageClass = msg.sender_id == userId ? 'self' : '';
-            const thumbnailHtml = msg.thumbnail_url
-                ? `<a href="#" class="thumbnail-link" data-full-url="../${msg.image_url}">
-                    <img src="../${msg.thumbnail_url}" alt="Image attachment" class="message-thumbnail" />
-                   </a>`
-                : '';
+function renderMessages(messages) {
+    const messageList = $('#message-list');
+    messageList.empty();
 
-            const msgElement = `
-                <div class="message-item ${messageClass}">
-                    ${thumbnailHtml}
-                    <p class="sender">${msg.sender_name}</p>
-                    <p class="the-message-text">${msg.content}</p>
-                    <p class="timestamp">${msg.created_at}</p>
-                </div>
-            `;
-            messageList.append(msgElement);
-        });
+    messages.forEach(msg => {
+        const messageClass = msg.sender_id == userId ? 'self' : '';
+        const thumbnailHtml = msg.thumbnail_url
+            ? `<a href="#" class="thumbnail-link" data-full-url="../${msg.image_url}">
+                <img src="../${msg.thumbnail_url}" alt="Image attachment" class="message-thumbnail" />
+               </a>`
+            : '';
 
-        messageList.scrollTop(messageList.prop("scrollHeight"));
+        const msgElement = `
+            <div class="message-item ${messageClass}">
+                ${thumbnailHtml}
+                <p class="sender">${msg.sender_name}</p>
+                <p class="the-message-text">${msg.content}</p>
+                <p class="timestamp">${msg.created_at}</p>
+            </div>
+        `;
+        messageList.append(msgElement);
+    });
 
-        $('.thumbnail-link').on('click', function(event) {
-            event.preventDefault();
-            const fullUrl = $(this).data('full-url');
-            openPhotoModal(fullUrl);
-        });
-    }
+    // Scroll to the bottom of the message list to show the latest messages
+    messageList.scrollTop(messageList.prop("scrollHeight"));
+
+    // Add click event to open modal for each thumbnail link
+    $('.thumbnail-link').on('click', function(event) {
+        event.preventDefault();
+        const fullUrl = $(this).data('full-url');
+        openPhotoModal(fullUrl);
+    });
+}
+
+
+
+
 
     // SECTION 4: User Search and Selection
     $(document).ready(function() {
         const selectedUsers = new Set();
 
+        // Show search box when "Start Conversation" button is clicked and hide the button
         $('#startConversationButton').on('click', function() {
-            $(this).addClass('hidden');
-            $('#searchBoxContainer').removeClass('hidden');
+            $(this).addClass('hidden'); // Hide the start conversation button
+            $('#searchBoxContainer').removeClass('hidden'); // Show the search box
             $('#userSearchInput').focus();
         });
 
+        // Handle user search input
         $('#userSearchInput').on('input', function() {
             const query = $(this).val().trim();
             if (query.length >= 4) {
@@ -264,28 +275,37 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             }
         });
 
-        function searchUsers(query) {
-            $('#userSearchSpinner').show();
-            $.ajax({
-                url: '../messenger/search_users.php',
-                method: 'GET',
-                data: { query: query, user_id: userId },
-                success: function(response) {
-                    $('#userSearchSpinner').hide();
-                    if (response.status === 'success') {
-                        renderSearchResults(response.users);
-                    } else {
-                        $('#searchResults').html('<p>No users found</p>');
-                    }
-                },
-                error: function(error) {
-                    $('#userSearchSpinner').hide();
-                    console.error('Error searching users:', error);
-                    $('#searchResults').html('<p>An error occurred while searching.</p>');
-                }
-            });
-        }
+        // AJAX request to search for users
+        // Function to search for users
+function searchUsers(query) {
+    // Show the spinner before starting the AJAX request
+    $('#userSearchSpinner').show();
 
+    $.ajax({
+        url: '../messenger/search_users.php',
+        method: 'GET',
+        data: {
+            query: query,
+            user_id: userId // Ensure userId is available and passed in the request
+        },
+        success: function(response) {
+            $('#userSearchSpinner').hide(); // Hide the spinner after receiving the response
+            if (response.status === 'success') {
+                renderSearchResults(response.users);
+            } else {
+                $('#searchResults').html('<p>No users found</p>');
+            }
+        },
+        error: function(error) {
+            $('#userSearchSpinner').hide(); // Hide the spinner if there's an error
+            console.error('Error searching users:', error);
+            $('#searchResults').html('<p>An error occurred while searching.</p>');
+        }
+    });
+}
+
+
+        // Render search results as a dropdown list
         function renderSearchResults(users) {
             const searchResults = $('#searchResults');
             searchResults.empty();
@@ -297,16 +317,17 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     }
                 });
 
+                // Add click event for each search result item
                 $('.search-result-item').on('click', function() {
                     const userId = $(this).data('user-id');
                     const userName = $(this).text();
                     if (selectedUsers.size < 5) {
                         selectedUsers.add(userId);
                         $('#selectedUsers').append(`<div class="selected-user-item" data-user-id="${userId}">${userName}</div>`);
-                        $(this).remove();
-                        $('#userSearchInput').val('');
-                        $('#searchResults').empty();
-                        $('#createConversationButton').prop('disabled', false);
+                        $(this).remove(); // Remove from search results
+                        $('#userSearchInput').val(''); // Clear the search input box to reset the dropdown
+                        $('#searchResults').empty(); // Clear the search results
+                        $('#createConversationButton').prop('disabled', false); // Enable the create button
                     }
                 });
             } else {
@@ -314,6 +335,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             }
         }
 
+        // Function for creating a new conversation
         function createConversation() {
             const participantIds = Array.from(selectedUsers);
             $.ajax({
@@ -332,7 +354,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                         $('#searchResults').empty();
                         $('#selectedUsers').empty();
                         selectedUsers.clear();
-                        loadConversations();
+                        loadConversations(); // Refresh the conversations list
                     } else {
                         alert(response.message);
                     }
@@ -343,8 +365,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             });
         }
 
+        // Handle the create conversation button click
         $('#createConversationButton').on('click', createConversation);
 
+        // Remove a selected user when clicked
         $('#selectedUsers').on('click', '.selected-user-item', function() {
             const userId = $(this).data('user-id');
             selectedUsers.delete(userId);
@@ -354,184 +378,284 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             }
         });
 
+        // Load conversations on page load
         loadConversations();
     });
 
     // SECTION 5: JavaScript/jQuery for Sending Messages
-    $(document).ready(function() {
-        console.log('User ID is:', userId);
+$(document).ready(function() {
+    const maxFileSize = 10 * 1024 * 1024; // 10 MB
+    const userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
+    console.log('User ID is:', userId); // Add this line for debugging
 
-        $('#sendButton').on('click', function() {
-            const messageContent = $('#messageInput').val().trim();
-            const selectedConversationId = $('.conversation-item.active').data('conversation-id');
-            const file = $('#imageUploadInput')[0].files[0];
+    // Check if userId is properly set
+    if (!userId || userId === '0') {
+        console.error('User ID is not set or is invalid.');
+    }
 
-            console.log('Selected Conversation ID:', selectedConversationId);
+    // Function to show the spinner
+    function showUploadSpinner() {
+        $('#sendButton').hide();
+        $('#errorIndicator').hide();
+        $('#uploadSpinner').show();
+    }
 
-            if (selectedConversationId && (messageContent || file)) {
-                const formData = new FormData();
-                formData.append('conversation_id', selectedConversationId);
-                formData.append('sender_id', userId);
-                formData.append('content', messageContent);
+    // Function to hide the spinner and show the send button
+    function hideUploadSpinner() {
+        $('#uploadSpinner').hide();
+        $('#sendButton').show();
+    }
 
-                if (file && validateFile(file)) {
-                    formData.append('image', file);
-                    showUploadSpinner();
-                }
+    // Function to show the error indicator
+    function showErrorIndicator() {
+        $('#uploadSpinner').hide();
+        $('#sendButton').hide();
+        $('#errorIndicator').show();
+    }
 
-                $.ajax({
-                    url: '../messenger/send_message.php',
-                    method: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        console.log('Response from send_message.php:', response);
-                        if (response.status === 'success') {
-                            $('#messageInput').val('');
-                            loadMessages(selectedConversationId);
-                            hideUploadSpinner();
-                            resetUploadButton();
-                        } else {
-                            hideUploadSpinner();
-                            showErrorIndicator();
-                            setTimeout(hideErrorIndicator, 3000);
-                        }
-                    },
-                    error: function(error) {
-                        console.error('Error sending message:', error);
-                        hideUploadSpinner();
-                        showErrorIndicator();
-                        setTimeout(hideErrorIndicator, 3000);
-                    }
-                });
-            } else {
-                alert('Please select a conversation and enter a message.');
-            }
-        });
+    // Handle send button click for messages
+    $('#sendButton').on('click', function() {
+        const messageContent = $('#messageInput').val().trim();
+        const selectedConversationId = $('.conversation-item.active').data('conversation-id');
+        const file = $('#imageUploadInput')[0].files[0];
 
-        function validateFile(file) {
-            const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-            return validTypes.includes(file.type) && file.size <= maxFileSize;
-        }
+            console.log('Selected Conversation ID:', selectedConversationId); // Debug line
 
-        function showUploadSpinner() {
-            $('#sendButton').hide();
-            $('#errorIndicator').hide();
-            $('#uploadSpinner').show();
-        }
+        // Check if a conversation is selected and there is message content
+        if (selectedConversationId && (messageContent || file)) {
+            const formData = new FormData();
+            formData.append('conversation_id', selectedConversationId);
+            formData.append('sender_id', userId);
+            formData.append('content', messageContent);
 
-        function hideUploadSpinner() {
-            $('#uploadSpinner').hide();
-            $('#sendButton').show();
-        }
-
-        function showErrorIndicator() {
-            $('#uploadSpinner').hide();
-            $('#sendButton').hide();
-            $('#errorIndicator').show();
-        }
-
-        function hideErrorIndicator() {
-            $('#errorIndicator').hide();
-            $('#sendButton').show();
-        }
-
-        function resetUploadButton() {
-            $('#uploadPhotoButton')
-                .html('📸')
-                .css('background', '#434343')
-                .removeClass('attachment-added remove-attachment')
-                .attr('title', 'Upload Photo');
-        }
-
-        $('#uploadPhotoButton').on('click', function() {
-            if (!$(this).hasClass('remove-attachment')) {
-                $('#imageUploadInput').click();
-            } else {
-                resetUploadButton();
-                $('#imageFileName').text('');
-                $('#imageUploadInput').val('');
-            }
-        });
-
-        $('#imageUploadInput').on('change', function(event) {
-            const file = event.target.files[0];
+            // If there is a valid file, add it to the FormData
             if (file && validateFile(file)) {
-                $('#imageFileName').text(file.name);
-                showUploadSuccess();
-            } else {
-                alert('🤔 Hmmm... looks like this isn\'t an image file, or else it\'s over 10MB. Please try another file.');
-                resetUploadButton();
+                formData.append('image', file);
+                showUploadSpinner(); // Show spinner when uploading an image
             }
-        });
 
-        function showUploadSuccess() {
-            $('#uploadPhotoButton')
-                .html('✔️')
-                .css('background', 'var(--emblem-green)');
-
-            setTimeout(function() {
-                $('#uploadPhotoButton')
-                    .html('📎')
-                    .css('background', 'grey')
-                    .addClass('attachment-added remove-attachment')
-                    .attr('title', 'Click to remove attachment');
-            }, 1000);
+            $.ajax({
+                url: '../messenger/send_message.php',
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    console.log('Response from send_message.php:', response);
+                    if (response.status === 'success') {
+                        $('#messageInput').val(''); // Clear the input field
+                        loadMessages(selectedConversationId); // Refresh message list
+                        hideUploadSpinner(); // Hide spinner and show send button
+                        resetUploadButton(); // Reset upload button if image was attached
+                    } else {
+                        hideUploadSpinner();
+                        showErrorIndicator(); // Show error indicator if there's an issue
+                        setTimeout(hideErrorIndicator, 3000); // Hide the error after 3 seconds
+                    }
+                },
+                error: function(error) {
+                    console.error('Error sending message:', error);
+                    hideUploadSpinner();
+                    showErrorIndicator();
+                    setTimeout(hideErrorIndicator, 3000); // Hide the error after 3 seconds
+                }
+            });
+        } else {
+            if (!selectedConversationId) {
+                alert('Please select a conversation to send a message.');
+            } else {
+                alert('Please enter a message.');
+            }
         }
     });
 
-    // SECTION 6: Adjust Drawer for Mobile and Desktop
+    // Function to validate the file type and size
+    function validateFile(file) {
+        const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+        return validTypes.includes(file.type) && file.size <= maxFileSize;
+    }
+
+    // Function to hide the error indicator and show the send button
+    function hideErrorIndicator() {
+        $('#errorIndicator').hide();
+        $('#sendButton').show();
+    }
+});
+
+
+</script>
+
+<script>
     $(document).ready(function() {
-        let isDrawerCollapsed = false;
+    // Add click event to the delete button inside each conversation item
+    $(document).on('click', '.delete-conversation', function(event) {
+        event.stopPropagation(); // Prevent triggering the conversation click event
 
-        function adjustDrawerState() {
-            if (window.innerWidth < 800) {
-                $('.conversation-list-container').css('width', '100%');
-                $('.message-thread').hide();
-                $('#toggleConvoDrawer').html('⮞');
-                isDrawerCollapsed = true;
-            } else {
-                $('.conversation-list-container').css('width', '30%');
-                $('.message-thread').show();
-                $('#toggleConvoDrawer').html('⮜');
-                isDrawerCollapsed = false;
-            }
+        // Get the conversation ID from the parent .conversation-item
+        const conversationId = $(this).closest('.conversation-item').data('conversation-id');
+
+        // Confirm with the user before proceeding
+        const confirmation = confirm("Are you sure you want to delete this conversation? Everyone's messages will be deleted permanently.");
+        if (confirmation) {
+            deleteConversation(conversationId);
         }
-
-        $(window).on('resize', adjustDrawerState);
-        adjustDrawerState();
-
-        $('#toggleConvoDrawer').on('click', function() {
-            if (isDrawerCollapsed) {
-                if (window.innerWidth < 800) {
-                    $('.conversation-list-container').css('width', '0');
-                    $('.message-thread').css('width', '100%').show();
-                    $('#toggleConvoDrawer').html('>');
-                } else {
-                    $('.conversation-list-container').css('width', '30%');
-                    $('.message-thread').css('width', '70%').show();
-                    $('#toggleConvoDrawer').html('<');
-                }
-            } else {
-                if (window.innerWidth < 800) {
-                    $('.conversation-list-container').css('width', '100%');
-                    $('.message-thread').hide();
-                    $('#toggleConvoDrawer').html('>');
-                } else {
-                    $('.conversation-list-container').css('width', '80px');
-                    $('.message-thread').css('width', 'calc(100% - 60px)').show();
-                    $('#toggleConvoDrawer').html('>');
-                }
-            }
-
-            isDrawerCollapsed = !isDrawerCollapsed;
-        });
     });
+
+    // Function to delete the conversation
+    function deleteConversation(conversationId) {
+        $.ajax({
+            url: '../messenger/delete_conversation.php', // Endpoint to handle conversation deletion
+            method: 'POST',
+            data: {
+                conversation_id: conversationId
+            },
+            success: function(response) {
+                if (response.status === 'success') {
+                    alert('Conversation deleted successfully.');
+                    loadConversations(); // Refresh the conversation list after deletion
+                } else {
+                    alert('Failed to delete the conversation. Please try again.');
+                }
+            },
+            error: function(error) {
+                console.error('Error deleting conversation:', error);
+                alert('An error occurred while deleting the conversation. Please try again.');
+            }
+        });
+    }
+});
 </script>
 
 
-<script src="../scripts/messenger.js?v=2"></script>
+<Script>
+$(document).ready(function() {
+
+// SETUP PAGE
+        function setUpMessengerWindow() {
+            document.getElementById("header").style.height = "60px";
+            document.getElementById("gea-logo").style.width = "170px";
+            document.getElementById("gea-logo").style.height = "35px";
+            document.getElementById("logo-gobrik").style.opacity = "0.9";
+            document.getElementById("settings-buttons").style.padding = "12px 43px 12px 12px";
+            document.getElementById("language-menu-slider").style.top = "-35px";
+            document.getElementById("login-menu-slider").style.top = "-35px";
+            document.getElementById("form-submission-box").style.marginTop = "75px";
+// $('#page-content').addClass('modal-open');
+            document.body.classList.add('modal-open');
+        }
+
+        // Call the function when the document is ready
+        setUpMessengerWindow();
+});
+
+
+
+</script>
+
+<script>
+
+    $(document).ready(function() {
+    // Listen for keypress event on the textarea
+    $('#messageInput').on('keypress', function(event) {
+        // Check if the key pressed is "Enter" (key code 13) and if there is text in the input
+        if (event.which === 13 && !event.shiftKey) {
+            event.preventDefault(); // Prevent the default behavior of adding a new line
+            const messageContent = $(this).val().trim();
+
+            // If the message content is not empty, trigger the send button click
+            if (messageContent) {
+                $('#sendButton').click();
+            }
+        }
+    });
+});
+
+</script>
+
+<script>
+
+$(document).ready(function() {
+    let isDrawerCollapsed = false;
+
+    // Adjust the initial state based on screen width
+    function adjustDrawerState() {
+        if (window.innerWidth < 800) {
+            // Start with the conversation list at full width and hide the message thread
+            $('.conversation-list-container').css('width', '100%');
+            $('.message-thread').hide();
+            $('#startConversationButton').removeClass('hidden');
+            $('#toggleConvoDrawer').html('⮞'); // Button indicates collapse
+            isDrawerCollapsed = true;
+        } else {
+            // On larger screens, start with the drawer at 30% and message thread visible
+            $('.conversation-list-container').css('width', '30%');
+            $('.message-thread').show();
+            $('#startConversationButton').removeClass('hidden');
+            $('#toggleConvoDrawer').html('⮜'); // Button indicates expand
+            isDrawerCollapsed = false;
+        }
+    }
+
+    // Adjust drawer state on window resize
+    $(window).on('resize', function() {
+        adjustDrawerState();
+    });
+
+    // Initial setup based on window size
+    adjustDrawerState();
+
+    $('#toggleConvoDrawer').on('click', function() {
+        if (isDrawerCollapsed) {
+            if (window.innerWidth < 800) {
+                // On mobile, expand to full width for the message thread, hide the drawer and the startConversationButton
+                $('.conversation-list-container').css('width', '0');
+                $('.message-thread').css('width', '100%').show();
+                $('#startConversationButton').addClass('hidden');
+                $('#toggleConvoDrawer').html('>');
+            } else {
+                // On larger screens, expand the drawer to 30% width
+                $('.conversation-list-container').css('width', '30%');
+                $('.message-thread').css('width', '70%').show();
+                $('#toggleConvoDrawer').html('<');
+                $('.conversation-item').removeClass('collapsed');
+                $('.conversation-item').addClass('expanded');
+                $('#startConversationButton').removeClass('hidden');
+            }
+
+            // Show conversation details after expanding
+
+        } else {
+            if (window.innerWidth < 800) {
+                // On mobile, show only the conversation list and hide the message thread
+                $('.conversation-list-container').css('width', '100%');
+                $('.message-thread').hide();
+                $('#startConversationButton').removeClass('hidden');
+                $('#toggleConvoDrawer').html('>'); // Indicate that the drawer can be expanded
+                $('.conversation-item').removeClass('collapsed');
+                $('.conversation-item').addClass('expanded');
+            } else {
+                // On larger screens, collapse conversations to minimal view
+                $('.conversation-list-container').css('width', '80px');
+                $('.message-thread').addClass('expanded');
+                $('#toggleConvoDrawer').html('>'); // Indicate that the drawer can be expanded
+                $('#startConversationButton').addClass('hidden');
+                $('.message-thread').css('width', 'calc(100% - 60px)').show();
+
+            }
+
+            // Hide conversation details when collapsed
+            $('.conversation-item').addClass('collapsed');
+        }
+
+        isDrawerCollapsed = !isDrawerCollapsed; // Toggle the state
+    });
+});
+
+
+
+</script>
+
+<script src="../scripts/messenger.js?v=2.1"></script>
 
 
 

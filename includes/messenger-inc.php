@@ -22,7 +22,7 @@
 
 
 @media screen and (min-width: 801px) {
-  .messenger-form-container {
+  #messenger-form-container {
     max-width: unset;
     padding: 10px;
      width: 92%;

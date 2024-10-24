@@ -454,7 +454,7 @@ function createConversation() {
                         // Mark the newly created conversation as active
                         $('.conversation-item').removeClass('active'); // Remove active class from any other conversation
                         $(`.conversation-item[data-conversation-id="${conversationId}"]`).addClass('active'); // Add active class to the newly created conversation
-                    }, 300); // Adjust delay as needed to ensure the conversation list updates
+                    }, 500); // Adjust delay as needed to ensure the conversation list updates
                 }
             } else {
                 alert(response.message);

@@ -129,7 +129,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 // Append the user's bug report message with browser info and user data
                 const browserInfo = getBrowserInfo();
                 const userInfo = getUserData();
-                const messageWithInfo = `${bugReport}<br><br><hr><br>${browserInfo}<br><br><hr><br>${userInfo}`;
+                const messageWithInfo = `${bugReport}<br><br> ${browserInfo}<br><br>${userInfo}`;
 
                 formData.append('message', messageWithInfo);
 

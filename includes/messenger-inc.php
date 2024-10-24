@@ -710,9 +710,15 @@ position: absolute;
     cursor: not-allowed;
 }
 .create-button:not(.disabled) {
-    background: var(--emblem-blue);
-    color: white;
+    background: var(--emblem-green);
+    color: var(--text-color);
     cursor: pointer;
+}
+
+.create-button:not(.disabled):hover {
+    background: var(--emblem-green);
+    color: var(--h1);
+
 }
 
 

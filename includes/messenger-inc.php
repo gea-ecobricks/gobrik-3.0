@@ -591,7 +591,7 @@ position: absolute;
     border: 1px solid grey;
     background: var(--darker);
     color: var(--text-color);
-    font-size: 1.5;
+    font-size: 1.5em;
     border-radius: 25px 0px 0px 25px;
     margin-right: 50px;
     margin-right: 50px;

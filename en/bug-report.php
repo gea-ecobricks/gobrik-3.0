@@ -296,6 +296,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 </script>
 
+<script src="../scripts/messenger.js?v=2.6"></script>
 
 
 

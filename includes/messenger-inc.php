@@ -193,7 +193,7 @@ background-color: var(--emblem-pink-over);
     height: 0;
     border-style: solid;
     border-width: 18px 18px 0 0; /* Creates a right-angled triangle */
-    border-color: var(--advanced-background) transparent transparent transparent; /* Color the spike */
+    border-color: var(--emblem-pink) transparent transparent transparent; /* Color the spike */
     transform: rotate(-270deg); /* Rotate to create the angled effect */
 }
 
@@ -216,6 +216,7 @@ background-color: var(--emblem-pink-over);
     border-width: 18px 0 0 18px; /* Creates a left-angled triangle */
     border-color: var(--emblem-blue) transparent transparent transparent; /* Color the spike */
     transform: rotate(270deg); /* Rotate to create the angled effect */
+    margin-top: -2px;
 }
 
 

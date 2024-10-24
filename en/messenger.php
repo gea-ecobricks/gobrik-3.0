@@ -198,7 +198,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             `;
             conversationList.append(convElement);
 
-            Automatically load the most recent conversation if it's the first time loading
+            //Automatically load the most recent conversation if it's the first time loading
             if (index === 0) {
                 loadMessages(conv.conversation_id);
                 $('.conversation-item').removeClass('active');

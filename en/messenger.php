@@ -87,6 +87,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             </div>
 
             <div id="searchBoxContainer" class="hidden" style="position: relative;">
+                <button id="clearSearchButton" class="clear-search-button" aria-label="Clear Search">✖</button>
                 <input type="text" id="userSearchInput" placeholder="Search users..." />
                 <div class="spinner-right" id="userSearchSpinner"></div>
                 <div id="searchResults"></div>
@@ -95,6 +96,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 </div>
                 <button id="createConversationButton" disabled class="create-button">+ Create Conversation</button>
             </div>
+
         </div>
 
 
@@ -259,29 +261,53 @@ function renderMessages(messages) {
 
 
 
+// SECTION 4: User Search and Selection
+$(document).ready(function() {
+    const selectedUsers = new Set();
 
-    // SECTION 4: User Search and Selection
-    $(document).ready(function() {
-        const selectedUsers = new Set();
+    // Show search box when "Start Conversation" button is clicked and hide the button
+    $('#startConversationButton').on('click', function() {
+        $(this).addClass('hidden'); // Hide the start conversation button
+        $('#searchBoxContainer').removeClass('hidden'); // Show the search box
+        $('#userSearchInput').focus();
+        $('#toggleConvoDrawer').addClass('hidden');
+    });
 
-        // Show search box when "Start Conversation" button is clicked and hide the button
-        $('#startConversationButton').on('click', function() {
-            $(this).addClass('hidden'); // Hide the start conversation button
-            $('#searchBoxContainer').removeClass('hidden'); // Show the search box
-            $('#userSearchInput').focus();
-            $('#toggleConvoDrawer').addClass('hidden');
+    // Handle user search input
+    $('#userSearchInput').on('input', function() {
+        const query = $(this).val().trim();
+        if (query.length >= 4) {
+            searchUsers(query);
+        } else {
+            $('#searchResults').empty();
+        }
+    });
 
-        });
+    // Handle the "X" button click for clearing search and resetting the view
+    $('#clearSearchButton').on('click', function() {
+        // Clear the search input
+        $('#userSearchInput').val('');
+        $('#searchResults').empty(); // Clear any search results
+        $('#searchBoxContainer').addClass('hidden'); // Hide the search box
+        $('#startConversationButton').removeClass('hidden'); // Show the start conversation button again
+        $('#toggleConvoDrawer').removeClass('hidden'); // Show the toggle drawer button again
+    });
 
-        // Handle user search input
-        $('#userSearchInput').on('input', function() {
-            const query = $(this).val().trim();
-            if (query.length >= 4) {
-                searchUsers(query);
-            } else {
-                $('#searchResults').empty();
-            }
-        });
+    // Show the clear button when there's text in the search input
+    $('#userSearchInput').on('input', function() {
+        if ($(this).val().trim() !== '') {
+            $('#clearSearchButton').show();
+        } else {
+            $('#clearSearchButton').hide();
+        }
+    });
+
+    // Initially hide the clear button if input is empty
+    if ($('#userSearchInput').val().trim() === '') {
+        $('#clearSearchButton').hide();
+    }
+});
+
 
         // AJAX request to search for users
         // Function to search for users

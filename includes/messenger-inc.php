@@ -706,14 +706,13 @@ position: absolute;
 
 
 #userSearchInput {
-    padding: 12px;
-    padding-left: 20px;
+    padding: 5px;
+    padding-right: 20px;
     background: var(--main-background);
     color: var(--text-color);
-    font-size: 1.25em;
+    font-size: 1em;
     border-radius: 25px;
     width: -moz-available;
-    margin-left: 55px;
     resize: none; /* Prevents manual resizing */
     overflow: hidden; /* Hides the scrollbar */
     max-height: calc(1.5em * 5 + 30px); /* Adjusts to a max of 5 rows plus padding */
@@ -722,6 +721,51 @@ position: absolute;
     outline: none; /* Removes the border when selected */
     font-family: 'Mulish', sans-serif;
 }
+
+#searchBoxContainer {
+    position: relative;
+}
+
+.clear-search-button {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: grey;
+    color: black;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
+
+.clear-search-button:hover {
+    background: white;
+    color: black;
+}
+
+#userSearchInput {
+    padding: 5px 5px 5px 35px; /* Adjust for the space taken by the clear button */
+    background: var(--main-background);
+    color: var(--text-color);
+    font-size: 1em;
+    border-radius: 25px;
+    width: 100%; /* Ensure it spans the container */
+    resize: none; /* Prevents manual resizing */
+    overflow: hidden; /* Hides the scrollbar */
+    max-height: calc(1.5em * 5 + 30px); /* Adjusts to a max of 5 rows plus padding */
+    line-height: 1.5em;
+    border: none; /* Removes all borders */
+    outline: none; /* Removes the border when selected */
+    font-family: 'Mulish', sans-serif;
+}
+
 
 
     </style>

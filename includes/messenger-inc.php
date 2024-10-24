@@ -539,11 +539,11 @@ position: absolute;
 
 //upload button
 /* Wrapper for the message input, similar to bug-report input */
-.message-input-wrapper,
-.bug-report-input-wrapper {
+.message-input-wrapper, {
     position: relative;
     width: 100%;
     margin-bottom: 10px;
+    padding-bottom: 16px;
 }
 
 
@@ -572,8 +572,8 @@ position: absolute;
 
 .image-file-name {
     position: absolute;
-    bottom: 15px;
-    right: 100px; /* Position to the left of the upload button */
+    bottom: -7px;
+    left: 80px; /* Position to the left of the upload button */
     font-size: 0.8em;
     color: var(--subdued-text);
     white-space: nowrap;
@@ -592,7 +592,7 @@ position: absolute;
     font-size: 1.5em;
     border-radius: 25px;
     width: -moz-available;
-    margin-left: 52px;
+    margin-left: 55px;
     resize: none; /* Prevents manual resizing */
     overflow: hidden; /* Hides the scrollbar */
     max-height: calc(1.5em * 5 + 30px); /* Adjusts to a max of 5 rows plus padding */
@@ -619,7 +619,7 @@ position: absolute;
     justify-content: center;
     transition: background-color 0.3s ease;
     position: absolute;
-    bottom: 19px;
+    bottom: 26px;
   right: 18px;
   width: 38px;
   height: 38px;

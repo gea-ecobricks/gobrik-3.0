@@ -636,7 +636,7 @@ $(document).ready(function() {
 
 </script>
 
-<script src="../scripts/messenger.js?v=2.1"></script>
+<script src="../scripts/messenger.js?v=2.2"></script>
 
 
 

@@ -585,11 +585,11 @@ position: absolute;
 
 
 #messageInput {
-    padding: 15px;
-    padding-right: 20px;
+    padding: 12px;
+    padding-left: 20px;
     background: var(--main-background);
     color: var(--text-color);
-    font-size: 1.5em;
+    font-size: 1.25em;
     border-radius: 25px;
     width: -moz-available;
     margin-left: 55px;

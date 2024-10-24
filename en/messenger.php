@@ -208,24 +208,51 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         });
     }
 
+
     // SECTION 3: Load and Render Messages
-    function loadMessages(conversationId) {
-        $.ajax({
-            url: '../messenger/get_messages.php',
-            method: 'GET',
-            data: { conversation_id: conversationId, user_id: userId },
-            success: function(response) {
-                if (response.status === 'success') {
-                    renderMessages(response.messages);
+function loadMessages(conversationId) {
+    $.ajax({
+        url: '../messenger/get_messages.php',
+        method: 'GET',
+        data: { conversation_id: conversationId, user_id: userId },
+        success: function(response) {
+            if (response.status === 'success') {
+                const messages = response.messages;
+                renderMessages(messages);
+
+                // Check if the conversation is empty and display the "New Chat" message if needed
+                if (messages.length === 0) {
+                    showNewChatMessage();
                 } else {
-                    alert(response.message);
+                    hideNewChatMessage();
                 }
-            },
-            error: function(error) {
-                console.error('Error fetching messages:', error);
+            } else {
+                alert(response.message);
             }
-        });
-    }
+        },
+        error: function(error) {
+            console.error('Error fetching messages:', error);
+        }
+    });
+}
+
+// Function to show the "New Chat" message
+function showNewChatMessage() {
+    const newChatMessage = `
+        <div id="no-messages-yet">
+            <h2>New Chat</h2>
+            <p>This chat is just getting going. Send a message to kick it off!</p>
+        </div>
+    `;
+    $('#message-list').html(newChatMessage); // Insert the message into the message list
+}
+
+// Function to hide the "New Chat" message
+function hideNewChatMessage() {
+    $('#no-messages-yet').remove(); // Remove the new chat message if it exists
+}
+
+
 
 function renderMessages(messages) {
     const messageList = $('#message-list');
@@ -382,95 +409,54 @@ $(document).ready(function() {
 
 
 
-// Function for creating a new conversation
-    function createConversation() {
-        const participantIds = Array.from(selectedUsers);
-        $.ajax({
-            url: '../messenger/create_conversation.php',
-            method: 'POST',
-            data: {
-                created_by: userId,
-                participant_ids: JSON.stringify(participantIds)
-            },
-            success: function(response) {
-                console.log('Response from create_conversation.php:', response);
-                if (response.status === 'success') {
-                    // Reset the UI
-                    $('#searchBoxContainer').addClass('hidden');
-                    $('#startConversationButton').removeClass('hidden');
-                    $('#userSearchInput').val('');
-                    $('#searchResults').empty();
-                    $('#selectedUsers').empty();
-                    $('#toggleConvoDrawer').removeClass('hidden');
-                    selectedUsers.clear();
-                    loadConversations(); // Refresh the conversations list
 
-                    // Load messages for the new conversation and show the "New Chat" placeholder
-                    loadMessages(response.conversation_id, true);
-                } else {
-                    alert(response.message);
+        // Function for creating a new conversation
+        function createConversation() {
+            const participantIds = Array.from(selectedUsers);
+            $.ajax({
+                url: '../messenger/create_conversation.php',
+                method: 'POST',
+                data: {
+                    created_by: userId,
+                    participant_ids: JSON.stringify(participantIds)
+                },
+                success: function(response) {
+                    console.log('Response from create_conversation.php:', response);
+                    if (response.status === 'success') {
+                        $('#searchBoxContainer').addClass('hidden');
+                        $('#startConversationButton').removeClass('hidden');
+                        $('#userSearchInput').val('');
+                        $('#searchResults').empty();
+                        $('#selectedUsers').empty();
+                        $('#toggleConvoDrawer').removeClass('hidden');
+                        selectedUsers.clear();
+                        loadConversations(); // Refresh the conversations list
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function(error) {
+                    console.error('Error creating conversation:', error);
                 }
-            },
-            error: function(error) {
-                console.error('Error creating conversation:', error);
-            }
-        });
-    }
-
-    // Function to load messages with an optional parameter for new conversations
-    function loadMessages(conversationId, isNew = false) {
-        $.ajax({
-            url: '../messenger/get_messages.php',
-            method: 'GET',
-            data: { conversation_id: conversationId },
-            success: function(response) {
-                const messageList = $('#message-list');
-                messageList.empty(); // Clear existing messages
-
-                if (isNew) {
-                    // Show the "New Chat" placeholder if this is a new conversation
-                    messageList.append(`
-                        <div id="no-messages-yet">
-                            <h2>New Chat</h2>
-                            <p>This chat is just getting going. Send a message to kick it off!</p>
-                        </div>
-                    `);
-                } else if (response.status === 'success' && response.messages.length > 0) {
-                    // Render the existing messages (not shown here, but you would loop through them)
-                    renderMessages(response.messages);
-                } else {
-                    messageList.append('<p>No messages found.</p>');
-                }
-            },
-            error: function(error) {
-                console.error('Error loading messages:', error);
-            }
-        });
-    }
-
-    // Handle the create conversation button click
-    $('#createConversationButton').on('click', createConversation);
-
-    // Remove a selected user when clicked
-    $('#selectedUsers').on('click', '.selected-user-item', function() {
-        const userId = $(this).data('user-id');
-        selectedUsers.delete(userId);
-        $(this).remove();
-        toggleCreateButton(); // Adjust the create button state
-    });
-
-    // Function to enable or disable the create conversation button
-    function toggleCreateButton() {
-        if (selectedUsers.size > 0) {
-            $('#createConversationButton').prop('disabled', false).removeClass('disabled');
-        } else {
-            $('#createConversationButton').prop('disabled', true).addClass('disabled');
+            });
         }
-    }
 
-    // Call loadConversations when the page is ready to load existing conversations
-    loadConversations();
-});
+        // Handle the create conversation button click
+        $('#createConversationButton').on('click', createConversation);
+
+        // Remove a selected user when clicked
+        $('#selectedUsers').on('click', '.selected-user-item', function() {
+            const userId = $(this).data('user-id');
+            selectedUsers.delete(userId);
+            $(this).remove();
+            if (selectedUsers.size === 0) {
+                $('#createConversationButton').prop('disabled', true);
+            }
+        });
+
+        // Load conversations on page load
+        loadConversations();
+    });
 
     // SECTION 5: JavaScript/jQuery for Sending Messages
 $(document).ready(function() {

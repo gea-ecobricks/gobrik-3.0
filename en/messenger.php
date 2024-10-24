@@ -104,8 +104,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <input type="file" id="imageUploadInput" accept="image/jpeg, image/jpg, image/png, image/webp" style="display: none;" />
             <span id="imageFileName" class="image-file-name"></span>
             <button type="button" id="uploadPhotoButton" class="upload-photo-button" title="Upload Photo" aria-label="Upload Photo">📷</button>
-            <button id="sendButton" title="Send" aria-label="Send" class="send-message-button"></button>
         </div>
+        <button id="sendButton" title="Send" aria-label="Send" class="send-message-button"></button>
 
     </div>
 </div>

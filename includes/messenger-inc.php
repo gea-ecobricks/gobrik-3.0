@@ -37,7 +37,7 @@
 
 
 
-#no-messages-yet {
+.full-convo-message {
     display: flex;
     align-items: center; /* Vertically centers the content */
     justify-content: center; /* Horizontally centers the content */

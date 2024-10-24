@@ -110,6 +110,13 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="message-thread" id="message-thread">
         <div id="message-list">
 
+            <div id="no-messages-yet">
+            <h1>🐣</h1>
+            <h4>Welcome to GoBrik messenger.</h4>
+            <p style="font-size:1em; margin-top: -20px;">Send a message to get cracking!</p>
+            <h4>👇</h4>
+        </div>
+
 
             <!-- Messages will be dynamically loaded here -->
         </div>
@@ -192,11 +199,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             conversationList.append(convElement);
 
             // Automatically load the most recent conversation if it's the first time loading
-            if (index === 0) {
-                loadMessages(conv.conversation_id);
-                $('.conversation-item').removeClass('active');
-                $(`.conversation-item[data-conversation-id="${conv.conversation_id}"]`).addClass('active');
-            }
+//             if (index === 0) {
+//                 loadMessages(conv.conversation_id);
+//                 $('.conversation-item').removeClass('active');
+//                 $(`.conversation-item[data-conversation-id="${conv.conversation_id}"]`).addClass('active');
+//             }
         });
 
         // Add click event to each conversation
@@ -239,10 +246,10 @@ function loadMessages(conversationId) {
 // Function to show the "New Chat" message
 function showNewChatMessage() {
     const newChatMessage = `
-        <div id="no-messages-yet">
+        <div id="no-messages-yet" class="full-convo-message">
             <h1>🐣</h1>
             <h4>This chat is just getting going.</h4>
-            <p style="font-size:1em">Send a message to get cracking! 🐥</p>
+            <p style="font-size:1em; margin-top: -20px;">Send a message to get cracking!</p>
             <h4>👇</h4>
         </div>
     `;

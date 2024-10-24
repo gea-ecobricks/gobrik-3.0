@@ -702,14 +702,14 @@ height: 25px;
   right: 25px;
   width: 25px;
 height: 25px;
-    background-color: none); /* Define this color in your CSS variables */
-    border-radius: 20px;
-    color: #fff;
-    font-size: 1.5em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    display: none; /* Hidden by default */
+background-color: none); /* Define this color in your CSS variables */
+border-radius: 20px;
+color: #fff;
+font-size: 1.5em;
+display: flex;
+align-items: center;
+justify-content: center;
+display: none; /* Hidden by default */
 }
 
 

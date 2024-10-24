@@ -131,7 +131,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <script>
     // SECTION 1: Define Global Variables
-    const userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
+    var userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
 
     // SECTION 2: Load Conversations
     function loadConversations() {

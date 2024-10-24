@@ -12,13 +12,10 @@ $conversation_id = isset($_POST['conversation_id']) ? intval($_POST['conversatio
 $sender_id = isset($_POST['sender_id']) ? intval($_POST['sender_id']) : 0;
 $content = isset($_POST['content']) ? trim($_POST['content']) : '';
 
-error_log("User ID is: $sender_id, Conversation ID is: $conversation_id, Content Length: " . strlen($content));
-
 $response = [];
 
 // Check if the required data is present
 if ($conversation_id > 0 && $sender_id > 0 && (!empty($content) || isset($_FILES['image']))) {
-    // Begin a transaction to ensure data integrity
     $buwana_conn->begin_transaction();
     try {
         // Insert the new message into the messages table
@@ -33,24 +30,21 @@ if ($conversation_id > 0 && $sender_id > 0 && (!empty($content) || isset($_FILES
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
             error_log("Processing image upload for message ID: $message_id");
 
-            // Include the script that handles image upload
-            require_once '../messenger/upload_image_attachment.php';
-
             // Prepare data for the upload function
             $_POST['user_id'] = $sender_id;
             $_POST['message_id'] = $message_id;
             $_POST['conversation_id'] = $conversation_id;
-            $_FILES['image'] = $_FILES['image']; // Include the image file
+            $_FILES['image'] = $_FILES['image'];
 
-            // Call the upload script and handle the response
-            ob_start(); // Start output buffering to capture the JSON response
+            // Capture the output of the upload_image_attachment.php script
+            ob_start();
             include '../messenger/upload_image_attachment.php';
-            $upload_response = json_decode(ob_get_clean(), true); // Decode the JSON response
+            $upload_response = json_decode(ob_get_clean(), true);
 
-            if ($upload_response['status'] !== 'success') {
-                throw new Exception($upload_response['message']);
+            // Check the response from the upload script
+            if (!isset($upload_response['status']) || $upload_response['status'] !== 'success') {
+                throw new Exception($upload_response['message'] ?? 'Unknown error during image upload.');
             }
-            error_log("Image upload successful for message ID: $message_id");
         }
 
         // Update the last message ID and timestamp in the conversation
@@ -59,12 +53,10 @@ if ($conversation_id > 0 && $sender_id > 0 && (!empty($content) || isset($_FILES
         $stmt->execute();
         $stmt->close();
 
-        // Retrieve all participants of the conversation to update their message status
+        // Update message status for participants
         $stmt = $buwana_conn->prepare("SELECT buwana_id FROM participants_tb WHERE conversation_id = ?");
         $stmt->bind_param("i", $conversation_id);
         $stmt->execute();
-
-        // Bind the result field and fetch each participant
         $stmt->bind_result($buwana_id);
         $participants = [];
         while ($stmt->fetch()) {
@@ -72,10 +64,9 @@ if ($conversation_id > 0 && $sender_id > 0 && (!empty($content) || isset($_FILES
         }
         $stmt->close();
 
-        // Insert or update the message status for each participant
         $status_stmt = $buwana_conn->prepare("INSERT INTO message_status_tb (message_id, buwana_id, status, updated_at) VALUES (?, ?, ?, NOW()) ON DUPLICATE KEY UPDATE status = VALUES(status), updated_at = NOW()");
         foreach ($participants as $recipient_id) {
-            $status = ($recipient_id == $sender_id) ? 'read' : 'sending'; // Set 'read' for the sender immediately
+            $status = ($recipient_id == $sender_id) ? 'read' : 'sending';
             $status_stmt->bind_param("iis", $message_id, $recipient_id, $status);
             $status_stmt->execute();
         }
@@ -90,29 +81,20 @@ if ($conversation_id > 0 && $sender_id > 0 && (!empty($content) || isset($_FILES
             "message_id" => $message_id
         ];
     } catch (Exception $e) {
-        // Rollback the transaction in case of an error
         $buwana_conn->rollback();
-        error_log("Error in send_message.php: " . $e->getMessage());
-
-        // Error response
         $response = [
             "status" => "error",
             "message" => "An error occurred while sending the message: " . $e->getMessage()
         ];
     }
 } else {
-    error_log("Invalid input data. User ID: $sender_id, Conversation ID: $conversation_id, Content Length: " . strlen($content));
-    // Invalid input data
     $response = [
         "status" => "error",
         "message" => "Invalid input data. 'conversation_id', 'sender_id', and 'content' or an image are required."
     ];
 }
 
-// Output the response as JSON
 header('Content-Type: application/json');
 echo json_encode($response);
-
-// Close the database connection
 $buwana_conn->close();
 ?>

@@ -671,23 +671,20 @@ position: absolute;
 
 
 
-#uploadSpinner, #errorIndicator {
-    width: 25px;
-  height: 25px;
-  position: absolute;
-  bottom: 28px;
-  right: 20px;
-  border-radius: 20px;
-  display: block;
-}
+
 
 
 
 .upload-spinner {
+  position: absolute;
+  border-radius: 20px;
+  bottom: 28px;
+  right: 20px;
     border: 4px solid rgba(0, 0, 0, 0.1);
     border-top: 4px solid var(--emblem-pink);
     border-radius: 50%;
     animation: spin 1s linear infinite;
+display: none; /* Hidden by default */
 
 }
 
@@ -697,6 +694,10 @@ position: absolute;
 }
 
 .error-indicator {
+ position: absolute;
+  border-radius: 20px;
+  bottom: 34px;
+  right: 25px;
     background-color: none); /* Define this color in your CSS variables */
     border-radius: 20px;
     color: #fff;

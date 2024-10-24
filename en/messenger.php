@@ -532,12 +532,7 @@ $(document).ready(function() {
             document.getElementById("language-menu-slider").style.top = "-35px";
             document.getElementById("login-menu-slider").style.top = "-35px";
             document.getElementById("form-submission-box").style.marginTop = "60px";
-//             document.getElementById("messenger-form-container").style.maxWidth = "unset";
-//             document.getElementById("messenger-form-container").style.width = "90%";
 
-
-            // Adjust the padding-top of form-container
-            $('.form-container').animate({ 'padding-top': '20px' }, 1000); // Adjusts padding-top over 1 second
         }, 3000); // 3000 milliseconds = 3 seconds delay
     }
 

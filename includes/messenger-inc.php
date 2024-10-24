@@ -585,19 +585,27 @@ position: absolute;
 
 
 #messageInput {
-    flex-grow: 1;
     padding: 15px;
-    border-radius: 25px;
-    border: 1px solid grey;
-    background: var(--darker);
+    padding-right: 20px;
+    background: var(--main-background);
     color: var(--text-color);
     font-size: 1.5em;
-    border-radius: 25px 25px 25px 25px;
-
-  width: -moz-available;
-  margin-left: 62px;
-
+    border-radius: 25px;
+    width: -moz-available;
+    margin-left: 62px;
+    resize: none; /* Prevents manual resizing */
+    overflow: hidden; /* Hides the scrollbar */
+    max-height: calc(1.5em * 5 + 30px); /* Adjusts to a max of 5 rows plus padding */
+    line-height: 1.5em;
+    border: none; /* Removes all borders */
+    outline: none; /* Removes the border when selected */
 }
+
+/* Placeholder text style */
+#messageInput::placeholder {
+    color: var(--subdued-text);
+}
+
 
 
 #sendButton {

@@ -3,7 +3,7 @@ require_once '../earthenAuth_helper.php'; // Include the authentication helper f
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.123';
+$version = '0.124';
 $page = 'messenger';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -628,7 +628,7 @@ $(document).ready(function() {
 
 </script>
 
-<script src="../scripts/messenger.js?v=2.5"></script>
+<script src="../scripts/messenger.js?v=2.6"></script>
 
 
 

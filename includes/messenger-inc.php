@@ -625,7 +625,7 @@ position: absolute;
     align-items: center; /* Vertically center the content */
     background: var(--emblem-green);
     color: white;
-    border: 1px solid var(--emblem-green-over);
+    border: 1px solid var(--emblem-green);
     padding: 10px;
     cursor: pointer;
     font-size: 1.15em;
@@ -663,7 +663,7 @@ position: absolute;
     background: var(--emblem-blue);
     border-radius: 5px 15px 15px 5px;
     margin-left: 5px;
-    border: 1px solid var(--emblem-blue-over);
+    border: 1px solid var(--emblem-blue);
 }
 
 .start-convo-button.hidden {
@@ -672,7 +672,7 @@ position: absolute;
 
 .toggle-drawer-button:hover {
     background: var(--emblem-blue-over);
-    border-color: var(--emblem-blue);
+    border-color: var(--emblem-blue-over);
 }
 
 /* Create Conversation Button */

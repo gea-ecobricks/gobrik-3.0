@@ -1126,6 +1126,12 @@ body.modal-open {
   /*max-height: 100vh;*/
 }
 
+body.modal-locked {
+  overflow: hidden;
+  /*max-height: 100vh;*/
+}
+
+
 
 
 /* The modal background */

@@ -496,12 +496,7 @@ function searchUsers(query) {
 $(document).ready(function() {
 
     // SETUP PAGE
-    // Function to make elements fade out and adjust styles after 3 seconds
     function setUpMessengerWindow() {
-
-            // Fade out the top-page-image and greeting divs
-//             $('#top-page-image').fadeOut(1000); // Fades out over 1 second
-//             $('#greeting').fadeOut(1000); // Fades out over 1 second
              document.getElementById("header").style.height = "60px";
             document.getElementById("gea-logo").style.width = "170px";
             document.getElementById("gea-logo").style.height = "35px";
@@ -512,8 +507,6 @@ $(document).ready(function() {
             document.getElementById("form-submission-box").style.marginTop = "60px";
             $('#page-content').addClass('modal-open');
     }
-
-
 
     // Call the function when the document is ready
     setUpMessengerWindow();
@@ -625,20 +618,31 @@ $(document).ready(function() {
 </script>
 
 <!--<script src="../scripts/messenger.js"></script>   -->
-
 <script>
     const maxFileSize = 10 * 1024 * 1024; // 10 MB
 
+    $(document).ready(function() {
+        // SETUP PAGE
+        function setUpMessengerWindow() {
+            document.getElementById("header").style.height = "60px";
+            document.getElementById("gea-logo").style.width = "170px";
+            document.getElementById("gea-logo").style.height = "35px";
+            document.getElementById("logo-gobrik").style.opacity = "0.9";
+            document.getElementById("settings-buttons").style.padding = "12px 43px 12px 12px";
+            document.getElementById("language-menu-slider").style.top = "-35px";
+            document.getElementById("login-menu-slider").style.top = "-35px";
+            document.getElementById("form-submission-box").style.marginTop = "60px";
+            $('#page-content').addClass('modal-open');
+        }
 
-      $(document).ready(function() {
+        // Call the function when the document is ready
+        setUpMessengerWindow();
 
-    // Validate the uploaded file
-
+        // Validate the uploaded file
         function validateFile(file) {
             const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
             return validTypes.includes(file.type) && file.size <= maxFileSize;
         }
-
 
         // Handle file upload button click
         $('#uploadPhotoButton').on('click', function() {
@@ -657,6 +661,9 @@ $(document).ready(function() {
             if (file && validateFile(file)) {
                 $('#imageFileName').text(file.name);
                 showUploadSuccess();
+            } else {
+                alert('🤔 Hmmm... looks like this isn\'t an image file, or else it\'s over 10MB. Please try another file.');
+                resetUploadButton(); // Reset in case of invalid file
             }
         });
 
@@ -697,10 +704,9 @@ $(document).ready(function() {
                 }
             }
         );
-
-        }
-
+    });
 </script>
+
 
 
 </body>

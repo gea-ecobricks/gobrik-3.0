@@ -451,14 +451,7 @@ function createConversation() {
                 // Refresh the conversations list
                 loadConversations();
 
-                // Automatically load the conversation that was just created
-                if (conversationId) {
-                    loadMessages(conversationId); // Load the new conversation messages
 
-                    // Mark the newly created conversation as active
-                    $('.conversation-item').removeClass('active'); // Remove active class from any other conversation
-                    $(`.conversation-item[data-conversation-id="${conversationId}"]`).addClass('active'); // Add active class to the newly created conversation
-                }
             } else {
                 alert(response.message);
             }

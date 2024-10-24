@@ -2,6 +2,25 @@ const maxFileSize = 10 * 1024 * 1024; // 10 MB
 
 $(document).ready(function() {
 
+
+// SETUP PAGE
+        function setUpMessengerWindow() {
+            document.getElementById("header").style.height = "60px";
+            document.getElementById("gea-logo").style.width = "170px";
+            document.getElementById("gea-logo").style.height = "35px";
+            document.getElementById("logo-gobrik").style.opacity = "0.9";
+            document.getElementById("settings-buttons").style.padding = "12px 43px 12px 12px";
+            document.getElementById("language-menu-slider").style.top = "-35px";
+            document.getElementById("login-menu-slider").style.top = "-35px";
+            document.getElementById("form-submission-box").style.marginTop = "75px";
+            document.getElementById('page-content').classList.add('modal-open');
+            document.documentElement.classList.add('modal-open');
+        }
+
+        // Call the function when the document is ready
+        setUpMessengerWindow();
+});
+
     // Validate the uploaded file
     function validateFile(file) {
         const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];

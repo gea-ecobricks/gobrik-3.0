@@ -78,7 +78,11 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="conversation-list-container">
         <!-- Container for the start conversation button and search box -->
         <div class="start-conversation-container">
-            <button id="startConversationButton" class="start-convo-button">📝 New Chat...</button>
+            <button id="startConversationButton" class="start-convo-button">
+                <img src="../svgs/gobrik-3-emblem-tight.svg" alt="GoBrik Emblem" class="button-icon">
+                New Chat...
+            </button>
+
             <button id="toggleConvoDrawer" class="toggle-drawer-button" title="Toggle Drawer"><</button>
             <div id="searchBoxContainer" class="hidden" style="position: relative;">
                 <input type="text" id="userSearchInput" placeholder="Search users..." />
@@ -527,30 +531,7 @@ $(document).ready(function() {
 </script>
 
 
-<Script>
-$(document).ready(function() {
 
-// SETUP PAGE
-        function setUpMessengerWindow() {
-            document.getElementById("header").style.height = "60px";
-            document.getElementById("gea-logo").style.width = "170px";
-            document.getElementById("gea-logo").style.height = "35px";
-            document.getElementById("logo-gobrik").style.opacity = "0.9";
-            document.getElementById("settings-buttons").style.padding = "12px 43px 12px 12px";
-            document.getElementById("language-menu-slider").style.top = "-35px";
-            document.getElementById("login-menu-slider").style.top = "-35px";
-            document.getElementById("form-submission-box").style.marginTop = "75px";
-// $('#page-content').addClass('modal-open');
-            document.body.classList.add('modal-open');
-        }
-
-        // Call the function when the document is ready
-        setUpMessengerWindow();
-});
-
-
-
-</script>
 
 <script>
 

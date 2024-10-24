@@ -712,6 +712,32 @@ justify-content: center;
 display: none; /* Hidden by default */
 }
 
+//START CONVO BUTTONS
+
+.start-convo-button, .toggle-drawer-button {
+    display: flex; /* Allows aligning the SVG and text side by side */
+    align-items: center; /* Vertically centers the content */
+    background: var(--emblem-green);
+    color: white;
+    border: 1px solid var(--emblem-green);
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s ease, border 0.3s ease;
+    height: 42px; /* Ensures both buttons have the same height */
+}
+
+.start-convo-button {
+    text-align: left;
+    width: calc(100% - 60px); /* Leaves room for the toggle button */
+    border-radius: 5px;
+}
+
+.start-convo-button img.button-icon {
+    height: 30px; /* Height of the SVG icon */
+    margin-right: 8px; /* Adds space between the icon and the text */
+    width: auto; /* Keeps the aspect ratio of the icon */
+}
 
 
 

@@ -421,6 +421,12 @@ function searchUsers(query) {
 $(document).ready(function() {
     const maxFileSize = 10 * 1024 * 1024; // 10 MB
     const userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
+    console.log('User ID:', userId); // Add this line for debugging
+
+    // Check if userId is properly set
+    if (!userId || userId === '0') {
+        console.error('User ID is not set or is invalid.');
+    }
 
     // Function to show the spinner
     function showUploadSpinner() {
@@ -447,6 +453,8 @@ $(document).ready(function() {
         const messageContent = $('#messageInput').val().trim();
         const selectedConversationId = $('.conversation-item.active').data('conversation-id');
         const file = $('#imageUploadInput')[0].files[0];
+
+            console.log('Selected Conversation ID:', selectedConversationId); // Debug line
 
         // Check if a conversation is selected and there is message content
         if (selectedConversationId && (messageContent || file)) {

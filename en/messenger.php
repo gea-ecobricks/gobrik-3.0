@@ -59,17 +59,20 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
 
 <div class="splash-title-block"></div>
 <div id="splash-bar"></div>
-<div id="top-page-image" class="message-birded top-page-image"></div>
 
-<!-- MESSENGER CONTENT -->
+
+<!-- MESSENGER CONTENT
+<div id="top-page-image" class="message-birded top-page-image"></div>-->
 <div id="form-submission-box" style="height:fit-content;margin-top: 90px;">
     <div class="form-container" id="messenger-form-container">
-        <div id="greeting" style="text-align:center;width:100%;margin:auto;">
+
+
+     <!--
+     <div id="greeting" style="text-align:center;width:100%;margin:auto;">
             <h2 id="greeting">GoBrik Messenger</h2>
             <p id="subgreeting">Welcome to your conversations <?php echo $first_name; ?>.</p>
         </div>
-
-     <!-- ACTIVE MESSENGER PHP AND HTML GOES HERE-->
+    ACTIVE MESSENGER PHP AND HTML GOES HERE-->
 
   <div class="messenger-container">
     <div class="conversation-list-container">
@@ -519,12 +522,13 @@ function searchUsers(query) {
 <Script>
 $(document).ready(function() {
 
+    // SETUP PAGE
     // Function to make elements fade out and adjust styles after 3 seconds
     function adjustPageAfterSplash() {
-        setTimeout(function() {
+
             // Fade out the top-page-image and greeting divs
-            $('#top-page-image').fadeOut(1000); // Fades out over 1 second
-            $('#greeting').fadeOut(1000); // Fades out over 1 second
+//             $('#top-page-image').fadeOut(1000); // Fades out over 1 second
+//             $('#greeting').fadeOut(1000); // Fades out over 1 second
              document.getElementById("header").style.height = "60px";
             document.getElementById("gea-logo").style.width = "170px";
             document.getElementById("gea-logo").style.height = "35px";
@@ -533,9 +537,7 @@ $(document).ready(function() {
             document.getElementById("language-menu-slider").style.top = "-35px";
             document.getElementById("login-menu-slider").style.top = "-35px";
             document.getElementById("form-submission-box").style.marginTop = "60px";
-            document.body.classList.add('modal-open');
-
-        }, 3000); // 3000 milliseconds = 3 seconds delay
+            document.html.classList.add('modal-open');
     }
 
 

@@ -114,7 +114,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <div class="message-birded" style="width:300px; height:140px;"></div>
             <h4>Welcome to GoBrik messenger.</h4>
             <p style="font-size:1em; margin-top: -20px;">Choose a conversation or start a new one!</p>
-            <h4>👈</h4>
+            <h4 style="margin-top: -20px;">👈</h4>
         </div>
 
 

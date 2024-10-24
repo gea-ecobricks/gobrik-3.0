@@ -678,11 +678,10 @@ position: absolute;
 
 /* Create Conversation Button */
 .create-button {
-    background: grey;
+    background: var(--emblem-green);
     color: white;
-    padding: 5px 10px;
-    border: 1px solid grey;
-    border-radius: 5px;
+    padding: 10px;
+    border-radius: 10px;
     cursor: not-allowed; /* Cursor shows as not-allowed when disabled */
     font-size: 1em;
     margin: auto;
@@ -706,7 +705,7 @@ position: absolute;
 }
 
 
-userSearchInput {
+#userSearchInput {
     padding: 12px;
     padding-left: 20px;
     background: var(--main-background);
@@ -723,7 +722,7 @@ userSearchInput {
     outline: none; /* Removes the border when selected */
     font-family: 'Mulish', sans-serif;
 }
-}
+
 
     </style>
 

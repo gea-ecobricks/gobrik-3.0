@@ -547,14 +547,14 @@ $(document).ready(function() {
             $('.conversation-list-container').css('width', '100%');
             $('.message-thread').hide();
             $('#startConversationButton').removeClass('hidden');
-            $('#toggleConvoDrawer').html('>'); // Button indicates collapse
+            $('#toggleConvoDrawer').html('⮞'); // Button indicates collapse
             isDrawerCollapsed = true;
         } else {
             // On larger screens, start with the drawer at 30% and message thread visible
             $('.conversation-list-container').css('width', '30%');
             $('.message-thread').show();
             $('#startConversationButton').removeClass('hidden');
-            $('#toggleConvoDrawer').html('<'); // Button indicates expand
+            $('#toggleConvoDrawer').html('⮜'); // Button indicates expand
             isDrawerCollapsed = false;
         }
     }

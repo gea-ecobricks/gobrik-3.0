@@ -406,7 +406,7 @@ position: absolute;
   border-top: 4px solid var(--emblem-blue);
   border-radius: 50%;
   animation: spin 1s linear infinite;
-
+  display: none;
 
   }
 
@@ -615,7 +615,6 @@ position: absolute;
     right: 10px;
     width: 50px;
     height: 50px;
-    display: none;
 }
 
 #sendButton::before {

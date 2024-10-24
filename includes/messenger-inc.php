@@ -108,28 +108,6 @@
     padding: 10px;
 }
 
-.conversation-item {
-    position: relative; /* Allows the delete button to be positioned relative to this container */
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid var(--settings-border);
-    cursor: pointer;
-    color: var(--text-color);
-}
-
-.conversation-item.active {
-    background-color: var(--lighter);
-}
-
-.conversation-item:hover {
-    background-color: var(--darker);
-}
-
-.conversation-item strong {
-    color: var(--h1); /* Color for the other participants' names */
-}
-
 .timestamp {
     font-size: 0.8em;
     color: var(--subdued-text);
@@ -269,19 +247,8 @@ background-color: var(--emblem-pink-over);
     background-color: var(--advanced-background);
 }
 
-.conversation-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid var(--settings-border);
-    cursor: pointer;
-    color: var(--text-color);
-}
 
-.conversation-item.active {
-    background-color: var(--lighter);
-    border-radius: 10px 0px 0px 10px;
-}
+
 
 .conversation-icon {
     width: 40px;
@@ -398,21 +365,6 @@ position: absolute;
     width: calc(100% - 60px); /* When the conversation list is collapsed, the message thread takes more space */
 }
 
-.conversation-item {
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid var(--settings-border);
-    cursor: pointer;
-    color: var(--text-color);
-}
-
-.conversation-item.collapsed .delete-conversation,
-.conversation-item.collapsed .conversation-details,
-.start-convo-button.hidden {
-    display: none; /* Hide elements when the drawer is collapsed */
-}
 
 .delete-conversation {
     position: absolute;
@@ -803,6 +755,40 @@ position: absolute;
     outline: none; /* Removes the border when selected */
     font-family: 'Mulish', sans-serif;
 }
+
+//convo item
+
+
+.conversation-item.collapsed .delete-conversation,
+.conversation-item.collapsed .conversation-details,
+.start-convo-button.hidden {
+    display: none; /* Hide elements when the drawer is collapsed */
+}
+
+
+.conversation-item {
+    position: relative; /* Allows the delete button to be positioned relative to this container */
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid var(--settings-border);
+    cursor: pointer;
+    color: var(--text-color);
+    border-radius: 15px 3px 3px 15px;
+}
+
+.conversation-item.active {
+    background-color: var(--lighter);
+}
+
+.conversation-item:hover {
+    background-color: var(--darker);
+}
+
+.conversation-item strong {
+    color: var(--h1); /* Color for the other participants' names */
+}
+
 
 
 

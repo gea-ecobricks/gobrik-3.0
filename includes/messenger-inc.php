@@ -550,10 +550,10 @@ position: absolute;
 /* Style for the upload photo button */
 .upload-photo-button {
     position: absolute;
-    bottom: 10px;
-    left: 10px; /* Adjust to align with the send button */
-    width: 50px;
-    height: 50px;
+    bottom: 18px;
+  left: 10px;
+  width: 45px;
+  height: 45px;
     background: grey;
     color: white;
     border: none;
@@ -592,7 +592,7 @@ position: absolute;
     font-size: 1.5em;
     border-radius: 25px;
     width: -moz-available;
-    margin-left: 62px;
+    margin-left: 52px;
     resize: none; /* Prevents manual resizing */
     overflow: hidden; /* Hides the scrollbar */
     max-height: calc(1.5em * 5 + 30px); /* Adjusts to a max of 5 rows plus padding */

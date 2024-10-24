@@ -694,16 +694,10 @@ position: absolute;
     border: none;
 }
 
-/* .create-button:not(:disabled) { */
-/*     background: var(--emblem-blue); */
-/*     border-color: var(--emblem-blue); */
-/*     cursor: pointer; */
-/* } */
+.create-button .disabled {
+    background: grey;
 
-/* .create-button:not(:disabled):hover { */
-/*     background: var(--emblem-blue-over); */
-/*     border-color: var(--emblem-blue-over); */
-/* } */
+
 
 
 /* #userSearchInput { */

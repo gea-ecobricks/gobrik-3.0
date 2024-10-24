@@ -112,7 +112,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     const userLocationFull = '<?php echo addslashes($user_location_full); ?>';
     const geaStatus = '<?php echo addslashes($gea_status); ?>';
     const userCommunityName = '<?php echo addslashes($user_community_name); ?>';
-    const maxFileSize = 10 * 1024 * 1024; // 10 MB
+//     const maxFileSize = 10 * 1024 * 1024; // 10 MB
 
     $(document).ready(function() {
         // Handle form submission

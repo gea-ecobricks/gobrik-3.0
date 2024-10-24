@@ -525,6 +525,9 @@ position: absolute;
 }
 
 
+
+//CUSTOMIZED FIELD, UPLOAD AND SEND BUTTONS
+
 //upload button
 /* Wrapper for the message input, similar to bug-report input */
 .message-input-wrapper,
@@ -534,19 +537,6 @@ position: absolute;
     margin-bottom: 10px;
 }
 
-#messageInput,
-#bugReportInput {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid grey;
-    background: var(--darker);
-    color: var(--text-color);
-    font-size: 1.1em;
-    resize: vertical;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-}
 
 /* Style for the upload photo button */
 .upload-photo-button {
@@ -583,35 +573,8 @@ position: absolute;
     max-width: 150px; /* Adjust as needed */
 }
 
-/* Style for the send button */
-.send-message-button {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    width: 40px;
-    height: 40px;
-    background: var(--emblem-pink);
-    border: none;
-    border-radius: 0 15px 15px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.send-message-button::before {
-    content: '▶️'; /* Send icon, can be customized */
-    color: white;
-    font-size: 1.1em;
-}
-
-.send-message-button:hover {
-    background: var(--emblem-pink-over);
-}
 
 
-//CUSTOMIZED
 #messageInput {
     flex-grow: 1;
     padding: 10px;
@@ -651,6 +614,35 @@ position: absolute;
 #sendButton:hover {
     background-color: var(--emblem-pink-over);
 }
+
+
+/* Style for the send button */
+/* .send-message-button { */
+/*     position: absolute; */
+/*     bottom: 10px; */
+/*     right: 10px; */
+/*     width: 40px; */
+/*     height: 40px; */
+/*     background: var(--emblem-pink); */
+/*     border: none; */
+/*     border-radius: 0 15px 15px 0; */
+/*     display: flex; */
+/*     align-items: center; */
+/*     justify-content: center; */
+/*     cursor: pointer; */
+/*     transition: background 0.3s ease; */
+/* } */
+
+/* .send-message-button::before { */
+/*     content: '▶️';  *//* Send icon, can be customized */
+/*     color: white; */
+/*     font-size: 1.1em; */
+/* } */
+
+.send-message-button:hover {
+    background: var(--emblem-pink-over);
+}
+
     </style>
 
 

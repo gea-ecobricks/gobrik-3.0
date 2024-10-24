@@ -557,9 +557,9 @@ $(document).ready(function() {
 <Script>
 $(document).ready(function() {
 
-    // SETUP PAGE
-    function setUpMessengerWindow() {
-             document.getElementById("header").style.height = "60px";
+// SETUP PAGE
+        function setUpMessengerWindow() {
+            document.getElementById("header").style.height = "60px";
             document.getElementById("gea-logo").style.width = "170px";
             document.getElementById("gea-logo").style.height = "35px";
             document.getElementById("logo-gobrik").style.opacity = "0.9";
@@ -567,12 +567,19 @@ $(document).ready(function() {
             document.getElementById("language-menu-slider").style.top = "-35px";
             document.getElementById("login-menu-slider").style.top = "-35px";
             document.getElementById("form-submission-box").style.marginTop = "60px";
-            $('#page-content').addClass('modal-open');
-    }
+// $('#page-content').addClass('modal-open');
+            document.body.classList.add('modal-open');
+        }
 
-    // Call the function when the document is ready
-    setUpMessengerWindow();
+        // Call the function when the document is ready
+        setUpMessengerWindow();
+});
 
+
+
+</script>
+
+<script>
 
     $(document).ready(function() {
     // Listen for keypress event on the textarea
@@ -675,26 +682,12 @@ $(document).ready(function() {
 
 </script>
 
+<script src="../scripts/messenger.js"></script>
 <script>
     const maxFileSize = 10 * 1024 * 1024; // 10 MB
 
     $(document).ready(function() {
-        // SETUP PAGE
-        function setUpMessengerWindow() {
-            document.getElementById("header").style.height = "60px";
-            document.getElementById("gea-logo").style.width = "170px";
-            document.getElementById("gea-logo").style.height = "35px";
-            document.getElementById("logo-gobrik").style.opacity = "0.9";
-            document.getElementById("settings-buttons").style.padding = "12px 43px 12px 12px";
-            document.getElementById("language-menu-slider").style.top = "-35px";
-            document.getElementById("login-menu-slider").style.top = "-35px";
-            document.getElementById("form-submission-box").style.marginTop = "60px";
 
-            document.body.classList.add('modal-open');
-        }
-
-        // Call the function when the document is ready
-        setUpMessengerWindow();
 
         // Validate the uploaded file
         function validateFile(file) {

@@ -693,6 +693,8 @@ display: none; /* Hidden by default */
     text-align: left;
     width: calc(100% - 60px); /* Leaves room for the toggle button */
     border-radius: 5px;
+    display: flex;
+    flex-flow: row;
 }
 
 .start-convo-button img.button-icon {

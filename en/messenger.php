@@ -80,8 +80,8 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <div class="start-conversation-container">
             <div style="display:flex;flex-flow:row">
                 <button id="startConversationButton" class="start-convo-button">
-                    <img src="../svgs/gobrik-3-emblem-tight.svg" alt="GoBrik Emblem" class="button-icon">
-                    <span>New Chat...</span>
+                    <img src="../svgs/gobrik-3-emblem-tight.svg?v=2" alt="GoBrik Emblem" class="button-icon">
+                    <span style="margin:auto auto auto 0px;">New Chat...</span>
                 </button>
                 <button id="toggleConvoDrawer" class="toggle-drawer-button" title="Toggle Drawer">⮜</button>
             </div>
@@ -638,7 +638,7 @@ $(document).ready(function() {
 
 </script>
 
-<script src="../scripts/messenger.js?v=2.3"></script>
+<script src="../scripts/messenger.js?v=2.4"></script>
 
 
 

@@ -392,12 +392,6 @@ function searchUsers(query) {
 $(document).ready(function() {
     const maxFileSize = 10 * 1024 * 1024; // 10 MB
     const userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
-    console.log('User ID is:', userId); // Add this line for debugging
-
-    // Check if userId is properly set
-    if (!userId || userId === '0') {
-        console.error('User ID is not set or is invalid.');
-    }
 
     // Function to show the spinner
     function showUploadSpinner() {
@@ -481,10 +475,8 @@ $(document).ready(function() {
         $('#errorIndicator').hide();
         $('#sendButton').show();
     }
-
-
-
 });
+
 
 
 </script>

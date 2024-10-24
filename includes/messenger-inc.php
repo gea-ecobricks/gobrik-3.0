@@ -688,6 +688,7 @@ position: absolute;
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s ease;
+    display: none;
 }
 
 .upload-spinner {
@@ -695,7 +696,7 @@ position: absolute;
     border-top: 4px solid var(--emblem-pink);
     border-radius: 50%;
     animation: spin 1s linear infinite;
-    display: none;
+
 }
 
 @keyframes spin {
@@ -704,10 +705,10 @@ position: absolute;
 }
 
 .error-indicator {
-    background-color: var(--error-red); /* Define this color in your CSS variables */
+    background-color: none); /* Define this color in your CSS variables */
     border-radius: 20px;
     color: #fff;
-    font-size: 1.2em;
+    font-size: 1.5em;
     display: flex;
     align-items: center;
     justify-content: center;

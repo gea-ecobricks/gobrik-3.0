@@ -95,7 +95,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <div id="selectedUsers">
                     <!-- Selected users will appear here -->
                 </div>
-                <button id="createConversationButton" disabled class="create-button">+ Create Conversation</button>
+                <button id="createConversationButton" disabled class="create-button">Create Conversation →</button>
             </div>
 
         </div>
@@ -306,11 +306,6 @@ $(document).ready(function() {
         }
     });
 
-    // Initially hide the clear button if input is empty
-    if ($('#userSearchInput').val().trim() === '') {
-        $('#clearSearchButton').hide();
-    }
-
     // Function to search for users
     function searchUsers(query) {
         $('#userSearchSpinner').show(); // Show the spinner before starting the AJAX request
@@ -356,7 +351,7 @@ $(document).ready(function() {
                 const userName = $(this).text();
                 if (selectedUsers.size < 5) {
                     selectedUsers.add(userId);
-                    $('#selectedUsers').append(`<div class="selected-user-item" data-user-id="${userId}">${userName}</div>`);
+                    $('#selectedUsers').append(`<div class="selected-user-item" data-user-id="${userId}">+ ${userName}</div>`);
                     $(this).remove(); // Remove from search results
                     $('#userSearchInput').val(''); // Clear the search input box to reset the dropdown
                     $('#searchResults').empty(); // Clear the search results
@@ -376,6 +371,8 @@ $(document).ready(function() {
             $('#createConversationButton').hide(); // Hide the create button if no users are selected
         }
     }
+
+
 
 
 

@@ -680,8 +680,8 @@ position: absolute;
 .create-button {
     background: var(--emblem-green);
     color: white;
-    padding: 20px;
-    border-radius: 20px;
+    padding: 8px;
+    border-radius: 0px 0px 10px 10px;
     cursor: not-allowed; /* Cursor shows as not-allowed when disabled */
     font-size: 1em;
     margin: auto;

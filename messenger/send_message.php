@@ -2,6 +2,7 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+error_log("Starting message send process");
 
 // Include the database connection
 require_once '../buwanaconn_env.php';
@@ -10,6 +11,8 @@ require_once '../buwanaconn_env.php';
 $conversation_id = isset($_POST['conversation_id']) ? intval($_POST['conversation_id']) : 0;
 $sender_id = isset($_POST['sender_id']) ? intval($_POST['sender_id']) : 0;
 $content = isset($_POST['content']) ? trim($_POST['content']) : '';
+
+error_log("User ID: $sender_id, Conversation ID: $conversation_id, Content Length: " . strlen($content));
 
 $response = [];
 
@@ -24,9 +27,12 @@ if ($conversation_id > 0 && $sender_id > 0 && (!empty($content) || isset($_FILES
         $stmt->execute();
         $message_id = $buwana_conn->insert_id;
         $stmt->close();
+        error_log("Message ID: $message_id created for Conversation ID: $conversation_id");
 
         // Handle file upload if an image is included
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            error_log("Processing image upload for message ID: $message_id");
+
             // Include the script that handles image upload
             require_once '../messenger/upload_image_attachment.php';
 
@@ -44,6 +50,7 @@ if ($conversation_id > 0 && $sender_id > 0 && (!empty($content) || isset($_FILES
             if ($upload_response['status'] !== 'success') {
                 throw new Exception($upload_response['message']);
             }
+            error_log("Image upload successful for message ID: $message_id");
         }
 
         // Update the last message ID and timestamp in the conversation
@@ -85,6 +92,7 @@ if ($conversation_id > 0 && $sender_id > 0 && (!empty($content) || isset($_FILES
     } catch (Exception $e) {
         // Rollback the transaction in case of an error
         $buwana_conn->rollback();
+        error_log("Error in send_message.php: " . $e->getMessage());
 
         // Error response
         $response = [
@@ -93,6 +101,7 @@ if ($conversation_id > 0 && $sender_id > 0 && (!empty($content) || isset($_FILES
         ];
     }
 } else {
+    error_log("Invalid input data. User ID: $sender_id, Conversation ID: $conversation_id, Content Length: " . strlen($content));
     // Invalid input data
     $response = [
         "status" => "error",

@@ -663,7 +663,7 @@ position: absolute;
     background: var(--emblem-blue);
     border-radius: 5px 15px 15px 5px;
     margin-left: 5px;
-    border: 1px solid var(--emblem-blue);
+    border: 1px solid var(--emblem-blue-over);
 }
 
 .start-convo-button.hidden {
@@ -672,7 +672,7 @@ position: absolute;
 
 .toggle-drawer-button:hover {
     background: var(--emblem-blue-over);
-    border-color: var(--emblem-blue-over);
+    border-color: var(--emblem-blue);
 }
 
 /* Create Conversation Button */

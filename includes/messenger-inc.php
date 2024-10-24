@@ -36,57 +36,6 @@
 }
 
 
-/* Start Conversation Button */
-.start-convo-button {
-    background: var(--emblem-green);
-    color: white;
-    padding: 5px 10px;
-    border: 1px solid var(--emblem-green);
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    margin: auto;
-    justify-content: center;
-    text-align: left; /* Aligns text to the left */
-    text-decoration: none;
-    display: inline-block;
-    transition: background 0.3s ease, border 0.3s ease;
-    width: 100%;
-}
-
-.start-convo-button:hover {
-    background: var(--emblem-green-over);
-    border-color: var(--emblem-green-over);
-}
-
-/* Create Conversation Button */
-.create-button {
-    background: grey;
-    color: white;
-    padding: 5px 10px;
-    border: 1px solid grey;
-    border-radius: 5px;
-    cursor: not-allowed; /* Cursor shows as not-allowed when disabled */
-    font-size: 1em;
-    margin: auto;
-    justify-content: center;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    transition: background 0.3s ease, border 0.3s ease;
-    width:100%;
-}
-
-.create-button:not(:disabled) {
-    background: var(--emblem-blue);
-    border-color: var(--emblem-blue);
-    cursor: pointer;
-}
-
-.create-button:not(:disabled):hover {
-    background: var(--emblem-blue-over);
-    border-color: var(--emblem-blue-over);
-}
 
 .no-messages {
     display: flex;
@@ -105,7 +54,7 @@
 
 .messenger-container {
     display: flex;
-    height: calc(100vh - 50px); /* Adjust height as needed */
+    height: calc(100vh - 80px); /* Adjust height as needed */
     border: 1px solid var(--settings-border);
     background: var(--darker);
     border-radius: 15px;
@@ -679,7 +628,7 @@ display: none; /* Hidden by default */
 
 //START CONVO BUTTONS
 
-.start-convo-button, {
+.start-convo-button {
     display: flex; /* Allows aligning the SVG and text side by side */
     align-items: center; /* Vertically centers the content */
     background: var(--emblem-green);
@@ -731,6 +680,59 @@ display: none; /* Hidden by default */
     border-color: var(--emblem-blue-over);
 }
 
+
+
+/* Start Conversation Button */
+/* .start-convo-button { */
+/*     background: var(--emblem-green); */
+/*     color: white; */
+/*     padding: 5px 10px; */
+/*     border: 1px solid var(--emblem-green); */
+/*     border-radius: 5px; */
+/*     cursor: pointer; */
+/*     font-size: 1em; */
+/*     margin: auto; */
+/*     justify-content: center; */
+/*     text-align: left;  *//* Aligns text to the left */
+/*     text-decoration: none; */
+/*     display: inline-block; */
+/*     transition: background 0.3s ease, border 0.3s ease; */
+/*     width: 100%; */
+/* } */
+
+/* .start-convo-button:hover { */
+/*     background: var(--emblem-green-over); */
+/*     border-color: var(--emblem-green-over); */
+/* } */
+
+/* Create Conversation Button */
+.create-button {
+    background: grey;
+    color: white;
+    padding: 5px 10px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    cursor: not-allowed; /* Cursor shows as not-allowed when disabled */
+    font-size: 1em;
+    margin: auto;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.3s ease, border 0.3s ease;
+    width:100%;
+}
+
+.create-button:not(:disabled) {
+    background: var(--emblem-blue);
+    border-color: var(--emblem-blue);
+    cursor: pointer;
+}
+
+.create-button:not(:disabled):hover {
+    background: var(--emblem-blue-over);
+    border-color: var(--emblem-blue-over);
+}
 
     </style>
 

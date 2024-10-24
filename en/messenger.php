@@ -176,7 +176,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         conversationList.empty();
         conversations.forEach((conv, index) => {
             // Use a default message if there is no last message
-            const lastMessage = conv.last_message ? conv.last_message : "No messages yet.Start the conversation!";
+            const lastMessage = conv.last_message ? conv.last_message : "🥚 No messages yet.";
             const trimmedMessage = lastMessage.length > 50
                 ? lastMessage.substring(0, 50) + '...'
                 : lastMessage;
@@ -418,8 +418,7 @@ $(document).ready(function() {
 
 
 
-
-    // Function for creating a new conversation
+// Function for creating a new conversation
 function createConversation() {
     const participantIds = Array.from(selectedUsers);
     $.ajax({
@@ -450,9 +449,12 @@ function createConversation() {
                 if (conversationId) {
                     loadMessages(conversationId); // Load the new conversation messages
 
-                    // Mark the newly created conversation as active
-                    $('.conversation-item').removeClass('active'); // Remove active class from any other conversation
-                    $(`.conversation-item[data-conversation-id="${conversationId}"]`).addClass('active'); // Add active class to the newly created conversation
+                    // Add a short delay to ensure the conversation list is updated
+                    setTimeout(function() {
+                        // Mark the newly created conversation as active
+                        $('.conversation-item').removeClass('active'); // Remove active class from any other conversation
+                        $(`.conversation-item[data-conversation-id="${conversationId}"]`).addClass('active'); // Add active class to the newly created conversation
+                    }, 300); // Adjust delay as needed to ensure the conversation list updates
                 }
             } else {
                 alert(response.message);
@@ -463,6 +465,7 @@ function createConversation() {
         }
     });
 }
+
 
 
 

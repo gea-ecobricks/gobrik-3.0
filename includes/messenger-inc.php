@@ -625,16 +625,23 @@ position: absolute;
     align-items: center; /* Vertically center the content */
     background: var(--emblem-green);
     color: white;
-    border: 1px solid var(--emblem-green);
+    border: 1px solid var(--emblem-green-over);
     padding: 10px;
     cursor: pointer;
-    font-size: 1em;
+    font-size: 1.15em;
     transition: background 0.3s ease, border 0.3s ease;
     height: 42px; /* Ensures both buttons have the same height */
     text-align: left;
     width: calc(100% - 60px); /* Leaves room for the toggle button */
-    border-radius: 5px;
+    border-radius: 15px 5px 5px 15px;
 }
+
+
+.start-convo-button:hover {
+    background: var(--emblem-green-over);
+    border-color: var(--emblem-green);
+}
+
 
 .start-convo-button img.button-icon {
     height: 30px; /* Height of the SVG icon */
@@ -648,13 +655,13 @@ position: absolute;
     color: white;
     padding: 10px;
     cursor: pointer;
-    font-size: 1em;
+    font-size: 1.2em;
     transition: background 0.3s ease, border 0.3s ease;
     height: 42px; /* Ensures both buttons have the same height */
     width: 50px;
     text-align: center;
     background: var(--emblem-blue);
-    border-radius: 5px;
+    border-radius: 5px 15px 15px 5px;
     margin-left: 5px;
     border: 1px solid var(--emblem-blue);
 }

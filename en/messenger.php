@@ -240,9 +240,9 @@ function loadMessages(conversationId) {
 function showNewChatMessage() {
     const newChatMessage = `
         <div id="no-messages-yet">
-            <div class="message-birded" style="width: 200px; height: 100px;"></div>
-            <h4>New Chat</h4>
-            <p>This chat is just getting going. Send a message to kick it off!</p>
+            <h1>🐣</h1>
+            <h4>This chat is just getting going.</h4>
+            <h6>Send a message to get going!🐥</h6>
         </div>
     `;
     $('#message-list').html(newChatMessage); // Insert the message into the message list

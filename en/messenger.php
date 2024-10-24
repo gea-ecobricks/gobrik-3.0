@@ -240,6 +240,7 @@ function loadMessages(conversationId) {
 function showNewChatMessage() {
     const newChatMessage = `
         <div id="no-messages-yet">
+            <div class="message-birded" style="width: 200px; height: 100px;"></div>
             <h2>New Chat</h2>
             <p>This chat is just getting going. Send a message to kick it off!</p>
         </div>
@@ -393,9 +394,9 @@ $(document).ready(function() {
     // Function to enable or disable the create conversation button based on selection
     function toggleCreateButton() {
         if (selectedUsers.size > 0) {
-            $('#createConversationButton').prop('disabled', false).removeClass('disabled'); // Enable the create button if users are selected
+            $('#createConversationButton').prop('disabled', false).removeClass('hidden'); // Enable the create button if users are selected
         } else {
-            $('#createConversationButton').prop('disabled', true).addClass('disabled'); // Disable the create button if no users are selected
+            $('#createConversationButton').prop('disabled', true).addClass('hidden'); // Disable the create button if no users are selected
         }
     }
 
@@ -654,12 +655,12 @@ $(document).ready(function() {
                 $('.conversation-list-container').css('width', '0');
                 $('.message-thread').css('width', '100%').show();
                 $('#startConversationButton').addClass('hidden');
-                $('#toggleConvoDrawer').html('>');
+                $('#toggleConvoDrawer').html('⮞');
             } else {
                 // On larger screens, expand the drawer to 30% width
                 $('.conversation-list-container').css('width', '30%');
                 $('.message-thread').css('width', '70%').show();
-                $('#toggleConvoDrawer').html('<');
+                $('#toggleConvoDrawer').html('⮜');
                 $('.conversation-item').removeClass('collapsed');
                 $('.conversation-item').addClass('expanded');
                 $('#startConversationButton').removeClass('hidden');

@@ -37,7 +37,7 @@
 
 
 
-.no-messages {
+.no-messages-yet {
     display: flex;
     align-items: center; /* Vertically centers the content */
     justify-content: center; /* Horizontally centers the content */
@@ -48,7 +48,10 @@
     padding: 20px; /* Optional: Adds some padding for spacing */
     background: var(--darker); /* Optional: Ensure background matches the message area */
     border-radius: 15px; /* Optional: Rounds the corners if needed */
+    width: 100%;
 }
+
+
 
 
 

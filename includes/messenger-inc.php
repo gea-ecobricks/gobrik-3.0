@@ -763,7 +763,6 @@ position: absolute;
 
 .clear-search-button:hover {
     background: var(--subdued-text); /* White background on hover */
-    border: 1px solid #ddd;
 }
 
 .clear-search-button:hover::before,

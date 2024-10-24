@@ -272,6 +272,7 @@ $(document).ready(function() {
         $('#searchBoxContainer').removeClass('hidden'); // Show the search box
         $('#userSearchInput').focus();
         $('#toggleConvoDrawer').addClass('hidden');
+        $('#clearSearchButton').show(); // Show the clear search button
     });
 
     // Handle user search input
@@ -284,14 +285,14 @@ $(document).ready(function() {
         }
     });
 
-    // Handle the "X" button click for clearing search and resetting the view
+    // Handle clear search button click
     $('#clearSearchButton').on('click', function() {
-        // Clear the search input
-        $('#userSearchInput').val('');
-        $('#searchResults').empty(); // Clear any search results
+        $('#userSearchInput').val(''); // Clear the input field
+        $('#searchResults').empty(); // Clear the search results
         $('#searchBoxContainer').addClass('hidden'); // Hide the search box
-        $('#startConversationButton').removeClass('hidden'); // Show the start conversation button again
-        $('#toggleConvoDrawer').removeClass('hidden'); // Show the toggle drawer button again
+        $('#startConversationButton').removeClass('hidden'); // Show the start conversation button
+        $('#toggleConvoDrawer').removeClass('hidden'); // Show the toggle button again
+        $(this).hide(); // Hide the clear search button
     });
 
     // Show the clear button when there's text in the search input

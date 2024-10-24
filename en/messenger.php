@@ -306,7 +306,7 @@ $(document).ready(function() {
     if ($('#userSearchInput').val().trim() === '') {
         $('#clearSearchButton').hide();
     }
-});
+
 
 
         // AJAX request to search for users

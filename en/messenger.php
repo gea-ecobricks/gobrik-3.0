@@ -518,7 +518,7 @@ function searchUsers(query) {
 
 <Script>
 $(document).ready(function() {
-    document.body.classList.add('modal-open');
+
     // Function to make elements fade out and adjust styles after 3 seconds
     function adjustPageAfterSplash() {
         setTimeout(function() {
@@ -533,6 +533,7 @@ $(document).ready(function() {
             document.getElementById("language-menu-slider").style.top = "-35px";
             document.getElementById("login-menu-slider").style.top = "-35px";
             document.getElementById("form-submission-box").style.marginTop = "60px";
+            document.body.classList.add('modal-open');
 
         }, 3000); // 3000 milliseconds = 3 seconds delay
     }

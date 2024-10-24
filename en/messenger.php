@@ -171,49 +171,54 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         });
     }
 
-    function renderConversations(conversations) {
-        const conversationList = $('#conversation-list');
-        conversationList.empty();
-        conversations.forEach((conv, index) => {
-            // Use a default message if there is no last message
-            const lastMessage = conv.last_message ? conv.last_message : "🥚 No messages yet.";
-            const trimmedMessage = lastMessage.length > 50
-                ? lastMessage.substring(0, 50) + '...'
-                : lastMessage;
+   let isFirstRender = true; // Flag to track if it's the first render
 
-            const convElement = `
-                <div class="conversation-item" data-conversation-id="${conv.conversation_id}">
-                    <div class="delete-conversation">×</div>
-                    <div class="conversation-icon">
-                        <span class="initial">${conv.other_participants.charAt(0)}</span>
-                    </div>
-                    <div class="conversation-details">
-                        <p><strong>${conv.other_participants}</strong></p>
-                        <p class="convo-preview-text">${trimmedMessage}</p>
-                        <p class="timestamp">${conv.updated_at}</p>
-                    </div>
+function renderConversations(conversations) {
+    const conversationList = $('#conversation-list');
+    conversationList.empty();
+
+    conversations.forEach((conv, index) => {
+        // Use a default message if there is no last message
+        const lastMessage = conv.last_message ? conv.last_message : "🥚 No messages yet.";
+        const trimmedMessage = lastMessage.length > 50
+            ? lastMessage.substring(0, 50) + '...'
+            : lastMessage;
+
+        const convElement = `
+            <div class="conversation-item" data-conversation-id="${conv.conversation_id}">
+                <div class="delete-conversation">×</div>
+                <div class="conversation-icon">
+                    <span class="initial">${conv.other_participants.charAt(0)}</span>
                 </div>
+                <div class="conversation-details">
+                    <p><strong>${conv.other_participants}</strong></p>
+                    <p class="convo-preview-text">${trimmedMessage}</p>
+                    <p class="timestamp">${conv.updated_at}</p>
+                </div>
+            </div>
+        `;
+        conversationList.append(convElement);
 
-
-            `;
-            conversationList.append(convElement);
-
-            //Only load the most recent conversation if it's not the first time this function has run
-            if (index === 1) {
-                loadMessages(conv.conversation_id);
-                $('.conversation-item').removeClass('active');
-                $(`.conversation-item[data-conversation-id="${conv.conversation_id}"]`).addClass('active');
-            }
-        });
-
-        // Add click event to each conversation
-        $('.conversation-item').on('click', function() {
-            const conversationId = $(this).data('conversation-id');
-            loadMessages(conversationId);
+        // Only load the most recent conversation if it's not the first time this function has run
+        if (!isFirstRender && index === 0) {
+            loadMessages(conv.conversation_id);
             $('.conversation-item').removeClass('active');
-            $(this).addClass('active');
-        });
-    }
+            $(`.conversation-item[data-conversation-id="${conv.conversation_id}"]`).addClass('active');
+        }
+    });
+
+    // Set the flag to false after the first render
+    isFirstRender = false;
+
+    // Add click event to each conversation
+    $('.conversation-item').on('click', function() {
+        const conversationId = $(this).data('conversation-id');
+        loadMessages(conversationId);
+        $('.conversation-item').removeClass('active');
+        $(this).addClass('active');
+    });
+}
+
 
 
     // SECTION 3: Load and Render Messages

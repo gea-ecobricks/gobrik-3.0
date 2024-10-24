@@ -382,10 +382,7 @@ $(document).ready(function() {
 
 
 
-$(document).ready(function() {
-    const selectedUsers = new Set();
-
-    // Function for creating a new conversation
+// Function for creating a new conversation
     function createConversation() {
         const participantIds = Array.from(selectedUsers);
         $.ajax({
@@ -474,10 +471,6 @@ $(document).ready(function() {
     // Call loadConversations when the page is ready to load existing conversations
     loadConversations();
 });
-
-
-
-
 
     // SECTION 5: JavaScript/jQuery for Sending Messages
 $(document).ready(function() {

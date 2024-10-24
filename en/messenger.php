@@ -114,7 +114,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <div class="message-birded" style="width:300px; height:140px;"></div>
             <h4>Welcome to GoBrik messenger.</h4>
             <p style="font-size:1em; margin-top: -20px;">Choose a conversation or start a new one!</p>
-            <h4 style="margin-top: -20px;">👈</h4>
+            <h4 style="margin-top: -10px;">👈</h4>
         </div>
 
 
@@ -419,42 +419,47 @@ $(document).ready(function() {
 
 
 
-        // Function for creating a new conversation
-        function createConversation() {
-            const participantIds = Array.from(selectedUsers);
-            $.ajax({
-                url: '../messenger/create_conversation.php',
-                method: 'POST',
-                data: {
-                    created_by: userId,
-                    participant_ids: JSON.stringify(participantIds)
-                },
-                success: function(response) {
-                    console.log('Response from create_conversation.php:', response);
-                    if (response.status === 'success') {
-                        $('#searchBoxContainer').addClass('hidden');
-                        $('#startConversationButton').removeClass('hidden');
-                        $('#userSearchInput').val('');
-                        $('#searchResults').empty();
-                        $('#selectedUsers').empty();
-                        $('#toggleConvoDrawer').removeClass('hidden');
-                        selectedUsers.clear();
-                        loadConversations(); // Refresh the conversations list
-                    } else {
-                        alert(response.message);
-                    }
-                },
-                error: function(error) {
-                    console.error('Error creating conversation:', error);
-                }
+       // Function for creating a new conversation
+function createConversation() {
+    const participantIds = Array.from(selectedUsers);
+    $.ajax({
+        url: '../messenger/create_conversation.php',
+        method: 'POST',
+        data: {
+            created_by: userId,
+            participant_ids: JSON.stringify(participantIds)
+        },
+        success: function(response) {
+            console.log('Response from create_conversation.php:', response);
+            if (response.status === 'success') {
+                const conversationId = response.conversation_id; // Extract the conversation ID from the response
 
-               // Automatically load the most recent conversation if it's the first time loading
-//             if (index === 0) {
-                loadMessages(conv.conversation_id);
-                $('.conversation-item').removeClass('active');
-                $(`.conversation-item[data-conversation-id="${conv.conversation_id}"]`).addClass('active');
-            });
+                // Hide the search box and reset the interface
+                $('#searchBoxContainer').addClass('hidden');
+                $('#startConversationButton').removeClass('hidden');
+                $('#userSearchInput').val('');
+                $('#searchResults').empty();
+                $('#selectedUsers').empty();
+                $('#toggleConvoDrawer').removeClass('hidden');
+                selectedUsers.clear();
+
+                // Refresh the conversations list
+                loadConversations();
+
+                // Automatically load the conversation that was just created
+                if (conversationId) {
+                    loadMessages(conversationId); // Load the new conversation messages
+                }
+            } else {
+                alert(response.message);
+            }
+        },
+        error: function(error) {
+            console.error('Error creating conversation:', error);
         }
+    });
+}
+
 
         // Handle the create conversation button click
         $('#createConversationButton').on('click', createConversation);

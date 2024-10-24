@@ -680,8 +680,8 @@ position: absolute;
 .create-button {
     background: var(--emblem-green);
     color: white;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 20px;
+    border-radius: 20px;
     cursor: not-allowed; /* Cursor shows as not-allowed when disabled */
     font-size: 1em;
     margin: auto;
@@ -690,19 +690,20 @@ position: absolute;
     text-decoration: none;
     display: inline-block;
     transition: background 0.3s ease, border 0.3s ease;
-    width: 100%;
+    width: 90%;
+    border: none;
 }
 
-.create-button:not(:disabled) {
-    background: var(--emblem-blue);
-    border-color: var(--emblem-blue);
-    cursor: pointer;
-}
+/* .create-button:not(:disabled) { */
+/*     background: var(--emblem-blue); */
+/*     border-color: var(--emblem-blue); */
+/*     cursor: pointer; */
+/* } */
 
-.create-button:not(:disabled):hover {
-    background: var(--emblem-blue-over);
-    border-color: var(--emblem-blue-over);
-}
+/* .create-button:not(:disabled):hover { */
+/*     background: var(--emblem-blue-over); */
+/*     border-color: var(--emblem-blue-over); */
+/* } */
 
 
 /* #userSearchInput { */

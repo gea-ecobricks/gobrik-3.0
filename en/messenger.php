@@ -261,8 +261,6 @@ function renderMessages(messages) {
 
 
 
-
-// SECTION 4: User Search and Selection
 $(document).ready(function() {
     const selectedUsers = new Set();
 
@@ -273,6 +271,7 @@ $(document).ready(function() {
         $('#userSearchInput').focus();
         $('#toggleConvoDrawer').addClass('hidden');
         $('#clearSearchButton').show(); // Show the clear search button
+        $('#createConversationButton').hide(); // Hide the create conversation button initially
     });
 
     // Handle user search input
@@ -293,6 +292,9 @@ $(document).ready(function() {
         $('#startConversationButton').removeClass('hidden'); // Show the start conversation button
         $('#toggleConvoDrawer').removeClass('hidden'); // Show the toggle button again
         $(this).hide(); // Hide the clear search button
+        selectedUsers.clear(); // Clear selected users
+        $('#selectedUsers').empty(); // Clear displayed selected users
+        $('#createConversationButton').hide(); // Hide the create conversation button
     });
 
     // Show the clear button when there's text in the search input
@@ -309,67 +311,73 @@ $(document).ready(function() {
         $('#clearSearchButton').hide();
     }
 
+    // Function to search for users
+    function searchUsers(query) {
+        $('#userSearchSpinner').show(); // Show the spinner before starting the AJAX request
 
-
-        // AJAX request to search for users
-        // Function to search for users
-function searchUsers(query) {
-    // Show the spinner before starting the AJAX request
-    $('#userSearchSpinner').show();
-
-    $.ajax({
-        url: '../messenger/search_users.php',
-        method: 'GET',
-        data: {
-            query: query,
-            user_id: userId // Ensure userId is available and passed in the request
-        },
-        success: function(response) {
-            $('#userSearchSpinner').hide(); // Hide the spinner after receiving the response
-            if (response.status === 'success') {
-                renderSearchResults(response.users);
-            } else {
-                $('#searchResults').html('<p>No users found</p>');
+        $.ajax({
+            url: '../messenger/search_users.php',
+            method: 'GET',
+            data: {
+                query: query,
+                user_id: userId // Ensure userId is available and passed in the request
+            },
+            success: function(response) {
+                $('#userSearchSpinner').hide(); // Hide the spinner after receiving the response
+                if (response.status === 'success') {
+                    renderSearchResults(response.users);
+                } else {
+                    $('#searchResults').html('<p>No users found</p>');
+                }
+            },
+            error: function(error) {
+                $('#userSearchSpinner').hide(); // Hide the spinner if there's an error
+                console.error('Error searching users:', error);
+                $('#searchResults').html('<p>An error occurred while searching.</p>');
             }
-        },
-        error: function(error) {
-            $('#userSearchSpinner').hide(); // Hide the spinner if there's an error
-            console.error('Error searching users:', error);
-            $('#searchResults').html('<p>An error occurred while searching.</p>');
+        });
+    }
+
+    // Render search results as a dropdown list
+    function renderSearchResults(users) {
+        const searchResults = $('#searchResults');
+        searchResults.empty();
+        if (users.length > 0) {
+            users.forEach(user => {
+                if (!selectedUsers.has(user.buwana_id)) {
+                    const userElement = `<div class="search-result-item" data-user-id="${user.buwana_id}">${user.first_name} ${user.last_name}</div>`;
+                    searchResults.append(userElement);
+                }
+            });
+
+            // Add click event for each search result item
+            $('.search-result-item').on('click', function() {
+                const userId = $(this).data('user-id');
+                const userName = $(this).text();
+                if (selectedUsers.size < 5) {
+                    selectedUsers.add(userId);
+                    $('#selectedUsers').append(`<div class="selected-user-item" data-user-id="${userId}">${userName}</div>`);
+                    $(this).remove(); // Remove from search results
+                    $('#userSearchInput').val(''); // Clear the search input box to reset the dropdown
+                    $('#searchResults').empty(); // Clear the search results
+                    toggleCreateButton(); // Enable or disable the create button based on selection
+                }
+            });
+        } else {
+            searchResults.html('<p>No users found</p>');
         }
-    });
-}
+    }
 
-
-        // Render search results as a dropdown list
-        function renderSearchResults(users) {
-            const searchResults = $('#searchResults');
-            searchResults.empty();
-            if (users.length > 0) {
-                users.forEach(user => {
-                    if (!selectedUsers.has(user.buwana_id)) {
-                        const userElement = `<div class="search-result-item" data-user-id="${user.buwana_id}">${user.first_name} ${user.last_name}</div>`;
-                        searchResults.append(userElement);
-                    }
-                });
-
-                // Add click event for each search result item
-                $('.search-result-item').on('click', function() {
-                    const userId = $(this).data('user-id');
-                    const userName = $(this).text();
-                    if (selectedUsers.size < 5) {
-                        selectedUsers.add(userId);
-                        $('#selectedUsers').append(`<div class="selected-user-item" data-user-id="${userId}">${userName}</div>`);
-                        $(this).remove(); // Remove from search results
-                        $('#userSearchInput').val(''); // Clear the search input box to reset the dropdown
-                        $('#searchResults').empty(); // Clear the search results
-                        $('#createConversationButton').prop('disabled', false); // Enable the create button
-                    }
-                });
-            } else {
-                searchResults.html('<p>No users found</p>');
-            }
+    // Function to toggle the create conversation button
+    function toggleCreateButton() {
+        if (selectedUsers.size > 0) {
+            $('#createConversationButton').show(); // Show the create button if users are selected
+        } else {
+            $('#createConversationButton').hide(); // Hide the create button if no users are selected
         }
+    }
+
+
 
         // Function for creating a new conversation
         function createConversation() {

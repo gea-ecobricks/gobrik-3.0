@@ -3,7 +3,7 @@ require_once '../earthenAuth_helper.php'; // Include the authentication helper f
 
 // Set up page variables
 $lang = basename(dirname($_SERVER['SCRIPT_NAME']));
-$version = '0.125';
+$version = '0.127';
 $page = 'messenger';
 $lastModified = date("Y-m-d\TH:i:s\Z", filemtime(__FILE__));
 
@@ -114,7 +114,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             <div class="message-birded" style="width:300px; height:140px;"></div>
             <h4>Welcome to GoBrik messenger.</h4>
             <p style="font-size:1em; margin-top: -20px;">Choose a conversation or start a new one!</p>
-            <h4 style="margin-top: -10px;">👈</h4>
+            <h4 style="margin-top: -5px;">👈</h4>
         </div>
 
 
@@ -419,7 +419,7 @@ $(document).ready(function() {
 
 
 
-       // Function for creating a new conversation
+    // Function for creating a new conversation
 function createConversation() {
     const participantIds = Array.from(selectedUsers);
     $.ajax({
@@ -449,6 +449,10 @@ function createConversation() {
                 // Automatically load the conversation that was just created
                 if (conversationId) {
                     loadMessages(conversationId); // Load the new conversation messages
+
+                    // Mark the newly created conversation as active
+                    $('.conversation-item').removeClass('active'); // Remove active class from any other conversation
+                    $(`.conversation-item[data-conversation-id="${conversationId}"]`).addClass('active'); // Add active class to the newly created conversation
                 }
             } else {
                 alert(response.message);
@@ -459,6 +463,7 @@ function createConversation() {
         }
     });
 }
+
 
 
         // Handle the create conversation button click

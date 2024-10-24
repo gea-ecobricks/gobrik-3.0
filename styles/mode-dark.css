@@ -648,7 +648,7 @@ background-size: contain;
 
 
 .message-birded {
-      background: url(../svgs/message-sent-night.svg) no-repeat center;
+      background: url(../svgs/message-sent-night.svg?v=2) no-repeat center;
       background-size: contain;
       }
 

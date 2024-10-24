@@ -685,11 +685,10 @@ position: absolute;
     color: white;
     padding: 10px;
     border-radius: 0px 0px 10px 10px;
-    cursor: not-allowed; /* Cursor shows as not-allowed when disabled */
     font-size: 1.1em;
     margin: auto;
     justify-content: center;
-    text-align: right;
+    text-align: center;
     text-decoration: none;
     display: inline-block;
     transition: background 0.3s ease, border 0.3s ease;
@@ -699,6 +698,8 @@ position: absolute;
 
 .create-button .disabled {
     background: grey;
+        cursor: not-allowed; /* Cursor shows as not-allowed when disabled */
+
 }
 
 

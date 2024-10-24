@@ -633,7 +633,7 @@ $(document).ready(function() {
       $(document).ready(function() {
 
     // Validate the uploaded file
-  }
+
         function validateFile(file) {
             const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
             return validTypes.includes(file.type) && file.size <= maxFileSize;

@@ -240,13 +240,7 @@ function loadMessages(conversationId) {
 
                     // Update conversation details with the latest message and timestamp
                     const lastMessage = messages[messages.length - 1];
-                    const conversationData = {
-                        conversation_id: conversationId,
-                        last_message: lastMessage.content,
-                        updated_at: lastMessage.created_at,
-                        other_participants: lastMessage.sender_name // Adjust based on your data structure
-                    };
-                    renderCurrentConversation(conversationData);
+                    updateConversationDetails(conversationId, lastMessage);
                 }
             } else {
                 alert(response.message);
@@ -257,6 +251,27 @@ function loadMessages(conversationId) {
         }
     });
 }
+
+// Function to update conversation details
+function updateConversationDetails(conversationId, lastMessage) {
+    const lastMessageText = lastMessage.content.length > 50
+        ? lastMessage.content.substring(0, 50) + '...'
+        : lastMessage.content;
+    const updatedAt = lastMessage.created_at;
+    const otherParticipants = lastMessage.sender_name;
+
+    // Find the conversation element by its data attribute
+    const conversationElement = $(`.conversation-item[data-conversation-id="${conversationId}"]`);
+
+    // Update the details inside the conversation element
+    conversationElement.find('.convo-preview-text').text(lastMessageText);
+    conversationElement.find('.timestamp').text(updatedAt);
+    conversationElement.find('strong').text(otherParticipants);
+
+    // Optionally, move the updated conversation to the top of the list to reflect recent activity
+    $('#conversation-list').prepend(conversationElement);
+}
+
 
 
 // Function to show the "New Chat" message

@@ -671,25 +671,17 @@ position: absolute;
 
 
 
-#sendButton, #uploadSpinner, #errorIndicator {
-    width: 38px;
-    height: 38px;
-    position: absolute;
-    bottom: 24px;
-    right: 18px;
-    border-radius: 20px;
+#uploadSpinner, #errorIndicator {
+    width: 25px;
+  height: 25px;
+  position: absolute;
+  bottom: 28px;
+  right: 20px;
+  border-radius: 20px;
+  display: block;
 }
 
-#sendButton {
-    background-color: var(--emblem-pink);
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease;
-    display: none;
-}
+
 
 .upload-spinner {
     border: 4px solid rgba(0, 0, 0, 0.1);

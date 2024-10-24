@@ -574,7 +574,7 @@ $(document).ready(function() {
             document.getElementById("settings-buttons").style.padding = "12px 43px 12px 12px";
             document.getElementById("language-menu-slider").style.top = "-35px";
             document.getElementById("login-menu-slider").style.top = "-35px";
-            document.getElementById("form-submission-box").style.marginTop = "60px";
+            document.getElementById("form-submission-box").style.marginTop = "75px";
 // $('#page-content').addClass('modal-open');
             document.body.classList.add('modal-open');
         }

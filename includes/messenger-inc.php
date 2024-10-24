@@ -105,7 +105,7 @@
 
 .messenger-container {
     display: flex;
-    height: calc(100vh - 150px); /* Adjust height as needed */
+    height: calc(100vh - 80px); /* Adjust height as needed */
     border: 1px solid var(--settings-border);
     background: var(--darker);
     border-radius: 15px;

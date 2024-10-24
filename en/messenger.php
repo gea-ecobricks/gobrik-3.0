@@ -105,9 +105,10 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <div class="message-input-wrapper" style="position: relative;padding:10px;">
             <textarea id="messageInput" placeholder="Type your message..." rows="1"></textarea>
             <input type="file" id="imageUploadInput" accept="image/jpeg, image/jpg, image/png, image/webp" style="display: none;" />
-            <span id="imageFileName" class="image-file-name"></span>
+
             <button type="button" id="uploadPhotoButton" class="upload-photo-button" title="Upload Photo" aria-label="Upload Photo">📷</button>
             <button id="sendButton" title="Send" aria-label="Send" class="send-message-button"></button>
+            <span id="imageFileName" class="image-file-name"></span>
         </div>
 
     </div>
@@ -676,7 +677,7 @@ $(document).ready(function() {
             setTimeout(function() {
                 $('#uploadPhotoButton')
                     .html('📎')
-                    .css('background', 'grey')
+                    .css('background', '#434343')
                     .addClass('attachment-added remove-attachment')
                     .attr('title', 'Click to remove attachment');
             }, 1000);
@@ -686,7 +687,7 @@ $(document).ready(function() {
         function resetUploadButton() {
             $('#uploadPhotoButton')
                 .html('📸')
-                .css('background', 'grey')
+                .css('background', '#434343')
                 .removeClass('attachment-added remove-attachment')
                 .attr('title', 'Upload Photo');
         }

@@ -406,7 +406,7 @@ position: absolute;
   border-top: 4px solid var(--emblem-blue);
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  display: none;
+
 
   }
 

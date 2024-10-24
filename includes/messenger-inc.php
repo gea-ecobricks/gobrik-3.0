@@ -54,7 +54,7 @@
 
 .messenger-container {
     display: flex;
-    height: calc(100vh - 80px); /* Adjust height as needed */
+    height: calc(100vh - 110px); /* Adjust height as needed */
     border: 1px solid var(--settings-border);
     background: var(--darker);
     border-radius: 15px;
@@ -642,8 +642,6 @@ display: none; /* Hidden by default */
     text-align: left;
     width: calc(100% - 60px); /* Leaves room for the toggle button */
     border-radius: 5px;
-    display: flex;
-    flex-flow: row;
 }
 
 .start-convo-button img.button-icon {
@@ -682,28 +680,7 @@ display: none; /* Hidden by default */
 
 
 
-/* Start Conversation Button */
-/* .start-convo-button { */
-/*     background: var(--emblem-green); */
-/*     color: white; */
-/*     padding: 5px 10px; */
-/*     border: 1px solid var(--emblem-green); */
-/*     border-radius: 5px; */
-/*     cursor: pointer; */
-/*     font-size: 1em; */
-/*     margin: auto; */
-/*     justify-content: center; */
-/*     text-align: left;  *//* Aligns text to the left */
-/*     text-decoration: none; */
-/*     display: inline-block; */
-/*     transition: background 0.3s ease, border 0.3s ease; */
-/*     width: 100%; */
-/* } */
 
-/* .start-convo-button:hover { */
-/*     background: var(--emblem-green-over); */
-/*     border-color: var(--emblem-green-over); */
-/* } */
 
 /* Create Conversation Button */
 .create-button {

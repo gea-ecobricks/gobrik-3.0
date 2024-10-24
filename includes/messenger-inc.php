@@ -582,9 +582,12 @@ position: absolute;
     border: 1px solid grey;
     background: var(--darker);
     color: var(--text-color);
-    font-size: medium;
-    border-radius: 10px 0px 0px 10px;
+    font-size: 1.4;
+    border-radius: 25px 0px 0px 25px;
     margin-right: 50px;
+    margin-right: 50px;
+  width: -moz-available;
+  margin-left: 50px;
 }
 
 
@@ -592,7 +595,7 @@ position: absolute;
     width: 50px; /* Adjust width to fit the triangle */
     background-color: var(--emblem-pink);
     border: none;
-    border-radius: 0 15px 15px 0; /* Flat left edge, rounded right edge */
+    border-radius: 0 25px 25px 0; /* Flat left edge, rounded right edge */
     cursor: pointer;
     display: flex;
     align-items: center;

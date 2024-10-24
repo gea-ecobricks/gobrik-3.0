@@ -582,13 +582,13 @@ position: absolute;
     border: 1px solid grey;
     background: var(--darker);
     color: var(--text-color);
-    font-size: 1.4;
+    font-size: 1.5;
     border-radius: 25px 0px 0px 25px;
     margin-right: 50px;
     margin-right: 50px;
   width: -moz-available;
-  margin-left: 50px;
-  height:50px;
+  margin-left: 62px;
+
 }
 
 

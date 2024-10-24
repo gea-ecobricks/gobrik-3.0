@@ -78,12 +78,14 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
     <div class="conversation-list-container">
         <!-- Container for the start conversation button and search box -->
         <div class="start-conversation-container">
-            <button id="startConversationButton" class="start-convo-button">
-                <img src="../svgs/gobrik-3-emblem-tight.svg" alt="GoBrik Emblem" class="button-icon">
-                <span>New Chat...</span>
-            </button>
+            <div style="display:flex;flex-flow:row">
+                <button id="startConversationButton" class="start-convo-button">
+                    <img src="../svgs/gobrik-3-emblem-tight.svg" alt="GoBrik Emblem" class="button-icon">
+                    <span>New Chat...</span>
+                </button>
+                <button id="toggleConvoDrawer" class="toggle-drawer-button" title="Toggle Drawer">⮜</button>
+            </div>
 
-            <button id="toggleConvoDrawer" class="toggle-drawer-button" title="Toggle Drawer"><</button>
             <div id="searchBoxContainer" class="hidden" style="position: relative;">
                 <input type="text" id="userSearchInput" placeholder="Search users..." />
                 <div class="spinner-right" id="userSearchSpinner"></div>
@@ -636,7 +638,7 @@ $(document).ready(function() {
 
 </script>
 
-<script src="../scripts/messenger.js?v=2.2"></script>
+<script src="../scripts/messenger.js?v=2.3"></script>
 
 
 

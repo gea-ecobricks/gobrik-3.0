@@ -723,9 +723,6 @@ display: none; /* Hidden by default */
     display: none;
 }
 
-.toggle-drawer-button {
-
-}
 
 .toggle-drawer-button:hover {
     background: var(--emblem-blue-over);

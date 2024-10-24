@@ -15,6 +15,7 @@ $(document).ready(function() {
             document.getElementById("form-submission-box").style.marginTop = "75px";
             document.getElementById('page-content').classList.add('modal-open');
             document.documentElement.classList.add('modal-open');
+            document.body.classList.add('modal-open');
         }
 
         // Call the function when the document is ready

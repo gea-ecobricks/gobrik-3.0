@@ -198,7 +198,7 @@ background-color: var(--emblem-pink-over);
 }
 
 .message-item:not(.self) {
-    background-color: var(--emblem-blue);
+    background-color: var(--friends-chat);
     color: var(--text-color);
     align-self: flex-start; /* Aligns to the left */
     text-align: left;

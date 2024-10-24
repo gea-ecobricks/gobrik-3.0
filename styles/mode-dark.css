@@ -40,6 +40,8 @@
   --show-hide: rgba(0, 0, 0, 0.65);
   --darker:rgba(0, 0, 0, 0.1);
   --lighter: rgba(255, 255, 255, 0.1);
+  --friends-chat: #005268;
+  --my-chat: #522c5c;
 
   --ecobrick-preview: rgba(0, 0, 0, 0.836);
   --x-button-over: rgb(51, 52, 63);

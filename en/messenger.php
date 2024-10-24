@@ -486,6 +486,9 @@ $(document).ready(function() {
         $('#errorIndicator').hide();
         $('#sendButton').show();
     }
+
+
+
 });
 
 
@@ -638,7 +641,7 @@ $(document).ready(function() {
 
 </script>
 
-<script src="../scripts/messenger.js?v=2.4"></script>
+<script src="../scripts/messenger.js?v=2.5"></script>
 
 
 

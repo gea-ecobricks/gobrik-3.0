@@ -67,14 +67,7 @@ $(document).ready(function() {
         }, 1000); // 1-second delay for user feedback
     }
 
-    // Reset the upload button to its original state (camera icon)
-    function resetUploadButton() {
-        $('#uploadPhotoButton')
-            .html('📸') // Show the camera icon
-            .css('background', '#434343') // Reset background color
-            .removeClass('attachment-added remove-attachment') // Remove the classes for attachment state
-            .attr('title', 'Upload Photo'); // Reset the tooltip
-    }
+
 
     // Handle hover behavior for attachment removal state
     $('#uploadPhotoButton').hover(
@@ -131,4 +124,18 @@ function openPhotoModal(imageUrl) {
     document.getElementById('page-content')?.classList.add('blurred');
     document.getElementById('footer-full')?.classList.add('blurred');
     document.body.classList.add('modal-open');
+}
+
+
+// Reset the upload button to its original state (camera icon)
+function resetUploadButton() {
+    $('#uploadPhotoButton')
+        .html('📸') // Revert to the camera icon
+        .css('background', '#434343') // Original background color
+        .removeClass('attachment-added remove-attachment') // Remove added classes
+        .attr('title', 'Upload Photo'); // Restore the original title
+
+    // Clear the file input and displayed file name
+    $('#imageFileName').text(''); // Clear any displayed file name
+    $('#imageUploadInput').val(''); // Reset the file input
 }

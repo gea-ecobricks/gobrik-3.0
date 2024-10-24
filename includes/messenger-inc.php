@@ -592,9 +592,8 @@ position: absolute;
     background: var(--darker);
     color: var(--text-color);
     font-size: 1.5em;
-    border-radius: 25px 0px 0px 25px;
-    margin-right: 50px;
-    margin-right: 50px;
+    border-radius: 25px 25px 25px 25px;
+
   width: -moz-available;
   margin-left: 62px;
 
@@ -616,6 +615,7 @@ position: absolute;
     right: 10px;
     width: 50px;
     height: 50px;
+    display: none;
 }
 
 #sendButton::before {

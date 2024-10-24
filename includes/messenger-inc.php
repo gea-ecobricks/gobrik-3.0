@@ -690,7 +690,7 @@ position: absolute;
     text-decoration: none;
     display: inline-block;
     transition: background 0.3s ease, border 0.3s ease;
-    width: 90%;
+    width: 100%;
     border: none;
 }
 

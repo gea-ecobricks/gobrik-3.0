@@ -95,7 +95,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 <div id="selectedUsers">
                     <!-- Selected users will appear here -->
                 </div>
-                <button id="createConversationButton" disabled class="create-button">Create Conversation →</button>
+                <button id="createConversationButton" class="create-button">Create Conversation →</button>
             </div>
 
         </div>

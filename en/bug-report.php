@@ -159,7 +159,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
             }
         });
 
-        // Validate the uploaded file
+        // Validate the uploaded file COPIED
         function validateFile(file) {
             const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
             return validTypes.includes(file.type) && file.size <= maxFileSize;
@@ -198,6 +198,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                 .text(message);
         }
 
+/*
         // Handle file upload button click
         $('#uploadPhotoButton').on('click', function() {
             if (!$(this).hasClass('remove-attachment')) {
@@ -254,7 +255,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
                     $(this).html('📎');
                 }
             }
-        );
+        ); */
 
         // Utility functions for gathering user and browser info
         function getBrowserInfo() {

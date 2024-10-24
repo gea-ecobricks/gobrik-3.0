@@ -537,8 +537,7 @@ $(document).ready(function() {
             document.getElementById("language-menu-slider").style.top = "-35px";
             document.getElementById("login-menu-slider").style.top = "-35px";
             document.getElementById("form-submission-box").style.marginTop = "60px";
-
-            document.getElementById('page-content')?.classList.add('modal-open');
+            $('#page-content').addClass('modal-open');
     }
 
 

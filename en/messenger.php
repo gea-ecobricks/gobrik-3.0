@@ -372,7 +372,7 @@ $(document).ready(function() {
             $('#createConversationButton').prop('disabled', true).addClass('disabled'); // Disable the create button if no users are selected
         }
     }
-});
+
 
 
 

@@ -542,9 +542,9 @@ position: absolute;
 .upload-photo-button {
     position: absolute;
     bottom: 10px;
-    right: 50px; /* Adjust to align with the send button */
-    width: 40px;
-    height: 40px;
+    left: 10px; /* Adjust to align with the send button */
+    width: 50px;
+    height: 50px;
     background: grey;
     color: white;
     border: none;
@@ -577,7 +577,7 @@ position: absolute;
 
 #messageInput {
     flex-grow: 1;
-    padding: 10px;
+    padding: 15px;
     border-radius: 25px;
     border: 1px solid grey;
     background: var(--darker);
@@ -588,6 +588,7 @@ position: absolute;
     margin-right: 50px;
   width: -moz-available;
   margin-left: 50px;
+  height:50px;
 }
 
 
@@ -604,8 +605,8 @@ position: absolute;
     position: absolute;
     bottom: 10px;
     right: 10px;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
 }
 
 #sendButton::before {

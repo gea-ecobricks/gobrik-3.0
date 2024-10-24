@@ -21,6 +21,14 @@
     }
 
 
+@media screen and (min-width: 801px) {
+  .form-container {
+    padding: 10px;
+     width: 92%;
+    }
+}
+
+
 /* MESSENGER CSS */
 .hidden {
     display: none;

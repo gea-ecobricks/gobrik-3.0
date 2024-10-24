@@ -80,7 +80,7 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <div class="start-conversation-container">
             <button id="startConversationButton" class="start-convo-button">
                 <img src="../svgs/gobrik-3-emblem-tight.svg" alt="GoBrik Emblem" class="button-icon">
-                New Chat...
+                <span>New Chat...</span>
             </button>
 
             <button id="toggleConvoDrawer" class="toggle-drawer-button" title="Toggle Drawer"><</button>

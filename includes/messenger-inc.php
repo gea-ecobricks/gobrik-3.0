@@ -598,6 +598,11 @@ position: absolute;
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s ease;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
 }
 
 #sendButton::before {

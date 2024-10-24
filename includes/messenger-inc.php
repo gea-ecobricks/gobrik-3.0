@@ -585,23 +585,17 @@ position: absolute;
 
 
 
-
-
-
-
 .upload-spinner {
-  position: absolute;
-  border-radius: 20px;
-  bottom: 28px;
-  right: 20px;
+    position: absolute;
+    border-radius: 50%; /* Ensures a circular shape */
+    bottom: 28px;
+    right: 20px;
     border: 4px solid rgba(0, 0, 0, 0.1);
     border-top: 4px solid var(--emblem-pink);
-    border-radius: 50%;
     animation: spin 1s linear infinite;
-display: none; /* Hidden by default */
-width: 25px;
-height: 25px;
-
+    display: none; /* Hidden by default */
+    width: 25px;
+    height: 25px;
 }
 
 @keyframes spin {
@@ -610,27 +604,25 @@ height: 25px;
 }
 
 .error-indicator {
- position: absolute;
-  border-radius: 20px;
-  bottom: 34px;
-  right: 25px;
-  width: 25px;
-height: 25px;
-background-color: none); /* Define this color in your CSS variables */
-border-radius: 20px;
-color: #fff;
-font-size: 1.5em;
-display: flex;
-align-items: center;
-justify-content: center;
-display: none; /* Hidden by default */
+    position: absolute;
+    border-radius: 20px;
+    bottom: 34px;
+    right: 25px;
+    width: 25px;
+    height: 25px;
+    background-color: var(--emblem-red); /* Use a CSS variable for color */
+    color: #fff;
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none; /* Hidden by default */
 }
 
-//START CONVO BUTTONS
-
+/* START CONVO BUTTONS */
 .start-convo-button {
-    display: flex; /* Allows aligning the SVG and text side by side */
-    align-items: center; /* Vertically centers the content */
+    display: flex; /* Align SVG and text side by side */
+    align-items: center; /* Vertically center the content */
     background: var(--emblem-green);
     color: white;
     border: 1px solid var(--emblem-green);
@@ -646,13 +638,13 @@ display: none; /* Hidden by default */
 
 .start-convo-button img.button-icon {
     height: 30px; /* Height of the SVG icon */
-    margin-right: 8px; /* Adds space between the icon and the text */
-    width: auto; /* Keeps the aspect ratio of the icon */
+    margin-right: 8px; /* Space between the icon and text */
+    width: auto; /* Keeps aspect ratio of the icon */
 }
 
 .toggle-drawer-button {
-    display: flex; /* Allows aligning the SVG and text side by side */
-    align-items: center; /* Vertically centers the content */
+    display: flex; /* Align SVG and text side by side */
+    align-items: center; /* Vertically center the content */
     color: white;
     padding: 10px;
     cursor: pointer;
@@ -667,20 +659,14 @@ display: none; /* Hidden by default */
     border: 1px solid var(--emblem-blue);
 }
 
-
 .start-convo-button.hidden {
     display: none;
 }
-
 
 .toggle-drawer-button:hover {
     background: var(--emblem-blue-over);
     border-color: var(--emblem-blue-over);
 }
-
-
-
-
 
 /* Create Conversation Button */
 .create-button {
@@ -697,7 +683,7 @@ display: none; /* Hidden by default */
     text-decoration: none;
     display: inline-block;
     transition: background 0.3s ease, border 0.3s ease;
-    width:100%;
+    width: 100%;
 }
 
 .create-button:not(:disabled) {
@@ -710,6 +696,7 @@ display: none; /* Hidden by default */
     background: var(--emblem-blue-over);
     border-color: var(--emblem-blue-over);
 }
+
 
     </style>
 

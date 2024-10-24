@@ -242,7 +242,8 @@ function showNewChatMessage() {
         <div id="no-messages-yet">
             <h1>🐣</h1>
             <h4>This chat is just getting going.</h4>
-            <h6>Send a message to get going!🐥</h6>
+            <p style="font-size:1em">Send a message to get cracking! 🐥</p>
+            <h4>👇</h4>
         </div>
     `;
     $('#message-list').html(newChatMessage); // Insert the message into the message list

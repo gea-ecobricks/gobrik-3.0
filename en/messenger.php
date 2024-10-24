@@ -420,6 +420,7 @@ function searchUsers(query) {
     // SECTION 5: JavaScript/jQuery for Sending Messages
 $(document).ready(function() {
     const maxFileSize = 10 * 1024 * 1024; // 10 MB
+    const userId = '<?php echo $buwana_id; ?>'; // Get the user's ID from PHP
 
     // Function to show the spinner
     function showUploadSpinner() {
@@ -571,11 +572,7 @@ $(document).ready(function() {
 
     // Call the function when the document is ready
     setUpMessengerWindow();
-});
 
-</script>
-
-<script>
 
     $(document).ready(function() {
     // Listen for keypress event on the textarea
@@ -678,7 +675,6 @@ $(document).ready(function() {
 
 </script>
 
-<!--<script src="../scripts/messenger.js"></script>   -->
 <script>
     const maxFileSize = 10 * 1024 * 1024; // 10 MB
 

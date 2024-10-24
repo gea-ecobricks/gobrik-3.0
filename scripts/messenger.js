@@ -20,7 +20,7 @@ $(document).ready(function() {
 
         // Call the function when the document is ready
         setUpMessengerWindow();
-});
+
 
     // Validate the uploaded file
     function validateFile(file) {

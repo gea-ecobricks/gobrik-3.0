@@ -789,6 +789,9 @@ position: absolute;
     color: var(--h1); /* Color for the other participants' names */
 }
 
+.message-item.self .sender {
+    display: none;
+}
 
 
 

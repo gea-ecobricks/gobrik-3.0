@@ -102,14 +102,17 @@ https://github.com/gea-ecobricks/gobrik-3.0/tree/main/en-->
         <div id="message-list">
             <!-- Messages will be dynamically loaded here -->
         </div>
-        <div class="message-input-wrapper" style="position: relative;padding:10px 10px 15px 10px;">
+        <div class="message-input-wrapper" style="position: relative; padding: 10px 10px 15px 10px;">
             <textarea id="messageInput" placeholder="Type your message..." rows="1"></textarea>
             <input type="file" id="imageUploadInput" accept="image/jpeg, image/jpg, image/png, image/webp" style="display: none;" />
 
             <button type="button" id="uploadPhotoButton" class="upload-photo-button" title="Upload Photo" aria-label="Upload Photo">📷</button>
             <button id="sendButton" title="Send" aria-label="Send" class="send-message-button"></button>
+            <div id="uploadSpinner" class="upload-spinner hidden"></div>
+            <div id="errorIndicator" class="error-indicator hidden">⚠️</div>
             <span id="imageFileName" class="image-file-name"></span>
         </div>
+
 
     </div>
 </div>
@@ -415,69 +418,96 @@ function searchUsers(query) {
     });
 
     // SECTION 5: JavaScript/jQuery for Sending Messages
-$('#sendButton').on('click', function() {
-    const messageContent = $('#messageInput').val().trim();
-    const selectedConversationId = $('.conversation-item.active').data('conversation-id');
-    const file = $('#imageUploadInput')[0].files[0]; // Get the selected file, if any
+$(document).ready(function() {
+    const maxFileSize = 10 * 1024 * 1024; // 10 MB
 
-    // Check if a conversation is selected and there is message content or a file
-    if ((messageContent || file) && selectedConversationId) {
-        const formData = new FormData();
-        formData.append('conversation_id', selectedConversationId);
-        formData.append('sender_id', userId);
-        formData.append('content', messageContent);
+    // Function to show the spinner
+    function showUploadSpinner() {
+        $('#sendButton').hide();
+        $('#errorIndicator').hide();
+        $('#uploadSpinner').show();
+    }
 
-        // If a file is selected, append it to the form data
-        if (file) {
-            const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-            const maxFileSize = 10 * 1024 * 1024; // 10 MB
+    // Function to hide the spinner and show the send button
+    function hideUploadSpinner() {
+        $('#uploadSpinner').hide();
+        $('#sendButton').show();
+    }
 
-            if (validTypes.includes(file.type) && file.size <= maxFileSize) {
+    // Function to show the error indicator
+    function showErrorIndicator() {
+        $('#uploadSpinner').hide();
+        $('#sendButton').hide();
+        $('#errorIndicator').show();
+    }
+
+    // Handle send button click for messages
+    $('#sendButton').on('click', function() {
+        const messageContent = $('#messageInput').val().trim();
+        const selectedConversationId = $('.conversation-item.active').data('conversation-id');
+        const file = $('#imageUploadInput')[0].files[0];
+
+        // Check if a conversation is selected and there is message content
+        if (selectedConversationId && (messageContent || file)) {
+            const formData = new FormData();
+            formData.append('conversation_id', selectedConversationId);
+            formData.append('sender_id', userId);
+            formData.append('content', messageContent);
+
+            // If there is a valid file, add it to the FormData
+            if (file && validateFile(file)) {
                 formData.append('image', file);
-            } else {
-                alert('🤔 Hmmm... looks like this isn\'t an image file, or else it\'s over 10MB. Please try another file.');
-                return; // Exit if the file is invalid
+                showUploadSpinner(); // Show spinner when uploading an image
             }
-        }
 
-        // Show a loading indicator (if desired)
-        $('#sendButton').prop('disabled', true).addClass('loading');
-
-        $.ajax({
-            url: '../messenger/send_message.php',
-            method: 'POST',
-            data: formData,
-            processData: false, // Required for FormData
-            contentType: false, // Required for FormData
-            success: function(response) {
-                console.log('Response from send_message.php:', response);
-                if (response.status === 'success') {
-                    $('#messageInput').val(''); // Clear the input field
-                    $('#imageUploadInput').val(''); // Clear the file input
-                    $('#imageFileName').text(''); // Clear the file name display
-                    resetUploadButton(); // Reset the upload button to its original state
-                    loadMessages(selectedConversationId); // Refresh message list
-                } else {
-                    alert(response.message);
+            $.ajax({
+                url: '../messenger/send_message.php',
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    console.log('Response from send_message.php:', response);
+                    if (response.status === 'success') {
+                        $('#messageInput').val(''); // Clear the input field
+                        loadMessages(selectedConversationId); // Refresh message list
+                        hideUploadSpinner(); // Hide spinner and show send button
+                        resetUploadButton(); // Reset upload button if image was attached
+                    } else {
+                        hideUploadSpinner();
+                        showErrorIndicator(); // Show error indicator if there's an issue
+                        setTimeout(hideErrorIndicator, 3000); // Hide the error after 3 seconds
+                    }
+                },
+                error: function(error) {
+                    console.error('Error sending message:', error);
+                    hideUploadSpinner();
+                    showErrorIndicator();
+                    setTimeout(hideErrorIndicator, 3000); // Hide the error after 3 seconds
                 }
-            },
-            error: function(error) {
-                console.error('Error sending message:', error);
-                alert('An error occurred while sending your message. Please try again.');
-            },
-            complete: function() {
-                // Re-enable the send button after request completes
-                $('#sendButton').prop('disabled', false).removeClass('loading');
-            }
-        });
-    } else {
-        if (!selectedConversationId) {
-            alert('Please select a conversation to send a message.');
+            });
         } else {
-            alert('Please enter a message or select a photo.');
+            if (!selectedConversationId) {
+                alert('Please select a conversation to send a message.');
+            } else {
+                alert('Please enter a message.');
+            }
         }
+    });
+
+    // Function to validate the file type and size
+    function validateFile(file) {
+        const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+        return validTypes.includes(file.type) && file.size <= maxFileSize;
+    }
+
+    // Function to hide the error indicator and show the send button
+    function hideErrorIndicator() {
+        $('#errorIndicator').hide();
+        $('#sendButton').show();
     }
 });
+
 
 </script>
 

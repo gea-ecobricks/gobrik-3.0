@@ -669,6 +669,54 @@ position: absolute;
 /*     background: var(--emblem-pink-over); */
 /* } */
 
+
+
+#sendButton, #uploadSpinner, #errorIndicator {
+    width: 38px;
+    height: 38px;
+    position: absolute;
+    bottom: 24px;
+    right: 18px;
+    border-radius: 20px;
+}
+
+#sendButton {
+    background-color: var(--emblem-pink);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.upload-spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid var(--emblem-pink);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    display: none;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error-indicator {
+    background-color: var(--error-red); /* Define this color in your CSS variables */
+    border-radius: 20px;
+    color: #fff;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none; /* Hidden by default */
+}
+
+
+
+
     </style>
 
 

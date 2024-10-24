@@ -420,26 +420,24 @@ $(document).ready(function() {
     }
 
     // Handle send button click for messages
-    $('#sendButton').on('click', function() {
+      $('#sendButton').on('click', function() {
         const messageContent = $('#messageInput').val().trim();
         const selectedConversationId = $('.conversation-item.active').data('conversation-id');
         const file = $('#imageUploadInput')[0].files[0];
 
-            console.log('Selected Conversation ID:', selectedConversationId); // Debug line
-
-        // Check if a conversation is selected and there is message content
+        // Check if a conversation is selected
         if (selectedConversationId && (messageContent || file)) {
             const formData = new FormData();
             formData.append('conversation_id', selectedConversationId);
             formData.append('sender_id', userId);
             formData.append('content', messageContent);
 
-            // If there is a valid file, add it to the FormData
-            if (file && validateFile(file)) {
-                formData.append('image', file);
-                showUploadSpinner(); // Show spinner when uploading an image
+            // Show spinner if there's an image
+            if (file) {
+                showUploadSpinner();
             }
 
+            // Step 1: Send the message (without the image)
             $.ajax({
                 url: '../messenger/send_message.php',
                 method: 'POST',
@@ -451,29 +449,69 @@ $(document).ready(function() {
                     if (response.status === 'success') {
                         $('#messageInput').val(''); // Clear the input field
                         loadMessages(selectedConversationId); // Refresh message list
-                        hideUploadSpinner(); // Hide spinner and show send button
-                        resetUploadButton(); // Reset upload button if image was attached
+
+                        // Step 2: If there is an image, upload it separately
+                        if (file) {
+                            uploadImageAttachment(response.message_id, selectedConversationId);
+                        } else {
+                            hideUploadSpinner();
+                        }
                     } else {
                         hideUploadSpinner();
                         showErrorIndicator(); // Show error indicator if there's an issue
-                        setTimeout(hideErrorIndicator, 3000); // Hide the error after 3 seconds
+                        setTimeout(hideErrorIndicator, 3000);
                     }
                 },
                 error: function(error) {
                     console.error('Error sending message:', error);
                     hideUploadSpinner();
                     showErrorIndicator();
-                    setTimeout(hideErrorIndicator, 3000); // Hide the error after 3 seconds
+                    setTimeout(hideErrorIndicator, 3000);
                 }
             });
         } else {
-            if (!selectedConversationId) {
-                alert('Please select a conversation to send a message.');
-            } else {
-                alert('Please enter a message.');
-            }
+            alert('Please select a conversation and enter a message or attach an image.');
         }
     });
+
+    // Function to upload the image
+    function uploadImageAttachment(messageId, conversationId) {
+        const file = $('#imageUploadInput')[0].files[0];
+        if (file) {
+            const formData = new FormData();
+            formData.append('user_id', userId);
+            formData.append('message_id', messageId);
+            formData.append('conversation_id', conversationId);
+            formData.append('image', file);
+
+            $.ajax({
+                url: '../messenger/upload_image_attachment.php',
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    console.log('Response from upload_image_attachment.php:', response);
+                    if (response.status === 'success') {
+                        hideUploadSpinner(); // Hide spinner on success
+                        resetUploadButton(); // Reset upload button if image was attached
+                        loadMessages(conversationId); // Refresh the message list
+                    } else {
+                        console.error('Error in image upload:', response.message);
+                        hideUploadSpinner();
+                        showErrorIndicator();
+                        setTimeout(hideErrorIndicator, 3000);
+                    }
+                },
+                error: function(error) {
+                    console.error('Error uploading image:', error);
+                    hideUploadSpinner();
+                    showErrorIndicator();
+                    setTimeout(hideErrorIndicator, 3000);
+                }
+            });
+        }
+    }
 
     // Function to validate the file type and size
     function validateFile(file) {

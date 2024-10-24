@@ -12,7 +12,7 @@ $conversation_id = isset($_POST['conversation_id']) ? intval($_POST['conversatio
 $sender_id = isset($_POST['sender_id']) ? intval($_POST['sender_id']) : 0;
 $content = isset($_POST['content']) ? trim($_POST['content']) : '';
 
-error_log("User ID: $sender_id, Conversation ID: $conversation_id, Content Length: " . strlen($content));
+error_log("User ID is: $sender_id, Conversation ID is: $conversation_id, Content Length: " . strlen($content));
 
 $response = [];
 

@@ -685,6 +685,8 @@ position: absolute;
     border-radius: 50%;
     animation: spin 1s linear infinite;
 display: none; /* Hidden by default */
+width: 25px;
+height: 25px;
 
 }
 
@@ -698,6 +700,8 @@ display: none; /* Hidden by default */
   border-radius: 20px;
   bottom: 34px;
   right: 25px;
+  width: 25px;
+height: 25px;
     background-color: none); /* Define this color in your CSS variables */
     border-radius: 20px;
     color: #fff;

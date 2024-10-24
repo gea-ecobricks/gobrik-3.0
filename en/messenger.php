@@ -261,7 +261,6 @@ function renderMessages(messages) {
 
 
 //START CONVO Search
-
 $(document).ready(function() {
     const selectedUsers = new Set();
 
@@ -272,13 +271,13 @@ $(document).ready(function() {
         $('#userSearchInput').focus();
         $('#toggleConvoDrawer').addClass('hidden');
         $('#clearSearchButton').show(); // Show the clear search button
-        $('#createConversationButton').prop('disabled', true).addClass('disabled'); // Initially disable the create conversation button
+        $('#createConversationButton').hide(); // Hide the create conversation button initially
     });
 
     // Handle user search input
     $('#userSearchInput').on('input', function() {
         const query = $(this).val().trim();
-        if (query.length >= 3) { // Adjusted to trigger after 3 characters
+        if (query.length >= 4) {
             searchUsers(query);
         } else {
             $('#searchResults').empty();
@@ -295,7 +294,7 @@ $(document).ready(function() {
         $(this).hide(); // Hide the clear search button
         selectedUsers.clear(); // Clear selected users
         $('#selectedUsers').empty(); // Clear displayed selected users
-        $('#createConversationButton').prop('disabled', true).addClass('disabled'); // Disable the create button
+        $('#createConversationButton').hide(); // Hide the create conversation button
     });
 
     // Show the clear button when there's text in the search input
@@ -364,14 +363,16 @@ $(document).ready(function() {
         }
     }
 
-    // Function to enable or disable the create conversation button based on selection
+    // Function to toggle the create conversation button
     function toggleCreateButton() {
         if (selectedUsers.size > 0) {
-            $('#createConversationButton').prop('disabled', false).removeClass('disabled'); // Enable the create button if users are selected
+            $('#createConversationButton').show(); // Show the create button if users are selected
         } else {
-            $('#createConversationButton').prop('disabled', true).addClass('disabled'); // Disable the create button if no users are selected
+            $('#createConversationButton').hide(); // Hide the create button if no users are selected
         }
     }
+
+
 
 
 

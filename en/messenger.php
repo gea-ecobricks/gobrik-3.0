@@ -221,7 +221,7 @@ function renderConversations(conversations) {
 
 
 
-    // SECTION 3: Load and Render Messages
+    // SECTION 3: Load message using ajax to grab from database using get_message.  Then  Render Messages is called.  Then conversations are updated.
 function loadMessages(conversationId) {
     $.ajax({
         url: '../messenger/get_messages.php',
@@ -237,6 +237,16 @@ function loadMessages(conversationId) {
                     showNewChatMessage();
                 } else {
                     hideNewChatMessage();
+
+                    // Update conversation details with the latest message and timestamp
+                    const lastMessage = messages[messages.length - 1];
+                    const conversationData = {
+                        conversation_id: conversationId,
+                        last_message: lastMessage.content,
+                        updated_at: lastMessage.created_at,
+                        other_participants: lastMessage.sender_name // Adjust based on your data structure
+                    };
+                    renderCurrentConversation(conversationData);
                 }
             } else {
                 alert(response.message);
@@ -247,6 +257,7 @@ function loadMessages(conversationId) {
         }
     });
 }
+
 
 // Function to show the "New Chat" message
 function showNewChatMessage() {
@@ -285,7 +296,7 @@ function renderMessages(messages) {
                 ${thumbnailHtml}
                 <p class="sender">${msg.sender_name}</p>
                 <p class="the-message-text">${msg.content}</p>
-                <p class="timestamp">${msg.created_at}<span id="check-sent" style="color:green"> ✓</span>"</p>
+                <p class="timestamp">${msg.created_at}<span id="check-sent" style="color:green">  ✓</span></p>
             </div>
         `;
         messageList.append(msgElement);

@@ -123,6 +123,10 @@
     background-color: var(--lighter);
 }
 
+.conversation-item:hover {
+    background-color: var(--darker);
+}
+
 .conversation-item strong {
     color: var(--h1); /* Color for the other participants' names */
 }

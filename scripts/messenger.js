@@ -1,12 +1,13 @@
-  $(document).ready(function() {
+ const maxFileSize = 10 * 1024 * 1024; // 10 MB
 
-    // Validate the uploaded file
-  }
+    $(document).ready(function() {
+
+
+        // Validate the uploaded file
         function validateFile(file) {
             const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
             return validTypes.includes(file.type) && file.size <= maxFileSize;
         }
-
 
         // Handle file upload button click
         $('#uploadPhotoButton').on('click', function() {
@@ -25,6 +26,9 @@
             if (file && validateFile(file)) {
                 $('#imageFileName').text(file.name);
                 showUploadSuccess();
+            } else {
+                alert('🤔 Hmmm... looks like this isn\'t an image file, or else it\'s over 10MB. Please try another file.');
+                resetUploadButton(); // Reset in case of invalid file
             }
         });
 
@@ -37,7 +41,7 @@
             setTimeout(function() {
                 $('#uploadPhotoButton')
                     .html('📎')
-                    .css('background', 'grey')
+                    .css('background', 'green')
                     .addClass('attachment-added remove-attachment')
                     .attr('title', 'Click to remove attachment');
             }, 1000);
@@ -47,7 +51,7 @@
         function resetUploadButton() {
             $('#uploadPhotoButton')
                 .html('📸')
-                .css('background', 'grey')
+                .css('background', '#434343')
                 .removeClass('attachment-added remove-attachment')
                 .attr('title', 'Upload Photo');
         }
@@ -65,5 +69,4 @@
                 }
             }
         );
-
-        }
+    });
